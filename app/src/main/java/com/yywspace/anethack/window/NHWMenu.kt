@@ -1,0 +1,228 @@
+package com.yywspace.anethack.window
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.DialogInterface
+import android.text.method.ScrollingMovementMethod
+import android.util.Log
+import android.view.View
+import android.widget.NumberPicker
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.yywspace.anethack.entity.NHString
+import com.yywspace.anethack.NetHack
+import com.yywspace.anethack.R
+import com.yywspace.anethack.command.NHCommand
+import java.util.concurrent.locks.Condition
+import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
+
+class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
+    var title:String = ""
+    var behavior:Long = -1
+    val nhwMenuItems = mutableListOf<NHWMenuItem>()
+    var selectMode: SelectMode = SelectMode.PickNone
+    private var selectedItems:MutableList<Long> = mutableListOf()
+    private val textList = mutableListOf<NHString>()
+    private val lock = ReentrantLock()
+    private val condition: Condition = lock.newCondition()
+    private var selectedAll = false
+
+
+    public fun startMenu(behavior:Long) {
+        clearWindow(0)
+        this.behavior = behavior
+    }
+
+    public fun addMenu(
+        glyph: Int,
+        identifier: Long,
+        accelerator: Char,
+        groupAcc: Char,
+        attr: Int,
+        clr:Int,
+        text: String,
+        preselected: Boolean
+    ) {
+        nhwMenuItems.add(
+            NHWMenuItem(glyph, identifier,
+                accelerator, groupAcc, NHString(text, attr, clr), preselected)
+        )
+    }
+
+    public fun endMenu(prompt: String?) {
+        title = prompt ?: ""
+    }
+
+    public fun selectMenu(how: Int): LongArray {
+        selectMode = SelectMode.fromInt(how)
+        showMenuSelectDialog()
+        lock.withLock {
+            condition.await()
+        }
+        return selectedItems.toLongArray()
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    private fun showMenuSelectDialog() {
+        nh.runOnUi(false) { _, context ->
+            val menuAdapter = NHWMenuAdapter(this@NHWMenu)
+            // set the custom layout
+            val dialogMenuView = View.inflate(context, R.layout.dialog_menu, null)
+                .apply {
+                    findViewById<RecyclerView>(R.id.menu_item_list)?.apply {
+                        adapter = menuAdapter
+                        layoutManager = LinearLayoutManager(context)
+                    }
+                }
+            val dialog = AlertDialog.Builder(context).run {
+                setTitle(title)
+                setView(dialogMenuView)
+                setNeutralButton(R.string.dialog_cancel){ _, _ ->
+                    selectedItems =  mutableListOf(-1)
+                    selectMenuFinish()
+                }
+                if(selectMode == SelectMode.PickMany) {
+                    setNegativeButton(R.string.dialog_select_all, null)
+                    setPositiveButton(R.string.dialog_confirm) { _, _ ->
+                        val count = nhwMenuItems.count { item -> item.isSelected }
+                        selectedItems = if (count == 0) {
+                            mutableListOf(0)
+                        } else {
+                            val selectList = mutableListOf<Long>()
+                            nhwMenuItems.filter { item -> item.isSelected }.forEach { item ->
+                                selectList.add(item.identifier)
+                                selectList.add(item.selectedCount)
+                            }
+                            selectList
+                        }
+                        selectMenuFinish()
+                    }
+                }
+                create()
+            }
+            menuAdapter.onItemClick = { _, _, item ->
+                if(selectMode == SelectMode.PickOne) {
+                    selectedItems =  mutableListOf(item.identifier, item.selectedCount)
+                    dialog.dismiss()
+                    selectMenuFinish()
+                }
+            }
+            menuAdapter.onItemLongClick = { _, position, item ->
+                showAmountPickerDialog(context, item, position, menuAdapter)
+            }
+            dialog.apply {
+                setCancelable(false)
+                show()
+                if(selectMode == SelectMode.PickMany)
+                    getButton(DialogInterface.BUTTON_NEGATIVE).apply {
+                    setOnClickListener {
+                        if(!selectedAll)  {
+                            setText(R.string.dialog_clear_all)
+                            nhwMenuItems.forEach {
+                                if (!it.isHeader())
+                                    it.isSelected = true
+                            }
+                        }else{
+                            setText(R.string.dialog_select_all)
+                            nhwMenuItems.forEach {
+                                it.isSelected = false
+                            }
+                        }
+                        menuAdapter.notifyDataSetChanged()
+                        selectedAll = !selectedAll
+                    }
+                }
+            }
+        }
+
+    }
+
+    private fun showAmountPickerDialog(context: Context, parentItem:NHWMenuItem,
+                                       parentPosition:Int, parentAdapter: NHWMenuAdapter) {
+        if(parentItem.count < 0) return
+        val dialogView = View.inflate(context, R.layout.dialog_amount_selecter, null)
+        val amountPicker = dialogView.findViewById<NumberPicker>(R.id.item_amount_picker).apply {
+                    minValue = 1
+                    maxValue = parentItem.count
+                }
+        val itemName = parentItem.title.toString().run {
+            substring(indexOf(' '), length)
+        }
+        val title = context.resources.getString(R.string.item_amount_select, itemName)
+        val dialog = AlertDialog.Builder(context).run {
+            setTitle(title)
+            setView(dialogView)
+            setPositiveButton(R.string.dialog_confirm){ _, _ ->
+                parentItem.selectedCount = amountPicker.value.toLong()
+                parentAdapter.notifyItemChanged(parentPosition)
+            }
+            setNegativeButton(R.string.dialog_cancel){ _, _ ->
+
+            }
+            create()
+        }
+        dialog.setCancelable(false)
+        dialog.show()
+
+    }
+     private fun selectMenuFinish() {
+        lock.withLock {
+            condition.signal()
+        }
+    }
+
+    enum class SelectMode {
+        PickNone, PickOne, PickMany;
+        companion object {
+            fun fromInt(i: Int): SelectMode {
+                if (i == 2) return PickMany
+                return if (i == 1) PickOne else PickNone
+            }
+        }
+    }
+
+    override fun curs(x: Int, y: Int) {
+
+    }
+
+    override fun displayWindow(blocking: Boolean) {
+        nh.runOnUi { _, context ->
+            val dialogTextView = View.inflate(context, R.layout.dialog_text, null)
+                .apply {
+                    findViewById<TextView>(R.id.text_view).apply {
+                        movementMethod = ScrollingMovementMethod.getInstance()
+                        text = textList.joinToString("\n")
+                    }
+                }
+            val dialog = AlertDialog.Builder(context).apply {
+                setView(dialogTextView)
+                setPositiveButton(R.string.dialog_confirm) { _, _ ->
+                    if (blocking) {
+                        nh.command.sendCommand(NHCommand(27.toChar()))
+                    }
+                }
+            }.create()
+            dialog.setCancelable(false)
+            dialog.show()
+        }
+    }
+
+    override fun clearWindow(isRogueLevel: Int) {
+        selectedItems.clear()
+        textList.clear()
+        nhwMenuItems.clear()
+    }
+
+    override fun destroyWindow() {
+        textList.clear()
+        nhwMenuItems.clear()
+        selectedItems.clear()
+    }
+
+    override fun putString(attr: Int, msg: String, color: Int) {
+        textList.add(NHString(msg, attr))
+    }
+}

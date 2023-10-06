@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">ANetHack</string>
+    <string name="ctrl_panel_search">Search</string>
+    <string name="ctrl_panel_menu">Menu</string>
+    <string name="ctrl_panel_extend">Extend</string>
+    <string name="ctrl_panel_custom">Custom</string>
+    <string name="ctrl_panel_keyboard">Keyboard</string>
+    <string name="ctrl_panel_save">Save</string>
+    <string name="ctrl_panel_start">Start</string>
+    <string name="button_esc">ESC</string>
+    <string name="play_mod_normal">normal</string>
+    <string name="play_mod_discover">discover</string>
+    <string name="player_select">Please select you player.</string>
+    <string name="player_input">Please input you player name.</string>
+    <string name="player_add">Click to add new player.</string>
+    <string name="ext_cmd_select">Please select extend command.</string>
+    <string name="message_history">Message history.</string>
+    <string name="item_amount_select">Select the amount of %s</string>
+    <string name="number_select">Please input the quantity.</string>
+    <string name="search_question">Do you want to search around?</string>
+    <string name="dialog_confirm">Confirm</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_select_all">Select all</string>
+    <string name="dialog_clear_all">Clear all</string>
+    <string name="pos_key_question">Do you want to travel, go straight or look?</string>
+    <string name="pos_key_travel">Travel</string>
+    <string name="pos_key_straight">Straight</string>
+    <string name="pos_key_look">Look</string>
+</resources>

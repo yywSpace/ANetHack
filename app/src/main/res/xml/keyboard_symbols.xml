@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:keyWidth="10%p"
+    app:horizontalGap="0px"
+    app:verticalGap="0px"
+    app:keyHeight="46dip">
+
+    <Row>
+        <Key app:codes="49" app:keyLabel="1" app:keyEdgeFlags="left"/>
+        <Key app:codes="50" app:keyLabel="2"/>
+        <Key app:codes="51" app:keyLabel="3"/>
+        <Key app:codes="52" app:keyLabel="4"/>
+        <Key app:codes="53" app:keyLabel="5"/>
+        <Key app:codes="54" app:keyLabel="6"/>
+        <Key app:codes="55" app:keyLabel="7"/>
+        <Key app:codes="56" app:keyLabel="8"/>
+        <Key app:codes="57" app:keyLabel="9"/>
+        <Key app:codes="48" app:keyLabel="0" app:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row>
+        <Key app:codes="64" app:keyLabel="\@" app:horizontalGap="5%p" app:keyEdgeFlags="left"/>
+        <Key app:codes="35" app:keyLabel="#"/>
+        <Key app:codes="36" app:keyLabel="$"/>
+        <Key app:codes="94" app:keyLabel="^"/>
+        <Key app:codes="47" app:keyLabel="/"/>
+        <Key app:codes="40" app:keyLabel="("/>
+        <Key app:codes="41" app:keyLabel=")"/>
+    	<Key app:codes="61" app:keyLabel="="/> 
+        <Key app:codes="95" app:keyLabel="_" app:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row>
+        <Key app:codes="-1" app:keyLabel="Shift" app:keyWidth="15%p" app:isModifier="true" app:keyEdgeFlags="left"/>
+        <Key app:codes="43" app:keyLabel="+"/>
+        <Key app:codes="45" app:keyLabel="-"/>
+        <Key app:codes="92" app:keyLabel="\\"/>
+        <Key app:codes="34" app:keyLabel="&quot;"/>
+        <Key app:codes="91" app:keyLabel="["/>
+        <Key app:codes="46" app:keyLabel="."/>
+        <Key app:codes="59" app:keyLabel=";"/>
+        <Key app:codes="127" app:keyLabel="DEL" app:keyWidth="15%p" app:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key app:codes="-10" app:keyLabel="ABC" app:keyWidth="15%p" app:keyEdgeFlags="left"/>
+        <Key app:codes="-9" app:keyLabel="Meta" app:keyWidth="15%p"/>
+        <Key app:codes="32" app:keyLabel="Space" app:keyWidth="20%p"/>
+        <Key app:codes="42" app:keyLabel="*"/>
+        <Key app:codes="63" app:keyLabel="\?"/>
+        <Key app:codes="-7" app:keyLabel="Ctrl" app:keyWidth="15%p"/>
+        <Key app:codes="27" app:keyLabel="ESC" app:keyWidth="15%p"/>
+   </Row>
+</Keyboard>
+

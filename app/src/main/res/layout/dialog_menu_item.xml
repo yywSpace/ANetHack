@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_height="?android:attr/listPreferredItemHeightSmall">
+
+    <TextView
+        android:id="@+id/item_accelerator"
+        android:layout_width="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_height="wrap_content"
+        tools:text="*" />
+    <TextView
+        android:id="@+id/item_select_amount"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_height="wrap_content"
+        tools:text="[10]" />
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Title" />
+        <TextView
+            android:id="@+id/item_subtitle"
+            android:textSize="11sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Subtitle" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/item_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:clickable="false"/>
+</LinearLayout>

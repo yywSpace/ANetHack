@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:layout_height="?android:attr/listPreferredItemHeightSmall">
+
+    <TextView
+        android:id="@+id/item_command"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="player" />
+
+    <TextView
+        android:id="@+id/item_command_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_command"
+        android:textSize="11sp"
+        tools:text="normal" />
+</RelativeLayout>

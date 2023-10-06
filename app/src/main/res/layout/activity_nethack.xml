@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NetHackActivity">
+
+    <com.yywspace.anethack.NHMapView
+        android:id="@+id/map_view"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.yywspace.anethack.NHMapView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:clickable="true"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/status_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                tools:text="K the Rambler" />
+            <TextView
+                android:id="@+id/status_align"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="Neutral" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/status_st"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                tools:text="St:18/00" />
+            <TextView
+                android:id="@+id/status_dx"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="Dx:18/00" />
+            <TextView
+                android:id="@+id/status_co"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="Co:18/00" />
+            <TextView
+                android:id="@+id/status_in"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="In:18/00" />
+            <TextView
+                android:id="@+id/status_wi"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="Wi:18/00" />
+            <TextView
+                android:id="@+id/status_ch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="Ch:18/00" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/status_hp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                tools:text="HP:100(100)" />
+            <TextView
+                android:id="@+id/status_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="PW:100(100)" />
+
+            <TextView
+                android:id="@+id/status_gold"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="$:2000" />
+
+            <TextView
+                android:id="@+id/status_ac"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="AC:10" />
+            <TextView
+                android:id="@+id/status_xp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="XP:10/00" />
+            <TextView
+                android:id="@+id/status_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="T:1000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/status_level"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                tools:text="Dlvl:100" />
+
+            <TextView
+                android:id="@+id/status_hunger"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="hunger" />
+
+            <TextView
+                android:id="@+id/status_cap"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="Burdened" />
+
+            <TextView
+                android:id="@+id/status_condition"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                tools:text="FodPoi LEV STONE" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/message_bar"
+            android:layout_width="match_parent"
+            android:layout_height="72dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.yywspace.anethack.keybord.NHKeyboardView
+            android:id="@+id/keyboard_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:keyPreviewLayout="@layout/keyboard_key_preview"
+            app:shadowColor="@android:color/transparent"
+            app:verticalCorrection="-12dp"
+            app:keyPreviewOffset="-12dp"
+            app:keyPreviewHeight="80dp"
+            app:labelTextSize="14sp"
+            app:keyTextSize="22sp"
+            app:shadowRadius="2.7"
+            app:keyBackground="@color/white"
+            app:keyTextColor="@color/gray" />
+
+        <LinearLayout
+            android:id="@+id/custom_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/gray"
+            android:showDividers="beginning"
+            android:dividerPadding="2dp"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/base_panel"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:divider="@color/gray"
+            android:showDividers="middle"
+            android:dividerPadding="2dp"
+            android:orientation="horizontal">
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
