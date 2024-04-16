@@ -1,0 +1,179 @@
+[
+  {
+    "type": "weight",
+    "key": [
+      {
+        "label": "",
+        "value": "27",
+        "row": 0,
+        "column": 0,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "",
+        "value": "27",
+        "row": 0,
+        "column": 2,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "untrap",
+        "value": "#untrap",
+        "row": 0,
+        "column": 3,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "offer",
+        "value": "#offer",
+        "row": 0,
+        "column": 4,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Center",
+        "value": "Center",
+        "row": 0,
+        "column": 5,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Repeat",
+        "value": "Repeat",
+        "row": 0,
+        "column": 6,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      }
+    ]
+  },
+  {
+    "type": "weight",
+    "key": [
+      {
+        "label": "Up",
+        "value": "60",
+        "row": 1,
+        "column": 0,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Down",
+        "value": "62",
+        "row": 1,
+        "column": 2,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Eat",
+        "value": "101",
+        "row": 1,
+        "column": 3,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Rest",
+        "value": "46",
+        "row": 1,
+        "column": 4,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Pick",
+        "value": "44",
+        "row": 1,
+        "column": 5,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Bag",
+        "value": "105",
+        "row": 1,
+        "column": 6,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      }
+    ]
+  },
+  {
+    "type": "weight",
+    "key": [
+      {
+        "label": "Zap",
+        "value": "122",
+        "row": 2,
+        "column": 0,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Fire",
+        "value": "102",
+        "row": 2,
+        "column": 1,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Kick",
+        "value": "4",
+        "row": 2,
+        "column": 2,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Apply",
+        "value": "97",
+        "row": 2,
+        "column": 3,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Drop",
+        "value": "100",
+        "row": 2,
+        "column": 4,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Search",
+        "value": "L20s",
+        "row": 2,
+        "column": 5,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      }
+    ]
+  }
+]

@@ -374,7 +374,7 @@ int filter_running_game(const struct dirent* entry)
 }
 
 char ** get_aborted_games() {
-    char **result;
+    char **result = NULL;
     char name[64]; /* more than PL_NSIZ */
     struct dirent **namelist;
     int i, j, uid, myuid=getuid();

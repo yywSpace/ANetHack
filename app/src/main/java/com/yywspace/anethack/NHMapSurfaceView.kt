@@ -2,7 +2,6 @@ package com.yywspace.anethack
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -17,28 +16,22 @@ import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
-import android.view.View
+import android.view.SurfaceHolder
+import android.view.SurfaceView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.minus
-import androidx.core.view.marginStart
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.command.NHPosCommand.*
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.extensions.showImmersive
 import com.yywspace.anethack.window.NHWMap
-import com.yywspace.anethack.window.NHWMenu
-import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.ceil
 import kotlin.math.floor
 
 
-class NHMapView: View {
+class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 64f
     private var scaleFactor = 1f
     private var mapInit = false
@@ -57,6 +50,9 @@ class NHMapView: View {
     private var tileWidth:Float = 0F
     private var tileHeight:Float = 0F
 
+    private var holder: SurfaceHolder? = null
+    private var canvas: Canvas? = null
+    private var isDrawing = false
 
     private val scaleDetector = ScaleGestureDetector(context, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
 
@@ -91,86 +87,33 @@ class NHMapView: View {
         override fun onLongPress(e: MotionEvent) {
             if(scaling) return
             longPress = true
-            lastTouchTile = getTileLocation(e.x, e.y).also { point ->
-                if (abs(map.curse.x - point.x) < 1 && abs(map.curse.y - point.y) < 1) {
-                    nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
+            lastTouchTile = getTileLocation(e.x, e.y).apply {
+                if (map.curse.x == x && map.curse.y == y) {
+                    nh.command.sendCommand(NHPosCommand(x, y, PosMod.TRAVEL))
                 } else {
-                    val menuAdapter = CMDMenuAdapter(listOf(
-                        "Fire ammunition from quiver",
-                        "Zap a wand"
-                    ))
-                    val dialogMenuView = inflate(context, R.layout.dialog_menu, null)
-                        .apply {
-                            findViewById<RecyclerView>(R.id.menu_item_list)?.apply {
-                                adapter = menuAdapter
-                                layoutManager = LinearLayoutManager(context)
-                            }
-                        }
-                    val dialog = AlertDialog.Builder(context).run {
-                        setTitle(R.string.pos_key_question)
-                        setView(dialogMenuView)
-                        create()
-                    }
-                    dialogMenuView.apply {
-                        findViewById<MaterialButton>(R.id.menu_btn_1)?.apply {
-                            setText(R.string.pos_key_look)
-                            setOnClickListener {
-                                // get tile info
-                                nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.LOOK))
-                                this@NHMapView.invalidate()
-                                dialog.dismiss()
-                            }
-                        }
-                        findViewById<MaterialButton>(R.id.menu_btn_2)?.apply {
-                            setText(R.string.pos_key_straight)
-                            setOnClickListener {
-                                val tileBorder = getTileBorder(map.curse.x, map.curse.y)
-                                val direction = getMoveDirection(
-                                    PointF(tileBorder.centerX(), tileBorder.centerY()),
-                                    PointF(e.x, e.y)
-                                )
-                                playerMove(direction, true)
-                                this@NHMapView.invalidate()
-                                dialog.dismiss()
-                            }
-                        }
-                        findViewById<MaterialButton>(R.id.menu_btn_3)?.apply {
-                            setText(R.string.pos_key_travel)
-                            setOnClickListener {
-                                // whether travel to tile
-                                nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
-                                this@NHMapView.invalidate()
-                                dialog.dismiss()
-                            }
-                        }
-                    }
-                    menuAdapter.onItemClick = { _, _, item ->
-                        when(item) {
-                            "Fire ammunition from quiver" -> {
-                                nh.command.sendCommand(NHCommand('f', 1))
-                            }
-                            "Zap a wand" -> {
-                                nh.command.sendCommand(NHCommand('z', 1))
-                            }
-                        }
-                        invalidate()
-                        dialog.dismiss()
-                    }
-                    dialog.showImmersive()
-
-                    MaterialAlertDialogBuilder(context).apply {
+                    AlertDialog.Builder(context).apply {
                         setMessage(R.string.pos_key_question)
                         setPositiveButton(R.string.pos_key_travel) { _, _ ->
-
+                            // whether travel to tile
+                            nh.command.sendCommand(NHPosCommand(x, y, PosMod.TRAVEL))
+                            invalidate()
                         }
                         setNegativeButton(R.string.pos_key_straight) { _, _ ->
-
+                            val tileBorder = getTileBorder(map.curse.x, map.curse.y)
+                            val direction = getMoveDirection(
+                                PointF(tileBorder.centerX(), tileBorder.centerY()),
+                                PointF(e.x, e.y)
+                            )
+                            playerMove(direction, true)
+                            invalidate()
                         }
                         setNeutralButton(R.string.pos_key_look){ _, _ ->
-
+                            // get tile info
+                            nh.command.sendCommand(NHPosCommand(x, y, PosMod.LOOK))
+                            invalidate()
                         }
                         create()
-                        // showImmersive()
+                        showImmersive()
                     }
                 }
             }
@@ -184,9 +127,19 @@ class NHMapView: View {
     init {
         asciiPaint.textSize = textSize
         asciiPaint.isAntiAlias = true
-        asciiPaint.typeface = Typeface.createFromAsset(context.assets, "fonts/monobold.ttf")
+        asciiPaint.typeface = Typeface.createFromAsset(context.assets, "fonts/ttf/JetBrainsMono-Bold.ttf")
+        // asciiPaint.typeface = Typeface.createFromAsset(context.assets, "fonts/monobold.ttf")
         asciiPaint.textAlign = Align.LEFT
         paint.isAntiAlias = true
+        initView()
+    }
+
+    private fun initView() {
+        holder = getHolder()
+        holder?.addCallback(this)
+        isFocusable = true
+        isFocusableInTouchMode = true
+        this.keepScreenOn = true
     }
 
     fun initMap(nh:NetHack, map: NHWMap) {
@@ -273,15 +226,15 @@ class NHMapView: View {
             centerView(map.player.x, map.curse.y)
         }
     }
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        if (mapInit) {
-            drawAscii(canvas)
-            drawCurse(canvas)
-            drawBorder(canvas)
-            drawLastTouchTile(canvas)
-        }
-    }
+//    override fun onDraw(canvas: Canvas?) {
+//        super.onDraw(canvas)
+//        if (mapInit) {
+//            drawAscii(canvas)
+//            drawCurse(canvas)
+//            drawBorder(canvas)
+//            // drawLastTouchTile(canvas)
+//        }
+//    }
 
     private fun drawAscii(canvas: Canvas?) {
         map.apply {
@@ -301,7 +254,7 @@ class NHMapView: View {
                     canvas?.drawRect(tb, paint)
 
                     if(tile.glyph >= 0) {
-                        val ch = String(tile.ch.toString().toByteArray())
+                        val ch = tile.ch.toString()
                         asciiPaint.color = fgColor
                         canvas?.drawText(ch,0, 1,
                             tb.left, tb.bottom - asciiPaint.descent() , asciiPaint);
@@ -364,7 +317,7 @@ class NHMapView: View {
     }
     private fun getBaseTileWidth(): Float {
         val w = asciiPaint.measureText("\u2550")
-        return floor(w)
+        return floor(w) - 1
     }
 
     private fun getBaseTileHeight(): Float {
@@ -374,13 +327,12 @@ class NHMapView: View {
 
     private fun getTileBorder(x:Int, y:Int):RectF {
         return RectF(
-            ceil(tileWidth * x  + mapBorder.left),
-            ceil(tileHeight * y  + mapBorder.top),
-            ceil(tileWidth * (x + 1)  + mapBorder.left),
-            ceil(tileHeight * (y +1 )  + mapBorder.top),
+            tileWidth * x  + mapBorder.left,
+            tileHeight * y  + mapBorder.top,
+            tileWidth * (x + 1)  + mapBorder.left,
+            tileHeight * (y +1 )  + mapBorder.top,
         )
     }
-
     private fun getTileLocation(vx:Float, vy:Float):Point {
         val tx = floor((vx - mapBorder.left) / tileWidth)
         val ty = floor((vy - mapBorder.top) / tileHeight)
@@ -419,6 +371,7 @@ class NHMapView: View {
                     )
                     Log.d("direction","$direction")
                     playerMove(direction, false)
+
                 }
                 if(longPress)
                     longPress = false
@@ -433,5 +386,38 @@ class NHMapView: View {
         UP, DOWN, LEFT, RIGHT, LEFT_UP, LEFT_DOWN, RIGHT_UP, RIGHT_DOWN, CENTER, UNDEFINE;
     }
 
+    override fun surfaceCreated(holder: SurfaceHolder) {
+        isDrawing = true
+        Thread(this).start();
+    }
+
+    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+    }
+
+    override fun surfaceDestroyed(holder: SurfaceHolder) {
+        isDrawing = false;
+    }
+
+    private fun draw() {
+        try {
+            canvas = holder?.lockCanvas()
+            if (mapInit) {
+                canvas?.drawColor(Color.BLACK)
+                drawAscii(canvas)
+                drawCurse(canvas)
+                drawBorder(canvas)
+                // drawLastTouchTile(canvas)
+            }
+        } catch (_: Exception) {
+        } finally {
+            if (canvas != null)
+                holder?.unlockCanvasAndPost(canvas)
+        }
+    }
+    override fun run() {
+        while (isDrawing) {
+            draw();
+        }
+    }
 }
 

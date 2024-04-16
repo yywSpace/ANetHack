@@ -21,7 +21,7 @@ enum class NHColor {
 
     fun toColor():Int {
         val colorMap = intArrayOf(
-            0xFF000000.toInt(),	// CLR_BLACK
+            0xFF262626.toInt(),	// CLR_BLACK
             0xFFFF0000.toInt(),	// CLR_RED
             0xFF008800.toInt(),	// CLR_GREEN
             0xFF664411.toInt(), // CLR_BROWN

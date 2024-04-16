@@ -1,7 +1,6 @@
 package com.yywspace.anethack.window
 
 import android.annotation.SuppressLint
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,14 +15,44 @@ import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
+import com.yywspace.anethack.extensions.showImmersive
+import java.util.concurrent.LinkedBlockingDeque
 
 class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     val messageList = mutableListOf<NHMessage>()
     private var limitMessageList = mutableListOf<NHMessage>()
+
     private lateinit var messageAdapter:NHWMessageAdapter
     private lateinit var messageRecyclerView:RecyclerView
 
+    private var isMessageRefreshing = false
+    private var messageInterval:Long = 0
+    private val messageBuffer = mutableListOf<NHMessage>()
+    private val messageQueue = LinkedBlockingDeque<NHMessage>()
+    private val messageConsumeThread:Thread = Thread {
+        while (true) {
+            if(!isMessageRefreshing) {
+                if(messageBuffer.isEmpty() && messageQueue.isEmpty()) {
+                    val message = messageQueue.take()
+                    messageBuffer.add(message)
+                    messageInterval = System.currentTimeMillis()
+                } else {
+                        val message = messageQueue.poll()
+                        if (message != null)
+                            messageBuffer.add(message)
+                        if(System.currentTimeMillis() - messageInterval > 300) { // 210
+                            Log.d("refreshMessage", "messageBuffer:${messageBuffer}")
+                            refreshMessage(messageBuffer)
+                        }
+                    }
+            }
+        }
+    }
+
+
     init {
+        messageConsumeThread.start()
+
         nh.runOnUi (false){ binding, context ->
             messageAdapter = NHWMessageAdapter(limitMessageList).apply {
                 omItemViewClick = {
@@ -34,6 +63,32 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                 adapter = messageAdapter
                 layoutManager = LinearLayoutManager(context)
             }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun refreshMessage(buffer:List<NHMessage>) {
+        isMessageRefreshing = true
+        nh.runOnUi (false) { _, _ ->
+            messageList.addAll(buffer)
+            limitMessageList.addAll(buffer)
+            while(limitMessageList.size > 10) {
+                limitMessageList.removeFirst()
+            }
+            while(messageList.size > 50) {
+                messageList.removeFirst()
+            }
+            limitMessageList.forEach { nhMessage ->
+                if (buffer.contains(nhMessage))
+                    nhMessage.value.nhColor = NHColor.CLR_GREEN
+                else
+                    nhMessage.value.nhColor = NHColor.NO_COLOR
+            }
+            messageAdapter.notifyDataSetChanged()
+            Log.d("refreshMessage", "message:${buffer}")
+            messageRecyclerView.scrollToPosition(limitMessageList.size - 1)
+            messageBuffer.clear()
+            isMessageRefreshing = false
         }
     }
 
@@ -79,7 +134,7 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                         nh.command.sendCommand(NHCommand(27.toChar()))
                     }
                     create()
-                    show()
+                    showImmersive()
                 }
             }
 
@@ -96,27 +151,8 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
 
     override fun putString(attr: Int, msg: String, color: Int) {
         if(msg.isEmpty()) return
-        nh.runOnUi (false){ _, _ ->
-            val message = NHMessage(NHString(msg.trim(), attr), nh.command.lastCmdTime)
-            messageList.add(message)
-            limitMessageList.add(message)
-            messageAdapter.notifyItemInserted(limitMessageList.size - 1)
-            if(limitMessageList.size > 10) {
-                limitMessageList.removeFirst()
-                messageAdapter.notifyItemRemoved(0)
-            }
-            if(messageList.size > 50) {
-                messageList.removeFirst()
-            }
-            limitMessageList.forEachIndexed { index, nhMessage ->
-                if (nhMessage.time == nh.command.lastCmdTime)
-                    nhMessage.value.nhColor = NHColor.CLR_GREEN
-                else
-                    nhMessage.value.nhColor = NHColor.NO_COLOR
-                messageAdapter.notifyItemChanged(index)
-            }
-            messageRecyclerView.scrollToPosition(limitMessageList.size - 1)
-        }
+        val message = NHMessage(NHString(msg.trim(), attr), nh.command.lastCmdTime)
+        messageQueue.add(message)
     }
 
 

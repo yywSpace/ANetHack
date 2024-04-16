@@ -36,6 +36,8 @@ OPTIONS=!cmdassist
 #OPTIONS=autopickup,pickup_types:$"=/!?+
 OPTIONS=!autopickup
 OPTIONS=force_invmenu
+OPTIONS=IBMgraphics
+OPTIONS=boulder:0
 
 OPTIONS=lit_corridor,showexp,time,toptenwin
 OPTIONS=pile_limit:2,hilite_pile,hilite_pet

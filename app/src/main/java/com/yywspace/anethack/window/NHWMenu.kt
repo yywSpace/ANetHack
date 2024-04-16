@@ -4,18 +4,18 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import android.view.View
 import android.widget.NumberPicker
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
+import com.yywspace.anethack.extensions.showImmersive
 import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
@@ -80,29 +80,67 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
             val dialog = AlertDialog.Builder(context).run {
                 setTitle(title)
                 setView(dialogMenuView)
-                setNeutralButton(R.string.dialog_cancel){ _, _ ->
-                    selectedItems =  mutableListOf(-1)
+                setOnDismissListener {
+                    selectedItems = mutableListOf(-1)
                     selectMenuFinish()
-                }
-                if(selectMode == SelectMode.PickMany) {
-                    setNegativeButton(R.string.dialog_select_all, null)
-                    setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                        val count = nhwMenuItems.count { item -> item.isSelected }
-                        selectedItems = if (count == 0) {
-                            mutableListOf(0)
-                        } else {
-                            val selectList = mutableListOf<Long>()
-                            nhwMenuItems.filter { item -> item.isSelected }.forEach { item ->
-                                selectList.add(item.identifier)
-                                selectList.add(item.selectedCount)
-                            }
-                            selectList
-                        }
-                        selectMenuFinish()
-                    }
                 }
                 create()
             }
+            dialogMenuView.apply {
+                findViewById<MaterialButton>(R.id.menu_btn_1)?.apply {
+                    setText(R.string.dialog_cancel)
+                    setOnClickListener {
+                        selectedItems = mutableListOf(-1)
+                        selectMenuFinish()
+                        dialog.dismiss()
+                    }
+                }
+                if(selectMode == SelectMode.PickMany) {
+                    findViewById<MaterialButton>(R.id.menu_btn_2)?.apply {
+                        setText(R.string.dialog_select_all)
+                        setOnClickListener {
+                            if(!selectedAll)  {
+                                setText(R.string.dialog_clear_all)
+                                nhwMenuItems.forEach {
+                                    if (!it.isHeader())
+                                        it.isSelected = true
+                                }
+                            }else{
+                                setText(R.string.dialog_select_all)
+                                nhwMenuItems.forEach {
+                                    it.isSelected = false
+                                }
+                            }
+                            menuAdapter.notifyDataSetChanged()
+                            selectedAll = !selectedAll
+                        }
+                    }
+                    findViewById<MaterialButton>(R.id.menu_btn_3)?.apply {
+                        setText(R.string.dialog_confirm)
+                        setOnClickListener {
+                            val count = nhwMenuItems.count { item -> item.isSelected }
+                            selectedItems = if (count == 0) {
+                                mutableListOf(0)
+                            } else {
+                                val selectList = mutableListOf<Long>()
+                                nhwMenuItems.filter { item -> item.isSelected }.forEach { item ->
+                                    selectList.add(item.identifier)
+                                    selectList.add(item.selectedCount)
+                                }
+                                selectList
+                            }
+                            if (count == 0)
+                                return@setOnClickListener
+                            selectMenuFinish()
+                            dialog.dismiss()
+                        }
+                    }
+                } else {
+                    findViewById<MaterialButton>(R.id.menu_btn_2)?.visibility = View.INVISIBLE
+                    findViewById<MaterialButton>(R.id.menu_btn_3)?.visibility = View.INVISIBLE
+                }
+            }
+
             menuAdapter.onItemClick = { _, _, item ->
                 if(selectMode == SelectMode.PickOne) {
                     selectedItems =  mutableListOf(item.identifier, item.selectedCount)
@@ -113,29 +151,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
             menuAdapter.onItemLongClick = { _, position, item ->
                 showAmountPickerDialog(context, item, position, menuAdapter)
             }
-            dialog.apply {
-                setCancelable(false)
-                show()
-                if(selectMode == SelectMode.PickMany)
-                    getButton(DialogInterface.BUTTON_NEGATIVE).apply {
-                    setOnClickListener {
-                        if(!selectedAll)  {
-                            setText(R.string.dialog_clear_all)
-                            nhwMenuItems.forEach {
-                                if (!it.isHeader())
-                                    it.isSelected = true
-                            }
-                        }else{
-                            setText(R.string.dialog_select_all)
-                            nhwMenuItems.forEach {
-                                it.isSelected = false
-                            }
-                        }
-                        menuAdapter.notifyDataSetChanged()
-                        selectedAll = !selectedAll
-                    }
-                }
-            }
+            dialog.showImmersive()
         }
 
     }
@@ -165,7 +181,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
             create()
         }
         dialog.setCancelable(false)
-        dialog.show()
+        dialog.showImmersive()
 
     }
      private fun selectMenuFinish() {
@@ -206,7 +222,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                 }
             }.create()
             dialog.setCancelable(false)
-            dialog.show()
+            dialog.showImmersive()
         }
     }
 

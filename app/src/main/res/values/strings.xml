@@ -22,7 +22,7 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_select_all">Select all</string>
     <string name="dialog_clear_all">Clear all</string>
-    <string name="pos_key_question">Do you want to travel, go straight or look?</string>
+    <string name="pos_key_question">What do you want to do?</string>
     <string name="pos_key_travel">Travel</string>
     <string name="pos_key_straight">Straight</string>
     <string name="pos_key_look">Look</string>

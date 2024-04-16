@@ -1,0 +1,346 @@
+[
+  {
+    "type": "span",
+    "key": [
+      {
+        "label": "q",
+        "value": "113",
+        "row": 0,
+        "column": 0,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "w",
+        "value": "119",
+        "row": 0,
+        "column": 1,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "e",
+        "value": "101",
+        "row": 0,
+        "column": 2,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "r",
+        "value": "114",
+        "row": 0,
+        "column": 3,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "t",
+        "value": "116",
+        "row": 0,
+        "column": 4,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "y",
+        "value": "121",
+        "row": 0,
+        "column": 5,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "u",
+        "value": "117",
+        "row": 0,
+        "column": 6,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "i",
+        "value": "105",
+        "row": 0,
+        "column": 7,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "o",
+        "value": "111",
+        "row": 0,
+        "column": 8,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "p",
+        "value": "112",
+        "row": 0,
+        "column": 9,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      }
+    ]
+  },
+  {
+    "type": "span",
+    "key": [
+      {
+        "label": "a",
+        "value": "97",
+        "row": 1,
+        "column": 0,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "s",
+        "value": "115",
+        "row": 1,
+        "column": 1,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "d",
+        "value": "100",
+        "row": 1,
+        "column": 2,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "f",
+        "value": "102",
+        "row": 1,
+        "column": 3,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "g",
+        "value": "103",
+        "row": 1,
+        "column": 4,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "h",
+        "value": "104",
+        "row": 1,
+        "column": 5,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "j",
+        "value": "106",
+        "row": 1,
+        "column": 6,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "k",
+        "value": "107",
+        "row": 1,
+        "column": 7,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "l",
+        "value": "108",
+        "row": 1,
+        "column": 8,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "ESC",
+        "value": "127",
+        "row": 1,
+        "column": 9,
+        "rowSpan": 2,
+        "columnSpan": 1,
+        "columnWeight": 1
+      }
+    ]
+  },
+  {
+    "type": "span",
+    "key": [
+      {
+        "label": "Shift",
+        "value": "Shift",
+        "row": 2,
+        "column": 0,
+        "rowSpan": 1,
+        "columnSpan": 2,
+        "columnWeight": 1
+      },
+      {
+        "label": "z",
+        "value": "122",
+        "row": 2,
+        "column": 2,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "x",
+        "value": "120",
+        "row": 2,
+        "column": 3,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "c",
+        "value": "99",
+        "row": 2,
+        "column": 4,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "v",
+        "value": "118",
+        "row": 2,
+        "column": 5,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "b",
+        "value": "98",
+        "row": 2,
+        "column": 6,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "n",
+        "value": "110",
+        "row": 2,
+        "column": 7,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "m",
+        "value": "109",
+        "row": 2,
+        "column": 8,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      }
+    ]
+  },
+  {
+    "type": "span",
+    "key": [
+      {
+        "label": "DEL",
+        "value": "127",
+        "row": 3,
+        "column": 0,
+        "rowSpan": 1,
+        "columnSpan": 2,
+        "columnWeight": 1
+      },
+      {
+        "label": ";",
+        "value": "L;",
+        "row": 3,
+        "column": 2,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "<",
+        "value": "L<",
+        "row": 3,
+        "column": 3,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": ">",
+        "value": "L>",
+        "row": 3,
+        "column": 4,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": ":",
+        "value": "L:",
+        "row": 3,
+        "column": 5,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": ",",
+        "value": "L,",
+        "row": 3,
+        "column": 6,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": ".",
+        "value": "L.",
+        "row": 3,
+        "column": 7,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "Enter",
+        "value": "13",
+        "row": 3,
+        "column": 8,
+        "rowSpan": 1,
+        "columnSpan": 2,
+        "columnWeight": 1
+      }
+    ]
+  }
+]

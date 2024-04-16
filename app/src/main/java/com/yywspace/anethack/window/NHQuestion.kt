@@ -15,6 +15,7 @@ import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHLineCommand
+import com.yywspace.anethack.extensions.showImmersive
 
 
 class NHQuestion(val nh: NetHack) {
@@ -56,7 +57,7 @@ class NHQuestion(val nh: NetHack) {
                         }
                     }
                     dialog.setCancelable(false)
-                    dialog.show()
+                    dialog.showImmersive()
                 }
         }
     }
@@ -155,7 +156,7 @@ class NHQuestion(val nh: NetHack) {
             dialog.apply {
                 setView(questionView)
                 setCancelable(false)
-                show()
+                showImmersive()
             }
         }
     }
@@ -184,7 +185,7 @@ class NHQuestion(val nh: NetHack) {
             create()
         }
         dialog.setCancelable(false)
-        dialog.show()
+        dialog.showImmersive()
 
     }
     private fun finishAnswer(answer:Char, count:Int) {

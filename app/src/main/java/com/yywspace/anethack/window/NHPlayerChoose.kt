@@ -13,11 +13,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHPlayerChooseCommand
 import com.yywspace.anethack.entity.NHPlayer
+import com.yywspace.anethack.extensions.showImmersive
 
 class NHPlayerChoose(val nh: NetHack) {
     private var nameSize = 0
@@ -80,7 +80,7 @@ class NHPlayerChoose(val nh: NetHack) {
             dialog.apply {
                 setView(view)
                 setCancelable(false)
-                show()
+                showImmersive()
                 getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
                     val first = players.firstOrNull { item -> item.isSelected }
                     if(first == null) {
@@ -131,11 +131,10 @@ class NHPlayerChoose(val nh: NetHack) {
                 create()
             }
 
-
             dialog.apply {
                 setView(view)
                 setCancelable(false)
-                show()
+                showImmersive()
             }
         }
     }

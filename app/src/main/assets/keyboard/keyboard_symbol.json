@@ -1,0 +1,319 @@
+[
+  {
+    "type": "span",
+    "key": [
+      {
+        "label": "1",
+        "value": "L1",
+        "row": 0,
+        "column": 0,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "2",
+        "value": "L2",
+        "row": 0,
+        "column": 1,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "3",
+        "value": "L3",
+        "row": 0,
+        "column": 2,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "@",
+        "value": "L@",
+        "row": 0,
+        "column": 3,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "^",
+        "value": "L^",
+        "row": 0,
+        "column": 4,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "(",
+        "value": "L(",
+        "row": 0,
+        "column": 5,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": ")",
+        "value": "L)",
+        "row": 0,
+        "column": 6,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "\"",
+        "value": "L\"",
+        "row": 0,
+        "column": 7,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "[",
+        "value": "L[",
+        "row": 0,
+        "column": 8,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      }
+    ]
+  },
+  {
+    "type": "span",
+    "key": [
+      {
+        "label": "4",
+        "value": "L4",
+        "row": 1,
+        "column": 0,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "5",
+        "value": "L5",
+        "row": 1,
+        "column": 1,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "6",
+        "value": "L6",
+        "row": 1,
+        "column": 2,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "+",
+        "value": "L+",
+        "row": 1,
+        "column": 3,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "#",
+        "value": "L#",
+        "row": 1,
+        "column": 4,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "$",
+        "value": "L$",
+        "row": 1,
+        "column": 5,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "/",
+        "value": "L/",
+        "row": 1,
+        "column": 6,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "\\",
+        "value": "L\\",
+        "row": 1,
+        "column": 7,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "?",
+        "value": "L?",
+        "row": 1,
+        "column": 8,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      }
+    ]
+  },
+  {
+    "type": "span",
+    "key": [
+      {
+        "label": "7",
+        "value": "L7",
+        "row": 2,
+        "column": 0,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "8",
+        "value": "L8",
+        "row": 2,
+        "column": 1,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "9",
+        "value": "L9",
+        "row": 2,
+        "column": 2,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "_",
+        "value": "L_",
+        "row": 2,
+        "column": 3,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "=",
+        "value": "L=",
+        "row": 2,
+        "column": 4,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": ":",
+        "value": "L:",
+        "row": 2,
+        "column": 5,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "*",
+        "value": "L*",
+        "row": 2,
+        "column": 6,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "DEL",
+        "value": "127",
+        "row": 2,
+        "column": 7,
+        "rowSpan": 1,
+        "columnSpan": 2,
+        "columnWeight": 1
+      }
+    ]
+  },
+  {
+    "type": "span",
+    "key": [
+      {
+        "label": "0",
+        "value": "L0",
+        "row": 3,
+        "column": 0,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "SPACE",
+        "value": "32",
+        "row": 3,
+        "column": 1,
+        "rowSpan": 1,
+        "columnSpan": 2,
+        "columnWeight": 1
+      },
+      {
+        "label": "<",
+        "value": "L<",
+        "row": 3,
+        "column": 3,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": ">",
+        "value": "L>",
+        "row": 3,
+        "column": 4,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": ",",
+        "value": "L,",
+        "row": 3,
+        "column": 5,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": ".",
+        "value": "L.",
+        "row": 3,
+        "column": 6,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "columnWeight": 1
+      },
+      {
+        "label": "ESC",
+        "value": "27",
+        "row": 3,
+        "column": 7,
+        "rowSpan": 1,
+        "columnSpan": 2,
+        "columnWeight": 1
+      }
+    ]
+  }
+]

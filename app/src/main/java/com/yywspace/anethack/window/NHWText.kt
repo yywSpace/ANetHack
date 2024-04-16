@@ -5,11 +5,11 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
+import com.yywspace.anethack.extensions.showImmersive
 
 class NHWText(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     private val textList = mutableListOf<NHString>()
@@ -35,7 +35,7 @@ class NHWText(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                     }
                 }
             }.create()
-            dialog.show()
+            dialog.showImmersive()
         }
     }
 

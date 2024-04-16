@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -179,7 +178,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:background="@color/white"
+        android:background="@drawable/bg_round"
         android:orientation="vertical"
         android:layout_gravity="bottom"
         android:clickable="true"
@@ -190,37 +189,17 @@
         <com.yywspace.anethack.keybord.NHKeyboardView
             android:id="@+id/keyboard_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:keyPreviewLayout="@layout/keyboard_key_preview"
-            app:shadowColor="@android:color/transparent"
-            app:verticalCorrection="-12dp"
-            app:keyPreviewOffset="-12dp"
-            app:keyPreviewHeight="80dp"
-            app:labelTextSize="14sp"
-            app:keyTextSize="22sp"
-            app:shadowRadius="2.7"
-            app:keyBackground="@color/white"
-            app:keyTextColor="@color/gray" />
-
-        <LinearLayout
-            android:id="@+id/custom_panel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@color/gray"
-            android:showDividers="beginning"
-            android:dividerPadding="2dp"
-            android:orientation="vertical" />
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:id="@+id/base_panel"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:divider="@color/gray"
-            android:showDividers="middle"
-            android:dividerPadding="2dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:orientation="horizontal">
         </LinearLayout>
+
     </LinearLayout>
 
 </FrameLayout>

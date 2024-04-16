@@ -1,7 +1,6 @@
 package com.yywspace.anethack.window
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.entity.NHExtCmd
+import com.yywspace.anethack.extensions.showImmersive
 
 
 class NHExtCmdChoose(val nh: NetHack) {
@@ -60,7 +60,7 @@ class NHExtCmdChoose(val nh: NetHack) {
             dialog.apply {
                 setCancelable(false)
                 setView(view)
-                show()
+                showImmersive()
             }
         }
     }
