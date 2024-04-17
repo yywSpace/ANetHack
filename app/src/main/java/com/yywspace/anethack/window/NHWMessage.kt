@@ -40,7 +40,7 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                         val message = messageQueue.poll()
                         if (message != null)
                             messageBuffer.add(message)
-                        if(System.currentTimeMillis() - messageInterval > 300) { // 210
+                        if(System.currentTimeMillis() - messageInterval > 210) { // 210
                             Log.d("refreshMessage", "messageBuffer:${messageBuffer}")
                             refreshMessage(messageBuffer)
                         }

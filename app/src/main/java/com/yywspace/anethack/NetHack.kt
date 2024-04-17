@@ -7,6 +7,8 @@ import com.yywspace.anethack.command.NHCommandController
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
 import com.yywspace.anethack.entity.NHColor
+import com.yywspace.anethack.entity.NHMessage
+import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.window.NHExtCmdChoose
 import com.yywspace.anethack.window.NHPlayerChoose
 import com.yywspace.anethack.window.NHQuestion
@@ -16,6 +18,8 @@ import com.yywspace.anethack.window.NHWMessage
 import com.yywspace.anethack.window.NHWStatus
 import com.yywspace.anethack.window.NHWText
 import com.yywspace.anethack.window.NHWindow
+import java.time.LocalDateTime
+import java.time.LocalTime
 
 
 class NetHack(
@@ -133,6 +137,19 @@ class NetHack(
         }
         return "message_end"
     }
+
+    fun putMessageHistory(msg:String, restoring:Boolean) {
+        if (restoring) {
+            getNHWMessage()?.apply {
+                // set historical messages to the earliest
+                messageList.add(
+                    NHMessage(NHString(msg.trim()),
+                    LocalDateTime.of(LocalDateTime.now().toLocalDate(), LocalTime.MIN))
+                )
+            }
+        }
+    }
+
     fun askName(nameSize: Int, saves: Array<String>):Array<String> {
         Log.d(TAG, "askName(playerNSize:$nameSize,saves:${saves})")
         playerChoose.askName(nameSize, saves)

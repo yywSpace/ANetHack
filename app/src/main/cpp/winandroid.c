@@ -162,6 +162,7 @@ static jmethodID jGetDumplogDir;
 static jmethodID jRenderStatus;
 static jmethodID jShowExtCmdMenu;
 static jmethodID jGetMessageHistory;
+static jmethodID jPutMessageHistory;
 
 // status
 extern const char *status_fieldfmt[MAXBLSTATS];
@@ -215,6 +216,7 @@ Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring
     jAskName = (*jEnv)->GetMethodID(jEnv, jApp, "askName","(I[Ljava/lang/String;)[Ljava/lang/String;");
     jShowExtCmdMenu = (*jEnv)->GetMethodID(jEnv, jApp, "showExtCmdMenu", "([Ljava/lang/String;)I");
     jGetMessageHistory = (*jEnv)->GetMethodID(jEnv, jApp, "getMessageHistory","(I)Ljava/lang/String;");
+    jPutMessageHistory = (*jEnv)->GetMethodID(jEnv, jApp, "putMessageHistory", "(Ljava/lang/String;Z)V");
 
     NetHackMain(2, params);
 }
@@ -417,7 +419,7 @@ void and_exit_nhwindows(const char *str)
 //		-- Prepare the window to be suspended.
 void and_suspend_nhwindows(const char *str)
 {
-    LOGD("and_suspend_nhwindows()");
+    LOGD("and_suspend_nhwindows(str:%s)", str);
 }
 
 //____________________________________________________________________________________
@@ -1344,7 +1346,7 @@ char* and_getmsghistory(boolean init)
     }
     LOGD("and_getmsghistory(nxtidx:%d)", nxtidx);
     jstring result = (jstring)JNICallO(jGetMessageHistory, nxtidx++);
-    const char *msg = (const char *) (*jEnv)->GetStringUTFChars(jEnv, result, 0);
+    char *msg = (char *) (*jEnv)->GetStringUTFChars(jEnv, result, 0);
     if(strncmp(msg, "message_end", strlen(msg)) == 0)
         return NULL;
     return msg;
@@ -1366,7 +1368,8 @@ void and_putmsghistory(const char *msg, boolean restoring)
 {
     if(!msg) return;
     if(restoring) {
-        putstr(WIN_MESSAGE, ATR_NONE, msg);
+        jstring jmsg = (*jEnv)->NewStringUTF(jEnv, msg);
+        JNICallV(jPutMessageHistory, jmsg, restoring);
     }
     LOGD("and_putmsghistory(msg: %s, restoring:%d)", msg, restoring);
 }
