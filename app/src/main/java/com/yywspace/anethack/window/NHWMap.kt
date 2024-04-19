@@ -1,16 +1,18 @@
 package com.yywspace.anethack.window
 
 import android.graphics.Point
+import android.util.Log
+import com.yywspace.anethack.NHMapSurfaceView
 import com.yywspace.anethack.NHMapView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
+import java.util.concurrent.LinkedBlockingDeque
 
 class NHWMap (wid: Int, val nh: NetHack) : NHWindow(wid) {
     val tileCols = 80
     val tileRows = 21
-    private var mapView: NHMapView = nh.binding.mapView
+    private var mapView: NHMapSurfaceView = nh.binding.mapView
     private var firstCenter = true
-
     // 光标位置
     val curse = Point(-1,-1)
     // 玩家位置
@@ -37,6 +39,7 @@ class NHWMap (wid: Int, val nh: NetHack) : NHWindow(wid) {
     }
 
     override fun displayWindow(blocking: Boolean) {
+        Log.d("mapView", "displayWindow")
         mapView.invalidate()
     }
 
