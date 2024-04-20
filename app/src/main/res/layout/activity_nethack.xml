@@ -185,7 +185,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.yywspace.anethack.keybord.NHKeyboardView
+
+        <com.yywspace.anethack.keybord.KeyboardGridLayout
             android:id="@+id/keyboard_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

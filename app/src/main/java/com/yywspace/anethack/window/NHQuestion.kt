@@ -1,6 +1,7 @@
 package com.yywspace.anethack.window
 
 import android.content.Context
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -35,14 +36,25 @@ class NHQuestion(val nh: NetHack) {
         nh.runOnUi { _, context ->
             View.inflate(context, R.layout.dialog_question_input,null)
                 .apply {
-                    val input = findViewById<EditText>(R.id.dialog_question_input)
+                    var ques = question
+                    var hintStr = ""
+                    Regex("(.*)\\[(.*)]").find(question)?.apply {
+                        if(groupValues.size >= 3 && groupValues[1].isNotEmpty()) {
+                            ques = groupValues[1]
+                            hintStr = groupValues[2]
+                        }
+                    }
+                    val input = findViewById<EditText>(R.id.dialog_question_input).apply {
+                        if (hintStr.isNotEmpty())
+                            this.hint = hintStr
+                    }
                     val dialog = AlertDialog.Builder(context).run {
-                        setTitle(question)
+                        setTitle(ques)
                         setView(this@apply)
                         setPositiveButton(R.string.dialog_confirm) { _, _ ->
                             // cancel name
                             if(input.text.isEmpty()) {
-                                finishLine(" ")
+                                finishLine("")
                                 return@setPositiveButton
                             }
 
@@ -53,7 +65,7 @@ class NHQuestion(val nh: NetHack) {
                         }
                         setNegativeButton(R.string.dialog_cancel) { _, _ ->
                             // cancel naming attempt
-                            finishLine("")
+                            finishLine(27.toChar().toString())
                         }
                     }
                     dialog.setCancelable(false)

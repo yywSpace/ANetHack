@@ -41,7 +41,7 @@ class NHExtCmdChoose(val nh: NetHack) {
                         this.adapter = adapter
                     }
                     findViewById<SearchView>(R.id.ext_cmd_search).apply {
-                        isIconified = false
+                        isIconified = true
                         setOnClickListener {
                             isIconified = false
                         }

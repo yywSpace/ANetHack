@@ -1,31 +1,28 @@
 package com.yywspace.anethack
 
-import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
-import android.graphics.Typeface
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
-import android.view.WindowManager
-import android.widget.FrameLayout
+import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.LinearLayout
-import android.widget.LinearLayout.HORIZONTAL
-import android.widget.LinearLayout.SHOW_DIVIDER_MIDDLE
+import android.widget.PopupWindow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.marginTop
+import androidx.core.view.setMargins
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
@@ -44,14 +41,6 @@ class NetHackActivity : AppCompatActivity() {
     private lateinit var handler:Handler
     private lateinit var binding: ActivityNethackBinding
     private var isKeyboardShow = false
-    private var isUpper = false
-    private var keyboardType:NHKeyboard.Type = NHKeyboard.Type.NONE
-    private lateinit var keyboardLetter:NHKeyboard
-    private lateinit var keyboardSymbol:NHKeyboard
-    private lateinit var keyboardCtrl:NHKeyboard
-    private lateinit var keyboardMeta:NHKeyboard
-    private lateinit var keyboardCustom:NHKeyboard
-    private lateinit var keyboardLetterUpper:NHKeyboard
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,58 +61,30 @@ class NetHackActivity : AppCompatActivity() {
         if(isKeyboardShow) {
             binding.keyboardView.apply {
                 postDelayed({
-                    when(keyboardType) {
-                        NHKeyboard.Type.UPPER_LETTER ->
-                            binding.keyboardView.setNHKeyboard(keyboardLetterUpper)
-                        NHKeyboard.Type.LETTER ->
-                            binding.keyboardView.setNHKeyboard(keyboardLetter)
-                        NHKeyboard.Type.SYMBOL ->
-                            binding.keyboardView.setNHKeyboard(keyboardSymbol)
-                        NHKeyboard.Type.META ->
-                            binding.keyboardView.setNHKeyboard(keyboardMeta)
-                        NHKeyboard.Type.CTRL ->
-                            binding.keyboardView.setNHKeyboard(keyboardCtrl)
-                        NHKeyboard.Type.CUSTOM ->
-                            binding.keyboardView.setNHKeyboard(keyboardCustom)
-                        NHKeyboard.Type.NONE ->
-                            binding.keyboardView.visibility = View.GONE
-                    }
+                    refreshNHKeyboard()
                 }, 100)
             }
-
         }
     }
-
     private fun initKeyboard() {
         binding.keyboardView.apply {
             onKeyPress = {
-                if(nethack.isRunning)
+                if (nethack.isRunning)
                     processKeyPress(it.value)
             }
             visibility = View.GONE
         }
-        val keyboardLetterJson = Utils.readAssetsFile(
-            this, "keyboard/keyboard_letter.json")
-        keyboardLetter = NHKeyboardUtils.readFromJson(keyboardLetterJson)
-        val keyboardLetterUpperJson = Utils.readAssetsFile(
-            this, "keyboard/keyboard_letter_upper.json")
-        keyboardLetterUpper = NHKeyboardUtils.readFromJson(keyboardLetterUpperJson)
-        val keyboardSymbolJson = Utils.readAssetsFile(
-            this, "keyboard/keyboard_symbol.json")
-        keyboardSymbol = NHKeyboardUtils.readFromJson(keyboardSymbolJson)
-        val keyboardCtrlJson = Utils.readAssetsFile(
-            this, "keyboard/keyboard_ctrl.json")
-        keyboardCtrl = NHKeyboardUtils.readFromJson(keyboardCtrlJson)
-        val keyboardMetaJson = Utils.readAssetsFile(
-            this, "keyboard/keyboard_meta.json")
-        keyboardMeta = NHKeyboardUtils.readFromJson(keyboardMetaJson)
-        val keyboardCustomJson = Utils.readAssetsFile(
-            this, "keyboard/keyboard_custom.json")
-        keyboardCustom = NHKeyboardUtils.readFromJson(keyboardCustomJson)
     }
-
     private fun processKeyPress(cmd:String) {
+        if (cmd.isEmpty()) return
         when (cmd) {
+            "Letter" -> {
+                if (!isKeyboardShow)
+                    binding.keyboardView.visibility = View.VISIBLE
+                else
+                    binding.keyboardView.visibility = View.GONE
+                isKeyboardShow = !isKeyboardShow
+            }
             "Repeat" -> {
                 Thread {
                     for (i in 0..100) {
@@ -136,125 +97,22 @@ class NetHackActivity : AppCompatActivity() {
                     }
                 }.start()
             }
-            "Shift" -> {
-                if(isUpper) {
-                    keyboardType = NHKeyboard.Type.LETTER
-                    binding.keyboardView.setNHKeyboard(keyboardLetter)
-                }
-                else {
-                    keyboardType = NHKeyboard.Type.UPPER_LETTER
-                    binding.keyboardView.setNHKeyboard(keyboardLetterUpper)
-                }
-                isUpper = !isUpper
-            }
-            "Letter" -> {
-                    if(isKeyboardShow) {
-                        if(keyboardType != NHKeyboard.Type.LETTER
-                            && keyboardType != NHKeyboard.Type.UPPER_LETTER) {
-                            if(isUpper)
-                                binding.keyboardView.setNHKeyboard(keyboardLetterUpper)
-                            else
-                                binding.keyboardView.setNHKeyboard(keyboardLetter)
-                        }
-                        else {
-                            binding.keyboardView.visibility = View.GONE
-                            isKeyboardShow = false
-                        }
-                    }
-                    else {
-                        binding.keyboardView.visibility = View.VISIBLE
-                        if(isUpper)
-                            binding.keyboardView.setNHKeyboard(keyboardLetterUpper)
-                        else
-                            binding.keyboardView.setNHKeyboard(keyboardLetter)
-                        isKeyboardShow = true
-                    }
-                keyboardType = if(isUpper)
-                    NHKeyboard.Type.UPPER_LETTER
-                else
-                    NHKeyboard.Type.LETTER
-            }
-            "Symbol"->{
-                if(isKeyboardShow) {
-                    if(keyboardType != NHKeyboard.Type.SYMBOL)
-                        binding.keyboardView.setNHKeyboard(keyboardSymbol)
-                    else {
-                        binding.keyboardView.visibility = View.GONE
-                        isKeyboardShow = !isKeyboardShow
-                    }
-                }
-                else {
-                    binding.keyboardView.visibility = View.VISIBLE
-                    binding.keyboardView.setNHKeyboard(keyboardSymbol)
-                    isKeyboardShow = !isKeyboardShow
-                }
-                keyboardType = NHKeyboard.Type.SYMBOL
-            }
-            "Ctrl" -> {
-                if(isKeyboardShow) {
-                    if(keyboardType != NHKeyboard.Type.CTRL)
-                        binding.keyboardView.setNHKeyboard(keyboardCtrl)
-                    else {
-                        binding.keyboardView.visibility = View.GONE
-                        isKeyboardShow = !isKeyboardShow
-                    }
-                }
-                else {
-                    binding.keyboardView.visibility = View.VISIBLE
-                    binding.keyboardView.setNHKeyboard(keyboardCtrl)
-                    isKeyboardShow = !isKeyboardShow
-                }
-                keyboardType = NHKeyboard.Type.CTRL
-            }
-            "Meta" -> {
-                if(isKeyboardShow) {
-                    if(keyboardType != NHKeyboard.Type.META)
-                        binding.keyboardView.setNHKeyboard(keyboardMeta)
-                    else {
-                        binding.keyboardView.visibility = View.GONE
-                        isKeyboardShow = !isKeyboardShow
-                    }
-                }
-                else {
-                    binding.keyboardView.visibility = View.VISIBLE
-                    binding.keyboardView.setNHKeyboard(keyboardMeta)
-                    isKeyboardShow = !isKeyboardShow
-                }
-                keyboardType = NHKeyboard.Type.META
-            }
             "Center" -> {
                 binding.mapView.centerPlayerInScreen()
-            }
-            "Custom" -> {
-                if(isKeyboardShow) {
-                    if(keyboardType != NHKeyboard.Type.CUSTOM)
-                        binding.keyboardView.setNHKeyboard(keyboardCustom)
-                    else {
-                        binding.keyboardView.visibility = View.GONE
-                        isKeyboardShow = !isKeyboardShow
-                    }
-                }
-                else {
-                    binding.keyboardView.visibility = View.VISIBLE
-                    binding.keyboardView.setNHKeyboard(keyboardCustom)
-                    isKeyboardShow = !isKeyboardShow
-                }
-                keyboardType = NHKeyboard.Type.CUSTOM
             }
             else -> {
                 if(nethack.isRunning) {
                     if(cmd.startsWith("#")) {
                         nethack.command.sendExtendCommand(NHExtendCommand(cmd))
                         return
-                    }
-                    if(cmd.startsWith("L")) {
-                        cmd.substring(1).toCharArray()
-                            .forEach {
+                    } else if(cmd.startsWith("L")) {
+                        cmd.substring(1).toCharArray().forEach {
                             nethack.command.sendCommand(NHCommand(it))
                         }
                         return
+                    } else {
+                        nethack.command.sendCommand(NHCommand(cmd.toInt().toChar()))
                     }
-                    nethack.command.sendCommand(NHCommand(cmd.toInt().toChar()))
                 }
 
             }
@@ -263,7 +121,7 @@ class NetHackActivity : AppCompatActivity() {
     private fun initControlPanel() {
         // Ctrl|^C Meta|^M
         val panelDefault = """
-            Custom #|Extend LS|Save #quit|Quit L20s|20s Symbol|1?@ Letter|abc
+            Custom #|Extend LS|Save #quit|Quit L20s|20s Letter|abc
         """.trimIndent()
         val panel = nethack.prefs.panel?:panelDefault
         initCustomControlPanel(this, binding.basePanel, panel)
