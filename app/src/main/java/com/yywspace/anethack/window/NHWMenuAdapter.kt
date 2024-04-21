@@ -7,14 +7,15 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.R
+import com.yywspace.anethack.entity.NHMenuItem
 import java.lang.RuntimeException
 
 
 class NHWMenuAdapter(private val nhwMenu: NHWMenu) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var onItemClick:((view:View, index:Int, menuItem: NHWMenuItem)->Unit)? = null
-    var onItemLongClick:((view:View, index:Int, menuItem: NHWMenuItem)->Unit)? = null
+    var onItemClick:((view:View, index:Int, menuItem: NHMenuItem)->Unit)? = null
+    var onItemLongClick:((view:View, index:Int, menuItem: NHMenuItem)->Unit)? = null
 
     inner class OptionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemAcc: TextView
@@ -59,14 +60,14 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        val menuItem = nhwMenu.nhwMenuItems[position]
+        val menuItem = nhwMenu.nhMenuItems[position]
         return if(menuItem.isHeader())
             TEXT
         else
             OPTION
     }
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        val menuItem = nhwMenu.nhwMenuItems[position]
+        val menuItem = nhwMenu.nhMenuItems[position]
 
         when(getItemViewType(position)) {
             OPTION -> {
@@ -115,7 +116,7 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu) :
 
     }
 
-    override fun getItemCount() = nhwMenu.nhwMenuItems.size
+    override fun getItemCount() = nhwMenu.nhMenuItems.size
 
     companion object {
         private const val OPTION = 0

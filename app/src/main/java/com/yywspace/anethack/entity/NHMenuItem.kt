@@ -1,10 +1,8 @@
-package com.yywspace.anethack.window
+package com.yywspace.anethack.entity
 
 import androidx.core.text.isDigitsOnly
-import com.yywspace.anethack.entity.NHString
-import kotlin.math.max
 
-data class NHWMenuItem(
+data class NHMenuItem(
     val glyph: Int,
     val identifier: Long,
     val accelerator: Char,

@@ -2,7 +2,6 @@ package com.yywspace.anethack.window
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.widget.NumberPicker
@@ -15,6 +14,7 @@ import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
+import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.extensions.showImmersive
 import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.ReentrantLock
@@ -23,7 +23,7 @@ import kotlin.concurrent.withLock
 class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     var title:String = ""
     var behavior:Long = -1
-    val nhwMenuItems = mutableListOf<NHWMenuItem>()
+    val nhMenuItems = mutableListOf<NHMenuItem>()
     var selectMode: SelectMode = SelectMode.PickNone
     private var selectedItems:MutableList<Long> = mutableListOf()
     private val textList = mutableListOf<NHString>()
@@ -47,8 +47,8 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
         text: String,
         preselected: Boolean
     ) {
-        nhwMenuItems.add(
-            NHWMenuItem(glyph, identifier,
+        nhMenuItems.add(
+            NHMenuItem(glyph, identifier,
                 accelerator, groupAcc, NHString(text, attr, clr), preselected)
         )
     }
@@ -101,13 +101,13 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                         setOnClickListener {
                             if(!selectedAll)  {
                                 setText(R.string.dialog_clear_all)
-                                nhwMenuItems.forEach {
+                                nhMenuItems.forEach {
                                     if (!it.isHeader())
                                         it.isSelected = true
                                 }
                             }else{
                                 setText(R.string.dialog_select_all)
-                                nhwMenuItems.forEach {
+                                nhMenuItems.forEach {
                                     it.isSelected = false
                                 }
                             }
@@ -118,12 +118,12 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                     findViewById<MaterialButton>(R.id.menu_btn_3)?.apply {
                         setText(R.string.dialog_confirm)
                         setOnClickListener {
-                            val count = nhwMenuItems.count { item -> item.isSelected }
+                            val count = nhMenuItems.count { item -> item.isSelected }
                             selectedItems = if (count == 0) {
                                 mutableListOf(0)
                             } else {
                                 val selectList = mutableListOf<Long>()
-                                nhwMenuItems.filter { item -> item.isSelected }.forEach { item ->
+                                nhMenuItems.filter { item -> item.isSelected }.forEach { item ->
                                     selectList.add(item.identifier)
                                     selectList.add(item.selectedCount)
                                 }
@@ -156,7 +156,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
 
     }
 
-    private fun showAmountPickerDialog(context: Context, parentItem:NHWMenuItem,
+    private fun showAmountPickerDialog(context: Context, parentItem: NHMenuItem,
                                        parentPosition:Int, parentAdapter: NHWMenuAdapter) {
         if(parentItem.count < 0) return
         val dialogView = View.inflate(context, R.layout.dialog_amount_selecter, null)
@@ -229,12 +229,12 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     override fun clearWindow(isRogueLevel: Int) {
         selectedItems.clear()
         textList.clear()
-        nhwMenuItems.clear()
+        nhMenuItems.clear()
     }
 
     override fun destroyWindow() {
         textList.clear()
-        nhwMenuItems.clear()
+        nhMenuItems.clear()
         selectedItems.clear()
     }
 

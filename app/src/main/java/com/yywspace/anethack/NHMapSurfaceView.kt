@@ -194,7 +194,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         holder = getHolder()
         holder?.addCallback(this)
         isFocusable = true
-        isFocusableInTouchMode = true
+        // isFocusableInTouchMode = true
         this.keepScreenOn = true
     }
 
@@ -445,19 +445,21 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun draw() {
-        try {
-            canvas = holder?.lockCanvas()
-            if (mapInit && canvas != null) {
-                canvas?.drawColor(Color.BLACK)
-                drawAscii(canvas)
-                drawCurse(canvas)
-                drawBorder(canvas)
-                drawLastTouchTile(canvas)
+        holder?.apply {
+            try {
+                canvas = lockCanvas()
+                if (mapInit) {
+                    canvas?.drawColor(Color.BLACK)
+                    drawAscii(canvas)
+                    drawCurse(canvas)
+                    drawBorder(canvas)
+                    drawLastTouchTile(canvas)
+                }
+            } catch (_: Exception) {
+            } finally {
+                if (canvas != null)
+                    unlockCanvasAndPost(canvas)
             }
-        } catch (_: Exception) {
-        } finally {
-            if (canvas != null)
-                holder?.unlockCanvasAndPost(canvas)
         }
     }
     override fun run() {

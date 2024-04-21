@@ -169,10 +169,13 @@
                 tools:text="FodPoi LEV STONE" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/message_bar"
+
+        <com.yywspace.anethack.NHInfoSurfaceView
+            android:id="@+id/info_view"
             android:layout_width="match_parent"
-            android:layout_height="72dp" />
+            android:layout_height="wrap_content">
+
+        </com.yywspace.anethack.NHInfoSurfaceView>
 
     </LinearLayout>
 

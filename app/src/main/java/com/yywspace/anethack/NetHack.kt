@@ -203,7 +203,7 @@ class NetHack(
     private fun selectMenu(wid: Int, how: Int): LongArray {
         val nhMenu = getNHWMenu(wid)
         Log.d(TAG, "selectMenu(wid: $wid, how: $how)")
-        Log.d(TAG, "itemList:${nhMenu.nhwMenuItems}")
+        Log.d(TAG, "itemList:${nhMenu.nhMenuItems}")
         return nhMenu.selectMenu(how)
     }
 

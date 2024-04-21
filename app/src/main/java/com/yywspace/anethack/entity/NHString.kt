@@ -13,7 +13,7 @@ import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 
 
-class NHString(var value:String = "", var attr:Int = 0, colorIdx:Int = NHColor.NO_COLOR.ordinal) {
+data class NHString(var value:String = "", var attr:Int = 0, val colorIdx:Int = NHColor.NO_COLOR.ordinal) {
     var attrs:List<TextAttr>
     var nhColor: NHColor = NHColor.NO_COLOR
 

@@ -100,6 +100,9 @@ class NetHackActivity : AppCompatActivity() {
             "Center" -> {
                 binding.mapView.centerPlayerInScreen()
             }
+            "Setting" -> {
+                binding.mapView.centerPlayerInScreen()
+            }
             else -> {
                 if(nethack.isRunning) {
                     if(cmd.startsWith("#")) {
@@ -121,7 +124,7 @@ class NetHackActivity : AppCompatActivity() {
     private fun initControlPanel() {
         // Ctrl|^C Meta|^M
         val panelDefault = """
-            Custom #|Extend LS|Save #quit|Quit L20s|20s Letter|abc
+            Setting #|Extend LS|Save #quit|Quit L20s|20s Center Repeat Letter|abc
         """.trimIndent()
         val panel = nethack.prefs.panel?:panelDefault
         initCustomControlPanel(this, binding.basePanel, panel)

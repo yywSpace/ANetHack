@@ -7,9 +7,6 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.yywspace.anethack.window.NHWMenu
-import com.yywspace.anethack.window.NHWMenuAdapter
-import com.yywspace.anethack.window.NHWMenuItem
 
 class CMDMenuAdapter(private val cmdList: List<String>):
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
