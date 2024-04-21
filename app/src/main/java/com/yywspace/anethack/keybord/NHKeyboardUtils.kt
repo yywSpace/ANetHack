@@ -67,7 +67,6 @@ object NHKeyboardUtils {
         }
 
         val row5 = Row().apply {
-            type = Row.Type.WEIGHT
             keys.add(Key(4,0,1.0, "Custom"))
             keys.add(Key(4,1,1.0, "Extend"))
             keys.add(Key(4,2,1.0, "Save"))
@@ -80,13 +79,6 @@ object NHKeyboardUtils {
         keyboard1.rows.add(row3)
         keyboard1.rows.add(row4)
         // keyboard1.rows.add(row5)
-
-        keyboard1.rowCount = keyboard1.rows.size
-        keyboard1.rows.forEach { row ->
-            val keyCount = row.keys.sumOf { it.columnSpan }
-            if (keyCount > keyboard1.columnCount)
-                keyboard1.columnCount = keyCount
-        }
 
         val row20 =  Row().apply {
             keys.add(Key(0, 0, 2, 1, "ESC"))
@@ -127,7 +119,6 @@ object NHKeyboardUtils {
         }
 
         val row24 = Row().apply {
-            type = Row.Type.WEIGHT
             keys.add(Key(4,0,1.0, "Custom"))
             keys.add(Key(4,1,1.0, "Extend"))
             keys.add(Key(4,2,1.0, "Save"))
@@ -141,15 +132,7 @@ object NHKeyboardUtils {
         keyboard2.rows.add(row23)
         keyboard2.rows.add(row24)
 
-        keyboard2.rowCount = keyboard2.rows.size
-        keyboard2.rows.forEach { row ->
-            val keyCount = row.keys.sumOf { it.columnSpan }
-            if (keyCount > keyboard2.columnCount)
-                keyboard2.columnCount = keyCount
-        }
-
         val row31 = Row().apply {
-            type = Row.Type.WEIGHT
             keys.add(Key(0,0,1.0, "Custom"))
             keys.add(Key(0,1,1.0, "Extend"))
             keys.add(Key(0,2,1.0, "Save"))
@@ -158,13 +141,6 @@ object NHKeyboardUtils {
             keys.add(Key(0,5,1.0, "..."))
         }
         keyboard3.rows.add(row31)
-
-        keyboard3.rowCount = keyboard3.rows.size
-        keyboard3.rows.forEach { row ->
-            val keyCount = row.keys.sumOf { it.columnSpan }
-            if (keyCount > keyboard3.columnCount)
-                keyboard3.columnCount = keyCount
-        }
     }
 
     fun readFromJson(json:String):NHKeyboard {
@@ -173,21 +149,17 @@ object NHKeyboardUtils {
             val rows = JSONArray(json)
             for (i in 0 until rows.length()) {
                 val row = rows.getJSONObject(i)
-                val type = row.get("type")
-                val rowType = if(type == "span") Row.Type.SPAN else  Row.Type.WEIGHT
-                val kbRow = Row().apply {
-                    this.type = rowType
-                }
+                val kbRow = Row()
                 val keys = row.getJSONArray("key")
                 for (j in 0 until keys.length()) {
                     val key = keys.getJSONObject(j)
-                    val rowIdx = if (key.has("row")) key.getInt("row") else 1
-                    val columnIdx = if (key.has("column")) key.getInt("column") else 1
+                    val rowIdx = if (key.has("row")) key.getInt("row") else 0
+                    val columnIdx = if (key.has("column")) key.getInt("column") else 0
                     val rowSpan = if (key.has("rowSpan")) key.getInt("rowSpan") else 1
                     val columnSpan = if (key.has("columnSpan")) key.getInt("columnSpan")  else 1
                     val columnWeight = if (key.has("columnWeight")) key.getDouble("columnWeight")  else 1.0
                     val label = if (key.has("label")) key.getString("label") else ""
-                    val value = if (key.has("value")) key.getString("value") else "0"
+                    val value = if (key.has("value")) key.getString("value") else ""
                     val kbKey = Key(rowIdx, columnIdx, rowSpan, columnSpan, columnWeight, label, value)
                     kbRow.keys.add(kbKey)
                 }
@@ -196,12 +168,6 @@ object NHKeyboardUtils {
             }
         } catch (e: JSONException) {
             e.printStackTrace()
-        }
-        keyboard.rowCount = keyboard.rows.size
-        keyboard.rows.forEach { row ->
-            val keyCount = row.keys.sumOf { it.columnSpan }
-            if (keyCount > keyboard.columnCount)
-                keyboard.columnCount = keyCount
         }
         return keyboard
     }

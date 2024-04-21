@@ -69,7 +69,7 @@ class NetHackActivity : AppCompatActivity() {
     private fun initKeyboard() {
         binding.keyboardView.apply {
             onKeyPress = {
-                if (nethack.isRunning)
+                if (nethack.isRunning && it.label.isNotEmpty())
                     processKeyPress(it.value)
             }
             visibility = View.GONE
@@ -124,7 +124,7 @@ class NetHackActivity : AppCompatActivity() {
     private fun initControlPanel() {
         // Ctrl|^C Meta|^M
         val panelDefault = """
-            Setting #|Extend LS|Save #quit|Quit L20s|20s Center Repeat Letter|abc
+            Setting #|Extend LS|Save #quit|Quit L20s|20s Center Letter|abc
         """.trimIndent()
         val panel = nethack.prefs.panel?:panelDefault
         initCustomControlPanel(this, binding.basePanel, panel)

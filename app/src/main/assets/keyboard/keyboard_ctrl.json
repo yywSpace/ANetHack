@@ -1,413 +1,283 @@
 [
   {
-    "type": "span",
     "key": [
       {
         "label": "1",
         "value": "L1",
         "row": 0,
-        "column": 0,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 0
       },
       {
         "label": "2",
         "value": "L2",
         "row": 0,
-        "column": 2,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 1
       },
       {
         "label": "3",
         "value": "L3",
         "row": 0,
-        "column": 4,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 2
       },
       {
         "label": "4",
         "value": "L4",
         "row": 0,
-        "column": 6,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 3
       },
       {
         "label": "5",
         "value": "L5",
         "row": 0,
-        "column": 8,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 4
       },
       {
         "label": "6",
         "value": "L6",
         "row": 0,
-        "column": 10,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 5
       },
       {
         "label": "7",
         "value": "L7",
         "row": 0,
-        "column": 12,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 6
       },
       {
         "label": "8",
         "value": "L8",
         "row": 0,
-        "column": 14,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 7
       },
       {
         "label": "9",
         "value": "L9",
         "row": 0,
-        "column": 16,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 8
       },
       {
         "label": "0",
         "value": "L0",
         "row": 0,
-        "column": 18,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 9
       }
     ]
   },
   {
-    "type": "span",
+
     "key": [
       {
         "label": "",
         "value": "q",
         "row": 1,
-        "column": 0,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 0
       },
       {
         "label": "^W",
         "value": "23",
         "row": 1,
-        "column": 2,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 1
       },
       {
         "label": "^E",
         "value": "5",
         "row": 1,
-        "column": 4,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 2
       },
       {
         "label": "^R",
         "value": "18",
         "row": 1,
-        "column": 6,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 3
       },
       {
         "label": "^T",
         "value": "20",
         "row": 1,
-        "column": 8,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 4
       },
       {
         "label": "",
         "value": "y",
         "row": 1,
-        "column": 10,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 5
       },
       {
         "label": "",
         "value": "u",
         "row": 1,
-        "column": 12,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 6
       },
       {
         "label": "^I",
         "value": "9",
         "row": 1,
-        "column": 14,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 7
       },
       {
         "label": "^O",
         "value": "15",
         "row": 1,
-        "column": 16,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 8
       },
       {
         "label": "^P",
         "value": "16",
         "row": 1,
-        "column": 18,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 9
       }
     ]
   },
   {
-    "type": "span",
+
     "key": [
       {
         "label": "^A",
         "value": "1",
         "row": 2,
-        "column": 1,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 0
       },
       {
         "label": "",
         "value": "s",
         "row": 2,
-        "column": 3,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 1
       },
       {
         "label": "^D",
         "value": "4",
         "row": 2,
-        "column": 5,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 2
       },
       {
         "label": "^F",
         "value": "6",
         "row": 2,
-        "column": 7,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 3
       },
       {
         "label": "^G",
         "value": "7",
         "row": 2,
-        "column": 9,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 4
       },
       {
         "label": "",
         "value": "h",
         "row": 2,
-        "column": 11,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 5
       },
       {
         "label": "",
         "value": "j",
         "row": 2,
-        "column": 13,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 6
       },
       {
         "label": "",
         "value": "k",
         "row": 2,
-        "column": 15,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 7
       },
       {
         "label": "",
         "value": "l",
         "row": 2,
-        "column": 17,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 8
       }
     ]
   },
   {
-    "type": "span",
+
     "key": [
       {
         "label": "Letter",
         "value": "Letter",
         "row": 3,
-        "column": 0,
-        "rowSpan": 1,
-        "columnSpan": 3,
-        "columnWeight": 1
+        "column": 0
       },
       {
         "label": "",
         "value": "z",
         "row": 3,
-        "column": 3,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 1
       },
       {
         "label": "^X",
         "value": "24",
         "row": 3,
-        "column": 5,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 2
       },
       {
         "label": "",
         "value": "c",
         "row": 3,
-        "column": 7,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 3
       },
       {
         "label": "^V",
         "value": "22",
         "row": 3,
-        "column": 9,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 4
       },
       {
         "label": "",
         "value": "b",
         "row": 3,
-        "column": 11,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 5
       },
       {
         "label": "",
         "value": "n",
         "row": 3,
-        "column": 13,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 6
       },
       {
         "label": "",
         "value": "m",
         "row": 3,
-        "column": 15,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 7
       },
       {
         "label": "DEL",
         "value": "127",
         "row": 3,
-        "column": 17,
-        "rowSpan": 1,
-        "columnSpan": 3,
-        "columnWeight": 1
+        "column": 8
       }
     ]
   },
   {
-    "type": "span",
+
     "key": [
       {
         "label": "Symbol",
         "value": "Symbol",
         "row": 4,
-        "column": 0,
-        "rowSpan": 1,
-        "columnSpan": 3,
-        "columnWeight": 1
+        "column": 0
       },
       {
         "label": "Meta",
         "value": "Meta",
         "row": 4,
-        "column": 3,
-        "rowSpan": 1,
-        "columnSpan": 3,
-        "columnWeight": 1
+        "column": 1
       },
       {
         "label": "ESC",
         "value": "27",
         "row": 4,
-        "column": 6,
-        "rowSpan": 1,
-        "columnSpan": 8,
-        "columnWeight": 1
+        "column": 2
       },
       {
         "label": "Letter",
         "value": "Letter",
         "row": 4,
-        "column": 14,
-        "rowSpan": 1,
-        "columnSpan": 3,
-        "columnWeight": 1
+        "column": 3
       },
       {
         "label": "Enter",
         "value": "13",
         "row": 4,
-        "column": 17,
-        "rowSpan": 1,
-        "columnSpan": 3,
-        "columnWeight": 1
+        "column": 4
       }
     ]
   }

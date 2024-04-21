@@ -40,7 +40,6 @@ class NHWMap (wid: Int, val nh: NetHack) : NHWindow(wid) {
 
     override fun displayWindow(blocking: Boolean) {
         Log.d("mapView", "displayWindow")
-        mapView.invalidate()
     }
 
     override fun clearWindow(isRogueLevel: Int) {

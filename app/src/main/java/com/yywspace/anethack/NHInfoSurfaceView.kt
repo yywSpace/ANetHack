@@ -3,6 +3,7 @@ package com.yywspace.anethack
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.PixelFormat
 import android.graphics.PorterDuff
 import android.text.DynamicLayout
@@ -17,6 +18,7 @@ import com.yywspace.anethack.window.NHWMessage
 class NHInfoSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 42f
     private val textPaint:TextPaint = TextPaint()
+    private val paint:Paint = Paint()
     private lateinit var nh:NetHack
     private lateinit var nhMessage: NHWMessage
     private var messageInit: Boolean = false
@@ -65,7 +67,6 @@ class NHInfoSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         isDrawing = false;
     }
-
     private fun drawMessageList(canvas: Canvas?) {
         canvas?.apply {
             if (messageInit) {

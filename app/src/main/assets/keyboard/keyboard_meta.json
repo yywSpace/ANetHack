@@ -1,413 +1,282 @@
 [
   {
-    "type": "span",
+
     "key": [
       {
         "label": "1",
         "value": "L1",
         "row": 0,
-        "column": 0,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 0
       },
       {
         "label": "2",
         "value": "L2",
         "row": 0,
-        "column": 2,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 1
       },
       {
         "label": "3",
         "value": "L3",
         "row": 0,
-        "column": 4,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 2
       },
       {
         "label": "4",
         "value": "L4",
         "row": 0,
-        "column": 6,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 3
       },
       {
         "label": "5",
         "value": "L5",
         "row": 0,
-        "column": 8,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 4
       },
       {
         "label": "6",
         "value": "L6",
         "row": 0,
-        "column": 10,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 5
       },
       {
         "label": "7",
         "value": "L7",
         "row": 0,
-        "column": 12,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 6
       },
       {
         "label": "8",
         "value": "L8",
         "row": 0,
-        "column": 14,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 7
       },
       {
         "label": "9",
         "value": "L9",
         "row": 0,
-        "column": 16,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 8
       },
       {
         "label": "0",
         "value": "L0",
         "row": 0,
-        "column": 18,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 9
       }
     ]
   },
   {
-    "type": "span",
     "key": [
       {
-        "label": "⌥q",
+        "label": "-q",
         "value": "241",
         "row": 1,
-        "column": 0,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 0
       },
       {
-        "label": "⌥w",
+        "label": "-w",
         "value": "247",
         "row": 1,
-        "column": 2,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 1
       },
       {
-        "label": "⌥e",
+        "label": "-e",
         "value": "229",
         "row": 1,
-        "column": 4,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 2
       },
       {
-        "label": "⌥r",
+        "label": "-r",
         "value": "242",
         "row": 1,
-        "column": 6,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 3
       },
       {
-        "label": "⌥t",
+        "label": "-t",
         "value": "244",
         "row": 1,
-        "column": 8,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 4
       },
       {
-        "label": "⌥2",
+        "label": "-2",
         "value": "178",
         "row": 1,
-        "column": 10,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 5
       },
       {
-        "label": "⌥u",
+        "label": "-u",
         "value": "245",
         "row": 1,
-        "column": 12,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 6
       },
       {
-        "label": "⌥i",
+        "label": "-i",
         "value": "233",
         "row": 1,
-        "column": 14,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 7
       },
       {
-        "label": "⌥o",
+        "label": "-o",
         "value": "239",
         "row": 1,
-        "column": 16,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 8
       },
       {
-        "label": "⌥p",
+        "label": "-p",
         "value": "112",
         "row": 1,
-        "column": 18,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 9
       }
     ]
   },
   {
-    "type": "span",
+
     "key": [
       {
-        "label": "⌥a",
+        "label": "-a",
         "value": "225",
         "row": 2,
-        "column": 1,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 0
       },
       {
-        "label": "⌥s",
+        "label": "-s",
         "value": "243",
         "row": 2,
-        "column": 3,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 1
       },
       {
-        "label": "⌥d",
+        "label": "-d",
         "value": "228",
         "row": 2,
-        "column": 5,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 2
       },
       {
-        "label": "⌥f",
+        "label": "-f",
         "value": "230",
         "row": 2,
-        "column": 7,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 3
       },
       {
-        "label": "⌥R",
+        "label": "-R",
         "value": "210",
         "row": 2,
-        "column": 9,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 4
       },
       {
-        "label": "⌥T",
+        "label": "-T",
         "value": "212",
         "row": 2,
-        "column": 11,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 5
       },
       {
-        "label": "⌥j",
+        "label": "-j",
         "value": "234",
         "row": 2,
-        "column": 13,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 6
       },
       {
         "label": "",
-        "value": "k",
+        "value": "Lk",
         "row": 2,
-        "column": 15,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 7
       },
       {
-        "label": "⌥l",
+        "label": "-l",
         "value": "236",
         "row": 2,
-        "column": 17,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 8
       }
     ]
   },
   {
-    "type": "span",
+
     "key": [
       {
         "label": "Letter",
         "value": "Letter",
         "row": 3,
-        "column": 0,
-        "rowSpan": 1,
-        "columnSpan": 3,
-        "columnWeight": 1
+        "column": 0
       },
       {
-        "label": "⌥A",
+        "label": "-A",
         "value": "193",
         "row": 3,
-        "column": 3,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 1
       },
       {
-        "label": "⌥C",
+        "label": "-C",
         "value": "195",
         "row": 3,
-        "column": 5,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 2
       },
       {
-        "label": "⌥c",
+        "label": "-c",
         "value": "227",
         "row": 3,
-        "column": 7,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 3
       },
       {
-        "label": "⌥v",
+        "label": "-v",
         "value": "246",
         "row": 3,
-        "column": 9,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 4
       },
       {
-        "label": "⌥?",
+        "label": "-?",
         "value": "191",
         "row": 3,
-        "column": 11,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 5
       },
       {
-        "label": "⌥n",
+        "label": "-n",
         "value": "238",
         "row": 3,
-        "column": 13,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 6
       },
       {
-        "label": "⌥m",
+        "label": "-m",
         "value": "237",
         "row": 3,
-        "column": 15,
-        "rowSpan": 1,
-        "columnSpan": 2,
-        "columnWeight": 1
+        "column": 7
       },
       {
         "label": "DEL",
         "value": "127",
         "row": 3,
-        "column": 17,
-        "rowSpan": 1,
-        "columnSpan": 3,
-        "columnWeight": 1
+        "column": 8
       }
     ]
   },
   {
-    "type": "span",
     "key": [
       {
         "label": "Symbol",
         "value": "Symbol",
         "row": 4,
-        "column": 0,
-        "rowSpan": 1,
-        "columnSpan": 3,
-        "columnWeight": 1
+        "column": 0
       },
       {
         "label": "Letter",
         "value": "Letter",
         "row": 4,
-        "column": 3,
-        "rowSpan": 1,
-        "columnSpan": 3,
-        "columnWeight": 1
+        "column": 1
       },
       {
         "label": "ESC",
         "value": "27",
         "row": 4,
-        "column": 6,
-        "rowSpan": 1,
-        "columnSpan": 8,
-        "columnWeight": 1
+        "column": 2
       },
       {
         "label": "Ctrl",
         "value": "Ctrl",
         "row": 4,
-        "column": 14,
-        "rowSpan": 1,
-        "columnSpan": 3,
-        "columnWeight": 1
+        "column": 3
       },
       {
         "label": "Enter",
         "value": "13",
         "row": 4,
-        "column": 17,
-        "rowSpan": 1,
-        "columnSpan": 3,
-        "columnWeight": 1
+        "column": 4
       }
     ]
   }

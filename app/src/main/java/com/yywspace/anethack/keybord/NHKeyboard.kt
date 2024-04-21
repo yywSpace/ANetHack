@@ -2,14 +2,11 @@ package com.yywspace.anethack.keybord
 
 class NHKeyboard {
     val rows:MutableList<Row> = mutableListOf()
-    var rowCount = 0
-    var columnCount = 0
     class Key(var row: Int,
               var column: Int) {
         var rowSpan = 1
         var columnSpan = 1
-        // var rowPercent = 0.0
-        var columnWeight = 0.0
+        var columnWeight = 1.0
         var label = ""
         var value = ""
 
@@ -41,16 +38,9 @@ class NHKeyboard {
             return label
         }
     }
-    // 3407
 
     class Row {
         val keys:MutableList<Key> = mutableListOf()
-        var type:Type = Type.SPAN
-        enum class Type {
-            WEIGHT,
-            SPAN,
-        }
-
         override fun toString(): String {
             return keys.toString()
         }

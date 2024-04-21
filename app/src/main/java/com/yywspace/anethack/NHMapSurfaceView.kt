@@ -63,7 +63,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         override fun onScale(detector: ScaleGestureDetector): Boolean {
             scaling = true
             scaleMap(detector.scaleFactor, detector.focusX, detector.focusY)
-            invalidate()
             return true
         }
     })
@@ -83,7 +82,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             mapBorder.right = lastMapBorder.right + e2.x - e1.x
             mapBorder.top = lastMapBorder.top + e2.y - e1.y
             mapBorder.bottom = lastMapBorder.bottom + e2.y - e1.y
-            invalidate()
             return true
         }
 
@@ -117,7 +115,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                             setOnClickListener {
                                 // get tile info
                                 nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.LOOK))
-                                this@NHMapSurfaceView.invalidate()
                                 dialog.dismiss()
                             }
                         }
@@ -130,7 +127,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                                     PointF(e.x, e.y)
                                 )
                                 playerMove(direction, true)
-                                this@NHMapSurfaceView.invalidate()
                                 dialog.dismiss()
                             }
                         }
@@ -139,7 +135,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                             setOnClickListener {
                                 // whether travel to tile
                                 nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
-                                this@NHMapSurfaceView.invalidate()
                                 dialog.dismiss()
                             }
                         }
@@ -153,7 +148,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                                 nh.command.sendCommand(NHCommand('z', 1))
                             }
                         }
-                        invalidate()
                         dialog.dismiss()
                     }
                     dialog.showImmersive()
@@ -212,7 +206,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     fun scaleMap(scaleFactor:Float, centerX:Float, centerY:Float) {
         Log.d("scaleMap", this.scaleFactor.toString())
-        if(this.scaleFactor * scaleFactor < 0.1 || this.scaleFactor * scaleFactor > 10)
+        if(this.scaleFactor * scaleFactor < 0.3 || this.scaleFactor * scaleFactor > 10)
             return
         this.scaleFactor *= scaleFactor
         paint.textSize = paint.textSize * scaleFactor
@@ -317,7 +311,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     fun centerView(x:Int, y:Int) {
         val tb = getTileBorder(x,y)
         mapBorder.offset(-(tb.centerX() - measuredWidth / 2F), -(tb.centerY() - measuredHeight / 2F))
-        invalidate()
     }
 
     private fun drawCurse(canvas: Canvas?) {
