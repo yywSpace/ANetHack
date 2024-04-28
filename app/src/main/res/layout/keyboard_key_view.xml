@@ -1,21 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/key_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        tools:text = 'B' />
-    <TextView
-        android:id="@+id/key_sub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/gray"
-        android:layout_marginStart="2dp"
-        tools:text=">"/>
-</LinearLayout>
+    <ImageView
+        android:id="@+id/key_status"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:src="@drawable/dot_unselected"
+        android:layout_margin="2dp"
+        android:contentDescription="@string/key_dot_status_desc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/key_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            tools:text = 'B' />
+        <TextView
+            android:id="@+id/key_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:layout_marginStart="2dp"
+            tools:text=">"/>
+    </LinearLayout>
+
+</FrameLayout>

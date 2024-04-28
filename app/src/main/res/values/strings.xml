@@ -26,4 +26,5 @@
     <string name="pos_key_travel">Travel</string>
     <string name="pos_key_straight">Straight</string>
     <string name="pos_key_look">Look</string>
+    <string name="key_dot_status_desc">key dot status image view</string>
 </resources>

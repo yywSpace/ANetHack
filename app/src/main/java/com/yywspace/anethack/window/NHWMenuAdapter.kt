@@ -78,6 +78,10 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu) :
                         }
                         itemView.setOnLongClickListener {
                             onItemLongClick?.invoke(it, position, menuItem)
+                            if (nhwMenu.selectMode == NHWMenu.SelectMode.PickMany) {
+                                menuItem.isSelected = true
+                                itemCheckBox.isChecked = true
+                            }
                             true
                         }
                         itemView.setOnClickListener {

@@ -67,61 +67,61 @@
   {
     "key": [
       {
-        "label": "-q",
+        "label": "M-q",
         "value": "241",
         "row": 1,
         "column": 0
       },
       {
-        "label": "-w",
+        "label": "M-w",
         "value": "247",
         "row": 1,
         "column": 1
       },
       {
-        "label": "-e",
+        "label": "M-e",
         "value": "229",
         "row": 1,
         "column": 2
       },
       {
-        "label": "-r",
+        "label": "M-r",
         "value": "242",
         "row": 1,
         "column": 3
       },
       {
-        "label": "-t",
+        "label": "M-t",
         "value": "244",
         "row": 1,
         "column": 4
       },
       {
-        "label": "-2",
+        "label": "M-2",
         "value": "178",
         "row": 1,
         "column": 5
       },
       {
-        "label": "-u",
+        "label": "M-u",
         "value": "245",
         "row": 1,
         "column": 6
       },
       {
-        "label": "-i",
+        "label": "M-i",
         "value": "233",
         "row": 1,
         "column": 7
       },
       {
-        "label": "-o",
+        "label": "M-o",
         "value": "239",
         "row": 1,
         "column": 8
       },
       {
-        "label": "-p",
+        "label": "M-p",
         "value": "112",
         "row": 1,
         "column": 9
@@ -132,43 +132,43 @@
 
     "key": [
       {
-        "label": "-a",
+        "label": "M-a",
         "value": "225",
         "row": 2,
         "column": 0
       },
       {
-        "label": "-s",
+        "label": "M-s",
         "value": "243",
         "row": 2,
         "column": 1
       },
       {
-        "label": "-d",
+        "label": "M-d",
         "value": "228",
         "row": 2,
         "column": 2
       },
       {
-        "label": "-f",
+        "label": "M-f",
         "value": "230",
         "row": 2,
         "column": 3
       },
       {
-        "label": "-R",
+        "label": "M-R",
         "value": "210",
         "row": 2,
         "column": 4
       },
       {
-        "label": "-T",
+        "label": "M-T",
         "value": "212",
         "row": 2,
         "column": 5
       },
       {
-        "label": "-j",
+        "label": "M-j",
         "value": "234",
         "row": 2,
         "column": 6
@@ -180,7 +180,7 @@
         "column": 7
       },
       {
-        "label": "-l",
+        "label": "M-l",
         "value": "236",
         "row": 2,
         "column": 8
@@ -197,43 +197,43 @@
         "column": 0
       },
       {
-        "label": "-A",
+        "label": "M-A",
         "value": "193",
         "row": 3,
         "column": 1
       },
       {
-        "label": "-C",
+        "label": "M-C",
         "value": "195",
         "row": 3,
         "column": 2
       },
       {
-        "label": "-c",
+        "label": "M-c",
         "value": "227",
         "row": 3,
         "column": 3
       },
       {
-        "label": "-v",
+        "label": "M-v",
         "value": "246",
         "row": 3,
         "column": 4
       },
       {
-        "label": "-?",
+        "label": "M-?",
         "value": "191",
         "row": 3,
         "column": 5
       },
       {
-        "label": "-n",
+        "label": "M-n",
         "value": "238",
         "row": 3,
         "column": 6
       },
       {
-        "label": "-m",
+        "label": "M-m",
         "value": "237",
         "row": 3,
         "column": 7
@@ -249,8 +249,8 @@
   {
     "key": [
       {
-        "label": "Symbol",
-        "value": "Symbol",
+        "label": "Num",
+        "value": "Num",
         "row": 4,
         "column": 0
       },

@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
@@ -41,7 +43,6 @@ class NetHackActivity : AppCompatActivity() {
     private lateinit var handler:Handler
     private lateinit var binding: ActivityNethackBinding
     private var isKeyboardShow = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNethackBinding.inflate(layoutInflater)

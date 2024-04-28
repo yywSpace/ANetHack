@@ -865,7 +865,7 @@ void and_add_menu(winid window, const glyph_info * glyph, const union any * iden
         menu_color = clr;
         menu_attr = attr;
     }
-    LOGD("and_add_menu attr=%d, tile=%d, color=%d",menu_attr, tile, menu_color);
+    LOGD("and_add_menu attr=%d, tile=%d, color=%d,accelerator:%c address:%ld",menu_attr, tile, menu_color, accelerator, (long )identifier->a_lptr);
     if(menu_attr)
         menu_attr = 1<<menu_attr;
     jstring jstr = (*jEnv)->NewStringUTF(jEnv,str);
@@ -916,12 +916,14 @@ int and_select_menu(winid wid, int how, MENU_ITEM_P **selected)
     jlongArray selectedItems = (jlongArray)JNICallO(jSelectMenu, wid, how);
     *selected = 0;
     int itemCnt = (*jEnv)->GetArrayLength(jEnv, selectedItems);
+    LOGD("and_select_menu itemCnt:%d", itemCnt);
     if(itemCnt > 1)  { // n should always be 2k (id, count) pairs
         itemCnt >>= 1;
         q = p = (*jEnv)->GetLongArrayElements(jEnv, selectedItems, NULL);
         *selected = (MENU_ITEM_P*)malloc(sizeof(MENU_ITEM_P) * itemCnt);
         for(int i = 0; i < itemCnt; i++)
         {
+            LOGD("and_select_menu address:%ld count:%d", (long)(*p), (int)*(p+1));
             // convert identifier address to anything
             (*selected)[i].item.a_lptr = (long *)(*p++);
             (*selected)[i].count = (int)*p++;
@@ -1014,11 +1016,11 @@ void and_update_positionbar(char *features)
  */
 void and_print_glyph(winid wid, coordxy x, coordxy y, const glyph_info * glyphinfo, const glyph_info * bkglyphinfo)
 {
-    LOGD("and_print_glyph wid=%d %dx%d", wid, x, y);
     int ch = glyphinfo->ttychar;
     int color = glyphinfo->gm.sym.color;
     int tile = glyphinfo->gm.tileidx;
-    LOGD("and_print_glyph wid=%d x=%d y=%d color=%d, ch=%c", wid, x, y, color, ch);
+    int glyph = glyphinfo->glyph;
+    LOGD("and_print_glyph wid=%d x=%d y=%d gryph=%d,color=%d, chd=%d, ch=%c", wid, x, y, glyph, color, ch, ch);
 
     unsigned int special = glyphinfo->gm.glyphflags;
 

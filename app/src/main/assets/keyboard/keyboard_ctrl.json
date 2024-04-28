@@ -250,8 +250,8 @@
 
     "key": [
       {
-        "label": "Symbol",
-        "value": "Symbol",
+        "label": "Num",
+        "value": "Num",
         "row": 4,
         "column": 0
       },

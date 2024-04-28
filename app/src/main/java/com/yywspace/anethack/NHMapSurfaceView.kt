@@ -95,7 +95,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 } else {
                     val menuAdapter = CMDMenuAdapter(listOf(
                         "Fire ammunition from quiver",
-                        "Zap a wand"
+                        "Zap a wand",
+                        "Cast a Spell"
                     ))
                     val dialogMenuView = inflate(context, R.layout.dialog_menu, null)
                         .apply {
@@ -147,6 +148,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                             "Zap a wand" -> {
                                 nh.command.sendCommand(NHCommand('z', 1))
                             }
+                            "Cast a Spell" -> {
+                                nh.command.sendCommand(NHCommand('Z', 1))
+                            }
                         }
                         dialog.dismiss()
                     }
@@ -181,6 +185,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         asciiPaint.typeface = Typeface.createFromAsset(context.assets, "fonts/monobold.ttf")
         asciiPaint.textAlign = Align.LEFT
         paint.isAntiAlias = true
+        scaleDetector.isQuickScaleEnabled = false
         initView()
     }
 
@@ -398,8 +403,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if(mapInit) {
-            scaleDetector.onTouchEvent(event)
             gestureDetector.onTouchEvent(event)
+            scaleDetector.onTouchEvent(event)
             if(event.action == MotionEvent.ACTION_UP) {
                 // click event
                 if(!scaling and !scrolling and !longPress) {

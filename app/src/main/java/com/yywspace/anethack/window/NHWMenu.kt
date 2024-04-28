@@ -3,6 +3,7 @@ package com.yywspace.anethack.window
 import android.annotation.SuppressLint
 import android.content.Context
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.View
 import android.widget.NumberPicker
 import android.widget.TextView
@@ -16,6 +17,7 @@ import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.extensions.showImmersive
+import java.util.Arrays
 import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
@@ -80,10 +82,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
             val dialog = AlertDialog.Builder(context).run {
                 setTitle(title)
                 setView(dialogMenuView)
-                setOnDismissListener {
-                    selectedItems = mutableListOf(-1)
-                    selectMenuFinish()
-                }
+                setCancelable(false)
                 create()
             }
             dialogMenuView.apply {
@@ -144,8 +143,8 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
             menuAdapter.onItemClick = { _, _, item ->
                 if(selectMode == SelectMode.PickOne) {
                     selectedItems =  mutableListOf(item.identifier, item.selectedCount)
-                    dialog.dismiss()
                     selectMenuFinish()
+                    dialog.dismiss()
                 }
             }
             menuAdapter.onItemLongClick = { _, position, item ->

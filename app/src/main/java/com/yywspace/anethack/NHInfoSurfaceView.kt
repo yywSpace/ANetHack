@@ -22,7 +22,7 @@ class NHInfoSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private lateinit var nh:NetHack
     private lateinit var nhMessage: NHWMessage
     private var messageInit: Boolean = false
-    private var messageSize = 5
+    private var messageSize = 4
 
     private var holder: SurfaceHolder? = null
     private var canvas: Canvas? = null
