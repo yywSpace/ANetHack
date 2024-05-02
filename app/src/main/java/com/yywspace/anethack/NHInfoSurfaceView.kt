@@ -7,8 +7,13 @@ import android.graphics.Paint
 import android.graphics.PixelFormat
 import android.graphics.PorterDuff
 import android.text.DynamicLayout
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.text.TextPaint
+import android.text.style.ForegroundColorSpan
 import android.util.AttributeSet
+import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.LinearLayout
@@ -18,11 +23,10 @@ import com.yywspace.anethack.window.NHWMessage
 class NHInfoSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 42f
     private val textPaint:TextPaint = TextPaint()
-    private val paint:Paint = Paint()
     private lateinit var nh:NetHack
     private lateinit var nhMessage: NHWMessage
     private var messageInit: Boolean = false
-    private var messageSize = 4
+    private var messageSize = 3
 
     private var holder: SurfaceHolder? = null
     private var canvas: Canvas? = null
@@ -44,7 +48,6 @@ class NHInfoSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         holder?.addCallback(this)
         holder?.setFormat(PixelFormat.TRANSLUCENT);
         isFocusable = true
-        // isFocusableInTouchMode = true
         this.keepScreenOn = true
     }
     fun initMessage(nh:NetHack, message: NHWMessage) {
@@ -53,10 +56,6 @@ class NHInfoSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         messageInit = true
     }
     override fun surfaceCreated(holder: SurfaceHolder) {
-        val dynamicLayout = DynamicLayout.Builder.obtain("", textPaint, width).build()
-        layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT, dynamicLayout.height * messageSize
-        )
         isDrawing = true
         Thread(this).start();
     }
@@ -70,22 +69,31 @@ class NHInfoSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private fun drawMessageList(canvas: Canvas?) {
         canvas?.apply {
             if (messageInit) {
+                val msgList = nhMessage.getRecentMessageList(messageSize)
+                val msgListHeight = msgList.sumOf {
+                    DynamicLayout.Builder.obtain(it.value.toSpannableString(), textPaint, width).build().height
+                }
+                post {
+                    layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT, msgListHeight
+                    )
+                }
                 var messageHeight = 0f
-                nhMessage.getMessageList(messageSize).forEach {
+                nhMessage.getRecentMessageList(messageSize).forEach{
                     val dynamicLayout = DynamicLayout.Builder.obtain(
                         it.value.toSpannableString(), textPaint,
                         width
                     ).build()
                     messageHeight += dynamicLayout.height
                     canvas.save()
-                    canvas.translate(0f, this@NHInfoSurfaceView.height-messageHeight)
+                    canvas.translate(0f, msgListHeight-messageHeight)
                     dynamicLayout.draw(canvas)
                     canvas.restore()
                 }
             }
-
         }
     }
+
     private fun draw() {
         try {
             canvas = holder?.lockCanvas()

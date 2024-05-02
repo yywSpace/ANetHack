@@ -73,13 +73,12 @@ getlock(void)
     if(!recover_savefile()) {
         eraseoldlocks();
         unlock_file(HLOCK);
-        error("Couldn't recover old game.");
-        // pline("Couldn't recover old game, start new one.");
-        // char c = y_n("Couldn't recover old game, start new one?");
-        // if(c == 'y' || c == 'Y')
-        //     goto gotlock;
-        // else
-        //     error("Couldn't recover old game.");
+        // error("Couldn't recover old game.");
+        char c = y_n("Couldn't recover old game, start new one?");
+        if(c == 'y' || c == 'Y')
+         goto gotlock;
+        else
+         error("Couldn't recover old game.");
     } else {
         pline("Recover game successfully.");
         eraseoldlocks();

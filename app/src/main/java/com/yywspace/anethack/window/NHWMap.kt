@@ -39,10 +39,11 @@ class NHWMap (wid: Int, val nh: NetHack) : NHWindow(wid) {
     }
 
     override fun displayWindow(blocking: Boolean) {
-        Log.d("mapView", "displayWindow")
+        Log.d("NHWMap", "displayWindow")
     }
 
     override fun clearWindow(isRogueLevel: Int) {
+        Log.d("NHWMap", "clearWindow")
         firstCenter = true
         for (row in tiles)
             for (col in row) {
@@ -65,6 +66,7 @@ class NHWMap (wid: Int, val nh: NetHack) : NHWindow(wid) {
     }
 
     fun printTile(x: Int, y: Int, tile: Int, ch: Int, col: Int, special: Int) {
+        Log.d("NHWMap", "printTile(wid: $wid, x: $x, y: $y, tile: $tile, ch: ${CP437_UNICODE[ch and 0xff]}, col: $col, special: $special)")
         tiles[y][x].glyph = tile
         tiles[y][x].ch = CP437_UNICODE[ch and 0xff]
         tiles[y][x].color = NHColor.fromInt(col)

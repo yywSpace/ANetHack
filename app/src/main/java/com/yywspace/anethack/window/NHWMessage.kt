@@ -17,7 +17,6 @@ import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.showImmersive
-import kotlin.streams.toList
 
 class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     val messageList = mutableListOf<NHMessage>()
@@ -35,11 +34,13 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
         }
     }
 
-    fun getMessageList(size: Int):List<NHMessage> {
-        val last = messageList.maxBy { it.time }
-        return messageList.reversed().stream().limit(size.toLong()).map  { nhMessage ->
+    fun getRecentMessageList(size: Int):List<NHMessage> {
+        val lastMsg = messageList.maxBy { it.time }
+        val newestCnt = messageList.count { it.time.isEqual(lastMsg.time) }
+        val msgSize = messageList.size.coerceAtMost(size)
+        return messageList.reversed().subList(0, if (newestCnt > msgSize) newestCnt else msgSize).map  { nhMessage ->
             nhMessage.clone().apply {
-                if (time == last.time)
+                if (time == lastMsg.time)
                     value.nhColor = NHColor.CLR_GREEN
                 else
                     value.nhColor = NHColor.CLR_WHITE
@@ -58,18 +59,7 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                 val dialogTextView = View.inflate(context, R.layout.dialog_message, null)
                     .apply {
                         findViewById<RecyclerView>(R.id.dialog_message_list).apply {
-                            val last = messageList.maxBy { it.time }
-                            val dialogMessageList = messageList.map  { nhMessage ->
-                                nhMessage.clone().apply {
-                                    if (time == last.time)
-                                        value.nhColor = NHColor.CLR_GREEN
-                                    else
-                                        value.nhColor = NHColor.CLR_BLACK
-                                    isSelectable = true
-                                }
-                            }
-
-                            val messageAdapter = NHWMessageAdapter(dialogMessageList).apply {
+                            val messageAdapter = NHWMessageAdapter(messageList).apply {
                                 omItemViewClick = {
 
                                 }
@@ -106,12 +96,14 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
 
     override fun putString(attr: Int, msg: String, color: Int) {
         if(msg.isEmpty()) return
+        Log.d("NHWMessage","NHWMessage: putString $msg")
         messageList.add(NHMessage(NHString(msg.trim(), attr), nh.command.lastCmdTime))
     }
 
 
     class NHWMessageAdapter(private val messageList:List<NHMessage>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var omItemViewClick:((view:View)->Unit)? = null
+        private var lastCmdMsg:NHMessage = messageList.maxBy { it.time }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.dialog_message_item, parent, false)
@@ -126,8 +118,15 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val message = messageList[position]
             (holder as MessageViewHolder).apply {
-                itemMessage.text = message.value.toSpannableString()
-                itemMessage.setTextIsSelectable(message.isSelectable);
+                message.apply {
+                    if (time == lastCmdMsg.time)
+                        value.nhColor = NHColor.CLR_GREEN
+                    else
+                        value.nhColor = NHColor.CLR_BLACK
+                    itemMessage.text = value.toSpannableString()
+                    itemMessage.setTextIsSelectable(true);
+                }
+
                 itemView.setOnClickListener { v ->
                     omItemViewClick?.invoke(v)
                 }

@@ -48,7 +48,6 @@ class NetHack(
         isRunning = false
         Log.d(TAG, "native process finished")
     }
-
     fun run() {
         runNHThread.start()
     }
