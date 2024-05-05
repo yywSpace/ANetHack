@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".NetHackActivity">
 
     <com.yywspace.anethack.NHMapSurfaceView
@@ -18,169 +19,21 @@
         android:focusable="true"
         android:clickable="true"
         android:orientation="vertical">
-        <LinearLayout
+        <com.yywspace.anethack.NHStatusSurfaceView
+            android:id="@+id/status_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="50dp"/>
 
-            <TextView
-                android:id="@+id/status_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                tools:text="K the Rambler" />
-            <TextView
-                android:id="@+id/status_align"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="Neutral" />
-
-        </LinearLayout>
-        <LinearLayout
+        <com.yywspace.anethack.NHMessageSurfaceView
+            android:id="@+id/message_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="50dp">
 
-            <TextView
-                android:id="@+id/status_st"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                tools:text="St:18/00" />
-            <TextView
-                android:id="@+id/status_dx"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="Dx:18/00" />
-            <TextView
-                android:id="@+id/status_co"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="Co:18/00" />
-            <TextView
-                android:id="@+id/status_in"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="In:18/00" />
-            <TextView
-                android:id="@+id/status_wi"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="Wi:18/00" />
-            <TextView
-                android:id="@+id/status_ch"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="Ch:18/00" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/status_hp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                tools:text="HP:100(100)" />
-            <TextView
-                android:id="@+id/status_pw"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="PW:100(100)" />
-
-            <TextView
-                android:id="@+id/status_gold"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="$:2000" />
-
-            <TextView
-                android:id="@+id/status_ac"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="AC:10" />
-            <TextView
-                android:id="@+id/status_xp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="XP:10/00" />
-            <TextView
-                android:id="@+id/status_time"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="T:1000" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/status_level"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                tools:text="Dlvl:100" />
-
-            <TextView
-                android:id="@+id/status_hunger"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="hunger" />
-
-            <TextView
-                android:id="@+id/status_cap"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="Burdened" />
-
-            <TextView
-                android:id="@+id/status_condition"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                tools:text="FodPoi LEV STONE" />
-        </LinearLayout>
-
-
-        <com.yywspace.anethack.NHInfoSurfaceView
-            android:id="@+id/info_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </com.yywspace.anethack.NHInfoSurfaceView>
+        </com.yywspace.anethack.NHMessageSurfaceView>
 
     </LinearLayout>
 
     <LinearLayout
-        android:background="@drawable/bg_round"
         android:orientation="vertical"
         android:layout_gravity="bottom"
         android:clickable="true"
@@ -191,19 +44,19 @@
 
         <com.yywspace.anethack.keybord.KeyboardView
             android:id="@+id/keyboard_view"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="2dp"/>
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"/>
 
         <LinearLayout
-            android:id="@+id/base_panel"
+            android:id="@+id/base_command_panel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:padding="2dp"
             android:orientation="horizontal">
         </LinearLayout>
-
     </LinearLayout>
-
 </FrameLayout>

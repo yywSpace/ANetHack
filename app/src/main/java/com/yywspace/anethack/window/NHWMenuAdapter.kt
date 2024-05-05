@@ -91,6 +91,8 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu) :
                                 itemCheckBox.isChecked = menuItem.isSelected
                             }
                         }
+                    }else {
+                        itemCheckBox.visibility = View.GONE
                     }
 
                     if (menuItem.hasSubtitle()) {

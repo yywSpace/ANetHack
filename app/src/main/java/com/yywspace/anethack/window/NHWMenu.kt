@@ -49,6 +49,8 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
         text: String,
         preselected: Boolean
     ) {
+        if(text.isEmpty())
+            return
         nhMenuItems.add(
             NHMenuItem(glyph, identifier,
                 accelerator, groupAcc, NHString(text, attr, clr), preselected)

@@ -33,6 +33,8 @@ class KeyboardView : GridLayout {
     private var isUpper = false
     private var isNumberPanelShow = false
     var onKeyPress:((key:NHKeyboard.Key)->Unit)? = null
+    var onSpecialKeyLongPress:((key:NHKeyboard.Key)->Unit)? = null
+
     private var vibrator: Vibrator
 
     constructor(context: Context?) : this(context, null, 0)
@@ -132,8 +134,10 @@ class KeyboardView : GridLayout {
             }
             setOnLongClickListener {
                 val k = this@KeyboardView.keyboard.rows[x].keys[y]
-                if (k.label in listOf<String>( "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "ESC", "DEL", "Enter"))
+                if (k.label in listOf<String>( "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "ESC", "DEL", "Enter")) {
+                    onSpecialKeyLongPress?.invoke(k)
                     return@setOnLongClickListener true
+                }
                 when(keyboardType) {
                     NHKeyboard.Type.UPPER_LETTER, NHKeyboard.Type.LETTER -> {
                         onKeyPress?.invoke(keyboardSymbol.rows[x].keys[y])

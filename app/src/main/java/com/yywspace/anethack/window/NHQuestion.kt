@@ -78,8 +78,12 @@ class NHQuestion(val nh: NetHack) {
         Log.d("NHQuestion", "question:$question choices:$choices def:$def")
         if (choices.isNotEmpty())
             ynQuestion(question, choices, ynNumber, def)
-        else
+        else {
+            if (question.startsWith("In what direction")) {
+                return
+            }
             selectQuestion(question, def)
+        }
     }
 
 

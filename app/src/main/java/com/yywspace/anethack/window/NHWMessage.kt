@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.yywspace.anethack.NHInfoSurfaceView
+import com.yywspace.anethack.NHMessageSurfaceView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
@@ -20,7 +20,7 @@ import com.yywspace.anethack.extensions.showImmersive
 
 class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     val messageList = mutableListOf<NHMessage>()
-    private var messageView: NHInfoSurfaceView = nh.binding.infoView
+    private var messageView: NHMessageSurfaceView = nh.binding.messageView
     private var lastClickTime = 0L
 
     init {
@@ -68,7 +68,6 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                             layoutManager = LinearLayoutManager(context,
                                 LinearLayoutManager.VERTICAL, true).apply {
                                 stackFromEnd = true
-
                             }
                         }
                     }

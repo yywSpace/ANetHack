@@ -71,7 +71,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         override fun onDown(e: MotionEvent): Boolean {
             lastMapBorder = RectF(mapBorder)
             scaling = false
-            return super.onDown(e)
+            return false
         }
 
         override fun onScroll(e1: MotionEvent, e2: MotionEvent,
@@ -230,7 +230,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         // h- . -l
         //  / | \
         //  b j n
-        var cmd = when(direction) {
+        val cmd = when(direction) {
             Direction.UP -> 'k'
             Direction.DOWN -> 'j'
             Direction.LEFT -> 'h'
@@ -243,7 +243,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             else -> 27.toChar()
         }
         if(straight) {
-            cmd = cmd.uppercaseChar()
+            // cmd = cmd.uppercaseChar()
+            nh.command.sendCommand(NHCommand('G'))
         }
         nh.command.sendCommand(NHCommand(cmd))
     }
@@ -403,19 +404,23 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if(mapInit) {
-            gestureDetector.onTouchEvent(event)
-            scaleDetector.onTouchEvent(event)
+            // 防止缩放和滑动冲突
+            if (event.pointerCount == 2)
+                scaleDetector.onTouchEvent(event)
+            if (event.pointerCount == 1)
+                gestureDetector.onTouchEvent(event)
             if(event.action == MotionEvent.ACTION_UP) {
                 // click event
-                if(!scaling and !scrolling and !longPress) {
+                if (!scaling and !scrolling and !longPress) {
                     lastTouchTile = getTileLocation(event.x, event.y)
                     val curseBorder = getTileBorder(map.curse.x, map.curse.y)
                     val direction = getMoveDirection(
                         PointF(curseBorder.centerX(), curseBorder.centerY()),
                         PointF(event.x, event.y)
                     )
-                    Log.d("direction","$direction")
+                    Log.d("direction", "$direction")
                     playerMove(direction, false)
+
                 }
                 if(longPress)
                     longPress = false

@@ -6,7 +6,7 @@
             <!-- 填充颜色 -->
             <solid android:color="@android:color/transparent"/>
             <!-- 线的宽度，颜色 -->
-            <stroke android:width="1dp" android:color="#00bbff"/>
+            <stroke android:width="0.5dp" android:color="#00bbff"/>
             <!-- 矩形的圆角半径 -->
             <corners android:radius="5dp" />
         </shape>
@@ -18,7 +18,7 @@
             <!-- <solid android:color="@android:color/transparent"/>-->
             <solid android:color="@android:color/white"/>
             <!-- 线的宽度，颜色 -->
-            <stroke android:width="1dp" android:color="@color/gray"/>
+            <stroke android:width="0.5dp" android:color="@color/gray"/>
             <!-- 矩形的圆角半径 -->
             <corners android:radius="5dp" />
         </shape>

@@ -6,30 +6,20 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.GridLayout
 import android.widget.LinearLayout
-import android.widget.PopupWindow
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.core.view.marginTop
-import androidx.core.view.setMargins
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
-import com.yywspace.anethack.keybord.NHKeyboard
-import com.yywspace.anethack.keybord.NHKeyboardUtils
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -72,6 +62,15 @@ class NetHackActivity : AppCompatActivity() {
             onKeyPress = {
                 if (nethack.isRunning && it.label.isNotEmpty())
                     processKeyPress(it.value)
+            }
+            onSpecialKeyLongPress = {
+                when(it.label) {
+                    "ESC" -> {
+                        processKeyPress("Center")
+                    }
+                    "Meta", "Ctrl" ->
+                        processKeyPress("#")
+                }
             }
             visibility = View.GONE
         }
@@ -125,10 +124,10 @@ class NetHackActivity : AppCompatActivity() {
     private fun initControlPanel() {
         // Ctrl|^C Meta|^M
         val panelDefault = """
-            Setting #|Extend LS|Save #quit|Quit L20s|20s Center Letter|abc
+            Setting LS|Save #quit|Quit L20s|20s Li|Bag Letter|abc
         """.trimIndent()
         val panel = nethack.prefs.panel?:panelDefault
-        initCustomControlPanel(this, binding.basePanel, panel)
+        initCustomControlPanel(this, binding.baseCommandPanel, panel)
     }
 
     private fun hideSystemUi() {
@@ -145,7 +144,7 @@ class NetHackActivity : AppCompatActivity() {
         windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
     }
 
-    private fun initCustomControlPanel(context: Context,panelView:LinearLayout, panel:String) {
+    private fun initCustomControlPanel(context: Context, panelView:LinearLayout, panel:String) {
         panelView.removeAllViews()
         val panelItems = panel.split(" ")
         panelItems.forEachIndexed { i, item ->
@@ -154,23 +153,15 @@ class NetHackActivity : AppCompatActivity() {
             var label = array[0]
             if(array.size == 2)
                 label = array[1]
-            val button = TextView(context).apply {
+            val button =
+                (LayoutInflater.from(context).inflate(R.layout.panel_cmd_item, null) as TextView)
+                    .apply {
                 text = label
                 layoutParams = LinearLayout.LayoutParams(
-                     0,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    0,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
                     1f
-                ).apply {
-                    leftMargin = 10
-                    if(i == panelItems.size -1)
-                        rightMargin = 10
-                }
-                setPadding(0,15,0,15)
-                gravity = Gravity.CENTER
-                // typeface = Typeface.defaultFromStyle(Typeface.BOLD);
-                setBackgroundResource(R.drawable.btn_bg_selector)
-                maxLines = 1
-                ellipsize = TextUtils.TruncateAt.MIDDLE
+                )
                 setOnClickListener {
                     processKeyPress(cmd)
                 }
