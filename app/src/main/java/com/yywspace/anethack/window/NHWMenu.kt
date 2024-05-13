@@ -71,7 +71,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     }
     @SuppressLint("NotifyDataSetChanged")
     private fun showMenuSelectDialog() {
-        nh.runOnUi(false) { _, context ->
+        nh.runOnUi() { _, context ->
             val menuAdapter = NHWMenuAdapter(this@NHWMenu)
             // set the custom layout
             val dialogMenuView = View.inflate(context, R.layout.dialog_menu, null)
@@ -153,6 +153,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                 showAmountPickerDialog(context, item, position, menuAdapter)
             }
             dialog.showImmersive()
+            Log.d("11111111111111", "22222222222222")
         }
 
     }

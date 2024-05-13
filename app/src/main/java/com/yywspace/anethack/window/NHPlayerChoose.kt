@@ -56,7 +56,7 @@ class NHPlayerChoose(val nh: NetHack) {
 
 
     private fun showPlayerChooseDialog(players: List<NHPlayer>) {
-        nh.runOnUi(false) { _, context ->
+        nh.runOnUi() { _, context ->
             val dialog = AlertDialog.Builder(context).run {
                 setTitle(R.string.player_select)
                 setPositiveButton(R.string.dialog_confirm, null)
@@ -96,7 +96,7 @@ class NHPlayerChoose(val nh: NetHack) {
     }
 
     private fun showNewPlayerDialog(parentDialog: AlertDialog) {
-        nh.runOnUi(false) { _, context ->
+        nh.runOnUi() { _, context ->
             val view = View.inflate(context, R.layout.dialog_player_choose_input, null)
             val input = view.findViewById<EditText>(R.id.player_input)
             val playModG = view.findViewById<RadioGroup>(R.id.play_mod_radio_group)

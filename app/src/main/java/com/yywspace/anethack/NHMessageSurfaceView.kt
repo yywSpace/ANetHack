@@ -8,11 +8,13 @@ import android.graphics.PorterDuff
 import android.text.DynamicLayout
 import android.text.TextPaint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.LinearLayout
 import com.yywspace.anethack.window.NHWMessage
 import kotlin.math.ceil
+import kotlin.streams.toList
 
 
 class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
@@ -22,6 +24,7 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private lateinit var nhMessage: NHWMessage
     private var messageInit: Boolean = false
     private var messageSize = 3
+    private var maxMessageSize = 10
 
     private var holder: SurfaceHolder? = null
     private var canvas: Canvas? = null
@@ -66,6 +69,9 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             if (messageInit) {
                 var messageListHeight = 0f
                 nhMessage.getRecentMessageList(messageSize)
+                    .stream()
+                    .limit(maxMessageSize.toLong())
+                    .toList()
                     .reversed().forEach{
                     val dynamicLayout = DynamicLayout.Builder.obtain(
                         it.value.toSpannableString(), textPaint,

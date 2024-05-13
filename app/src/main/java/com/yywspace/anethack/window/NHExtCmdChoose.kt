@@ -20,7 +20,7 @@ class NHExtCmdChoose(val nh: NetHack) {
     private lateinit var extCmdList: Array<String>
     private var commandList: MutableList<NHExtCmd> = mutableListOf()
     private fun showExtCmdDialog(commandList: MutableList<NHExtCmd>) {
-        nh.runOnUi(false) { _, context ->
+        nh.runOnUi() { _, context ->
             val dialog = AlertDialog.Builder(context).run {
                 setTitle(R.string.ext_cmd_select)
                 setNeutralButton(R.string.dialog_cancel) { _,_ ->

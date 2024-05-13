@@ -258,15 +258,9 @@ class NetHack(
         }
          return null
     }
-    fun runOnUi(delay:Boolean = true, runUi: ((binding:ActivityNethackBinding, context:Activity) -> Unit)) {
-        if(delay) {
-            handler.postDelayed({
-                runUi.invoke(binding, context)
-            }, 100)
-        }else {
-            handler.post {
-                runUi.invoke(binding, context)
-            }
+    fun runOnUi(runUi: ((binding:ActivityNethackBinding, context:Activity) -> Unit)) {
+        handler.post {
+            runUi.invoke(binding, context)
         }
     }
 

@@ -3,10 +3,8 @@ package com.yywspace.anethack.window
 import android.graphics.Point
 import android.util.Log
 import com.yywspace.anethack.NHMapSurfaceView
-import com.yywspace.anethack.NHMapView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
-import java.util.concurrent.LinkedBlockingDeque
 
 class NHWMap (wid: Int, val nh: NetHack) : NHWindow(wid) {
     val tileCols = 80

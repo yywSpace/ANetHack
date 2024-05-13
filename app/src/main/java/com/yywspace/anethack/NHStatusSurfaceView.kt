@@ -115,14 +115,10 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun drawHpOrPw(status: Pair<StatusField, Spannable>, canvas: Canvas): RectF {
-        val hpMaxValue = nhStatus.getField(StatusField.BL_HPMAX).toString().let {
-            it.substring(1, it.length - 1)
-        }
-        val pwMaxValue = nhStatus.getField(StatusField.BL_HPMAX).toString().let {
-            it.substring(1, it.length - 1)
-        }
-        val hpPlaceholder = "HP: ${hpMaxValue}/${hpMaxValue}"
-        val pwPlaceholder = "Pw: ${pwMaxValue}/${pwMaxValue}"
+        val hpMaxValue = nhStatus.getField(StatusField.BL_HPMAX)
+        val pwMaxValue = nhStatus.getField(StatusField.BL_HPMAX)
+        val hpPlaceholder = "HP:${hpMaxValue}/${hpMaxValue}"
+        val pwPlaceholder = "Pw:${pwMaxValue}/${pwMaxValue}"
         val hpWidth = ceil(DynamicLayout.getDesiredWidth(hpPlaceholder, textPaint))
         val pwWidth = ceil(DynamicLayout.getDesiredWidth(pwPlaceholder, textPaint))
         val statusLayout =DynamicLayout.Builder.obtain(

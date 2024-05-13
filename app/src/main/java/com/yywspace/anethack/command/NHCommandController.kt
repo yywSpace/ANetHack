@@ -45,7 +45,7 @@ class NHCommandController {
             cmdQueue.removeFirst()
         }
         try {
-            Thread.sleep(50)
+//            Thread.sleep(50)
         } catch (_: InterruptedException) {
         }
         return cmd
@@ -79,7 +79,7 @@ class NHCommandController {
                 }
             }
             try {
-                Thread.sleep(50)
+//                Thread.sleep(50)
             } catch (_: InterruptedException) {
             }
         }

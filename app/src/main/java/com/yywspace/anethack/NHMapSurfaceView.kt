@@ -42,8 +42,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private val paint = Paint()
     private val asciiPaint = TextPaint()
     private var scaling = false
-    private var scrolling = false
-    private var longPress = false
 
     private lateinit var nh:NetHack
     private lateinit var map: NHWMap
@@ -53,10 +51,116 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     private var tileWidth:Float = 0F
     private var tileHeight:Float = 0F
-
     private var holder: SurfaceHolder? = null
     private var canvas: Canvas? = null
     private var isDrawing = false
+
+    private var mapTouchListener:NHMapTouchListener = NHMapTouchListener().apply {
+        onNHMapTouchListener = object : NHMapTouchListener.OnNHMapTouchListener {
+            override fun onDown(e: PointF) {
+                scaling = false
+                lastMapBorder = RectF(mapBorder)
+            }
+
+            override fun onClick(e: PointF) {
+                if (scaling) return
+                lastTouchTile = getTileLocation(e.x, e.y)
+                val curseBorder = getTileBorder(map.curse.x, map.curse.y)
+                val direction = getMoveDirection(
+                    PointF(curseBorder.centerX(), curseBorder.centerY()),
+                    PointF(e.x, e.y)
+                )
+                Log.d("direction", "$direction")
+                playerMove(direction, false)
+            }
+
+            override fun onLongPressUp(e: PointF) {
+
+            }
+
+            override fun onLongPressMove(e1: PointF, e2: PointF) {
+
+            }
+            override fun onLongPress(e: PointF) {
+                if (scaling) return
+                lastTouchTile = getTileLocation(e.x, e.y).also { point ->
+                    if (abs(map.curse.x - point.x) < 1 && abs(map.curse.y - point.y) < 1) {
+                        nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
+                    } else {
+                        val menuAdapter = CMDMenuAdapter(listOf(
+                            "Fire ammunition from quiver",
+                            "Zap a wand",
+                            "Cast a Spell"
+                        ))
+                        val dialogMenuView = inflate(context, R.layout.dialog_menu, null)
+                            .apply {
+                                findViewById<RecyclerView>(R.id.menu_item_list)?.apply {
+                                    adapter = menuAdapter
+                                    layoutManager = LinearLayoutManager(context)
+                                }
+                            }
+                        val dialog = AlertDialog.Builder(context).run {
+                            setTitle(R.string.pos_key_question)
+                            setView(dialogMenuView)
+                            create()
+                        }
+                        dialogMenuView.apply {
+                            findViewById<MaterialButton>(R.id.menu_btn_1)?.apply {
+                                setText(R.string.pos_key_look)
+                                setOnClickListener {
+                                    // get tile info
+                                    nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.LOOK))
+                                    dialog.dismiss()
+                                }
+                            }
+                            findViewById<MaterialButton>(R.id.menu_btn_2)?.apply {
+                                setText(R.string.pos_key_run)
+                                setOnClickListener {
+                                    val tileBorder = getTileBorder(map.curse.x, map.curse.y)
+                                    val direction = getMoveDirection(
+                                        PointF(tileBorder.centerX(), tileBorder.centerY()),
+                                        PointF(e.x, e.y)
+                                    )
+                                    playerMove(direction, true)
+                                    dialog.dismiss()
+                                }
+                            }
+                            findViewById<MaterialButton>(R.id.menu_btn_3)?.apply {
+                                setText(R.string.pos_key_travel)
+                                setOnClickListener {
+                                    // whether travel to tile
+                                    nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
+                                    dialog.dismiss()
+                                }
+                            }
+                        }
+                        menuAdapter.onItemClick = { _, _, item ->
+                            when(item) {
+                                "Fire ammunition from quiver" -> {
+                                    nh.command.sendCommand(NHCommand('f', 1))
+                                }
+                                "Zap a wand" -> {
+                                    nh.command.sendCommand(NHCommand('z', 1))
+                                }
+                                "Cast a Spell" -> {
+                                    nh.command.sendCommand(NHCommand('Z', 1))
+                                }
+                            }
+                            dialog.dismiss()
+                        }
+                        dialog.showImmersive()
+                    }
+                }
+            }
+            override fun onMove(e1: PointF, e2: PointF) {
+                if (scaling) return
+                mapBorder.left = lastMapBorder.left  + e2.x - e1.x
+                mapBorder.right = lastMapBorder.right + e2.x - e1.x
+                mapBorder.top = lastMapBorder.top + e2.y - e1.y
+                mapBorder.bottom = lastMapBorder.bottom + e2.y - e1.y
+            }
+        }
+    }
 
     private val scaleDetector = ScaleGestureDetector(context, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
 
@@ -67,113 +171,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         }
     })
 
-    private val gestureDetector =  GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
-        override fun onDown(e: MotionEvent): Boolean {
-            lastMapBorder = RectF(mapBorder)
-            scaling = false
-            return false
-        }
-
-        override fun onScroll(e1: MotionEvent, e2: MotionEvent,
-                              distanceX: Float, distanceY: Float): Boolean {
-            if(scaling) return true
-            scrolling = true
-            mapBorder.left = lastMapBorder.left  + e2.x - e1.x
-            mapBorder.right = lastMapBorder.right + e2.x - e1.x
-            mapBorder.top = lastMapBorder.top + e2.y - e1.y
-            mapBorder.bottom = lastMapBorder.bottom + e2.y - e1.y
-            return true
-        }
-
-
-        override fun onLongPress(e: MotionEvent) {
-            if(scaling) return
-            longPress = true
-            lastTouchTile = getTileLocation(e.x, e.y).also { point ->
-                if (abs(map.curse.x - point.x) < 1 && abs(map.curse.y - point.y) < 1) {
-                    nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
-                } else {
-                    val menuAdapter = CMDMenuAdapter(listOf(
-                        "Fire ammunition from quiver",
-                        "Zap a wand",
-                        "Cast a Spell"
-                    ))
-                    val dialogMenuView = inflate(context, R.layout.dialog_menu, null)
-                        .apply {
-                            findViewById<RecyclerView>(R.id.menu_item_list)?.apply {
-                                adapter = menuAdapter
-                                layoutManager = LinearLayoutManager(context)
-                            }
-                        }
-                    val dialog = AlertDialog.Builder(context).run {
-                        setTitle(R.string.pos_key_question)
-                        setView(dialogMenuView)
-                        create()
-                    }
-                    dialogMenuView.apply {
-                        findViewById<MaterialButton>(R.id.menu_btn_1)?.apply {
-                            setText(R.string.pos_key_look)
-                            setOnClickListener {
-                                // get tile info
-                                nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.LOOK))
-                                dialog.dismiss()
-                            }
-                        }
-                        findViewById<MaterialButton>(R.id.menu_btn_2)?.apply {
-                            setText(R.string.pos_key_straight)
-                            setOnClickListener {
-                                val tileBorder = getTileBorder(map.curse.x, map.curse.y)
-                                val direction = getMoveDirection(
-                                    PointF(tileBorder.centerX(), tileBorder.centerY()),
-                                    PointF(e.x, e.y)
-                                )
-                                playerMove(direction, true)
-                                dialog.dismiss()
-                            }
-                        }
-                        findViewById<MaterialButton>(R.id.menu_btn_3)?.apply {
-                            setText(R.string.pos_key_travel)
-                            setOnClickListener {
-                                // whether travel to tile
-                                nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
-                                dialog.dismiss()
-                            }
-                        }
-                    }
-                    menuAdapter.onItemClick = { _, _, item ->
-                        when(item) {
-                            "Fire ammunition from quiver" -> {
-                                nh.command.sendCommand(NHCommand('f', 1))
-                            }
-                            "Zap a wand" -> {
-                                nh.command.sendCommand(NHCommand('z', 1))
-                            }
-                            "Cast a Spell" -> {
-                                nh.command.sendCommand(NHCommand('Z', 1))
-                            }
-                        }
-                        dialog.dismiss()
-                    }
-                    dialog.showImmersive()
-
-                    MaterialAlertDialogBuilder(context).apply {
-                        setMessage(R.string.pos_key_question)
-                        setPositiveButton(R.string.pos_key_travel) { _, _ ->
-
-                        }
-                        setNegativeButton(R.string.pos_key_straight) { _, _ ->
-
-                        }
-                        setNeutralButton(R.string.pos_key_look){ _, _ ->
-
-                        }
-                        create()
-                        // showImmersive()
-                    }
-                }
-            }
-        }
-    })
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
@@ -407,26 +404,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             // 防止缩放和滑动冲突
             if (event.pointerCount == 2)
                 scaleDetector.onTouchEvent(event)
-            if (event.pointerCount == 1)
-                gestureDetector.onTouchEvent(event)
-            if(event.action == MotionEvent.ACTION_UP) {
-                // click event
-                if (!scaling and !scrolling and !longPress) {
-                    lastTouchTile = getTileLocation(event.x, event.y)
-                    val curseBorder = getTileBorder(map.curse.x, map.curse.y)
-                    val direction = getMoveDirection(
-                        PointF(curseBorder.centerX(), curseBorder.centerY()),
-                        PointF(event.x, event.y)
-                    )
-                    Log.d("direction", "$direction")
-                    playerMove(direction, false)
-
-                }
-                if(longPress)
-                    longPress = false
-                if(scrolling)
-                    scrolling = false
-            }
+            else if (event.pointerCount == 1)
+                mapTouchListener.onTouch(this, event)
         }
         return true
     }
