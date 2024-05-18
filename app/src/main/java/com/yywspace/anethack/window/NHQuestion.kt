@@ -1,15 +1,17 @@
 package com.yywspace.anethack.window
 
+import android.R.attr.data
 import android.content.Context
-import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NetHack
@@ -32,6 +34,7 @@ class NHQuestion(val nh: NetHack) {
             ""
         }
     }
+
     public fun showInputQuestion(question: String,  bufSize: Int) {
         nh.runOnUi { _, context ->
             View.inflate(context, R.layout.dialog_question_input,null)
@@ -44,9 +47,15 @@ class NHQuestion(val nh: NetHack) {
                             hintStr = groupValues[2]
                         }
                     }
-                    val input = findViewById<EditText>(R.id.dialog_question_input).apply {
+                    val input = findViewById<AppCompatAutoCompleteTextView>(R.id.dialog_question_input).apply {
                         if (hintStr.isNotEmpty())
                             this.hint = hintStr
+                        val adapter = ArrayAdapter(
+                            nh.context, android.R.layout.simple_dropdown_item_1line,
+                            nh.prefs.getInputPrompts()
+                        )
+                        threshold = 1
+                        setAdapter(adapter)
                     }
                     val dialog = AlertDialog.Builder(context).run {
                         setTitle(ques)
@@ -57,15 +66,16 @@ class NHQuestion(val nh: NetHack) {
                                 finishLine("")
                                 return@setPositiveButton
                             }
-
                             if(input.text.length > bufSize)
                                 finishLine(input.text.substring(0, bufSize))
                             else
                                 finishLine(input.text.toString())
+                            nh.prefs.addInputPrompts(input.text.toString())
                         }
                         setNegativeButton(R.string.dialog_cancel) { _, _ ->
                             // cancel naming attempt
                             finishLine(27.toChar().toString())
+                            nh.prefs.removeInputPrompts(input.text.toString())
                         }
                     }
                     dialog.setCancelable(false)

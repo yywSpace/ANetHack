@@ -33,8 +33,8 @@ OPTIONS=!tutorial,!legacy
 OPTIONS=scores:10 top/2 around/own
 OPTIONS=!cmdassist
 
-#OPTIONS=autopickup,pickup_types:$"=/!?+
-OPTIONS=!autopickup
+OPTIONS=!autopickup,pickup_types:$"=/!?+
+#OPTIONS=!autopickup
 OPTIONS=force_invmenu
 OPTIONS=IBMgraphics
 OPTIONS=boulder:0
@@ -90,7 +90,7 @@ OPTIONS=hilite_status:hitpoints/<50%/orange/<30%/red&bold
 OPTIONS=hilite_status:hitpoints/<15%/red&inverse
 
 ## Power
-OPTIONS=hilite_status:power/100%/green/<100%/green/<70%/yellow
+OPTIONS=hilite_status:power/100%/blue/<100%/blue/<70%/yellow
 OPTIONS=hilite_status:power/<50%/orange/<30%/red&bold
 
 ## Conditions

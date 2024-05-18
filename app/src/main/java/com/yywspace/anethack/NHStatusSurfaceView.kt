@@ -84,6 +84,11 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 val pwMax = nhStatus.getSpannableField(StatusField.BL_ENEMAX)
                 Pair(field, SpannableStringBuilder(pw).append(pwMax))
             }
+            StatusField.BL_XP -> {
+                val xp = nhStatus.getSpannableField(StatusField.BL_XP)
+                val exp = nhStatus.getSpannableField(StatusField.BL_EXP)
+                Pair(field, SpannableStringBuilder(xp).append(exp))
+            }
             else -> Pair(field, nhStatus.getSpannableField(field))
         }
     }
@@ -122,7 +127,7 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         val hpWidth = ceil(DynamicLayout.getDesiredWidth(hpPlaceholder, textPaint))
         val pwWidth = ceil(DynamicLayout.getDesiredWidth(pwPlaceholder, textPaint))
         val statusLayout =DynamicLayout.Builder.obtain(
-            status.second, textPaint, ceil(max(hpWidth, pwWidth)).toInt()
+            status.second, textPaint, ceil(max(hpWidth, pwWidth)+10).toInt()
         ).build()
         val regex = Regex("(.*:)([0-9]*)\\(([0-9]*)\\)")
         textPaint.color = Color.WHITE

@@ -27,20 +27,16 @@ class NHPlayerChoose(val nh: NetHack) {
     fun askName(nameSize: Int, saves: Array<String>) {
         this.nameSize = nameSize
         this.saves = saves
-        players.clear()
-        val savesMap = HashMap<String,String>()
+        var hasWizardSave = false
         saves.distinct().forEach {
             if(it == PLAY_MOD_WIZARD) {
-                savesMap[it] = PLAY_MOD_WIZARD
-                players.add(NHPlayer(it, PLAY_MOD_WIZARD))
+                hasWizardSave = true
+                players.add(0, NHPlayer(it, PLAY_MOD_WIZARD))
             }else {
-                savesMap[it] = nh.prefs.saves[it]?:"undefine"
-                players.add(NHPlayer(it, nh.prefs.saves[it]?:"undefine"))
+                players.add(NHPlayer(it, nh.prefs.getSaves()[it]?:"undefine"))
             }
         }
-        nh.prefs.saves = savesMap
-        val wizard = players.find { it.player == PLAY_MOD_WIZARD }
-        if(wizard == null)
+        if(!hasWizardSave)
             players.add(0, NHPlayer(PLAY_MOD_WIZARD, PLAY_MOD_WIZARD))
         showPlayerChooseDialog(players)
     }
@@ -56,7 +52,7 @@ class NHPlayerChoose(val nh: NetHack) {
 
 
     private fun showPlayerChooseDialog(players: List<NHPlayer>) {
-        nh.runOnUi() { _, context ->
+        nh.runOnUi { _, context ->
             val dialog = AlertDialog.Builder(context).run {
                 setTitle(R.string.player_select)
                 setPositiveButton(R.string.dialog_confirm, null)
@@ -122,9 +118,7 @@ class NHPlayerChoose(val nh: NetHack) {
                         }
                     }
                     parentDialog.dismiss()
-                    nh.prefs.saves = nh.prefs.saves.apply {
-                        put(player, playMod)
-                    }
+                    nh.prefs.addSaves(player, playMod)
                     finishPlayerChoose(NHPlayer(player, playMod))
                 }
                 setNegativeButton(R.string.dialog_cancel, null)

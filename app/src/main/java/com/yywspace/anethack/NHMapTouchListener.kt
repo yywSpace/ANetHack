@@ -39,6 +39,7 @@ class NHMapTouchListener : OnTouchListener {
                 isClick = true
                 isMoving = true
                 isLongPress = true
+                isLongPressMove = false
                 firstLocation.set(event.x, event.y)
                 lastLocation.set(event.x, event.y)
                 onNHMapTouchListener?.onDown(firstLocation)
@@ -46,14 +47,14 @@ class NHMapTouchListener : OnTouchListener {
                 baseHandler.postDelayed(longPressRunnable, LONG_TRIGGER_TIME)
             }
             MotionEvent.ACTION_MOVE-> {
-                if (isMoving && abs(firstLocation.x - event.x) > 20 || abs(firstLocation.y - event.y) > 20) {
+                if (isMoving && abs(firstLocation.x - event.x) > 40 || abs(firstLocation.y - event.y) > 40) {
                     isLongPress = false
                     isClick = false
                 }
                 if (isLongPressMove) {
                     onNHMapTouchListener?.onLongPressMove(lastLocation, PointF(event.x, event.y))
                 }
-                if (isMoving) {
+                if (isMoving && !isLongPress && !isClick) {
                     onNHMapTouchListener?.onMove(lastLocation, PointF(event.x, event.y))
                     Log.d("NHMapTouchListener", "Move")
                 }
@@ -63,7 +64,7 @@ class NHMapTouchListener : OnTouchListener {
                     baseHandler.removeCallbacks(longPressRunnable)
                     isLongPress = false
                 }
-                if(isLongPress) {
+                if(isLongPress||isLongPressMove) {
                     onNHMapTouchListener?.onLongPressUp(PointF(event.x, event.y))
                 }
                 if (isClick) {

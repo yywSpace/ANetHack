@@ -27,3 +27,4 @@ fun AlertDialog.Builder.showImmersive():AlertDialog{
     dialog.showImmersive()
     return dialog
 }
+

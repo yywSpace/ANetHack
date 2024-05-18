@@ -9,14 +9,36 @@ class SharedPreferencesUtils(context: Context) {
 
     private val preferences: SharedPreferences = context.getSharedPreferences("NetHack", Context.MODE_PRIVATE)
 
-    var saves by SharedPreferenceDelegates.map()
-    var panel by SharedPreferenceDelegates.string()
+    private var _saves by SharedPreferenceDelegates.map()
+    private var inputPrompts by SharedPreferenceDelegates.stringSet()
 
+
+    fun getInputPrompts():List<String> {
+        return inputPrompts.toList()
+    }
+    fun addInputPrompts(prompt:String) {
+        inputPrompts = inputPrompts.toMutableSet().apply {
+            add(prompt)
+        }
+    }
+    fun removeInputPrompts(prompt:String) {
+        inputPrompts = inputPrompts.toMutableSet().apply {
+            remove(prompt)
+        }
+    }
+    fun getSaves():Map<String, String> {
+        return _saves
+    }
+    fun addSaves(player:String, mode:String) {
+        _saves = _saves.toMutableMap().apply {
+            put(player, mode)
+        }
+    }
     private object SharedPreferenceDelegates {
 
-        fun map() = object : ReadWriteProperty<SharedPreferencesUtils, MutableMap<String, String>> {
+        fun map() = object : ReadWriteProperty<SharedPreferencesUtils, Map<String, String>> {
 
-            override fun getValue(thisRef: SharedPreferencesUtils, property: KProperty<*>): MutableMap<String, String> {
+            override fun getValue(thisRef: SharedPreferencesUtils, property: KProperty<*>): Map<String, String> {
                 // a:b,c:d
                 val map = HashMap<String, String>()
                 thisRef.preferences.getString(property.name, "")?.apply {
@@ -29,7 +51,7 @@ class SharedPreferencesUtils(context: Context) {
                 return map
             }
 
-            override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: MutableMap<String, String>) {
+            override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Map<String, String>) {
                 val sb = StringBuilder()
                 value.forEach {
                     sb.append("${it.key}:${it.value},")
@@ -90,12 +112,12 @@ class SharedPreferencesUtils(context: Context) {
             }
         }
 
-        fun setString(defaultValue: Set<String>? = null) = object : ReadWriteProperty<SharedPreferencesUtils, Set<String>?> {
-            override fun getValue(thisRef: SharedPreferencesUtils, property: KProperty<*>): Set<String>? {
-                return thisRef.preferences.getStringSet(property.name, defaultValue)
+        fun stringSet(defaultValue: Set<String> = emptySet()) = object : ReadWriteProperty<SharedPreferencesUtils, Set<String>> {
+            override fun getValue(thisRef: SharedPreferencesUtils, property: KProperty<*>): Set<String> {
+                return thisRef.preferences.getStringSet(property.name, defaultValue)?: emptySet()
             }
 
-            override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Set<String>?) {
+            override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Set<String>) {
                 thisRef.preferences.edit().putStringSet(property.name, value).apply()
             }
         }

@@ -10,30 +10,36 @@ import android.graphics.Point
 import android.graphics.PointF
 import android.graphics.RectF
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.util.Log
-import android.view.GestureDetector
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import androidx.appcompat.app.AlertDialog
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.LinearLayout
+import android.widget.ListView
+import android.widget.PopupWindow
 import androidx.core.graphics.minus
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.command.NHPosCommand.*
 import com.yywspace.anethack.entity.NHStatus
-import com.yywspace.anethack.extensions.showImmersive
 import com.yywspace.anethack.window.NHWMap
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.ceil
 import kotlin.math.floor
+
 
 class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 64f
@@ -87,68 +93,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     if (abs(map.curse.x - point.x) < 1 && abs(map.curse.y - point.y) < 1) {
                         nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
                     } else {
-                        val menuAdapter = CMDMenuAdapter(listOf(
-                            "Fire ammunition from quiver",
-                            "Zap a wand",
-                            "Cast a Spell"
-                        ))
-                        val dialogMenuView = inflate(context, R.layout.dialog_menu, null)
-                            .apply {
-                                findViewById<RecyclerView>(R.id.menu_item_list)?.apply {
-                                    adapter = menuAdapter
-                                    layoutManager = LinearLayoutManager(context)
-                                }
-                            }
-                        val dialog = AlertDialog.Builder(context).run {
-                            setTitle(R.string.pos_key_question)
-                            setView(dialogMenuView)
-                            create()
-                        }
-                        dialogMenuView.apply {
-                            findViewById<MaterialButton>(R.id.menu_btn_1)?.apply {
-                                setText(R.string.pos_key_look)
-                                setOnClickListener {
-                                    // get tile info
-                                    nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.LOOK))
-                                    dialog.dismiss()
-                                }
-                            }
-                            findViewById<MaterialButton>(R.id.menu_btn_2)?.apply {
-                                setText(R.string.pos_key_run)
-                                setOnClickListener {
-                                    val tileBorder = getTileBorder(map.curse.x, map.curse.y)
-                                    val direction = getMoveDirection(
-                                        PointF(tileBorder.centerX(), tileBorder.centerY()),
-                                        PointF(e.x, e.y)
-                                    )
-                                    playerMove(direction, true)
-                                    dialog.dismiss()
-                                }
-                            }
-                            findViewById<MaterialButton>(R.id.menu_btn_3)?.apply {
-                                setText(R.string.pos_key_travel)
-                                setOnClickListener {
-                                    // whether travel to tile
-                                    nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
-                                    dialog.dismiss()
-                                }
-                            }
-                        }
-                        menuAdapter.onItemClick = { _, _, item ->
-                            when(item) {
-                                "Fire ammunition from quiver" -> {
-                                    nh.command.sendCommand(NHCommand('f', 1))
-                                }
-                                "Zap a wand" -> {
-                                    nh.command.sendCommand(NHCommand('z', 1))
-                                }
-                                "Cast a Spell" -> {
-                                    nh.command.sendCommand(NHCommand('Z', 1))
-                                }
-                            }
-                            dialog.dismiss()
-                        }
-                        dialog.showImmersive()
+                        val border = getTileBorder(point.x, point.y)
+                        showPopupWindow(border.centerX(), border.centerY())
                     }
                 }
             }
@@ -204,6 +150,52 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             map.tileCols * tileWidth,
             map.tileRows * tileHeight)
         mapInit = true
+    }
+
+    fun showPopupWindow(x:Float, y:Float) {
+        val posKeyList = listOf("Look", "Run", "Travel")
+        val popupWindow = PopupWindow(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        val recyclerView = LayoutInflater.from(context).inflate(R.layout.popup_window_pos_key, null).apply {
+            setBackgroundColor(Color.WHITE)
+            findViewById<RecyclerView>(R.id.pos_key_list).apply {
+                adapter = NHPosKeyAdapter(posKeyList).apply {
+                    onItemClickListener = object : NHPosKeyAdapter.OnItemClickListener {
+                        override fun onItemClick(view: View, position: Int) {
+                            val point = getTileLocation(x, y)
+                            when(posKeyList[position]) {
+                                "Look" -> {
+                                    // get tile info
+                                    nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.LOOK))
+                                }
+                                "Run" -> {
+                                    val tileBorder = getTileBorder(map.curse.x, map.curse.y)
+                                    val direction = getMoveDirection(
+                                        PointF(tileBorder.centerX(), tileBorder.centerY()),
+                                        PointF(x, y)
+                                    )
+                                    playerMove(direction, true)
+                                }
+                                "Travel" -> {
+                                    // whether travel to tile
+                                    nh.command.sendCommand(
+                                        NHPosCommand(point.x, point.y, PosMod.TRAVEL)
+                                    )
+                                }
+                            }
+                            popupWindow.dismiss()
+                        }
+                    }
+                }
+                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            }
+            measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+        }
+        popupWindow.apply {
+            contentView = recyclerView
+            isOutsideTouchable = true
+            showAtLocation(this@NHMapSurfaceView, Gravity.NO_GRAVITY,
+                (x-contentView.measuredWidth /2 ).toInt(), (y-contentView.measuredHeight-tileHeight).toInt())
+        }
     }
 
     fun scaleMap(scaleFactor:Float, centerX:Float, centerY:Float) {
@@ -376,12 +368,14 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         )
     }
 
+    // 获取界面TileLocation
     private fun getTileLocation(vx:Float, vy:Float):Point {
         val tx = floor((vx - mapBorder.left) / tileWidth)
         val ty = floor((vy - mapBorder.top) / tileHeight)
         return Point(tx.toInt(), ty.toInt())
     }
 
+    // 获取地图内TileLocation
     private fun getInnerTileLocation(vx:Float, vy:Float):Point? {
         val tx = floor((vx - mapBorder.left) / tileWidth)
         val ty = floor((vy - mapBorder.top) / tileHeight)

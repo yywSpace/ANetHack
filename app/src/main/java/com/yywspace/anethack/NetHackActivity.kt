@@ -126,8 +126,7 @@ class NetHackActivity : AppCompatActivity() {
         val panelDefault = """
             Setting LS|Save #quit|Quit L20s|20s Li|Bag Letter|abc
         """.trimIndent()
-        val panel = nethack.prefs.panel?:panelDefault
-        initCustomControlPanel(this, binding.baseCommandPanel, panel)
+        initCustomControlPanel(this, binding.baseCommandPanel, panelDefault)
     }
 
     private fun hideSystemUi() {
