@@ -61,6 +61,9 @@ static char * and_get_color_string();
 #endif
 static void and_start_screen();
 static void and_end_screen();
+win_request_info *and_ctrl_nhwindow(winid, int, win_request_info *);
+color_attr and_menu_promptstyle = { NO_COLOR, ATR_NONE };
+
 static char* and_getmsghistory(boolean);
 static void and_putmsghistory(const char *, boolean);
 static void and_status_update(int, genericptr_t, int, int, int, unsigned long *);
@@ -130,7 +133,8 @@ struct window_procs and_procs = {
         genl_status_enablefield,
         and_status_update,
         genl_can_suspend_no,
-        and_update_inventory
+        and_update_inventory,
+        and_ctrl_nhwindow
 };
 
 //____________________________________________________________________________________
@@ -280,7 +284,7 @@ void and_player_selection()
     if(flags.initrole == ROLE_NONE) {
         win = create_nhwindow(NHW_MENU);
         start_menu(win, MENU_BEHAVE_STANDARD);
-        any = cg.zeroany;; /* zero out all bits */
+        any = cg.zeroany; /* zero out all bits */
         any.a_int = randrole(TRUE)+1;
         add_menu(win, &nul_glyphinfo, &any, '*', 0, ATR_NONE, 0, "Random", MENU_ITEMFLAGS_SELECTED);
         for(i = 0; roles[i].name.m; i++)
@@ -436,7 +440,7 @@ void and_resume_nhwindows()
 winid and_create_nhwindow(int type)
 {
     LOGD("and_create_nhwindow: %d", type);
-    return JNICallI(jCreateWindow, type);
+    return JNICallI(jCreateWindow, type)
 }
 
 //____________________________________________________________________________________
@@ -445,7 +449,7 @@ winid and_create_nhwindow(int type)
 void and_clear_nhwindow(winid wid)
 {
     LOGD("and_clear_nhwindow(wid: %d)", wid);
-    JNICallV(jClearWindow, wid, Is_rogue_level(&u.uz));
+    JNICallV(jClearWindow, wid, Is_rogue_level(&u.uz))
 }
 
 //____________________________________________________________________________________
@@ -463,7 +467,7 @@ void and_display_nhwindow(winid wid, boolean blocking)
     LOGD("display_nhwindow(wid:%d, blocking:%d)", wid, blocking);
     if(wid != WIN_MESSAGE && wid != WIN_STATUS && wid != WIN_MAP)
         blocking = TRUE;
-    JNICallV(jDisplayWindow, wid, blocking);
+    JNICallV(jDisplayWindow, wid, blocking)
     if(blocking)
         and_nhgetch();
 }
@@ -475,7 +479,7 @@ void and_display_nhwindow(winid wid, boolean blocking)
 void and_destroy_nhwindow(winid wid)
 {
     LOGD("and_destroy_nhwindow(%d)", wid);
-    JNICallV(jDestroyWindow, wid);
+    JNICallV(jDestroyWindow, wid)
 }
 
 //____________________________________________________________________________________
@@ -495,7 +499,7 @@ void and_destroy_nhwindow(winid wid)
 void and_curs(winid wid, int x, int y)
 {
     LOGD("and_curs(wid:%d, x:%d, y:%d)", wid, x, y);
-    JNICallV(jCurs, wid, x, y);
+    JNICallV(jCurs, wid, x, y)
 }
 
 static int text_color = CLR_WHITE;
@@ -552,13 +556,13 @@ void and_putstr(winid wid, int attr, const char *str)
     if(!str || !*str) return;
     if(attr) attr = 1<<attr;
     jstring jstr = (*jEnv)->NewStringUTF(jEnv, str);
-    JNICallV(jPutString, wid, attr, jstr, NO_COLOR);
+    JNICallV(jPutString, wid, attr, jstr, NO_COLOR)
 }
 
 void and_status_field_render(int idx, const char *filed_name, const char *value, int attr, int color) {
     jstring jFiledName = (*jEnv)->NewStringUTF(jEnv, filed_name);
     jstring jValue = (*jEnv)->NewStringUTF(jEnv, value);
-    JNICallV(jRenderStatus, idx, jFiledName, jValue, attr, color);
+    JNICallV(jRenderStatus, idx, jFiledName, jValue, attr, color)
 }
 
 
@@ -820,7 +824,7 @@ void and_display_file(const char *name, boolean complain)
 //		   be used for menus.
 void and_start_menu(winid wid,unsigned long mbehavior)
 {
-    JNICallV(jStartMenu, wid, mbehavior);
+    JNICallV(jStartMenu, wid, mbehavior)
 }
 
 //____________________________________________________________________________________
@@ -860,16 +864,12 @@ void and_add_menu(winid window, const glyph_info * glyph, const union any * iden
 {
     boolean preselected = ((itemflags & MENU_ITEMFLAGS_SELECTED) != 0);
     int tile = glyph->gm.tileidx;
-    int menu_color, menu_attr;
-    if(!(iflags.use_menu_color && get_menu_coloring((char*)str, &menu_color, &menu_attr))) {
-        menu_color = clr;
-        menu_attr = attr;
-    }
+    int menu_color = clr, menu_attr = attr;
     LOGD("and_add_menu attr=%d, tile=%d, color=%d,accelerator:%c address:%ld",menu_attr, tile, menu_color, accelerator, (long )identifier->a_lptr);
     if(menu_attr)
         menu_attr = 1<<menu_attr;
     jstring jstr = (*jEnv)->NewStringUTF(jEnv,str);
-    JNICallV(jAddMenu, window, tile, (long )identifier->a_lptr, accelerator, groupacc, menu_attr, menu_color, jstr, preselected);
+    JNICallV(jAddMenu, window, tile, (long )identifier->a_lptr, accelerator, groupacc, menu_attr, menu_color, jstr, preselected)
 }
 
 //____________________________________________________________________________________
@@ -882,8 +882,9 @@ void and_add_menu(winid window, const glyph_info * glyph, const union any * iden
 //		** it ever did).  That should be select_menu's job.  -dean
 void and_end_menu(winid wid, const char *prompt)
 {
+
     jstring jstr = (*jEnv)->NewStringUTF(jEnv, prompt);
-    JNICallV(jEndMenu, wid, jstr);
+    JNICallV(jEndMenu, wid, jstr)
 }
 
 //____________________________________________________________________________________
@@ -913,7 +914,7 @@ void and_end_menu(winid wid, const char *prompt)
 int and_select_menu(winid wid, int how, MENU_ITEM_P **selected)
 {
     jlong *p, *q;
-    jlongArray selectedItems = (jlongArray)JNICallO(jSelectMenu, wid, how);
+    jlongArray selectedItems = (jlongArray)JNICallO(jSelectMenu, wid, how)
     *selected = 0;
     int itemCnt = (*jEnv)->GetArrayLength(jEnv, selectedItems);
     LOGD("and_select_menu itemCnt:%d", itemCnt);
@@ -977,7 +978,7 @@ void and_wait_synch()
 void and_cliparound(int x, int y)
 {
 	LOGD("and_cliparound %dx%d (%dx%d)", x, y, u.ux, u.uy);
-	JNICallV(jClipAround, x, y, u.ux, u.uy);
+	JNICallV(jClipAround, x, y, u.ux, u.uy)
 }
 
 #endif
@@ -1032,7 +1033,7 @@ void and_print_glyph(winid wid, coordxy x, coordxy y, const glyph_info * glyphin
     if(!iflags.use_inverse)
         special &= ~MG_DETECT;
 
-    JNICallV(jPrintTile, wid, x, y, tile, ch, color, special);
+    JNICallV(jPrintTile, wid, x, y, tile, ch, color, special)
 }
 
 //____________________________________________________________________________________
@@ -1047,7 +1048,7 @@ void and_raw_print(const char* str)
 {
     LOGD("and_raw_print %s", str);
     jstring jstr = (*jEnv)->NewStringUTF(jEnv,str);
-    JNICallV(jRawPrint, 1<<ATR_BOLD, jstr);
+    JNICallV(jRawPrint, 1<<ATR_BOLD, jstr)
 }
 
 //____________________________________________________________________________________
@@ -1057,7 +1058,7 @@ void and_raw_print_bold(const char* str)
 {
     LOGD("and_raw_print_bold %s", str);
     jstring jstr = (*jEnv)->NewStringUTF(jEnv,str);
-    JNICallV(jRawPrint, 1<<ATR_BOLD, jstr);
+    JNICallV(jRawPrint, 1<<ATR_BOLD, jstr)
 }
 
 //____________________________________________________________________________________
@@ -1068,7 +1069,7 @@ void and_raw_print_bold(const char* str)
 //                   non meta-zero too (zero with the meta-bit set).
 int and_nhgetch()
 {
-    int c = JNICallI(jRequireKeyCommand);
+    int c = JNICallI(jRequireKeyCommand)
     LOGD("and_nhgetch: %c", c);
     return c;
 }
@@ -1090,7 +1091,7 @@ int and_nhgetch()
 int and_nh_poskey(coordxy *x, coordxy *y, int *mod)
 {
     jintArray jEvent = (*jEnv)->NewIntArray(jEnv, 3);
-    char ch = JNICallC(jRequirePosKeyCommand, jEvent);
+    char ch = JNICallC(jRequirePosKeyCommand, jEvent)
     if(!ch) {
         int *event = (*jEnv)->GetIntArrayElements(jEnv, jEvent, NULL);
         *x = (coordxy)event[0];
@@ -1156,7 +1157,7 @@ char and_yn_function(const char *question, const char *choices, char def)
         jstring jChoices = (*jEnv)->NewStringUTF(jEnv, choices ? choices : "");
         jlongArray jYnNumber = (*jEnv)->NewLongArray(jEnv, 1);
         if(allow_num) {
-            ch = JNICallC(jYNFunction, jQuestion, jChoices, jYnNumber, def);
+            ch = JNICallC(jYNFunction, jQuestion, jChoices, jYnNumber, def)
             jlong *ynNumbers = (*jEnv)->GetLongArrayElements(jEnv, jYnNumber, NULL);
             yn_number = (long)ynNumbers[0];
             (*jEnv)->ReleaseLongArrayElements(jEnv, jYnNumber, ynNumbers, 0);
@@ -1165,10 +1166,10 @@ char and_yn_function(const char *question, const char *choices, char def)
             if ((rb = strchr(choices, '\033')) != 0)
                 *rb = '\0';
             jChoices = (*jEnv)->NewStringUTF(jEnv, choices);
-            ch = JNICallC(jYNFunction, jQuestion, jChoices, jYnNumber, def);
+            ch = JNICallC(jYNFunction, jQuestion, jChoices, jYnNumber, def)
         } else {
             putstr(WIN_MESSAGE, 1<<ATR_BOLD, question);
-            ch = JNICallC(jYNFunction, jQuestion, jChoices, jYnNumber, def);
+            ch = JNICallC(jYNFunction, jQuestion, jChoices, jYnNumber, def)
         }
         (*jEnv)->DeleteLocalRef(jEnv, jYnNumber);
     } else {
@@ -1211,7 +1212,6 @@ void and_getlin(const char *question, char *input)
 //askname()	-- Ask the user for a player name.
 void and_askname()
 {
-    LOGD("and_askname");
     int saved_size = 0, aborted_size = 0, i;
     char ** saved = get_saved_games();
     char ** aborted = get_aborted_games();
@@ -1225,23 +1225,22 @@ void and_askname()
         (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i, (*jEnv)->NewStringUTF(jEnv, saved[i]));
     for(i = 0; i < aborted_size; i++)
         (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i + saved_size, (*jEnv)->NewStringUTF(jEnv, aborted[i]));
-    jobjectArray jPlayerInfo = (jobjectArray)JNICallO(jAskName, PL_NSIZ, jSavedList);
+    jobjectArray jPlayerInfo = (jobjectArray)JNICallO(jAskName, PL_NSIZ, jSavedList)
+    int itemCnt = (*jEnv)->GetArrayLength(jEnv, jPlayerInfo);
     jstring jPlayer = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 0);
     jstring jPlaymode = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 1);
     const char *player = (*jEnv)->GetStringUTFChars(jEnv, jPlayer, 0);
     const char *playmode = (*jEnv)->GetStringUTFChars(jEnv, jPlaymode, 0);
-
     if(strncmp(playmode, "wizard", strlen(playmode)) == 0)
         wizard = TRUE;
     else if(strncmp(playmode, "discover", strlen(playmode)) == 0)
         discover = TRUE;
-
     gp.plnamelen = (int) strlen(strncpy(gp.plname, player, sizeof gp.plname - 1));
-
     (*jEnv)->ReleaseStringUTFChars(jEnv, jPlayer, player);
     (*jEnv)->ReleaseStringUTFChars(jEnv, jPlaymode, playmode);
     (*jEnv)->DeleteLocalRef(jEnv, jSavedList);
     (*jEnv)->DeleteLocalRef(jEnv, jPlayerInfo);
+    LOGD("and_askname");
 }
 
 //____________________________________________________________________________________
@@ -1275,7 +1274,7 @@ int and_get_ext_cmd()
         (*jEnv)->DeleteLocalRef(jEnv, jCmdName);
         (*jEnv)->DeleteLocalRef(jEnv, jCmdDesc);
     }
-    idx = JNICallI(jShowExtCmdMenu, jExtCmdList);
+    idx = JNICallI(jShowExtCmdMenu, jExtCmdList)
 
     (*jEnv)->DeleteLocalRef(jEnv, jExtCmdList);
     return idx;
@@ -1287,7 +1286,7 @@ int and_get_ext_cmd()
 void and_number_pad(int state)
 {
     LOGD("and_number_pad(%d)", state);
-    JNICallV(jSetNumPadOption, state);
+    JNICallV(jSetNumPadOption, state)
 }
 
 //____________________________________________________________________________________
@@ -1297,7 +1296,7 @@ void and_number_pad(int state)
 void and_delay_output()
 {
     LOGD("and_delay_output()");
-    JNICallV(jDelayOutput);
+    JNICallV(jDelayOutput)
 }
 
 #ifdef CHANGE_COLOR
@@ -1347,7 +1346,7 @@ char* and_getmsghistory(boolean init)
         nxtidx = 0;
     }
     LOGD("and_getmsghistory(nxtidx:%d)", nxtidx);
-    jstring result = (jstring)JNICallO(jGetMessageHistory, nxtidx++);
+    jstring result = (jstring)JNICallO(jGetMessageHistory, nxtidx++)
     char *msg = (char *) (*jEnv)->GetStringUTFChars(jEnv, result, 0);
     if(strncmp(msg, "message_end", strlen(msg)) == 0)
         return NULL;
@@ -1371,12 +1370,32 @@ void and_putmsghistory(const char *msg, boolean restoring)
     if(!msg) return;
     if(restoring) {
         jstring jmsg = (*jEnv)->NewStringUTF(jEnv, msg);
-        JNICallV(jPutMessageHistory, jmsg, restoring);
+        JNICallV(jPutMessageHistory, jmsg, restoring)
     }
     LOGD("and_putmsghistory(msg: %s, restoring:%d)", msg, restoring);
 }
 
+win_request_info *
+and_ctrl_nhwindow(
+        winid window,
+        int request,
+        win_request_info *wri)
+{
+    if (!wri)
+        return (win_request_info *) 0;
 
+    switch(request) {
+        case set_mode:
+        case request_settings:
+            break;
+        case set_menu_promptstyle:
+            and_menu_promptstyle = wri->fromcore.menu_promptstyle;
+            break;
+        default:
+            break;
+    }
+    return wri;
+}
 
 
 #ifdef DUMPLOG

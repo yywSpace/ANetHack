@@ -43,6 +43,7 @@ class NHPlayerChoose(val nh: NetHack) {
 
     fun waitForPlayerChoose():Array<String> {
         val cmd = nh.command.waitForAnyCommand<NHPlayerChooseCommand>()
+        Log.d("waitForPlayerChoose", "${cmd.player} ${cmd.toInfoArray()}")
         return cmd.toInfoArray()
     }
 

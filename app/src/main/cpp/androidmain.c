@@ -24,10 +24,12 @@ static void chdirx(const char *);
 #include <dirent.h>
 
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, "Tag", __VA_ARGS__)
+#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, "Tag", __VA_ARGS__)
 
 
 static void process_options(int, char **);
 static void wd_message(void);
+
 static boolean wiz_error_flag = FALSE;
 
 int NetHackMain(int argc, char** argv)
@@ -107,7 +109,6 @@ int NetHackMain(int argc, char** argv)
     plnamesuffix();
     /* wizard mode access is deferred until here */
     set_playmode(); /* sets plname to "wizard" for wizard mode */
-
     if (wizard) {
         /* use character name rather than lock letter for file names */
         gl.locknum = 0;
@@ -116,8 +117,7 @@ int NetHackMain(int argc, char** argv)
         (void) signal(SIGQUIT, SIG_IGN);
         (void) signal(SIGINT, SIG_IGN);
     }
-
-    dlb_init(); /* must be before newgame() */
+     dlb_init(); /* must be before newgame() */
 
     /*
      * Initialize the vision system.  This must be before mklev() on a
@@ -258,6 +258,11 @@ wd_message(void)
         wizard = 0, discover = 1; /* (paranoia) */
     } else if (discover)
         You("are in non-scoring explore/discovery mode.");
+}
+
+boolean authorize_explore_mode(void)
+{
+    return TRUE; /* no restrictions on explore mode */
 }
 
 #ifdef CHDIR

@@ -13,8 +13,7 @@ add_compile_definitions(
         ANDROID_GRAPHICS
         NOTTYGRAPHICS
         TEXT_TOMBSTONE
-        DEFAULT_WINDOW_SYS="and"
-        DLB)
+        DEFAULT_WINDOW_SYS="and")
 
 message(WARNING "NetHack_SOURCE_DIR: ${NetHack_SOURCE_DIR}.")
 set(NH_SRC ${NetHack_SOURCE_DIR}/NetHack/src)
@@ -42,12 +41,12 @@ message(WARNING "CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}.")
 
 
 set(LUA_VERSION 5.4.3)
-set(LUA_REL_PATH "NetHack/submodules/lua")
+set(LUA_REL_PATH "Lua")
 
 set(LUA_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/${LUA_REL_PATH})
 set(TOPLUALIB ${CMAKE_BINARY_DIR}/${LUA_REL_PATH}/liblua.a)
 
-add_subdirectory(NetHack/submodules/lua)
+add_subdirectory(Lua)
 #add_subdirectory(NetHack/util)
 #add_subdirectory(NetHack/dat)
 
@@ -178,10 +177,20 @@ set(NETHACK_SRC
         "NetHack/src/wield.c"
         "NetHack/src/windows.c"
         "NetHack/src/wizard.c"
+        "NetHack/src/wizcmds.c"
         "NetHack/src/worm.c"
         "NetHack/src/worn.c"
         "NetHack/src/write.c"
         "NetHack/src/zap.c"
+        "NetHack/src/calendar.c"
+        "NetHack/src/stairs.c"
+        "NetHack/src/glyphs.c"
+        "NetHack/src/getpos.c"
+        "NetHack/src/coloratt.c"
+        "NetHack/src/strutil.c"
+        "NetHack/src/selvar.c"
+        "NetHack/src/report.c"
+        "NetHack/src/nhmd4.c"
         "NetHack/src/utf8map.c"
         "NetHack/sys/share/posixregex.c"
         "NetHack/sys/share/ioctl.c"
