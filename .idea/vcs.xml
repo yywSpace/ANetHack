@@ -2,10 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/app/src/main/cpp/Lua" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/app/src/main/cpp/Lua/lua" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/app/src/main/cpp/NetHack" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/app/src/main/cpp/NetHack/submodules/lua" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/app/src/main/cpp/NetHack/submodules/pdcurses" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/app/src/main/cpp/NetHack/submodules/pdcursesmod" vcs="Git" />
   </component>
 </project>
