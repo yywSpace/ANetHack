@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
@@ -35,10 +36,15 @@ class NHQuestion(val nh: NetHack) {
         }
     }
 
-    public fun showInputQuestion(question: String,  bufSize: Int) {
+    public fun showInputQuestion(question: String, input:String, bufSize: Int) {
         nh.runOnUi { _, context ->
-            View.inflate(context, R.layout.dialog_question_input,null)
-                .apply {
+            val dialogQuesView = View.inflate(context, R.layout.dialog_question_input, null)
+            val dialog = AlertDialog.Builder(context).run {
+                setView(dialogQuesView)
+                setCancelable(false)
+                create()
+            }
+            dialogQuesView.apply {
                     var ques = question
                     var hintStr = ""
                     Regex("(.*)\\[(.*)]").find(question)?.apply {
@@ -47,9 +53,15 @@ class NHQuestion(val nh: NetHack) {
                             hintStr = groupValues[2]
                         }
                     }
-                    val input = findViewById<AppCompatAutoCompleteTextView>(R.id.dialog_question_input).apply {
+                    findViewById<TextView>(R.id.dialog_question_title).apply {
+                        text = ques
+                    }
+                    val inputText = findViewById<AppCompatAutoCompleteTextView>(R.id.dialog_question_input).apply {
                         if (hintStr.isNotEmpty())
                             this.hint = hintStr
+                        if (input.isNotEmpty()) {
+                            this.setText(input)
+                        }
                         val adapter = ArrayAdapter(
                             nh.context, android.R.layout.simple_dropdown_item_1line,
                             nh.prefs.getInputPrompts()
@@ -57,28 +69,40 @@ class NHQuestion(val nh: NetHack) {
                         threshold = 1
                         setAdapter(adapter)
                     }
-                    val dialog = AlertDialog.Builder(context).run {
-                        setTitle(ques)
-                        setView(this@apply)
-                        setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                            // cancel name
-                            if(input.text.isEmpty()) {
-                                finishLine("")
-                                return@setPositiveButton
-                            }
-                            if(input.text.length > bufSize)
-                                finishLine(input.text.substring(0, bufSize))
-                            else
-                                finishLine(input.text.toString())
-                            nh.prefs.addInputPrompts(input.text.toString())
-                        }
-                        setNegativeButton(R.string.dialog_cancel) { _, _ ->
+                    findViewById<Button>(R.id.input_btn_1).apply {
+                        setText(R.string.dialog_cancel)
+
+                        setOnClickListener {
                             // cancel naming attempt
-                            finishLine(27.toChar().toString())
-                            nh.prefs.removeInputPrompts(input.text.toString())
+                            // 如果输入框中以del 为前缀取消时，删除此历史记录
+                            val delPrefix = "del "
+                            if (inputText.text.startsWith(delPrefix)) {
+                                nh.prefs.removeInputPrompts(inputText.text.substring(delPrefix.length))
+                                inputText.setText("")
+                            }
+                            else {
+                                finishLine("\\033\\000")
+                                dialog.dismiss()
+                            }
                         }
                     }
-                    dialog.setCancelable(false)
+                    findViewById<Button>(R.id.input_btn_2).visibility = View.GONE
+                    findViewById<Button>(R.id.input_btn_3).apply {
+                        setText(R.string.dialog_confirm)
+                        setOnClickListener {
+                            // cancel name
+                            if(inputText.text.isEmpty()) {
+                                finishLine("")
+                                return@setOnClickListener
+                            }
+                            if(inputText.text.length > bufSize)
+                                finishLine(inputText.text.substring(0, bufSize))
+                            else
+                                finishLine(inputText.text.toString())
+                            nh.prefs.addInputPrompts(inputText.text.toString())
+                            dialog.dismiss()
+                        }
+                    }
                     dialog.showImmersive()
                 }
         }

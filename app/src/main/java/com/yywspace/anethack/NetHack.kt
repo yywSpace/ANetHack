@@ -211,8 +211,8 @@ class NetHack(
         return this.question.waitForAnswer()
     }
 
-    fun getLine(question: String, bufSize: Int):String {
-        this.question.showInputQuestion(question, bufSize)
+    fun getLine(question: String, input: String, bufSize: Int):String {
+        this.question.showInputQuestion(question, input, bufSize)
         return this.question.waitForLine()
     }
     private fun delayOutput() {

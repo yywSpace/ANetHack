@@ -13,6 +13,7 @@ add_compile_definitions(
         ANDROID_GRAPHICS
         NOTTYGRAPHICS
         TEXT_TOMBSTONE
+        EDIT_GETLIN
         DEFAULT_WINDOW_SYS="and")
 
 message(WARNING "NetHack_SOURCE_DIR: ${NetHack_SOURCE_DIR}.")

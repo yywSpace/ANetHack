@@ -216,7 +216,7 @@ Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring
     jClipAround = (*jEnv)->GetMethodID(jEnv, jApp, "clipAround", "(IIII)V");
     jYNFunction = (*jEnv)->GetMethodID(jEnv, jApp, "ynFunction",
                                        "(Ljava/lang/String;Ljava/lang/String;[JC)C");
-    jGetLine = (*jEnv)->GetMethodID(jEnv, jApp, "getLine", "(Ljava/lang/String;I)Ljava/lang/String;");
+    jGetLine = (*jEnv)->GetMethodID(jEnv, jApp, "getLine", "(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;");
     jAskName = (*jEnv)->GetMethodID(jEnv, jApp, "askName","(I[Ljava/lang/String;)[Ljava/lang/String;");
     jShowExtCmdMenu = (*jEnv)->GetMethodID(jEnv, jApp, "showExtCmdMenu", "([Ljava/lang/String;)I");
     jGetMessageHistory = (*jEnv)->GetMethodID(jEnv, jApp, "getMessageHistory","(I)Ljava/lang/String;");
@@ -1196,9 +1196,10 @@ char and_yn_function(const char *question, const char *choices, char def)
 //		   the nul character.
 void and_getlin(const char *question, char *input)
 {
-	LOGD("and_getlin '%s'", question);
+	LOGD("and_getlin %s, %s", question, input);
     jstring jquestion = (*jEnv)->NewStringUTF(jEnv, question);
-    jstring result = (jstring)JNICallO(jGetLine,jquestion, BUFSZ)
+    jstring jinput = (*jEnv)->NewStringUTF(jEnv, input);
+    jstring result = (jstring)JNICallO(jGetLine, jquestion, jinput, BUFSZ)
     const jchar* jchars = (*jEnv)->GetStringChars(jEnv, result, 0);
     int i, len = (*jEnv)->GetStringLength(jEnv, result);
     for(i = 0; i < len; i++)
