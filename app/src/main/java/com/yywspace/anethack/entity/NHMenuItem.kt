@@ -15,13 +15,14 @@ data class NHMenuItem(
     var selectedCount :Long = -1
     var count = -1
     init {
-        Regex("(.*)\\((.*)\\)").find(title.value)?.apply {
-            if(groupValues.size >= 3 && groupValues[1].isNotEmpty()) {
-                title.value = groupValues[1]
-                subtitle = groupValues[2]
-            }
-        }
         if(!isHeader()) {
+            Regex("(.*)\\((.*)\\)").find(title.value)?.apply {
+                if(groupValues.size >= 3 && groupValues[1].isNotEmpty()) {
+                    title.value = groupValues[1]
+                    subtitle = groupValues[2]
+                }
+            }
+
             val num = title.value.split(" ").first()
             count = if(num == "a" || num == "an")
                 1

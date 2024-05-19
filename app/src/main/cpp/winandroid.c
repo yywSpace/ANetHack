@@ -120,7 +120,7 @@ struct window_procs and_procs = {
         and_delay_output,
 #ifdef CHANGE_COLOR
         and_change_color,
-	and_get_color_string,
+	    and_get_color_string,
 #endif
         and_start_screen,
         and_end_screen,
@@ -862,7 +862,7 @@ void and_start_menu(winid wid,unsigned long mbehavior)
 void and_add_menu(winid window, const glyph_info * glyph, const union any * identifier, char accelerator,
         char groupacc, int attr, int clr, const char *str, unsigned int itemflags)
 {
-    boolean preselected = ((itemflags & MENU_ITEMFLAGS_SELECTED) != 0);
+    boolean preselected = (itemflags & MENU_ITEMFLAGS_SELECTED) != 0;
     int tile = glyph->gm.tileidx;
     int menu_color = clr, menu_attr = attr;
     LOGD("and_add_menu attr=%d, tile=%d, color=%d,accelerator:%c address:%ld",menu_attr, tile, menu_color, accelerator, (long )identifier->a_lptr);

@@ -223,25 +223,6 @@ class NetHack(
         }
     }
     private fun getNHWindow(wid:Int): NHWindow {
-        if (wid == -1) {
-            return object :NHWindow(-1) {
-                override fun curs(x: Int, y: Int) {
-                }
-
-                override fun displayWindow(blocking: Boolean) {
-                }
-
-                override fun clearWindow(isRogueLevel: Int) {
-                }
-
-                override fun destroyWindow() {
-                }
-
-                override fun putString(attr: Int, msg: String, color: Int) {
-                }
-
-            }
-        }
         for (window in windows)
             if(window.wid == wid)
                 return window
