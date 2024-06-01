@@ -76,7 +76,7 @@ struct window_procs and_procs = {
         "and",
         wp_and,
         WC_COLOR | WC_HILITE_PET | WC_INVERSE,	/* window port capability options supported */
-        WC2_HILITE_STATUS | WC2_FLUSH_STATUS,	/* additional window port capability options supported */
+        WC2_HILITE_STATUS | WC2_FLUSH_STATUS | WC2_HITPOINTBAR,	/* additional window port capability options supported */
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},   /* color availability */
         and_init_nhwindows,
         and_player_selection,
@@ -175,6 +175,7 @@ extern boolean status_activefields[MAXBLSTATS];
 extern char *status_vals[MAXBLSTATS];
 
 static int status_colors[MAXBLSTATS];
+static int status_percent[MAXBLSTATS];
 static char *status_real_values[MAXBLSTATS];
 static int status_attrmasks[MAXBLSTATS];
 static unsigned long* and_colormasks;
@@ -211,7 +212,7 @@ Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring
     jPrintTile = (*jEnv)->GetMethodID(jEnv, jApp, "printTile", "(IIIIIII)V");
     jRequireKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requireKeyCommand", "()I");
     jRequirePosKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requirePosKeyCommand", "([I)C");
-    jRenderStatus = (*jEnv)->GetMethodID(jEnv, jApp, "renderStatus", "(ILjava/lang/String;Ljava/lang/String;II)V");
+    jRenderStatus = (*jEnv)->GetMethodID(jEnv, jApp, "renderStatus", "(ILjava/lang/String;Ljava/lang/String;III)V");
     jDelayOutput = (*jEnv)->GetMethodID(jEnv, jApp, "delayOutput", "()V");
     jClipAround = (*jEnv)->GetMethodID(jEnv, jApp, "clipAround", "(IIII)V");
     jYNFunction = (*jEnv)->GetMethodID(jEnv, jApp, "ynFunction",
@@ -559,10 +560,10 @@ void and_putstr(winid wid, int attr, const char *str)
     JNICallV(jPutString, wid, attr, jstr, NO_COLOR)
 }
 
-void and_status_field_render(int idx, const char *filed_name, const char *value, int attr, int color) {
+void and_status_field_render(int idx, const char *filed_name, const char *value, int attr, int color, int percent) {
     jstring jFiledName = (*jEnv)->NewStringUTF(jEnv, filed_name);
     jstring jValue = (*jEnv)->NewStringUTF(jEnv, value);
-    JNICallV(jRenderStatus, idx, jFiledName, jValue, attr, color)
+    JNICallV(jRenderStatus, idx, jFiledName, jValue, attr, color, percent)
 }
 
 
@@ -676,18 +677,18 @@ static const enum statusfields status_elements[] = {
 static void render_status(void) {
     long mask, bits;
 
-    int i, c, ci, idx, attrmask, coloridx;
-
+    int i, c, ci, idx, attrmask, coloridx, percent;
     for (i = 0; (idx = status_elements[i]) != BL_FLUSH; ++i) {
         if (!status_activefields[idx])
             continue;
+        percent = status_percent[idx];
         if (idx == BL_CONDITION) {
             // for condition
             bits = and_condition_bits;
             if(bits == 0L) {
                 and_status_field_render(
                         idx, "conditions", "",
-                        attrmask, coloridx);
+                        attrmask, coloridx, percent);
                 continue;
             }
             for (c = 0; c < SIZE(conditions) && bits != 0L; ++c) {
@@ -702,7 +703,7 @@ static void render_status(void) {
                     LOGD("conditions:%s", condtext);
                     and_status_field_render(
                             idx, "conditions", condtext,
-                            attrmask, coloridx);
+                            attrmask, coloridx, percent);
                     bits &= ~mask;
                 }
             }
@@ -710,12 +711,13 @@ static void render_status(void) {
             // for other
             attrmask = status_attrmasks[idx];
             coloridx = status_colors[idx];
+
             const char *field_nm = status_fieldnm[idx];
             char *fmt_val = status_vals[idx];
             char *real_val = status_real_values[idx];
             and_status_field_render(
                     idx, field_nm, fmt_val,
-                    hl_attrmask2atr(attrmask), coloridx);
+                    hl_attrmask2atr(attrmask), coloridx, percent);
         }
     }
     display_nhwindow(WIN_STATUS, FALSE);
@@ -747,7 +749,8 @@ void and_status_update(int fldidx, genericptr_t ptr, int chg UNUSED, int percent
              text = decode_mixed(goldbuf, text);
         default:
             status_attrmasks[fldidx] = (color >> 8) & 0x00FF;
-            status_colors[fldidx] = (color & 0x00FF) ;
+            status_colors[fldidx] = (color & 0x00FF);
+            status_percent[fldidx] = percent;
             status_real_values[fldidx] = text;
             Sprintf(status_vals[fldidx], status_fieldfmt[fldidx] ? status_fieldfmt[fldidx] : "%s", text ? text : "");
             LOGD("STATUS[name:%s, attr:%d, color:%s, format:%s, text:%s, %s]",

@@ -6,23 +6,19 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PixelFormat
 import android.graphics.PorterDuff
-import android.graphics.Rect
 import android.graphics.RectF
 import android.text.DynamicLayout
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextPaint
+import android.text.style.BackgroundColorSpan
 import android.util.AttributeSet
-import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.LinearLayout
-import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHStatus
-import com.yywspace.anethack.entity.NHStatus.*
-import com.yywspace.anethack.entity.NHString
+import com.yywspace.anethack.entity.NHStatus.StatusField
 import kotlin.math.ceil
-import kotlin.math.max
 
 
 class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
@@ -119,46 +115,21 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         return statusBarList
     }
 
-    private fun drawHpOrPw(status: Pair<StatusField, Spannable>, canvas: Canvas): RectF {
-        val hpMaxValue = nhStatus.getField(StatusField.BL_HPMAX)
-        val pwMaxValue = nhStatus.getField(StatusField.BL_HPMAX)
-        val hpPlaceholder = "HP:${hpMaxValue}/${hpMaxValue}"
-        val pwPlaceholder = "Pw:${pwMaxValue}/${pwMaxValue}"
-        val hpWidth = ceil(DynamicLayout.getDesiredWidth(hpPlaceholder, textPaint))
-        val pwWidth = ceil(DynamicLayout.getDesiredWidth(pwPlaceholder, textPaint))
-        val statusLayout =DynamicLayout.Builder.obtain(
-            status.second, textPaint, ceil(max(hpWidth, pwWidth)+10).toInt()
-        ).build()
-        val regex = Regex("(.*:)([0-9]*)\\(([0-9]*)\\)")
-        textPaint.color = Color.WHITE
-        regex.find(status.second)?.apply {
-            val label = groupValues[1]
-            val curValue = groupValues[2]
-            val maxValue = groupValues[3]
-            val labelLayout =DynamicLayout.Builder.obtain(
-                label, textPaint,
-                ceil(DynamicLayout.getDesiredWidth(label, textPaint)).toInt()
-            ).build()
-            val valueLayout =DynamicLayout.Builder.obtain(
-                "$curValue/$maxValue", textPaint,
-                ceil(DynamicLayout.getDesiredWidth("$curValue/$maxValue", textPaint)).toInt()
-            ).build()
-            nhStatus.getField(status.first)?.apply {
-                 paint.color = nhColor.toColor()
-            }
-            paint.style = Paint.Style.FILL
-            canvas.drawRect(0f, 0f,
-                statusLayout.width * (curValue.toFloat() / maxValue.toFloat()),
-                labelLayout.height.toFloat(),
-                paint)
-            paint.color = Color.GRAY
-            paint.strokeWidth = 2f
-            paint.style = Paint.Style.STROKE
-            canvas.drawRect(0f, 0f, statusLayout.width.toFloat(), labelLayout.height.toFloat(), paint)
-            labelLayout.draw(canvas)
-            canvas.translate(labelLayout.width + (statusLayout.width-labelLayout.width) / 2f - valueLayout.width / 2f, 0f)
-            valueLayout.draw(canvas)
+    private fun drawTitle(status:Pair<StatusField, Spannable>,  canvas: Canvas):RectF {
+        val percent = nhStatus.getFieldPercent(NHStatus.StatusField.BL_HP)
+        val hp = nhStatus.getField(NHStatus.StatusField.BL_HP)
+        val title = SpannableStringBuilder(status.second)
+        if (hp != null) {
+            val remainSpan = BackgroundColorSpan(Color.argb(200, 220,220,220))
+            val colorSpan = BackgroundColorSpan(hp.nhColor.toColor())
+            title.setSpan(colorSpan, 0, title.length * percent / 100, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+            title.setSpan(remainSpan, title.length * percent / 100, title.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
         }
+        val statusLayout =DynamicLayout.Builder.obtain(
+            title, textPaint,
+            ceil(DynamicLayout.getDesiredWidth(title, textPaint)).toInt()
+        ).build()
+        statusLayout.draw(canvas)
         return RectF(0f,0f, statusLayout.width.toFloat(), statusLayout.height.toFloat())
     }
 
@@ -173,8 +144,8 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     it.forEach { s ->
                         canvas.save()
                         canvas.translate(statusBarWidth, statusBarHeight)
-                        if (s.first == StatusField.BL_HP || s.first == StatusField.BL_ENE) {
-                            val border = drawHpOrPw(s, canvas)
+                        if (s.first == StatusField.BL_TITLE) {
+                            val border = drawTitle(s, canvas)
                             statusBarWidth += (border.width() + 20f)
                             maxHeight = maxHeight.coerceAtLeast(border.height())
                         }else {
@@ -185,6 +156,7 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                             statusBarWidth += (dynamicLayout.width + 20f)
                             maxHeight = maxHeight.coerceAtLeast(dynamicLayout.height.toFloat())
                         }
+
                         canvas.restore()
                     }
                     statusBarHeight += maxHeight

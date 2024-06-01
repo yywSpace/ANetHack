@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,6 +21,7 @@ import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHLineCommand
 import com.yywspace.anethack.extensions.showImmersive
+import java.nio.charset.StandardCharsets
 
 
 class NHQuestion(val nh: NetHack) {
@@ -81,7 +83,7 @@ class NHQuestion(val nh: NetHack) {
                                 inputText.setText("")
                             }
                             else {
-                                finishLine("\\033\\000")
+                                finishLine(27.toChar().toString())
                                 dialog.dismiss()
                             }
                         }
@@ -92,7 +94,8 @@ class NHQuestion(val nh: NetHack) {
                         setOnClickListener {
                             // cancel name
                             if(inputText.text.isEmpty()) {
-                                finishLine("")
+                                finishLine(" ")
+                                dialog.dismiss()
                                 return@setOnClickListener
                             }
                             if(inputText.text.length > bufSize)

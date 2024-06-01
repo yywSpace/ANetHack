@@ -115,8 +115,8 @@ class NetHack(
         Log.d(TAG, "putString(wid:$wid, attr:$attr, msg:$msg, color:$color)")
     }
 
-    private fun renderStatus(fldIdx:Int, fldName:String, value:String, attr:Int, color:Int) {
-        getNHWStatus()?.renderField(fldIdx, fldName, value.trim(), attr, color)
+    private fun renderStatus(fldIdx:Int, fldName:String, value:String, attr:Int, color:Int, percent:Int) {
+        getNHWStatus()?.renderField(fldIdx, fldName, value, attr, color, percent)
     }
 
     private fun printTile(wid: Int, x: Int, y: Int, tile: Int, ch: Int, col: Int, special: Int) {
@@ -263,5 +263,4 @@ class NetHack(
             runUi.invoke(binding, context)
         }
     }
-
 }

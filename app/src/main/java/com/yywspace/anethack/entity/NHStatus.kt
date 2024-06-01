@@ -8,25 +8,34 @@ import java.lang.RuntimeException
 
 class NHStatus {
     val fields = HashMap<StatusField, NHString>()
+    private val fieldPercents = HashMap<StatusField, Int>()
+
     private val conditionsField =HashMap<Int, MutableList<NHString>>()
     private var conditionsIndex = 0
-    fun setField(idx:Int, color:Int, attr:Int, value:String) {
+    fun setField(idx:Int, color:Int, attr:Int, percent:Int, value:String) {
         val field = StatusField.fromIdx(idx)
+        val statusValue = if (field == StatusField.BL_TITLE) value else value.trim()
         if(field == StatusField.BL_CONDITION) {
             if(conditionsField.containsKey(conditionsIndex))
-                conditionsField[conditionsIndex]?.add(NHString(value, attr, color))
+                conditionsField[conditionsIndex]?.add(NHString(statusValue, attr, color))
             else
-                conditionsField[conditionsIndex] = mutableListOf(NHString(value, attr, color))
+                conditionsField[conditionsIndex] = mutableListOf(NHString(statusValue, attr, color))
             return
         }
         if (fields.containsKey(field))
-            fields[field]?.set(value, attr, color)
+            fields[field]?.set(statusValue, attr, color)
         else
-            fields[field] = NHString(value, attr, color)
+            fields[field] = NHString(statusValue, attr, color)
+        fieldPercents[field] = percent
     }
     fun getField(field: StatusField): NHString? {
         return fields[field]
     }
+
+    fun getFieldPercent(field: StatusField): Int {
+        return fieldPercents[field]?:0
+    }
+
     fun getSpannableField(field: StatusField): Spannable {
         if(field == StatusField.BL_CONDITION) {
             // because nowhere clear status, everytime we must get newest condition
