@@ -9,7 +9,7 @@ import com.yywspace.anethack.databinding.ActivityNethackBinding
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHString
-import com.yywspace.anethack.window.NHExtCmdChoose
+import com.yywspace.anethack.window.NHExtendChoose
 import com.yywspace.anethack.window.NHPlayerChoose
 import com.yywspace.anethack.window.NHQuestion
 import com.yywspace.anethack.window.NHWMap
@@ -29,7 +29,7 @@ class NetHack(
     private val windows = mutableListOf<NHWindow>()
     private var question: NHQuestion = NHQuestion(this)
     private var playerChoose: NHPlayerChoose = NHPlayerChoose(this)
-    private var extCmdChoose: NHExtCmdChoose = NHExtCmdChoose(this)
+    private var extCmdChoose: NHExtendChoose = NHExtendChoose(this)
     val command: NHCommandController = NHCommandController()
     var isRunning = false
     private var nextWinId = 0

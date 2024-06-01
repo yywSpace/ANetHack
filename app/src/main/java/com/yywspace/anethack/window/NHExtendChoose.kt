@@ -16,7 +16,7 @@ import com.yywspace.anethack.entity.NHExtCmd
 import com.yywspace.anethack.extensions.showImmersive
 
 
-class NHExtCmdChoose(val nh: NetHack) {
+class NHExtendChoose(val nh: NetHack) {
     private lateinit var extCmdList: Array<String>
     private var commandList: MutableList<NHExtCmd> = mutableListOf()
     private fun showExtCmdDialog(commandList: MutableList<NHExtCmd>) {

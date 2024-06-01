@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
+import com.yywspace.anethack.command.NHAnswerCommand
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHLineCommand
 import com.yywspace.anethack.extensions.showImmersive
@@ -242,10 +243,10 @@ class NHQuestion(val nh: NetHack) {
 
     }
     private fun finishAnswer(answer:Char, count:Int) {
-        nh.command.sendCommand(NHCommand(answer, count))
+        nh.command.sendCommand(NHAnswerCommand(answer, count))
     }
     fun waitForAnswer():Char {
-        val cmd = nh.command.waitForCommand()
+        val cmd = nh.command.waitForAnyCommand<NHAnswerCommand>()
         return cmd.key
     }
 
