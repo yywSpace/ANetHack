@@ -2,7 +2,7 @@ package com.yywspace.anethack.window
 
 import android.graphics.Point
 import android.util.Log
-import com.yywspace.anethack.NHMapSurfaceView
+import com.yywspace.anethack.map.NHMapSurfaceView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
 

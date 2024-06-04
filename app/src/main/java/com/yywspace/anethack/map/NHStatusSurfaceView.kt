@@ -1,4 +1,4 @@
-package com.yywspace.anethack
+package com.yywspace.anethack.map
 
 import android.content.Context
 import android.graphics.Canvas
@@ -16,6 +16,7 @@ import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.LinearLayout
+import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.entity.NHStatus.StatusField
 import kotlin.math.ceil
@@ -25,7 +26,7 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 42f
     private val paint: Paint = Paint()
     private val textPaint:TextPaint = TextPaint()
-    private lateinit var nh:NetHack
+    private lateinit var nh: NetHack
     private lateinit var nhStatus: NHStatus
     private var statusInit: Boolean = false
 
@@ -51,7 +52,7 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         isFocusable = true
         this.keepScreenOn = true
     }
-    fun initStatus(nh:NetHack, nhStatus: NHStatus) {
+    fun initStatus(nh: NetHack, nhStatus: NHStatus) {
         this.nh = nh
         this.nhStatus = nhStatus
         statusInit = true

@@ -87,49 +87,49 @@ class NetHack(
         return wid
     }
     private fun displayWindow(wid: Int, blocking: Boolean) {
-        getNHWindow(wid).displayWindow(blocking)
+        getWindow(wid).displayWindow(blocking)
         Log.d(TAG, "displayWindow(wid:$wid,blocking:$blocking)")
     }
 
     private fun clearWindow(wid: Int, isRogueLevel: Int) {
-        getNHWindow(wid).clearWindow(isRogueLevel)
+        getWindow(wid).clearWindow(isRogueLevel)
         Log.d(TAG, "clearWindow(wid:$wid,isRogueLevel:$isRogueLevel)")
     }
 
     private fun destroyWindow(wid: Int) {
-        val window = getNHWindow(wid)
+        val window = getWindow(wid)
         window.destroyWindow()
         windows.remove(window)
         Log.d(TAG, "destroyWindow(wid:$wid)")
     }
     fun curs(wid:Int, x:Int, y:Int) {
-        getNHWindow(wid).curs(x, y)
+        getWindow(wid).curs(x, y)
         Log.d(TAG, "curs(wid:$wid, x:$x, y:$y)")
     }
 
     fun clipAround(cx:Int, cy:Int, ux:Int, uy:Int) {
-        getNHWMap()?.clipAround(cx, cy, ux, uy)
+        getWMap()?.clipAround(cx, cy, ux, uy)
     }
     fun putString(wid: Int, attr: Int, msg: String, color: Int) {
-        getNHWindow(wid).putString(attr, msg, color)
+        getWindow(wid).putString(attr, msg, color)
         Log.d(TAG, "putString(wid:$wid, attr:$attr, msg:$msg, color:$color)")
     }
 
     private fun renderStatus(fldIdx:Int, fldName:String, value:String, attr:Int, color:Int, percent:Int) {
-        getNHWStatus()?.renderField(fldIdx, fldName, value, attr, color, percent)
+        getWStatus()?.renderField(fldIdx, fldName, value, attr, color, percent)
     }
 
     private fun printTile(wid: Int, x: Int, y: Int, tile: Int, ch: Int, col: Int, special: Int) {
-        (getNHWindow(wid) as NHWMap).printTile(x, y, tile, ch, col, special)
+        (getWindow(wid) as NHWMap).printTile(x, y, tile, ch, col, special)
         Log.d(TAG, "printTile(wid: $wid, x: $x, y: $y, tile: $tile, ch: $ch, col: $col, special: $special)")
     }
     private fun rawPrint(attr: Int, msg: String) {
-        getNHWMessage()?.putString(attr, msg, NHColor.NO_COLOR.ordinal)
+        getWMessage()?.putString(attr, msg, NHColor.NO_COLOR.ordinal)
         Log.d(TAG, "rawPrint(attr:$attr,msg:$msg)")
     }
 
     fun getMessageHistory(idx:Int):String {
-        getNHWMessage()?.apply {
+        getWMessage()?.apply {
             if (idx >= messageList.size)
                 return "message_end"
             return messageList[idx].toString()
@@ -139,7 +139,7 @@ class NetHack(
 
     fun putMessageHistory(msg:String, restoring:Boolean) {
         if (restoring) {
-            getNHWMessage()?.apply {
+            getWMessage()?.apply {
                 // set historical messages to the earliest
                 messageList.add(
                     NHMessage(NHString(msg.trim()),
@@ -174,7 +174,7 @@ class NetHack(
     }
 
     private fun startMenu(wid: Int, behavior:Long) {
-        getNHWMenu(wid).startMenu(behavior)
+        getWMenu(wid).startMenu(behavior)
         Log.d(TAG, "startMenu(wid:$wid,behavior:$behavior)")
     }
 
@@ -189,18 +189,18 @@ class NetHack(
         text: String,
         preselected: Boolean
     ) {
-        getNHWMenu(window).addMenu(glyph, identifier, accelerator, groupAcc, attr, clr, text, preselected)
+        getWMenu(window).addMenu(glyph, identifier, accelerator, groupAcc, attr, clr, text, preselected)
         // winid window,  const glyph_info * glyph, const union any * identifier, char accelerator, char groupacc, int attr, int clr, const char *str, unsigned int itemflags
         Log.d(TAG, "addMenu(window:$window, glyph:$glyph, identifier: $identifier, accelerator: ${accelerator}, groupAcc: $groupAcc, attr: $attr, clr: $clr, text: $text, preselected: $preselected)")
     }
 
     private fun endMenu(wid: Int, prompt: String) {
-        getNHWMenu(wid).endMenu(prompt)
+        getWMenu(wid).endMenu(prompt)
         Log.d(TAG, "endMenu(wid: $wid, prompt: $prompt)")
     }
 
     private fun selectMenu(wid: Int, how: Int): LongArray {
-        val nhMenu = getNHWMenu(wid)
+        val nhMenu = getWMenu(wid)
         Log.d(TAG, "selectMenu(wid: $wid, how: $how)")
         Log.d(TAG, "itemList:${nhMenu.nhMenuItems}")
         return nhMenu.selectMenu(how)
@@ -222,21 +222,21 @@ class NetHack(
             e.printStackTrace()
         }
     }
-    private fun getNHWindow(wid:Int): NHWindow {
+    private fun getWindow(wid:Int): NHWindow {
         for (window in windows)
             if(window.wid == wid)
                 return window
         throw RuntimeException("no window found for wid: $wid")
     }
 
-    private fun getNHWMenu(wid:Int): NHWMenu {
-        val window = getNHWindow(wid)
+    private fun getWMenu(wid:Int): NHWMenu {
+        val window = getWindow(wid)
         if(window is NHWMenu)
-            return getNHWindow(wid) as NHWMenu
+            return getWindow(wid) as NHWMenu
         throw RuntimeException("no menu found for wid: $wid")
     }
 
-    fun getNHWStatus(): NHWStatus? {
+    fun getWStatus(): NHWStatus? {
         for (window in windows) {
             if(window is NHWStatus)
                 return window
@@ -244,14 +244,14 @@ class NetHack(
         return null
     }
 
-     fun getNHWMap(): NHWMap? {
+     fun getWMap(): NHWMap? {
         for (window in windows) {
             if(window is NHWMap)
                 return window
         }
          return null
     }
-     fun getNHWMessage(): NHWMessage? {
+     fun getWMessage(): NHWMessage? {
         for (window in windows) {
             if(window is NHWMessage)
                 return window

@@ -1,12 +1,8 @@
 package com.yywspace.anethack.window
 
-import android.text.SpannableStringBuilder
 import android.util.Log
-import android.view.View
-import com.yywspace.anethack.NHMessageSurfaceView
-import com.yywspace.anethack.NHStatusSurfaceView
+import com.yywspace.anethack.map.NHStatusSurfaceView
 import com.yywspace.anethack.entity.NHStatus
-import com.yywspace.anethack.entity.NHStatus.*
 import com.yywspace.anethack.NetHack
 
 

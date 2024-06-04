@@ -6,12 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".NetHackActivity">
 
-    <com.yywspace.anethack.NHMapSurfaceView
+    <com.yywspace.anethack.map.NHMapSurfaceView
         android:id="@+id/map_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </com.yywspace.anethack.NHMapSurfaceView>
+    </com.yywspace.anethack.map.NHMapSurfaceView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,17 +19,17 @@
         android:focusable="true"
         android:clickable="true"
         android:orientation="vertical">
-        <com.yywspace.anethack.NHStatusSurfaceView
+        <com.yywspace.anethack.map.NHStatusSurfaceView
             android:id="@+id/status_view"
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
 
-        <com.yywspace.anethack.NHMessageSurfaceView
+        <com.yywspace.anethack.map.NHMessageSurfaceView
             android:id="@+id/message_view"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
-        </com.yywspace.anethack.NHMessageSurfaceView>
+        </com.yywspace.anethack.map.NHMessageSurfaceView>
 
     </LinearLayout>
 

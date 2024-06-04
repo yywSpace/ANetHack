@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.yywspace.anethack.NHMessageSurfaceView
+import com.yywspace.anethack.map.NHMessageSurfaceView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand

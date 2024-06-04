@@ -1,4 +1,4 @@
-package com.yywspace.anethack
+package com.yywspace.anethack.map
 
 import android.content.Context
 import android.graphics.Canvas
@@ -8,10 +8,10 @@ import android.graphics.PorterDuff
 import android.text.DynamicLayout
 import android.text.TextPaint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.LinearLayout
+import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.window.NHWMessage
 import kotlin.math.ceil
 import kotlin.streams.toList
@@ -20,7 +20,7 @@ import kotlin.streams.toList
 class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 42f
     private val textPaint:TextPaint = TextPaint()
-    private lateinit var nh:NetHack
+    private lateinit var nh: NetHack
     private lateinit var nhMessage: NHWMessage
     private var messageInit: Boolean = false
     private var messageSize = 3
@@ -48,7 +48,7 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         isFocusable = true
         this.keepScreenOn = true
     }
-    fun initMessage(nh:NetHack, message: NHWMessage) {
+    fun initMessage(nh: NetHack, message: NHWMessage) {
         this.nh = nh
         this.nhMessage = message
         messageInit = true

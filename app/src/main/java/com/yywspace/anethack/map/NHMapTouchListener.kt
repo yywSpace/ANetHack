@@ -1,4 +1,4 @@
-package com.yywspace.anethack
+package com.yywspace.anethack.map
 
 import android.annotation.SuppressLint
 import android.graphics.PointF
@@ -19,7 +19,7 @@ class NHMapTouchListener : OnTouchListener {
     private var isMoving = false
     private var lastLocation = PointF()
     private var firstLocation = PointF()
-    var onNHMapTouchListener:OnNHMapTouchListener? = null
+    var onNHMapTouchListener: OnNHMapTouchListener? = null
 
     private val baseHandler: Handler =  Handler(Looper.getMainLooper())
     private val longPressRunnable: Runnable = Runnable {
