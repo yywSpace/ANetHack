@@ -3,7 +3,7 @@ package com.yywspace.anethack
 import android.app.Activity
 import android.os.Handler
 import android.util.Log
-import com.yywspace.anethack.command.NHCommandController
+import com.yywspace.anethack.command.NHBlockingCommandController
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
 import com.yywspace.anethack.entity.NHColor
@@ -30,7 +30,7 @@ class NetHack(
     private var question: NHQuestion = NHQuestion(this)
     private var playerChoose: NHPlayerChoose = NHPlayerChoose(this)
     private var extCmdChoose: NHExtendChoose = NHExtendChoose(this)
-    val command: NHCommandController = NHCommandController()
+    val command = NHBlockingCommandController()
     var isRunning = false
     private var nextWinId = 0
     val prefs by lazy { SharedPreferencesUtils(context) }
