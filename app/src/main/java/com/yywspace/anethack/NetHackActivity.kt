@@ -2,13 +2,10 @@ package com.yywspace.anethack
 
 import android.content.Context
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.TextUtils
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
@@ -43,7 +40,8 @@ class NetHackActivity : AppCompatActivity() {
         initControlPanel()
         hideSystemUi()
         // showSystemUi()
-        copyFilesFromAssets("nethackdir")
+        loadGameAssets("nethackdir")
+        saveErrorLog()
         nethack.run()
     }
 
@@ -168,46 +166,30 @@ class NetHackActivity : AppCompatActivity() {
             panelView.addView(button)
         }
     }
-
-    private fun copyFilesFromAssets(assetsDir:String) {
-        if(File(filesDir, assetsDir).exists())
+    private fun loadGameAssets(path: String) {
+        if(File(filesDir, path).exists())
             return
-        Log.d(TAG, "localHackDir: $filesDir")
-        val assetsQueue = ArrayDeque<String>()
-        val assetsList = mutableListOf<String>()
-        assetsQueue.add(assetsDir)
-        while (assetsQueue.isNotEmpty()) {
-            val basePath = assetsQueue.removeFirst()
-            val fileList = assets.list(basePath)
-            if (fileList?.isEmpty() == true)
-                assetsList.add(basePath)
-            fileList?.forEach { subDir-> assetsQueue.add("$basePath/$subDir") }
-        }
-        assetsList.forEach {
-                path->
-            try {
-                val source: InputStream = assets.open(File(path).path)
-                val localFile = File(filesDir, path)
-                if (!localFile.exists()) {
-                    localFile.parentFile?.mkdirs()
-                    val destination: OutputStream = FileOutputStream(localFile)
-                    val buffer = ByteArray(1024)
-                    var nread: Int
-                    while (source.read(buffer).also { nread = it } != -1) {
-                        if (nread == 0) {
-                            nread = source.read()
-                            if (nread < 0) break
-                            destination.write(nread)
-                            continue
-                        }
-                        destination.write(buffer, 0, nread)
-                    }
-                    destination.close()
-                }
-            } catch (e: IOException) {
-                e.printStackTrace()
+        val fileList = assets.list(path)
+        val file = File(filesDir, path)
+        if (fileList.isNullOrEmpty()) {
+            FileOutputStream(file).use { fileOut ->
+                this.assets.open(path).copyTo(fileOut)
+            }
+        } else {
+            if (!file.exists()) file.mkdirs()
+            for (i in fileList.indices) {
+                loadGameAssets(path + "/" + fileList[i])
             }
         }
     }
-
+    private fun saveErrorLog() {
+        object : Thread() {
+            override fun run() {
+                val logcatProcess = Runtime.getRuntime().exec("logcat -d *:W")
+                openFileOutput("nethack_error.log", MODE_PRIVATE).use { fileOut ->
+                    logcatProcess.inputStream.copyTo(fileOut)
+                }
+            }
+        }.start()
+    }
 }
