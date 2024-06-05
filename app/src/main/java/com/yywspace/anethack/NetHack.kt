@@ -207,6 +207,9 @@ class NetHack(
     }
 
     fun ynFunction(question: String, choices: String, ynNumber:LongArray, def: Char):Char {
+        if (question.startsWith("In what direction")) {
+            return command.waitForCommand().key
+        }
         this.question.showSelectQuestion(question, choices, ynNumber, def)
         return this.question.waitForAnswer()
     }
