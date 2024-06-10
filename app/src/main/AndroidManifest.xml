@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_LOGS"
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -16,18 +17,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ANethack"
         tools:targetApi="31">
+        <activity
+            android:name=".setting.SettingsActivity"
+            android:exported="false"
+            android:label="@string/activity_settings_title" />
 
         <activity
             android:name=".NetHackActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:launchMode="singleTask"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.yywspace.anethack.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_public_paths" />
+        </provider>
+
     </application>
 
 </manifest>

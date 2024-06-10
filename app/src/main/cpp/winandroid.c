@@ -162,7 +162,6 @@ static jmethodID jClipAround;
 static jmethodID jDelayOutput;
 static jmethodID jSetNumPadOption;
 static jmethodID jAskName;
-static jmethodID jGetDumplogDir;
 static jmethodID jRenderStatus;
 static jmethodID jShowExtCmdMenu;
 static jmethodID jGetMessageHistory;
@@ -225,13 +224,11 @@ Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring
 
     NetHackMain(2, params);
 }
-//    jGetDumplogDir = (*jEnv)->GetMethodID(jEnv, jApp, "getDumplogDir", "()Ljava/lang/String;");
 
 JNIEXPORT void JNICALL
 Java_com_yywspace_anethack_NetHack_stopNetHack(JNIEnv *env, jobject thiz) {
     nh_terminate(EXIT_SUCCESS);
 }
-
 
 void more(void){
 
@@ -1400,35 +1397,3 @@ and_ctrl_nhwindow(
     }
     return wri;
 }
-
-
-#ifdef DUMPLOG
-void and_get_dumplog_dir(char* buf)
-{
-	int i, n;
-	const jchar* pChars;
-	jstring jstr;
-
-	jstr = (jstring)JNICallO(jGetDumplogDir);
-	n = (*jEnv)->GetStringLength(jEnv, jstr);
-
-	if(n > 0 && n < BUFSZ - 1)
-	{
-		pChars = (*jEnv)->GetStringChars(jEnv, jstr, 0);
-		for(i = 0; i < n; i++)
-			buf[i] = pChars[i];
-		(*jEnv)->ReleaseStringChars(jEnv, jstr, pChars);
-		if(buf[n - 1] != '/')
-			buf[n++] = '/';
-	}
-	else
-		n = 0;
-	buf[n] = 0;
-	destroy_jobject(jstr);
-}
-#endif
-
-
-
-
-

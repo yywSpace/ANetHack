@@ -4,7 +4,6 @@
 
 #include "hack.h"
 #include "dlb.h"
-#include "NetHack/outdated/sys/wince/ceinc/fcntl.h"
 #include <setjmp.h>
 
 #include <sys/stat.h>
@@ -398,4 +397,22 @@ char ** get_aborted_games() {
         }
     }
     return result;
+}
+
+/*
+ * Add a slash to any name not ending in /. There must
+ * be room for the /
+ */
+void
+append_slash(char *name)
+{
+    char *ptr;
+
+    if (!*name)
+        return;
+    ptr = name + (strlen(name) - 1);
+    if (*ptr != '/') {
+        *++ptr = '/';
+        *++ptr = '\0';
+    }
 }

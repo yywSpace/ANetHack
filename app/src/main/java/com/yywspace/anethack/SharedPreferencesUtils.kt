@@ -2,16 +2,18 @@ package com.yywspace.anethack
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.preference.PreferenceManager
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-class SharedPreferencesUtils(context: Context) {
+class SharedPreferencesUtils(val context: Context) {
 
-    private val preferences: SharedPreferences = context.getSharedPreferences("NetHack", Context.MODE_PRIVATE)
+    private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     private var _saves by SharedPreferenceDelegates.map()
     private var inputPrompts by SharedPreferenceDelegates.stringSet()
 
+    var dumpLogMaxSize by SharedPreferenceDelegates.string2int()
 
     fun getInputPrompts():List<String> {
         return inputPrompts.toList()
@@ -109,6 +111,16 @@ class SharedPreferencesUtils(context: Context) {
 
             override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: String?) {
                 thisRef.preferences.edit().putString(property.name, value).apply()
+            }
+        }
+
+        fun string2int(defaultValue: Int = 0) = object : ReadWriteProperty<SharedPreferencesUtils, Int> {
+            override fun getValue(thisRef: SharedPreferencesUtils, property: KProperty<*>): Int {
+                return thisRef.preferences.getString(property.name, defaultValue.toString())?.toInt()?:defaultValue
+            }
+
+            override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Int) {
+                thisRef.preferences.edit().putString(property.name, value.toString()).apply()
             }
         }
 

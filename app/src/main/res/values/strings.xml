@@ -27,4 +27,20 @@
     <string name="pos_key_run">Run</string>
     <string name="pos_key_look">Look</string>
     <string name="key_dot_status_desc">key dot status image view</string>
+
+    <string name="activity_settings_title">SettingsActivity</string>
+
+    <!-- Preference Log -->
+    <string name="pref_log_header">Logs</string>
+    <string name="pref_log_dump">Dump log</string>
+    <string name="pref_log_dump_summery">The log that records game state at the end of a game.</string>
+    <string name="pref_log_dump_max_size">Dump log size</string>
+    <string name="pref_log_error">Error log</string>
+    <string name="pref_log_error_summery">Android crash log.</string>
+
+    <!-- Preference Config -->
+    <string name="pref_conf_header">Config</string>
+    <string name="pref_conf_download">Download config file</string>
+    <string name="pref_conf_upload">Upload config file</string>
+
 </resources>

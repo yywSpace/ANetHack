@@ -52,9 +52,8 @@ EXPLORERS=*
 # over. It contains a view of the map and a record of
 # the player's belonging, attributes, etc.
 #
-# The logs are written to the "Documents" folder
-# normally located at /sdcard/Documents/
-#OPTIONS=dumplog
+# Do not edit the location of %d, if you want to change dump log name.
+DUMPLOGFILE=/data/user/0/com.yywspace.anethack/files/logs/dump/nethack.%n.%d.log
 
 # *** Menu Color ***
 #

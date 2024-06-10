@@ -1,11 +1,11 @@
 package com.yywspace.anethack
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
@@ -17,11 +17,10 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
+import com.yywspace.anethack.setting.SettingsActivity
 import java.io.File
+import java.io.FileFilter
 import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
 
 
 class NetHackActivity : AppCompatActivity() {
@@ -41,7 +40,8 @@ class NetHackActivity : AppCompatActivity() {
         hideSystemUi()
         // showSystemUi()
         loadGameAssets("nethackdir")
-        saveErrorLog()
+        loadGameAssets("logs")
+        processLogs()
         nethack.run()
     }
 
@@ -99,7 +99,7 @@ class NetHackActivity : AppCompatActivity() {
                 binding.mapView.centerPlayerInScreen()
             }
             "Setting" -> {
-                binding.mapView.centerPlayerInScreen()
+                startActivity(Intent(this, SettingsActivity::class.java))
             }
             else -> {
                 if(nethack.isRunning) {
@@ -182,12 +182,27 @@ class NetHackActivity : AppCompatActivity() {
             }
         }
     }
-    private fun saveErrorLog() {
+    private fun processLogs() {
+        val dumpLogMaxSize = nethack.prefs.dumpLogMaxSize
         object : Thread() {
             override fun run() {
+                // save error log
                 val logcatProcess = Runtime.getRuntime().exec("logcat -d *:W")
-                openFileOutput("nethack_error.log", MODE_PRIVATE).use { fileOut ->
+                val errorLog = File(filesDir,"logs/error/nethack.log")
+                FileOutputStream(errorLog).use { fileOut ->
                     logcatProcess.inputStream.copyTo(fileOut)
+                }
+                // delete dump logs that exceed the size
+                val dumpDir = File(filesDir,"logs/dump")
+                dumpDir.listFiles(FileFilter { it.extension == "log" })
+                    ?.apply {
+                    if (size > dumpLogMaxSize) {
+                        toList()
+                            .sortedBy { it.name.split(".")[size - 2] }
+                            .stream().limit((size - dumpLogMaxSize).toLong()).forEach {
+                                it.delete()
+                            }
+                    }
                 }
             }
         }.start()
