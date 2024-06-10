@@ -7,27 +7,35 @@ import androidx.core.text.toSpannable
 import java.lang.RuntimeException
 
 class NHStatus {
-    val fields = HashMap<StatusField, NHString>()
+    private val fields = HashMap<StatusField, NHString>()
+    private val newestFields = HashMap<StatusField, NHString>()
+    private val conditionField = mutableListOf<NHString>()
+    private val newestConditionField = mutableListOf<NHString>()
     private val fieldPercents = HashMap<StatusField, Int>()
 
-    private val conditionsField =HashMap<Int, MutableList<NHString>>()
-    private var conditionsIndex = 0
-    fun setField(idx:Int, color:Int, attr:Int, percent:Int, value:String) {
+    fun addStatusField(idx:Int, color:Int, attr:Int, percent:Int, value:String) {
         val field = StatusField.fromIdx(idx)
         val statusValue = if (field == StatusField.BL_TITLE) value else value.trim()
         if(field == StatusField.BL_CONDITION) {
-            if(conditionsField.containsKey(conditionsIndex))
-                conditionsField[conditionsIndex]?.add(NHString(statusValue, attr, color))
-            else
-                conditionsField[conditionsIndex] = mutableListOf(NHString(statusValue, attr, color))
+            newestConditionField.add(NHString(statusValue, attr, color))
             return
         }
-        if (fields.containsKey(field))
-            fields[field]?.set(statusValue, attr, color)
+        if (newestFields.containsKey(field))
+            newestFields[field]?.set(statusValue, attr, color)
         else
-            fields[field] = NHString(statusValue, attr, color)
+            newestFields[field] = NHString(statusValue, attr, color)
         fieldPercents[field] = percent
     }
+
+    fun updateStatus() {
+        fields.clear()
+        conditionField.clear()
+        fields.putAll(newestFields)
+        conditionField.addAll(newestConditionField)
+        newestFields.clear()
+        newestConditionField.clear()
+    }
+
     fun getField(field: StatusField): NHString? {
         return fields[field]
     }
@@ -38,18 +46,12 @@ class NHStatus {
 
     fun getSpannableField(field: StatusField): Spannable {
         if(field == StatusField.BL_CONDITION) {
-            // because nowhere clear status, everytime we must get newest condition
-            conditionsIndex++
-            if(conditionsField.isNotEmpty()) {
-                val index = conditionsField.keys.max()
-                val conditions = SpannableStringBuilder("")
-                conditionsField[index]?.forEach {
-                    conditions.append(it.toSpannableString())
-                    conditions.append(" ")
-                }
-                return conditions.toSpannable()
+            val conditions = SpannableStringBuilder("")
+            conditionField.forEach {
+                conditions.append(it.toSpannableString())
+                conditions.append(" ")
             }
-            return SpannableString("")
+            return conditions.toSpannable()
         }
         return if (fields.containsKey(field))
             fields[field]!!.toSpannableString()

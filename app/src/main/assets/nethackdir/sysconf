@@ -33,7 +33,7 @@ OPTIONS=!tutorial,!legacy
 OPTIONS=scores:10 top/2 around/own
 OPTIONS=!cmdassist
 
-OPTIONS=!autopickup,pickup_types:$"=/!?+
+OPTIONS=autopickup,pickup_types:$"=/!?+
 #OPTIONS=!autopickup
 OPTIONS=force_invmenu
 OPTIONS=IBMgraphics
@@ -52,8 +52,8 @@ EXPLORERS=*
 # over. It contains a view of the map and a record of
 # the player's belonging, attributes, etc.
 #
-# Do not edit the location of %d, if you want to change dump log name.
-DUMPLOGFILE=/data/user/0/com.yywspace.anethack/files/logs/dump/nethack.%n.%d.log
+# Do not edit the location of %D, if you want to change dump log name.
+DUMPLOGFILE=/data/user/0/com.yywspace.anethack/files/logs/dump/nethack.%n.%D.log
 
 # *** Menu Color ***
 #

@@ -18,6 +18,7 @@ class NHWStatus(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     }
 
     override fun displayWindow(blocking: Boolean) {
+        status.updateStatus()
         Log.d("NHWStatus", "Status: $status")
     }
 
@@ -30,7 +31,7 @@ class NHWStatus(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     }
 
     fun renderField(fldIdx: Int, fldName: String, value: String, attr: Int, color: Int, percent:Int) {
-        status.setField(fldIdx, color, attr, percent, value)
+        status.addStatusField(fldIdx, color, attr, percent, value)
         Log.d(
             "NHWStatus",
             "renderStatus(fldIdx:$fldIdx, fldName:$fldName, value:$value, attr:$attr, color:$color, percent:$percent)"

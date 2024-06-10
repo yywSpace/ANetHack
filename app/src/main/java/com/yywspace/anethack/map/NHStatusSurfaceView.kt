@@ -84,7 +84,11 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             StatusField.BL_XP -> {
                 val xp = nhStatus.getSpannableField(StatusField.BL_XP)
                 val exp = nhStatus.getSpannableField(StatusField.BL_EXP)
-                Pair(field, SpannableStringBuilder(xp).append(exp))
+                val hd = nhStatus.getSpannableField(StatusField.BL_HD)
+                if (xp.isEmpty())
+                    Pair(field, hd)
+                else
+                    Pair(field, SpannableStringBuilder(xp).append(exp))
             }
             else -> Pair(field, nhStatus.getSpannableField(field))
         }
@@ -109,9 +113,10 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         val cap = getStatus(StatusField.BL_CAP)
         val condition = getStatus(StatusField.BL_CONDITION)
         val statusBarList = mutableListOf<List<Pair<StatusField, Spannable>>>().apply {
-            add(listOf(title, align, hunger, cap, condition))
+            add(listOf(title, align))
             add(listOf(hp, st, dx, co, intel, wi, ch))
-            add(listOf(pw, levelDesc, gold, ac, xp, time))
+            add(listOf(pw, ac, gold, xp))
+            add(listOf(levelDesc,time, hunger, cap, condition))
         }
         return statusBarList
     }
@@ -150,14 +155,15 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                             statusBarWidth += (border.width() + 20f)
                             maxHeight = maxHeight.coerceAtLeast(border.height())
                         }else {
-                            val dynamicLayout = DynamicLayout.Builder.obtain(
-                                s.second, textPaint, ceil(DynamicLayout.getDesiredWidth(s.second, textPaint)).toInt()
-                            ).build()
-                            dynamicLayout.draw(canvas)
-                            statusBarWidth += (dynamicLayout.width + 20f)
-                            maxHeight = maxHeight.coerceAtLeast(dynamicLayout.height.toFloat())
+                            if (s.second.isNotEmpty()) {
+                                val dynamicLayout = DynamicLayout.Builder.obtain(
+                                    s.second, textPaint, ceil(DynamicLayout.getDesiredWidth(s.second, textPaint)).toInt()
+                                ).build()
+                                dynamicLayout.draw(canvas)
+                                statusBarWidth += (dynamicLayout.width + 20f)
+                                maxHeight = maxHeight.coerceAtLeast(dynamicLayout.height.toFloat())
+                            }
                         }
-
                         canvas.restore()
                     }
                     statusBarHeight += maxHeight
