@@ -28,10 +28,9 @@
 #
 # *** General options ***
 #
-OPTIONS=!tutorial,!legacy
+OPTIONS=!tutorial,!legacy,!cmdassist
 #OPTIONS=packorder:")[%?+/=!(*0_`
 OPTIONS=scores:10 top/2 around/own
-OPTIONS=!cmdassist
 
 OPTIONS=autopickup,pickup_types:$"=/!?+
 #OPTIONS=!autopickup
