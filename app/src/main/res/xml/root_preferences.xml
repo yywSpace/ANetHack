@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
         app:title="@string/pref_log_header"
@@ -39,6 +40,21 @@
             app:title="@string/pref_conf_upload"
             app:useSimpleSummaryProvider="false"
             app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/pref_menu_header"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            app:key="menuType"
+            app:title="@string/pref_menu_type"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="1"
+            app:entries="@array/menu_type_array"
+            app:entryValues="@array/menu_type_value"/>
 
     </PreferenceCategory>
 

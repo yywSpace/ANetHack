@@ -115,8 +115,8 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         val statusBarList = mutableListOf<List<Pair<StatusField, Spannable>>>().apply {
             add(listOf(title, align))
             add(listOf(hp, st, dx, co, intel, wi, ch))
-            add(listOf(pw, ac, gold, xp))
-            add(listOf(levelDesc,time, hunger, cap, condition))
+            add(listOf(pw, gold, ac, xp, time))
+            add(listOf(levelDesc, hunger, cap, condition))
         }
         return statusBarList
     }

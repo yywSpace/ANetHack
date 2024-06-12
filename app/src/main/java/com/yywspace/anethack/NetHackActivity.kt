@@ -198,7 +198,7 @@ class NetHackActivity : AppCompatActivity() {
                     ?.apply {
                     if (size > dumpLogMaxSize) {
                         toList()
-                            .sortedBy { it.name.split(".")[size - 2] }
+                            .sortedBy { it.name.split(".")[0] }
                             .stream().limit((size - dumpLogMaxSize).toLong()).forEach {
                                 it.delete()
                             }

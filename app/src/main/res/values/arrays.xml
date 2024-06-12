@@ -1,12 +1,10 @@
 <resources>
-    <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
+    <string-array name="menu_type_array">
+        <item>@string/pref_menu_type_dialog</item>
+        <item>@string/pref_menu_type_operate</item>
     </string-array>
-
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <string-array name="menu_type_value">
+        <item>1</item>
+        <item>2</item>
     </string-array>
 </resources>

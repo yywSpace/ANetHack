@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".NetHackActivity">
 
     <com.yywspace.anethack.map.NHMapSurfaceView
@@ -16,9 +15,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:focusable="true"
-        android:clickable="true"
-        android:orientation="vertical">
+        android:clickable="true">
         <com.yywspace.anethack.map.NHStatusSurfaceView
             android:id="@+id/status_view"
             android:layout_width="match_parent"
@@ -34,13 +33,18 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/panel_container"
         android:orientation="vertical"
-        android:layout_gravity="bottom"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+        <FrameLayout
+            android:id="@+id/dialog_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:visibility="invisible"/>
 
         <com.yywspace.anethack.keybord.KeyboardView
             android:id="@+id/keyboard_view"

@@ -74,7 +74,8 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                 MaterialAlertDialogBuilder(context).apply {
                     setTitle(R.string.message_history)
                     setView(dialogTextView)
-                    setPositiveButton(R.string.dialog_confirm) { _, _ ->
+                    setPositiveButton(R.string.dialog_confirm, null)
+                    setOnDismissListener {
                         nh.command.sendCommand(NHCommand(27.toChar()))
                     }
                     create()

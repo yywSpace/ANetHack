@@ -18,7 +18,7 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings_activity)
+        setContentView(R.layout.activity_settings)
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
@@ -39,7 +39,7 @@ class SettingsActivity : AppCompatActivity() {
                         .maxDepth(1)
                         .filter { it.extension == "log"  }
                         .forEach { fileNames.add(it.name) }
-                    fileNames.sortByDescending { it.split(".")[fileNames.size-2] }
+                    fileNames.sortByDescending { it.split(".")[0] }
                     AlertDialog.Builder(this).apply {
                         setTitle(R.string.pref_log_dump)
                         setItems(fileNames.toTypedArray()) { _, which ->

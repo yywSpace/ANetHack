@@ -42,5 +42,10 @@
     <string name="pref_conf_header">Config</string>
     <string name="pref_conf_download">Download config file</string>
     <string name="pref_conf_upload">Upload config file</string>
+    <!-- Preference Menu -->
+    <string name="pref_menu_header">Menu</string>
+    <string name="pref_menu_type">Menu type</string>
+    <string name="pref_menu_type_dialog">Dialog</string>
+    <string name="pref_menu_type_operate">Operation</string>
 
 </resources>

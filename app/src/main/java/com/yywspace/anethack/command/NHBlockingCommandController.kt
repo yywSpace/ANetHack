@@ -44,7 +44,8 @@ class NHBlockingCommandController {
         }
         return null
     }
-    inline fun <reified T:NHCommand>waitForAnyCommand():T{
+
+    inline fun <reified T:NHCommand>waitForAnyCommand(noinline otherCommandDiscard:((NHCommand)->Unit)? = null):T{
         while (true) {
             val cmd = cmdQueue.take()
             if (cmd is T)
@@ -53,6 +54,7 @@ class NHBlockingCommandController {
                 Thread.sleep(50)
             } catch (_: InterruptedException) {
             }
+            otherCommandDiscard?.invoke(cmd)
         }
     }
 

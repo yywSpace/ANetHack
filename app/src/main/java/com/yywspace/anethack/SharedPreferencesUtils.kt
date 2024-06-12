@@ -13,7 +13,8 @@ class SharedPreferencesUtils(val context: Context) {
     private var _saves by SharedPreferenceDelegates.map()
     private var inputPrompts by SharedPreferenceDelegates.stringSet()
 
-    var dumpLogMaxSize by SharedPreferenceDelegates.string2int()
+    var dumpLogMaxSize by SharedPreferenceDelegates.string2int(10)
+    var menuType by SharedPreferenceDelegates.string("1")
 
     fun getInputPrompts():List<String> {
         return inputPrompts.toList()

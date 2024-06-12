@@ -52,7 +52,7 @@ EXPLORERS=*
 # the player's belonging, attributes, etc.
 #
 # Do not edit the location of %D, if you want to change dump log name.
-DUMPLOGFILE=/data/user/0/com.yywspace.anethack/files/logs/dump/nethack.%n.%D.log
+DUMPLOGFILE=/data/user/0/com.yywspace.anethack/files/logs/dump/%D.%n.log
 
 # *** Menu Color ***
 #
