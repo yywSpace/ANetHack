@@ -15,6 +15,7 @@ class SharedPreferencesUtils(val context: Context) {
 
     var dumpLogMaxSize by SharedPreferenceDelegates.string2int(10)
     var menuType by SharedPreferenceDelegates.string("1")
+    var lockView by SharedPreferenceDelegates.boolean(false)
 
     fun getInputPrompts():List<String> {
         return inputPrompts.toList()

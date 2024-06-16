@@ -48,4 +48,9 @@
     <string name="pref_menu_type_dialog">Dialog</string>
     <string name="pref_menu_type_operate">Operation</string>
 
+    <!-- Preference Other -->
+    <string name="pref_other_header">Other</string>
+    <string name="pref_other_lock_view">Lock view</string>
+    <string name="pref_other_lock_view_desc">Always put the player in the center of the view.</string>
+
 </resources>

@@ -3,6 +3,7 @@ package com.yywspace.anethack.window
 import android.annotation.SuppressLint
 import android.content.Context
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout.*
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.tabs.TabLayout
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
@@ -28,6 +30,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     private var numPrefix = -1
     private var menuAdapter:NHWMenuAdapter? = null
     private var menuList:RecyclerView? = null
+    private var menuDialog:AlertDialog? = null
     private val textList = mutableListOf<NHString>()
     private var selectedAll = false
 
@@ -63,92 +66,23 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
 
     fun selectMenu(how: Int): LongArray {
         selectMode = SelectMode.fromInt(how)
-        if(nh.prefs.menuType == "1") // dialog
-            showDialogMenu()
-        else // operation
-            showOperateMenu()
+        showMenu()
         val menuCommand = nh.command.waitForAnyCommand<NHMenuCommand> { other ->
             processMenuOperate(other)
         }
         return menuCommand.selectedItems.toLongArray()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    private fun showMenu() {
+        if(nh.prefs.menuType == "1") // dialog
+            showDialogMenu()
+        else // operation
+            showOperateMenu()
+    }
+
     private fun showOperateMenu() {
         nh.runOnUi { binding, context ->
-            menuAdapter = NHWMenuAdapter(this@NHWMenu).apply {
-                onItemClick = { _, _, item ->
-                    if (selectMode == SelectMode.PickOne) {
-                        nh.command.sendCommand(NHMenuCommand(item.accelerator, mutableListOf(item.identifier, item.selectedCount)))
-                        dismissOperateMenu()
-                    }
-                }
-                onItemLongClick = { _, position, item ->
-                    showAmountPickerDialog(context, item, position, this)
-                }
-            }
-            // set the custom layout
-            val dialogMenuView = View.inflate(context, R.layout.dialog_menu, null)
-                .apply {
-                    findViewById<TextView>(R.id.menu_title)?.apply {
-                        if (title.isEmpty())
-                            visibility = View.GONE
-                        else
-                            text = title
-                    }
-                    menuList = findViewById<RecyclerView>(R.id.menu_item_list)?.apply {
-                        adapter = menuAdapter
-                        layoutManager = LinearLayoutManager(context)
-                    }
-                    findViewById<MaterialButton>(R.id.menu_btn_1)?.apply {
-                        setText(R.string.dialog_cancel)
-                        setOnClickListener {
-                            // 27:Key ESC
-                            nh.command.sendCommand(NHMenuCommand(27.toChar(), mutableListOf(-1)))
-                            dismissOperateMenu()
-                        }
-                    }
-                    if (selectMode == SelectMode.PickMany) {
-                        findViewById<MaterialButton>(R.id.menu_btn_2)?.apply {
-                            setText(R.string.dialog_select_all)
-                            setOnClickListener {
-                                if (!selectedAll) {
-                                    setText(R.string.dialog_clear_all)
-                                    nhMenuItems.forEach {
-                                        if (!it.isHeader())
-                                            it.isSelected = true
-                                    }
-                                } else {
-                                    setText(R.string.dialog_select_all)
-                                    nhMenuItems.forEach {
-                                        it.isSelected = false
-                                    }
-                                }
-                                menuAdapter?.notifyDataSetChanged()
-                                selectedAll = !selectedAll
-                            }
-                        }
-                        findViewById<MaterialButton>(R.id.menu_btn_3)?.apply {
-                            setText(R.string.dialog_confirm)
-                            setOnClickListener {
-                                val count = nhMenuItems.count { item -> item.isSelected }
-                                if (count == 0)
-                                    return@setOnClickListener
-                                val selectList = mutableListOf<Long>()
-                                nhMenuItems.filter { item -> item.isSelected }.forEach { item ->
-                                    selectList.add(item.identifier)
-                                    selectList.add(item.selectedCount)
-                                }
-                                // 13:Key Enter
-                                nh.command.sendCommand(NHMenuCommand(13.toChar(), selectList))
-                                dismissOperateMenu()
-                            }
-                        }
-                    } else {
-                        findViewById<MaterialButton>(R.id.menu_btn_2)?.visibility = View.INVISIBLE
-                        findViewById<MaterialButton>(R.id.menu_btn_3)?.visibility = View.INVISIBLE
-                    }
-                }
+            val menuView = initMenuView(context)
             binding.panelContainer.apply {
                 isFocusable = true
                 isClickable = true
@@ -156,29 +90,124 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
             val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).apply {
                 gravity = Gravity.CENTER
             }
-            binding.dialogContainer.addView(dialogMenuView, params)
+            binding.dialogContainer.addView(menuView, params)
             binding.dialogContainer.visibility = View.VISIBLE
         }
     }
 
-    private fun dismissOperateMenu() {
-        nh.runOnUi { binding, _ ->
-            binding.panelContainer.apply {
-                isFocusable = false
-                isClickable = false
+    private fun showDialogMenu() {
+        nh.runOnUi { _, context ->
+            val menuView = initMenuView(context)
+            menuDialog = AlertDialog.Builder(context).run {
+                setView(menuView)
+                setCancelable(false)
+                create()
+                showImmersive()
             }
-            binding.dialogContainer.removeAllViews()
-            binding.dialogContainer.visibility = View.INVISIBLE
         }
     }
 
-    fun processMenuOperate(operate:NHCommand) {
+    private fun dismissMenu() {
+        nh.runOnUi { binding, _ ->
+            if (nh.prefs.menuType == "1") {
+                // Dialog
+                menuDialog?.dismiss()
+            }else {
+                // Operation
+                binding.panelContainer.apply {
+                    isFocusable = false
+                    isClickable = false
+                }
+                binding.dialogContainer.removeAllViews()
+                binding.dialogContainer.visibility = View.INVISIBLE
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun initMenuView(context: Context):View {
+        menuAdapter = NHWMenuAdapter(this@NHWMenu).apply {
+            onItemClick = { _, _, item ->
+                if (selectMode == SelectMode.PickOne) {
+                    nh.command.sendCommand(NHMenuCommand(item.accelerator, mutableListOf(item.identifier, item.selectedCount)))
+                    dismissMenu()
+                }
+            }
+            onItemLongClick = { _, position, item ->
+                showAmountPickerDialog(context, item, position, this)
+            }
+        }
+        // set the custom layout
+        val menuView = View.inflate(context, R.layout.dialog_menu, null)
+            .apply {
+                findViewById<TextView>(R.id.menu_title)?.apply {
+                    if (title.isEmpty())
+                        visibility = View.GONE
+                    else
+                        text = title
+                }
+                menuList = findViewById<RecyclerView>(R.id.menu_item_list)?.apply {
+                    adapter = menuAdapter
+                    layoutManager = LinearLayoutManager(context)
+                }
+                findViewById<MaterialButton>(R.id.menu_btn_1)?.apply {
+                    setText(R.string.dialog_cancel)
+                    setOnClickListener {
+                        // 27:Key ESC
+                        nh.command.sendCommand(NHMenuCommand(27.toChar(), mutableListOf(-1)))
+                        dismissMenu()
+                    }
+                }
+                if (selectMode == SelectMode.PickMany) {
+                    findViewById<MaterialButton>(R.id.menu_btn_2)?.apply {
+                        setText(R.string.dialog_select_all)
+                        setOnClickListener {
+                            if (!selectedAll) {
+                                setText(R.string.dialog_clear_all)
+                                nhMenuItems.forEach {
+                                    if (!it.isHeader())
+                                        it.isSelected = true
+                                }
+                            } else {
+                                setText(R.string.dialog_select_all)
+                                nhMenuItems.forEach {
+                                    it.isSelected = false
+                                }
+                            }
+                            menuAdapter?.notifyDataSetChanged()
+                            selectedAll = !selectedAll
+                        }
+                    }
+                    findViewById<MaterialButton>(R.id.menu_btn_3)?.apply {
+                        setText(R.string.dialog_confirm)
+                        setOnClickListener {
+                            val count = nhMenuItems.count { item -> item.isSelected }
+                            if (count == 0)
+                                return@setOnClickListener
+                            val selectList = mutableListOf<Long>()
+                            nhMenuItems.filter { item -> item.isSelected }.forEach { item ->
+                                selectList.add(item.identifier)
+                                selectList.add(item.selectedCount)
+                            }
+                            // 13:Key Enter
+                            nh.command.sendCommand(NHMenuCommand(13.toChar(), selectList))
+                            dismissMenu()
+                        }
+                    }
+                } else {
+                    findViewById<MaterialButton>(R.id.menu_btn_2)?.visibility = View.INVISIBLE
+                    findViewById<MaterialButton>(R.id.menu_btn_3)?.visibility = View.INVISIBLE
+                }
+            }
+        return menuView
+    }
+    private fun processMenuOperate(operate:NHCommand) {
         when {
             // ESC
             operate.key.code == 27 -> {
                 numPrefix = -1
                 nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(-1)))
-                dismissOperateMenu()
+                dismissMenu()
             }
             // ENTER
             operate.key.code == 13 -> {
@@ -192,7 +221,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                         }
                         // 13:Key Enter
                         nh.command.sendCommand(NHMenuCommand(operate.key, selectList))
-                        dismissOperateMenu()
+                        dismissMenu()
                     }
                 }
             }
@@ -224,7 +253,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                     nh.runOnUi { _, _ ->
                         menuList?.smoothScrollToPosition(nhMenuItems.indexOf(this))
                         if (selectMode == SelectMode.PickOne) {
-                            dismissOperateMenu()
+                            dismissMenu()
                             nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(identifier, numPrefix.toLong())))
                         } else if (selectMode == SelectMode.PickMany) {
                             selectedCount = if (numPrefix != -1) numPrefix.toLong() else selectedCount
@@ -236,94 +265,6 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                 }
             }
         }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun showDialogMenu() {
-        nh.runOnUi { _, context ->
-            val menuAdapter = NHWMenuAdapter(this@NHWMenu)
-            // set the custom layout
-            val dialogMenuView = View.inflate(context, R.layout.dialog_menu, null)
-                .apply {
-                    findViewById<RecyclerView>(R.id.menu_item_list)?.apply {
-                        adapter = menuAdapter
-                        layoutManager = LinearLayoutManager(context)
-                    }
-                }
-            val dialog = AlertDialog.Builder(context).run {
-                setView(dialogMenuView)
-                setCancelable(false)
-                create()
-            }
-            dialogMenuView.apply {
-                findViewById<TextView>(R.id.menu_title)?.apply {
-                    if (title.isEmpty())
-                        visibility = View.GONE
-                    else
-                        text = title
-                }
-                findViewById<MaterialButton>(R.id.menu_btn_1)?.apply {
-                    setText(R.string.dialog_cancel)
-                    setOnClickListener {
-                        // 13:Key Enter
-                        nh.command.sendCommand(NHMenuCommand(13.toChar(), mutableListOf(-1)))
-                        dialog.dismiss()
-                    }
-                }
-                if (selectMode == SelectMode.PickMany) {
-                    findViewById<MaterialButton>(R.id.menu_btn_2)?.apply {
-                        setText(R.string.dialog_select_all)
-                        setOnClickListener {
-                            if (!selectedAll) {
-                                setText(R.string.dialog_clear_all)
-                                nhMenuItems.forEach {
-                                    if (!it.isHeader())
-                                        it.isSelected = true
-                                }
-                            } else {
-                                setText(R.string.dialog_select_all)
-                                nhMenuItems.forEach {
-                                    it.isSelected = false
-                                }
-                            }
-                            menuAdapter.notifyDataSetChanged()
-                            selectedAll = !selectedAll
-                        }
-                    }
-                    findViewById<MaterialButton>(R.id.menu_btn_3)?.apply {
-                        setText(R.string.dialog_confirm)
-                        setOnClickListener {
-                            val count = nhMenuItems.count { item -> item.isSelected }
-                            if (count == 0)
-                                return@setOnClickListener
-                            val selectList = mutableListOf<Long>()
-                            nhMenuItems.filter { item -> item.isSelected }.forEach { item ->
-                                selectList.add(item.identifier)
-                                selectList.add(item.selectedCount)
-                            }
-                            // 13:Key Enter
-                            nh.command.sendCommand(NHMenuCommand(13.toChar(), selectList))
-                            dialog.dismiss()
-                        }
-                    }
-                } else {
-                    findViewById<MaterialButton>(R.id.menu_btn_2)?.visibility = View.INVISIBLE
-                    findViewById<MaterialButton>(R.id.menu_btn_3)?.visibility = View.INVISIBLE
-                }
-            }
-
-            menuAdapter.onItemClick = { _, _, item ->
-                if (selectMode == SelectMode.PickOne) {
-                    nh.command.sendCommand(NHMenuCommand(item.accelerator, mutableListOf(item.identifier, item.selectedCount)))
-                    dialog.dismiss()
-                }
-            }
-            menuAdapter.onItemLongClick = { _, position, item ->
-                showAmountPickerDialog(context, item, position, menuAdapter)
-            }
-            dialog.showImmersive()
-        }
-
     }
 
     private fun showAmountPickerDialog(

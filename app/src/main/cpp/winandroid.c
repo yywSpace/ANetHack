@@ -865,7 +865,7 @@ void and_add_menu(winid window, const glyph_info * glyph, const union any * iden
     boolean preselected = (itemflags & MENU_ITEMFLAGS_SELECTED) != 0;
     int tile = glyph->gm.tileidx;
     int menu_color = clr, menu_attr = attr;
-    LOGD("and_add_menu attr=%d, tile=%d, color=%d,accelerator:%c address:%ld",menu_attr, tile, menu_color, accelerator, (long )identifier->a_lptr);
+    LOGD("and_add_menu attr=%d, tile=%d, color=%d, groupacc=%d, accelerator:%c address:%ld",menu_attr, tile, menu_color,groupacc, accelerator, (long )identifier->a_lptr);
     if(menu_attr)
         menu_attr = 1<<menu_attr;
     jstring jstr = (*jEnv)->NewStringUTF(jEnv,str);
