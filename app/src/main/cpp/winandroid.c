@@ -1021,11 +1021,11 @@ void and_print_glyph(winid wid, coordxy x, coordxy y, const glyph_info * glyphin
     int color = glyphinfo->gm.sym.color;
     int tile = glyphinfo->gm.tileidx;
     int glyph = glyphinfo->glyph;
-    LOGD("and_print_glyph wid=%d x=%d y=%d gryph=%d,color=%d, chd=%d, ch=%c", wid, x, y, glyph, color, ch, ch);
 
     unsigned int special = glyphinfo->gm.glyphflags;
+    LOGD("and_print_glyph wid=%d x=%d y=%d gryph=%d tile:%d color=%d chd=%d ch=%c special=%d", wid, x, y, glyph, tile, color, ch, ch, special);
 
-    special &= ~(MG_CORPSE|MG_INVIS|MG_RIDDEN|MG_STATUE); // TODO support
+    special &= ~(MG_CORPSE|MG_INVIS|MG_RIDDEN|MG_STATUE|MG_UNEXPL); // TODO support
     if(!iflags.hilite_pet)
         special &= ~MG_PET;
     if(!iflags.hilite_pile)

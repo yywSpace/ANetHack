@@ -97,6 +97,8 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     override fun putString(attr: Int, msg: String, color: Int) {
         if(msg.isEmpty()) return
         Log.d("NHWMessage","NHWMessage: putString $msg")
+        if (messageList.size > nh.prefs.messageHistorySize)
+            messageList.removeFirst()
         messageList.add(NHMessage(NHString(msg.trim(), attr), nh.command.lastCmdTime))
     }
 

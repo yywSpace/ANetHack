@@ -62,6 +62,11 @@ class SettingsActivity : AppCompatActivity() {
                     it.inputType = InputType.TYPE_CLASS_NUMBER;
                 }
             }
+            findPreference<EditTextPreference>("messageHistorySize")?.apply {
+                setOnBindEditTextListener {
+                    it.inputType = InputType.TYPE_CLASS_NUMBER;
+                }
+            }
         }
 
         private fun openInternalFile(context: Context?, relativePath:String) {

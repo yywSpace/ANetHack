@@ -56,7 +56,7 @@ class NHMapTouchListener : OnTouchListener {
                 }
                 if (isMoving && !isLongPress && !isClick) {
                     onNHMapTouchListener?.onMove(lastLocation, PointF(event.x, event.y))
-                    Log.d("NHMapTouchListener", "Move")
+                    // Log.d("NHMapTouchListener", "Move")
                 }
             }
             MotionEvent.ACTION_UP-> {

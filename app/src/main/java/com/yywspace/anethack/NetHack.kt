@@ -121,7 +121,7 @@ class NetHack(
 
     private fun printTile(wid: Int, x: Int, y: Int, tile: Int, ch: Int, col: Int, special: Int) {
         (getWindow(wid) as NHWMap).printTile(x, y, tile, ch, col, special)
-        Log.d(TAG, "printTile(wid: $wid, x: $x, y: $y, tile: $tile, ch: $ch, col: $col, special: $special)")
+        // Log.d(TAG, "printTile(wid: $wid, x: $x, y: $y, tile: $tile, ch: $ch, col: $col, special: $special)")
     }
     private fun rawPrint(attr: Int, msg: String) {
         getWMessage()?.putString(attr, msg, NHColor.NO_COLOR.ordinal)

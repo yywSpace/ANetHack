@@ -58,6 +58,18 @@
 
     </PreferenceCategory>
     <PreferenceCategory
+        app:title="@string/pref_message_header"
+        app:iconSpaceReserved="false">
+        <EditTextPreference
+            app:key="messageHistorySize"
+            app:title="@string/pref_message_history_size"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="500"
+            app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="@string/pref_other_header"
         app:iconSpaceReserved="false">
 

@@ -207,7 +207,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     fun scaleMap(scaleFactor:Float, centerX:Float, centerY:Float) {
-        Log.d("scaleMap", this.scaleFactor.toString())
+        // Log.d("scaleMap", this.scaleFactor.toString())
         if(this.scaleFactor * scaleFactor < 0.3 || this.scaleFactor * scaleFactor > 10)
             return
         this.scaleFactor *= scaleFactor

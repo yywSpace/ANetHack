@@ -14,6 +14,7 @@ add_compile_definitions(
         NOTTYGRAPHICS
         TEXT_TOMBSTONE
         EDIT_GETLIN
+        TILES_IN_GLYPHMAP
         DEFAULT_WINDOW_SYS="and")
 
 message(WARNING "NetHack_BINARY_DIR: ${NetHack_BINARY_DIR}.")
@@ -160,6 +161,7 @@ set(NETHACK_SRC
         # "NetHack/sys/unix/unixmain.c"
         # "NetHack/sys/unix/unixunix.c"
         "NetHack/sys/unix/unixres.c"
+        "tile.c"
         "winandroid.c"
         "androidmain.c"
         "androidunix.c"

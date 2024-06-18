@@ -48,6 +48,11 @@
     <string name="pref_menu_type_dialog">Dialog</string>
     <string name="pref_menu_type_operate">Operation</string>
 
+    <!-- Preference Message -->
+    <string name="pref_message_header">Message</string>
+    <string name="pref_message_history_size">Size of message history</string>
+
+
     <!-- Preference Other -->
     <string name="pref_other_header">Other</string>
     <string name="pref_other_lock_view">Lock view</string>
