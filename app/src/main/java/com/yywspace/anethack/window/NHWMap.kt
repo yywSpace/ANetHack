@@ -2,9 +2,9 @@ package com.yywspace.anethack.window
 
 import android.graphics.Point
 import android.util.Log
-import com.yywspace.anethack.map.NHMapSurfaceView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
+import com.yywspace.anethack.map.NHMapSurfaceView
 
 class NHWMap (wid: Int, val nh: NetHack) : NHWindow(wid) {
     val tileCols = 80
@@ -68,12 +68,12 @@ class NHWMap (wid: Int, val nh: NetHack) : NHWindow(wid) {
         tiles[y][x].glyph = tile
         tiles[y][x].ch = CP437_UNICODE[ch and 0xff]
         tiles[y][x].color = NHColor.fromInt(col)
-        tiles[y][x].overlay = special.toShort()
+        tiles[y][x].overlay = special
     }
 
     class Tile {
         var glyph = -1
-        var overlay: Short = 0
+        var overlay: Int = 0
         var ch:Char = '0'
         var color: NHColor = NHColor.NO_COLOR
     }

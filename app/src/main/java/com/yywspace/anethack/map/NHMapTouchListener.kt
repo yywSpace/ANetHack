@@ -10,6 +10,8 @@ import android.view.View
 import android.view.View.OnTouchListener
 import java.util.Calendar
 import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class NHMapTouchListener : OnTouchListener {
     private var currentClickTime: Long = 0
@@ -19,6 +21,7 @@ class NHMapTouchListener : OnTouchListener {
     private var isMoving = false
     private var lastLocation = PointF()
     private var firstLocation = PointF()
+    private var lastScaleSpan = -1f
     var onNHMapTouchListener: OnNHMapTouchListener? = null
 
     private val baseHandler: Handler =  Handler(Looper.getMainLooper())
@@ -34,7 +37,7 @@ class NHMapTouchListener : OnTouchListener {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View, event: MotionEvent): Boolean {
-        when(event.action) {
+        when(event.actionMasked) {
             MotionEvent.ACTION_DOWN-> {
                 isClick = true
                 isMoving = true
@@ -47,16 +50,33 @@ class NHMapTouchListener : OnTouchListener {
                 baseHandler.postDelayed(longPressRunnable, LONG_TRIGGER_TIME)
             }
             MotionEvent.ACTION_MOVE-> {
-                if (isMoving && abs(firstLocation.x - event.x) > 40 || abs(firstLocation.y - event.y) > 40) {
+                // 单指操作
+                if (event.pointerCount == 1) {
+                    if (isMoving && abs(firstLocation.x - event.x) > 40 || abs(firstLocation.y - event.y) > 40) {
+                        isLongPress = false
+                        isClick = false
+                    }
+                    if (isLongPressMove) {
+                        onNHMapTouchListener?.onLongPressMove(lastLocation, PointF(event.x, event.y))
+                    }
+                    if (isMoving && !isLongPress && !isClick) {
+                        onNHMapTouchListener?.onMove(lastLocation, PointF(event.x, event.y))
+                    }
+                } else {
                     isLongPress = false
+                    isLongPressMove = false
                     isClick = false
-                }
-                if (isLongPressMove) {
-                    onNHMapTouchListener?.onLongPressMove(lastLocation, PointF(event.x, event.y))
-                }
-                if (isMoving && !isLongPress && !isClick) {
-                    onNHMapTouchListener?.onMove(lastLocation, PointF(event.x, event.y))
-                    // Log.d("NHMapTouchListener", "Move")
+                    isMoving = false
+                    val px1 = event.getX(0)
+                    val py1 = event.getY(0)
+                    val px2 = event.getX(1)
+                    val py2 = event.getY(1)
+                    val scaleSpan = sqrt((px2 - px1).pow(2) + (py2 - py1).pow(2))
+                    if (lastScaleSpan <= 0)
+                        lastScaleSpan = scaleSpan
+                    val scale = scaleSpan / lastScaleSpan
+                    onNHMapTouchListener?.onScale(scale, (px2 + px1) / 2f, (py2 + py1) / 2f)
+                    lastScaleSpan = scaleSpan
                 }
             }
             MotionEvent.ACTION_UP-> {
@@ -70,12 +90,11 @@ class NHMapTouchListener : OnTouchListener {
                 if (isClick) {
                     // click in here
                     onNHMapTouchListener?.onClick(PointF(event.x, event.y))
-                    Log.d("NHMapTouchListener", "Click")
                 }
-                return true
+                lastScaleSpan = -1f
             }
         }
-        return false
+        return true
     }
     interface OnNHMapTouchListener {
         fun onDown(e:PointF)
@@ -84,6 +103,8 @@ class NHMapTouchListener : OnTouchListener {
         fun onLongPressUp(e:PointF)
         fun onLongPressMove(e1:PointF, e2:PointF)
         fun onMove(e1:PointF, e2:PointF)
+        fun onScale(scaleFactor:Float, cx:Float, cy:Float)
+
     }
 
     companion object {

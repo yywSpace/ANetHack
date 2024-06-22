@@ -27,22 +27,19 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:title="@string/pref_conf_header"
+        app:title="@string/pref_map_header"
         app:iconSpaceReserved="false">
-        <Preference
-            app:key="conf_download"
-            app:title="@string/pref_conf_download"
-            app:useSimpleSummaryProvider="false"
-            app:iconSpaceReserved="false"/>
 
-        <Preference
-            app:key="conf_upload"
-            app:title="@string/pref_conf_upload"
-            app:useSimpleSummaryProvider="false"
-            app:iconSpaceReserved="false"/>
+        <ListPreference
+            app:key="tileSet"
+            app:title="@string/pref_map_tileset"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="1"
+            app:entries="@array/map_tile_array"
+            app:entryValues="@array/map_tile_value"/>
 
     </PreferenceCategory>
-
     <PreferenceCategory
         app:title="@string/pref_menu_header"
         app:iconSpaceReserved="false">
@@ -79,6 +76,24 @@
             app:iconSpaceReserved="false"
             app:defaultValue="false"
             app:summary="@string/pref_other_lock_view_desc"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        app:title="@string/pref_conf_header"
+        app:iconSpaceReserved="false">
+        <Preference
+            app:key="conf_download"
+            app:title="@string/pref_conf_download"
+            app:useSimpleSummaryProvider="false"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
+            app:key="conf_upload"
+            app:title="@string/pref_conf_upload"
+            app:useSimpleSummaryProvider="false"
+            app:iconSpaceReserved="false"/>
 
     </PreferenceCategory>
 </PreferenceScreen>

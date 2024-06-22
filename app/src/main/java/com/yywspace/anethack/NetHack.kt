@@ -30,6 +30,7 @@ class NetHack(
     private var question: NHQuestion = NHQuestion(this)
     private var playerChoose: NHPlayerChoose = NHPlayerChoose(this)
     private var extCmdChoose: NHExtendChoose = NHExtendChoose(this)
+    val tileSet = NHTileSet(this)
     val command = NHBlockingCommandController()
     var isRunning = false
     private var nextWinId = 0

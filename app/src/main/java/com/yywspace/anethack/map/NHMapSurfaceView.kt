@@ -8,6 +8,7 @@ import android.graphics.Paint
 import android.graphics.Paint.Align
 import android.graphics.Point
 import android.graphics.PointF
+import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.text.TextPaint
@@ -16,7 +17,6 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.ScaleGestureDetector
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
@@ -32,10 +32,15 @@ import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.command.NHPosCommand.*
 import com.yywspace.anethack.entity.NHStatus
+import com.yywspace.anethack.map.indicator.NHMapIndicator
+import com.yywspace.anethack.map.indicator.NHMapPlayerIndicator
+import com.yywspace.anethack.map.operation.NHMapOperation
+import com.yywspace.anethack.map.operation.NHMapScale
+import com.yywspace.anethack.map.operation.NHMapTransform
 import com.yywspace.anethack.window.NHWMap
+import java.util.concurrent.LinkedBlockingDeque
 import kotlin.math.abs
 import kotlin.math.atan2
-import kotlin.math.ceil
 import kotlin.math.floor
 
 
@@ -45,35 +50,32 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var mapInit = false
     private val paint = Paint()
     private val asciiPaint = TextPaint()
-    private var scaling = false
+    private var operationQueue = LinkedBlockingDeque<NHMapOperation>()
+    private val fps = 60
 
     private lateinit var nh: NetHack
     private lateinit var map: NHWMap
-    private lateinit var mapBorder:RectF
+    private var mapBorder:RectF = RectF()
     private lateinit var lastMapBorder:RectF
     private var lastTouchTile:Point? = null
 
     private var tileWidth:Float = 0F
     private var tileHeight:Float = 0F
     private var holder: SurfaceHolder? = null
-    private var canvas: Canvas? = null
     private var isDrawing = false
-
-    private lateinit var playerIndicator: NHMapPlayerIndicator
+    private var indicatorList = mutableListOf<NHMapIndicator>()
 
 
     private var mapTouchListener: NHMapTouchListener = NHMapTouchListener().apply {
         onNHMapTouchListener = object : NHMapTouchListener.OnNHMapTouchListener {
             override fun onDown(e: PointF) {
-                scaling = false
                 lastMapBorder = RectF(mapBorder)
             }
 
             override fun onClick(e: PointF) {
-                if (scaling) return
-                if (playerIndicator.isClicked(e.x, e.y)) {
-                    centerPlayerInScreen()
-                    return
+                indicatorList.forEach { indicator ->
+                    if (indicator.onClick(e.x, e.y))
+                        return
                 }
                 lastTouchTile = getTileLocation(e.x, e.y)
                 val curseBorder = getTileBorder(map.curse.x, map.curse.y)
@@ -93,7 +95,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
             }
             override fun onLongPress(e: PointF) {
-                if (scaling) return
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
                     if (abs(map.curse.x - point.x) < 1 && abs(map.curse.y - point.y) < 1) {
                         nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
@@ -104,23 +105,14 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 }
             }
             override fun onMove(e1: PointF, e2: PointF) {
-                if (scaling) return
-                mapBorder.left = lastMapBorder.left  + e2.x - e1.x
-                mapBorder.right = lastMapBorder.right + e2.x - e1.x
-                mapBorder.top = lastMapBorder.top + e2.y - e1.y
-                mapBorder.bottom = lastMapBorder.bottom + e2.y - e1.y
+                operationQueue.push(NHMapTransform(e2.x - e1.x, e2.y - e1.y))
+            }
+
+            override fun onScale(scaleFactor: Float, cx: Float, cy: Float) {
+                operationQueue.push(NHMapScale(scaleFactor, cx, cy))
             }
         }
     }
-
-    private val scaleDetector = ScaleGestureDetector(context, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-
-        override fun onScale(detector: ScaleGestureDetector): Boolean {
-            scaling = true
-            scaleMap(detector.scaleFactor, detector.focusX, detector.focusY)
-            return true
-        }
-    })
 
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -132,9 +124,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         asciiPaint.isAntiAlias = true
         asciiPaint.typeface = Typeface.createFromAsset(context.assets, "fonts/monobold.ttf")
         asciiPaint.textAlign = Align.LEFT
-        paint.isAntiAlias = true
-        scaleDetector.isQuickScaleEnabled = false
-
+        paint.isFilterBitmap = false
         initView()
     }
 
@@ -149,14 +139,36 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     fun initMap(nh: NetHack, map: NHWMap) {
         this.nh = nh
         this.map = map
-        this.playerIndicator = NHMapPlayerIndicator(nh)
+        this.mapInit = true
+        initMapParam()
+        initIndicators()
+    }
+
+    private fun initMapParam() {
+        nh.tileSet.updateTileSet()
+        scaleFactor = 1f
         tileWidth = getBaseTileWidth()
         tileHeight = getBaseTileHeight()
         mapBorder = RectF(
-            0F,0F,
-            map.tileCols * tileWidth,
-            map.tileRows * tileHeight)
-        mapInit = true
+            mapBorder.left, mapBorder.top,
+            mapBorder.left + map.tileCols * tileWidth,
+            mapBorder.top + map.tileRows * tileHeight
+        )
+        val scale = measuredWidth.toFloat() / mapBorder.height()
+        Log.d("initMapParam",
+            "tileWidth:$tileWidth, tileHeight:$tileHeight, measuredWidth:$measuredWidth mapBorder.height:${mapBorder.height()}, scaleFactor:$scale")
+        val tb = getTileBorder(map.player.x, map.player.y)
+        scaleMap(scale, tb.centerX(), tb.centerY())
+        centerPlayerInScreen()
+    }
+
+    private fun initIndicators() {
+        val playerIndicator = NHMapPlayerIndicator(nh).apply {
+            onIndicatorClick = { _, _ ->
+                centerPlayerInScreen()
+            }
+        }
+        indicatorList.add(playerIndicator)
     }
 
     @SuppressLint("InflateParams")
@@ -206,19 +218,27 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         }
     }
 
-    fun scaleMap(scaleFactor:Float, centerX:Float, centerY:Float) {
-        // Log.d("scaleMap", this.scaleFactor.toString())
-        if(this.scaleFactor * scaleFactor < 0.3 || this.scaleFactor * scaleFactor > 10)
-            return
+    private fun transformMap(dx:Float, dy:Float) {
+//        synchronized(mapBorder) {
+            mapBorder.left = floor(lastMapBorder.left  + dx)
+            mapBorder.right = floor(lastMapBorder.right + dx)
+            mapBorder.top = floor(lastMapBorder.top + dy)
+            mapBorder.bottom = floor(lastMapBorder.bottom + dy)
+//        }
+    }
+
+    private fun scaleMap(scaleFactor:Float, centerX:Float, centerY:Float) {
+        // if(this.scaleFactor * scaleFactor < 0.3 || this.scaleFactor * scaleFactor > 10)
+        //      return
         this.scaleFactor *= scaleFactor
-        paint.textSize = paint.textSize * scaleFactor
-        asciiPaint.textSize = asciiPaint.textSize * scaleFactor
-        tileWidth *= scaleFactor
-        tileHeight *= scaleFactor
+        paint.textSize = textSize * this.scaleFactor
+        asciiPaint.textSize = textSize * this.scaleFactor
+        tileWidth = getBaseTileWidth() * this.scaleFactor
+        tileHeight = getBaseTileHeight() * this.scaleFactor
         mapBorder.left += (mapBorder.left - centerX) * (scaleFactor - 1)
-        mapBorder.right += (mapBorder.right - centerX) * (scaleFactor - 1)
         mapBorder.top += (mapBorder.top - centerY) * (scaleFactor - 1)
-        mapBorder.bottom += (mapBorder.bottom - centerY) * (scaleFactor - 1)
+        mapBorder.right = mapBorder.left + map.tileCols * tileWidth
+        mapBorder.bottom = mapBorder.top + map.tileRows * tileHeight
     }
 
     private fun playerMove(direction: Direction, straight:Boolean) {
@@ -279,6 +299,33 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             centerView(map.player.x, map.curse.y)
         }
     }
+
+    private fun drawTile(canvas: Canvas?) {
+        map.apply {
+            for (x in 0 until tileCols) {
+                for (y in 0 until tileRows) {
+                    val tile = tiles[y][x]
+                    val tb = getTileBorder(x,y)
+                    if(tile.glyph >= 0) {
+                        nh.tileSet.getTile(tile.glyph)?.apply {
+                            canvas?.drawBitmap(this, Rect(0,0, this.width, this.height), tb, paint)
+                        }
+                    }
+                    if(tile.overlay != 0 && tile.glyph >= 0) {
+                        val overlay = nh.tileSet.getTileOverlay(tile.overlay)
+                        if (overlay != null) {
+                            canvas?.drawBitmap(
+                                overlay, nh.tileSet.getOverlayRect(tile.overlay),
+                                tb, paint
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
     private fun drawAscii(canvas: Canvas?) {
         map.apply {
             for (x in 0 until tileCols) {
@@ -295,7 +342,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     }
                     paint.color = bgColor
                     canvas?.drawRect(tb, paint)
-
                     if(tile.glyph >= 0) {
                         val ch = String(tile.ch.toString().toByteArray())
                         asciiPaint.color = fgColor
@@ -313,32 +359,41 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
     fun centerView(x:Int, y:Int) {
         val tb = getTileBorder(x,y)
-        mapBorder.offset(-(tb.centerX() - measuredWidth / 2F), -(tb.centerY() - measuredHeight / 2F))
+        centerView(tb.centerX(), tb.centerY())
+    }
+    fun centerView(x:Float, y:Float) {
+        mapBorder.offset(-(x - measuredWidth / 2F), -(y - measuredHeight / 2F))
     }
 
-    private fun drawCurse(canvas: Canvas?) {
+    private fun drawAsciiCurse(canvas: Canvas?) {
         map.apply {
             if(curse.x < 0 || curse.y < 0)
                 return
             val tile = tiles[curse.y][curse.x]
             val tb = getTileBorder(curse.x, curse.y)
-            nh.getWStatus()?.apply {
-                val hp = status.getField(NHStatus.StatusField.BL_HP)
-                if (hp != null) {
-                    paint.color = hp.nhColor.toColor()
-                    paint.style = Paint.Style.FILL
-                    canvas?.drawRect(tb, paint)
-                    if(tile.glyph >= 0) {
-                        asciiPaint.color = tile.color.toColor()
-                        canvas?.drawText(tile.ch.toString(),0, 1,
-                            tb.left, tb.bottom - asciiPaint.descent() , asciiPaint);
-                    }
-                }
+            paint.color = getHealthColor()
+            paint.style = Paint.Style.FILL
+            canvas?.drawRect(tb, paint)
+            if(tile.glyph >= 0) {
+                asciiPaint.color = tile.color.toColor()
+                canvas?.drawText(tile.ch.toString(),0, 1,
+                    tb.left, tb.bottom - asciiPaint.descent() , asciiPaint);
             }
 
         }
     }
 
+    private fun drawTileCurse(canvas: Canvas?) {
+        map.apply {
+            if(curse.x < 0 || curse.y < 0)
+                return
+            val tb = getTileBorder(curse.x, curse.y)
+            paint.color = getHealthColor()
+            paint.style = Paint.Style.STROKE
+            paint.strokeWidth = 4f
+            canvas?.drawRect(tb, paint)
+        }
+    }
     private fun drawLastTouchTile(canvas: Canvas?) {
         lastTouchTile?.apply {
             val tb = getTileBorder(x, y)
@@ -349,38 +404,58 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         }
     }
 
-    private fun drawPlayerIndicator(canvas: Canvas?) {
-        val playerBorder = getTileBorder(map.curse.x, map.curse.y)
-        playerIndicator.draw(canvas,
-            measuredWidth.toFloat(), measuredHeight.toFloat(),
-            playerBorder.centerX(), playerBorder.centerY()
-        )
+    private fun drawIndicator(canvas: Canvas?) {
+        val screenWidth = measuredWidth.toFloat()
+        val screenHeight = measuredHeight.toFloat()
+        indicatorList.forEach { indicator ->
+            if(indicator is NHMapPlayerIndicator) {
+                if (map.player.x < 0 || map.player.y < 0)
+                    return
+                val playerBorder = getTileBorder(map.player.x, map.player.y)
+                indicator.draw(
+                    canvas,
+                    screenWidth, screenHeight,
+                    playerBorder.centerX(), playerBorder.centerY()
+                )
+            }
+        }
     }
 
     private fun drawBorder(canvas: Canvas?) {
         map.apply {
             paint.color = Color.GRAY
             paint.style = Paint.Style.STROKE
-            paint.strokeWidth = 2F
+            paint.strokeWidth = 1F
             canvas?.drawRect(mapBorder, paint);
         }
     }
     private fun getBaseTileWidth(): Float {
-        val w = asciiPaint.measureText("\u2550")
-        return floor(w)
+        return if (nh.tileSet.isTTY()) {
+            asciiPaint.textSize = textSize
+            val w = asciiPaint.measureText("\u2550")
+            asciiPaint.textSize = textSize * scaleFactor
+            floor(w)
+        }else
+            nh.tileSet.tileWidth.toFloat()
+
     }
 
     private fun getBaseTileHeight(): Float {
-        val metrics = asciiPaint.fontMetrics
-        return floor(metrics.descent - metrics.ascent)
+        return if (nh.tileSet.isTTY()) {
+            asciiPaint.textSize = textSize
+            val metrics = asciiPaint.fontMetrics
+            asciiPaint.textSize = textSize * scaleFactor
+            floor(metrics.descent - metrics.ascent)
+        } else
+            nh.tileSet.tileHeight.toFloat()
     }
 
     private fun getTileBorder(x:Int, y:Int):RectF {
         return RectF(
-            ceil(tileWidth * x  + mapBorder.left),
-            ceil(tileHeight * y  + mapBorder.top),
-            ceil(tileWidth * (x + 1)  + mapBorder.left),
-            ceil(tileHeight * (y +1 )  + mapBorder.top),
+            floor(tileWidth * x  + mapBorder.left),
+            floor(tileHeight * y  + mapBorder.top),
+            floor(tileWidth * (x + 1)  + mapBorder.left),
+            floor(tileHeight * (y +1 )  + mapBorder.top),
         )
     }
 
@@ -408,15 +483,19 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         return null
     }
 
+    fun getHealthColor():Int {
+        nh.getWStatus()?.apply {
+            val hp = status.getField(NHStatus.StatusField.BL_HP)
+            if (hp != null)
+                return hp.nhColor.toColor()
+        }
+        return Color.WHITE
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if(mapInit) {
-            // 防止缩放和滑动冲突
-            if (event.pointerCount == 2)
-                scaleDetector.onTouchEvent(event)
-            else if (event.pointerCount == 1)
-                mapTouchListener.onTouch(this, event)
-        }
+        if(mapInit)
+            return mapTouchListener.onTouch(this, event)
         return true
     }
 
@@ -433,31 +512,56 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
-        isDrawing = false;
+        isDrawing = false
     }
 
     private fun draw() {
         holder?.apply {
-            try {
-                canvas = lockCanvas()
-                if (mapInit) {
+            if (mapInit) {
+                val canvas = lockCanvas()
+                try {
+                    // 绘制前检测是否改变了TileSet
+                    if (nh.tileSet.isTileSetChange())
+                        initMapParam()
+                    // 每一帧获取所有Scale和Transform操作并处理
+                    while (operationQueue.isNotEmpty()) {
+                        val op = operationQueue.pop()
+                        if (op is NHMapTransform)
+                            transformMap(op.dx, op.dy)
+                        if (op is NHMapScale)
+                            scaleMap(op.scale, op.cx, op.cy)
+                    }
+                    // 绘制
                     canvas?.drawColor(Color.BLACK)
-                    drawAscii(canvas)
-                    drawCurse(canvas)
-                    drawBorder(canvas)
-                    drawLastTouchTile(canvas)
-                    drawPlayerIndicator(canvas)
+                    synchronized(mapBorder) {
+                        if (nh.tileSet.isTTY()) {
+                            drawAscii(canvas)
+                            drawAsciiCurse(canvas)
+                        } else {
+                            drawTile(canvas)
+                            drawTileCurse(canvas)
+                        }
+                        drawLastTouchTile(canvas)
+                        drawBorder(canvas)
+                        drawIndicator(canvas)
+                    }
+                } finally {
+                    if (canvas != null)
+                        unlockCanvasAndPost(canvas)
                 }
-            } catch (_: Exception) {
-            } finally {
-                if (canvas != null)
-                    unlockCanvasAndPost(canvas)
             }
         }
     }
     override fun run() {
         while (isDrawing) {
+            val startMs = System.currentTimeMillis()
             draw()
+            val endMs = System.currentTimeMillis()
+            val needTime = 1000 / fps
+            val usedTime = endMs - startMs
+            if (usedTime < needTime) {
+                Thread.sleep(needTime - usedTime)
+            }
         }
     }
 }

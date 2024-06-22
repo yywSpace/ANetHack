@@ -58,4 +58,11 @@
     <string name="pref_other_lock_view">Lock view</string>
     <string name="pref_other_lock_view_desc">Always put the player in the center of the view.</string>
 
+
+    <!-- Preference Map -->
+    <string name="pref_map_header">Map</string>
+    <string name="pref_map_tileset">Tileset</string>
+    <string name="pref_map_tile_default">Default</string>
+    <string name="pref_map_tile_ascii">Ascii</string>
+
 </resources>

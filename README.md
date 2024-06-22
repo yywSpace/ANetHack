@@ -14,6 +14,9 @@ make install
 cd NetHack/util
 make ../src/tile.c
 # 复制NetHack/src/tile.c到Android工程的cpp目录下
+make tile2bmp
+./tile2bmp.o default_tiles.bmp
+# 复制NetHack/util/default_tiles.bmp到Android工程的assets目录下
 ```
 ## 在Window上用AndroidStudio编译并执行程序
 1. 进入Android工程/cpp/Lua 拉取子模块
