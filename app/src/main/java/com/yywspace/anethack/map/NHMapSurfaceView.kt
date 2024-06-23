@@ -361,7 +361,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         val tb = getTileBorder(x,y)
         centerView(tb.centerX(), tb.centerY())
     }
-    fun centerView(x:Float, y:Float) {
+    private fun centerView(x:Float, y:Float) {
         mapBorder.offset(-(x - measuredWidth / 2F), -(y - measuredHeight / 2F))
     }
 

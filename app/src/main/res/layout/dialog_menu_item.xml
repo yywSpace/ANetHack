@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:layout_height="?android:attr/listPreferredItemHeightSmall">
@@ -12,15 +12,19 @@
     <TextView
         android:id="@+id/item_accelerator"
         android:layout_width="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_height="wrap_content"
-        tools:text="*" />
-    <TextView
-        android:id="@+id/item_select_amount"
-        android:layout_width="wrap_content"
+        android:textAlignment="center"
         android:layout_marginEnd="5dp"
         android:layout_height="wrap_content"
-        tools:text="[10]" />
+        tools:text="*" />
+
+    <ImageView
+        android:id="@+id/item_tile"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="5dp"
+        android:contentDescription="@string/menu_item_tile_desc" />
+
+
     <LinearLayout
         android:gravity="center_vertical"
         android:layout_width="0dp"
@@ -39,6 +43,13 @@
             android:layout_height="wrap_content"
             tools:text="Subtitle" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_select_amount"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_height="wrap_content"
+        tools:text="[10]" />
 
     <CheckBox
         android:id="@+id/item_checkbox"

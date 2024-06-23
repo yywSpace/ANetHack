@@ -27,6 +27,7 @@
     <string name="pos_key_run">Run</string>
     <string name="pos_key_look">Look</string>
     <string name="key_dot_status_desc">key dot status image view</string>
+    <string name="menu_item_tile_desc">menu tile image</string>
 
     <string name="activity_settings_title">SettingsActivity</string>
 

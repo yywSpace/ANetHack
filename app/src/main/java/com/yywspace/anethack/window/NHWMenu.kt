@@ -108,12 +108,12 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     }
 
     private fun dismissMenu() {
+        // 同时关闭，防止打开窗口后切换窗口模式导致旧窗口无法关闭
         nh.runOnUi { binding, _ ->
-            if (nh.prefs.menuType == "1") {
-                // Dialog
-                menuDialog?.dismiss()
-            }else {
-                // Operation
+            // Dialog
+            menuDialog?.dismiss()
+            // Operation
+            if(binding.dialogContainer.childCount > 0) {
                 binding.panelContainer.apply {
                     isFocusable = false
                     isClickable = false
@@ -121,12 +121,13 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                 binding.dialogContainer.removeAllViews()
                 binding.dialogContainer.visibility = View.INVISIBLE
             }
+
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun initMenuView(context: Context):View {
-        menuAdapter = NHWMenuAdapter(this@NHWMenu).apply {
+        menuAdapter = NHWMenuAdapter(this@NHWMenu, nh.tileSet).apply {
             onItemClick = { _, _, item ->
                 if (selectMode == SelectMode.PickOne) {
                     nh.command.sendCommand(NHMenuCommand(item.accelerator, mutableListOf(item.identifier, item.selectedCount)))

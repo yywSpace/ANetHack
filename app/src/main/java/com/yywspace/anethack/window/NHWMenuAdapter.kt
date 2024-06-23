@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.yywspace.anethack.NHTileSet
 import com.yywspace.anethack.R
 import com.yywspace.anethack.entity.NHMenuItem
 import java.lang.RuntimeException
 
 
-class NHWMenuAdapter(private val nhwMenu: NHWMenu) :
+class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var onItemClick:((view:View, index:Int, menuItem: NHMenuItem)->Unit)? = null
@@ -24,16 +26,18 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu) :
         val itemTitle : TextView
         val itemSubtitle : TextView
         val itemCheckBox:CheckBox
+        val itemTile:ImageView
         init {
             itemAcc = view.findViewById(R.id.item_accelerator)
             itemSelectAmount = view.findViewById(R.id.item_select_amount)
             itemTitle = view.findViewById(R.id.item_title)
             itemSubtitle = view.findViewById(R.id.item_subtitle)
             itemCheckBox = view.findViewById(R.id.item_checkbox)
+            itemTile = view.findViewById(R.id.item_tile)
         }
     }
 
-    inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemHeader : TextView
         init {
             itemHeader = view.findViewById(R.id.item_header)
@@ -55,10 +59,10 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu) :
                 OptionViewHolder(view)
             }
 
-            ITEM -> {
+            HEADER -> {
                 val view = LayoutInflater.from(viewGroup.context)
                     .inflate(R.layout.dialog_menu_item_header, viewGroup, false)
-                ItemViewHolder(view)
+                HeaderViewHolder(view)
             }
             TEXT -> {
                 val view = LayoutInflater.from(viewGroup.context)
@@ -75,7 +79,7 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu) :
         val menuItem = nhwMenu.nhMenuItems[position]
         if (nhwMenu.selectMode == NHWMenu.SelectMode.PickNone)
             return TEXT
-        return if(menuItem.isHeader()) ITEM else OPTION
+        return if(menuItem.isHeader()) HEADER else OPTION
     }
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val menuItem = nhwMenu.nhMenuItems[position]
@@ -83,8 +87,14 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu) :
         when(getItemViewType(position)) {
             OPTION -> {
                 (viewHolder as OptionViewHolder).apply {
+                    if (!tileSet.isTTY() && menuItem.glyph != 1465) {
+                        val bitmap = tileSet.getTile(menuItem.glyph)
+                        itemTile.setImageBitmap(bitmap)
+                        itemTile.visibility = View.VISIBLE
+                    } else
+                        itemTile.visibility = View.GONE
                     if (nhwMenu.selectMode == NHWMenu.SelectMode.PickOne) {
-                        itemCheckBox.visibility = View.GONE
+                        itemCheckBox.visibility = View.INVISIBLE
                     }
                     itemView.setOnLongClickListener {
                         onItemLongClick?.invoke(it, position, menuItem)
@@ -119,8 +129,8 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu) :
                     itemCheckBox.isChecked = menuItem.isSelected
                 }
             }
-            ITEM -> {
-                (viewHolder as ItemViewHolder).apply {
+            HEADER -> {
+                (viewHolder as HeaderViewHolder).apply {
                     itemHeader.text = menuItem.title.toString()
                 }
 
@@ -143,7 +153,7 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu) :
 
     companion object {
         private const val OPTION = 0
-        private const val ITEM = 1
+        private const val HEADER = 1
         private const val TEXT = 2
     }
 }

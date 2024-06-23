@@ -67,23 +67,38 @@ class NHTileSet(val nh: NetHack) {
     }
 
     fun getOverlayRect(overlay: Int): Rect {
-        if (overlay and OVERLAY_PET != 0)
+        if (overlay and MG_PET != 0
+            || overlay and MG_OBJPILE != 0
+            || overlay and MG_DETECT != 0
+            || overlay and MG_INVIS != 0)
             return Rect(0, 0, 32, 32)
-        return Rect(0, 0, 0, 0)
+        return Rect(0, 0, 32, 32)
     }
 
     fun getTileOverlay(overlay: Int): Bitmap? {
-         if (overlay and OVERLAY_PET != 0) {
-            val bitmap:Bitmap?
-            nh.context.resources.assets.open("tiles/overlays.png").use {
-                bitmap = BitmapFactory.decodeStream(it)
+        val overlayPath = if (overlay and MG_PET != 0)
+            "tiles/overlay_pet.png"
+        else if (overlay and MG_OBJPILE != 0)
+            "tiles/overlay_pile.png"
+        else if (overlay and MG_INVIS != 0)
+            "tiles/overlay_invis.png"
+        else if (overlay and MG_DETECT != 0)
+            "tiles/overlay_default.png"
+        else
+            ""
+        if(overlayPath.isNotEmpty()) {
+            nh.context.resources.assets.open(overlayPath).use {
+                return BitmapFactory.decodeStream(it)
             }
-            return bitmap
         }
         return null
     }
 
     companion object {
-        const val OVERLAY_PET = 0x00010
+        const val MG_INVIS = 0x00004
+        const val MG_DETECT = 0x00008
+        const val MG_PET = 0x00010
+        const val MG_OBJPILE = 0x00080
+
     }
 }

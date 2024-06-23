@@ -1025,14 +1025,13 @@ void and_print_glyph(winid wid, coordxy x, coordxy y, const glyph_info * glyphin
     unsigned int special = glyphinfo->gm.glyphflags;
     LOGD("and_print_glyph wid=%d x=%d y=%d gryph=%d tile:%d color=%d chd=%d ch=%c special=%d", wid, x, y, glyph, tile, color, ch, ch, special);
 
-    special &= ~(MG_CORPSE|MG_INVIS|MG_RIDDEN|MG_STATUE|MG_UNEXPL); // TODO support
+    special &= ~(MG_CORPSE|MG_RIDDEN|MG_STATUE|MG_UNEXPL|MG_MALE|MG_FEMALE); // TODO support
     if(!iflags.hilite_pet)
         special &= ~MG_PET;
     if(!iflags.hilite_pile)
         special &= ~MG_OBJPILE;
     if(!iflags.use_inverse)
         special &= ~MG_DETECT;
-
     JNICallV(jPrintTile, wid, x, y, tile, ch, color, special)
 }
 
