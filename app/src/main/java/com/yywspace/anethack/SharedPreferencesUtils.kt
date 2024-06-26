@@ -18,6 +18,8 @@ class SharedPreferencesUtils(val context: Context) {
     var menuType by SharedPreferenceDelegates.string("1")
     var lockView by SharedPreferenceDelegates.boolean(false)
     var tileSet by SharedPreferenceDelegates.string("1")
+    var showIndicator by SharedPreferenceDelegates.boolean(true)
+    var indicatorSymbols by SharedPreferenceDelegates.string(">")
 
     fun getInputPrompts():List<String> {
         return inputPrompts.toList()

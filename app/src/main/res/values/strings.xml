@@ -54,16 +54,20 @@
     <string name="pref_message_history_size">Size of message history</string>
 
 
+    <!-- Preference Map -->
+    <string name="pref_map_header">Map</string>
+    <string name="pref_map_tileset">Tileset</string>
+    <string name="pref_map_tile_default">Default</string>
+    <string name="pref_map_tile_ascii">Ascii</string>
+    <string name="pref_map_indicator">Show indicator</string>
+    <string name="pref_map_indicator_desc">Show map symbol indicator.</string>
+    <string name="pref_map_indicator_symbols">Indicator symbols</string>
+
     <!-- Preference Other -->
     <string name="pref_other_header">Other</string>
     <string name="pref_other_lock_view">Lock view</string>
     <string name="pref_other_lock_view_desc">Always put the player in the center of the view.</string>
 
 
-    <!-- Preference Map -->
-    <string name="pref_map_header">Map</string>
-    <string name="pref_map_tileset">Tileset</string>
-    <string name="pref_map_tile_default">Default</string>
-    <string name="pref_map_tile_ascii">Ascii</string>
 
 </resources>

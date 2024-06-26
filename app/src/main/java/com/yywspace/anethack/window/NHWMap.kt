@@ -7,19 +7,35 @@ import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.map.NHMapSurfaceView
 
 class NHWMap (wid: Int, val nh: NetHack) : NHWindow(wid) {
-    val tileCols = 80
-    val tileRows = 21
     private var mapView: NHMapSurfaceView = nh.binding.mapView
     private var firstCenter = true
+
+    val width = 80
+    val height = 21
     // 光标位置
     val curse = Point(-1,-1)
     // 玩家位置
     val player = Point(-1,-1)
 
-    val tiles = Array(tileRows){Array(tileCols) { Tile() } }
+    private val tiles = Array(height){Array(width) { Tile() } }
 
     init {
         mapView.initMap(nh,this)
+    }
+
+    fun getTileList(c:Char):List<Tile> {
+        val locList = mutableListOf<Tile>()
+        tiles.forEachIndexed { y, tiles ->
+            tiles.forEachIndexed { x, tile ->
+                if (tile.ch == c)
+                    locList.add(tile)
+            }
+        }
+        return locList
+    }
+
+    fun getTile(x:Int, y:Int):Tile {
+        return tiles[y][x]
     }
 
     fun clipAround(cx: Int, cy: Int,ux: Int, uy: Int) {
@@ -50,8 +66,8 @@ class NHWMap (wid: Int, val nh: NetHack) : NHWindow(wid) {
     }
 
     override fun destroyWindow() {
-        curse.set(0, 0)
-        player.set(0, 0)
+        curse.set(-1, -1)
+        player.set(-1, -1)
         tiles.forEach {
             it.forEach { tile ->
                 tile.glyph = -1
@@ -65,13 +81,18 @@ class NHWMap (wid: Int, val nh: NetHack) : NHWindow(wid) {
 
     fun printTile(x: Int, y: Int, tile: Int, ch: Int, col: Int, special: Int) {
         Log.d("NHWMap", "printTile(wid: $wid, x: $x, y: $y, tile: $tile, ch: ${CP437_UNICODE[ch and 0xff]}, col: $col, special: ${Integer.toBinaryString(special)})")
+        tiles[y][x].x = x
+        tiles[y][x].y = y
         tiles[y][x].glyph = tile
         tiles[y][x].ch = CP437_UNICODE[ch and 0xff]
         tiles[y][x].color = NHColor.fromInt(col)
         tiles[y][x].overlay = special
+
     }
 
     class Tile {
+        var x = -1
+        var y = -1
         var glyph = -1
         var overlay: Int = 0
         var ch:Char = '0'

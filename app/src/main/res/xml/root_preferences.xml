@@ -39,7 +39,23 @@
             app:entries="@array/map_tile_array"
             app:entryValues="@array/map_tile_value"/>
 
+        <CheckBoxPreference
+            app:key="showIndicator"
+            app:title="@string/pref_map_indicator"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"
+            app:summary="@string/pref_map_indicator_desc"/>
+
+        <EditTextPreference
+            app:key="indicatorSymbols"
+            app:dependency="showIndicator"
+            app:title="@string/pref_map_indicator_symbols"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="&#060;&#062;"
+            app:iconSpaceReserved="false"/>
+
     </PreferenceCategory>
+
     <PreferenceCategory
         app:title="@string/pref_menu_header"
         app:iconSpaceReserved="false">
@@ -54,9 +70,11 @@
             app:entryValues="@array/menu_type_value"/>
 
     </PreferenceCategory>
+
     <PreferenceCategory
         app:title="@string/pref_message_header"
         app:iconSpaceReserved="false">
+
         <EditTextPreference
             app:key="messageHistorySize"
             app:title="@string/pref_message_history_size"
@@ -76,9 +94,7 @@
             app:iconSpaceReserved="false"
             app:defaultValue="false"
             app:summary="@string/pref_other_lock_view_desc"/>
-
     </PreferenceCategory>
-
 
     <PreferenceCategory
         app:title="@string/pref_conf_header"

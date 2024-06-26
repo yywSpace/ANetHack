@@ -11,6 +11,9 @@ import android.graphics.PointF
 import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Typeface
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.util.Log
@@ -32,8 +35,7 @@ import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.command.NHPosCommand.*
 import com.yywspace.anethack.entity.NHStatus
-import com.yywspace.anethack.map.indicator.NHMapIndicator
-import com.yywspace.anethack.map.indicator.NHMapPlayerIndicator
+import com.yywspace.anethack.map.indicator.NHMapIndicatorController
 import com.yywspace.anethack.map.operation.NHMapOperation
 import com.yywspace.anethack.map.operation.NHMapScale
 import com.yywspace.anethack.map.operation.NHMapTransform
@@ -52,6 +54,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private val asciiPaint = TextPaint()
     private var operationQueue = LinkedBlockingDeque<NHMapOperation>()
     private val fps = 60
+    private lateinit var vibrator: Vibrator
 
     private lateinit var nh: NetHack
     private lateinit var map: NHWMap
@@ -63,8 +66,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var tileHeight:Float = 0F
     private var holder: SurfaceHolder? = null
     private var isDrawing = false
-    private var indicatorList = mutableListOf<NHMapIndicator>()
-
+    private lateinit var indicatorController:NHMapIndicatorController
 
     private var mapTouchListener: NHMapTouchListener = NHMapTouchListener().apply {
         onNHMapTouchListener = object : NHMapTouchListener.OnNHMapTouchListener {
@@ -73,10 +75,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             }
 
             override fun onClick(e: PointF) {
-                indicatorList.forEach { indicator ->
-                    if (indicator.onClick(e.x, e.y))
-                        return
-                }
+                if(indicatorController.onIndicatorClick(e))
+                    return
                 lastTouchTile = getTileLocation(e.x, e.y)
                 val curseBorder = getTileBorder(map.curse.x, map.curse.y)
                 val direction = getMoveDirection(
@@ -95,6 +95,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
             }
             override fun onLongPress(e: PointF) {
+                if (indicatorController.onIndicatorLongPress(e))
+                    return
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
                     if (abs(map.curse.x - point.x) < 1 && abs(map.curse.y - point.y) < 1) {
                         nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
@@ -126,6 +128,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         asciiPaint.textAlign = Align.LEFT
         paint.isFilterBitmap = false
         initView()
+        val vibratorManager =
+            context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+        vibrator= vibratorManager.defaultVibrator
     }
 
     private fun initView() {
@@ -151,24 +156,32 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         tileHeight = getBaseTileHeight()
         mapBorder = RectF(
             mapBorder.left, mapBorder.top,
-            mapBorder.left + map.tileCols * tileWidth,
-            mapBorder.top + map.tileRows * tileHeight
+            mapBorder.left + map.width * tileWidth,
+            mapBorder.top + map.height * tileHeight
         )
         val scale = measuredWidth.toFloat() / mapBorder.height()
-        Log.d("initMapParam",
-            "tileWidth:$tileWidth, tileHeight:$tileHeight, measuredWidth:$measuredWidth mapBorder.height:${mapBorder.height()}, scaleFactor:$scale")
         val tb = getTileBorder(map.player.x, map.player.y)
         scaleMap(scale, tb.centerX(), tb.centerY())
         centerPlayerInScreen()
     }
 
     private fun initIndicators() {
-        val playerIndicator = NHMapPlayerIndicator(nh).apply {
-            onIndicatorClick = { _, _ ->
-                centerPlayerInScreen()
+        indicatorController = NHMapIndicatorController(this, nh, map)
+        indicatorController.setOnIndicatorClickListener(object :NHMapIndicatorController.OnIndicatorClickListener{
+            override fun onIndicatorClick(e: PointF, tile: NHWMap.Tile) {
+                if (!nh.prefs.lockView || (tile.x == map.player.x && tile.y == map.player.y))
+                    centerView(tile.x, tile.y)
+                else
+                    nh.command.sendCommand(
+                        NHPosCommand(tile.x, tile.y, PosMod.TRAVEL)
+                    )
             }
-        }
-        indicatorList.add(playerIndicator)
+
+            override fun onIndicatorLongPress(e: PointF, tile: NHWMap.Tile) {
+
+            }
+
+        })
     }
 
     @SuppressLint("InflateParams")
@@ -219,12 +232,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun transformMap(dx:Float, dy:Float) {
-//        synchronized(mapBorder) {
-            mapBorder.left = floor(lastMapBorder.left  + dx)
-            mapBorder.right = floor(lastMapBorder.right + dx)
-            mapBorder.top = floor(lastMapBorder.top + dy)
-            mapBorder.bottom = floor(lastMapBorder.bottom + dy)
-//        }
+        mapBorder.left = floor(lastMapBorder.left  + dx)
+        mapBorder.right = floor(lastMapBorder.right + dx)
+        mapBorder.top = floor(lastMapBorder.top + dy)
+        mapBorder.bottom = floor(lastMapBorder.bottom + dy)
     }
 
     private fun scaleMap(scaleFactor:Float, centerX:Float, centerY:Float) {
@@ -237,8 +248,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         tileHeight = getBaseTileHeight() * this.scaleFactor
         mapBorder.left += (mapBorder.left - centerX) * (scaleFactor - 1)
         mapBorder.top += (mapBorder.top - centerY) * (scaleFactor - 1)
-        mapBorder.right = mapBorder.left + map.tileCols * tileWidth
-        mapBorder.bottom = mapBorder.top + map.tileRows * tileHeight
+        mapBorder.right = mapBorder.left + map.width * tileWidth
+        mapBorder.bottom = mapBorder.top + map.height * tileHeight
     }
 
     private fun playerMove(direction: Direction, straight:Boolean) {
@@ -302,9 +313,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     private fun drawTile(canvas: Canvas?) {
         map.apply {
-            for (x in 0 until tileCols) {
-                for (y in 0 until tileRows) {
-                    val tile = tiles[y][x]
+            for (x in 0 until width) {
+                for (y in 0 until height) {
+                    val tile = getTile(x, y)
                     val tb = getTileBorder(x,y)
                     if(tile.glyph >= 0) {
                         nh.tileSet.getTile(tile.glyph)?.apply {
@@ -328,9 +339,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     private fun drawAscii(canvas: Canvas?) {
         map.apply {
-            for (x in 0 until tileCols) {
-                for (y in 0 until tileRows) {
-                    val tile = tiles[y][x]
+            for (x in 0 until width) {
+                for (y in 0 until height) {
+                    val tile = getTile(x, y)
                     val tb = getTileBorder(x,y)
                     paint.style = Paint.Style.FILL
                     var bgColor = Color.BLACK
@@ -369,7 +380,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         map.apply {
             if(curse.x < 0 || curse.y < 0)
                 return
-            val tile = tiles[curse.y][curse.x]
+            val tile = getTile(curse.x, curse.y)
             val tb = getTileBorder(curse.x, curse.y)
             paint.color = getHealthColor()
             paint.style = Paint.Style.FILL
@@ -405,20 +416,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun drawIndicator(canvas: Canvas?) {
-        val screenWidth = measuredWidth.toFloat()
-        val screenHeight = measuredHeight.toFloat()
-        indicatorList.forEach { indicator ->
-            if(indicator is NHMapPlayerIndicator) {
-                if (map.player.x < 0 || map.player.y < 0)
-                    return
-                val playerBorder = getTileBorder(map.player.x, map.player.y)
-                indicator.draw(
-                    canvas,
-                    screenWidth, screenHeight,
-                    playerBorder.centerX(), playerBorder.centerY()
-                )
-            }
-        }
+        indicatorController.drawIndicators(canvas)
     }
 
     private fun drawBorder(canvas: Canvas?) {
@@ -450,7 +448,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             nh.tileSet.tileHeight.toFloat()
     }
 
-    private fun getTileBorder(x:Int, y:Int):RectF {
+    fun getTileBorder(x:Int, y:Int):RectF {
         return RectF(
             floor(tileWidth * x  + mapBorder.left),
             floor(tileHeight * y  + mapBorder.top),
@@ -470,8 +468,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private fun getInnerTileLocation(vx:Float, vy:Float):Point? {
         val tx = floor((vx - mapBorder.left) / tileWidth)
         val ty = floor((vy - mapBorder.top) / tileHeight)
-        for (x in 0 until map.tileCols) {
-            for (y in 0 until map.tileRows) {
+        for (x in 0 until map.width) {
+            for (y in 0 until map.height) {
                 val tb = getTileBorder(x,y)
                 if (tb.contains(vx, vy)) {
                     Log.d("getTileLocation", "inner: $x, $y")
@@ -483,7 +481,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         return null
     }
 
-    fun getHealthColor():Int {
+    private fun getHealthColor():Int {
         nh.getWStatus()?.apply {
             val hp = status.getField(NHStatus.StatusField.BL_HP)
             if (hp != null)
@@ -533,18 +531,16 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     }
                     // 绘制
                     canvas?.drawColor(Color.BLACK)
-                    synchronized(mapBorder) {
-                        if (nh.tileSet.isTTY()) {
-                            drawAscii(canvas)
-                            drawAsciiCurse(canvas)
-                        } else {
-                            drawTile(canvas)
-                            drawTileCurse(canvas)
-                        }
-                        drawLastTouchTile(canvas)
-                        drawBorder(canvas)
-                        drawIndicator(canvas)
+                    if (nh.tileSet.isTTY()) {
+                        drawAscii(canvas)
+                        drawAsciiCurse(canvas)
+                    } else {
+                        drawTile(canvas)
+                        drawTileCurse(canvas)
                     }
+                    drawLastTouchTile(canvas)
+                    drawBorder(canvas)
+                    drawIndicator(canvas)
                 } finally {
                     if (canvas != null)
                         unlockCanvasAndPost(canvas)

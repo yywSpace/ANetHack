@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.os.VibratorManager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.GridLayout
@@ -45,8 +46,9 @@ class KeyboardView : GridLayout {
     init {
         columnCount = 20
         rowCount = 5
-        @Suppress("DEPRECATION")
-        vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        val vibratorManager =
+            context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+        vibrator = vibratorManager.defaultVibrator
         initKeyboardView()
         initNumPanel()
         initKeyboardData()

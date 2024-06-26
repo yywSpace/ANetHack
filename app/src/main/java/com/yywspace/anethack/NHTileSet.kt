@@ -16,21 +16,14 @@ class NHTileSet(val nh: NetHack) {
     var tileWidth = 0
     var tileHeight = 0
 
-    fun getPlayerTile():Bitmap? {
-        nh.getWMap()?.apply {
-            val tile = tiles[player.y][player.x]
-            if (tile.glyph < 0)
-                return null
-            return getTile(tile.glyph)
-        }
-        return null
-    }
     fun getTile(tile:Int):Bitmap? {
         tileBitmap?.apply {
             var bitmap = tileCache[tile]
             if (bitmap == null) {
                 val tx = tile % (width / tileWidth)
                 val ty = tile / (width / tileWidth)
+                if (tx < 0 || ty < 0)
+                    return null
                 bitmap = Bitmap.createBitmap(this, tx * tileWidth, ty * tileHeight, tileWidth, tileHeight)
                 tileCache[tile] = bitmap
             }
