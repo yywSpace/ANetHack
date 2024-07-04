@@ -33,7 +33,7 @@ OPTIONS=!tutorial,!legacy,!cmdassist
 OPTIONS=scores:10 top/2 around/own
 
 OPTIONS=autopickup,pickup_types:$"=/!?+
-#OPTIONS=!autopickup
+OPTIONS=!bones
 OPTIONS=force_invmenu
 OPTIONS=IBMgraphics
 OPTIONS=boulder:0

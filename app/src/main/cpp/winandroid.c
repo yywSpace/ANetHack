@@ -180,6 +180,9 @@ static int status_attrmasks[MAXBLSTATS];
 static unsigned long* and_colormasks;
 static long and_condition_bits = 0L;
 
+// string
+char * jstring2Char(JNIEnv *env, jstring jstr);
+jstring char2Jstring(JNIEnv *env, const char *c_str);
 
 #define JNICallV(func, ...) (*jEnv)->CallVoidMethod(jEnv, jAppInstance, func, ## __VA_ARGS__);
 #define JNICallI(func, ...) (*jEnv)->CallIntMethod(jEnv, jAppInstance, func, ## __VA_ARGS__);
@@ -190,7 +193,7 @@ static long and_condition_bits = 0L;
 JNIEXPORT void JNICALL
 Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring path) {
     char* params[10];
-    const char *path_c = (*env)->GetStringUTFChars(env, path, 0);
+    const char *path_c = jstring2Char(env, path);
     params[0] = "NetHack";
     params[1] = strdup(path_c);
 
@@ -553,13 +556,13 @@ void and_putstr(winid wid, int attr, const char *str)
 
     if(!str || !*str) return;
     if(attr) attr = 1<<attr;
-    jstring jstr = (*jEnv)->NewStringUTF(jEnv, str);
+    jstring jstr = char2Jstring(jEnv, str);
     JNICallV(jPutString, wid, attr, jstr, NO_COLOR)
 }
 
 void and_status_field_render(int idx, const char *filed_name, const char *value, int attr, int color, int percent) {
-    jstring jFiledName = (*jEnv)->NewStringUTF(jEnv, filed_name);
-    jstring jValue = (*jEnv)->NewStringUTF(jEnv, value);
+    jstring jFiledName =char2Jstring(jEnv, filed_name);
+    jstring jValue = char2Jstring(jEnv, value);
     JNICallV(jRenderStatus, idx, jFiledName, jValue, attr, color, percent)
 }
 
@@ -868,7 +871,7 @@ void and_add_menu(winid window, const glyph_info * glyph, const union any * iden
     LOGD("and_add_menu attr=%d, tile=%d, color=%d, groupacc=%d, accelerator:%c address:%ld",menu_attr, tile, menu_color,groupacc, accelerator, (long )identifier->a_lptr);
     if(menu_attr)
         menu_attr = 1<<menu_attr;
-    jstring jstr = (*jEnv)->NewStringUTF(jEnv,str);
+    jstring jstr = char2Jstring(jEnv, str);
     JNICallV(jAddMenu, window, tile, (long )identifier->a_lptr, accelerator, groupacc, menu_attr, menu_color, jstr, preselected)
 }
 
@@ -882,8 +885,7 @@ void and_add_menu(winid window, const glyph_info * glyph, const union any * iden
 //		** it ever did).  That should be select_menu's job.  -dean
 void and_end_menu(winid wid, const char *prompt)
 {
-
-    jstring jstr = (*jEnv)->NewStringUTF(jEnv, prompt);
+    jstring jstr = char2Jstring(jEnv, prompt);
     JNICallV(jEndMenu, wid, jstr)
 }
 
@@ -1046,7 +1048,7 @@ void and_print_glyph(winid wid, coordxy x, coordxy y, const glyph_info * glyphin
 void and_raw_print(const char* str)
 {
     LOGD("and_raw_print %s", str);
-    jstring jstr = (*jEnv)->NewStringUTF(jEnv,str);
+    jstring jstr = char2Jstring(jEnv,str);
     JNICallV(jRawPrint, 1<<ATR_BOLD, jstr)
 }
 
@@ -1056,7 +1058,7 @@ void and_raw_print(const char* str)
 void and_raw_print_bold(const char* str)
 {
     LOGD("and_raw_print_bold %s", str);
-    jstring jstr = (*jEnv)->NewStringUTF(jEnv,str);
+    jstring jstr = char2Jstring(jEnv,str);
     JNICallV(jRawPrint, 1<<ATR_BOLD, jstr)
 }
 
@@ -1152,8 +1154,8 @@ char and_yn_function(const char *question, const char *choices, char def)
     // if choice is not null or question contain [], treat it as question
     if(choices || ((strchr(question, '[') != 0) && (strchr(question, ']') != 0)))
     {
-        jstring jQuestion = (*jEnv)->NewStringUTF(jEnv, question);
-        jstring jChoices = (*jEnv)->NewStringUTF(jEnv, choices ? choices : "");
+        jstring jQuestion = char2Jstring(jEnv, question);
+        jstring jChoices = char2Jstring(jEnv, choices ? choices : "");
         jlongArray jYnNumber = (*jEnv)->NewLongArray(jEnv, 1);
         if(allow_num) {
             ch = JNICallC(jYNFunction, jQuestion, jChoices, jYnNumber, def)
@@ -1164,7 +1166,7 @@ char and_yn_function(const char *question, const char *choices, char def)
             char *rb;
             if ((rb = strchr(choices, '\033')) != 0)
                 *rb = '\0';
-            jChoices = (*jEnv)->NewStringUTF(jEnv, choices);
+            jChoices = char2Jstring(jEnv, choices);
             ch = JNICallC(jYNFunction, jQuestion, jChoices, jYnNumber, def)
         } else {
             putstr(WIN_MESSAGE, 1<<ATR_BOLD, question);
@@ -1178,8 +1180,6 @@ char and_yn_function(const char *question, const char *choices, char def)
     }
     return ch;
 }
-
-
 
 //____________________________________________________________________________________
 // getlin(const char *ques, char *input)
@@ -1196,15 +1196,12 @@ char and_yn_function(const char *question, const char *choices, char def)
 void and_getlin(const char *question, char *input)
 {
 	LOGD("and_getlin %s, %s", question, input);
-    jstring jquestion = (*jEnv)->NewStringUTF(jEnv, question);
-    jstring jinput = (*jEnv)->NewStringUTF(jEnv, input);
+    jstring jquestion = char2Jstring(jEnv, question);
+    jstring jinput = char2Jstring(jEnv, input);
     jstring result = (jstring)JNICallO(jGetLine, jquestion, jinput, BUFSZ)
-    const jchar* jchars = (*jEnv)->GetStringChars(jEnv, result, 0);
-    int i, len = (*jEnv)->GetStringLength(jEnv, result);
-    for(i = 0; i < len; i++)
-        input[i] = (char)jchars[i];
-    input[i] = 0;
-    (*jEnv)->ReleaseStringChars(jEnv, result, jchars);
+    const char* chars = jstring2Char(jEnv, result);
+    strcpy(input,chars);
+    LOGD("and_getlin %s", input);
 }
 
 
@@ -1222,15 +1219,15 @@ void and_askname()
     jclass stringClass = (*jEnv)->FindClass(jEnv, "java/lang/String");
     jobjectArray jSavedList = (*jEnv)->NewObjectArray(jEnv, saved_size + aborted_size, stringClass, 0);
     for(i = 0; i < saved_size; i++)
-        (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i, (*jEnv)->NewStringUTF(jEnv, saved[i]));
+        (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i, char2Jstring(jEnv, saved[i]));
     for(i = 0; i < aborted_size; i++)
-        (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i + saved_size, (*jEnv)->NewStringUTF(jEnv, aborted[i]));
+        (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i + saved_size, char2Jstring(jEnv, aborted[i]));
     jobjectArray jPlayerInfo = (jobjectArray)JNICallO(jAskName, PL_NSIZ, jSavedList)
     int itemCnt = (*jEnv)->GetArrayLength(jEnv, jPlayerInfo);
     jstring jPlayer = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 0);
     jstring jPlaymode = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 1);
-    const char *player = (*jEnv)->GetStringUTFChars(jEnv, jPlayer, 0);
-    const char *playmode = (*jEnv)->GetStringUTFChars(jEnv, jPlaymode, 0);
+    const char *player = jstring2Char(jEnv, jPlayer);
+    const char *playmode = jstring2Char(jEnv, jPlaymode);
     if(strncmp(playmode, "wizard", strlen(playmode)) == 0)
         wizard = TRUE;
     else if(strncmp(playmode, "discover", strlen(playmode)) == 0)
@@ -1259,15 +1256,15 @@ int and_get_ext_cmd()
     for(int i = 0; i < size; i++) {
         flgs = extcmdlist[i].flags;
         jstring jCmdName, jCmdDesc;
-        jCmdName = (*jEnv)->NewStringUTF(jEnv, extcmdlist[i].ef_txt);
+        jCmdName = char2Jstring(jEnv, extcmdlist[i].ef_txt);
         if(extcmdlist[i].ef_desc)
-            jCmdDesc = (*jEnv)->NewStringUTF(jEnv, extcmdlist[i].ef_desc);
+            jCmdDesc = char2Jstring(jEnv, extcmdlist[i].ef_desc);
         else
-            jCmdDesc = (*jEnv)->NewStringUTF(jEnv, "");
+            jCmdDesc = char2Jstring(jEnv, "");
 
         if((flgs & WIZMODECMD) && !wizard) {
-            jCmdName = (*jEnv)->NewStringUTF(jEnv, "");
-            jCmdDesc = (*jEnv)->NewStringUTF(jEnv, "");
+            jCmdName = char2Jstring(jEnv, "");
+            jCmdDesc = char2Jstring(jEnv, "");
         }
         (*jEnv)->SetObjectArrayElement(jEnv, jExtCmdList, idx++, jCmdName);
         (*jEnv)->SetObjectArrayElement(jEnv, jExtCmdList, idx++, jCmdDesc);
@@ -1347,7 +1344,7 @@ char* and_getmsghistory(boolean init)
     }
     LOGD("and_getmsghistory(nxtidx:%d)", nxtidx);
     jstring result = (jstring)JNICallO(jGetMessageHistory, nxtidx++)
-    char *msg = (char *) (*jEnv)->GetStringUTFChars(jEnv, result, 0);
+    char *msg = jstring2Char(jEnv, result);
     if(strncmp(msg, "message_end", strlen(msg)) == 0)
         return NULL;
     return msg;
@@ -1369,7 +1366,7 @@ void and_putmsghistory(const char *msg, boolean restoring)
 {
     if(!msg) return;
     if(restoring) {
-        jstring jmsg = (*jEnv)->NewStringUTF(jEnv, msg);
+        jstring jmsg = char2Jstring(jEnv, msg);
         JNICallV(jPutMessageHistory, jmsg, restoring)
     }
     LOGD("and_putmsghistory(msg: %s, restoring:%d)", msg, restoring);
@@ -1395,4 +1392,35 @@ and_ctrl_nhwindow(
             break;
     }
     return wri;
+}
+
+ jstring char2Jstring(JNIEnv *env, const char *c_str) {
+     if (c_str == NULL)
+         return NULL;
+    jclass str_cls = (*env)->FindClass(env, "java/lang/String");
+    jmethodID constructor_mid = (*env)->GetMethodID(env, str_cls, "<init>", "([BLjava/lang/String;)V");
+    int len = (int)strlen(c_str);
+    jbyteArray bytes = (*env)->NewByteArray(env, len);
+    (*env)->SetByteArrayRegion(env, bytes, 0, len, (signed char *)c_str);
+    jstring charsetName = (*env)->NewStringUTF(env, "utf-8");
+    return (*env)->NewObject(env,str_cls,constructor_mid,bytes,charsetName);
+}
+
+char* jstring2Char(JNIEnv *env, jstring jstr)
+{
+    char* rtn = NULL;
+    jclass jclass = (*env)->FindClass(env, "java/lang/String");
+    jmethodID mid = (*env)->GetMethodID(env, jclass, "getBytes", "(Ljava/lang/String;)[B");
+    jstring jencode = (*env)->NewStringUTF(env, "utf-8");
+    jbyteArray barr= (jbyteArray)(*env)->CallObjectMethod(env, jstr, mid, jencode);
+    jsize alen = (*env)->GetArrayLength(env, barr);
+    jbyte* ba = (*env)->GetByteArrayElements(env, barr, JNI_FALSE);
+    if (alen > 0)
+    {
+        rtn = (char*)malloc(alen + 1);
+        memcpy(rtn, ba, alen);
+        rtn[alen] = 0;
+    }
+    (*env)->ReleaseByteArrayElements(env, barr, ba, 0);
+    return rtn;
 }
