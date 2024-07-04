@@ -3,7 +3,6 @@ package com.yywspace.anethack.window
 import android.annotation.SuppressLint
 import android.content.Context
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout.*
@@ -13,7 +12,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.tabs.TabLayout
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
@@ -149,7 +147,18 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                 }
                 menuList = findViewById<RecyclerView>(R.id.menu_item_list)?.apply {
                     adapter = menuAdapter
-                    layoutManager = LinearLayoutManager(context)
+                    layoutManager = object :LinearLayoutManager(context) {
+                        override fun onLayoutChildren(
+                            recycler: RecyclerView.Recycler?,
+                            state: RecyclerView.State?
+                        ) {
+                            try {
+                                super.onLayoutChildren(recycler, state)
+                            } catch (e: IndexOutOfBoundsException) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
                 }
                 findViewById<MaterialButton>(R.id.menu_btn_1)?.apply {
                     setText(R.string.dialog_cancel)

@@ -20,13 +20,14 @@ import com.yywspace.anethack.window.NHWText
 import com.yywspace.anethack.window.NHWindow
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.util.concurrent.CopyOnWriteArrayList
 
 
 class NetHack(
     val handler: Handler, val context: Activity,
     val binding: ActivityNethackBinding, private val netHackDir:String) {
     private val TAG = "NetHack"
-    private val windows = mutableListOf<NHWindow>()
+    private val windows = CopyOnWriteArrayList<NHWindow>()
     private var question: NHQuestion = NHQuestion(this)
     private var playerChoose: NHPlayerChoose = NHPlayerChoose(this)
     private var extCmdChoose: NHExtendChoose = NHExtendChoose(this)

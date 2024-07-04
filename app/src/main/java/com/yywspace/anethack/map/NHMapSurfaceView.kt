@@ -54,13 +54,13 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private val asciiPaint = TextPaint()
     private var operationQueue = LinkedBlockingDeque<NHMapOperation>()
     private val fps = 60
-    private lateinit var vibrator: Vibrator
 
     private lateinit var nh: NetHack
     private lateinit var map: NHWMap
     private var mapBorder:RectF = RectF()
     private lateinit var lastMapBorder:RectF
     private var lastTouchTile:Point? = null
+    var lastTravelTile:Point? = null
 
     private var tileWidth:Float = 0F
     private var tileHeight:Float = 0F
@@ -128,9 +128,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         asciiPaint.textAlign = Align.LEFT
         paint.isFilterBitmap = false
         initView()
-        val vibratorManager =
-            context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-        vibrator= vibratorManager.defaultVibrator
     }
 
     private fun initView() {
@@ -213,6 +210,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                                     nh.command.sendCommand(
                                         NHPosCommand(point.x, point.y, PosMod.TRAVEL)
                                     )
+                                    lastTravelTile = point
                                 }
                             }
                             popupWindow.dismiss()
