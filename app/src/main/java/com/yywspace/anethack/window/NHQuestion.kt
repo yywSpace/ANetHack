@@ -21,6 +21,7 @@ import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHAnswerCommand
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHLineCommand
+import com.yywspace.anethack.command.NHMenuCommand
 import com.yywspace.anethack.extensions.showImmersive
 import java.nio.charset.StandardCharsets
 
@@ -30,13 +31,7 @@ class NHQuestion(val nh: NetHack) {
         nh.command.sendCommand(NHLineCommand(line))
     }
     fun waitForLine():String {
-        val cmd = nh.command.waitForCommand()
-        return if(cmd is NHLineCommand)
-            cmd.line
-        else {
-            nh.command.sendCommand(cmd)
-            ""
-        }
+       return nh.command.waitForAnyCommand<NHLineCommand>().line
     }
 
     public fun showInputQuestion(question: String, input:String, bufSize: Int) {
