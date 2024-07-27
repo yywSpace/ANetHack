@@ -1232,7 +1232,7 @@ void and_askname()
         wizard = TRUE;
     else if(strncmp(playmode, "discover", strlen(playmode)) == 0)
         discover = TRUE;
-    gp.plnamelen = (int) strlen(strncpy(gp.plname, player, sizeof gp.plname - 1));
+    gp.plnamelen = (int) strlen(strncpy(svp.plname, player, sizeof svp.plname - 1));
     (*jEnv)->ReleaseStringUTFChars(jEnv, jPlayer, player);
     (*jEnv)->ReleaseStringUTFChars(jEnv, jPlaymode, playmode);
     (*jEnv)->DeleteLocalRef(jEnv, jSavedList);

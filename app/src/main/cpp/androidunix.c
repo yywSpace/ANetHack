@@ -24,7 +24,7 @@ eraseoldlocks(void)
     register int i;
 
 #if defined(HANGUPHANDLING)
-    gp.program_state.preserve_locks = 0; /* not required but shows intent */
+    program_state.preserve_locks = 0; /* not required but shows intent */
     /* cannot use maxledgerno() here, because we need to find a lock name
      * before starting everything (including the dungeon initialization
      * that sets astral_level, needed for maxledgerno()) up
@@ -54,7 +54,7 @@ getlock(void)
     }
 
     if (!gl.locknum)
-        Sprintf(gl.lock, "%u%s", (unsigned) getuid(), gp.plname);
+        Sprintf(gl.lock, "%u%s", (unsigned) getuid(), svp.plname);
 
     regularize(gl.lock);
     set_levelfile_name(gl.lock, 0);
@@ -90,8 +90,8 @@ getlock(void)
     if (fd == -1) {
         error("cannot creat lock file (%s).", fq_lock);
     } else {
-        if (write(fd, (genericptr_t) &gh.hackpid, sizeof gh.hackpid)
-            != sizeof gh.hackpid) {
+        if (write(fd, (genericptr_t) &svh.hackpid, sizeof svh.hackpid)
+            != sizeof svh.hackpid) {
             error("cannot write lock (%s)", fq_lock);
         }
         if (close(fd) == -1) {

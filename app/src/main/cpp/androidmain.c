@@ -39,7 +39,7 @@ int NetHackMain(int argc, char** argv)
     boolean plsel_once = FALSE;
     early_init(argc, argv);
     gh.hname = argv[0];
-    gh.hackpid = getpid();
+    svh.hackpid = getpid();
     (void) umask(0777 & ~FCMASK);
     choose_windows(DEFAULT_WINDOW_SYS);
 
@@ -84,7 +84,7 @@ int NetHackMain(int argc, char** argv)
      */
     u.uhp = 1; /* prevent RIP on early quits */
 #if defined(HANGUPHANDLING)
-    gp.program_state.preserve_locks = 1;
+    program_state.preserve_locks = 1;
 #ifndef NO_SIGNAL
     sethanguphandler((SIG_RET_TYPE) hangup);
 #endif
@@ -136,14 +136,14 @@ int NetHackMain(int argc, char** argv)
      * getlock() find weather current user have a lock that can recover,
      * if have recover it or start a new game
      */
-    if (*gp.plname) {
+    if (*svp.plname) {
         getlock();
 #if defined(HANGUPHANDLING)
-        gp.program_state.preserve_locks = 0; /* after getlock() */
+        program_state.preserve_locks = 0; /* after getlock() */
 #endif
     }
 
-    if (*gp.plname && (nhfp = restore_saved_game()) != 0) {
+    if (*svp.plname && (nhfp = restore_saved_game()) != 0) {
         const char *fq_save = fqname(gs.SAVEF, SAVEPREFIX, 1);
 
         (void) chmod(fq_save, 0); /* disallow parallel restores */
@@ -179,7 +179,7 @@ int NetHackMain(int argc, char** argv)
     }
 
     if (!resuming) {
-        boolean neednewlock = (!*gp.plname);
+        boolean neednewlock = (!*svp.plname);
         /* new game:  start by choosing role, race, etc;
            player might change the hero's name while doing that,
            in which case we try to restore under the new name
@@ -188,7 +188,7 @@ int NetHackMain(int argc, char** argv)
             if (!plsel_once)
                 player_selection();
             plsel_once = TRUE;
-            if (neednewlock && *gp.plname)
+            if (neednewlock && *svp.plname)
                 goto attempt_restore;
             if (iflags.renameinprogress) {
                 /* player has renamed the hero while selecting role;
