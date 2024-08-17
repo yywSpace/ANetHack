@@ -214,7 +214,8 @@ Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring
     jPrintTile = (*jEnv)->GetMethodID(jEnv, jApp, "printTile", "(IIIIIII)V");
     jRequireKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requireKeyCommand", "()I");
     jRequirePosKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requirePosKeyCommand", "([I)C");
-    jRenderStatus = (*jEnv)->GetMethodID(jEnv, jApp, "renderStatus", "(ILjava/lang/String;Ljava/lang/String;III)V");
+    jRenderStatus = (*jEnv)->GetMethodID(jEnv, jApp, "renderStatus",
+                                         "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;III)V");
     jDelayOutput = (*jEnv)->GetMethodID(jEnv, jApp, "delayOutput", "()V");
     jClipAround = (*jEnv)->GetMethodID(jEnv, jApp, "clipAround", "(IIII)V");
     jYNFunction = (*jEnv)->GetMethodID(jEnv, jApp, "ynFunction",
@@ -560,10 +561,11 @@ void and_putstr(winid wid, int attr, const char *str)
     JNICallV(jPutString, wid, attr, jstr, NO_COLOR)
 }
 
-void and_status_field_render(int idx, const char *filed_name, const char *value, int attr, int color, int percent) {
+void and_status_field_render(int idx, const char *filed_name, const char *fmt_val, const char *real_val, int attr, int color, int percent) {
     jstring jFiledName =char2Jstring(jEnv, filed_name);
-    jstring jValue = char2Jstring(jEnv, value);
-    JNICallV(jRenderStatus, idx, jFiledName, jValue, attr, color, percent)
+    jstring fmtVal = char2Jstring(jEnv, fmt_val);
+    jstring realVal = char2Jstring(jEnv, real_val);
+    JNICallV(jRenderStatus, idx, jFiledName, fmtVal, realVal, attr, color, percent)
 }
 
 
@@ -687,7 +689,7 @@ static void render_status(void) {
             bits = and_condition_bits;
             if(bits == 0L) {
                 and_status_field_render(
-                        idx, "conditions", "",
+                        idx, "conditions", "", "",
                         attrmask, coloridx, percent);
                 continue;
             }
@@ -702,7 +704,7 @@ static void render_status(void) {
                     }
                     LOGD("conditions:%s", condtext);
                     and_status_field_render(
-                            idx, "conditions", condtext,
+                            idx, "conditions", condtext, condtext,
                             attrmask, coloridx, percent);
                     bits &= ~mask;
                 }
@@ -716,7 +718,7 @@ static void render_status(void) {
             char *fmt_val = status_vals[idx];
             char *real_val = status_real_values[idx];
             and_status_field_render(
-                    idx, field_nm, fmt_val,
+                    idx, field_nm, fmt_val, real_val,
                     hl_attrmask2atr(attrmask), coloridx, percent);
         }
     }

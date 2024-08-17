@@ -27,7 +27,7 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private val paint: Paint = Paint()
     private val textPaint:TextPaint = TextPaint()
     private lateinit var nh: NetHack
-    private lateinit var nhStatus: NHStatus
+    private lateinit var status: NHStatus
     private var statusInit: Boolean = false
 
     private var holder: SurfaceHolder? = null
@@ -54,7 +54,7 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
     fun initStatus(nh: NetHack, nhStatus: NHStatus) {
         this.nh = nh
-        this.nhStatus = nhStatus
+        this.status = nhStatus
         statusInit = true
     }
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -72,25 +72,28 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private fun getStatus(field: StatusField):Pair<StatusField, Spannable> {
         return when (field) {
             StatusField.BL_HP -> {
-                val hp = nhStatus.getSpannableField(StatusField.BL_HP)
-                val hpMax = nhStatus.getSpannableField(StatusField.BL_HPMAX)
+                val hp = status.hitPoints.toSpannableString()
+                val hpMax = status.maxHitPoints.toSpannableString()
                 Pair(field, SpannableStringBuilder(hp).append(hpMax))
             }
             StatusField.BL_ENE -> {
-                val pw = nhStatus.getSpannableField(StatusField.BL_ENE)
-                val pwMax = nhStatus.getSpannableField(StatusField.BL_ENEMAX)
+                val pw = status.power.toSpannableString()
+                val pwMax = status.maxPower.toSpannableString()
                 Pair(field, SpannableStringBuilder(pw).append(pwMax))
             }
             StatusField.BL_XP -> {
-                val xp = nhStatus.getSpannableField(StatusField.BL_XP)
-                val exp = nhStatus.getSpannableField(StatusField.BL_EXP)
-                val hd = nhStatus.getSpannableField(StatusField.BL_HD)
+                val xp = status.expLevel.toSpannableString()
+                val exp = status.expPoints.toSpannableString()
+                val hd = status.hitDice.toSpannableString()
                 if (xp.isEmpty())
                     Pair(field, hd)
                 else
                     Pair(field, SpannableStringBuilder(xp).append(exp))
             }
-            else -> Pair(field, nhStatus.getSpannableField(field))
+            StatusField.BL_CONDITION -> {
+                Pair(field, status.getConditionSpannable())
+            }
+            else -> Pair(field, status.getField(field).toSpannableString())
         }
     }
     private fun buildStatusBar():List<List<Pair<StatusField, Spannable>>> {
@@ -122,15 +125,13 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun drawTitle(status:Pair<StatusField, Spannable>,  canvas: Canvas):RectF {
-        val percent = nhStatus.getFieldPercent(NHStatus.StatusField.BL_HP)
-        val hp = nhStatus.getField(NHStatus.StatusField.BL_HP)
+        val hp = this.status.hitPoints
         val title = SpannableStringBuilder(status.second)
-        if (hp != null) {
-            val remainSpan = BackgroundColorSpan(Color.argb(200, 220,220,220))
-            val colorSpan = BackgroundColorSpan(hp.nhColor.toColor())
-            title.setSpan(colorSpan, 0, title.length * percent / 100, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-            title.setSpan(remainSpan, title.length * percent / 100, title.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-        }
+        val percent = hp.percent
+        val remainSpan = BackgroundColorSpan(Color.argb(200, 220,220,220))
+        val colorSpan = BackgroundColorSpan(hp.color)
+        title.setSpan(colorSpan, 0, title.length * percent / 100, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        title.setSpan(remainSpan, title.length * percent / 100, title.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
         val statusLayout =DynamicLayout.Builder.obtain(
             title, textPaint,
             ceil(DynamicLayout.getDesiredWidth(title, textPaint)).toInt()

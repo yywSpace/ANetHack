@@ -122,7 +122,7 @@ class NetHackActivity : AppCompatActivity() {
     private fun initControlPanel() {
         // Ctrl|^C Meta|^M
         val panelDefault = """
-            Setting LS|Save #quit|Quit L20s|20s Li|Bag Letter|abc
+            Setting LS|Save #quit|Quit L20s|20s Letter|abc
         """.trimIndent()
         initCustomControlPanel(this, binding.baseCommandPanel, panelDefault)
     }

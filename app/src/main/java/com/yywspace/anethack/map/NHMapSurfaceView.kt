@@ -380,7 +380,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 return
             val tile = getTile(curse.x, curse.y)
             val tb = getTileBorder(curse.x, curse.y)
-            paint.color = getHealthColor()
+            paint.color = nh.status.hitPoints.color
             paint.style = Paint.Style.FILL
             canvas?.drawRect(tb, paint)
             if(tile.glyph >= 0) {
@@ -397,7 +397,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             if(curse.x < 0 || curse.y < 0)
                 return
             val tb = getTileBorder(curse.x, curse.y)
-            paint.color = getHealthColor()
+            paint.color = nh.status.hitPoints.color
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = 4f
             canvas?.drawRect(tb, paint)
@@ -477,15 +477,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             }
         }
         return null
-    }
-
-    private fun getHealthColor():Int {
-        nh.getWStatus()?.apply {
-            val hp = status.getField(NHStatus.StatusField.BL_HP)
-            if (hp != null)
-                return hp.nhColor.toColor()
-        }
-        return Color.WHITE
     }
 
     @SuppressLint("ClickableViewAccessibility")

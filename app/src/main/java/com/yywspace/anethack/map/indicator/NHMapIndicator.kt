@@ -55,7 +55,7 @@ class NHMapIndicator(private val mapView: NHMapSurfaceView,
         }
     }
     private fun drawAsciiIndicator(canvas:Canvas?, cx:Float, cy:Float) {
-        paint.color = getHealthColor()
+        paint.color = nh.status.hitPoints.color
         paint.style = Paint.Style.FILL
         canvas?.drawCircle(cx, cy, radius, paint)
         val textWidth = paint.measureText(tile.ch.toString())
@@ -72,7 +72,7 @@ class NHMapIndicator(private val mapView: NHMapSurfaceView,
                 RectF(cx-radius,cy-radius, cx+radius,cy+radius),
                 paint
             )
-            paint.color = getHealthColor()
+            paint.color =  nh.status.hitPoints.color
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = 3f
             canvas?.drawCircle(cx, cy, radius, paint)
@@ -87,14 +87,6 @@ class NHMapIndicator(private val mapView: NHMapSurfaceView,
         return false
     }
 
-    private fun getHealthColor() :Int {
-        nh.getWStatus()?.apply {
-            val hp = status.getField(NHStatus.StatusField.BL_HP)
-            if (hp != null)
-                return hp.nhColor.toColor()
-        }
-        return Color.GRAY
-    }
     fun getTile(): NHWMap.Tile {
         return tile
     }

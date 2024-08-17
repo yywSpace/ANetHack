@@ -8,6 +8,7 @@ import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
+import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.window.NHExtendChoose
 import com.yywspace.anethack.window.NHPlayerChoose
@@ -31,12 +32,14 @@ class NetHack(
     private var question: NHQuestion = NHQuestion(this)
     private var playerChoose: NHPlayerChoose = NHPlayerChoose(this)
     private var extCmdChoose: NHExtendChoose = NHExtendChoose(this)
+    private var nextWinId = 0
+
     val tileSet = NHTileSet(this)
     val command = NHBlockingCommandController()
     var isRunning = false
-    private var nextWinId = 0
     val prefs by lazy { SharedPreferencesUtils(context) }
-
+    val status:NHStatus
+        get() = getWStatus().status
 
     private val runNHThread:Thread = Thread {
         Log.d(TAG, "start native process")
@@ -110,15 +113,15 @@ class NetHack(
     }
 
     fun clipAround(cx:Int, cy:Int, ux:Int, uy:Int) {
-        getWMap()?.clipAround(cx, cy, ux, uy)
+        getWMap().clipAround(cx, cy, ux, uy)
     }
     fun putString(wid: Int, attr: Int, msg: String, color: Int) {
         getWindow(wid).putString(attr, msg, color)
         Log.d(TAG, "putString(wid:$wid, attr:$attr, msg:$msg, color:$color)")
     }
 
-    private fun renderStatus(fldIdx:Int, fldName:String, value:String, attr:Int, color:Int, percent:Int) {
-        getWStatus()?.renderField(fldIdx, fldName, value, attr, color, percent)
+    private fun renderStatus(fldIdx:Int, fldName:String, fmtVal:String, realVal:String, attr:Int, color:Int, percent:Int) {
+        getWStatus().renderField(fldIdx, fldName, fmtVal, realVal, attr, color, percent)
     }
 
     private fun printTile(wid: Int, x: Int, y: Int, tile: Int, ch: Int, col: Int, special: Int) {
@@ -126,26 +129,25 @@ class NetHack(
         // Log.d(TAG, "printTile(wid: $wid, x: $x, y: $y, tile: $tile, ch: $ch, col: $col, special: $special)")
     }
     private fun rawPrint(attr: Int, msg: String) {
-        getWMessage()?.putString(attr, msg, NHColor.NO_COLOR.ordinal)
+        getWMessage().putString(attr, msg, NHColor.NO_COLOR.ordinal)
         Log.d(TAG, "rawPrint(attr:$attr,msg:$msg)")
     }
 
     fun getMessageHistory(idx:Int):String {
-        getWMessage()?.apply {
+        getWMessage().apply {
             if (idx >= messageList.size)
                 return "message_end"
             return messageList[idx].toString()
         }
-        return "message_end"
     }
 
     fun putMessageHistory(msg:String, restoring:Boolean) {
         if (restoring) {
-            getWMessage()?.apply {
+            getWMessage().apply {
                 // set historical messages to the earliest
                 messageList.add(
                     NHMessage(NHString(msg.trim()),
-                    LocalDateTime.of(LocalDateTime.now().toLocalDate(), LocalTime.MIN))
+                        LocalDateTime.of(LocalDateTime.now().toLocalDate(), LocalTime.MIN))
                 )
             }
         }
@@ -241,27 +243,27 @@ class NetHack(
         throw RuntimeException("no menu found for wid: $wid")
     }
 
-    fun getWStatus(): NHWStatus? {
+    fun getWStatus(): NHWStatus {
         for (window in windows) {
             if(window is NHWStatus)
                 return window
         }
-        return null
+        throw RuntimeException("no status window found")
     }
 
-     fun getWMap(): NHWMap? {
+     private fun getWMap(): NHWMap {
         for (window in windows) {
             if(window is NHWMap)
                 return window
         }
-         return null
+         throw RuntimeException("no map window found")
     }
-     fun getWMessage(): NHWMessage? {
+     private fun getWMessage(): NHWMessage {
         for (window in windows) {
             if(window is NHWMessage)
                 return window
         }
-         return null
+         throw RuntimeException("no message window found")
     }
     fun runOnUi(runUi: ((binding:ActivityNethackBinding, context:Activity) -> Unit)) {
         handler.post {
