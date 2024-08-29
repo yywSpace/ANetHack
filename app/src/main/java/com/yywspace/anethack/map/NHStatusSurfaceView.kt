@@ -183,7 +183,6 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             canvas = holder?.lockCanvas()
             canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             drawStatusBar(canvas)
-        } catch (_: Exception) {
         } finally {
             if (canvas != null)
                 holder?.unlockCanvasAndPost(canvas)

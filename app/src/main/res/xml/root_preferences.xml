@@ -46,6 +46,13 @@
             app:defaultValue="true"
             app:summary="@string/pref_map_indicator_desc"/>
 
+        <CheckBoxPreference
+            app:key="showLastTravelIndicator"
+            app:title="@string/pref_map_last_travel_indicator"
+            app:dependency="showIndicator"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"/>
+
         <EditTextPreference
             app:key="indicatorSymbols"
             app:dependency="showIndicator"
@@ -53,6 +60,7 @@
             app:useSimpleSummaryProvider="true"
             app:defaultValue="&#060;&#062;"
             app:iconSpaceReserved="false"/>
+
 
     </PreferenceCategory>
 
@@ -85,6 +93,18 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:title="@string/pref_option_header"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            app:key="optionEdit"
+            app:title="@string/pref_option_edit"
+            app:useSimpleSummaryProvider="false"
+            app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="@string/pref_other_header"
         app:iconSpaceReserved="false">
 
@@ -94,22 +114,14 @@
             app:iconSpaceReserved="false"
             app:defaultValue="false"
             app:summary="@string/pref_other_lock_view_desc"/>
+
+        <CheckBoxPreference
+            app:key="immersiveMode"
+            app:title="@string/pref_other_immersive_mode"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"
+            app:summary="@string/pref_other_immersive_mode_desc"/>
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:title="@string/pref_conf_header"
-        app:iconSpaceReserved="false">
-        <Preference
-            app:key="conf_download"
-            app:title="@string/pref_conf_download"
-            app:useSimpleSummaryProvider="false"
-            app:iconSpaceReserved="false"/>
 
-        <Preference
-            app:key="conf_upload"
-            app:title="@string/pref_conf_upload"
-            app:useSimpleSummaryProvider="false"
-            app:iconSpaceReserved="false"/>
-
-    </PreferenceCategory>
 </PreferenceScreen>

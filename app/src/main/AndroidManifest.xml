@@ -21,7 +21,10 @@
             android:name=".setting.SettingsActivity"
             android:exported="false"
             android:label="@string/activity_settings_title" />
-
+        <activity
+            android:name=".setting.OptionEditActivity"
+            android:exported="false"
+            android:label="@string/activity_option_edit_title" />
         <activity
             android:name=".NetHackActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
@@ -30,7 +33,6 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

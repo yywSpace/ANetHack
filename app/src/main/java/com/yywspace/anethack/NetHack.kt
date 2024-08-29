@@ -3,6 +3,7 @@ package com.yywspace.anethack
 import android.app.Activity
 import android.os.Handler
 import android.util.Log
+import android.widget.Toast
 import com.yywspace.anethack.command.NHBlockingCommandController
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
@@ -129,7 +130,13 @@ class NetHack(
         // Log.d(TAG, "printTile(wid: $wid, x: $x, y: $y, tile: $tile, ch: $ch, col: $col, special: $special)")
     }
     private fun rawPrint(attr: Int, msg: String) {
-        getWMessage().putString(attr, msg, NHColor.NO_COLOR.ordinal)
+        try {
+            getWMessage().putString(attr, msg, NHColor.NO_COLOR.ordinal)
+        }catch (e:Exception) {
+            runOnUi { _, context ->
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+            }
+        }
         Log.d(TAG, "rawPrint(attr:$attr,msg:$msg)")
     }
 
@@ -263,7 +270,7 @@ class NetHack(
             if(window is NHWMessage)
                 return window
         }
-         throw RuntimeException("no message window found")
+        throw RuntimeException("no message window found")
     }
     fun runOnUi(runUi: ((binding:ActivityNethackBinding, context:Activity) -> Unit)) {
         handler.post {

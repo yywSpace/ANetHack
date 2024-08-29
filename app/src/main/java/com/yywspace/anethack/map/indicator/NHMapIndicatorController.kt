@@ -2,6 +2,7 @@ package com.yywspace.anethack.map.indicator
 
 import android.graphics.Canvas
 import android.graphics.PointF
+import android.util.Log
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.map.NHMapSurfaceView
 import com.yywspace.anethack.window.NHWMap
@@ -29,9 +30,14 @@ class NHMapIndicatorController(private val mapView: NHMapSurfaceView, val nh:Net
                 tmpIndicators.add(NHMapIndicator(mapView, nh, it))
             }
         }
-        mapView.lastTravelTile?.apply {
-            val tile = map.getTile(x, y)
-            tmpIndicators.add(NHMapIndicator(mapView, nh, tile))
+        if (nh.prefs.showLastTravelIndicator) {
+            mapView.lastTravelTile?.apply {
+                // 只显示对应楼层LastTravelIndicator
+                if (nh.status.dungeonLevel.realVal == first) {
+                    val tile = map.getTile(second.x, second.y)
+                    tmpIndicators.add(NHMapIndicator(mapView, nh, tile))
+                }
+            }
         }
         if (map.player.x > 0 && map.player.y > 0) {
             val tile = map.getTile(map.player.x, map.player.y)

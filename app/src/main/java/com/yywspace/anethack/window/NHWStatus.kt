@@ -34,7 +34,7 @@ class NHWStatus(wid: Int, private val nh: NetHack) : NHWindow(wid) {
         status.addStatusAttr(fldIdx, color, attr, percent, fmtVal, realVal)
         Log.d(
             "NHWStatus",
-            "renderStatus(fldIdx:$fldIdx, fldName:$fldName, fmtVal:$fmtVal, realVal:$realVal, attr:$attr, color:$color, percent:$percent)"
+            "renderField(fldIdx:$fldIdx, fldName:$fldName, fmtVal:$fmtVal, realVal:$realVal, attr:$attr, color:$color, percent:$percent)"
         )
     }
 

@@ -22,7 +22,6 @@ import java.io.File
 import java.io.FileFilter
 import java.io.FileOutputStream
 
-
 class NetHackActivity : AppCompatActivity() {
     private val TAG = NetHackActivity::class.java.name
     private lateinit var nethack:NetHack
@@ -37,12 +36,19 @@ class NetHackActivity : AppCompatActivity() {
         nethack = NetHack(handler, this, binding,"${filesDir.path}/nethackdir")
         initKeyboard()
         initControlPanel()
-        hideSystemUi()
-        // showSystemUi()
-        loadGameAssets("nethackdir")
-        loadGameAssets("logs")
-        processLogs()
-        nethack.run()
+        AssetsLoader(this).loadAssets(listOf("nethackdir", "logs")) {
+            processLogs()
+            nethack.run()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (nethack.prefs.immersiveMode) {
+            hideSystemUi()
+        }else {
+            showSystemUi()
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -164,22 +170,6 @@ class NetHackActivity : AppCompatActivity() {
                 }
             }
             panelView.addView(button)
-        }
-    }
-    private fun loadGameAssets(path: String) {
-        if(File(filesDir, path).exists())
-            return
-        val fileList = assets.list(path)
-        val file = File(filesDir, path)
-        if (fileList.isNullOrEmpty()) {
-            FileOutputStream(file).use { fileOut ->
-                this.assets.open(path).copyTo(fileOut)
-            }
-        } else {
-            if (!file.exists()) file.mkdirs()
-            for (i in fileList.indices) {
-                loadGameAssets(path + "/" + fileList[i])
-            }
         }
     }
     private fun processLogs() {

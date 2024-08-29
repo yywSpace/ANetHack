@@ -11,9 +11,6 @@ import android.graphics.PointF
 import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Typeface
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.util.Log
@@ -28,13 +25,11 @@ import android.widget.PopupWindow
 import androidx.core.graphics.minus
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.yywspace.anethack.NHPosKeyAdapter
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.command.NHPosCommand.*
-import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.map.indicator.NHMapIndicatorController
 import com.yywspace.anethack.map.operation.NHMapOperation
 import com.yywspace.anethack.map.operation.NHMapScale
@@ -43,6 +38,7 @@ import com.yywspace.anethack.window.NHWMap
 import java.util.concurrent.LinkedBlockingDeque
 import kotlin.math.abs
 import kotlin.math.atan2
+import kotlin.math.ceil
 import kotlin.math.floor
 
 
@@ -60,8 +56,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var mapBorder:RectF = RectF()
     private lateinit var lastMapBorder:RectF
     private var lastTouchTile:Point? = null
-    var lastTravelTile:Point? = null
+    var lastTravelTile:Pair<String,Point>? = null
 
+    private var baseBorderWidth:Float = .5F
+    private var borderWidth:Float = 0F
     private var tileWidth:Float = 0F
     private var tileHeight:Float = 0F
     private var holder: SurfaceHolder? = null
@@ -141,9 +139,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     fun initMap(nh: NetHack, map: NHWMap) {
         this.nh = nh
         this.map = map
-        this.mapInit = true
         initMapParam()
         initIndicators()
+        this.mapInit = true
     }
 
     private fun initMapParam() {
@@ -210,7 +208,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                                     nh.command.sendCommand(
                                         NHPosCommand(point.x, point.y, PosMod.TRAVEL)
                                     )
-                                    lastTravelTile = point
+                                    if (!(point.x >= map.width || point.y >= map.height || point.x <= 0 || point.y <= 0))
+                                        lastTravelTile = Pair(nh.status.dungeonLevel.realVal, point)
                                 }
                             }
                             popupWindow.dismiss()
@@ -244,6 +243,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         asciiPaint.textSize = textSize * this.scaleFactor
         tileWidth = getBaseTileWidth() * this.scaleFactor
         tileHeight = getBaseTileHeight() * this.scaleFactor
+        borderWidth = ceil(baseBorderWidth * this.scaleFactor)
         mapBorder.left += (mapBorder.left - centerX) * (scaleFactor - 1)
         mapBorder.top += (mapBorder.top - centerY) * (scaleFactor - 1)
         mapBorder.right = mapBorder.left + map.width * tileWidth
@@ -345,7 +345,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     var bgColor = Color.BLACK
                     var fgColor = tile.color.toColor()
                     // reverse special objet color
-                    if(tile.overlay.toInt() != 0 && tile.glyph >= 0) {
+                    if(tile.overlay != 0 && tile.glyph >= 0) {
                         fgColor = Color.BLACK
                         bgColor = tile.color.toColor()
                     }
@@ -399,7 +399,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             val tb = getTileBorder(curse.x, curse.y)
             paint.color = nh.status.hitPoints.color
             paint.style = Paint.Style.STROKE
-            paint.strokeWidth = 4f
+            paint.strokeWidth = borderWidth
             canvas?.drawRect(tb, paint)
         }
     }
@@ -408,7 +408,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             val tb = getTileBorder(x, y)
             paint.color = Color.GRAY
             paint.style = Paint.Style.STROKE
-            paint.strokeWidth = 2F
+            paint.strokeWidth = borderWidth
             canvas?.drawRect(tb, paint)
         }
     }
@@ -421,7 +421,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         map.apply {
             paint.color = Color.GRAY
             paint.style = Paint.Style.STROKE
-            paint.strokeWidth = 1F
+            paint.strokeWidth = borderWidth
             canvas?.drawRect(mapBorder, paint);
         }
     }
@@ -431,9 +431,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             val w = asciiPaint.measureText("\u2550")
             asciiPaint.textSize = textSize * scaleFactor
             floor(w)
-        }else
+        } else
             nh.tileSet.tileWidth.toFloat()
-
     }
 
     private fun getBaseTileHeight(): Float {

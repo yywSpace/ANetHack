@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -17,9 +18,10 @@ import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.showImmersive
+import java.util.concurrent.CopyOnWriteArrayList
 
 class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
-    val messageList = mutableListOf<NHMessage>()
+    val messageList = CopyOnWriteArrayList<NHMessage>()
     private var messageView: NHMessageSurfaceView = nh.binding.messageView
     private var lastClickTime = 0L
 
@@ -35,6 +37,9 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     }
 
     fun getRecentMessageList(size: Int):List<NHMessage> {
+        // 避免列表为空时maxBy报NoSuchElementException异常
+        if (messageList.isEmpty())
+            return emptyList()
         val lastMsg = messageList.maxBy { it.time }
         val newestCnt = messageList.count { it.time.isEqual(lastMsg.time) }
         val msgSize = messageList.size.coerceAtMost(size)
@@ -60,7 +65,7 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                     .apply {
                         findViewById<RecyclerView>(R.id.dialog_message_list).apply {
                             val messageAdapter = NHWMessageAdapter(messageList).apply {
-                                omItemViewClick = {
+                                omMessageClick = { _, _ ->
 
                                 }
                             }
@@ -104,7 +109,7 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
 
 
     class NHWMessageAdapter(private val messageList:List<NHMessage>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        var omItemViewClick:((view:View)->Unit)? = null
+        var omMessageClick:((view:View, message:NHMessage)->Unit)? = null
         private var lastCmdMsg:NHMessage = messageList.maxBy { it.time }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val view = LayoutInflater.from(parent.context)
@@ -130,7 +135,7 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                 }
 
                 itemView.setOnClickListener { v ->
-                    omItemViewClick?.invoke(v)
+                    omMessageClick?.invoke(v, message)
                 }
             }
         }

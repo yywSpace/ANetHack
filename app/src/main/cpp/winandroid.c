@@ -255,6 +255,13 @@ void and_init_nhwindows(int* argcp, char** argv)
 {
     LOGD("and_init_nhwindows");
     iflags.window_inited = TRUE;
+    /* force toptenwin to be true.  toptenwin is the option that decides
+     * whether to
+     * write output to a window or stdout.  stdout doesn't make sense on
+     * Windows
+     * non-console applications
+     */
+    iflags.toptenwin = 1;
 }
 
 //player_selection()

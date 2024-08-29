@@ -23,9 +23,9 @@ class NHStatus {
     val maxPower:NHAttr
         get() = getField(StatusField.BL_ENEMAX)
     val expLevel:NHAttr
-        get() = getField(StatusField.BL_EXP)
-    val expPoints:NHAttr
         get() = getField(StatusField.BL_XP)
+    val expPoints:NHAttr
+        get() = getField(StatusField.BL_EXP)
     val hitDice:NHAttr
         get() = getField(StatusField.BL_HD)
     val armorClass:NHAttr

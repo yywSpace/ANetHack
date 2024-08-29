@@ -1,16 +1,15 @@
-package com.yywspace.anethack
+package com.yywspace.anethack.map
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.yywspace.anethack.R
 
 class NHPosKeyAdapter(private val keyList: List<String>):
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var onItemClickListener:OnItemClickListener?= null
+    var onItemClickListener: OnItemClickListener?= null
     inner class PostKeyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemKey: TextView
         init {

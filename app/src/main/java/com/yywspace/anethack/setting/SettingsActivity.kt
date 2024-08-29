@@ -67,6 +67,12 @@ class SettingsActivity : AppCompatActivity() {
                     it.inputType = InputType.TYPE_CLASS_NUMBER;
                 }
             }
+            findPreference<Preference>("optionEdit")?.apply {
+                setOnPreferenceClickListener { _ ->
+                    startActivity(Intent(context, OptionEditActivity::class.java))
+                    true
+                }
+            }
         }
 
         private fun openInternalFile(context: Context?, relativePath:String) {

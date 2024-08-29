@@ -20,7 +20,7 @@ class NHExtendChoose(val nh: NetHack) {
     private lateinit var extCmdList: Array<String>
     private var commandList: MutableList<NHExtCmd> = mutableListOf()
     private fun showExtCmdDialog(commandList: MutableList<NHExtCmd>) {
-        nh.runOnUi() { _, context ->
+        nh.runOnUi { _, context ->
             val dialog = AlertDialog.Builder(context).run {
                 setTitle(R.string.ext_cmd_select)
                 setNeutralButton(R.string.dialog_cancel) { _,_ ->
@@ -41,7 +41,6 @@ class NHExtendChoose(val nh: NetHack) {
                         this.adapter = adapter
                     }
                     findViewById<SearchView>(R.id.ext_cmd_search).apply {
-                        isIconified = false
                         setOnClickListener {
                             isIconified = false
                         }
@@ -72,7 +71,6 @@ class NHExtendChoose(val nh: NetHack) {
         for(i in extCmdList.indices step 2) {
             if(extCmdList[i].isEmpty()
                 || extCmdList[i+1].isEmpty()
-                || extCmdList[i] == "?"
                 || extCmdList[i] == "#")
                 continue
 

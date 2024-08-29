@@ -27,7 +27,7 @@ object IndicatorUtils {
     // 获取屏幕中心点到物体的直线与边界交点
     fun getBorderCrossPoint(screenWidth:Float, screenHeight:Float, target:PointF):PointF {
         val p1 = PointF(screenWidth / 2f, screenHeight /2f)
-        val p2 = PointF(target)
+        val p2 = PointF(target.x, target.y)
         val p3 = PointF(if (p1.x > p2.x) 0f else screenWidth, 0f)
         val p4 = PointF(if (p1.x > p2.x) 0f else screenWidth, screenHeight)
         return getCrossPoint(p1, p2, p3, p4)

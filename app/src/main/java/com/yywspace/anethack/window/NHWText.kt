@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
+import com.yywspace.anethack.command.NHAnswerCommand
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.extensions.showImmersive
 
@@ -37,6 +38,7 @@ class NHWText(wid: Int, private val nh: NetHack) : NHWindow(wid) {
             }.create()
             dialog.showImmersive()
         }
+        nh.command.waitForAnyCommand<NHCommand> {  }
     }
 
     override fun clearWindow(isRogueLevel: Int) {

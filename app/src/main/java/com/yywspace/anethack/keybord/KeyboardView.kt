@@ -2,6 +2,7 @@ package com.yywspace.anethack.keybord
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
@@ -10,7 +11,6 @@ import android.view.View
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.view.setMargins
 import com.yywspace.anethack.R
 import com.yywspace.anethack.Utils
@@ -29,7 +29,7 @@ class KeyboardView : GridLayout {
     private lateinit var keyboardCustom:NHKeyboard
     private lateinit var keyboardUpperLetter:NHKeyboard
 
-    private var keyHeight = 120
+    private var keyHeight = 40F
     private var keyGap = 3
     private var isUpper = false
     private var isNumberPanelShow = false
@@ -46,9 +46,13 @@ class KeyboardView : GridLayout {
     init {
         columnCount = 20
         rowCount = 5
-        val vibratorManager =
-            context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-        vibrator = vibratorManager.defaultVibrator
+        vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val vibratorManager =
+                context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            vibratorManager.defaultVibrator
+        } else {
+            context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        }
         initKeyboardView()
         initNumPanel()
         initKeyboardData()
@@ -185,7 +189,7 @@ class KeyboardView : GridLayout {
                 ).apply {
                     setMargins(keyGap)
                     width = 0
-                    height = keyHeight
+                    height = Utils.dip2px(context, keyHeight)
                 }
                 addView(view, params)
                 rowView.add(view)

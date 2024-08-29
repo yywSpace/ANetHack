@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.yywspace.anethack"
-        minSdk = 31
+        minSdk = 29
         targetSdk = 33
         versionCode = 1
         versionName = "3.7.0.a1"

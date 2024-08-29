@@ -10,9 +10,9 @@
     <string name="button_esc">ESC</string>
     <string name="play_mod_normal">normal</string>
     <string name="play_mod_discover">discover</string>
-    <string name="player_select">Please select you player.</string>
+    <string name="player_select">Please select you saves.</string>
     <string name="player_input">Please input you player name.</string>
-    <string name="player_add">Click to add new player.</string>
+    <string name="player_add">Click to add new game.</string>
     <string name="ext_cmd_select">Please select extend command.</string>
     <string name="message_history">Message history.</string>
     <string name="item_amount_select">Select the amount of %s</string>
@@ -30,6 +30,9 @@
     <string name="menu_item_tile_desc">menu tile image</string>
 
     <string name="activity_settings_title">SettingsActivity</string>
+    <string name="activity_option_edit_title">OptionEditActivity</string>
+    <string name="option_edit_save">Save</string>
+    <string name="option_edit_cancel">Cancel</string>
 
     <!-- Preference Log -->
     <string name="pref_log_header">Logs</string>
@@ -40,9 +43,8 @@
     <string name="pref_log_error_summery">Android crash log.</string>
 
     <!-- Preference Config -->
-    <string name="pref_conf_header">Config</string>
-    <string name="pref_conf_download">Download config file</string>
-    <string name="pref_conf_upload">Upload config file</string>
+    <string name="pref_option_header">Config</string>
+    <string name="pref_option_edit">Edit config file</string>
     <!-- Preference Menu -->
     <string name="pref_menu_header">Menu</string>
     <string name="pref_menu_type">Menu type</string>
@@ -60,6 +62,7 @@
     <string name="pref_map_tile_default">Default</string>
     <string name="pref_map_tile_ascii">Ascii</string>
     <string name="pref_map_indicator">Show indicator</string>
+    <string name="pref_map_last_travel_indicator">Show last travel indicator</string>
     <string name="pref_map_indicator_desc">Show map symbol indicator.</string>
     <string name="pref_map_indicator_symbols">Indicator symbols</string>
 
@@ -67,7 +70,7 @@
     <string name="pref_other_header">Other</string>
     <string name="pref_other_lock_view">Lock view</string>
     <string name="pref_other_lock_view_desc">Always put the player in the center of the view.</string>
-
-
+    <string name="pref_other_immersive_mode">Immersive mode</string>
+    <string name="pref_other_immersive_mode_desc">Hide system ui.</string>
 
 </resources>

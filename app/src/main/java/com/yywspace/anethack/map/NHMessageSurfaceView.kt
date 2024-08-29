@@ -24,7 +24,7 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private lateinit var nhMessage: NHWMessage
     private var messageInit: Boolean = false
     private var messageSize = 3
-    private var maxMessageSize = 10
+    private var maxMessageSize = 5
 
     private var holder: SurfaceHolder? = null
     private var canvas: Canvas? = null
@@ -97,7 +97,6 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             canvas = holder?.lockCanvas()
             canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             drawMessageList(canvas)
-        } catch (_: Exception) {
         } finally {
             if (canvas != null)
                 holder?.unlockCanvasAndPost(canvas)

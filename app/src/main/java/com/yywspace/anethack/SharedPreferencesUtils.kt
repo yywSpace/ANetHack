@@ -17,8 +17,10 @@ class SharedPreferencesUtils(val context: Context) {
     var messageHistorySize by SharedPreferenceDelegates.string2int(500)
     var menuType by SharedPreferenceDelegates.string("1")
     var lockView by SharedPreferenceDelegates.boolean(false)
+    var immersiveMode by SharedPreferenceDelegates.boolean(true)
     var tileSet by SharedPreferenceDelegates.string("1")
     var showIndicator by SharedPreferenceDelegates.boolean(true)
+    var showLastTravelIndicator by SharedPreferenceDelegates.boolean(true)
     var indicatorSymbols by SharedPreferenceDelegates.string(">")
 
     fun getInputPrompts():List<String> {

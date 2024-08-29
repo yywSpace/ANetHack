@@ -28,17 +28,14 @@
 #
 # *** General options ***
 #
-OPTIONS=!tutorial,!legacy,!cmdassist
+OPTIONS=!tutorial,!legacy,!cmdassist,!bones
 #OPTIONS=packorder:")[%?+/=!(*0_`
 OPTIONS=scores:10 top/2 around/own
 
 OPTIONS=autopickup,pickup_types:$"=/!?+
-OPTIONS=!bones
-OPTIONS=force_invmenu
-OPTIONS=IBMgraphics
-OPTIONS=boulder:0
+OPTIONS=IBMgraphics,boulder:0
 
-OPTIONS=lit_corridor,showexp,time,toptenwin
+OPTIONS=force_invmenu,lit_corridor,showexp,time,toptenwin
 OPTIONS=pile_limit:2,hilite_pile,hilite_pet
 
 # android is not a multi-user system, allow any user hear
@@ -70,10 +67,8 @@ MENUCOLOR="loadstone|wand (of|called) cancellation"=white&underline
 MENUCOLOR="Amulet of Yendor named"=magenta
 MENUCOLOR="gold piece"=yellow
 
-
 # *** Status hilites ***
 #
-
 ## Keep changes for x number of turns
 OPTIONS=statushilites:10
 
