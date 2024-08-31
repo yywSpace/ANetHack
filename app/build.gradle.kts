@@ -12,9 +12,17 @@ android {
         minSdk = 29
         targetSdk = 33
         versionCode = 1
-        versionName = "3.7.0.a1"
+        versionName = "3.7.0.a1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    applicationVariants.all {
+        outputs.all {
+            val ver = defaultConfig.versionName
+            (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName =
+                "ANetHack-$ver.apk"
+        }
     }
 
     buildTypes {
@@ -44,6 +52,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.9.0")
@@ -51,7 +60,7 @@ dependencies {
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.preference:preference-ktx:1.2.1")
-    implementation("androidx.preference:preference:1.2.0")
+    implementation("androidx.preference:preference:1.2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
