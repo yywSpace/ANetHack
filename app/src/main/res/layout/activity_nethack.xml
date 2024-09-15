@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".NetHackActivity">
 
     <com.yywspace.anethack.map.NHMapSurfaceView
@@ -39,12 +40,28 @@
         android:layout_height="match_parent"
         android:gravity="bottom">
         <FrameLayout
-            android:id="@+id/dialog_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="15dp"
-            android:visibility="invisible"/>
+            android:layout_weight="1">
+            <FrameLayout
+                android:id="@+id/dialog_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:visibility="invisible"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floating_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="bottom|end"
+                android:contentDescription="@string/floating_button_desc"
+                app:fabSize="mini"
+                android:src="@drawable/icon_detail" />
+        </FrameLayout>
+
 
         <com.yywspace.anethack.keybord.KeyboardView
             android:id="@+id/keyboard_view"
@@ -63,4 +80,5 @@
             android:orientation="horizontal">
         </LinearLayout>
     </LinearLayout>
+
 </FrameLayout>

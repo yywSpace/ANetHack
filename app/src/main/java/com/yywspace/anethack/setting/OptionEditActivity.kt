@@ -11,17 +11,31 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.toSpannable
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.yywspace.anethack.databinding.ActivityOptionEditBinding
 import java.io.File
 
 
 class OptionEditActivity: AppCompatActivity() {
-    private var fullChange = false
+    private lateinit var binding:ActivityOptionEditBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityOptionEditBinding.inflate(layoutInflater)
+        binding = ActivityOptionEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initView()
+        initStatusBar()
+    }
 
+    private fun initStatusBar() {
+        window.statusBarColor = Color.TRANSPARENT
+        val windowInsetsController =
+            WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.isAppearanceLightStatusBars = true
+        windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
+    }
+
+    private fun initView() {
         binding.optionEditText.apply {
             setText(processText(readOptionFile()))
             addTextChangedListener(object : TextWatcher {
@@ -62,7 +76,6 @@ class OptionEditActivity: AppCompatActivity() {
             finish()
         }
     }
-
     private fun processText(lines:List<String>):Spannable {
         val spBuilder = SpannableStringBuilder()
         for (line in lines) {

@@ -41,7 +41,8 @@ class NetHack(
     val prefs by lazy { SharedPreferencesUtils(context) }
     val status:NHStatus
         get() = getWStatus().status
-
+    val messages:NHWMessage
+        get() = getWMessage()
     private val runNHThread:Thread = Thread {
         Log.d(TAG, "start native process")
         try {
@@ -250,7 +251,7 @@ class NetHack(
         throw RuntimeException("no menu found for wid: $wid")
     }
 
-    fun getWStatus(): NHWStatus {
+    private fun getWStatus(): NHWStatus {
         for (window in windows) {
             if(window is NHWStatus)
                 return window

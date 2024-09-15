@@ -1,12 +1,14 @@
 package com.yywspace.anethack
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -14,26 +16,32 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.google.android.material.internal.EdgeToEdgeUtils
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
+import com.yywspace.anethack.identify.NHPriceIDialog
 import com.yywspace.anethack.setting.SettingsActivity
 import java.io.File
 import java.io.FileFilter
 import java.io.FileOutputStream
 
+
 class NetHackActivity : AppCompatActivity() {
-    private val TAG = NetHackActivity::class.java.name
     private lateinit var nethack:NetHack
     private lateinit var handler:Handler
     private lateinit var binding: ActivityNethackBinding
+    private lateinit var priceIDialog: NHPriceIDialog
     private var isKeyboardShow = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNethackBinding.inflate(layoutInflater)
         setContentView(binding.root)
         handler = Handler(Looper.getMainLooper())
         nethack = NetHack(handler, this, binding,"${filesDir.path}/nethackdir")
+        priceIDialog = NHPriceIDialog(this, nethack)
+        initView()
         initKeyboard()
         initControlPanel()
         AssetsLoader(this).loadAssets(listOf("nethackdir", "logs")) {
@@ -44,11 +52,14 @@ class NetHackActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (nethack.prefs.immersiveMode) {
+        if (nethack.prefs.immersiveMode)
             hideSystemUi()
-        }else {
+        else
             showSystemUi()
-        }
+        if (nethack.prefs.priceId)
+            binding.floatingButton.visibility = View.VISIBLE
+        else
+            binding.floatingButton.visibility = View.GONE
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -59,6 +70,16 @@ class NetHackActivity : AppCompatActivity() {
                     refreshNHKeyboard()
                 }, 100)
             }
+        }
+    }
+
+    private fun initView() {
+        if (nethack.prefs.priceId)
+            binding.floatingButton.visibility = View.VISIBLE
+        else
+            binding.floatingButton.visibility = View.GONE
+        binding.floatingButton.setOnClickListener {
+            priceIDialog.show()
         }
     }
     private fun initKeyboard() {
@@ -128,7 +149,7 @@ class NetHackActivity : AppCompatActivity() {
     private fun initControlPanel() {
         // Ctrl|^C Meta|^M
         val panelDefault = """
-            Setting LS|Save #quit|Quit L20s|20s Letter|abc
+            Setting LS|Save #quit|Quit L20s|20s Letter|Abc
         """.trimIndent()
         initCustomControlPanel(this, binding.baseCommandPanel, panelDefault)
     }
@@ -144,6 +165,8 @@ class NetHackActivity : AppCompatActivity() {
     private fun showSystemUi() {
         val windowInsetsController =
             WindowCompat.getInsetsController(window, window.decorView)
+        window.statusBarColor = Color.BLACK
+        windowInsetsController.isAppearanceLightStatusBars = false
         windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
     }
 
@@ -157,7 +180,7 @@ class NetHackActivity : AppCompatActivity() {
             if(array.size == 2)
                 label = array[1]
             val button =
-                (LayoutInflater.from(context).inflate(R.layout.panel_cmd_item, null) as TextView)
+                (View.inflate(context, R.layout.panel_cmd_item, null) as TextView)
                     .apply {
                 text = label
                 layoutParams = LinearLayout.LayoutParams(

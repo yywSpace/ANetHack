@@ -16,4 +16,15 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="surcharge_cond_array">
+        <item>@string/price_id_surcharge_none</item>
+        <item>@string/price_id_surcharge_tourist</item>
+        <item>@string/price_id_surcharge_shirt</item>
+        <item>@string/price_id_surcharge_cap</item>
+    </string-array>
+    <string-array name="pride_id_mode_array">
+        <item>@string/price_id_mode_base</item>
+        <item>@string/price_id_mode_buy</item>
+        <item>@string/price_id_mode_sell</item>
+    </string-array>
 </resources>

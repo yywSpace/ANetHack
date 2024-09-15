@@ -1,0 +1,1106 @@
+{
+  "tradeTypesRegex": {
+    "buy": "(?<objDesc>.*) \\((for sale|unpaid), (?<objPrice>[0-9]+) zorkmids\\)",
+    "sell": "offers (?<objPrice>[0-9]+) gold pieces for your (?<objDesc>.*)\\."
+  },
+  "objectTypesRegex": {
+    "potion": "potion",
+    "scroll": "scroll",
+    "spellbook": "spellbook",
+    "ring": "ring",
+    "wand": "wand",
+    "amulet": "amulet"
+  },
+  "objects": {
+    "potion": [
+      {
+        "name": "potion of water (uncursed)",
+        "cost": "0",
+        "weight": "20",
+        "appearance": "clear"
+      },
+      {
+        "name": "potion of booze",
+        "cost": "50",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of fruit juice",
+        "cost": "50",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of see invisible",
+        "cost": "50",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of sickness",
+        "cost": "50",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of confusion",
+        "cost": "100",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of extra healing",
+        "cost": "100",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of hallucination",
+        "cost": "100",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of healing",
+        "cost": "20",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of holy water",
+        "cost": "100",
+        "weight": "20",
+        "appearance": "clear"
+      },
+      {
+        "name": "potion of unholy water",
+        "cost": "100",
+        "weight": "20",
+        "appearance": "clear"
+      },
+      {
+        "name": "potion of restore ability",
+        "cost": "100",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of sleeping",
+        "cost": "100",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of blindness",
+        "cost": "150",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of gain energy",
+        "cost": "150",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of invisibility",
+        "cost": "150",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of monster detection",
+        "cost": "150",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of object detection",
+        "cost": "150",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of enlightenment",
+        "cost": "200",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of full healing",
+        "cost": "200",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of levitation",
+        "cost": "200",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of polymorph",
+        "cost": "200",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of speed",
+        "cost": "200",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of acid",
+        "cost": "250",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of oil",
+        "cost": "250",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of gain ability",
+        "cost": "300",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of gain level",
+        "cost": "300",
+        "weight": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "potion of paralysis",
+        "cost": "300",
+        "weight": "20",
+        "appearance": "random"
+      }
+    ],
+    "scroll": [
+      {
+        "name": "scroll of mail",
+        "cost": "0",
+        "weight": "5",
+        "ink": "2",
+        "appearance": "stamped"
+      },
+      {
+        "name": "scroll of identify",
+        "cost": "20",
+        "weight": "5",
+        "ink": "14",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of light",
+        "cost": "50",
+        "weight": "5",
+        "ink": "8",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of blank paper",
+        "cost": "60",
+        "weight": "5",
+        "ink": "0",
+        "appearance": "unlabeled"
+      },
+      {
+        "name": "scroll of enchant weapon",
+        "cost": "60",
+        "weight": "5",
+        "ink": "16",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of enchant armor",
+        "cost": "80",
+        "weight": "5",
+        "ink": "16",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of remove curse",
+        "cost": "80",
+        "weight": "5",
+        "ink": "16",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of confuse monster",
+        "cost": "100",
+        "weight": "5",
+        "ink": "12",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of destroy armor",
+        "cost": "100",
+        "weight": "5",
+        "ink": "10",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of fire",
+        "cost": "100",
+        "weight": "5",
+        "ink": "8",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of food detection",
+        "cost": "100",
+        "weight": "5",
+        "ink": "8",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of gold detection",
+        "cost": "100",
+        "weight": "5",
+        "ink": "8",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of magic mapping",
+        "cost": "100",
+        "weight": "5",
+        "ink": "8",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of scare monster",
+        "cost": "100",
+        "weight": "5",
+        "ink": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of teleportation",
+        "cost": "100",
+        "weight": "5",
+        "ink": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of amnesia",
+        "cost": "200",
+        "weight": "5",
+        "ink": "8",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of create monster",
+        "cost": "200",
+        "weight": "5",
+        "ink": "10",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of earth1",
+        "cost": "200",
+        "weight": "5",
+        "ink": "8",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of taming",
+        "cost": "200",
+        "weight": "5",
+        "ink": "20",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of charging",
+        "cost": "300",
+        "weight": "5",
+        "ink": "16",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of genocide",
+        "cost": "300",
+        "weight": "5",
+        "ink": "30",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of punishment",
+        "cost": "300",
+        "weight": "5",
+        "ink": "10",
+        "appearance": "random"
+      },
+      {
+        "name": "scroll of stinking cloud",
+        "cost": "300",
+        "weight": "5",
+        "ink": "20",
+        "appearance": "random"
+      }
+    ],
+    "spellbook": [
+      {
+        "name": "spellbook of force bolt",
+        "cost": "100",
+        "weight": "50",
+        "school": "attack",
+        "actions to read": "4"
+      },
+      {
+        "name": "spellbook of drain life",
+        "cost": "200",
+        "weight": "50",
+        "school": "attack",
+        "actions to read": "4"
+      },
+      {
+        "name": "spellbook of magic missile",
+        "cost": "200",
+        "weight": "50",
+        "school": "attack",
+        "actions to read": "4"
+      },
+      {
+        "name": "spellbook of cone of cold",
+        "cost": "400",
+        "weight": "50",
+        "school": "attack",
+        "actions to read": "23"
+      },
+      {
+        "name": "spellbook of fireball",
+        "cost": "400",
+        "weight": "50",
+        "school": "attack",
+        "actions to read": "14"
+      },
+      {
+        "name": "spellbook of finger of death",
+        "cost": "700",
+        "weight": "50",
+        "school": "attack",
+        "actions to read": "82"
+      },
+      {
+        "name": "spellbook of protection",
+        "cost": "100",
+        "weight": "50",
+        "school": "clerical",
+        "actions to read": "5"
+      },
+      {
+        "name": "spellbook of create monster",
+        "cost": "200",
+        "weight": "50",
+        "school": "clerical",
+        "actions to read": "5"
+      },
+      {
+        "name": "spellbook of remove curse",
+        "cost": "300",
+        "weight": "50",
+        "school": "clerical",
+        "actions to read": "12"
+      },
+      {
+        "name": "spellbook of create familiar",
+        "cost": "600",
+        "weight": "50",
+        "school": "clerical",
+        "actions to read": "44"
+      },
+      {
+        "name": "spellbook of turn undead",
+        "cost": "600",
+        "weight": "50",
+        "school": "clerical",
+        "actions to read": "50"
+      },
+      {
+        "name": "spellbook of detect monsters",
+        "cost": "100",
+        "weight": "50",
+        "school": "divination",
+        "actions to read": "3"
+      },
+      {
+        "name": "spellbook of light",
+        "cost": "100",
+        "weight": "50",
+        "school": "divination",
+        "actions to read": "3"
+      },
+      {
+        "name": "spellbook of detect food",
+        "cost": "200",
+        "weight": "50",
+        "school": "divination",
+        "actions to read": "5"
+      },
+      {
+        "name": "spellbook of clairvoyance",
+        "cost": "300",
+        "weight": "50",
+        "school": "divination",
+        "actions to read": "8"
+      },
+      {
+        "name": "spellbook of detect unseen",
+        "cost": "300",
+        "weight": "50",
+        "school": "divination",
+        "actions to read": "10"
+      },
+      {
+        "name": "spellbook of identify",
+        "cost": "300",
+        "weight": "50",
+        "school": "divination",
+        "actions to read": "14"
+      },
+      {
+        "name": "spellbook of detect treasure",
+        "cost": "400",
+        "weight": "50",
+        "school": "divination",
+        "actions to read": "17"
+      },
+      {
+        "name": "spellbook of magic mapping",
+        "cost": "500",
+        "weight": "50",
+        "school": "divination",
+        "actions to read": "37"
+      },
+      {
+        "name": "spellbook of sleep",
+        "cost": "300",
+        "weight": "50",
+        "school": "enchantment",
+        "actions to read": "3"
+      },
+      {
+        "name": "spellbook of confuse monster",
+        "cost": "100",
+        "weight": "50",
+        "school": "enchantment",
+        "actions to read": "4"
+      },
+      {
+        "name": "spellbook of slow monster",
+        "cost": "200",
+        "weight": "50",
+        "school": "enchantment",
+        "actions to read": "4"
+      },
+      {
+        "name": "spellbook of cause fear",
+        "cost": "300",
+        "weight": "50",
+        "school": "enchantment",
+        "actions to read": "8"
+      },
+      {
+        "name": "spellbook of charm monster",
+        "cost": "500",
+        "weight": "50",
+        "school": "enchantment",
+        "actions to read": "8"
+      },
+      {
+        "name": "spellbook of jumping",
+        "cost": "100",
+        "weight": "50",
+        "school": "escape",
+        "actions to read": "5"
+      },
+      {
+        "name": "spellbook of haste self",
+        "cost": "300",
+        "weight": "50",
+        "school": "escape",
+        "actions to read": "10"
+      },
+      {
+        "name": "spellbook of invisibility",
+        "cost": "400",
+        "weight": "50",
+        "school": "escape",
+        "actions to read": "17"
+      },
+      {
+        "name": "spellbook of levitation",
+        "cost": "400",
+        "weight": "50",
+        "school": "escape",
+        "actions to read": "14"
+      },
+      {
+        "name": "spellbook of teleport away",
+        "cost": "600",
+        "weight": "50",
+        "school": "escape",
+        "actions to read": "38"
+      },
+      {
+        "name": "spellbook of healing",
+        "cost": "100",
+        "weight": "50",
+        "school": "healing",
+        "actions to read": "4"
+      },
+      {
+        "name": "spellbook of cure blindness",
+        "cost": "200",
+        "weight": "50",
+        "school": "healing",
+        "actions to read": "4"
+      },
+      {
+        "name": "spellbook of cure sickness",
+        "cost": "300",
+        "weight": "50",
+        "school": "healing",
+        "actions to read": "8"
+      },
+      {
+        "name": "spellbook of extra healing",
+        "cost": "300",
+        "weight": "50",
+        "school": "healing",
+        "actions to read": "12"
+      },
+      {
+        "name": "spellbook of stone to flesh",
+        "cost": "300",
+        "weight": "50",
+        "school": "healing",
+        "actions to read": "4"
+      },
+      {
+        "name": "spellbook of restore ability",
+        "cost": "400",
+        "weight": "50",
+        "school": "healing",
+        "actions to read": "17"
+      },
+      {
+        "name": "spellbook of knock",
+        "cost": "100",
+        "weight": "50",
+        "school": "matter",
+        "actions to read": "3"
+      },
+      {
+        "name": "spellbook of wizard lock",
+        "cost": "200",
+        "weight": "50",
+        "school": "matter",
+        "actions to read": "5"
+      },
+      {
+        "name": "spellbook of dig",
+        "cost": "500",
+        "weight": "50",
+        "school": "matter",
+        "actions to read": "32"
+      },
+      {
+        "name": "spellbook of polymorph",
+        "cost": "600",
+        "weight": "50",
+        "school": "matter",
+        "actions to read": "50"
+      },
+      {
+        "name": "spellbook of cancellation",
+        "cost": "700",
+        "weight": "50",
+        "school": "matter",
+        "actions to read": "66"
+      }
+    ],
+    "ring": [
+      {
+        "name": "meat ring",
+        "cost": "5",
+        "weight": "1",
+        "extrinsic granted": "none",
+        "notes": "symbolized by %; never randomly generated"
+      },
+      {
+        "name": "ring of adornment",
+        "cost": "100",
+        "weight": "3",
+        "extrinsic granted": "+n charisma",
+        "notes": "chargeable"
+      },
+      {
+        "name": "ring of hunger",
+        "cost": "100",
+        "weight": "3",
+        "extrinsic granted": "hunger",
+        "notes": "90% generated cursed"
+      },
+      {
+        "name": "ring of protection",
+        "cost": "100",
+        "weight": "3",
+        "extrinsic granted": "+n protection",
+        "notes": "chargeable"
+      },
+      {
+        "name": "ring of protection from shape changers",
+        "cost": "100",
+        "weight": "3",
+        "extrinsic granted": "protection from shape changers",
+        "notes": ""
+      },
+      {
+        "name": "ring of stealth",
+        "cost": "100",
+        "weight": "3",
+        "extrinsic granted": "stealth",
+        "notes": ""
+      },
+      {
+        "name": "ring of sustain ability",
+        "cost": "100",
+        "weight": "3",
+        "extrinsic granted": "sustain ability",
+        "notes": ""
+      },
+      {
+        "name": "ring of warning",
+        "cost": "100",
+        "weight": "3",
+        "extrinsic granted": "warning",
+        "notes": ""
+      },
+      {
+        "name": "ring of aggravate monster",
+        "cost": "150",
+        "weight": "3",
+        "extrinsic granted": "aggravate monster",
+        "notes": "90% generated cursed"
+      },
+      {
+        "name": "ring of cold resistance",
+        "cost": "150",
+        "weight": "3",
+        "extrinsic granted": "cold resistance",
+        "notes": ""
+      },
+      {
+        "name": "ring of gain constitution",
+        "cost": "150",
+        "weight": "3",
+        "extrinsic granted": "+n constitution",
+        "notes": "chargeable"
+      },
+      {
+        "name": "ring of gain strength",
+        "cost": "150",
+        "weight": "3",
+        "extrinsic granted": "+n strength",
+        "notes": "chargeable"
+      },
+      {
+        "name": "ring of increase accuracy",
+        "cost": "150",
+        "weight": "3",
+        "extrinsic granted": "+n to-hit bonus",
+        "notes": "chargeable"
+      },
+      {
+        "name": "ring of increase damage",
+        "cost": "150",
+        "weight": "3",
+        "extrinsic granted": "+n damage bonus",
+        "notes": "chargeable"
+      },
+      {
+        "name": "ring of invisibility",
+        "cost": "150",
+        "weight": "3",
+        "extrinsic granted": "invisibility",
+        "notes": "cursed if from a nazgul"
+      },
+      {
+        "name": "ring of poison resistance",
+        "cost": "150",
+        "weight": "3",
+        "extrinsic granted": "poison resistance",
+        "notes": ""
+      },
+      {
+        "name": "ring of see invisible",
+        "cost": "150",
+        "weight": "3",
+        "extrinsic granted": "see invisible",
+        "notes": ""
+      },
+      {
+        "name": "ring of shock resistance",
+        "cost": "150",
+        "weight": "3",
+        "extrinsic granted": "shock resistance",
+        "notes": ""
+      },
+      {
+        "name": "ring of fire resistance",
+        "cost": "200",
+        "weight": "3",
+        "extrinsic granted": "fire resistance",
+        "notes": ""
+      },
+      {
+        "name": "ring of free action",
+        "cost": "200",
+        "weight": "3",
+        "extrinsic granted": "free action",
+        "notes": ""
+      },
+      {
+        "name": "ring of levitation",
+        "cost": "200",
+        "weight": "3",
+        "extrinsic granted": "levitation",
+        "notes": ""
+      },
+      {
+        "name": "ring of regeneration",
+        "cost": "200",
+        "weight": "3",
+        "extrinsic granted": "regeneration",
+        "notes": ""
+      },
+      {
+        "name": "ring of searching",
+        "cost": "200",
+        "weight": "3",
+        "extrinsic granted": "searching",
+        "notes": ""
+      },
+      {
+        "name": "ring of slow digestion",
+        "cost": "200",
+        "weight": "3",
+        "extrinsic granted": "slow digestion",
+        "notes": ""
+      },
+      {
+        "name": "ring of teleportation",
+        "cost": "200",
+        "weight": "3",
+        "extrinsic granted": "teleportitis",
+        "notes": "90% generated cursed"
+      },
+      {
+        "name": "ring of conflict",
+        "cost": "300",
+        "weight": "3",
+        "extrinsic granted": "conflict",
+        "notes": ""
+      },
+      {
+        "name": "ring of polymorph",
+        "cost": "300",
+        "weight": "3",
+        "extrinsic granted": "polymorphitis",
+        "notes": "90% generated cursed"
+      },
+      {
+        "name": "ring of polymorph control",
+        "cost": "300",
+        "weight": "3",
+        "extrinsic granted": "polymorph control",
+        "notes": ""
+      },
+      {
+        "name": "ring of teleport control",
+        "cost": "300",
+        "weight": "3",
+        "extrinsic granted": "teleport control",
+        "notes": ""
+      }
+    ],
+    "wand": [
+      {
+        "name": "wand of light",
+        "cost": "100",
+        "weight": "7",
+        "starting charges": "11–15",
+        "attack type": "non-directional"
+      },
+      {
+        "name": "wand of nothing",
+        "cost": "100",
+        "weight": "7",
+        "starting charges": "varies",
+        "attack type": "varies"
+      },
+      {
+        "name": "wand of digging",
+        "cost": "150",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "ray"
+      },
+      {
+        "name": "wand of enlightenment",
+        "cost": "150",
+        "weight": "7",
+        "starting charges": "11–15",
+        "attack type": "non-directional"
+      },
+      {
+        "name": "wand of locking",
+        "cost": "150",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "beam"
+      },
+      {
+        "name": "wand of magic missile",
+        "cost": "150",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "ray"
+      },
+      {
+        "name": "wand of make invisible",
+        "cost": "150",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "beam"
+      },
+      {
+        "name": "wand of opening",
+        "cost": "150",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "beam"
+      },
+      {
+        "name": "wand of probing",
+        "cost": "150",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "beam"
+      },
+      {
+        "name": "wand of secret door detection",
+        "cost": "150",
+        "weight": "7",
+        "starting charges": "11–15",
+        "attack type": "non-directional"
+      },
+      {
+        "name": "wand of slow monster",
+        "cost": "150",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "beam"
+      },
+      {
+        "name": "wand of speed monster",
+        "cost": "150",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "beam"
+      },
+      {
+        "name": "wand of striking",
+        "cost": "150",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "beam"
+      },
+      {
+        "name": "wand of undead turning",
+        "cost": "150",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "beam"
+      },
+      {
+        "name": "wand of cold",
+        "cost": "175",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "ray"
+      },
+      {
+        "name": "wand of fire",
+        "cost": "175",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "ray"
+      },
+      {
+        "name": "wand of lightning",
+        "cost": "175",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "ray"
+      },
+      {
+        "name": "wand of sleep",
+        "cost": "175",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "ray"
+      },
+      {
+        "name": "wand of cancellation",
+        "cost": "200",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "beam"
+      },
+      {
+        "name": "wand of create monster",
+        "cost": "200",
+        "weight": "7",
+        "starting charges": "11–15",
+        "attack type": "non-directional"
+      },
+      {
+        "name": "wand of polymorph",
+        "cost": "200",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "beam"
+      },
+      {
+        "name": "wand of teleportation",
+        "cost": "200",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "beam"
+      },
+      {
+        "name": "wand of death",
+        "cost": "500",
+        "weight": "7",
+        "starting charges": "4–8",
+        "attack type": "ray"
+      },
+      {
+        "name": "wand of wishing",
+        "cost": "500",
+        "weight": "7",
+        "starting charges": "1–3",
+        "attack type": "non-directional"
+      }
+    ],
+    "amulet": [
+      {
+        "name": "amulet of change",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "changes gender",
+        "notes": "90.5% generated cursed"
+      },
+      {
+        "name": "amulet of ESP",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "telepathy",
+        "notes": ""
+      },
+      {
+        "name": "amulet of life saving",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "",
+        "notes": ""
+      },
+      {
+        "name": "amulet of magical breathing",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "breathlessness",
+        "notes": ""
+      },
+      {
+        "name": "amulet of reflection",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "",
+        "notes": ""
+      },
+      {
+        "name": "amulet of restful sleep",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "restful sleep",
+        "notes": "90.5% generated cursed"
+      },
+      {
+        "name": "amulet of strangulation",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "instantly choke",
+        "notes": "90.5% generated cursed"
+      },
+      {
+        "name": "amulet of unchanging",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "revert to original form",
+        "notes": ""
+      },
+      {
+        "name": "amulet versus poison",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "poison resistance",
+        "notes": ""
+      },
+      {
+        "name": "cheap plastic imitation of the amulet of yendor",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "inedible",
+        "notes": ""
+      },
+      {
+        "name": "amulet of yendor",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "inedible",
+        "notes": "cannot be put in a container"
+      },
+      {
+        "name": "the eye of the aethiopica",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "telepathy",
+        "notes": "wizard quest artifact"
+      },
+      {
+        "name": "amulet of flying",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "",
+        "notes": ""
+      },
+      {
+        "name": "amulet of guarding",
+        "cost": "150",
+        "weight": "20",
+        "when eaten": "+2 protection (+2 ac, +2 mc)",
+        "notes": "may be worn by monsters."
+      }
+    ]
+  }
+}

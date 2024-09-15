@@ -22,7 +22,7 @@ import com.yywspace.anethack.command.NHAnswerCommand
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHLineCommand
 import com.yywspace.anethack.command.NHMenuCommand
-import com.yywspace.anethack.extensions.showImmersive
+import com.yywspace.anethack.extensions.show
 import java.nio.charset.StandardCharsets
 
 
@@ -102,7 +102,7 @@ class NHQuestion(val nh: NetHack) {
                             dialog.dismiss()
                         }
                     }
-                    dialog.showImmersive()
+                    dialog.show(nh.prefs.immersiveMode)
                 }
         }
     }
@@ -201,7 +201,7 @@ class NHQuestion(val nh: NetHack) {
             dialog.apply {
                 setView(questionView)
                 setCancelable(false)
-                showImmersive()
+                show(nh.prefs.immersiveMode)
             }
         }
     }
@@ -230,7 +230,7 @@ class NHQuestion(val nh: NetHack) {
             create()
         }
         dialog.setCancelable(false)
-        dialog.showImmersive()
+        dialog.show(nh.prefs.immersiveMode)
 
     }
     private fun finishAnswer(answer:Char, count:Int) {

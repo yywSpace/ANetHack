@@ -65,6 +65,17 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:title="@string/pref_price_id_header"
+        app:iconSpaceReserved="false">
+        <CheckBoxPreference
+            app:key="priceId"
+            app:title="@string/pref_price_id_enable"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"
+            app:summary="@string/pride_id_title_desc"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="@string/pref_menu_header"
         app:iconSpaceReserved="false">
 

@@ -20,10 +20,12 @@
         <activity
             android:name=".setting.SettingsActivity"
             android:exported="false"
+            android:parentActivityName=".NetHackActivity"
             android:label="@string/activity_settings_title" />
         <activity
             android:name=".setting.OptionEditActivity"
             android:exported="false"
+            android:parentActivityName=".setting.SettingsActivity"
             android:label="@string/activity_option_edit_title" />
         <activity
             android:name=".NetHackActivity"

@@ -18,7 +18,7 @@ import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHMenuCommand
 import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.entity.NHString
-import com.yywspace.anethack.extensions.showImmersive
+import com.yywspace.anethack.extensions.show
 
 class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     var title: String = ""
@@ -100,7 +100,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                 setView(menuView)
                 setCancelable(false)
                 create()
-                showImmersive()
+                show(nh.prefs.immersiveMode)
             }
         }
     }
@@ -305,7 +305,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
             create()
         }
         dialog.setCancelable(false)
-        dialog.showImmersive()
+        dialog.show(nh.prefs.immersiveMode)
     }
 
     enum class SelectMode {
@@ -341,7 +341,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                 }
             }.create()
             dialog.setCancelable(false)
-            dialog.showImmersive()
+            dialog.show(nh.prefs.immersiveMode)
         }
     }
 

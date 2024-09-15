@@ -10,7 +10,7 @@ import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHAnswerCommand
 import com.yywspace.anethack.command.NHCommand
-import com.yywspace.anethack.extensions.showImmersive
+import com.yywspace.anethack.extensions.show
 
 class NHWText(wid: Int, private val nh: NetHack) : NHWindow(wid) {
     private val textList = mutableListOf<NHString>()
@@ -36,7 +36,7 @@ class NHWText(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                     }
                 }
             }.create()
-            dialog.showImmersive()
+            dialog.show(nh.prefs.immersiveMode)
         }
         nh.command.waitForAnyCommand<NHCommand> {  }
     }

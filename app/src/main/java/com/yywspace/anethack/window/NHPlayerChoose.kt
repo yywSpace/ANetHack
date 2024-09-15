@@ -17,7 +17,7 @@ import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHPlayerChooseCommand
 import com.yywspace.anethack.entity.NHPlayer
-import com.yywspace.anethack.extensions.showImmersive
+import com.yywspace.anethack.extensions.show
 
 class NHPlayerChoose(val nh: NetHack) {
     private var nameSize = 0
@@ -77,7 +77,7 @@ class NHPlayerChoose(val nh: NetHack) {
             dialog.apply {
                 setView(view)
                 setCancelable(false)
-                showImmersive()
+                show(nh.prefs.immersiveMode)
                 getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
                     val first = players.firstOrNull { item -> item.isSelected }
                     if(first == null) {
@@ -129,7 +129,7 @@ class NHPlayerChoose(val nh: NetHack) {
             dialog.apply {
                 setView(view)
                 setCancelable(false)
-                showImmersive()
+                show(nh.prefs.immersiveMode)
             }
         }
     }

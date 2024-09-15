@@ -29,10 +29,29 @@
     <string name="key_dot_status_desc">key dot status image view</string>
     <string name="menu_item_tile_desc">menu tile image</string>
 
+    <string name="toolbar_settings_title">Settings</string>
     <string name="activity_settings_title">SettingsActivity</string>
     <string name="activity_option_edit_title">OptionEditActivity</string>
     <string name="option_edit_save">Save</string>
     <string name="option_edit_cancel">Cancel</string>
+
+    <!-- Price identification -->
+    <string name="pride_id_title">Price Identification</string>
+    <string name="pride_id_title_desc">Show price identification button.</string>
+    <string name="pride_id_charisma_label">Charisma</string>
+    <string name="pride_id_price_label">Price</string>
+    <string name="pride_id_surcharge_label">Surcharge</string>
+    <string name="pride_id_type_label">Item Type</string>
+    <string name="pride_id_mode_label">Mode</string>
+    <string name="price_id_surcharge_none">none</string>
+    <string name="price_id_surcharge_tourist">tourist below exp 15</string>
+    <string name="price_id_surcharge_shirt">wear a visible shirt</string>
+    <string name="price_id_surcharge_cap">wear a dunce cap</string>
+    <string name="price_id_search">Search</string>
+    <string name="price_id_mode_sell">sell</string>
+    <string name="price_id_mode_buy">buy</string>
+    <string name="price_id_mode_base">base</string>
+    <string name="price_id_invalid_json">Invalid json format.</string>
 
     <!-- Preference Log -->
     <string name="pref_log_header">Logs</string>
@@ -45,6 +64,11 @@
     <!-- Preference Config -->
     <string name="pref_option_header">Config</string>
     <string name="pref_option_edit">Edit config file</string>
+
+    <!-- Preference PriceID -->
+    <string name="pref_price_id_header">Price Identification</string>
+    <string name="pref_price_id_enable">Enable price identification</string>
+
     <!-- Preference Menu -->
     <string name="pref_menu_header">Menu</string>
     <string name="pref_menu_type">Menu type</string>
@@ -72,5 +96,6 @@
     <string name="pref_other_lock_view_desc">Always put the player in the center of the view.</string>
     <string name="pref_other_immersive_mode">Immersive mode</string>
     <string name="pref_other_immersive_mode_desc">Hide system ui.</string>
+    <string name="floating_button_desc">Floating Action Button</string>
 
 </resources>

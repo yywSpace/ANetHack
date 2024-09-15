@@ -22,13 +22,17 @@ class SharedPreferencesUtils(val context: Context) {
     var showIndicator by SharedPreferenceDelegates.boolean(true)
     var showLastTravelIndicator by SharedPreferenceDelegates.boolean(true)
     var indicatorSymbols by SharedPreferenceDelegates.string(">")
+    var priceId by SharedPreferenceDelegates.boolean(true)
 
     fun getInputPrompts():List<String> {
         return inputPrompts.toList()
     }
     fun addInputPrompts(prompt:String) {
-        inputPrompts = inputPrompts.toMutableSet().apply {
+        inputPrompts = inputPrompts.toMutableList().run {
+            if (size > 50)
+                removeFirst()
             add(prompt)
+            toMutableSet()
         }
     }
     fun removeInputPrompts(prompt:String) {

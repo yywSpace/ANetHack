@@ -11,8 +11,8 @@ android {
         applicationId = "com.yywspace.anethack"
         minSdk = 29
         targetSdk = 33
-        versionCode = 1
-        versionName = "3.7.0.a1.0"
+        versionCode = 2
+        versionName = "3.7.0.a1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -61,6 +61,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.preference:preference-ktx:1.2.1")
     implementation("androidx.preference:preference:1.2.1")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

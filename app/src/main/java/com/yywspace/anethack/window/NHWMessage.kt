@@ -17,7 +17,7 @@ import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHString
-import com.yywspace.anethack.extensions.showImmersive
+import com.yywspace.anethack.extensions.show
 import java.util.concurrent.CopyOnWriteArrayList
 
 class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
@@ -84,7 +84,7 @@ class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                         nh.command.sendCommand(NHCommand(27.toChar()))
                     }
                     create()
-                    showImmersive()
+                    show(nh.prefs.immersiveMode)
                 }
             }
 
