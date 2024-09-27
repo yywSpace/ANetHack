@@ -38,7 +38,6 @@ class NHWText(wid: Int, private val nh: NetHack) : NHWindow(wid) {
             }.create()
             dialog.show(nh.prefs.immersiveMode)
         }
-        nh.command.waitForAnyCommand<NHCommand> {  }
     }
 
     override fun clearWindow(isRogueLevel: Int) {

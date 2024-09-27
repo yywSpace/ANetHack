@@ -26,7 +26,7 @@ class NHPriceID(context: Context) {
         val skpPrice = price.toInt()
         val objList = mutableListOf<Map<String,String>>()
         for (obj in getObjByType(type)) {
-            val basePrice = obj["cost"]?.toInt()?:0
+            val basePrice = obj["Cost"]?.toInt()?:0
             val priceA = calcSellPrice(basePrice,false, sucker)
             val priceB = calcSellPrice(basePrice,true, sucker)
             if (priceA == skpPrice || priceB == skpPrice)
@@ -42,7 +42,7 @@ class NHPriceID(context: Context) {
         val skpPrice = price.toInt()
         val objList = mutableListOf<Map<String,String>>()
         for (obj in getObjByType(type)) {
-            val basePrice = obj["cost"]?.toInt()?:0
+            val basePrice = obj["Cost"]?.toInt()?:0
             val priceA = calcBuyPrice(basePrice, ch, false, sucker)
             val priceB = calcBuyPrice(basePrice, ch, true, sucker)
             if (priceA == skpPrice || priceB == skpPrice)
@@ -53,10 +53,10 @@ class NHPriceID(context: Context) {
     fun getObjByBasePrice(type:String, basePrice:String):List<Map<String,String>> {
         if (basePrice.isEmpty())
             return getObjByType(type)
-        return getObjByType(type).filter { obj->obj["cost"] == basePrice }
+        return getObjByType(type).filter { obj->obj["Cost"] == basePrice }
     }
     private fun getObjByType(type:String):List<Map<String,String>> {
-        return objects[type]?.sortedWith(compareBy({it["cost"]?.toInt()?:0}, {it["name"]}))?: emptyList()
+        return objects[type]?.sortedWith(compareBy({it["Cost"]?.toInt()?:0}, {it["Name"]}))?: emptyList()
     }
 
     fun getObjTypes(): List<String> {
@@ -175,7 +175,7 @@ class NHPriceID(context: Context) {
                                     attrKeys.add(objAttr)
                                     attrMap[objAttr]=obj.getString(objAttr)
                                 }
-                                if (attrKeys.containsAll(listOf("name", "cost")))
+                                if (attrKeys.containsAll(listOf("Name", "Cost")))
                                     objList.add(attrMap)
                             }
                             objects[type] = objList

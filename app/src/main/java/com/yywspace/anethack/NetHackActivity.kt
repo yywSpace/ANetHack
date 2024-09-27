@@ -5,9 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
@@ -60,6 +64,7 @@ class NetHackActivity : AppCompatActivity() {
             binding.floatingButton.visibility = View.VISIBLE
         else
             binding.floatingButton.visibility = View.GONE
+        binding.keyboardView.setKeyboardVibrate(nethack.prefs.keyboardVibrate)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

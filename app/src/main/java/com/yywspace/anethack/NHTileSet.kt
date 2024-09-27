@@ -42,6 +42,16 @@ class NHTileSet(val nh: NetHack) {
                 }
                 tileHeight = 16
                 tileWidth = 16
+                tileCache.clear()
+            }
+            "3" -> {
+                val am: AssetManager = nh.context.resources.assets
+                am.open("tiles/nevanda_3_7_32x32.png").use {
+                    tileBitmap = BitmapFactory.decodeStream(it)
+                }
+                tileHeight = 32
+                tileWidth = 32
+                tileCache.clear()
             }
         }
     }

@@ -43,14 +43,14 @@
     <string name="pride_id_surcharge_label">Surcharge</string>
     <string name="pride_id_type_label">Item Type</string>
     <string name="pride_id_mode_label">Mode</string>
-    <string name="price_id_surcharge_none">none</string>
-    <string name="price_id_surcharge_tourist">tourist below exp 15</string>
-    <string name="price_id_surcharge_shirt">wear a visible shirt</string>
-    <string name="price_id_surcharge_cap">wear a dunce cap</string>
+    <string name="price_id_surcharge_none">None</string>
+    <string name="price_id_surcharge_tourist">Tourist below exp 15</string>
+    <string name="price_id_surcharge_shirt">Wear a visible shirt</string>
+    <string name="price_id_surcharge_cap">Wear a dunce cap</string>
     <string name="price_id_search">Search</string>
-    <string name="price_id_mode_sell">sell</string>
-    <string name="price_id_mode_buy">buy</string>
-    <string name="price_id_mode_base">base</string>
+    <string name="price_id_mode_sell">Sell</string>
+    <string name="price_id_mode_buy">Buy</string>
+    <string name="price_id_mode_base">Base</string>
     <string name="price_id_invalid_json">Invalid json format.</string>
 
     <!-- Preference Log -->
@@ -84,6 +84,7 @@
     <string name="pref_map_header">Map</string>
     <string name="pref_map_tileset">Tileset</string>
     <string name="pref_map_tile_default">Default</string>
+    <string name="pref_map_tile_nevanda">Nevanda</string>
     <string name="pref_map_tile_ascii">Ascii</string>
     <string name="pref_map_indicator">Show indicator</string>
     <string name="pref_map_last_travel_indicator">Show last travel indicator</string>
@@ -95,6 +96,7 @@
     <string name="pref_other_lock_view">Lock view</string>
     <string name="pref_other_lock_view_desc">Always put the player in the center of the view.</string>
     <string name="pref_other_immersive_mode">Immersive mode</string>
+    <string name="pref_other_keyboard_vibrate">Keyboard vibration</string>
     <string name="pref_other_immersive_mode_desc">Hide system ui.</string>
     <string name="floating_button_desc">Floating Action Button</string>
 

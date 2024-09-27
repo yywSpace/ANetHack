@@ -96,9 +96,11 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 if (indicatorController.onIndicatorLongPress(e))
                     return
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
+                    // long click yourself
                     if (abs(map.curse.x - point.x) < 1 && abs(map.curse.y - point.y) < 1) {
                         nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
                     } else {
+                        // long click other
                         val border = getTileBorder(point.x, point.y)
                         showPopupWindow(border.centerX(), border.centerY())
                     }
@@ -224,7 +226,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             contentView = recyclerView
             isOutsideTouchable = true
             showAtLocation(this@NHMapSurfaceView, Gravity.NO_GRAVITY,
-                (x-contentView.measuredWidth /2 ).toInt(), (y-contentView.measuredHeight-tileHeight).toInt())
+                (x-contentView.measuredWidth /2 ).toInt(), (y-contentView.measuredHeight-tileHeight/2).toInt())
         }
     }
 
@@ -422,7 +424,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             paint.color = Color.GRAY
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = borderWidth
-            canvas?.drawRect(mapBorder, paint);
+            val border = RectF(mapBorder).apply { left+=tileWidth }
+            canvas?.drawRect(border, paint);
         }
     }
     private fun getBaseTileWidth(): Float {

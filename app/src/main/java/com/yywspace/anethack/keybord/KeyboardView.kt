@@ -37,6 +37,7 @@ class KeyboardView : GridLayout {
     var onSpecialKeyLongPress:((key:NHKeyboard.Key)->Unit)? = null
 
     private var vibrator: Vibrator
+    private var keyboardVibrate: Boolean = true
 
     constructor(context: Context?) : this(context, null, 0)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -96,7 +97,8 @@ class KeyboardView : GridLayout {
             setBackgroundResource(R.drawable.btn_bg_selector)
             val statusImage = findViewById<ImageView>(R.id.key_status)
             setOnClickListener {
-                vibrator.vibrate(VibrationEffect.createOneShot(100, 120))
+                if (keyboardVibrate)
+                    vibrator.vibrate(VibrationEffect.createOneShot(100, 120))
                 val k = this@KeyboardView.keyboard.rows[x].keys[y]
                 when(k.value) {
                     "Letter" -> {
@@ -198,6 +200,9 @@ class KeyboardView : GridLayout {
         }
     }
 
+    fun setKeyboardVibrate(vibrate:Boolean) {
+        keyboardVibrate = vibrate
+    }
     private fun switchNHKeyboard(keyboardType:NHKeyboard.Type) {
         when(keyboardType) {
             NHKeyboard.Type.LETTER ->

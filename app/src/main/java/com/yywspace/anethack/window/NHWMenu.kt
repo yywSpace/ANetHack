@@ -3,6 +3,7 @@ package com.yywspace.anethack.window
 import android.annotation.SuppressLint
 import android.content.Context
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout.*
@@ -68,6 +69,7 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
         val menuCommand = nh.command.waitForAnyCommand<NHMenuCommand> { other ->
             processMenuOperate(other)
         }
+        Log.d("selectMenu", menuCommand.selectedItems.toString())
         return menuCommand.selectedItems.toLongArray()
     }
 
@@ -195,7 +197,9 @@ class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
                             if (count == 0)
                                 return@setOnClickListener
                             val selectList = mutableListOf<Long>()
-                            nhMenuItems.filter { item -> item.isSelected }.forEach { item ->
+                            nhMenuItems.filter {
+                                    item -> item.isSelected and !item.isHeader() and !item.isHint()
+                            }.forEach { item ->
                                 selectList.add(item.identifier)
                                 selectList.add(item.selectedCount)
                             }

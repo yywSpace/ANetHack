@@ -15,8 +15,8 @@ data class NHMenuItem(
     var selectedCount :Long = -1
     var count = -1
     init {
-        if(!isHeader()) {
-            Regex("(.*)\\((.*)\\)").find(title.value)?.apply {
+        if(!isHeader() and !isHint()) {
+            Regex("(.*)(?<!\\[)\\((.*)\\)(?!])").find(title.value)?.apply {
                 if(groupValues.size >= 3 && groupValues[1].isNotEmpty()) {
                     title.value = groupValues[1]
                     subtitle = groupValues[2]
@@ -34,6 +34,14 @@ data class NHMenuItem(
     }
 
     fun isHeader():Boolean {
+        return (accelerator.code == 0) and (identifier == 0L) and (title.attr == 128)
+    }
+
+    // 括号内用于提示上一个选项作用的Item，一般被括号括起来
+    // (ignored unless some other choices are also picked)
+    fun isHint():Boolean {
+        if (isHeader())
+            return false
         return (accelerator.code == 0) and (identifier == 0L)
     }
 

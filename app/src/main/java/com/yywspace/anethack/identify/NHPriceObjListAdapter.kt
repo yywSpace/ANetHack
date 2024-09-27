@@ -30,8 +30,8 @@ class NHPriceObjListAdapter(private val objList: List<Map<String,String>>): Recy
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ObjListViewHolder).apply {
             val obj = objList[position]
-            objName.text = obj["name"]
-            objCost.text = obj["cost"]
+            objName.text = obj["Name"]
+            objCost.text = obj["Cost"]
             itemView.setOnClickListener {
                 onItemClick?.invoke(it, position, obj)
             }
