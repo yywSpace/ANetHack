@@ -21,7 +21,7 @@ import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.show
 
-class NHWMenu(wid: Int, private val nh: NetHack) : NHWindow(wid) {
+class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {
     var title: String = ""
     var behavior: Long = -1
     val nhMenuItems = mutableListOf<NHMenuItem>()

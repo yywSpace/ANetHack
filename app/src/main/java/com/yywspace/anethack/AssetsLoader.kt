@@ -1,21 +1,24 @@
 package com.yywspace.anethack
 
 import android.content.Context
+import android.util.Log
 import java.io.File
 import java.io.FileOutputStream
 
 class AssetsLoader(val context: Context) {
-    fun loadAssets(pathList:List<String>, onLoadFinished:(()->Unit)? = null) {
+    fun loadAssets(pathList:List<String>, overwrite:Boolean = false, onLoadFinished:((overwrite:Boolean)->Unit)? = null) {
         for (path in pathList) {
+            if(File(context.filesDir, path).exists() && !overwrite)
+                continue
             var curCnt = 0
             val maxCnt = countGameAssets(path)
             if (maxCnt <= 0) continue
-            loadGameAssets(path) { _ ->
+            loadGameAssets(path) { file ->
                 curCnt += 1
-                // Log.d("loadAssets", "$curCnt-$file")
+                Log.d("loadAssets", "$curCnt-$file")
             }
         }
-        onLoadFinished?.invoke()
+        onLoadFinished?.invoke(overwrite)
     }
 
     private fun loadGameAssets(path: String, onFileLoaded:((String)->Unit)? = null){
@@ -35,8 +38,6 @@ class AssetsLoader(val context: Context) {
     }
 
     private fun countGameAssets(path: String):Int{
-        if(File(context.filesDir, path).exists())
-            return 0
         var fileCount = 0
         val fileList = context.assets.list(path)
         val file = File(context.filesDir, path)

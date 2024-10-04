@@ -5,11 +5,12 @@ import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import androidx.core.text.toSpannable
 import java.lang.RuntimeException
+import java.util.concurrent.CopyOnWriteArrayList
 
 class NHStatus {
     private val fields = HashMap<StatusField, NHAttr>()
     private val newestFields = HashMap<StatusField, NHAttr>()
-    private val conditionField = mutableListOf<NHAttr>()
+    private val conditionField = CopyOnWriteArrayList<NHAttr>()
     private val newestConditionField = mutableListOf<NHAttr>()
 
     val title:NHAttr

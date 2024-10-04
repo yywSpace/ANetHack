@@ -95,10 +95,10 @@ class OptionEditActivity: AppCompatActivity() {
         return spBuilder.toSpannable()
     }
     private fun readOptionFile():List<String> {
-        return File(filesDir,"nethackdir/sysconf").readLines()
+        return File(filesDir,"nethackdir/.nethackrc").readLines()
     }
 
     private fun saveOptionFile(option:String) {
-        File(filesDir,"nethackdir/sysconf").writeText(option)
+        File(filesDir,"nethackdir/.nethackrc").writeText(option)
     }
 }

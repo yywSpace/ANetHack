@@ -6,7 +6,7 @@ import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.map.NHMapSurfaceView
 
-class NHWMap (wid: Int, val nh: NetHack) : NHWindow(wid) {
+class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type) {
     private var mapView: NHMapSurfaceView = nh.binding.mapView
     private var firstCenter = true
 

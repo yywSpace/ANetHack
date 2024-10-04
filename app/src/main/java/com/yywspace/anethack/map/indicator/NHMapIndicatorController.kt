@@ -6,6 +6,7 @@ import android.util.Log
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.map.NHMapSurfaceView
 import com.yywspace.anethack.window.NHWMap
+import com.yywspace.anethack.window.NHWindowType
 import kotlinx.coroutines.delay
 
 class NHMapIndicatorController(private val mapView: NHMapSurfaceView, val nh:NetHack, val map: NHWMap) {
@@ -33,6 +34,8 @@ class NHMapIndicatorController(private val mapView: NHMapSurfaceView, val nh:Net
         if (nh.prefs.showLastTravelIndicator) {
             mapView.lastTravelTile?.apply {
                 // 只显示对应楼层LastTravelIndicator
+                if (!nh.hasWindow(NHWindowType.NHW_STATUS))
+                    return
                 if (nh.status.dungeonLevel.realVal == first) {
                     val tile = map.getTile(second.x, second.y)
                     tmpIndicators.add(NHMapIndicator(mapView, nh, tile))

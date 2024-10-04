@@ -21,7 +21,7 @@ import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.show
 import java.util.concurrent.CopyOnWriteArrayList
 
-class NHWMessage(wid: Int, private val nh: NetHack) : NHWindow(wid) {
+class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {
     val messageList = CopyOnWriteArrayList<NHMessage>()
     private var messageView: NHMessageSurfaceView = nh.binding.messageView
     private var lastClickTime = 0L

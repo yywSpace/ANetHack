@@ -10,6 +10,7 @@ import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.map.NHMapSurfaceView
 import com.yywspace.anethack.window.NHWMap
+import com.yywspace.anethack.window.NHWindowType
 import kotlin.math.abs
 
 
@@ -55,6 +56,8 @@ class NHMapIndicator(private val mapView: NHMapSurfaceView,
         }
     }
     private fun drawAsciiIndicator(canvas:Canvas?, cx:Float, cy:Float) {
+        if (!nh.hasWindow(NHWindowType.NHW_STATUS))
+            return
         paint.color = nh.status.hitPoints.color
         paint.style = Paint.Style.FILL
         canvas?.drawCircle(cx, cy, radius, paint)
@@ -72,6 +75,8 @@ class NHMapIndicator(private val mapView: NHMapSurfaceView,
                 RectF(cx-radius,cy-radius, cx+radius,cy+radius),
                 paint
             )
+            if (!nh.hasWindow(NHWindowType.NHW_STATUS))
+                return
             paint.color =  nh.status.hitPoints.color
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = 3f

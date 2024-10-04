@@ -1,0 +1,10 @@
+# Android is not a multi-user system, allow any user hear
+WIZARDS=*
+EXPLORERS=*
+
+# A dump log is a log that is written when the game is
+# over. It contains a view of the map and a record of
+# the player's belonging, attributes, etc.
+#
+# Do not edit the location of %D, if you want to change dump log name.
+DUMPLOGFILE=/data/user/0/com.yywspace.anethack/files/logs/dump/%D.%n.log

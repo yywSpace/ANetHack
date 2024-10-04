@@ -1,23 +1,27 @@
 package com.yywspace.anethack.window
 
-import android.content.DialogInterface
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.PopupWindow
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHPlayerChooseCommand
 import com.yywspace.anethack.entity.NHPlayer
 import com.yywspace.anethack.extensions.show
+
 
 class NHPlayerChoose(val nh: NetHack) {
     private var nameSize = 0
@@ -53,46 +57,49 @@ class NHPlayerChoose(val nh: NetHack) {
 
 
     private fun showPlayerChooseDialog(players: List<NHPlayer>) {
-        nh.runOnUi { _, context ->
-            val dialog = AlertDialog.Builder(context).run {
-                setTitle(R.string.player_select)
-                setPositiveButton(R.string.dialog_confirm, null)
-                setNeutralButton(R.string.dialog_cancel) { _,_ ->
-                    nh.stop()
-                    nh.context.finish()
-                }
-                create()
-            }
+        nh.runOnUi { binding, context ->
+            val popupWindow = PopupWindow(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
             val view = View.inflate(context, R.layout.dialog_player_choose,null)
                 .apply {
                     findViewById<RecyclerView>(R.id.player_choose_list).apply {
                         layoutManager = LinearLayoutManager(context)
                         adapter = NHPlayerChooseAdapter(players).apply {
                             onPlayerAddClick = {
-                                showNewPlayerDialog(dialog)
+                                showNewPlayerDialog(popupWindow)
                             }
                         }
                     }
-                }
-            dialog.apply {
-                setView(view)
-                setCancelable(false)
-                show(nh.prefs.immersiveMode)
-                getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
-                    val first = players.firstOrNull { item -> item.isSelected }
-                    if(first == null) {
-                        return@setOnClickListener
-                    }else {
-                        finishPlayerChoose(first)
-                        dialog.dismiss()
+                    findViewById<MaterialButton>(R.id.player_choose_confirm).apply {
+                        setOnClickListener {
+                            val first = players.firstOrNull { item -> item.isSelected }
+                            if(first == null) {
+                                return@setOnClickListener
+                            }else {
+                                finishPlayerChoose(first)
+                                popupWindow.dismiss()
+                            }
+                            Log.d("showPlayerChooseDialog", first.toString())
+                        }
                     }
-                    Log.d("showPlayerChooseDialog", first.toString())
+                    findViewById<MaterialButton>(R.id.player_choose_cancel).apply {
+                        setOnClickListener {
+                            nh.stop()
+                            nh.context.finish()
+                        }
+                    }
                 }
+
+            popupWindow.apply {
+                contentView = view
+                showAtLocation(binding.root, Gravity.CENTER, 0, 0)
             }
         }
     }
 
-    private fun showNewPlayerDialog(parentDialog: AlertDialog) {
+    private fun showNewPlayerDialog(popupWindow: PopupWindow) {
         nh.runOnUi() { _, context ->
             val view = View.inflate(context, R.layout.dialog_player_choose_input, null)
             val input = view.findViewById<EditText>(R.id.player_input)
@@ -118,7 +125,7 @@ class NHPlayerChoose(val nh: NetHack) {
                             return@setPositiveButton
                         }
                     }
-                    parentDialog.dismiss()
+                    popupWindow.dismiss()
                     nh.prefs.addSaves(player, playMod)
                     finishPlayerChoose(NHPlayer(player, playMod))
                 }

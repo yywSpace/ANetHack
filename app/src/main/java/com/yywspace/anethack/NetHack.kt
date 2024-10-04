@@ -20,6 +20,7 @@ import com.yywspace.anethack.window.NHWMessage
 import com.yywspace.anethack.window.NHWStatus
 import com.yywspace.anethack.window.NHWText
 import com.yywspace.anethack.window.NHWindow
+import com.yywspace.anethack.window.NHWindowType
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.concurrent.CopyOnWriteArrayList
@@ -68,26 +69,26 @@ class NetHack(
 
     private fun createWindow(type: Int): Int {
         Log.d(TAG, "createWindow(type:$type)")
-        val winType = NHWindow.NHWindowType.fromInt(type)
+        val winType = NHWindowType.fromInt(type)
         val wid: Int = nextWinId++
 
         when (winType) {
-            NHWindow.NHWindowType.NHW_MESSAGE -> {
-                windows.add(NHWMessage(wid, this))
+            NHWindowType.NHW_MESSAGE -> {
+                windows.add(NHWMessage(wid, winType,this))
             }
-            NHWindow.NHWindowType.NHW_STATUS -> {
-                windows.add(NHWStatus(wid, this))
+            NHWindowType.NHW_STATUS -> {
+                windows.add(NHWStatus(wid,winType, this))
             }
-            NHWindow.NHWindowType.NHW_MAP -> {
-                windows.add(NHWMap(wid, this))
+            NHWindowType.NHW_MAP -> {
+                windows.add(NHWMap(wid,winType, this))
             }
-            NHWindow.NHWindowType.NHW_MENU -> {
-                windows.add(NHWMenu(wid, this))
+            NHWindowType.NHW_MENU -> {
+                windows.add(NHWMenu(wid,winType, this))
             }
-            NHWindow.NHWindowType.NHW_TEXT -> {
-                windows.add(NHWText(wid,this))
+            NHWindowType.NHW_TEXT -> {
+                windows.add(NHWText(wid,winType,this))
             }
-            NHWindow.NHWindowType.NHW_PERMINVENT -> {
+            NHWindowType.NHW_PERMINVENT -> {
                 // windows.add(NHWPermInvent(wid, NHWindowType.NHW_PERMINVENT))
             }
         }
@@ -272,6 +273,14 @@ class NetHack(
                 return window
         }
         throw RuntimeException("no message window found")
+    }
+
+    fun hasWindow(type: NHWindowType):Boolean {
+        for (window in windows) {
+            if (window.type == type)
+                return true
+        }
+        return false
     }
     fun runOnUi(runUi: ((binding:ActivityNethackBinding, context:Activity) -> Unit)) {
         handler.post {

@@ -46,7 +46,7 @@ class NHTileSet(val nh: NetHack) {
             }
             "3" -> {
                 val am: AssetManager = nh.context.resources.assets
-                am.open("tiles/nevanda_3_7_32x32.png").use {
+                am.open("tiles/nevanda_32.png").use {
                     tileBitmap = BitmapFactory.decodeStream(it)
                 }
                 tileHeight = 32

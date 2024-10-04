@@ -28,6 +28,7 @@ import com.yywspace.anethack.identify.NHPriceIDialog
 import com.yywspace.anethack.setting.SettingsActivity
 import java.io.File
 import java.io.FileFilter
+import java.io.FileInputStream
 import java.io.FileOutputStream
 
 
@@ -48,8 +49,11 @@ class NetHackActivity : AppCompatActivity() {
         initView()
         initKeyboard()
         initControlPanel()
-        AssetsLoader(this).loadAssets(listOf("nethackdir", "logs")) {
+        AssetsLoader(this).loadAssets(
+            listOf("nethackdir", "logs", "conf"), false
+        ) { overwrite ->
             processLogs()
+            processConf(overwrite)
             nethack.run()
         }
     }
@@ -224,5 +228,20 @@ class NetHackActivity : AppCompatActivity() {
                 }
             }
         }.start()
+    }
+
+    private fun processConf(overwrite:Boolean) {
+        val sysconf = File(filesDir,"conf/sysconf")
+        val nethackrc = File(filesDir,"conf/nethackrc")
+        val sysconfTarget = File(filesDir,"nethackdir/sysconf")
+        val nethackrcTarget = File(filesDir,"nethackdir/.nethackrc")
+        if (!sysconfTarget.exists() || overwrite)
+            FileOutputStream(sysconfTarget).use { fileOut ->
+                FileInputStream(sysconf).copyTo(fileOut)
+            }
+        if (!nethackrcTarget.exists() || overwrite)
+            FileOutputStream(nethackrcTarget).use { fileOut ->
+                FileInputStream(nethackrc).copyTo(fileOut)
+            }
     }
 }

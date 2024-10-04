@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.databinding.DialogPriceIdentifyBinding
 import com.yywspace.anethack.extensions.show
+import com.yywspace.anethack.window.NHWindowType
 import java.util.regex.Pattern
 
 
@@ -185,19 +186,24 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
 
     @SuppressLint("NotifyDataSetChanged")
     fun show() {
-        val messageList = nh.messages.getRecentMessageList(5)
-        var valid: Boolean
-        for (i in messageList.indices) {
-            valid = parseTradeInfo(messageList[i].value.value)
-            if (valid) break
-        }
         binding.root.apply {
             if (parent != null) {
                 (parent as ViewGroup).removeView(this)
             }
         }
-        binding.roleCharismaInput.setText(nh.status.charisma.realVal)
-        binding.objPriceInput.setText(tradePrice.toString())
+        if (nh.hasWindow(NHWindowType.NHW_MESSAGE)) {
+            val messageList = nh.messages.getRecentMessageList(5)
+            var valid: Boolean
+            for (i in messageList.indices) {
+                valid = parseTradeInfo(messageList[i].value.value)
+                if (valid) break
+            }
+        }
+
+        if (nh.hasWindow(NHWindowType.NHW_STATUS))
+            binding.roleCharismaInput.setText(nh.status.charisma.realVal)
+
+        binding.objPriceInput.setText(tradePrice)
         binding.objIdModInput.setText(currentIdMode)
         binding.objTypeInput.setText(currentType)
 

@@ -12,7 +12,6 @@ add_compile_definitions(
         ANDROID
         ANDROID_GRAPHICS
         NOTTYGRAPHICS
-        TEXT_TOMBSTONE
         EDIT_GETLIN
         TILES_IN_GLYPHMAP
         DEFAULT_WINDOW_SYS="and")

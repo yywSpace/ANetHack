@@ -6,7 +6,7 @@ import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.NetHack
 
 
-class NHWStatus(wid: Int, private val nh: NetHack) : NHWindow(wid) {
+class NHWStatus(wid: Int, type:NHWindowType, nh: NetHack) : NHWindow(wid, type) {
     val status = NHStatus()
     private var statusView: NHStatusSurfaceView = nh.binding.statusView
 

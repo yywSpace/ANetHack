@@ -12,7 +12,7 @@ import com.yywspace.anethack.command.NHAnswerCommand
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.extensions.show
 
-class NHWText(wid: Int, private val nh: NetHack) : NHWindow(wid) {
+class NHWText(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {
     private val textList = mutableListOf<NHString>()
     override fun curs(x: Int, y: Int) {
 

@@ -35,6 +35,7 @@ import com.yywspace.anethack.map.operation.NHMapOperation
 import com.yywspace.anethack.map.operation.NHMapScale
 import com.yywspace.anethack.map.operation.NHMapTransform
 import com.yywspace.anethack.window.NHWMap
+import com.yywspace.anethack.window.NHWindowType
 import java.util.concurrent.LinkedBlockingDeque
 import kotlin.math.abs
 import kotlin.math.atan2
@@ -382,6 +383,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 return
             val tile = getTile(curse.x, curse.y)
             val tb = getTileBorder(curse.x, curse.y)
+            if (!nh.hasWindow(NHWindowType.NHW_STATUS))
+                return
             paint.color = nh.status.hitPoints.color
             paint.style = Paint.Style.FILL
             canvas?.drawRect(tb, paint)
@@ -399,6 +402,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             if(curse.x < 0 || curse.y < 0)
                 return
             val tb = getTileBorder(curse.x, curse.y)
+            if (!nh.hasWindow(NHWindowType.NHW_STATUS))
+                return
             paint.color = nh.status.hitPoints.color
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = borderWidth
