@@ -11,6 +11,7 @@ message(WARNING "Building NetHack version: ${NetHack_VERSION}.")
 add_compile_definitions(
         ANDROID
         ANDROID_GRAPHICS
+        SND_LIB_ANDSOUND
         NOTTYGRAPHICS
         EDIT_GETLIN
         TILES_IN_GLYPHMAP
@@ -164,6 +165,7 @@ set(NETHACK_SRC
         "winandroid.c"
         "androidmain.c"
         "androidunix.c"
+        "androidsound.c"
 )
 
 add_library(${CMAKE_PROJECT_NAME} SHARED ${NETHACK_SRC})

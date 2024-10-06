@@ -55,6 +55,9 @@ int NetHackMain(int argc, char** argv)
     soundlibchoice = soundlib_macsound;
     assign_soundlib(soundlibchoice);
 #endif
+#if defined(SND_LIB_ANDSOUND)
+    assign_soundlib(soundlib_andsound);
+#endif
 
 #endif
 

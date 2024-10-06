@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.internal.EdgeToEdgeUtils
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHExtendCommand
@@ -161,6 +162,9 @@ class NetHackActivity : AppCompatActivity() {
             Setting LS|Save #quit|Quit L20s|20s Letter|Abc
         """.trimIndent()
         initCustomControlPanel(this, binding.baseCommandPanel, panelDefault)
+//        BottomSheetBehavior.from(binding.baseCommandPanel).apply {
+//            isHideable = false
+//        }
     }
 
     private fun hideSystemUi() {
@@ -232,16 +236,16 @@ class NetHackActivity : AppCompatActivity() {
 
     private fun processConf(overwrite:Boolean) {
         val sysconf = File(filesDir,"conf/sysconf")
-        val nethackrc = File(filesDir,"conf/nethackrc")
+        val userConf = File(filesDir,"conf/nethackrc")
         val sysconfTarget = File(filesDir,"nethackdir/sysconf")
-        val nethackrcTarget = File(filesDir,"nethackdir/.nethackrc")
+        val userConfTarget = File(filesDir,"nethackdir/.nethackrc")
         if (!sysconfTarget.exists() || overwrite)
             FileOutputStream(sysconfTarget).use { fileOut ->
                 FileInputStream(sysconf).copyTo(fileOut)
             }
-        if (!nethackrcTarget.exists() || overwrite)
-            FileOutputStream(nethackrcTarget).use { fileOut ->
-                FileInputStream(nethackrc).copyTo(fileOut)
+        if (!userConfTarget.exists() || overwrite)
+            FileOutputStream(userConfTarget).use { fileOut ->
+                FileInputStream(userConf).copyTo(fileOut)
             }
     }
 }
