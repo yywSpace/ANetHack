@@ -12,6 +12,8 @@ add_compile_definitions(
         ANDROID
         ANDROID_GRAPHICS
         SND_LIB_ANDSOUND
+        SND_SOUNDEFFECTS_AUTOMAP
+        SND_SPEECH
         NOTTYGRAPHICS
         EDIT_GETLIN
         TILES_IN_GLYPHMAP

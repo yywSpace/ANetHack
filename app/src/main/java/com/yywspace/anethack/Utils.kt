@@ -2,25 +2,30 @@ package com.yywspace.anethack
 
 import android.content.Context
 import android.view.Gravity
-import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
+import java.io.FileNotFoundException
 import java.io.IOException
 import java.nio.charset.Charset
 
 
 object Utils {
-    fun readAssetsFile(context: Context, fileName: String): String {
+    fun readAssetsFile(context: Context, filename: String): String {
+        val stream = context.assets.open(filename)
+        val fileLength = stream.available()
+        val buffer = ByteArray(fileLength)
+        stream.read(buffer)
+        stream.close()
+        return String(buffer, Charset.defaultCharset())
+    }
+
+    fun isAssetsFileExists(context: Context, filename: String): Boolean {
         try {
-            val stream = context.assets.open(fileName)
-            val fileLength = stream.available()
-            val buffer = ByteArray(fileLength)
-            stream.read(buffer)
-            stream.close()
-            return String(buffer, Charset.defaultCharset())
-        } catch (e: IOException) {
-            e.printStackTrace()
-            throw RuntimeException(e.message)
+            context.assets.open(filename).use {
+                return true
+            }
+        } catch(e: FileNotFoundException) {
+            return false
         }
     }
 

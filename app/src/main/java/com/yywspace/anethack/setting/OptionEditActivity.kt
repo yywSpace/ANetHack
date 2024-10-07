@@ -56,6 +56,8 @@ class OptionEditActivity: AppCompatActivity() {
                                     ForegroundColorSpan(Color.parseColor("#77B767")),
                                     cnt - line.length-1, cnt, Spanned.SPAN_INCLUSIVE_EXCLUSIVE )
                             } else {
+                                if(cnt >= editableText.length)
+                                    return
                                 editableText.setSpan(ForegroundColorSpan(Color.BLACK),
                                     cnt - line.length-1, cnt, Spanned.SPAN_INCLUSIVE_EXCLUSIVE )
                             }

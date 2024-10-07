@@ -11,6 +11,7 @@ import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.entity.NHString
+import com.yywspace.anethack.sound.NHSound
 import com.yywspace.anethack.window.NHExtendChoose
 import com.yywspace.anethack.window.NHPlayerChoose
 import com.yywspace.anethack.window.NHQuestion
@@ -29,9 +30,9 @@ import java.util.concurrent.CopyOnWriteArrayList
 class NetHack(
     val handler: Handler, val context: Activity,
     val binding: ActivityNethackBinding, private val netHackDir:String) {
-    private val TAG = "NetHack"
     private val windows = CopyOnWriteArrayList<NHWindow>()
     private var question: NHQuestion = NHQuestion(this)
+    private var sound: NHSound = NHSound(this)
     private var playerChoose: NHPlayerChoose = NHPlayerChoose(this)
     private var extCmdChoose: NHExtendChoose = NHExtendChoose(this)
     private var nextWinId = 0
@@ -44,11 +45,18 @@ class NetHack(
         get() = getWStatus().status
     val messages:NHWMessage
         get() = getWMessage()
+
+    companion object {
+        private const val TAG = "NetHack"
+    }
+
     private val runNHThread:Thread = Thread {
         Log.d(TAG, "start native process")
         try {
             isRunning = true
             System.loadLibrary("NetHack")
+            initNetHackWin()
+            initNetHackSound()
             runNetHack(netHackDir)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -64,8 +72,10 @@ class NetHack(
         stopNetHack()
     }
 
-    private external fun stopNetHack()
+    private external fun initNetHackWin()
+    private external fun initNetHackSound()
     private external fun runNetHack(path: String)
+    private external fun stopNetHack()
 
     private fun createWindow(type: Int): Int {
         Log.d(TAG, "createWindow(type:$type)")
@@ -238,6 +248,41 @@ class NetHack(
             e.printStackTrace()
         }
     }
+    fun initNHSound(){
+        sound.initNHSound()
+    }
+    fun exitNHSound(reason:String){
+        sound.exitNHSound(reason)
+    }
+
+    fun soundAchievement(ach1:Int, ach2:Int, repeat:Int) {
+        sound.soundAchievement(ach1, NHSound.AchievementsS2.fromInt(ach2), repeat)
+    }
+
+    fun soundEffect(soundName:String, desc:String, seid:Int, volume:Int) {
+        sound.soundEffect(soundName, desc, seid, volume)
+    }
+
+    fun heroPlayNotes(instrument:Int, notes:String, volume:Int) {
+        sound.heroPlayNotes(NHSound.Instruments.fromInt(instrument), notes, volume)
+    }
+
+    fun playUserSound(filename:String, volume:Int, idx:Int) {
+        sound.playUserSound(filename, volume, idx)
+    }
+
+    fun soundAmbience(ambienceId:Int, ambienceAction:Int, heroProximity:Int) {
+        sound.soundAmbience(
+            NHSound.Ambiences.fromInt(ambienceId),
+            NHSound.AmbienceActions.fromInt(ambienceAction),
+            heroProximity
+        )
+    }
+
+    fun soundVerbal(text:String, gender:Int, tone:Int, vol:Int, moreInfo:Int) {
+        sound.soundVerbal(text, gender, tone, vol, moreInfo)
+    }
+
     private fun getWindow(wid:Int): NHWindow {
         for (window in windows)
             if(window.wid == wid)

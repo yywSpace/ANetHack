@@ -8,7 +8,7 @@
 #include "dlb.h"
 
 #include <android/log.h>
-#define TAG "NetHack Native Win"
+#define TAG "NativeNetHackWin"
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__)
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
 
@@ -191,12 +191,7 @@ jstring char2Jstring(JNIEnv *env, const char *c_str);
 
 
 JNIEXPORT void JNICALL
-Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring path) {
-    char* params[10];
-    const char *path_c = jstring2Char(env, path);
-    params[0] = "NetHack";
-    params[1] = strdup(path_c);
-
+Java_com_yywspace_anethack_NetHack_initNetHackWin(JNIEnv *env, jobject thiz) {
     jEnv = env;
     jAppInstance = thiz;
     jApp = (*jEnv)->GetObjectClass(jEnv, jAppInstance);
@@ -225,7 +220,14 @@ Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring
     jShowExtCmdMenu = (*jEnv)->GetMethodID(jEnv, jApp, "showExtCmdMenu", "([Ljava/lang/String;)I");
     jGetMessageHistory = (*jEnv)->GetMethodID(jEnv, jApp, "getMessageHistory","(I)Ljava/lang/String;");
     jPutMessageHistory = (*jEnv)->GetMethodID(jEnv, jApp, "putMessageHistory", "(Ljava/lang/String;Z)V");
+}
 
+JNIEXPORT void JNICALL
+Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring path) {
+    char* params[10];
+    const char *path_c = jstring2Char(env, path);
+    params[0] = "NetHack";
+    params[1] = strdup(path_c);
     NetHackMain(2, params);
 }
 

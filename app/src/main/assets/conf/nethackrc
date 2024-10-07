@@ -91,3 +91,10 @@ OPTIONS=hilite_status:carrying-capacity/burdened/yellow/stressed/orange
 OPTIONS=hilite_status:carrying-capacity/strained/red&bold
 OPTIONS=hilite_status:carrying-capacity/overtaxed/red&inverse
 OPTIONS=hilite_status:carrying-capacity/overloaded/red&inverse
+
+# *** User sound ***
+#
+## The directory that houses the sound files to be played.
+#SOUNDDIR=/sdcard/Music/NetHack
+## An entry that maps a sound file to a user-specified message pattern.
+#SOUND=MESG "This door is locked" "lock.wav" 100

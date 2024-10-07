@@ -1,18 +1,12 @@
 package com.yywspace.anethack
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -20,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.internal.EdgeToEdgeUtils
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
