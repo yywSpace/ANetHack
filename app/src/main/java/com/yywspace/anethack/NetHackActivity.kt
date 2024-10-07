@@ -7,13 +7,19 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.hjq.permissions.OnPermissionCallback
+import com.hjq.permissions.Permission
+import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
@@ -42,6 +48,7 @@ class NetHackActivity : AppCompatActivity() {
         initView()
         initKeyboard()
         initControlPanel()
+        requestAudioPermission(this)
         AssetsLoader(this).loadAssets(
             listOf("nethackdir", "logs", "conf"), false
         ) { overwrite ->
@@ -239,5 +246,20 @@ class NetHackActivity : AppCompatActivity() {
             FileOutputStream(userConfTarget).use { fileOut ->
                 FileInputStream(userConf).copyTo(fileOut)
             }
+    }
+
+    private fun requestAudioPermission(context: Context) {
+        if (XXPermissions.isGranted(context, Permission.READ_MEDIA_AUDIO))
+            return
+        XXPermissions.with(context)
+            .permission(Permission.READ_MEDIA_AUDIO)
+            .request(object : OnPermissionCallback {
+                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
+                    if (!allGranted)
+                        return
+                    nethack.prefs.userSound = true
+                    Toast.makeText(context, R.string.permission_granted, Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 }

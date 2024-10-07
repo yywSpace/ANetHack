@@ -24,6 +24,8 @@ class SharedPreferencesUtils(val context: Context) {
     var showLastTravelIndicator by SharedPreferenceDelegates.boolean(true)
     var indicatorSymbols by SharedPreferenceDelegates.string(">")
     var priceId by SharedPreferenceDelegates.boolean(true)
+    var userSound by SharedPreferenceDelegates.boolean(false)
+    var internalSound by SharedPreferenceDelegates.boolean(true)
 
     fun getInputPrompts():List<String> {
         return inputPrompts.toList()

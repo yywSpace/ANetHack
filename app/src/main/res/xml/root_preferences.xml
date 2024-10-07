@@ -60,7 +60,30 @@
             app:useSimpleSummaryProvider="true"
             app:defaultValue="&#060;&#062;"
             app:iconSpaceReserved="false"/>
+    </PreferenceCategory>
 
+    <PreferenceCategory
+        app:title="@string/pref_sound_header"
+        app:iconSpaceReserved="false">
+
+        <CheckBoxPreference
+            app:key="userSound"
+            app:title="@string/pref_sound_user"
+            app:iconSpaceReserved="false"
+            app:defaultValue="false"
+            app:summary="@string/pref_sound_user_summery"/>
+        <Preference
+            app:key="userSoundPerm"
+            app:title="@string/pref_sound_user_perm"
+            app:iconSpaceReserved="false"
+            app:dependency="userSound"/>
+
+        <CheckBoxPreference
+            app:key="internalSound"
+            app:title="@string/pref_sound_internal"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"
+            app:summary="@string/pref_sound_internal_summery"/>
 
     </PreferenceCategory>
 

@@ -18,6 +18,8 @@ class NHSound(val nh:NetHack) {
     }
 
     private fun playInnerSound(soundName: String, volume: Int) {
+        if (!nh.prefs.internalSound)
+            return
         val soundPath = "sound/$soundName.wav"
         if (!Utils.isAssetsFileExists(nh.context, soundPath)) {
             Log.d(TAG, "playInnerSound $soundPath not exists.")
@@ -36,6 +38,8 @@ class NHSound(val nh:NetHack) {
     }
 
     private fun playUserSound(soundPath: String, volume: Int) {
+        if (!nh.prefs.userSound)
+            return
         val soundFile = File(soundPath)
         if (!soundFile.exists()) {
             Log.d(TAG, "playUserSound $soundPath not exists.")

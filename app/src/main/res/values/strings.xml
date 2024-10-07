@@ -61,6 +61,16 @@
     <string name="pref_log_error">Error log</string>
     <string name="pref_log_error_summery">Android crash log.</string>
 
+    <!-- Preference Sound -->
+    <string name="pref_sound_header">Sound</string>
+    <string name="pref_sound_user">User sound</string>
+    <string name="pref_sound_user_summery">Play user sound if permission granted.</string>
+    <string name="pref_sound_user_perm">Permission read audio</string>
+    <string name="pref_sound_user_perm_granted">Permission granted</string>
+    <string name="pref_sound_user_perm_not_granted">Permission not granted</string>
+    <string name="pref_sound_internal">Internal sound</string>
+    <string name="pref_sound_internal_summery">Play internal sound that NetHack provided.</string>
+
     <!-- Preference Config -->
     <string name="pref_option_header">Config</string>
     <string name="pref_option_edit">Edit config file</string>
@@ -99,5 +109,8 @@
     <string name="pref_other_keyboard_vibrate">Keyboard vibration</string>
     <string name="pref_other_immersive_mode_desc">Hide system ui.</string>
     <string name="floating_button_desc">Floating Action Button</string>
+
+    <string name="permission_granted">Permission is granted. </string>
+    <string name="permission_denied">Permission request is denied, you must manually grant permission. </string>
 
 </resources>

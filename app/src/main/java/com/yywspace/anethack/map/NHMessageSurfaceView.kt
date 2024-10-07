@@ -13,6 +13,7 @@ import android.view.SurfaceView
 import android.widget.LinearLayout
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.window.NHWMessage
+import java.util.stream.Collectors
 import kotlin.math.ceil
 import kotlin.streams.toList
 
@@ -71,7 +72,7 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 nhMessage.getRecentMessageList(messageSize)
                     .stream()
                     .limit(maxMessageSize.toLong())
-                    .toList()
+                    .collect(Collectors.toList())
                     .reversed().forEach{
                     val dynamicLayout = DynamicLayout.Builder.obtain(
                         it.value.toSpannableString(), textPaint,

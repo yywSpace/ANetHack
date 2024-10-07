@@ -5,15 +5,20 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.preference.CheckBoxPreference
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.hjq.permissions.OnPermissionCallback
+import com.hjq.permissions.Permission
+import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.R
 import java.io.File
 
@@ -44,6 +49,18 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat(){
+       private var userSoundPerm:Preference? = null
+
+        override fun onResume() {
+            super.onResume()
+            userSoundPerm?.apply {
+                if (XXPermissions.isGranted(context, Permission.READ_MEDIA_AUDIO))
+                    setSummary(R.string.pref_sound_user_perm_granted)
+                else
+                    setSummary(R.string.pref_sound_user_perm_not_granted)
+            }
+        }
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             findPreference<Preference>("dumpLog")?.setOnPreferenceClickListener {
@@ -85,6 +102,27 @@ class SettingsActivity : AppCompatActivity() {
             findPreference<Preference>("optionEdit")?.apply {
                 setOnPreferenceClickListener { _ ->
                     startActivity(Intent(context, OptionEditActivity::class.java))
+                    true
+                }
+            }
+
+            userSoundPerm = findPreference<Preference>("userSoundPerm")?.apply {
+                setOnPreferenceClickListener {
+                    XXPermissions.with(context)
+                        .permission(Permission.READ_MEDIA_AUDIO)
+                        .request(object : OnPermissionCallback {
+                            override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
+                                if (!allGranted)
+                                    return
+                                Toast.makeText(context, R.string.permission_granted, Toast.LENGTH_SHORT).show()
+                            }
+                            override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
+                                if (doNotAskAgain) {
+                                    Toast.makeText(context, R.string.permission_denied, Toast.LENGTH_LONG).show()
+                                    XXPermissions.startPermissionActivity(context, permissions)
+                                }
+                            }
+                        })
                     true
                 }
             }
