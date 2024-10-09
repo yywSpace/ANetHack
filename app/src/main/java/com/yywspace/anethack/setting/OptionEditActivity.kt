@@ -1,18 +1,20 @@
 package com.yywspace.anethack.setting
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.toSpannable
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import com.yywspace.anethack.R
 import com.yywspace.anethack.databinding.ActivityOptionEditBinding
 import java.io.File
 
@@ -27,6 +29,37 @@ class OptionEditActivity: AppCompatActivity() {
         initStatusBar()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+            R.id.option_edit_save -> {
+                saveConfirm()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun saveConfirm() {
+        AlertDialog.Builder(this).apply {
+            setTitle(R.string.option_save_dialog_title)
+            setMessage(R.string.option_save_dialog_msg)
+            setPositiveButton(R.string.dialog_confirm) { _,_ ->
+                saveOptionFile(binding.optionEditText.text.toString())
+            }
+            setNegativeButton(R.string.dialog_cancel) { _,_ ->
+
+            }
+            show()
+        }
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.option_edit_menu, menu)
+        return true
+    }
+
     private fun initStatusBar() {
         window.statusBarColor = Color.TRANSPARENT
         val windowInsetsController =
@@ -36,68 +69,59 @@ class OptionEditActivity: AppCompatActivity() {
     }
 
     private fun initView() {
+        val toolbar = findViewById<Toolbar>(R.id.option_edit_toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         binding.optionEditText.apply {
-            setText(processText(readOptionFile()))
+            setText(readOptionText())
+            processText(editableText)
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?, start: Int,count: Int, after: Int
                 ) {
                 }
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val lines = s.toString().split("\n")
-                    var cnt = 0
-                    for (line in lines) {
-                        cnt += line.length + 1
-                        // Log.d("onTextChanged", "line:${line}\n line.length:${line.length} cnt:$cnt")
-                        if (cnt > start + count) {
-                            // Log.d("onTextChanged", "line:${line}\nstart:$start count:$count before:$before")
-                            if (line.startsWith("#")) {
-                                editableText.setSpan(
-                                    ForegroundColorSpan(Color.parseColor("#77B767")),
-                                    cnt - line.length-1, cnt, Spanned.SPAN_INCLUSIVE_EXCLUSIVE )
-                            } else {
-                                if(cnt >= editableText.length)
-                                    return
-                                editableText.setSpan(ForegroundColorSpan(Color.BLACK),
-                                    cnt - line.length-1, cnt, Spanned.SPAN_INCLUSIVE_EXCLUSIVE )
-                            }
-                            return
-                        }
+                    val text = s?:""
+                    var endIdx = text.indexOf('\n', start)
+                    val startIdx = text.lastIndexOf('\n', start)
+                    // 找不到换行符代表时最后一行
+                    if(endIdx == -1) endIdx = text.length - 1
+                    val line = text.substring(startIdx + 1, endIdx + 1)
+                    if (line.startsWith("#")) {
+                        editableText.setSpan(
+                            ForegroundColorSpan(Color.parseColor("#77B767")),
+                            startIdx + 1, endIdx + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE )
+                    } else {
+                        editableText.setSpan(ForegroundColorSpan(Color.BLACK),
+                            startIdx + 1, endIdx + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE )
                     }
                 }
                 override fun afterTextChanged(s: Editable?) {
                 }
             })
         }
-
-        binding.optionEditCancel.setOnClickListener {
-            finish()
-        }
-        binding.optionEditSave.setOnClickListener {
-            saveOptionFile(binding.optionEditText.text.toString())
-            finish()
-        }
     }
-    private fun processText(lines:List<String>):Spannable {
-        val spBuilder = SpannableStringBuilder()
-        for (line in lines) {
+    private fun processText(text:Editable) {
+        var idx = 0
+        var lastIdx = -1
+        while (idx < text.length - 1) {
+            idx = text.indexOf('\n', idx + 1)
+            // 找不到换行符代表时最后一行
+            if (idx == -1) idx = text.length - 1
+            val line = text.substring(lastIdx + 1, idx + 1)
             if (line.startsWith("#")) {
-                SpannableString(line).apply {
-                    setSpan(
-                        ForegroundColorSpan(Color.parseColor("#77B767")),
-                        0, length, Spanned.SPAN_INCLUSIVE_EXCLUSIVE
-                    )
-                    spBuilder.append(this)
-                }
-            }else {
-                spBuilder.append(line)
+                text.setSpan(
+                    ForegroundColorSpan(Color.parseColor("#77B767")),
+                    lastIdx + 1, idx + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE
+                )
             }
-            spBuilder.append("\n")
+            lastIdx = idx
         }
-        return spBuilder.toSpannable()
     }
-    private fun readOptionFile():List<String> {
-        return File(filesDir,"nethackdir/.nethackrc").readLines()
+
+    private fun readOptionText():String {
+        return File(filesDir,"nethackdir/.nethackrc").readText()
     }
 
     private fun saveOptionFile(option:String) {
