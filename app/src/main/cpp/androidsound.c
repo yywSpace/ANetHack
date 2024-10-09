@@ -4,13 +4,14 @@
 #ifdef SND_LIB_ANDSOUND
 
 #include "hack.h"
-#include <android/log.h>
 #include <jni.h>
 
+#include "androidentry.h"
+
+#include <android/log.h>
 #define TAG "NativeNetHackSound"
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__)
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
-
 
 static void andsound_init_nhsound(void);
 static void andsound_exit_nhsound(const char *);
@@ -35,39 +36,6 @@ struct sound_procs andsound_procs = {
     andsound_ambience,
     andsound_verbal
 };
-
-#define JNICallV(func, ...) (*jEnv)->CallVoidMethod(jEnv, jAppInstance, func, ## __VA_ARGS__);
-// string
-char * jstring2Char(JNIEnv *env, jstring jstr);
-jstring char2Jstring(JNIEnv *env, const char *c_str);
-
-static JNIEnv* jEnv;
-static jclass jApp;
-static jobject jAppInstance;
-static jmethodID jInitNHSound;
-static jmethodID jExitNHSound;
-static jmethodID jSoundAchievement;
-static jmethodID jSoundEffect;
-static jmethodID jHeroPlayNotes;
-static jmethodID jPlayUserSound;
-static jmethodID jSoundAmbience;
-static jmethodID jSoundVerbal;
-
-JNIEXPORT void JNICALL
-Java_com_yywspace_anethack_NetHack_initNetHackSound(JNIEnv *env, jobject thiz) {
-    jEnv = env;
-    jAppInstance = thiz;
-    jApp = (*jEnv)->GetObjectClass(jEnv, jAppInstance);
-    jInitNHSound = (*jEnv)->GetMethodID(jEnv, jApp, "initNHSound", "()V");
-    jExitNHSound = (*jEnv)->GetMethodID(jEnv, jApp, "exitNHSound", "(Ljava/lang/String;)V");
-    jSoundAchievement = (*jEnv)->GetMethodID(jEnv, jApp, "soundAchievement", "(III)V");
-    jSoundEffect = (*jEnv)->GetMethodID(jEnv, jApp, "soundEffect",
-                                        "(Ljava/lang/String;Ljava/lang/String;II)V");
-    jHeroPlayNotes = (*jEnv)->GetMethodID(jEnv, jApp, "heroPlayNotes", "(ILjava/lang/String;I)V");
-    jPlayUserSound = (*jEnv)->GetMethodID(jEnv, jApp, "playUserSound", "(Ljava/lang/String;II)V");
-    jSoundAmbience = (*jEnv)->GetMethodID(jEnv, jApp, "soundAmbience", "(III)V");
-    jSoundVerbal = (*jEnv)->GetMethodID(jEnv, jApp, "soundVerbal", "(Ljava/lang/String;IIII)V");
-}
 
 static void
 andsound_init_nhsound(void)

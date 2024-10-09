@@ -6,12 +6,12 @@
 #include "hack.h"
 #include "func_tab.h"   /* for extended commands */
 #include "dlb.h"
+#include "androidentry.h"
 
 #include <android/log.h>
 #define TAG "NativeNetHackWin"
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__)
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
-
 
 static void and_init_nhwindows(int *, char **);
 static void and_player_selection();
@@ -70,7 +70,6 @@ static void and_status_update(int, genericptr_t, int, int, int, unsigned long *)
 
 static int cond_color(long, const unsigned long *);
 static int cond_attr(long, const unsigned long *);
-int NetHackMain(int argc, char** argv);
 
 struct window_procs and_procs = {
         "and",
@@ -137,36 +136,6 @@ struct window_procs and_procs = {
         and_ctrl_nhwindow
 };
 
-//____________________________________________________________________________________
-// Java objects. Make sure they are not garbage collected!
-static JNIEnv* jEnv;
-static jclass jApp;
-static jobject jAppInstance;
-static jmethodID jRequireKeyCommand;
-static jmethodID jRequirePosKeyCommand;
-static jmethodID jCreateWindow;
-static jmethodID jDisplayWindow;
-static jmethodID jClearWindow;
-static jmethodID jDestroyWindow;
-static jmethodID jPutString;
-static jmethodID jRawPrint;
-static jmethodID jCurs;
-static jmethodID jPrintTile;
-static jmethodID jYNFunction;
-static jmethodID jGetLine;
-static jmethodID jStartMenu;
-static jmethodID jAddMenu;
-static jmethodID jEndMenu;
-static jmethodID jSelectMenu;
-static jmethodID jClipAround;
-static jmethodID jDelayOutput;
-static jmethodID jSetNumPadOption;
-static jmethodID jAskName;
-static jmethodID jRenderStatus;
-static jmethodID jShowExtCmdMenu;
-static jmethodID jGetMessageHistory;
-static jmethodID jPutMessageHistory;
-
 // status
 extern const char *status_fieldfmt[MAXBLSTATS];
 extern const char *status_fieldnm[MAXBLSTATS];
@@ -179,62 +148,6 @@ static char *status_real_values[MAXBLSTATS];
 static int status_attrmasks[MAXBLSTATS];
 static unsigned long* and_colormasks;
 static long and_condition_bits = 0L;
-
-// string
-char * jstring2Char(JNIEnv *env, jstring jstr);
-jstring char2Jstring(JNIEnv *env, const char *c_str);
-
-#define JNICallV(func, ...) (*jEnv)->CallVoidMethod(jEnv, jAppInstance, func, ## __VA_ARGS__);
-#define JNICallI(func, ...) (*jEnv)->CallIntMethod(jEnv, jAppInstance, func, ## __VA_ARGS__);
-#define JNICallO(func, ...) (*jEnv)->CallObjectMethod(jEnv, jAppInstance, func, ## __VA_ARGS__);
-#define JNICallC(func, ...) (*jEnv)->CallCharMethod(jEnv, jAppInstance, func, ## __VA_ARGS__);
-
-
-JNIEXPORT void JNICALL
-Java_com_yywspace_anethack_NetHack_initNetHackWin(JNIEnv *env, jobject thiz) {
-    jEnv = env;
-    jAppInstance = thiz;
-    jApp = (*jEnv)->GetObjectClass(jEnv, jAppInstance);
-    jCreateWindow = (*jEnv)->GetMethodID(jEnv,jApp, "createWindow", "(I)I");
-    jStartMenu = (*jEnv)->GetMethodID(jEnv, jApp, "startMenu", "(IJ)V");
-    jAddMenu = (*jEnv)->GetMethodID(jEnv, jApp, "addMenu", "(IIJCCIILjava/lang/String;Z)V");
-    jEndMenu = (*jEnv)->GetMethodID(jEnv, jApp, "endMenu", "(ILjava/lang/String;)V");
-    jSelectMenu = (*jEnv)->GetMethodID(jEnv, jApp, "selectMenu", "(II)[J");
-    jDestroyWindow = (*jEnv)->GetMethodID(jEnv, jApp, "destroyWindow", "(I)V");
-    jClearWindow = (*jEnv)->GetMethodID(jEnv, jApp, "clearWindow", "(II)V");
-    jRawPrint = (*jEnv)->GetMethodID(jEnv, jApp, "rawPrint", "(ILjava/lang/String;)V");
-    jDisplayWindow = (*jEnv)->GetMethodID(jEnv, jApp, "displayWindow", "(IZ)V");
-    jCurs = (*jEnv)->GetMethodID(jEnv, jApp, "curs", "(III)V");
-    jPutString = (*jEnv)->GetMethodID(jEnv, jApp, "putString", "(IILjava/lang/String;I)V");
-    jPrintTile = (*jEnv)->GetMethodID(jEnv, jApp, "printTile", "(IIIIIII)V");
-    jRequireKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requireKeyCommand", "()I");
-    jRequirePosKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requirePosKeyCommand", "([I)C");
-    jRenderStatus = (*jEnv)->GetMethodID(jEnv, jApp, "renderStatus",
-                                         "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;III)V");
-    jDelayOutput = (*jEnv)->GetMethodID(jEnv, jApp, "delayOutput", "()V");
-    jClipAround = (*jEnv)->GetMethodID(jEnv, jApp, "clipAround", "(IIII)V");
-    jYNFunction = (*jEnv)->GetMethodID(jEnv, jApp, "ynFunction",
-                                       "(Ljava/lang/String;Ljava/lang/String;[JC)C");
-    jGetLine = (*jEnv)->GetMethodID(jEnv, jApp, "getLine", "(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;");
-    jAskName = (*jEnv)->GetMethodID(jEnv, jApp, "askName","(I[Ljava/lang/String;)[Ljava/lang/String;");
-    jShowExtCmdMenu = (*jEnv)->GetMethodID(jEnv, jApp, "showExtCmdMenu", "([Ljava/lang/String;)I");
-    jGetMessageHistory = (*jEnv)->GetMethodID(jEnv, jApp, "getMessageHistory","(I)Ljava/lang/String;");
-    jPutMessageHistory = (*jEnv)->GetMethodID(jEnv, jApp, "putMessageHistory", "(Ljava/lang/String;Z)V");
-}
-
-JNIEXPORT void JNICALL
-Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring path) {
-    char* params[10];
-    const char *path_c = jstring2Char(env, path);
-    params[0] = "NetHack";
-    params[1] = strdup(path_c);
-    NetHackMain(2, params);
-}
-
-JNIEXPORT void JNICALL
-Java_com_yywspace_anethack_NetHack_stopNetHack(JNIEnv *env, jobject thiz) {
-    nh_terminate(EXIT_SUCCESS);
-}
 
 void more(void){
 
@@ -883,7 +796,7 @@ void and_add_menu(winid window, const glyph_info * glyph, const union any * iden
     if(menu_attr)
         menu_attr = 1<<menu_attr;
     jstring jstr = char2Jstring(jEnv, str);
-    JNICallV(jAddMenu, window, tile, (long )identifier->a_lptr, accelerator, groupacc, menu_attr, menu_color, jstr, preselected)
+    JNICallV(jAddMenu, window, tile, (long long )identifier->a_lptr, accelerator, groupacc, menu_attr, menu_color, jstr, preselected)
 }
 
 //____________________________________________________________________________________
@@ -1403,35 +1316,4 @@ and_ctrl_nhwindow(
             break;
     }
     return wri;
-}
-
- jstring char2Jstring(JNIEnv *env, const char *c_str) {
-     if (c_str == NULL)
-         return NULL;
-    jclass str_cls = (*env)->FindClass(env, "java/lang/String");
-    jmethodID constructor_mid = (*env)->GetMethodID(env, str_cls, "<init>", "([BLjava/lang/String;)V");
-    int len = (int)strlen(c_str);
-    jbyteArray bytes = (*env)->NewByteArray(env, len);
-    (*env)->SetByteArrayRegion(env, bytes, 0, len, (signed char *)c_str);
-    jstring charsetName = (*env)->NewStringUTF(env, "utf-8");
-    return (*env)->NewObject(env,str_cls,constructor_mid,bytes,charsetName);
-}
-
-char* jstring2Char(JNIEnv *env, jstring jstr)
-{
-    char* rtn = NULL;
-    jclass jclass = (*env)->FindClass(env, "java/lang/String");
-    jmethodID mid = (*env)->GetMethodID(env, jclass, "getBytes", "(Ljava/lang/String;)[B");
-    jstring jencode = (*env)->NewStringUTF(env, "utf-8");
-    jbyteArray barr= (jbyteArray)(*env)->CallObjectMethod(env, jstr, mid, jencode);
-    jsize alen = (*env)->GetArrayLength(env, barr);
-    jbyte* ba = (*env)->GetByteArrayElements(env, barr, JNI_FALSE);
-    if (alen > 0)
-    {
-        rtn = (char*)malloc(alen + 1);
-        memcpy(rtn, ba, alen);
-        rtn[alen] = 0;
-    }
-    (*env)->ReleaseByteArrayElements(env, barr, ba, 0);
-    return rtn;
 }

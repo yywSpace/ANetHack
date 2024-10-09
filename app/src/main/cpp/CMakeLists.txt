@@ -164,10 +164,11 @@ set(NETHACK_SRC
         # "NetHack/sys/unix/unixunix.c"
         "NetHack/sys/unix/unixres.c"
         "tile.c"
-        "winandroid.c"
         "androidmain.c"
         "androidunix.c"
+        "androidwin.c"
         "androidsound.c"
+        "androidentry.c"
 )
 
 add_library(${CMAKE_PROJECT_NAME} SHARED ${NETHACK_SRC})

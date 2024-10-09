@@ -55,8 +55,6 @@ class NetHack(
         try {
             isRunning = true
             System.loadLibrary("NetHack")
-            initNetHackWin()
-            initNetHackSound()
             runNetHack(netHackDir)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -72,8 +70,6 @@ class NetHack(
         stopNetHack()
     }
 
-    private external fun initNetHackWin()
-    private external fun initNetHackSound()
     private external fun runNetHack(path: String)
     private external fun stopNetHack()
 

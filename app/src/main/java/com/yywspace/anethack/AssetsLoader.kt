@@ -13,9 +13,9 @@ class AssetsLoader(val context: Context) {
             var curCnt = 0
             val maxCnt = countGameAssets(path)
             if (maxCnt <= 0) continue
-            loadGameAssets(path) { file ->
+            loadGameAssets(path) { _ ->
                 curCnt += 1
-                Log.d("loadAssets", "$curCnt-$file")
+                // Log.d("loadAssets", "$curCnt-$file")
             }
         }
         onLoadFinished?.invoke(overwrite)
