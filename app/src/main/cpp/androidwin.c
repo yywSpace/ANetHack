@@ -149,6 +149,8 @@ static int status_attrmasks[MAXBLSTATS];
 static unsigned long* and_colormasks;
 static long and_condition_bits = 0L;
 
+char ** get_aborted_games();
+
 void more(void){
 
 }
