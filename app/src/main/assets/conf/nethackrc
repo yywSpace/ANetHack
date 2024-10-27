@@ -94,6 +94,8 @@ OPTIONS=hilite_status:carrying-capacity/overloaded/red&inverse
 
 # *** User sound ***
 #
+# In Android you must enable user sound in settings
+# and grant audio permission.
 ## The directory that houses the sound files to be played.
 #SOUNDDIR=/sdcard/Music/NetHack
 ## An entry that maps a sound file to a user-specified message pattern.

@@ -73,15 +73,14 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"/>
 
-        <LinearLayout
+        <com.yywspace.anethack.keybord.BottomCommandSheet
             android:id="@+id/base_command_panel"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="2dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent">
-        </LinearLayout>
+        </com.yywspace.anethack.keybord.BottomCommandSheet>
     </LinearLayout>
 
 </FrameLayout>

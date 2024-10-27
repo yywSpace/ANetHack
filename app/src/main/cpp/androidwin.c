@@ -1295,7 +1295,7 @@ void and_putmsghistory(const char *msg, boolean restoring)
         jstring jmsg = char2Jstring(jEnv, msg);
         JNICallV(jPutMessageHistory, jmsg, restoring)
     }
-    LOGD("and_putmsghistory(msg: %s, restoring:%d)", msg, restoring);
+    // LOGD("and_putmsghistory(msg: %s, restoring:%d)", msg, restoring);
 }
 
 win_request_info *

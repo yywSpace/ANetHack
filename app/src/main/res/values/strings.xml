@@ -103,17 +103,25 @@
     <string name="pref_map_last_travel_indicator">Show last travel indicator</string>
     <string name="pref_map_indicator_desc">Show map symbol indicator.</string>
     <string name="pref_map_indicator_symbols">Indicator symbols</string>
+    <string name="pref_map_travel_after_panned">Travel after map panned</string>
+    <string name="pref_map_travel_after_panned_desc">Travel when you touch the map, if the map has been translated and player not in screen.</string>
+
+    <!-- Preference Keyboard -->
+    <string name="pref_keyboard_header">Keyboard</string>
+    <string name="pref_keyboard_vibrate">Keyboard vibration</string>
+    <string name="pref_keyboard_command_panel">Edit command panel</string>
+    <string name="pref_keyboard_command_panel_default">Setting S|Save #quit|Quit L20s|20s i|Inv Keyboard|Abc\n#|Extend d|Drop e|Eat :|Look ,|Pick .|Rest</string>
 
     <!-- Preference Other -->
     <string name="pref_other_header">Other</string>
     <string name="pref_other_lock_view">Lock view</string>
     <string name="pref_other_lock_view_desc">Always put the player in the center of the view.</string>
     <string name="pref_other_immersive_mode">Immersive mode</string>
-    <string name="pref_other_keyboard_vibrate">Keyboard vibration</string>
     <string name="pref_other_immersive_mode_desc">Hide system ui.</string>
     <string name="floating_button_desc">Floating Action Button</string>
 
-    <string name="permission_granted">Permission is granted. </string>
-    <string name="permission_denied">Permission request is denied, you must manually grant permission. </string>
+    <string name="permission_granted">Permission has been granted. </string>
+    <string name="permission_denied">Permission request was denied, you must manually grant permission. </string>
+    <string name="permission_denied_hint">NetHack need permission to play user sound.</string>
 
 </resources>

@@ -1,10 +1,16 @@
 package com.yywspace.anethack.sound
 
+import android.content.Context
 import android.media.AudioAttributes
 import android.media.MediaMetadataRetriever
 import android.media.SoundPool
 import android.util.Log
+import android.widget.Toast
+import com.hjq.permissions.OnPermissionCallback
+import com.hjq.permissions.Permission
+import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.NetHack
+import com.yywspace.anethack.R
 import com.yywspace.anethack.Utils
 import java.io.File
 

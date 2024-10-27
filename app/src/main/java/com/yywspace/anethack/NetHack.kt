@@ -125,7 +125,13 @@ class NetHack(
         getWMap().clipAround(cx, cy, ux, uy)
     }
     fun putString(wid: Int, attr: Int, msg: String, color: Int) {
-        getWindow(wid).putString(attr, msg, color)
+        try {
+            getWindow(wid).putString(attr, msg, color)
+        }catch (e:Exception) {
+            runOnUi { _, context ->
+                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+            }
+        }
         Log.d(TAG, "putString(wid:$wid, attr:$attr, msg:$msg, color:$color)")
     }
 
@@ -142,7 +148,7 @@ class NetHack(
             getWMessage().putString(attr, msg, NHColor.NO_COLOR.ordinal)
         }catch (e:Exception) {
             runOnUi { _, context ->
-                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
             }
         }
         Log.d(TAG, "rawPrint(attr:$attr,msg:$msg)")

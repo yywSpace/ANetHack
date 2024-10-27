@@ -1,25 +1,19 @@
 package com.yywspace.anethack
 
-import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import android.view.animation.Animation
+import android.view.animation.Animation.AnimationListener
+import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.hjq.permissions.OnPermissionCallback
-import com.hjq.permissions.Permission
-import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
@@ -48,7 +42,6 @@ class NetHackActivity : AppCompatActivity() {
         initView()
         initKeyboard()
         initControlPanel()
-        requestAudioPermission(this)
         AssetsLoader(this).loadAssets(
             listOf("nethackdir", "logs", "conf"), false
         ) { overwrite ->
@@ -69,6 +62,7 @@ class NetHackActivity : AppCompatActivity() {
         else
             binding.floatingButton.visibility = View.GONE
         binding.keyboardView.setKeyboardVibrate(nethack.prefs.keyboardVibrate)
+        initControlPanel()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -108,15 +102,55 @@ class NetHackActivity : AppCompatActivity() {
             }
             visibility = View.GONE
         }
+
+
     }
+
+    private fun hideKeyboard() {
+        //向下位移隐藏动画  从自身位置的最上端向下滑动了自身的高度
+        TranslateAnimation(
+            Animation.RELATIVE_TO_SELF, 0f,
+            Animation.RELATIVE_TO_SELF, 0f,
+            Animation.RELATIVE_TO_SELF, 0f,
+            Animation.RELATIVE_TO_SELF, 1f
+        ).apply {
+            repeatMode = Animation.REVERSE
+            duration = 300
+            setAnimationListener(object :AnimationListener{
+                override fun onAnimationStart(animation: Animation?) {
+                }
+                override fun onAnimationEnd(animation: Animation?) {
+                    binding.keyboardView.visibility = View.GONE
+                }
+                override fun onAnimationRepeat(animation: Animation?) {
+                }
+            })
+            binding.keyboardView.startAnimation(this)
+        }
+    }
+    private fun showKeyboard() {
+        //向上位移显示动画  从自身位置的最下端向上滑动了自身的高度
+        TranslateAnimation(
+            Animation.RELATIVE_TO_SELF, 0f,
+            Animation.RELATIVE_TO_SELF, 0f,
+            Animation.RELATIVE_TO_SELF, 1f,
+            Animation.RELATIVE_TO_SELF, 0f
+        ).apply {
+            repeatMode = Animation.REVERSE
+            duration = 300
+            binding.keyboardView.startAnimation(this)
+            binding.keyboardView.visibility = View.VISIBLE
+        }
+    }
+
     private fun processKeyPress(cmd:String) {
         if (cmd.isEmpty()) return
         when (cmd) {
-            "Letter" -> {
+            "Keyboard" -> {
                 if (!isKeyboardShow)
-                    binding.keyboardView.visibility = View.VISIBLE
+                    showKeyboard()
                 else
-                    binding.keyboardView.visibility = View.GONE
+                    hideKeyboard()
                 isKeyboardShow = !isKeyboardShow
             }
             "Repeat" -> {
@@ -148,22 +182,29 @@ class NetHackActivity : AppCompatActivity() {
                         }
                         return
                     } else {
-                        nethack.command.sendCommand(NHCommand(cmd.toInt().toChar()))
+                        nethack.command.sendCommand(NHCommand(cmd.firstOrNull()?:27.toChar()))
                     }
                 }
-
             }
         }
     }
+
     private fun initControlPanel() {
         // Ctrl|^C Meta|^M
-        val panelDefault = """
-            Setting LS|Save #quit|Quit L20s|20s Letter|Abc
-        """.trimIndent()
-        initCustomControlPanel(this, binding.baseCommandPanel, panelDefault)
-//        BottomSheetBehavior.from(binding.baseCommandPanel).apply {
-//            isHideable = false
-//        }
+        // Setting LS|Save #quit|Quit L20s|20s Keyboard|Abc
+        nethack.prefs.commandPanel?.apply {
+            var panelDefault = ifEmpty {
+                getString(R.string.pref_keyboard_command_panel_default)
+            }
+            if (!panelDefault.contains("Setting"))
+                panelDefault = "${panelDefault}\nSetting"
+            binding.baseCommandPanel.apply {
+                initBottomCommandSheet(panelDefault)
+                onCommandPress = { cmd->
+                    processKeyPress(cmd)
+                }
+            }
+        }
     }
 
     private fun hideSystemUi() {
@@ -182,31 +223,6 @@ class NetHackActivity : AppCompatActivity() {
         windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
     }
 
-    private fun initCustomControlPanel(context: Context, panelView:LinearLayout, panel:String) {
-        panelView.removeAllViews()
-        val panelItems = panel.split(" ")
-        panelItems.forEachIndexed { i, item ->
-            val array = item.split("|")
-            val cmd = array[0]
-            var label = array[0]
-            if(array.size == 2)
-                label = array[1]
-            val button =
-                (View.inflate(context, R.layout.panel_cmd_item, null) as TextView)
-                    .apply {
-                text = label
-                layoutParams = LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    1f
-                )
-                setOnClickListener {
-                    processKeyPress(cmd)
-                }
-            }
-            panelView.addView(button)
-        }
-    }
     private fun processLogs() {
         val dumpLogMaxSize = nethack.prefs.dumpLogMaxSize
         object : Thread() {
@@ -248,18 +264,4 @@ class NetHackActivity : AppCompatActivity() {
             }
     }
 
-    private fun requestAudioPermission(context: Context) {
-        if (XXPermissions.isGranted(context, Permission.READ_MEDIA_AUDIO))
-            return
-        XXPermissions.with(context)
-            .permission(Permission.READ_MEDIA_AUDIO)
-            .request(object : OnPermissionCallback {
-                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
-                    if (!allGranted)
-                        return
-                    nethack.prefs.userSound = true
-                    Toast.makeText(context, R.string.permission_granted, Toast.LENGTH_SHORT).show()
-                }
-            })
-    }
 }

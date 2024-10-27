@@ -46,6 +46,7 @@ import kotlin.math.floor
 class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 64f
     private var scaleFactor = 1f
+    private var mapTranslated = false
     private var mapInit = false
     private val paint = Paint()
     private val asciiPaint = TextPaint()
@@ -76,14 +77,21 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             override fun onClick(e: PointF) {
                 if(indicatorController.onIndicatorClick(e))
                     return
-                lastTouchTile = getTileLocation(e.x, e.y)
-                val curseBorder = getTileBorder(map.curse.x, map.curse.y)
-                val direction = getMoveDirection(
-                    PointF(curseBorder.centerX(), curseBorder.centerY()),
-                    PointF(e.x, e.y)
-                )
-                Log.d("direction", "$direction")
-                playerMove(direction, false)
+                lastTouchTile = getTileLocation(e.x, e.y).also { point ->
+                    if (mapTranslated && nh.prefs.travelAfterPanned && !playerInTheScreen()) {
+                        nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
+                        mapTranslated = false
+                    }else {
+                        val curseBorder = getTileBorder(map.curse.x, map.curse.y)
+                        val direction = getMoveDirection(
+                            PointF(curseBorder.centerX(), curseBorder.centerY()),
+                            PointF(e.x, e.y)
+                        )
+                        Log.d("direction", "$direction")
+                        playerMove(direction, false)
+                    }
+                }
+
             }
 
             override fun onLongPressUp(e: PointF) {
@@ -182,6 +190,17 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         })
     }
 
+    fun playerInTheScreen():Boolean {
+        val playerBorder = getTileBorder(map.player.x, map.player.y)
+        val px = playerBorder.centerX()
+        val py = playerBorder.centerY()
+        val width = measuredWidth.toFloat()
+        val height = measuredHeight.toFloat()
+        if (px > 0 && py > 0 && px < width && py < height)
+            return true
+        return false
+    }
+
     @SuppressLint("InflateParams")
     fun showPopupWindow(x:Float, y:Float) {
         val posKeyList = listOf("Look", "Run", "Travel")
@@ -232,6 +251,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun transformMap(dx:Float, dy:Float) {
+        mapTranslated = true
         mapBorder.left = floor(lastMapBorder.left  + dx)
         mapBorder.right = floor(lastMapBorder.right + dx)
         mapBorder.top = floor(lastMapBorder.top + dy)

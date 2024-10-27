@@ -1,5 +1,6 @@
 package com.yywspace.anethack.window
 
+import android.text.SpannableStringBuilder
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.View

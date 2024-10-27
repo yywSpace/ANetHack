@@ -22,10 +22,12 @@ class SharedPreferencesUtils(val context: Context) {
     var tileSet by SharedPreferenceDelegates.string("1")
     var showIndicator by SharedPreferenceDelegates.boolean(true)
     var showLastTravelIndicator by SharedPreferenceDelegates.boolean(true)
-    var indicatorSymbols by SharedPreferenceDelegates.string(">")
+    var indicatorSymbols by SharedPreferenceDelegates.string("<>")
+    var travelAfterPanned by SharedPreferenceDelegates.boolean(true)
     var priceId by SharedPreferenceDelegates.boolean(true)
-    var userSound by SharedPreferenceDelegates.boolean(false)
+    var userSound by SharedPreferenceDelegates.boolean(true)
     var internalSound by SharedPreferenceDelegates.boolean(true)
+    var commandPanel by SharedPreferenceDelegates.string(context.getString(R.string.pref_keyboard_command_panel_default))
 
     fun getInputPrompts():List<String> {
         return inputPrompts.toList()
