@@ -188,7 +188,7 @@ void and_init_nhwindows(int* argcp, char** argv)
 //		   You need to fill in pl_character[0].
 void and_player_selection()
 {
-    int i, result, picked_state[RS_ALGNMNT+1];
+    int i, result, picked_state[RS_ALGNMNT+1] = {0};
     char thisch, lastch = 0;
     winid win;
     anything any;
@@ -196,16 +196,18 @@ void and_player_selection()
 
     flags.initrole = flags.initrace = flags.initgend = flags.initalign
             = ROLE_NONE;
-    // 返回时，取消最后一个选择过的属性
     previous:
-    for (i = RS_ALGNMNT; i >= RS_ROLE; --i)
+    // 返回时，取消直至最后一个手动选择属性
+    for (i = RS_ALGNMNT; i >= RS_ROLE; --i) {
+        if(i == RS_ROLE) flags.initrole = ROLE_NONE;
+        if(i == RS_RACE) flags.initrace = ROLE_NONE;
+        if(i == RS_GENDER) flags.initgend = ROLE_NONE;
         if(picked_state[i] == 1) {
             picked_state[i] = 0;
-            if(i == RS_ROLE) flags.initrole = ROLE_NONE;
-            if(i == RS_RACE) flags.initrace = ROLE_NONE;
-            if(i == RS_GENDER) flags.initgend = ROLE_NONE;
             break;
         }
+    }
+
     /* Select a role */
     if(flags.initrole == ROLE_NONE) {
         win = create_nhwindow(NHW_MENU);
@@ -297,7 +299,6 @@ void and_player_selection()
         if (selected)
             free((genericptr_t) selected), selected = 0;
     }
-
     /* Select an alignment, if necessary */
     if(flags.initalign == ROLE_NONE)
         flags.initalign = pick_align(flags.initrole, flags.initrace, flags.initgend, PICK_RIGID);
