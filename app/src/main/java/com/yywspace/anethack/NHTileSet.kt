@@ -4,9 +4,7 @@ import android.content.res.AssetManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
-
-
-
+import android.util.Log
 
 
 class NHTileSet(val nh: NetHack) {

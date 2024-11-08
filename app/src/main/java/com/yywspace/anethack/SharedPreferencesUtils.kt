@@ -3,6 +3,9 @@ package com.yywspace.anethack
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import java.time.Instant
+import java.time.LocalDate
+import java.util.stream.Collectors
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -16,7 +19,6 @@ class SharedPreferencesUtils(val context: Context) {
     var dumpLogMaxSize by SharedPreferenceDelegates.string2int(10)
     var messageHistorySize by SharedPreferenceDelegates.string2int(500)
     var menuType by SharedPreferenceDelegates.string("1")
-    var lockView by SharedPreferenceDelegates.boolean(false)
     var immersiveMode by SharedPreferenceDelegates.boolean(true)
     var keyboardVibrate by SharedPreferenceDelegates.boolean(true)
     var tileSet by SharedPreferenceDelegates.string("1")
@@ -30,19 +32,30 @@ class SharedPreferencesUtils(val context: Context) {
     var commandPanel by SharedPreferenceDelegates.string(context.getString(R.string.pref_keyboard_command_panel_default))
 
     fun getInputPrompts():List<String> {
-        return inputPrompts.toList()
+        return inputPrompts.map {
+            it.split("-").first()
+        }.toList()
     }
     fun addInputPrompts(prompt:String) {
-        inputPrompts = inputPrompts.toMutableList().run {
-            if (size > 50)
-                removeFirst()
-            add(prompt)
+        val prompts = inputPrompts.toList().sortedByDescending {
+            it.split("-").last().toLong()
+        }.stream().limit(50).collect(Collectors.toList())
+        var hasSame = false
+        for (p in prompts) {
+            if (p.startsWith(prompt)) {
+                hasSame = true
+                break
+            }
+        }
+        inputPrompts = prompts.toMutableList().run {
+            if (!hasSame)
+                add("${prompt}-${Instant.now().epochSecond}")
             toMutableSet()
         }
     }
     fun removeInputPrompts(prompt:String) {
         inputPrompts = inputPrompts.toMutableSet().apply {
-            remove(prompt)
+            removeIf { it.startsWith(prompt) }
         }
     }
     fun getSaves():Map<String, String> {

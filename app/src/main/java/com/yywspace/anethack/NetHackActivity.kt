@@ -23,6 +23,7 @@ import java.io.File
 import java.io.FileFilter
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.lang.Integer.parseInt
 
 
 class NetHackActivity : AppCompatActivity() {
@@ -115,7 +116,7 @@ class NetHackActivity : AppCompatActivity() {
             Animation.RELATIVE_TO_SELF, 1f
         ).apply {
             repeatMode = Animation.REVERSE
-            duration = 300
+            duration = 200
             setAnimationListener(object :AnimationListener{
                 override fun onAnimationStart(animation: Animation?) {
                 }
@@ -137,7 +138,7 @@ class NetHackActivity : AppCompatActivity() {
             Animation.RELATIVE_TO_SELF, 0f
         ).apply {
             repeatMode = Animation.REVERSE
-            duration = 300
+            duration = 200
             binding.keyboardView.startAnimation(this)
             binding.keyboardView.visibility = View.VISIBLE
         }
@@ -182,7 +183,12 @@ class NetHackActivity : AppCompatActivity() {
                         }
                         return
                     } else {
-                        nethack.command.sendCommand(NHCommand(cmd.firstOrNull()?:27.toChar()))
+                        try {
+                            val key = parseInt(cmd).toChar()
+                            nethack.command.sendCommand(NHCommand(key))
+                        } catch (e: NumberFormatException) {
+                            nethack.command.sendCommand(NHCommand(cmd.firstOrNull()?:27.toChar()))
+                        }
                     }
                 }
             }

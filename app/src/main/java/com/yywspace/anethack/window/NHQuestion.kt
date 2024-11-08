@@ -72,16 +72,8 @@ class NHQuestion(val nh: NetHack) {
 
                         setOnClickListener {
                             // cancel naming attempt
-                            // 如果输入框中以del 为前缀取消时，删除此历史记录
-                            val delPrefix = "del "
-                            if (inputText.text.startsWith(delPrefix)) {
-                                nh.prefs.removeInputPrompts(inputText.text.substring(delPrefix.length))
-                                inputText.setText("")
-                            }
-                            else {
-                                finishLine(27.toChar().toString())
-                                dialog.dismiss()
-                            }
+                            finishLine(27.toChar().toString())
+                            dialog.dismiss()
                         }
                     }
                     findViewById<Button>(R.id.input_btn_2).visibility = View.GONE
@@ -94,11 +86,12 @@ class NHQuestion(val nh: NetHack) {
                                 dialog.dismiss()
                                 return@setOnClickListener
                             }
+                            // nh.prefs.removeInputPrompts(inputText.text.substring(delPrefix.length))
+                            nh.prefs.addInputPrompts(inputText.text.toString())
                             if(inputText.text.length > bufSize)
                                 finishLine(inputText.text.substring(0, bufSize))
                             else
                                 finishLine(inputText.text.toString())
-                            nh.prefs.addInputPrompts(inputText.text.toString())
                             dialog.dismiss()
                         }
                     }

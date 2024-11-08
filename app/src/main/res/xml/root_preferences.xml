@@ -171,13 +171,6 @@
         app:iconSpaceReserved="false">
 
         <CheckBoxPreference
-            app:key="lockView"
-            app:title="@string/pref_other_lock_view"
-            app:iconSpaceReserved="false"
-            app:defaultValue="false"
-            app:summary="@string/pref_other_lock_view_desc"/>
-
-        <CheckBoxPreference
             app:key="immersiveMode"
             app:title="@string/pref_other_immersive_mode"
             app:iconSpaceReserved="false"

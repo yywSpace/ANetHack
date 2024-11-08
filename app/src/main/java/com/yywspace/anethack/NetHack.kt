@@ -245,7 +245,7 @@ class NetHack(
     }
     private fun delayOutput() {
         try {
-            Thread.sleep(50)
+            Thread.sleep(10)
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }

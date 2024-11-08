@@ -30,14 +30,15 @@
 #
 #
 OPTIONS=!tutorial,!legacy
-OPTIONS=!cmdassist,!bones
+OPTIONS=!cmdassist,!bones,!implicit_uncursed
 OPTIONS=scores:10 top/2 around/own
 
 OPTIONS=autounlock:apply-key + kick + force
 OPTIONS=autopickup,pickup_types:$"=/!?+
 OPTIONS=IBMgraphics,boulder:0
 
-OPTIONS=force_invmenu,lit_corridor,showexp,time,toptenwin,mention_walls
+OPTIONS=whatis_menu,force_invmenu,mention_walls,runmode:walk
+OPTIONS=lit_corridor,showexp,time,toptenwin
 OPTIONS=pile_limit:2,hilite_pile,hilite_pet
 
 # *** Menu Color ***

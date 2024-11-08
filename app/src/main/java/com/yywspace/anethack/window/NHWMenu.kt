@@ -20,11 +20,12 @@ import com.yywspace.anethack.command.NHMenuCommand
 import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.show
+import java.util.concurrent.CopyOnWriteArrayList
 
 class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {
     var title: String = ""
     var behavior: Long = -1
-    val nhMenuItems = mutableListOf<NHMenuItem>()
+    val nhMenuItems = CopyOnWriteArrayList<NHMenuItem>()
     var selectMode: SelectMode = SelectMode.PickNone
     private var numPrefix = -1
     private var menuAdapter:NHWMenuAdapter? = null
@@ -35,7 +36,6 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
 
 
     fun startMenu(behavior: Long) {
-        clearWindow(0)
         this.behavior = behavior
     }
 
@@ -107,7 +107,8 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         }
     }
 
-    private fun dismissMenu() {
+    @SuppressLint("NotifyDataSetChanged")
+    private fun dismissMenu(onDismiss:(()->Unit) ?= null) {
         // 同时关闭，防止打开窗口后切换窗口模式导致旧窗口无法关闭
         nh.runOnUi { binding, _ ->
             // Dialog
@@ -121,7 +122,10 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                 binding.dialogContainer.removeAllViews()
                 binding.dialogContainer.visibility = View.INVISIBLE
             }
-
+            textList.clear()
+            nhMenuItems.clear()
+            menuAdapter?.notifyDataSetChanged()
+            onDismiss?.invoke()
         }
     }
 
@@ -130,8 +134,9 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         menuAdapter = NHWMenuAdapter(this@NHWMenu, nh.tileSet).apply {
             onItemClick = { _, _, item ->
                 if (selectMode == SelectMode.PickOne) {
-                    nh.command.sendCommand(NHMenuCommand(item.accelerator, mutableListOf(item.identifier, item.selectedCount)))
-                    dismissMenu()
+                    dismissMenu {
+                        nh.command.sendCommand(NHMenuCommand(item.accelerator, mutableListOf(item.identifier, item.selectedCount)))
+                    }
                 }
             }
             onItemLongClick = { _, position, item ->
@@ -166,8 +171,9 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                     setText(R.string.dialog_cancel)
                     setOnClickListener {
                         // 27:Key ESC
-                        nh.command.sendCommand(NHMenuCommand(27.toChar(), mutableListOf(-1)))
-                        dismissMenu()
+                        dismissMenu {
+                            nh.command.sendCommand(NHMenuCommand(27.toChar(), mutableListOf(-1)))
+                        }
                     }
                 }
                 if (selectMode == SelectMode.PickMany) {
@@ -204,8 +210,9 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                                 selectList.add(item.selectedCount)
                             }
                             // 13:Key Enter
-                            nh.command.sendCommand(NHMenuCommand(13.toChar(), selectList))
-                            dismissMenu()
+                            dismissMenu {
+                                nh.command.sendCommand(NHMenuCommand(13.toChar(), selectList))
+                            }
                         }
                     }
                 } else {
@@ -220,8 +227,9 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             // ESC
             operate.key.code == 27 -> {
                 numPrefix = -1
-                nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(-1)))
-                dismissMenu()
+                dismissMenu {
+                    nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(-1)))
+                }
             }
             // ENTER
             operate.key.code == 13 -> {
@@ -234,8 +242,9 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                             selectList.add(item.selectedCount)
                         }
                         // 13:Key Enter
-                        nh.command.sendCommand(NHMenuCommand(operate.key, selectList))
-                        dismissMenu()
+                        dismissMenu {
+                            nh.command.sendCommand(NHMenuCommand(operate.key, selectList))
+                        }
                     }
                 }
             }
@@ -267,8 +276,9 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                     nh.runOnUi { _, _ ->
                         menuList?.smoothScrollToPosition(nhMenuItems.indexOf(this))
                         if (selectMode == SelectMode.PickOne) {
-                            dismissMenu()
-                            nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(identifier, numPrefix.toLong())))
+                            dismissMenu {
+                                nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(identifier, numPrefix.toLong())))
+                            }
                         } else if (selectMode == SelectMode.PickMany) {
                             selectedCount = if (numPrefix != -1) numPrefix.toLong() else selectedCount
                             isSelected = !isSelected
@@ -350,13 +360,9 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
     }
 
     override fun clearWindow(isRogueLevel: Int) {
-        textList.clear()
-        nhMenuItems.clear()
     }
 
     override fun destroyWindow() {
-        textList.clear()
-        nhMenuItems.clear()
     }
 
     override fun putString(attr: Int, msg: String, color: Int) {

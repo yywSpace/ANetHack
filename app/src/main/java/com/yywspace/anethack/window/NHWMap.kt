@@ -41,7 +41,7 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
     fun clipAround(cx: Int, cy: Int,ux: Int, uy: Int) {
         player.x = ux
         player.y = uy
-        if(firstCenter || nh.prefs.lockView) {
+        if(firstCenter) {
             mapView.centerView(cx,cy)
             firstCenter = false
         }

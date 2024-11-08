@@ -46,7 +46,8 @@ import kotlin.math.floor
 class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 64f
     private var scaleFactor = 1f
-    private var mapTranslated = false
+    private var mapTranslated = true
+    private val walkOffset = 200f
     private var mapInit = false
     private val paint = Paint()
     private val asciiPaint = TextPaint()
@@ -56,10 +57,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private lateinit var nh: NetHack
     private lateinit var map: NHWMap
     private var mapBorder:RectF = RectF()
-    private lateinit var lastMapBorder:RectF
+    private var lastMapBorder:RectF = RectF()
     private var lastTouchTile:Point? = null
     var lastTravelTile:Pair<String,Point>? = null
-
+    private var lastCurse:Point = Point()
     private var baseBorderWidth:Float = .5F
     private var borderWidth:Float = 0F
     private var tileWidth:Float = 0F
@@ -166,7 +167,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             mapBorder.top + map.height * tileHeight
         )
         val scale = measuredWidth.toFloat() / mapBorder.height()
-        val tb = getTileBorder(map.player.x, map.player.y)
+        val tb = getTileBorder(map.curse.x, map.curse.y)
         scaleMap(scale, tb.centerX(), tb.centerY())
         centerPlayerInScreen()
     }
@@ -175,12 +176,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         indicatorController = NHMapIndicatorController(this, nh, map)
         indicatorController.setOnIndicatorClickListener(object :NHMapIndicatorController.OnIndicatorClickListener{
             override fun onIndicatorClick(e: PointF, tile: NHWMap.Tile) {
-                if (!nh.prefs.lockView || (tile.x == map.player.x && tile.y == map.player.y))
-                    centerView(tile.x, tile.y)
-                else
-                    nh.command.sendCommand(
-                        NHPosCommand(tile.x, tile.y, PosMod.TRAVEL)
-                    )
+                mapTranslated = true
+                centerView(tile.x, tile.y)
             }
 
             override fun onIndicatorLongPress(e: PointF, tile: NHWMap.Tile) {
@@ -190,13 +187,13 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         })
     }
 
-    fun playerInTheScreen():Boolean {
-        val playerBorder = getTileBorder(map.player.x, map.player.y)
+    fun playerInTheScreen(offset:Float = 0f):Boolean {
+        val playerBorder = getTileBorder(map.curse.x, map.curse.y)
         val px = playerBorder.centerX()
         val py = playerBorder.centerY()
         val width = measuredWidth.toFloat()
         val height = measuredHeight.toFloat()
-        if (px > 0 && py > 0 && px < width && py < height)
+        if (px > offset && py > offset && px < width-offset && py < height-offset)
             return true
         return false
     }
@@ -232,6 +229,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                                     )
                                     if (!(point.x >= map.width || point.y >= map.height || point.x <= 0 || point.y <= 0))
                                         lastTravelTile = Pair(nh.status.dungeonLevel.realVal, point)
+                                    mapTranslated = false
                                 }
                             }
                             popupWindow.dismiss()
@@ -250,12 +248,15 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         }
     }
 
-    private fun transformMap(dx:Float, dy:Float) {
-        mapTranslated = true
+    private fun transformMapWithGesture(dx:Float, dy:Float) {
         mapBorder.left = floor(lastMapBorder.left  + dx)
         mapBorder.right = floor(lastMapBorder.right + dx)
         mapBorder.top = floor(lastMapBorder.top + dy)
         mapBorder.bottom = floor(lastMapBorder.bottom + dy)
+    }
+
+    private fun transformMap(dx:Float, dy:Float) {
+        mapBorder.offset(dx, dy)
     }
 
     private fun scaleMap(scaleFactor:Float, centerX:Float, centerY:Float) {
@@ -328,7 +329,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         if (mapInit) {
-            centerView(map.player.x, map.curse.y)
+            centerView(map.curse.x, map.curse.y)
         }
     }
 
@@ -384,17 +385,32 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             }
         }
     }
-
     fun centerPlayerInScreen() {
         if (mapInit)
-            centerView(map.player.x, map.player.y)
+            centerView(map.curse.x, map.curse.y)
     }
     fun centerView(x:Int, y:Int) {
         val tb = getTileBorder(x,y)
-        centerView(tb.centerX(), tb.centerY())
+        transformMap(-(tb.centerX() - measuredWidth / 2F), -(tb.centerY() - measuredHeight / 2F))
     }
-    private fun centerView(x:Float, y:Float) {
-        mapBorder.offset(-(x - measuredWidth / 2F), -(y - measuredHeight / 2F))
+
+    private fun transformMapWithMove(offset: Float) {
+        val tb = getTileBorder(map.curse.x, map.curse.y)
+        val width = measuredWidth.toFloat()
+        val height = measuredHeight.toFloat()
+        val cx = tb.centerX()
+        val cy = tb.centerY()
+        var dx = 0f
+        var dy = 0f
+        if (cx < offset)
+            dx = offset - cx
+        if (cx > width - offset)
+            dx = width - offset - cx
+        if (cy < offset)
+            dy = offset - cy
+        if (cy > height - offset)
+            dy = height - offset - cy
+        transformMap(dx, dy)
     }
 
     private fun drawAsciiCurse(canvas: Canvas?) {
@@ -540,11 +556,19 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     // 每一帧获取所有Scale和Transform操作并处理
                     while (operationQueue.isNotEmpty()) {
                         val op = operationQueue.pop()
-                        if (op is NHMapTransform)
-                            transformMap(op.dx, op.dy)
+                        if (op is NHMapTransform) {
+                            mapTranslated = true
+                            transformMapWithGesture(op.dx, op.dy)
+                        }
                         if (op is NHMapScale)
                             scaleMap(op.scale, op.cx, op.cy)
                     }
+
+                    if (lastCurse != map.curse) {
+                        transformMapWithMove(walkOffset)
+                        lastCurse = Point(map.curse)
+                    }
+
                     // 绘制
                     canvas?.drawColor(Color.BLACK)
                     if (nh.tileSet.isTTY()) {
