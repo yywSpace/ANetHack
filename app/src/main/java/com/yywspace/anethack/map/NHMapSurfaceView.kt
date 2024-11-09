@@ -22,6 +22,7 @@ import android.view.SurfaceView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.minus
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,7 @@ import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.command.NHPosCommand.*
+import com.yywspace.anethack.extensions.show
 import com.yywspace.anethack.map.indicator.NHMapIndicatorController
 import com.yywspace.anethack.map.operation.NHMapOperation
 import com.yywspace.anethack.map.operation.NHMapScale
@@ -47,7 +49,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 64f
     private var scaleFactor = 1f
     private var mapTranslated = true
-    private val walkRange = 0.5f
     private var mapInit = false
     private val paint = Paint()
     private val asciiPaint = TextPaint()
@@ -191,10 +192,12 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         val offsetX = (1 - walkRange / 100f) * width / 2f
         val offsetY = (1 - walkRange / 100f) * height / 2f
         val playerBorder = getTileBorder(map.curse.x, map.curse.y)
-        val px = playerBorder.centerX()
-        val py = playerBorder.centerY()
+        val cx = playerBorder.centerX()
+        val cy = playerBorder.centerY()
         val width = measuredWidth.toFloat()
         val height = measuredHeight.toFloat()
+        val px = if (cx > width/2) playerBorder.left else playerBorder.right
+        val py = if (cy > height/2) playerBorder.top else playerBorder.bottom
         if (px > offsetX && py > offsetY && px < width-offsetX && py < height-offsetY)
             return true
         return false
@@ -404,16 +407,18 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         val cy = tb.centerY()
         val width = measuredWidth.toFloat()
         val height = measuredHeight.toFloat()
+        val px = if (cx > width/2) tb.right else tb.left
+        val py = if (cy > height/2) tb.bottom else tb.top
         val offsetX = (1 - walkRange / 100f) * width / 2f
         val offsetY = (1 - walkRange / 100f) * height / 2f
-        if (cx < offsetX)
-            dx = offsetX - cx
-        if (cx > width - offsetX)
-            dx = width - offsetX - cx
-        if (cy < offsetY)
-            dy = offsetY - cy
-        if (cy > height - offsetY)
-            dy = height - offsetY - cy
+        if (px < offsetX)
+            dx = offsetX - px
+        if (px > width - offsetX)
+            dx = width - offsetX - px
+        if (py < offsetY)
+            dy = offsetY - py
+        if (py > height - offsetY)
+            dy = height - offsetY - py
         transformMap(dx, dy)
     }
 
@@ -473,6 +478,20 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             canvas?.drawRect(border, paint);
         }
     }
+
+    private fun drawWalkRange(canvas: Canvas?) {
+        val walkRangeP = nh.prefs.walkRange / 100f
+        val width = measuredWidth.toFloat()
+        val height = measuredHeight.toFloat()
+        val rangeX = (width - walkRangeP * width) / 2
+        val rangeY = (height - walkRangeP * height) / 2
+        val border = RectF(rangeX, rangeY,rangeX + walkRangeP * width,rangeY  + walkRangeP * height)
+        paint.color = Color.GRAY
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = borderWidth
+        canvas?.drawRect(border, paint)
+    }
+
     private fun getBaseTileWidth(): Float {
         return if (nh.tileSet.isTTY()) {
             asciiPaint.textSize = textSize
@@ -584,6 +603,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     }
                     drawLastTouchTile(canvas)
                     drawBorder(canvas)
+                    // drawWalkRange(canvas)
                     drawIndicator(canvas)
                 } finally {
                     if (canvas != null)

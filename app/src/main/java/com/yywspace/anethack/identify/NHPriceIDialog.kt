@@ -85,7 +85,6 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
             }
         }
     }
-    @SuppressLint("NotifyDataSetChanged")
     private fun initView(){
         val view = View.inflate(context, R.layout.dialog_price_identify,null)
         binding = DialogPriceIdentifyBinding.bind(view)
@@ -143,23 +142,7 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
         binding.priceSubmitBtn.setOnClickListener {
             hideSoftKeyboard()
             clearFocus()
-            objList.clear()
-            val price = binding.objPriceInput.text.toString()
-            val charisma = binding.roleCharismaInput.text.toString()
-            val sucker = binding.objSurchargeInput.text.toString() != context.getString(R.string.price_id_surcharge_none)
-            when(currentIdMode) {
-                context.getString(R.string.price_id_mode_base) -> {
-                    objList.addAll(priceID.getObjByBasePrice(currentType, price))
-                }
-                context.getString(R.string.price_id_mode_buy) -> {
-                    objList.addAll(priceID.getObjByBuyPrice(currentType, price, charisma, sucker))
-                }
-                context.getString(R.string.price_id_mode_sell) -> {
-                    objList.addAll(priceID.getObjBySellPrice(currentType, price, sucker))
-                }
-            }
-            tradePrice = price
-            objListAdapter.notifyDataSetChanged()
+            queryObjList()
         }
         binding.objList.apply {
             layoutManager = LinearLayoutManager(context)
@@ -182,6 +165,29 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
             val view = binding.objFilterPanel.getChildAt(i)
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    private fun queryObjList(submit:Boolean = true) {
+        objList.clear()
+        val price = binding.objPriceInput.text.toString()
+        val charisma = binding.roleCharismaInput.text.toString()
+        val sucker = binding.objSurchargeInput.text.toString() != context.getString(R.string.price_id_surcharge_none)
+        // 如果非手动查询，且价格为空则空置
+        if (!submit && price.isEmpty())
+            return
+        when(currentIdMode) {
+            context.getString(R.string.price_id_mode_base) -> {
+                objList.addAll(priceID.getObjByBasePrice(currentType, price))
+            }
+            context.getString(R.string.price_id_mode_buy) -> {
+                objList.addAll(priceID.getObjByBuyPrice(currentType, price, charisma, sucker))
+            }
+            context.getString(R.string.price_id_mode_sell) -> {
+                objList.addAll(priceID.getObjBySellPrice(currentType, price, sucker))
+            }
+        }
+        tradePrice = price
+        objListAdapter.notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -215,6 +221,7 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
                 objListAdapter.notifyDataSetChanged()
             }
             create()
+            queryObjList(false)
             show(nh.prefs.immersiveMode)
         }
     }

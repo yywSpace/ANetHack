@@ -11,7 +11,9 @@
     "Wand": "wand",
     "Amulet": "amulet",
     "Boots": "(?:shoes|boots)",
-    "Cloak": "(?:apron|robe|smock|mantelet|pall|cape|cope|cloak|cloth)"
+    "Cloak": "(?:apron|robe|smock|mantelet|pall|cape|cope|cloak|cloth)",
+    "Helm": "(?:fedora|cap|cornuthaum|helm|pot|hat|helmet)",
+    "Gloves": "(?:gauntlets|gloves)"
   },
   "objects": {
     "Potion": [
@@ -1316,6 +1318,150 @@
         "Effect": "spellcasting bonus",
         "MC": "2",
         "Appearance": ""
+      }
+    ],
+    "Helm": [
+      {
+        "Name": "fedora",
+        "Cost": "1",
+        "Weight": "3",
+        "AC": "0",
+        "Material": "cloth",
+        "Appearance": "",
+        "Effect": ""
+      },
+      {
+        "Name": "dunce cap",
+        "Cost": "1",
+        "Weight": "4",
+        "AC": "0",
+        "Material": "cloth",
+        "Appearance": "conical hat",
+        "Effect": "Autocursing. Sets Int and Wis to 6."
+      },
+      {
+        "Name": "cornuthaum",
+        "Cost": "80",
+        "Weight": "4",
+        "AC": "0",
+        "Material": "cloth",
+        "Appearance": "conical hat",
+        "Effect": "MC1. Special benefits for wizards and penalties for non-wizards."
+      },
+      {
+        "Name": "elven leather helm",
+        "Cost": "8",
+        "Weight": "3",
+        "AC": "1",
+        "Material": "leather",
+        "Appearance": "leather hat",
+        "Effect": "Can be enchanted to +7."
+      },
+      {
+        "Name": "orcish helm",
+        "Cost": "10",
+        "Weight": "30",
+        "AC": "1",
+        "Material": "iron",
+        "Appearance": "iron skull cap",
+        "Effect": ""
+      },
+      {
+        "Name": "dented pot",
+        "Cost": "8",
+        "Weight": "10",
+        "AC": "1",
+        "Material": "iron",
+        "Appearance": "",
+        "Effect": ""
+      },
+      {
+        "Name": "dwarvish iron helm",
+        "Cost": "20",
+        "Weight": "40",
+        "AC": "2",
+        "Material": "iron",
+        "Appearance": "hard hat",
+        "Effect": ""
+      },
+      {
+        "Name": "helmet (kabuto)",
+        "Cost": "10",
+        "Weight": "30",
+        "AC": "1",
+        "Material": "iron",
+        "Appearance": "(randomized)",
+        "Effect": ""
+      },
+      {
+        "Name": "helm of brilliance",
+        "Cost": "50",
+        "Weight": "50",
+        "AC": "1",
+        "Material": "glass",
+        "Appearance": "crystal helm",
+        "Effect": "Enchantment adds to Int and Wis. No penalty to spellcasting."
+      },
+      {
+        "Name": "helm of opposite alignment",
+        "Cost": "50",
+        "Weight": "50",
+        "AC": "1",
+        "Material": "iron",
+        "Appearance": "(randomized)",
+        "Effect": "Autocursing. Changes alignment of hero. No effect on a monster."
+      },
+      {
+        "Name": "helm of telepathy",
+        "Cost": "50",
+        "Weight": "50",
+        "AC": "1",
+        "Material": "iron",
+        "Appearance": "(randomized)",
+        "Effect": "Grants telepathy."
+      },
+      {
+        "Name": "helm of caution",
+        "Cost": "50",
+        "Weight": "50",
+        "AC": "1",
+        "Material": "iron",
+        "Appearance": "(randomized)",
+        "Effect": "Grants warning."
+      }
+    ],
+    "Gloves": [
+      {
+        "Name": "gauntlets of dexterity",
+        "Cost": "50",
+        "Weight": "10",
+        "AC": "1",
+        "Material": "Leather",
+        "Effect": "Dexterity bonus (+/− enchantment)"
+      },
+      {
+        "Name": "gauntlets of fumbling",
+        "Cost": "50",
+        "Weight": "10",
+        "AC": "1",
+        "Material": "Leather",
+        "Effect": "Fumbling, usually generated cursed"
+      },
+      {
+        "Name": "gauntlets of power",
+        "Cost": "50",
+        "Weight": "30",
+        "AC": "1",
+        "Material": "Iron",
+        "Effect": "Strength 25, interfere with spellcasting"
+      },
+      {
+        "Name": "leather gloves",
+        "Cost": "8",
+        "Weight": "10",
+        "AC": "1",
+        "Material": "Leather",
+        "Effect": "None"
       }
     ]
   }

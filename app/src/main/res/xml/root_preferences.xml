@@ -40,7 +40,7 @@
             app:title="@string/pref_map_walk_range"
             android:max="100"
             app:min="0"
-            app:defaultValue="50"
+            app:defaultValue="70"
             app:showSeekBarValue="true"
             app:iconSpaceReserved="false"
             app:summary="@string/pref_map_walk_range_desc"/>
