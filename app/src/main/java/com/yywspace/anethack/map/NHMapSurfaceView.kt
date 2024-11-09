@@ -47,7 +47,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 64f
     private var scaleFactor = 1f
     private var mapTranslated = true
-    private val walkOffset = 200f
+    private val walkRange = 0.5f
     private var mapInit = false
     private val paint = Paint()
     private val asciiPaint = TextPaint()
@@ -79,7 +79,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 if(indicatorController.onIndicatorClick(e))
                     return
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
-                    if (mapTranslated && nh.prefs.travelAfterPanned && !playerInTheScreen()) {
+                    if (mapTranslated && nh.prefs.travelAfterPanned && !playerInWalkRange(nh.prefs.walkRange)) {
                         nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
                         mapTranslated = false
                     }else {
@@ -187,13 +187,15 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         })
     }
 
-    fun playerInTheScreen(offset:Float = 0f):Boolean {
+    fun playerInWalkRange(walkRange: Int):Boolean {
+        val offsetX = (1 - walkRange / 100f) * width / 2f
+        val offsetY = (1 - walkRange / 100f) * height / 2f
         val playerBorder = getTileBorder(map.curse.x, map.curse.y)
         val px = playerBorder.centerX()
         val py = playerBorder.centerY()
         val width = measuredWidth.toFloat()
         val height = measuredHeight.toFloat()
-        if (px > offset && py > offset && px < width-offset && py < height-offset)
+        if (px > offsetX && py > offsetY && px < width-offsetX && py < height-offsetY)
             return true
         return false
     }
@@ -394,22 +396,24 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         transformMap(-(tb.centerX() - measuredWidth / 2F), -(tb.centerY() - measuredHeight / 2F))
     }
 
-    private fun transformMapWithMove(offset: Float) {
+    private fun transformMapWithMove(walkRange:Int) {
         val tb = getTileBorder(map.curse.x, map.curse.y)
-        val width = measuredWidth.toFloat()
-        val height = measuredHeight.toFloat()
-        val cx = tb.centerX()
-        val cy = tb.centerY()
         var dx = 0f
         var dy = 0f
-        if (cx < offset)
-            dx = offset - cx
-        if (cx > width - offset)
-            dx = width - offset - cx
-        if (cy < offset)
-            dy = offset - cy
-        if (cy > height - offset)
-            dy = height - offset - cy
+        val cx = tb.centerX()
+        val cy = tb.centerY()
+        val width = measuredWidth.toFloat()
+        val height = measuredHeight.toFloat()
+        val offsetX = (1 - walkRange / 100f) * width / 2f
+        val offsetY = (1 - walkRange / 100f) * height / 2f
+        if (cx < offsetX)
+            dx = offsetX - cx
+        if (cx > width - offsetX)
+            dx = width - offsetX - cx
+        if (cy < offsetY)
+            dy = offsetY - cy
+        if (cy > height - offsetY)
+            dy = height - offsetY - cy
         transformMap(dx, dy)
     }
 
@@ -565,7 +569,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     }
 
                     if (lastCurse != map.curse) {
-                        transformMapWithMove(walkOffset)
+                        transformMapWithMove(nh.prefs.walkRange)
                         lastCurse = Point(map.curse)
                     }
 

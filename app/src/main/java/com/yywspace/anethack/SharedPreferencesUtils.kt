@@ -26,6 +26,7 @@ class SharedPreferencesUtils(val context: Context) {
     var showLastTravelIndicator by SharedPreferenceDelegates.boolean(true)
     var indicatorSymbols by SharedPreferenceDelegates.string("<>")
     var travelAfterPanned by SharedPreferenceDelegates.boolean(true)
+    var walkRange by SharedPreferenceDelegates.int(50)
     var priceId by SharedPreferenceDelegates.boolean(true)
     var userSound by SharedPreferenceDelegates.boolean(true)
     var internalSound by SharedPreferenceDelegates.boolean(true)

@@ -35,6 +35,16 @@
             app:defaultValue="&#060;&#062;"
             app:iconSpaceReserved="false"/>
 
+        <SeekBarPreference
+            app:key="walkRange"
+            app:title="@string/pref_map_walk_range"
+            android:max="100"
+            app:min="0"
+            app:defaultValue="50"
+            app:showSeekBarValue="true"
+            app:iconSpaceReserved="false"
+            app:summary="@string/pref_map_walk_range_desc"/>
+
         <CheckBoxPreference
             app:key="travelAfterPanned"
             app:title="@string/pref_map_travel_after_panned"

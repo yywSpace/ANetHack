@@ -103,8 +103,10 @@
     <string name="pref_map_last_travel_indicator">Show last travel indicator</string>
     <string name="pref_map_indicator_desc">Show map symbol indicator.</string>
     <string name="pref_map_indicator_symbols">Indicator symbols</string>
+    <string name="pref_map_walk_range">Walk range</string>
+    <string name="pref_map_walk_range_desc">When the player moves beyond the range(%), the screen will move along with it.</string>
     <string name="pref_map_travel_after_panned">Travel after map panned</string>
-    <string name="pref_map_travel_after_panned_desc">Travel when you touch the map, if the map has been translated and player not in screen.</string>
+    <string name="pref_map_travel_after_panned_desc">Travel when you touch the map, if the map has been translated and player not in walk range.</string>
 
     <!-- Preference Keyboard -->
     <string name="pref_keyboard_header">Keyboard</string>
