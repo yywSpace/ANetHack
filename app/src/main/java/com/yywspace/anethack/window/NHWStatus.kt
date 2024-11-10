@@ -7,7 +7,7 @@ import com.yywspace.anethack.NetHack
 
 
 class NHWStatus(wid: Int, type:NHWindowType, nh: NetHack) : NHWindow(wid, type) {
-    val status = NHStatus()
+    val status = NHStatus(nh.context)
     private var statusView: NHStatusSurfaceView = nh.binding.statusView
 
     init {

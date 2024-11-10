@@ -1,12 +1,5 @@
 <resources>
     <string name="app_name">ANetHack</string>
-    <string name="ctrl_panel_search">Search</string>
-    <string name="ctrl_panel_menu">Menu</string>
-    <string name="ctrl_panel_extend">Extend</string>
-    <string name="ctrl_panel_custom">Custom</string>
-    <string name="ctrl_panel_keyboard">Keyboard</string>
-    <string name="ctrl_panel_save">Save</string>
-    <string name="ctrl_panel_start">Start</string>
     <string name="button_esc">ESC</string>
     <string name="play_mod_normal">normal</string>
     <string name="play_mod_discover">discover</string>
@@ -28,6 +21,8 @@
     <string name="pos_key_look">Look</string>
     <string name="key_dot_status_desc">key dot status image view</string>
     <string name="menu_item_tile_desc">menu tile image</string>
+    <string name="run_mode_run">Run</string>
+    <string name="run_mode_walk">Walk</string>
 
     <string name="settings_title">Settings</string>
     <string name="activity_settings_title">SettingsActivity</string>

@@ -31,6 +31,7 @@ import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.command.NHPosCommand.*
+import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.extensions.show
 import com.yywspace.anethack.map.indicator.NHMapIndicatorController
 import com.yywspace.anethack.map.operation.NHMapOperation
@@ -48,7 +49,7 @@ import kotlin.math.floor
 class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 64f
     private var scaleFactor = 1f
-    private var mapTranslated = true
+    private var mapTranslated = false
     private var mapInit = false
     private val paint = Paint()
     private val asciiPaint = TextPaint()
@@ -80,7 +81,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 if(indicatorController.onIndicatorClick(e))
                     return
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
-                    if (mapTranslated && nh.prefs.travelAfterPanned && !playerInWalkRange(nh.prefs.walkRange)) {
+                    if (nh.status.runMode == NHStatus.RunMode.RUN) {
                         nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
                         mapTranslated = false
                     }else {
@@ -188,7 +189,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         })
     }
 
-    fun playerInWalkRange(walkRange: Int):Boolean {
+    private fun playerInWalkRange(walkRange: Int):Boolean {
         val offsetX = (1 - walkRange / 100f) * width / 2f
         val offsetY = (1 - walkRange / 100f) * height / 2f
         val playerBorder = getTileBorder(map.curse.x, map.curse.y)
@@ -403,12 +404,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         val tb = getTileBorder(map.curse.x, map.curse.y)
         var dx = 0f
         var dy = 0f
-        val cx = tb.centerX()
-        val cy = tb.centerY()
+        val px = tb.centerX()
+        val py = tb.centerY()
         val width = measuredWidth.toFloat()
         val height = measuredHeight.toFloat()
-        val px = if (cx > width/2) tb.right else tb.left
-        val py = if (cy > height/2) tb.bottom else tb.top
         val offsetX = (1 - walkRange / 100f) * width / 2f
         val offsetY = (1 - walkRange / 100f) * height / 2f
         if (px < offsetX)
@@ -591,6 +590,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         transformMapWithMove(nh.prefs.walkRange)
                         lastCurse = Point(map.curse)
                     }
+                    if (mapTranslated && nh.prefs.travelAfterPanned && !playerInWalkRange(nh.prefs.walkRange))
+                        nh.status.runMode = NHStatus.RunMode.RUN
+                    else
+                        nh.status.runMode = NHStatus.RunMode.WALK
 
                     // 绘制
                     canvas?.drawColor(Color.BLACK)

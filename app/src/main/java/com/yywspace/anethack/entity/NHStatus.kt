@@ -1,17 +1,19 @@
 package com.yywspace.anethack.entity
 
+import android.content.Context
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import androidx.core.text.toSpannable
+import com.yywspace.anethack.R
 import java.lang.RuntimeException
 import java.util.concurrent.CopyOnWriteArrayList
 
-class NHStatus {
+class NHStatus(val context: Context) {
     private val fields = HashMap<StatusField, NHAttr>()
     private val newestFields = HashMap<StatusField, NHAttr>()
     private val conditionField = CopyOnWriteArrayList<NHAttr>()
     private val newestConditionField = mutableListOf<NHAttr>()
+    var runMode:RunMode = RunMode.WALK
 
     val title:NHAttr
         get() = getField(StatusField.BL_TITLE)
@@ -64,6 +66,13 @@ class NHStatus {
             conditions.append(it.toSpannableString())
             conditions.append(" ")
         }
+        if (!title.isEmpty()) {
+            val runModeStr = when(runMode) {
+                RunMode.RUN -> NHString(context.getString(R.string.run_mode_run), colorIdx = NHColor.CLR_GREEN.ordinal)
+                RunMode.WALK -> NHString(context.getString(R.string.run_mode_walk), colorIdx = NHColor.CLR_WHITE.ordinal)
+            }
+            conditions.append(runModeStr.toSpannableString())
+        }
         return conditions.toSpannable()
     }
     fun addStatusAttr(idx:Int, color:Int, attr:Int, percent:Int, fmtVal:String, realVal:String) {
@@ -101,6 +110,12 @@ class NHStatus {
     override fun toString(): String {
         return "condition: ${getConditionSpannable()}, ${fields.values.joinToString(" ")}"
     }
+
+    enum class RunMode{
+        RUN,
+        WALK
+    }
+
     enum class StatusField {
         BL_TITLE,
         BL_STR, BL_DX, BL_CO, BL_IN, BL_WI, BL_CH,

@@ -12,4 +12,7 @@ data class NHAttr(
     fun toSpannableString(): SpannableString {
         return nhAttrValue.toSpannableString()
     }
+    fun isEmpty():Boolean {
+        return fmtVal.isEmpty() && realVal.isEmpty()
+    }
 }
