@@ -34,8 +34,6 @@ class NHMapIndicatorController(private val mapView: NHMapSurfaceView, val nh:Net
         if (nh.prefs.showLastTravelIndicator) {
             mapView.lastTravelTile?.apply {
                 // 只显示对应楼层LastTravelIndicator
-                if (!nh.hasWindow(NHWindowType.NHW_STATUS))
-                    return
                 if (nh.status.dungeonLevel.realVal == first) {
                     val tile = map.getTile(second.x, second.y)
                     tmpIndicators.add(NHMapIndicator(mapView, nh, tile))

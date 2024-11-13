@@ -1,10 +1,12 @@
 package com.yywspace.anethack.window
 
 import android.annotation.SuppressLint
+import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -30,7 +32,6 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         messageView.initMessage(nh,this)
         messageView.setOnClickListener {
             if (System.currentTimeMillis() - lastClickTime >= 1000) {
-                Log.d("NHWMessage","messageView: setOnClickListener")
                 displayWindow(true)
                 lastClickTime = System.currentTimeMillis();
             }
@@ -45,12 +46,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         val newestCnt = messageList.count { it.time.isEqual(lastMsg.time) }
         val msgSize = messageList.size.coerceAtMost(size)
         return messageList.reversed().subList(0, if (newestCnt > msgSize) newestCnt else msgSize).map  { nhMessage ->
-            nhMessage.clone().apply {
-                if (time == lastMsg.time)
-                    value.nhColor = NHColor.CLR_GREEN
-                else
-                    value.nhColor = NHColor.CLR_WHITE
-            }
+            nhMessage.attach(lastMsg.time)
         }.toList()
     }
 
@@ -64,19 +60,21 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             nh.runOnUi { _, context ->
                 val dialogTextView = View.inflate(context, R.layout.dialog_message, null)
                     .apply {
-                        findViewById<RecyclerView>(R.id.dialog_message_list).apply {
-                            val messageAdapter = NHWMessageAdapter(messageList).apply {
-                                omMessageClick = { _, _ ->
-
-                                }
-                            }
-                            adapter = messageAdapter
-                            layoutManager = LinearLayoutManager(context,
-                                LinearLayoutManager.VERTICAL, true).apply {
-                                stackFromEnd = true
+                        val lastMsg = messageList.maxBy { it.time }
+                        val messageText = SpannableStringBuilder()
+                        for (message in messageList) {
+                            messageText.append(
+                                message.attach(lastMsg.time, NHColor.CLR_BLACK).toSpannableString()
+                            ).append("\n")
+                        }
+                        findViewById<TextView>(R.id.dialog_message_text).text = messageText
+                        findViewById<ScrollView>(R.id.dialog_message_scroll).apply {
+                            post {
+                                fullScroll(ScrollView.FOCUS_DOWN)
                             }
                         }
                     }
+
                 AlertDialog.Builder(context).apply {
                     setTitle(R.string.message_history)
                     setView(dialogTextView)
@@ -88,7 +86,6 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                     show(nh.prefs.immersiveMode)
                 }
             }
-
         }
     }
 
@@ -107,47 +104,4 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             messageList.removeFirst()
         messageList.add(NHMessage(NHString(msg.trim(), attr), nh.command.lastCmdTime))
     }
-
-
-    class NHWMessageAdapter(private val messageList:List<NHMessage>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        var omMessageClick:((view:View, message:NHMessage)->Unit)? = null
-        private var lastCmdMsg:NHMessage = messageList.maxBy { it.time }
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.dialog_message_item, parent, false)
-            return MessageViewHolder(view)
-        }
-
-        override fun getItemCount(): Int {
-            return messageList.size
-        }
-
-        @SuppressLint("ClickableViewAccessibility")
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            val message = messageList[position]
-            (holder as MessageViewHolder).apply {
-                message.apply {
-                    if (time == lastCmdMsg.time)
-                        value.nhColor = NHColor.CLR_GREEN
-                    else
-                        value.nhColor = NHColor.CLR_BLACK
-                    itemMessage.text = value.toSpannableString()
-                    itemMessage.setTextIsSelectable(true);
-                }
-
-                itemView.setOnClickListener { v ->
-                    omMessageClick?.invoke(v, message)
-                }
-            }
-        }
-
-       private inner class MessageViewHolder(itemView: View)  : RecyclerView.ViewHolder(itemView) {
-           val itemMessage: TextView
-
-           init {
-               itemMessage = itemView.findViewById(R.id.message)
-           }
-       }
-    }
-
 }

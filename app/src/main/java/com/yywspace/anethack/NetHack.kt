@@ -42,9 +42,15 @@ class NetHack(
     var isRunning = false
     val prefs by lazy { SharedPreferencesUtils(context) }
     val status:NHStatus
-        get() = getWStatus().status
+        get() =
+            if (hasWindow(NHWindowType.NHW_STATUS))
+                getWStatus().status
+            else NHStatus(context)
     val messages:NHWMessage
-        get() = getWMessage()
+        get() =
+            if (hasWindow(NHWindowType.NHW_MESSAGE))
+                getWMessage()
+            else NHWMessage(-1, NHWindowType.NHW_MESSAGE,this)
 
     companion object {
         private const val TAG = "NetHack"
@@ -322,7 +328,7 @@ class NetHack(
         throw RuntimeException("no message window found")
     }
 
-    fun hasWindow(type: NHWindowType):Boolean {
+    private fun hasWindow(type: NHWindowType):Boolean {
         for (window in windows) {
             if (window.type == type)
                 return true

@@ -197,17 +197,14 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
                 (parent as ViewGroup).removeView(this)
             }
         }
-        if (nh.hasWindow(NHWindowType.NHW_MESSAGE)) {
-            val messageList = nh.messages.getRecentMessageList(5)
-            var valid: Boolean
-            for (i in messageList.indices) {
-                valid = parseTradeInfo(messageList[i].value.value)
-                if (valid) break
-            }
+        val messageList = nh.messages.getRecentMessageList(5)
+        var valid: Boolean
+        for (i in messageList.indices) {
+            valid = parseTradeInfo(messageList[i].toString())
+            if (valid) break
         }
 
-        if (nh.hasWindow(NHWindowType.NHW_STATUS))
-            binding.roleCharismaInput.setText(nh.status.charisma.realVal)
+        binding.roleCharismaInput.setText(nh.status.charisma.realVal)
 
         binding.objPriceInput.setText(tradePrice)
         binding.objIdModInput.setText(currentIdMode)

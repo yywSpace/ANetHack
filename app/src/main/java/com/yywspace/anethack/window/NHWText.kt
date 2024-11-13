@@ -31,6 +31,9 @@ class NHWText(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                 }
             val dialog = AlertDialog.Builder(nh.context).apply {
                 setView(dialogTextView)
+                setOnDismissListener {
+                    nh.command.sendCommand(NHCommand(27.toChar()))
+                }
                 setPositiveButton(R.string.dialog_confirm) { _, _ ->
                     if (blocking) {
                         nh.command.sendCommand(NHCommand(27.toChar()))

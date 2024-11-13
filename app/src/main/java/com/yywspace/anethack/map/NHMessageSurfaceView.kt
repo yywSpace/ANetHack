@@ -75,7 +75,7 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     .collect(Collectors.toList())
                     .reversed().forEach{
                     val dynamicLayout = DynamicLayout.Builder.obtain(
-                        it.value.toSpannableString(), textPaint,
+                        it.toSpannableString(), textPaint,
                         width
                     ).build()
                     canvas.save()
