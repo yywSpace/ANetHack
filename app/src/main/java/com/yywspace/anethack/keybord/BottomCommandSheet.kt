@@ -20,10 +20,8 @@ import kotlin.math.abs
 
 
 class BottomCommandSheet:GridLayout {
-    private var isExpand:Boolean = false
-    private var flingFinished:Boolean = false
-    private val flipDistance = 100
-    private var peekHeight = 40
+    private var isExpanding = true
+    private var peekHeight = Utils.dip2px(context, 40f)
     private var viewHeight = 0
     private val commandList = mutableListOf<MutableList<Command>>()
     var onCommandPress:((String)->Unit)? = null
@@ -49,7 +47,8 @@ class BottomCommandSheet:GridLayout {
         }
     }
 
-    private fun getSystemResDrawable(attrValue:Int): Drawable? {
+    private fun getItemBackground(): Drawable? {
+        val attrValue = android.R.attr.selectableItemBackground
         val typedValue = TypedValue()
         context.theme
             .resolveAttribute(attrValue, typedValue, true)
@@ -65,7 +64,7 @@ class BottomCommandSheet:GridLayout {
                     maxLines = 1
                     ellipsize = TextUtils.TruncateAt.MIDDLE
                     gravity = Gravity.CENTER
-                    background = getSystemResDrawable(android.R.attr.selectableItemBackground)
+                    background = getItemBackground()
                     text = command.label
                     setOnClickListener {
                         onCommandPress?.invoke(command.cmd)
@@ -83,7 +82,7 @@ class BottomCommandSheet:GridLayout {
                     spec(i, 1,0f), spec(j, 1, 1f)
                 ).apply {
                     width = 0
-                    height = Utils.dip2px(context, peekHeight.toFloat())
+                    height = peekHeight
                 }
                 val view = initCommandView(command)
                 addView(view, params)
@@ -96,16 +95,13 @@ class BottomCommandSheet:GridLayout {
         )
         viewHeight = measuredHeight
         // 默认不展开
-        setViewHeight(Utils.dip2px(context, peekHeight.toFloat()))
-        isExpand = false
+        setViewHeight(peekHeight)
     }
-    private fun animateToggle(animationDuration: Long) {
-        val heightAnimation = if (isExpand)
-            ValueAnimator.ofInt(viewHeight, Utils.dip2px(context, peekHeight.toFloat()))
-        else
-            ValueAnimator.ofInt(Utils.dip2px(context, peekHeight.toFloat()), viewHeight)
-        heightAnimation.duration = animationDuration / 2
-        heightAnimation.startDelay = animationDuration / 2
+
+    private fun animateHeight(animDuration: Long, startHeight:Int, endHeight:Int) {
+        val heightAnimation = ValueAnimator.ofInt(startHeight, endHeight)
+        heightAnimation.duration = animDuration / 2
+        heightAnimation.startDelay = 0
         heightAnimation.addUpdateListener { animation ->
             setViewHeight(animation.animatedValue as Int)
         }
@@ -139,34 +135,33 @@ class BottomCommandSheet:GridLayout {
             MotionEvent.ACTION_DOWN -> {
                 lastTouchX = event.x
                 lastTouchY = event.y
-                flingFinished = false
             }
             MotionEvent.ACTION_MOVE -> {
-                val offsetX= event.x-lastTouchX
-                val offsetY= event.y-lastTouchY
-                if(flingFinished) return true
-                if (abs(offsetY) > abs(offsetX)) {
-                    // 下滑
-                    if (offsetY > 0 && abs(offsetY) >= flipDistance) {
-                        if(isExpand) {
-                            animateToggle(210)
-                            isExpand = false
-                            flingFinished = true
-                        }
-                    }
-                    // 上滑
-                    if (offsetY < 0 && abs(offsetY) >= flipDistance) {
-                        if(!isExpand) {
-                            animateToggle(200)
-                            isExpand = true
-                            flingFinished = true
-                        }
-                    }
-                }
+                var offsetY = (event.y - lastTouchY).toInt()
+                if (bottom - top - offsetY <= peekHeight)
+                    offsetY = bottom - top - peekHeight
+                if (bottom - top - offsetY >= viewHeight)
+                    offsetY = bottom - top - viewHeight
+                layout(left, top + offsetY, right, bottom)
+                setViewHeight(height)
                 return true
             }
             MotionEvent.ACTION_UP -> {
-                flingFinished = false
+                if(isExpanding) {
+                    if (height - peekHeight >= viewHeight / 4f) {
+                        isExpanding = false
+                        animateHeight(190, height, viewHeight)
+                    }
+                    else
+                        animateHeight(200, height, peekHeight)
+                }else {
+                    if (viewHeight - height >= viewHeight / 4f) {
+                        isExpanding = true
+                        animateHeight(190, height, peekHeight)
+                    }
+                    else
+                        animateHeight(200, height, viewHeight)
+                }
             }
         }
         return super.onTouchEvent(event)

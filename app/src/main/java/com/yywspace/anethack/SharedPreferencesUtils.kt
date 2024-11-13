@@ -41,16 +41,19 @@ class SharedPreferencesUtils(val context: Context) {
         val prompts = inputPrompts.toList().sortedByDescending {
             it.split("-").last().toLong()
         }.stream().limit(50).collect(Collectors.toList())
-        var hasSame = false
+        // 查看prompt是否重复
+        var oldPrompt = ""
         for (p in prompts) {
             if (p.startsWith(prompt)) {
-                hasSame = true
+                oldPrompt = p
                 break
             }
         }
         inputPrompts = prompts.toMutableList().run {
-            if (!hasSame)
-                add("${prompt}-${Instant.now().epochSecond}")
+            // 如果重复则更新其时间为最新
+            if (oldPrompt.isNotEmpty())
+                remove(oldPrompt)
+            add("${prompt}-${Instant.now().epochSecond}")
             toMutableSet()
         }
     }

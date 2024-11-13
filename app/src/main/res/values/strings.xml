@@ -3,14 +3,13 @@
     <string name="button_esc">ESC</string>
     <string name="play_mod_normal">normal</string>
     <string name="play_mod_discover">discover</string>
-    <string name="player_select">Please select you saves.</string>
-    <string name="player_input">Please input you player name.</string>
-    <string name="player_add">Click to add new game.</string>
+    <string name="player_select">Select save data to load</string>
+    <string name="player_input">Input you player name</string>
+    <string name="player_add">Start new game</string>
     <string name="ext_cmd_select">Please select extend command.</string>
     <string name="message_history">Message history.</string>
     <string name="item_amount_select">Select the amount of %s</string>
     <string name="number_select">Please input the quantity.</string>
-    <string name="search_question">Do you want to search around?</string>
     <string name="dialog_confirm">Confirm</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_select_all">Select all</string>
