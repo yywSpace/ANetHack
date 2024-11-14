@@ -6,6 +6,8 @@
     <string name="player_select">Select save data to load</string>
     <string name="player_input">Input you player name</string>
     <string name="player_add">Click to start new game</string>
+    <string name="player_name_too_long">Player %s name too long.</string>
+    <string name="player_name_exists">Player %s already exists.</string>
     <string name="ext_cmd_select">Please select extend command.</string>
     <string name="message_history">Message history.</string>
     <string name="item_amount_select">Select the amount of %s</string>

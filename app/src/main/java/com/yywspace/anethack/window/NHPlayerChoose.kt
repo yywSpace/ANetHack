@@ -116,12 +116,12 @@ class NHPlayerChoose(val nh: NetHack) {
                     if (player.isEmpty())
                         return@setPositiveButton
                     if(player.length >= nameSize) {
-                        Toast.makeText(context, "Player $player name too long.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.player_name_too_long, player), Toast.LENGTH_SHORT).show()
                         return@setPositiveButton
                     }
                     players.forEach {
                         if(player == it.player) {
-                            Toast.makeText(context, "Player $player already exists.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, context.getString(R.string.player_name_exists, player), Toast.LENGTH_SHORT).show()
                             return@setPositiveButton
                         }
                     }

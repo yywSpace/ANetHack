@@ -10,6 +10,7 @@ import android.widget.FrameLayout.*
 import android.widget.NumberPicker
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
@@ -21,6 +22,7 @@ import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.show
 import java.util.concurrent.CopyOnWriteArrayList
+
 
 class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {
     var title: String = ""
@@ -176,48 +178,63 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                         }
                     }
                 }
-                if (selectMode == SelectMode.PickMany) {
-                    findViewById<MaterialButton>(R.id.menu_btn_2)?.apply {
-                        setText(R.string.dialog_select_all)
-                        setOnClickListener {
-                            if (!selectedAll) {
-                                setText(R.string.dialog_clear_all)
-                                nhMenuItems.forEach {
-                                    if (!it.isHeader())
-                                        it.isSelected = true
+                when (selectMode) {
+                    SelectMode.PickMany -> {
+                        findViewById<MaterialButton>(R.id.menu_btn_2)?.apply {
+                            setText(R.string.dialog_select_all)
+                            setOnClickListener {
+                                if (!selectedAll) {
+                                    setText(R.string.dialog_clear_all)
+                                    nhMenuItems.forEach {
+                                        if (!it.isHeader())
+                                            it.isSelected = true
+                                    }
+                                } else {
+                                    setText(R.string.dialog_select_all)
+                                    nhMenuItems.forEach {
+                                        it.isSelected = false
+                                    }
                                 }
-                            } else {
-                                setText(R.string.dialog_select_all)
-                                nhMenuItems.forEach {
-                                    it.isSelected = false
-                                }
-                            }
-                            menuAdapter?.notifyDataSetChanged()
-                            selectedAll = !selectedAll
-                        }
-                    }
-                    findViewById<MaterialButton>(R.id.menu_btn_3)?.apply {
-                        setText(R.string.dialog_confirm)
-                        setOnClickListener {
-                            val count = nhMenuItems.count { item -> item.isSelected }
-                            if (count == 0)
-                                return@setOnClickListener
-                            val selectList = mutableListOf<Long>()
-                            nhMenuItems.filter {
-                                    item -> item.isSelected and !item.isHeader() and !item.isHint()
-                            }.forEach { item ->
-                                selectList.add(item.identifier)
-                                selectList.add(item.selectedCount)
-                            }
-                            // 13:Key Enter
-                            dismissMenu {
-                                nh.command.sendCommand(NHMenuCommand(13.toChar(), selectList))
+                                menuAdapter?.notifyDataSetChanged()
+                                selectedAll = !selectedAll
                             }
                         }
+                        findViewById<MaterialButton>(R.id.menu_btn_3)?.apply {
+                            setText(R.string.dialog_confirm)
+                            setOnClickListener {
+                                val count = nhMenuItems.count { item -> item.isSelected }
+                                if (count == 0)
+                                    return@setOnClickListener
+                                val selectList = mutableListOf<Long>()
+                                nhMenuItems.filter { item -> item.isSelected and !item.isHeader() and !item.isHint()
+                                }.forEach { item ->
+                                    selectList.add(item.identifier)
+                                    selectList.add(item.selectedCount)
+                                }
+                                // 13:Key Enter
+                                dismissMenu {
+                                    nh.command.sendCommand(NHMenuCommand(13.toChar(), selectList))
+                                }
+                            }
+                        }
                     }
-                } else {
-                    findViewById<MaterialButton>(R.id.menu_btn_2)?.visibility = View.INVISIBLE
-                    findViewById<MaterialButton>(R.id.menu_btn_3)?.visibility = View.INVISIBLE
+                    SelectMode.PickOne -> {
+                        findViewById<MaterialButton>(R.id.menu_btn_2)?.visibility = View.INVISIBLE
+                        findViewById<MaterialButton>(R.id.menu_btn_3)?.visibility = View.INVISIBLE
+                    }
+                    else -> {
+                        findViewById<MaterialButton>(R.id.menu_btn_1)?.visibility = View.INVISIBLE
+                        findViewById<MaterialButton>(R.id.menu_btn_2)?.visibility = View.INVISIBLE
+                        findViewById<MaterialButton>(R.id.menu_btn_3)?.apply {
+                            setText(R.string.dialog_confirm)
+                            setOnClickListener {
+                                // 27:Key ESC
+                                dismissMenu {
+                                    nh.command.sendCommand(NHMenuCommand(27.toChar(), mutableListOf(-1)))
+                                }
+                            }
+                        }
+                    }
                 }
             }
         return menuView

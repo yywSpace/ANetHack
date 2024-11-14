@@ -45,7 +45,7 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
             } else
                 itemTile.visibility = View.GONE
             if (nhwMenu.selectMode == NHWMenu.SelectMode.PickOne) {
-                itemCheckBox.visibility = View.INVISIBLE
+                itemCheckBox.visibility = View.GONE
             }
             itemView.setOnLongClickListener {
                 onItemLongClick?.invoke(it, position, menuItem)
