@@ -21,7 +21,9 @@ import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.show
+import java.lang.Integer.min
 import java.util.concurrent.CopyOnWriteArrayList
+import kotlin.math.ceil
 
 class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {
     val messageList = CopyOnWriteArrayList<NHMessage>()
@@ -60,21 +62,17 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             nh.runOnUi { _, context ->
                 val dialogTextView = View.inflate(context, R.layout.dialog_message, null)
                     .apply {
-                        val lastMsg = messageList.maxBy { it.time }
-                        val messageText = SpannableStringBuilder()
-                        for (message in messageList) {
-                            messageText.append(
-                                message.attach(lastMsg.time, NHColor.CLR_BLACK).toSpannableString()
-                            ).append("\n")
-                        }
-                        findViewById<TextView>(R.id.dialog_message_text).text = messageText
-                        findViewById<ScrollView>(R.id.dialog_message_scroll).apply {
-                            post {
-                                fullScroll(ScrollView.FOCUS_DOWN)
+                        findViewById<RecyclerView>(R.id.dialog_message_list).apply {
+                            val messageAdapter = NHWMessageAdapter(messageList, 20)
+                            adapter = messageAdapter
+                            layoutManager = LinearLayoutManager(
+                                context,
+                                LinearLayoutManager.VERTICAL, false
+                            ).apply {
+                                stackFromEnd = true
                             }
                         }
                     }
-
                 AlertDialog.Builder(context).apply {
                     setTitle(R.string.message_history)
                     setView(dialogTextView)
@@ -104,4 +102,42 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             messageList.removeFirst()
         messageList.add(NHMessage(NHString(msg.trim(), attr), nh.command.lastCmdTime))
     }
+
+    class NHWMessageAdapter(private val messageList:List<NHMessage>, private val itemSize:Int): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private var lastCmdMsg:NHMessage = messageList.maxBy { it.time }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.dialog_message_item, parent, false)
+            return MessageViewHolder(view)
+        }
+
+        override fun getItemCount(): Int {
+            return ceil(messageList.size / itemSize.toDouble()).toInt()
+        }
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            val start = position * itemSize
+            val end = min(start + itemSize, messageList.size)
+            val subList = messageList.subList(start, end)
+            val messageText = SpannableStringBuilder()
+            for ((idx, message) in subList.withIndex()) {
+                messageText.append(
+                    message.attach(lastCmdMsg.time, NHColor.CLR_BLACK).toSpannableString()
+                )
+                if (idx != subList.size -1)
+                    messageText.append("\n")
+            }
+            (holder as MessageViewHolder).apply {
+                itemMessage.text = messageText
+            }
+        }
+
+        private inner class MessageViewHolder(itemView: View)  : RecyclerView.ViewHolder(itemView) {
+            val itemMessage: TextView
+            init {
+                itemMessage = itemView.findViewById(R.id.message)
+            }
+        }
+    }
+
 }
