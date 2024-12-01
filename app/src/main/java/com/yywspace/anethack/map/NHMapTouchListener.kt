@@ -15,6 +15,7 @@ import kotlin.math.sqrt
 
 class NHMapTouchListener : OnTouchListener {
     private var currentClickTime: Long = 0
+    private val touchSlop = 50
     private var isClick = false
     private var isLongPress = false
     private var isLongPressMove = false
@@ -52,7 +53,7 @@ class NHMapTouchListener : OnTouchListener {
             MotionEvent.ACTION_MOVE-> {
                 // 单指操作
                 if (event.pointerCount == 1) {
-                    if (isMoving && abs(firstLocation.x - event.x) > 40 || abs(firstLocation.y - event.y) > 40) {
+                    if (isMoving && abs(firstLocation.x - event.x) > touchSlop || abs(firstLocation.y - event.y) > touchSlop) {
                         isLongPress = false
                         isClick = false
                     }
@@ -108,6 +109,6 @@ class NHMapTouchListener : OnTouchListener {
     }
 
     companion object {
-        private const val LONG_TRIGGER_TIME: Long = 500
+        private const val LONG_TRIGGER_TIME: Long = 400
     }
 }

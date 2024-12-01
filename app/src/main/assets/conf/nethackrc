@@ -30,7 +30,7 @@
 #
 #
 OPTIONS=!tutorial,!legacy
-OPTIONS=!cmdassist,!bones,!implicit_uncursed
+OPTIONS=!cmdassist,!implicit_uncursed,!bones,pettype:none
 OPTIONS=scores:10 top/2 around/own
 
 OPTIONS=autounlock:apply-key + kick + force

@@ -25,8 +25,8 @@ class NHWText(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             val dialogTextView = View.inflate( nh.context, R.layout.dialog_text, null)
                 .apply {
                     findViewById<TextView>(R.id.text_view).apply {
-                        movementMethod = ScrollingMovementMethod.getInstance()
-                        text = textList.joinToString("\n")
+                        // movementMethod = ScrollingMovementMethod.getInstance()
+                        text = buildContent(textList.map { it.toString() }, true)
                     }
                 }
             val dialog = AlertDialog.Builder(nh.context).apply {
@@ -35,9 +35,7 @@ class NHWText(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                     nh.command.sendCommand(NHCommand(27.toChar()))
                 }
                 setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                    if (blocking) {
-                        nh.command.sendCommand(NHCommand(27.toChar()))
-                    }
+
                 }
             }.create()
             dialog.show(nh.prefs.immersiveMode)
@@ -54,5 +52,28 @@ class NHWText(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
 
     override fun putString(attr: Int, msg: String, color: Int) {
         textList.add(NHString(msg, attr))
+    }
+
+    companion object {
+        fun buildContent(textList:List<String>, format:Boolean = false):String {
+            if (!format)
+                return textList.joinToString("\n")
+
+            val content = StringBuilder()
+            var lastTerminated = true
+            for (line in textList) {
+                if (lastTerminated)
+                    content.append(line)
+                else
+                    content.append(line.trim())
+                val terminated = ":.\"!*-\\|".contains(line.last())
+                if (terminated)
+                    content.append("\n")
+                else
+                    content.append(" ")
+                lastTerminated = terminated
+            }
+            return content.trimEnd('\n').toString()
+        }
     }
 }

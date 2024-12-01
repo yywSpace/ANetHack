@@ -44,7 +44,7 @@ class SharedPreferencesUtils(val context: Context) {
         // 查看prompt是否重复
         var oldPrompt = ""
         for (p in prompts) {
-            if (p.startsWith(prompt)) {
+            if (p.startsWith(prompt.trim())) {
                 oldPrompt = p
                 break
             }
@@ -53,13 +53,13 @@ class SharedPreferencesUtils(val context: Context) {
             // 如果重复则更新其时间为最新
             if (oldPrompt.isNotEmpty())
                 remove(oldPrompt)
-            add("${prompt}-${Instant.now().epochSecond}")
+            add("${prompt.trim()}-${Instant.now().epochSecond}")
             toMutableSet()
         }
     }
     fun removeInputPrompts(prompt:String) {
         inputPrompts = inputPrompts.toMutableSet().apply {
-            removeIf { it.startsWith(prompt) }
+            removeIf { it.startsWith(prompt.trim()) }
         }
     }
     fun getSaves():Map<String, String> {

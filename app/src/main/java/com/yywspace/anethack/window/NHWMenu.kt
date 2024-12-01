@@ -2,6 +2,7 @@ package com.yywspace.anethack.window
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.Gravity
@@ -359,8 +360,8 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             val dialogTextView = View.inflate(context, R.layout.dialog_text, null)
                 .apply {
                     findViewById<TextView>(R.id.text_view).apply {
-                        movementMethod = ScrollingMovementMethod.getInstance()
-                        text = textList.joinToString("\n")
+                        // movementMethod = ScrollingMovementMethod.getInstance()
+                        text = NHWText.buildContent(textList.map { it.toString() })
                     }
                 }
             val dialog = AlertDialog.Builder(context).apply {
