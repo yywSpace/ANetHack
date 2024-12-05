@@ -5,6 +5,9 @@ import android.util.Log
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.map.NHMapSurfaceView
+import java.util.LinkedList
+import java.util.Queue
+import java.util.concurrent.ArrayBlockingQueue
 
 class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type) {
     private var mapView: NHMapSurfaceView = nh.binding.mapView
@@ -18,6 +21,8 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
     val player = Point(-1,-1)
 
     private val tiles = Array(height){Array(width) { Tile() } }
+    private val updatedTiles = mutableListOf<Tile>()
+    private val tileListQueue:Queue<List<Tile>> = LinkedList()
 
     init {
         mapView.initMap(nh,this)
@@ -38,6 +43,19 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
         return tiles[y][x]
     }
 
+    fun updateTiles() {
+        while (tileListQueue.isNotEmpty()) {
+            tileListQueue.poll()?.onEach {
+                tiles[it.y][it.x].x = it.x
+                tiles[it.y][it.x].y = it.y
+                tiles[it.y][it.x].glyph = it.glyph
+                tiles[it.y][it.x].ch = it.ch
+                tiles[it.y][it.x].color = it.color
+                tiles[it.y][it.x].overlay = it.overlay
+            }
+        }
+    }
+
     fun clipAround(cx: Int, cy: Int,ux: Int, uy: Int) {
         player.x = ux
         player.y = uy
@@ -54,6 +72,8 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
 
     override fun displayWindow(blocking: Boolean) {
         Log.d("NHWMap", "displayWindow")
+        tileListQueue.add(updatedTiles.toList())
+        updatedTiles.clear()
     }
 
     override fun clearWindow(isRogueLevel: Int) {
@@ -81,13 +101,14 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
 
     fun printTile(x: Int, y: Int, tile: Int, ch: Int, col: Int, special: Int) {
         Log.d("NHWMap", "printTile(wid: $wid, x: $x, y: $y, tile: $tile, ch: ${CP437_UNICODE[ch and 0xff]}, col: $col, special: ${Integer.toBinaryString(special)})")
-        tiles[y][x].x = x
-        tiles[y][x].y = y
-        tiles[y][x].glyph = tile
-        tiles[y][x].ch = CP437_UNICODE[ch and 0xff]
-        tiles[y][x].color = NHColor.fromInt(col)
-        tiles[y][x].overlay = special
-
+        val mapTile = Tile()
+        mapTile.x = x
+        mapTile.y = y
+        mapTile.glyph = tile
+        mapTile.ch = CP437_UNICODE[ch and 0xff]
+        mapTile.color = NHColor.fromInt(col)
+        mapTile.overlay = special
+        updatedTiles.add(mapTile)
     }
 
     class Tile {

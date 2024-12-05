@@ -590,7 +590,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         nh.status.runMode = NHStatus.RunMode.RUN
                     else
                         nh.status.runMode = NHStatus.RunMode.WALK
-
                     // 绘制
                     canvas?.drawColor(Color.BLACK)
                     if (nh.tileSet.isTTY()) {
@@ -604,6 +603,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     drawBorder(canvas)
                     // drawWalkRange(canvas)
                     drawIndicator(canvas)
+                    // 每一帧绘制完成后才更新Tile
+                    map.updateTiles()
                 } finally {
                     if (canvas != null)
                         unlockCanvasAndPost(canvas)
