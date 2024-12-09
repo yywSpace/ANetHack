@@ -8,6 +8,7 @@ import com.yywspace.anethack.map.NHMapSurfaceView
 import java.util.LinkedList
 import java.util.Queue
 import java.util.concurrent.ArrayBlockingQueue
+import java.util.concurrent.CopyOnWriteArrayList
 
 class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type) {
     private var mapView: NHMapSurfaceView = nh.binding.mapView
@@ -22,7 +23,7 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
 
     private val tiles = Array(height){Array(width) { Tile() } }
     private val updatedTiles = mutableListOf<Tile>()
-    private val tileListQueue:Queue<List<Tile>> = LinkedList()
+    private val updatedTilesList = CopyOnWriteArrayList<List<Tile>>()
 
     init {
         mapView.initMap(nh,this)
@@ -44,15 +45,18 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
     }
 
     fun updateTiles() {
-        while (tileListQueue.isNotEmpty()) {
-            tileListQueue.poll()?.onEach {
-                tiles[it.y][it.x].x = it.x
-                tiles[it.y][it.x].y = it.y
-                tiles[it.y][it.x].glyph = it.glyph
-                tiles[it.y][it.x].ch = it.ch
-                tiles[it.y][it.x].color = it.color
-                tiles[it.y][it.x].overlay = it.overlay
+        synchronized(updatedTilesList) {
+            for (tilesList in updatedTilesList) {
+                tilesList.onEach {
+                    tiles[it.y][it.x].x = it.x
+                    tiles[it.y][it.x].y = it.y
+                    tiles[it.y][it.x].glyph = it.glyph
+                    tiles[it.y][it.x].ch = it.ch
+                    tiles[it.y][it.x].color = it.color
+                    tiles[it.y][it.x].overlay = it.overlay
+                }
             }
+            updatedTilesList.clear()
         }
     }
 
@@ -72,8 +76,10 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
 
     override fun displayWindow(blocking: Boolean) {
         Log.d("NHWMap", "displayWindow")
-        tileListQueue.add(updatedTiles.toList())
-        updatedTiles.clear()
+        synchronized(updatedTilesList) {
+            updatedTilesList.add(updatedTiles.toList())
+            updatedTiles.clear()
+        }
     }
 
     override fun clearWindow(isRogueLevel: Int) {
