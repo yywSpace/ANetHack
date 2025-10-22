@@ -2,7 +2,6 @@ package com.yywspace.anethack.window
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NHTileSet
 import com.yywspace.anethack.R
 import com.yywspace.anethack.entity.NHMenuItem
-import java.lang.RuntimeException
 
 
 class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet) :
@@ -22,20 +20,12 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
     var onItemLongClick:((view:View, index:Int, menuItem: NHMenuItem)->Unit)? = null
 
     inner class OptionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val itemAcc: TextView
-        private val itemSelectAmount: TextView
-        private val itemTitle : TextView
-        private val itemSubtitle : TextView
-        private val itemCheckBox:CheckBox
-        private val itemTile:ImageView
-        init {
-            itemAcc = view.findViewById(R.id.item_accelerator)
-            itemSelectAmount = view.findViewById(R.id.item_select_amount)
-            itemTitle = view.findViewById(R.id.item_title)
-            itemSubtitle = view.findViewById(R.id.item_subtitle)
-            itemCheckBox = view.findViewById(R.id.item_checkbox)
-            itemTile = view.findViewById(R.id.item_tile)
-        }
+        private val itemAcc: TextView = view.findViewById(R.id.item_accelerator)
+        private val itemSelectAmount: TextView = view.findViewById(R.id.item_select_amount)
+        private val itemTitle : TextView = view.findViewById(R.id.item_title)
+        private val itemSubtitle : TextView = view.findViewById(R.id.item_subtitle)
+        private val itemCheckBox:CheckBox = view.findViewById(R.id.item_checkbox)
+        private val itemTile:ImageView = view.findViewById(R.id.item_tile)
 
         fun bind(position: Int, menuItem: NHMenuItem) {
             if (!tileSet.isTTY() && menuItem.glyph != 1465) {
@@ -84,13 +74,8 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
     }
 
     inner class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val itemHeader : TextView
-        private val itemGroupCheckBox : CheckBox
-
-        init {
-            itemHeader = view.findViewById(R.id.item_header)
-            itemGroupCheckBox = view.findViewById(R.id.item_group_checkbox)
-        }
+        private val itemHeader : TextView = view.findViewById(R.id.item_header)
+        private val itemGroupCheckBox : CheckBox = view.findViewById(R.id.item_group_checkbox)
         fun bind(position: Int, menuItem: NHMenuItem) {
             itemHeader.text = menuItem.title.toString()
             val subItems = getSubItems(position)
@@ -114,10 +99,7 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
     }
 
     inner class TextViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val itemText : TextView
-        init {
-            itemText = view.findViewById(R.id.item_text)
-        }
+        private val itemText : TextView = view.findViewById(R.id.item_text)
 
         fun bind(position: Int, menuItem: NHMenuItem) {
             itemText.text = menuItem.title.toString()

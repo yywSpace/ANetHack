@@ -22,7 +22,6 @@ import android.view.SurfaceView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.PopupWindow
-import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.minus
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,15 +29,13 @@ import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHPosCommand
-import com.yywspace.anethack.command.NHPosCommand.*
+import com.yywspace.anethack.command.NHPosCommand.PosMod
 import com.yywspace.anethack.entity.NHStatus
-import com.yywspace.anethack.extensions.show
 import com.yywspace.anethack.map.indicator.NHMapIndicatorController
 import com.yywspace.anethack.map.operation.NHMapOperation
 import com.yywspace.anethack.map.operation.NHMapScale
 import com.yywspace.anethack.map.operation.NHMapTransform
 import com.yywspace.anethack.window.NHWMap
-import com.yywspace.anethack.window.NHWindowType
 import java.util.concurrent.LinkedBlockingDeque
 import kotlin.math.abs
 import kotlin.math.atan2
@@ -385,7 +382,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         val ch = String(tile.ch.toString().toByteArray())
                         asciiPaint.color = fgColor
                         canvas?.drawText(ch,0, 1,
-                            tb.left, tb.bottom - asciiPaint.descent() , asciiPaint);
+                            tb.left, tb.bottom - asciiPaint.descent() , asciiPaint)
                     }
                 }
             }
@@ -433,7 +430,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             if(tile.glyph >= 0) {
                 asciiPaint.color = tile.color.toColor()
                 canvas?.drawText(tile.ch.toString(),0, 1,
-                    tb.left, tb.bottom - asciiPaint.descent() , asciiPaint);
+                    tb.left, tb.bottom - asciiPaint.descent() , asciiPaint)
             }
 
         }
@@ -470,7 +467,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = borderWidth
             val border = RectF(mapBorder).apply { left+=tileWidth }
-            canvas?.drawRect(border, paint);
+            canvas?.drawRect(border, paint)
         }
     }
 
@@ -553,7 +550,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     override fun surfaceCreated(holder: SurfaceHolder) {
         isDrawing = true
-        Thread(this).start();
+        Thread(this).start()
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {

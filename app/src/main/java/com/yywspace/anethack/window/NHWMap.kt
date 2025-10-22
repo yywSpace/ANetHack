@@ -5,9 +5,6 @@ import android.util.Log
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.map.NHMapSurfaceView
-import java.util.LinkedList
-import java.util.Queue
-import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.CopyOnWriteArrayList
 
 class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type) {

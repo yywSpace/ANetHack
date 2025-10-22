@@ -1,19 +1,14 @@
 package com.yywspace.anethack.window
 
-import android.annotation.SuppressLint
 import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.yywspace.anethack.map.NHMessageSurfaceView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
@@ -21,6 +16,7 @@ import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.show
+import com.yywspace.anethack.map.NHMessageSurfaceView
 import java.lang.Integer.min
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.math.ceil
@@ -35,7 +31,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         messageView.setOnClickListener {
             if (System.currentTimeMillis() - lastClickTime >= 1000) {
                 displayWindow(true)
-                lastClickTime = System.currentTimeMillis();
+                lastClickTime = System.currentTimeMillis()
             }
         }
     }
@@ -99,7 +95,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         if(msg.isEmpty()) return
         Log.d("NHWMessage","NHWMessage: putString $msg")
         if (messageList.size > nh.prefs.messageHistorySize)
-            messageList.removeFirst()
+            messageList.removeAt(0)
         messageList.add(NHMessage(NHString(msg.trim(), attr), nh.command.lastCmdTime))
     }
 

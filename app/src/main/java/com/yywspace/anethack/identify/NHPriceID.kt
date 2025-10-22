@@ -141,7 +141,7 @@ class NHPriceID(context: Context) {
             if (pri < 1)
                 pri = 1.0
         }
-        return pri.toInt();
+        return pri.toInt()
     }
 
     private fun loadObjFromAssets(context: Context) {

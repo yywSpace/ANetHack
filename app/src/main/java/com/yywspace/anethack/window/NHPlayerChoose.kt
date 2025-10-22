@@ -100,7 +100,7 @@ class NHPlayerChoose(val nh: NetHack) {
     }
 
     private fun showNewPlayerDialog(popupWindow: PopupWindow) {
-        nh.runOnUi() { _, context ->
+        nh.runOnUi { _, context ->
             val view = View.inflate(context, R.layout.dialog_player_choose_input, null)
             val input = view.findViewById<EditText>(R.id.player_input)
             val playModG = view.findViewById<RadioGroup>(R.id.play_mod_radio_group)
@@ -147,22 +147,12 @@ class NHPlayerChoose(val nh: NetHack) {
         var onPlayerAddClick:((view: View)->Unit)? = null
 
         inner class PlayerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val itemPlayer : TextView
-            val itemPlayMod : TextView
-            val itemCheckbox : CheckBox
-            init {
-                itemPlayer = view.findViewById(R.id.item_player)
-                itemPlayMod = view.findViewById(R.id.item_play_mod)
-                itemCheckbox = view.findViewById(R.id.item_checkbox)
-            }
+            val itemPlayer : TextView = view.findViewById(R.id.item_player)
+            val itemPlayMod : TextView = view.findViewById(R.id.item_play_mod)
+            val itemCheckbox : CheckBox = view.findViewById(R.id.item_checkbox)
         }
 
-        inner class PlayerAddViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val itemPlayerAdd : TextView
-            init {
-                itemPlayerAdd = view.findViewById(R.id.item_player_add)
-            }
-        }
+        inner class PlayerAddViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 

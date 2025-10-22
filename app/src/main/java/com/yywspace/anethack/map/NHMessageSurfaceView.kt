@@ -16,6 +16,7 @@ import com.yywspace.anethack.window.NHWMessage
 import java.util.stream.Collectors
 import kotlin.math.ceil
 import kotlin.streams.toList
+import androidx.core.graphics.withTranslation
 
 
 class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
@@ -45,7 +46,7 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private fun initView() {
         holder = getHolder()
         holder?.addCallback(this)
-        holder?.setFormat(PixelFormat.TRANSLUCENT);
+        holder?.setFormat(PixelFormat.TRANSLUCENT)
         isFocusable = true
         this.keepScreenOn = true
     }
@@ -56,14 +57,14 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
     override fun surfaceCreated(holder: SurfaceHolder) {
         isDrawing = true
-        Thread(this).start();
+        Thread(this).start()
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
-        isDrawing = false;
+        isDrawing = false
     }
     private fun drawMessageList(canvas: Canvas?) {
         canvas?.apply {
@@ -78,10 +79,9 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         it.toSpannableString(), textPaint,
                         width
                     ).build()
-                    canvas.save()
-                    canvas.translate(0f, messageListHeight)
-                    dynamicLayout.draw(canvas)
-                    canvas.restore()
+                    canvas.withTranslation(0f, messageListHeight) {
+                        dynamicLayout.draw(this)
+                    }
                     messageListHeight += dynamicLayout.height
                 }
                 post {
@@ -96,7 +96,7 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private fun draw() {
         try {
             canvas = holder?.lockCanvas()
-            canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
             drawMessageList(canvas)
         } finally {
             if (canvas != null)

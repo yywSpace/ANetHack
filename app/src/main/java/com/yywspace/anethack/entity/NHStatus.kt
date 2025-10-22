@@ -125,7 +125,7 @@ class NHStatus(val context: Context) {
         MAXBLSTATS;
         companion object {
             fun fromIdx(idx:Int): StatusField {
-                StatusField.values().forEach {
+                entries.forEach {
                     if(it.ordinal == idx)
                         return it
                 }

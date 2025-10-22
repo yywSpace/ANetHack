@@ -2,16 +2,14 @@ package com.yywspace.anethack.window
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout.*
+import android.widget.FrameLayout.LayoutParams
 import android.widget.NumberPicker
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
@@ -67,6 +65,20 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
     }
 
     fun selectMenu(how: Int): LongArray {
+        // 如果指令序列中有能命中的则直接选择不显示弹窗
+        nh.command.findAnyCommand<NHCommand>()?.apply {
+            val selectList = mutableListOf<Long>()
+            nhMenuItems.filter {
+                item -> (item.accelerator == key) and !item.isHeader() and !item.isHint()
+            }.forEach { item ->
+                selectList.add(item.identifier)
+                selectList.add(item.selectedCount)
+            }
+            if (selectList.isNotEmpty())
+                return selectList.toLongArray()
+            else // 若未命中列表，后续指令清理，等待用户选择，防止出现意外情况
+                nh.command.clear()
+        }
         selectMode = SelectMode.fromInt(how)
         showMenu()
         val menuCommand = nh.command.waitForAnyCommand<NHMenuCommand> { other ->
@@ -117,7 +129,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             // Dialog
             menuDialog?.dismiss()
             // Operation
-            if(binding.dialogContainer.childCount > 0) {
+            if(binding.dialogContainer.isNotEmpty()) {
                 binding.panelContainer.apply {
                     isFocusable = false
                     isClickable = false

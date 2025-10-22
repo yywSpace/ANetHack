@@ -2,9 +2,9 @@ package com.yywspace.anethack
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import java.time.Instant
-import java.time.LocalDate
 import java.util.stream.Collectors
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -37,6 +37,7 @@ class SharedPreferencesUtils(val context: Context) {
             it.split("-").first()
         }.toList()
     }
+
     fun addInputPrompts(prompt:String) {
         val prompts = inputPrompts.toList().sortedByDescending {
             it.split("-").last().toLong()
@@ -92,7 +93,7 @@ class SharedPreferencesUtils(val context: Context) {
                 value.forEach {
                     sb.append("${it.key}:${it.value},")
                 }
-                thisRef.preferences.edit().putString(property.name, sb.toString()).apply()
+                thisRef.preferences.edit { putString(property.name, sb.toString()) }
             }
 
         }
@@ -103,7 +104,7 @@ class SharedPreferencesUtils(val context: Context) {
             }
 
             override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Int) {
-                thisRef.preferences.edit().putInt(property.name, value).apply()
+                thisRef.preferences.edit { putInt(property.name, value) }
             }
         }
 
@@ -114,7 +115,7 @@ class SharedPreferencesUtils(val context: Context) {
             }
 
             override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Long) {
-                thisRef.preferences.edit().putLong(property.name, value).apply()
+                thisRef.preferences.edit { putLong(property.name, value) }
             }
         }
 
@@ -124,7 +125,7 @@ class SharedPreferencesUtils(val context: Context) {
             }
 
             override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Boolean) {
-                thisRef.preferences.edit().putBoolean(property.name, value).apply()
+                thisRef.preferences.edit { putBoolean(property.name, value) }
             }
         }
 
@@ -134,7 +135,7 @@ class SharedPreferencesUtils(val context: Context) {
             }
 
             override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Float) {
-                thisRef.preferences.edit().putFloat(property.name, value).apply()
+                thisRef.preferences.edit { putFloat(property.name, value) }
             }
         }
 
@@ -144,7 +145,7 @@ class SharedPreferencesUtils(val context: Context) {
             }
 
             override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: String?) {
-                thisRef.preferences.edit().putString(property.name, value).apply()
+                thisRef.preferences.edit { putString(property.name, value) }
             }
         }
 
@@ -154,7 +155,7 @@ class SharedPreferencesUtils(val context: Context) {
             }
 
             override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Int) {
-                thisRef.preferences.edit().putString(property.name, value.toString()).apply()
+                thisRef.preferences.edit { putString(property.name, value.toString()) }
             }
         }
 
@@ -164,7 +165,7 @@ class SharedPreferencesUtils(val context: Context) {
             }
 
             override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Set<String>) {
-                thisRef.preferences.edit().putStringSet(property.name, value).apply()
+                thisRef.preferences.edit { putStringSet(property.name, value) }
             }
         }
     }

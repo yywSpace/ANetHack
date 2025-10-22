@@ -54,7 +54,7 @@ class BottomCommandSheet:GridLayout {
             .resolveAttribute(attrValue, typedValue, true)
         val typedArray =
             context.theme.obtainStyledAttributes(typedValue.resourceId, intArrayOf(attrValue))
-        return typedArray.getDrawable(0);
+        return typedArray.getDrawable(0)
     }
 
     private fun initCommandView(command: Command):View {

@@ -47,7 +47,7 @@ class NHMapTouchListener : OnTouchListener {
                 firstLocation.set(event.x, event.y)
                 lastLocation.set(event.x, event.y)
                 onNHMapTouchListener?.onDown(firstLocation)
-                currentClickTime =  Calendar.getInstance().timeInMillis;
+                currentClickTime =  Calendar.getInstance().timeInMillis
                 baseHandler.postDelayed(longPressRunnable, LONG_TRIGGER_TIME)
             }
             MotionEvent.ACTION_MOVE-> {

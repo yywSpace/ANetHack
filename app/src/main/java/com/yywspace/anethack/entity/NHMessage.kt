@@ -1,6 +1,5 @@
 package com.yywspace.anethack.entity
 
-import android.graphics.Color
 import android.text.SpannableString
 import java.time.LocalDateTime
 

@@ -71,7 +71,7 @@ data class NHString(var value:String = "", var attr:Int = 0, val colorIdx:Int = 
         companion object {
             fun fromAttr(attr: Int): List<TextAttr> {
                 val textAttrs = mutableListOf<TextAttr>()
-                TextAttr.values().forEach {
+                entries.forEach {
                     if(attr and (1 shl it.ordinal) != 0)
                         textAttrs.add(it)
                 }

@@ -1,6 +1,5 @@
 package com.yywspace.anethack.window
 
-import android.R.attr.data
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,20 +9,15 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHAnswerCommand
-import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHLineCommand
-import com.yywspace.anethack.command.NHMenuCommand
 import com.yywspace.anethack.extensions.show
-import java.nio.charset.StandardCharsets
 
 
 class NHQuestion(val nh: NetHack) {
@@ -34,7 +28,7 @@ class NHQuestion(val nh: NetHack) {
        return nh.command.waitForAnyCommand<NHLineCommand>().line
     }
 
-    public fun showInputQuestion(question: String, input:String, bufSize: Int) {
+    fun showInputQuestion(question: String, input:String, bufSize: Int) {
         nh.runOnUi { _, context ->
             val dialogQuesView = View.inflate(context, R.layout.dialog_question_input, null)
             val dialog = AlertDialog.Builder(context).run {
@@ -100,7 +94,7 @@ class NHQuestion(val nh: NetHack) {
         }
     }
 
-    public fun showSelectQuestion(question: String, choices: String, ynNumber:LongArray, def: Char) {
+    fun showSelectQuestion(question: String, choices: String, ynNumber:LongArray, def: Char) {
         Log.d("NHQuestion", "question:$question choices:$choices def:$def")
         if (choices.isNotEmpty())
             ynQuestion(question, choices, ynNumber, def)
@@ -249,10 +243,6 @@ class NHQuestion(val nh: NetHack) {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.dialog_question_answer_item, parent, false)
             return ButtonViewHolder(view)
-        }
-
-        override fun getItemViewType(position: Int): Int {
-            return super.getItemViewType(position)
         }
 
         override fun getItemCount(): Int {

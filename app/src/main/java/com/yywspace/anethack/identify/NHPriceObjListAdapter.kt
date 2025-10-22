@@ -9,12 +9,8 @@ import com.yywspace.anethack.R
 class NHPriceObjListAdapter(private val objList: List<Map<String,String>>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onItemClick:((view: View, index:Int, item: Map<String,String>)->Unit)? = null
     inner class ObjListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val objName : TextView
-        val objCost : TextView
-        init {
-            objName = view.findViewById(R.id.obj_name)
-            objCost = view.findViewById(R.id.obj_cost)
-        }
+        val objName : TextView = view.findViewById(R.id.obj_name)
+        val objCost : TextView = view.findViewById(R.id.obj_cost)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

@@ -20,6 +20,7 @@ import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.entity.NHStatus.StatusField
 import kotlin.math.ceil
+import androidx.core.graphics.withTranslation
 
 
 class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
@@ -48,7 +49,7 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private fun initView() {
         holder = getHolder()
         holder?.addCallback(this)
-        holder?.setFormat(PixelFormat.TRANSLUCENT);
+        holder?.setFormat(PixelFormat.TRANSLUCENT)
         isFocusable = true
         this.keepScreenOn = true
     }
@@ -59,14 +60,14 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
     override fun surfaceCreated(holder: SurfaceHolder) {
         isDrawing = true
-        Thread(this).start();
+        Thread(this).start()
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
-        isDrawing = false;
+        isDrawing = false
     }
     
     private fun getStatus(field: StatusField):Pair<StatusField, Spannable> {
@@ -149,23 +150,30 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     var statusBarWidth = 0f
                     var maxHeight = 0f
                     it.forEach { s ->
-                        canvas.save()
-                        canvas.translate(statusBarWidth, statusBarHeight)
-                        if (s.first == StatusField.BL_TITLE) {
-                            val border = drawTitle(s, canvas)
-                            statusBarWidth += (border.width() + 20f)
-                            maxHeight = maxHeight.coerceAtLeast(border.height())
-                        }else {
-                            if (s.second.isNotEmpty()) {
-                                val dynamicLayout = DynamicLayout.Builder.obtain(
-                                    s.second, textPaint, ceil(DynamicLayout.getDesiredWidth(s.second, textPaint)).toInt()
-                                ).build()
-                                dynamicLayout.draw(canvas)
-                                statusBarWidth += (dynamicLayout.width + 20f)
-                                maxHeight = maxHeight.coerceAtLeast(dynamicLayout.height.toFloat())
+                        canvas.withTranslation(statusBarWidth, statusBarHeight) {
+                            if (s.first == StatusField.BL_TITLE) {
+                                val border = drawTitle(s, this)
+                                statusBarWidth += (border.width() + 20f)
+                                maxHeight = maxHeight.coerceAtLeast(border.height())
+                            } else {
+                                if (s.second.isNotEmpty()) {
+                                    val dynamicLayout = DynamicLayout.Builder.obtain(
+                                        s.second,
+                                        textPaint,
+                                        ceil(
+                                            DynamicLayout.getDesiredWidth(
+                                                s.second,
+                                                textPaint
+                                            )
+                                        ).toInt()
+                                    ).build()
+                                    dynamicLayout.draw(this)
+                                    statusBarWidth += (dynamicLayout.width + 20f)
+                                    maxHeight =
+                                        maxHeight.coerceAtLeast(dynamicLayout.height.toFloat())
+                                }
                             }
                         }
-                        canvas.restore()
                     }
                     statusBarHeight += maxHeight
                 }
@@ -181,7 +189,7 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private fun draw() {
         try {
             canvas = holder?.lockCanvas()
-            canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
             drawStatusBar(canvas)
         } finally {
             if (canvas != null)

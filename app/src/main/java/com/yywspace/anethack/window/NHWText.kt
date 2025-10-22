@@ -1,16 +1,13 @@
 package com.yywspace.anethack.window
 
-import android.text.SpannableStringBuilder
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
-import com.yywspace.anethack.command.NHAnswerCommand
 import com.yywspace.anethack.command.NHCommand
+import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.show
 
 class NHWText(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {

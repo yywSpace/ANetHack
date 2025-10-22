@@ -8,6 +8,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
 import kotlin.math.sqrt
+import androidx.core.graphics.createBitmap
 
 object IndicatorUtils {
 
@@ -40,9 +41,9 @@ object IndicatorUtils {
     fun isCircleOverlay(p1:PointF, p2:PointF, r1:Float, r2:Float):Boolean {
         return distance(p1,p2) < r1 + r2
     }
-    fun circleBitmap(bitmap: Bitmap): Bitmap? {
+    fun circleBitmap(bitmap: Bitmap): Bitmap {
         val r = if (bitmap.width > bitmap.height) bitmap.height else bitmap.width
-        val backBitmap = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
+        val backBitmap = createBitmap(bitmap.width, bitmap.height)
         val canvas = Canvas(backBitmap)
         val paint = Paint().apply {
             isFilterBitmap = false

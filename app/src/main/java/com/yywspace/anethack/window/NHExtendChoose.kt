@@ -91,12 +91,8 @@ class NHExtendChoose(val nh: NetHack) {
         var onItemClick:((view: View, index:Int, item: NHExtCmd)->Unit)? = null
         var filteredCmdList: MutableList<NHExtCmd> = commandList.toMutableList()
         inner class ExtCmdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val itemCommandDesc : TextView
-            val itemCommand : TextView
-            init {
-                itemCommand = view.findViewById(R.id.item_command)
-                itemCommandDesc = view.findViewById(R.id.item_command_desc)
-            }
+            val itemCommandDesc : TextView = view.findViewById(R.id.item_command_desc)
+            val itemCommand : TextView = view.findViewById(R.id.item_command)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

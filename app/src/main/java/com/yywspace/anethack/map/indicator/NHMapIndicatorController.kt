@@ -2,12 +2,9 @@ package com.yywspace.anethack.map.indicator
 
 import android.graphics.Canvas
 import android.graphics.PointF
-import android.util.Log
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.map.NHMapSurfaceView
 import com.yywspace.anethack.window.NHWMap
-import com.yywspace.anethack.window.NHWindowType
-import kotlinx.coroutines.delay
 
 class NHMapIndicatorController(private val mapView: NHMapSurfaceView, val nh:NetHack, val map: NHWMap) {
     private var indicatorList = mutableListOf<NHMapIndicator>()

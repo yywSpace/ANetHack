@@ -7,10 +7,8 @@ import android.graphics.PointF
 import android.graphics.Rect
 import android.graphics.RectF
 import com.yywspace.anethack.NetHack
-import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.map.NHMapSurfaceView
 import com.yywspace.anethack.window.NHWMap
-import com.yywspace.anethack.window.NHWindowType
 import kotlin.math.abs
 
 
@@ -66,7 +64,7 @@ class NHMapIndicator(private val mapView: NHMapSurfaceView,
     }
     private fun drawTileIndicator(canvas: Canvas?, cx:Float,cy:Float) {
         val tileBitmap = nh.tileSet.getTile(tile.glyph) ?: return
-        IndicatorUtils.circleBitmap(tileBitmap)?.apply {
+        IndicatorUtils.circleBitmap(tileBitmap).apply {
             canvas?.drawBitmap(
                 this,
                 Rect(0,0, this.width, this.height),
@@ -83,9 +81,7 @@ class NHMapIndicator(private val mapView: NHMapSurfaceView,
     fun isClicked(x:Float, y:Float):Boolean {
         val cx = location.x
         val cy = location.y
-        if (x > cx-radius && x < cx+radius && y > cy-radius && y < cy+radius )
-            return true
-        return false
+        return x > cx-radius && x < cx+radius && y > cy-radius && y < cy+radius
     }
 
     fun getTile(): NHWMap.Tile {
