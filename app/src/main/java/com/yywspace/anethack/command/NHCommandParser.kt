@@ -75,7 +75,7 @@ object NHCommandParser {
     }
 
     // S#engrave#-L"Elbereth"
-    // TODO 适配数字前缀，涉及Menu、Question
+    // TODO 适配数字前缀，涉及Menu、Question，向Sd20a这样的指令并不能达到预期
     private fun parseSequenceCommands(command:String):List<NHCommand> {
         val commands = mutableListOf<NHCommand>()
         val reader = PushbackReader(StringReader(command), command.length)
@@ -94,9 +94,7 @@ object NHCommandParser {
                         commands.add(NHKeyCommand('L'))
                 }
                 else -> {
-                    // 如果为数字则抛弃，待适配
-                    if (!Character.isDigit(next))
-                        commands.add(NHKeyCommand(next))
+                    commands.add(NHKeyCommand(next))
                 }
             }
             next = readChar(reader)
