@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
-import com.yywspace.anethack.command.NHCommand
+import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHString
@@ -74,7 +74,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                     setView(dialogTextView)
                     setPositiveButton(R.string.dialog_confirm, null)
                     setOnDismissListener {
-                        nh.command.sendCommand(NHCommand(27.toChar()))
+                        nh.command.sendCommand(NHKeyCommand(27.toChar()))
                     }
                     create()
                     show(nh.prefs.immersiveMode)
@@ -129,10 +129,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         }
 
         private inner class MessageViewHolder(itemView: View)  : RecyclerView.ViewHolder(itemView) {
-            val itemMessage: TextView
-            init {
-                itemMessage = itemView.findViewById(R.id.message)
-            }
+            val itemMessage: TextView = itemView.findViewById(R.id.message)
         }
     }
 

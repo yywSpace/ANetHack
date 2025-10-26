@@ -3,61 +3,61 @@
     "key": [
       {
         "label": "1",
-        "value": "L1",
+        "value": "S1",
         "row": 0,
         "column": 0
       },
       {
         "label": "2",
-        "value": "L2",
+        "value": "S2",
         "row": 0,
         "column": 1
       },
       {
         "label": "3",
-        "value": "L3",
+        "value": "S3",
         "row": 0,
         "column": 2
       },
       {
         "label": "4",
-        "value": "L4",
+        "value": "S4",
         "row": 0,
         "column": 3
       },
       {
         "label": "5",
-        "value": "L5",
+        "value": "S5",
         "row": 0,
         "column": 4
       },
       {
         "label": "6",
-        "value": "L6",
+        "value": "S6",
         "row": 0,
         "column": 5
       },
       {
         "label": "7",
-        "value": "L7",
+        "value": "S7",
         "row": 0,
         "column": 6
       },
       {
         "label": "8",
-        "value": "L8",
+        "value": "S8",
         "row": 0,
         "column":7
       },
       {
         "label": "9",
-        "value": "L9",
+        "value": "S9",
         "row": 0,
         "column": 8
       },
       {
         "label": "0",
-        "value": "L0",
+        "value": "S0",
         "row": 0,
         "column": 9
       }
@@ -68,61 +68,61 @@
     "key": [
       {
         "label": "Q",
-        "value": "LQ",
+        "value": "SQ",
         "row": 1,
         "column": 0
       },
       {
         "label": "W",
-        "value": "LW",
+        "value": "SW",
         "row": 1,
         "column":1
       },
       {
         "label": "E",
-        "value": "LE",
+        "value": "SE",
         "row": 1,
         "column":2
       },
       {
         "label": "R",
-        "value": "LR",
+        "value": "SR",
         "row": 1,
         "column": 3
       },
       {
         "label": "T",
-        "value": "LT",
+        "value": "ST",
         "row": 1,
         "column": 4
       },
       {
         "label": "Y",
-        "value": "LY",
+        "value": "SY",
         "row": 1,
         "column": 5
       },
       {
         "label": "U",
-        "value": "LU",
+        "value": "SU",
         "row": 1,
         "column": 6
       },
       {
         "label": "I",
-        "value": "LI",
+        "value": "SI",
         "row": 1,
         "column":7
       },
       {
         "label": "O",
-        "value": "LO",
+        "value": "SO",
         "row": 1,
         "column": 8
       },
       {
         "label": "P",
-        "value": "LP",
+        "value": "SP",
         "row": 1,
         "column": 9
       }
@@ -133,55 +133,55 @@
     "key": [
       {
         "label": "A",
-        "value": "LA",
+        "value": "SA",
         "row": 2,
         "column": 0
       },
       {
         "label": "S",
-        "value": "LS",
+        "value": "SS",
         "row": 2,
         "column": 1
       },
       {
         "label": "D",
-        "value": "LD",
+        "value": "SD",
         "row": 2,
         "column":2
       },
       {
         "label": "F",
-        "value": "LF",
+        "value": "SF",
         "row": 2,
         "column":3
       },
       {
         "label": "G",
-        "value": "LG",
+        "value": "SG",
         "row": 2,
         "column": 4
       },
       {
         "label": "H",
-        "value": "LH",
+        "value": "SH",
         "row": 2,
         "column": 5
       },
       {
         "label": "J",
-        "value": "LJ",
+        "value": "SJ",
         "row": 2,
         "column": 6
       },
       {
         "label": "K",
-        "value": "LK",
+        "value": "SK",
         "row": 2,
         "column":7
       },
       {
         "label": "L",
-        "value": "LL",
+        "value": "SL",
         "row": 2,
         "column": 8
       }
@@ -197,43 +197,43 @@
       },
       {
         "label": "Z",
-        "value": "LZ",
+        "value": "SZ",
         "row": 3,
         "column":1
       },
       {
         "label": "X",
-        "value": "LX",
+        "value": "SX",
         "row": 3,
         "column": 2
       },
       {
         "label": "C",
-        "value": "LC",
+        "value": "SC",
         "row": 3,
         "column": 3
       },
       {
         "label": "V",
-        "value": "LV",
+        "value": "SV",
         "row": 3,
         "column": 4
       },
       {
         "label": "B",
-        "value": "LB",
+        "value": "SB",
         "row": 3,
         "column": 5
       },
       {
         "label": "N",
-        "value": "LN",
+        "value": "SN",
         "row": 3,
         "column": 6
       },
       {
         "label": "M",
-        "value": "LM",
+        "value": "SM",
         "row": 3,
         "column":7
       },

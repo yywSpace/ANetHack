@@ -16,6 +16,7 @@ import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
+import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.command.NHMenuCommand
 import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.entity.NHString
@@ -66,7 +67,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
 
     fun selectMenu(how: Int): LongArray {
         // 如果指令序列中有能命中的则直接选择不显示弹窗
-        nh.command.findAnyCommand<NHCommand>()?.apply {
+        nh.command.findAnyCommand<NHKeyCommand>()?.apply {
             val selectList = mutableListOf<Long>()
             nhMenuItems.filter {
                 item -> (item.accelerator == key) and !item.isHeader() and !item.isHint()
@@ -380,7 +381,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                 setView(dialogTextView)
                 setPositiveButton(R.string.dialog_confirm) { _, _ ->
                     if (blocking) {
-                        nh.command.sendCommand(NHCommand(27.toChar()))
+                        nh.command.sendCommand(NHKeyCommand(27.toChar()))
                     }
                 }
             }.create()

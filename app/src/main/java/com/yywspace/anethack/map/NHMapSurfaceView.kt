@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHCommand
+import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.command.NHPosCommand.PosMod
 import com.yywspace.anethack.entity.NHStatus
@@ -297,9 +298,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         }
         if(straight) {
             // cmd = cmd.uppercaseChar()
-            nh.command.sendCommand(NHCommand('G'))
+            nh.command.sendCommand(NHKeyCommand('G'))
         }
-        nh.command.sendCommand(NHCommand(cmd))
+        nh.command.sendCommand(NHKeyCommand(cmd))
     }
 
     private fun getMoveDirection(base:PointF, target:PointF): Direction {

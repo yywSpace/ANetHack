@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
-import com.yywspace.anethack.command.NHCommand
+import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.show
 
@@ -23,13 +23,13 @@ class NHWText(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                 .apply {
                     findViewById<TextView>(R.id.text_view).apply {
                         // movementMethod = ScrollingMovementMethod.getInstance()
-                        text = buildContent(textList.map { it.toString() }, true)
+                        text = buildContent(textList.map { it.toString() }, false)
                     }
                 }
             val dialog = AlertDialog.Builder(nh.context).apply {
                 setView(dialogTextView)
                 setOnDismissListener {
-                    nh.command.sendCommand(NHCommand(27.toChar()))
+                    nh.command.sendCommand(NHKeyCommand(27.toChar()))
                 }
                 setPositiveButton(R.string.dialog_confirm) { _, _ ->
 

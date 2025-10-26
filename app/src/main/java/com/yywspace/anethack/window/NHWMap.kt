@@ -28,8 +28,8 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
 
     fun getTileList(c:Char):List<Tile> {
         val locList = mutableListOf<Tile>()
-        tiles.forEachIndexed { y, tiles ->
-            tiles.forEachIndexed { x, tile ->
+        tiles.forEachIndexed { _, tiles -> // y
+            tiles.forEachIndexed { _, tile -> // x
                 if (tile.ch == c)
                     locList.add(tile)
             }

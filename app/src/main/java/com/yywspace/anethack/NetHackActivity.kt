@@ -15,7 +15,9 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.yywspace.anethack.command.NHCommand
+import com.yywspace.anethack.command.NHCommandParser
 import com.yywspace.anethack.command.NHExtendCommand
+import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
 import com.yywspace.anethack.identify.NHPriceIDialog
 import com.yywspace.anethack.setting.SettingsActivity
@@ -144,6 +146,8 @@ class NetHackActivity : AppCompatActivity() {
         }
     }
 
+
+
     private fun processKeyPress(cmd:String) {
         if (cmd.isEmpty()) return
         when (cmd) {
@@ -158,10 +162,10 @@ class NetHackActivity : AppCompatActivity() {
                 Thread {
                     for (i in 0..100) {
                         for (j in 0..5) {
-                            nethack.command.sendCommand(NHCommand('h'))
+                            nethack.command.sendCommand(NHKeyCommand('h'))
                         }
                         for (j in 0..5) {
-                            nethack.command.sendCommand(NHCommand('l'))
+                            nethack.command.sendCommand(NHKeyCommand('l'))
                         }
                     }
                 }.start()
@@ -174,21 +178,10 @@ class NetHackActivity : AppCompatActivity() {
             }
             else -> {
                 if(nethack.isRunning) {
-                    if(cmd.startsWith("#")) {
-                        nethack.command.sendExtendCommand(NHExtendCommand(cmd))
-                        return
-                    } else if(cmd.startsWith("L")) {
-                        cmd.substring(1).toCharArray().forEach {
-                            nethack.command.sendCommand(NHCommand(it))
-                        }
-                        return
-                    } else {
-                        try {
-                            val key = parseInt(cmd).toChar()
-                            nethack.command.sendCommand(NHCommand(key))
-                        } catch (e: NumberFormatException) {
-                            nethack.command.sendCommand(NHCommand(cmd.firstOrNull()?:27.toChar()))
-                        }
+                    NHCommandParser.parseNHCommand(cmd).forEach {
+                        if (it is NHExtendCommand)
+                            nethack.command.sendCommand(NHKeyCommand('#'))
+                        nethack.command.sendCommand(it)
                     }
                 }
             }

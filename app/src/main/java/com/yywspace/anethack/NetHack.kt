@@ -241,14 +241,13 @@ class NetHack(
         if (question.startsWith("In what direction")) {
             return command.waitForCommand().key
         }
-        this.question.showSelectQuestion(question, choices, ynNumber, def)
-        return this.question.waitForAnswer()
+        return this.question.answerSelectQuestion(question, choices, ynNumber, def)
     }
 
     fun getLine(question: String, input: String, bufSize: Int):String {
-        this.question.showInputQuestion(question, input, bufSize)
-        return this.question.waitForLine()
+        return this.question.answerInputQuestion(question, input, bufSize)
     }
+
     private fun delayOutput() {
         try {
             Thread.sleep(10)

@@ -2,24 +2,21 @@ package com.yywspace.anethack.command
 
 import java.time.LocalDateTime
 import java.util.concurrent.ArrayBlockingQueue
+import java.util.concurrent.LinkedBlockingQueue
 
 class NHBlockingCommandController {
-    val cmdQueue = ArrayBlockingQueue<NHCommand>(1000)
+    val cmdQueue = LinkedBlockingQueue<NHCommand>(1000)
     var lastCmdTime: LocalDateTime = LocalDateTime.now()
 
     fun sendCommand(command: NHCommand) {
         lastCmdTime = LocalDateTime.now()
+        // 下面这部分判断只有手动在代码中构建Command时才会用到
+        // 其余情况直接使用序列命令：S20l 即可
         if(command.count > 1) {
             command.count.toString().toCharArray().forEach {
                 cmdQueue.put(NHCommand(it))
             }
         }
-        cmdQueue.put(command)
-    }
-
-    fun sendExtendCommand(command: NHExtendCommand) {
-        lastCmdTime = LocalDateTime.now()
-        cmdQueue.put(NHCommand(command.key))
         cmdQueue.put(command)
     }
 

@@ -8,7 +8,7 @@
     <string name="player_add">Click to start new game</string>
     <string name="player_name_too_long">Player %s name too long.</string>
     <string name="player_name_exists">Player %s already exists.</string>
-    <string name="ext_cmd_select">Please select extend command.</string>
+    <string name="ext_cmd_select">Please select extended command.</string>
     <string name="message_history">Message history.</string>
     <string name="item_amount_select">Select the amount of %s</string>
     <string name="number_select">Please input the quantity.</string>
@@ -108,7 +108,7 @@
     <string name="pref_keyboard_header">Keyboard</string>
     <string name="pref_keyboard_vibrate">Keyboard vibration</string>
     <string name="pref_keyboard_command_panel">Edit command panel</string>
-    <string name="pref_keyboard_command_panel_default">Setting S|Save #quit|Quit L20s|20s Keyboard|Abc\nd|Drop e|Eat :|Look ,|Pick .|Rest</string>
+    <string name="pref_keyboard_command_panel_default">Setting S|Save #quit|Quit S#engrave#-nL"Elbereth":|Elb L20s|20s Keyboard|Abc\n#|Extend d|Drop e|Eat :|Look ,|Pick .|Rest</string>
 
     <!-- Preference Other -->
     <string name="pref_other_header">Other</string>

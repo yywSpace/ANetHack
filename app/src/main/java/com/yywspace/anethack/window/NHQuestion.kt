@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHAnswerCommand
+import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.command.NHLineCommand
 import com.yywspace.anethack.extensions.show
 
@@ -24,11 +25,21 @@ class NHQuestion(val nh: NetHack) {
     private fun finishLine(line:String) {
         nh.command.sendCommand(NHLineCommand(line))
     }
-    fun waitForLine():String {
+
+    private fun waitForLine():String {
        return nh.command.waitForAnyCommand<NHLineCommand>().line
     }
 
-    fun showInputQuestion(question: String, input:String, bufSize: Int) {
+    fun answerInputQuestion(question: String, input:String, bufSize: Int):String {
+        // 弹窗前首先查找是否已存在NHLineCommand,如果有直接返回
+        nh.command.findAnyCommand<NHLineCommand>()?.apply {
+            return line
+        }
+        showInputQuestion(question, input, bufSize)
+        return waitForLine()
+    }
+
+    private fun showInputQuestion(question: String, input:String, bufSize: Int) {
         nh.runOnUi { _, context ->
             val dialogQuesView = View.inflate(context, R.layout.dialog_question_input, null)
             val dialog = AlertDialog.Builder(context).run {
@@ -94,7 +105,16 @@ class NHQuestion(val nh: NetHack) {
         }
     }
 
-    fun showSelectQuestion(question: String, choices: String, ynNumber:LongArray, def: Char) {
+    fun answerSelectQuestion(question: String, choices: String, ynNumber:LongArray, def: Char):Char {
+        // 弹窗前首先查找是否已存在NHKeyCommand
+        nh.command.findAnyCommand<NHKeyCommand>()?.apply {
+            return key
+        }
+        showSelectQuestion(question, choices, ynNumber, def)
+        return waitForAnswer()
+    }
+
+    private fun showSelectQuestion(question: String, choices: String, ynNumber:LongArray, def: Char) {
         Log.d("NHQuestion", "question:$question choices:$choices def:$def")
         if (choices.isNotEmpty())
             ynQuestion(question, choices, ynNumber, def)
@@ -153,6 +173,7 @@ class NHQuestion(val nh: NetHack) {
         }
         buildDialog(question, select, ynNumber, def)
     }
+
     private fun buildDialog(question: String, choices:MutableList<Pair<Char, Int>>, ynNumber: LongArray?, def: Char) {
         nh.runOnUi { _, context ->
             val dialog = AlertDialog.Builder(context).create()
@@ -220,10 +241,12 @@ class NHQuestion(val nh: NetHack) {
         dialog.show(nh.prefs.immersiveMode)
 
     }
+
     private fun finishAnswer(answer:Char, count:Int) {
         nh.command.sendCommand(NHAnswerCommand(answer, count))
     }
-    fun waitForAnswer():Char {
+
+    private fun waitForAnswer():Char {
         val cmd = nh.command.waitForAnyCommand<NHAnswerCommand>()
         return cmd.key
     }
@@ -233,10 +256,7 @@ class NHQuestion(val nh: NetHack) {
         var onItemLongClick:((view:View, index:Int, item:Pair<Char,Int>)->Unit)? = null
 
         inner class ButtonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val button : Button
-            init {
-                button = view.findViewById(R.id.item_answer_btn)
-            }
+            val button : Button = view.findViewById(R.id.item_answer_btn)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
