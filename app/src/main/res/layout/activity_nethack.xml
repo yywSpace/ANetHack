@@ -69,7 +69,6 @@
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/base_command_panel"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"/>
 
@@ -79,8 +78,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:clickable="true">
         </com.yywspace.anethack.keybord.BottomCommandSheet>
     </LinearLayout>
 

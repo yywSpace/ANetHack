@@ -2,22 +2,18 @@ package com.yywspace.anethack.identify
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import com.yywspace.anethack.R
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yywspace.anethack.NetHack
+import com.yywspace.anethack.R
 import com.yywspace.anethack.databinding.DialogPriceIdentifyBinding
 import com.yywspace.anethack.extensions.show
-import com.yywspace.anethack.window.NHWindowType
-import java.util.regex.Pattern
 
 
 class NHPriceIDialog (val context: Context, val nh: NetHack){
@@ -32,6 +28,8 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
     private lateinit var binding: DialogPriceIdentifyBinding
     private var priceID: NHPriceID = NHPriceID(context)
     private var tradePrice = ""
+    private var isShowing = false
+
     init {
         initAdapter()
         initView()
@@ -192,6 +190,9 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
 
     @SuppressLint("NotifyDataSetChanged")
     fun show() {
+        if (isShowing)
+            return
+        isShowing = true
         binding.root.apply {
             if (parent != null) {
                 (parent as ViewGroup).removeView(this)
@@ -216,6 +217,9 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
             setPositiveButton(R.string.dialog_confirm)  {_, _ ->
                 objList.clear()
                 objListAdapter.notifyDataSetChanged()
+            }
+            setOnDismissListener {
+                isShowing = false
             }
             create()
             queryObjList(false)
