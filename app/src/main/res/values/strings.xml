@@ -65,9 +65,6 @@
     <string name="pref_sound_header">Sound</string>
     <string name="pref_sound_user">User sound</string>
     <string name="pref_sound_user_summery">Play user sound if permission granted.</string>
-    <string name="pref_sound_user_perm">Permission read audio</string>
-    <string name="pref_sound_user_perm_granted">Permission granted</string>
-    <string name="pref_sound_user_perm_not_granted">Permission not granted</string>
     <string name="pref_sound_internal">Internal sound</string>
     <string name="pref_sound_internal_summery">Play internal sound that NetHack provided.</string>
 
@@ -118,6 +115,7 @@
     <string name="pref_other_immersive_mode_desc">Hide system ui.</string>
     <string name="floating_button_desc">Floating Action Button</string>
 
+    <string name="permission_audio">Audio permission</string>
     <string name="permission_granted">Permission has been granted. </string>
     <string name="permission_denied">Permission request was denied, you must manually grant permission. </string>
     <string name="permission_denied_hint">NetHack need permission to play user sound.</string>

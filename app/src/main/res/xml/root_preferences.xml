@@ -63,13 +63,8 @@
             app:key="userSound"
             app:title="@string/pref_sound_user"
             app:iconSpaceReserved="false"
-            app:defaultValue="true"
+            app:defaultValue="false"
             app:summary="@string/pref_sound_user_summery"/>
-        <Preference
-            app:key="userSoundPerm"
-            app:title="@string/pref_sound_user_perm"
-            app:iconSpaceReserved="false"
-            app:dependency="userSound"/>
 
         <CheckBoxPreference
             app:key="internalSound"

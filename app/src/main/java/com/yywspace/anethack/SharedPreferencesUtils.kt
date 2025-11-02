@@ -28,7 +28,7 @@ class SharedPreferencesUtils(val context: Context) {
     var travelAfterPanned by SharedPreferenceDelegates.boolean(true)
     var walkRange by SharedPreferenceDelegates.int(70)
     var priceId by SharedPreferenceDelegates.boolean(true)
-    var userSound by SharedPreferenceDelegates.boolean(true)
+    var userSound by SharedPreferenceDelegates.boolean(false)
     var internalSound by SharedPreferenceDelegates.boolean(true)
     var commandPanel by SharedPreferenceDelegates.string(context.getString(R.string.pref_keyboard_command_panel_default))
 

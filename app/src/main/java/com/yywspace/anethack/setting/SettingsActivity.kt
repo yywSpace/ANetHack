@@ -49,15 +49,19 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat(){
-       private var userSoundPerm:Preference? = null
+        private var userSoundPerm:CheckBoxPreference? = null
+        // 是否手动申请权限
+        private var requestSoundPerm = false
 
         override fun onResume() {
             super.onResume()
             userSoundPerm?.apply {
-                if (XXPermissions.isGranted(context, Permission.READ_MEDIA_AUDIO))
-                    setSummary(R.string.pref_sound_user_perm_granted)
-                else
-                    setSummary(R.string.pref_sound_user_perm_not_granted)
+                if (!XXPermissions.isGranted(context, Permission.READ_MEDIA_AUDIO))
+                    isChecked = false
+                else {
+                    // 拥有权限时，若为手动申请则设为有效
+                    if (requestSoundPerm) isChecked = true
+                }
             }
         }
 
@@ -91,12 +95,12 @@ class SettingsActivity : AppCompatActivity() {
             }
             findPreference<EditTextPreference>("dumpLogMaxSize")?.apply {
                 setOnBindEditTextListener {
-                    it.inputType = InputType.TYPE_CLASS_NUMBER;
+                    it.inputType = InputType.TYPE_CLASS_NUMBER
                 }
             }
             findPreference<EditTextPreference>("messageHistorySize")?.apply {
                 setOnBindEditTextListener {
-                    it.inputType = InputType.TYPE_CLASS_NUMBER;
+                    it.inputType = InputType.TYPE_CLASS_NUMBER
                 }
             }
             findPreference<Preference>("optionEdit")?.apply {
@@ -105,24 +109,39 @@ class SettingsActivity : AppCompatActivity() {
                     true
                 }
             }
-
-            userSoundPerm = findPreference<Preference>("userSoundPerm")?.apply {
+            userSoundPerm = findPreference<CheckBoxPreference>("userSound")?.apply {
                 setOnPreferenceClickListener {
-                    XXPermissions.with(context)
-                        .permission(Permission.READ_MEDIA_AUDIO)
-                        .request(object : OnPermissionCallback {
-                            override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
-                                if (!allGranted)
-                                    return
-                                Toast.makeText(context, R.string.permission_granted, Toast.LENGTH_SHORT).show()
-                            }
-                            override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
-                                if (doNotAskAgain) {
-                                    Toast.makeText(context, R.string.permission_denied, Toast.LENGTH_LONG).show()
-                                    XXPermissions.startPermissionActivity(context, permissions)
+                    if (!XXPermissions.isGranted(context, Permission.READ_MEDIA_AUDIO)) {
+                        isChecked = false
+                        XXPermissions.with(context)
+                            .permission(Permission.READ_MEDIA_AUDIO)
+                            .request(object : OnPermissionCallback {
+                                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
+                                    if (!allGranted)
+                                        return
+                                    isChecked = true
+                                    Toast.makeText(context, R.string.permission_granted, Toast.LENGTH_SHORT).show()
                                 }
-                            }
-                        })
+                                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
+                                    if (doNotAskAgain) {
+                                        isChecked = false
+                                        AlertDialog.Builder(context).apply {
+                                            setTitle(R.string.permission_audio)
+                                            setMessage(R.string.permission_denied)
+                                            setNegativeButton(R.string.dialog_confirm) {_, _ ->
+                                                // 是否手动申请权限
+                                                requestSoundPerm = true
+                                                XXPermissions.startPermissionActivity(context, permissions)
+                                            }
+                                            create()
+                                            show()
+                                        }
+
+                                    }
+                                }
+                            })
+                        return@setOnPreferenceClickListener true
+                    }
                     true
                 }
             }

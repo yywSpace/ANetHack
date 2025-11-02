@@ -1,7 +1,6 @@
 package com.yywspace.anethack.setting
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -17,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.yywspace.anethack.R
 import com.yywspace.anethack.databinding.ActivityOptionEditBinding
 import java.io.File
+import androidx.core.graphics.toColorInt
 
 
 class OptionEditActivity: AppCompatActivity() {
@@ -90,7 +90,7 @@ class OptionEditActivity: AppCompatActivity() {
                     val line = text.substring(startIdx + 1, endIdx + 1)
                     if (line.startsWith("#")) {
                         editableText.setSpan(
-                            ForegroundColorSpan(Color.parseColor("#77B767")),
+                            ForegroundColorSpan("#77B767".toColorInt()),
                             startIdx + 1, endIdx + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE )
                     } else {
                         editableText.setSpan(ForegroundColorSpan(Color.BLACK),
@@ -112,7 +112,7 @@ class OptionEditActivity: AppCompatActivity() {
             val line = text.substring(lastIdx + 1, idx + 1)
             if (line.startsWith("#")) {
                 text.setSpan(
-                    ForegroundColorSpan(Color.parseColor("#77B767")),
+                    ForegroundColorSpan("#77B767".toColorInt()),
                     lastIdx + 1, idx + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE
                 )
             }
