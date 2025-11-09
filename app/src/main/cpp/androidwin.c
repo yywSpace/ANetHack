@@ -121,8 +121,6 @@ struct window_procs and_procs = {
         and_change_color,
 	    and_get_color_string,
 #endif
-        and_start_screen,
-        and_end_screen,
         genl_outrip,
         genl_preference_update,
         and_getmsghistory,
@@ -149,7 +147,7 @@ static int status_attrmasks[MAXBLSTATS];
 static unsigned long* and_colormasks;
 static long and_condition_bits = 0L;
 
-char ** get_aborted_games();
+void restore_aborted_games();
 
 void more(void){
 
@@ -1137,20 +1135,17 @@ void and_getlin(const char *question, char *input)
 void and_askname()
 {
     int saved_size = 0, aborted_size = 0, i;
+    restore_aborted_games();
     char ** saved = get_saved_games();
-    char ** aborted = get_aborted_games();
     for (i = 0; saved && saved[i]; i++)
         saved_size++;
-    for (i = 0; aborted && aborted[i]; i++)
-        aborted_size++;
     jclass stringClass = (*jEnv)->FindClass(jEnv, "java/lang/String");
     jobjectArray jSavedList = (*jEnv)->NewObjectArray(jEnv, saved_size + aborted_size, stringClass, 0);
-    for(i = 0; i < saved_size; i++)
-        (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i, char2Jstring(jEnv, saved[i]));
-    for(i = 0; i < aborted_size; i++)
-        (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i + saved_size, char2Jstring(jEnv, aborted[i]));
+    if (saved != NULL)
+        for(i = 0; i < saved_size; i++)
+            (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i, char2Jstring(jEnv, saved[i]));
     jobjectArray jPlayerInfo = (jobjectArray)JNICallO(jAskName, PL_NSIZ, jSavedList)
-    int itemCnt = (*jEnv)->GetArrayLength(jEnv, jPlayerInfo);
+    // int itemCnt = (*jEnv)->GetArrayLength(jEnv, jPlayerInfo);
     jstring jPlayer = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 0);
     jstring jPlaymode = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 1);
     const char *player = jstring2Char(jEnv, jPlayer);
@@ -1167,7 +1162,6 @@ void and_askname()
     LOGD("and_askname");
 }
 
-//____________________________________________________________________________________
 //int get_ext_cmd(void)
 //		-- Get an extended command in a window-port specific way.
 //		   An index into extcmdlist[] is returned on a successful
@@ -1204,7 +1198,6 @@ int and_get_ext_cmd()
     return idx;
 }
 
-//____________________________________________________________________________________
 //number_pad(state)
 //		-- Initialize the number pad to the given state.
 void and_number_pad(int state)
@@ -1213,7 +1206,6 @@ void and_number_pad(int state)
     JNICallV(jSetNumPadOption, state)
 }
 
-//____________________________________________________________________________________
 //delay_output()	-- Causes a visible delay of 50ms in the output.
 //		   Conceptually, this is similar to wait_synch() followed
 //		   by a nap(50ms), but allows asynchronous operation.
@@ -1235,26 +1227,6 @@ char* and_get_color_string()
 }
 #endif
 
-//____________________________________________________________________________________
-//start_screen()	-- Only used on Unix tty ports, but must be declared for
-//		   completeness.  Sets up the tty to work in full-screen
-//		   graphics mode.  Look at win/tty/termcap.c for an
-//		   example.  If your window-port does not need this function
-//		   just declare an empty function.
-void and_start_screen()
-{
-    LOGD("and_start_screen");
-}
-
-//____________________________________________________________________________________
-//end_screen()	-- Only used on Unix tty ports, but must be declared for
-//		   completeness.  The complement of start_screen().
-void and_end_screen()
-{
-    LOGD("and_end_screen");
-}
-
-//____________________________________________________________________________________
 // and_getmsghistory(init)
 // 		window ports can provide their own getmsghistory() routine to
 // 		preserve message history between games. The routine is called

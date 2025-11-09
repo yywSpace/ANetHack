@@ -28,7 +28,7 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
         private val itemTile:ImageView = view.findViewById(R.id.item_tile)
 
         fun bind(position: Int, menuItem: NHMenuItem) {
-            if (!tileSet.isTTY() && menuItem.glyph != 1465) {
+            if (!tileSet.isTTY() && menuItem.glyph != 1466) {
                 val bitmap = tileSet.getTile(menuItem.glyph)
                 itemTile.setImageBitmap(bitmap)
                 itemTile.visibility = View.VISIBLE

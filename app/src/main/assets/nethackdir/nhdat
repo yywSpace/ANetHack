@@ -1,151 +1,152 @@
-  1      147     1737     3247  1459381
+  1      148     1750     3270  1475571
 nDirectory        0
-nhelp     3247
-nhh    15102
-ncmdhelp    24103
-nkeyhelp    31639
-nhistory    34816
-nopthelp    53165
-noptmenu    77690
-nusagehlp    79942
-nwizhelp    86521
-ndungeon.lua    89063
-ntribute    95925
-nasmodeus.lua   479614
-nbaalz.lua   482463
-nbigrm-1.lua   484932
-nbigrm-10.lua   487772
-nbigrm-11.lua   490402
-nbigrm-2.lua   491459
-nbigrm-3.lua   494145
-nbigrm-4.lua   497280
-nbigrm-5.lua   499624
-nbigrm-6.lua   501840
-nbigrm-7.lua   503855
-nbigrm-8.lua   506068
-nbigrm-9.lua   508249
-ncastle.lua   510472
-nfakewiz1.lua   519040
-nfakewiz2.lua   520655
-njuiblex.lua   522150
-nknox.lua   526148
-nmedusa-1.lua   533031
-nmedusa-2.lua   537773
-nmedusa-3.lua   543369
-nmedusa-4.lua   549363
-nminend-1.lua   555394
-nminend-2.lua   559718
-nminend-3.lua   565050
-nminefill.lua   568464
-nminetn-1.lua   569590
-nminetn-2.lua   575407
-nminetn-3.lua   582070
-nminetn-4.lua   586621
-nminetn-5.lua   591525
-nminetn-6.lua   596633
-nminetn-7.lua   600204
-noracle.lua   607486
-norcus.lua   609990
-nsanctum.lua   614981
-nsoko1-1.lua   620397
-nsoko1-2.lua   623445
-nsoko2-1.lua   626475
-nsoko2-2.lua   628155
-nsoko3-1.lua   629946
-nsoko3-2.lua   632036
-nsoko4-1.lua   633953
-nsoko4-2.lua   636794
-ntower1.lua   638459
-ntower2.lua   640898
-ntower3.lua   642700
-nvalley.lua   644235
-nwizard1.lua   650052
-nwizard2.lua   653762
-nwizard3.lua   656044
-nnhcore.lua   659377
-nnhlib.lua   664194
-nthemerms.lua   671295
-nastral.lua   698433
-nair.lua   707978
-nearth.lua   713271
-nfire.lua   719448
-nwater.lua   725225
-nhellfill.lua   729766
-ntut-1.lua   741043
-ntut-2.lua   752931
-nArc-goal.lua   753538
-nBar-goal.lua   757874
-nCav-goal.lua   761720
-nHea-goal.lua   764276
-nKni-goal.lua   767010
-nMon-goal.lua   771294
-nPri-goal.lua   773261
-nRan-goal.lua   775441
-nRog-goal.lua   780072
-nSam-goal.lua   784874
-nTou-goal.lua   788248
-nVal-goal.lua   794517
-nWiz-goal.lua   798051
-nArc-fila.lua   803565
-nArc-filb.lua   804995
-nBar-fila.lua   806434
-nBar-filb.lua   807277
-nCav-fila.lua   808498
-nCav-filb.lua   809462
-nHea-fila.lua   810535
-nHea-filb.lua   811695
-nKni-fila.lua   813022
-nKni-filb.lua   813957
-nMon-fila.lua   815027
-nMon-filb.lua   816623
-nPri-fila.lua   818195
-nPri-filb.lua   819519
-nRan-fila.lua   821011
-nRan-filb.lua   822005
-nRog-fila.lua   823049
-nRog-filb.lua   824854
-nSam-fila.lua   826659
-nSam-filb.lua   827489
-nTou-fila.lua   829393
-nTou-filb.lua   830373
-nVal-fila.lua   831373
-nVal-filb.lua   832291
-nWiz-fila.lua   833315
-nWiz-filb.lua   834855
-nArc-loca.lua   836368
-nBar-loca.lua   841510
-nCav-loca.lua   846170
-nHea-loca.lua   850317
-nKni-loca.lua   853055
-nMon-loca.lua   857304
-nPri-loca.lua   861042
-nRan-loca.lua   863871
-nRog-loca.lua   867068
-nSam-loca.lua   871309
-nTou-loca.lua   876245
-nVal-loca.lua   882392
-nWiz-loca.lua   884830
-nArc-strt.lua   890487
-nBar-strt.lua   895051
-nCav-strt.lua   899394
-nHea-strt.lua   903864
-nKni-strt.lua   908047
-nMon-strt.lua   912164
-nPri-strt.lua   916497
-nRan-strt.lua   920510
-nRog-strt.lua   924900
-nSam-strt.lua   930963
-nTou-strt.lua   935092
-nVal-strt.lua   939987
-nWiz-strt.lua   943975
-nbogusmon   948653
-ndata   956033
-nengrave  1242772
-nepitaph  1245726
-noracles  1269801
-noptions  1275976
-nquest.lua  1277679
-nrumors  1409695
+nhelp     3270
+nhh    15125
+ncmdhelp    24126
+nkeyhelp    31662
+nhistory    34839
+nopthelp    53188
+noptmenu    78297
+nusagehlp    80549
+nwizhelp    87128
+ndungeon.lua    89670
+ntribute    96532
+nasmodeus.lua   480221
+nbaalz.lua   483070
+nbigrm-1.lua   485539
+nbigrm-10.lua   488379
+nbigrm-11.lua   491009
+nbigrm-12.lua   492066
+nbigrm-2.lua   495188
+nbigrm-3.lua   497874
+nbigrm-4.lua   501009
+nbigrm-5.lua   503353
+nbigrm-6.lua   505569
+nbigrm-7.lua   507584
+nbigrm-8.lua   509797
+nbigrm-9.lua   511978
+ncastle.lua   514201
+nfakewiz1.lua   522821
+nfakewiz2.lua   524436
+njuiblex.lua   525931
+nknox.lua   529929
+nmedusa-1.lua   536812
+nmedusa-2.lua   541554
+nmedusa-3.lua   547150
+nmedusa-4.lua   553145
+nminend-1.lua   559176
+nminend-2.lua   563500
+nminend-3.lua   568832
+nminefill.lua   572246
+nminetn-1.lua   573372
+nminetn-2.lua   579189
+nminetn-3.lua   585852
+nminetn-4.lua   590403
+nminetn-5.lua   595307
+nminetn-6.lua   600415
+nminetn-7.lua   603986
+noracle.lua   611268
+norcus.lua   613772
+nsanctum.lua   618998
+nsoko1-1.lua   624414
+nsoko1-2.lua   627591
+nsoko2-1.lua   630750
+nsoko2-2.lua   632559
+nsoko3-1.lua   634479
+nsoko3-2.lua   636698
+nsoko4-1.lua   638744
+nsoko4-2.lua   641713
+ntower1.lua   643581
+ntower2.lua   646189
+ntower3.lua   647991
+nvalley.lua   649526
+nwizard1.lua   655343
+nwizard2.lua   659053
+nwizard3.lua   661335
+nnhcore.lua   664668
+nnhlib.lua   669485
+nthemerms.lua   676586
+nastral.lua   710535
+nair.lua   720080
+nearth.lua   725373
+nfire.lua   731550
+nwater.lua   737327
+nhellfill.lua   741868
+ntut-1.lua   753636
+ntut-2.lua   768543
+nArc-goal.lua   769150
+nBar-goal.lua   773486
+nCav-goal.lua   777332
+nHea-goal.lua   779888
+nKni-goal.lua   782622
+nMon-goal.lua   786906
+nPri-goal.lua   788873
+nRan-goal.lua   791053
+nRog-goal.lua   795684
+nSam-goal.lua   800486
+nTou-goal.lua   803860
+nVal-goal.lua   810129
+nWiz-goal.lua   813663
+nArc-fila.lua   819177
+nArc-filb.lua   820607
+nBar-fila.lua   822046
+nBar-filb.lua   822889
+nCav-fila.lua   824110
+nCav-filb.lua   825074
+nHea-fila.lua   826147
+nHea-filb.lua   827307
+nKni-fila.lua   828634
+nKni-filb.lua   829569
+nMon-fila.lua   830639
+nMon-filb.lua   832235
+nPri-fila.lua   833807
+nPri-filb.lua   835131
+nRan-fila.lua   836623
+nRan-filb.lua   837617
+nRog-fila.lua   838661
+nRog-filb.lua   840466
+nSam-fila.lua   842271
+nSam-filb.lua   843101
+nTou-fila.lua   845005
+nTou-filb.lua   845985
+nVal-fila.lua   846985
+nVal-filb.lua   847903
+nWiz-fila.lua   848927
+nWiz-filb.lua   850467
+nArc-loca.lua   851980
+nBar-loca.lua   857122
+nCav-loca.lua   861782
+nHea-loca.lua   865929
+nKni-loca.lua   868667
+nMon-loca.lua   872916
+nPri-loca.lua   876654
+nRan-loca.lua   879483
+nRog-loca.lua   882680
+nSam-loca.lua   886921
+nTou-loca.lua   891857
+nVal-loca.lua   898004
+nWiz-loca.lua   900442
+nArc-strt.lua   906099
+nBar-strt.lua   910663
+nCav-strt.lua   915006
+nHea-strt.lua   919476
+nKni-strt.lua   923659
+nMon-strt.lua   927776
+nPri-strt.lua   932109
+nRan-strt.lua   936122
+nRog-strt.lua   940512
+nSam-strt.lua   946575
+nTou-strt.lua   950704
+nVal-strt.lua   955599
+nWiz-strt.lua   959587
+nbogusmon   964265
+ndata   971645
+nengrave  1258822
+nepitaph  1261776
+noracles  1285911
+noptions  1292086
+nquest.lua  1293809
+nrumors  1425825
         Welcome to NetHack!                ( description of version 3.6 )
 
         NetHack is a Dungeons and Dragons like game where you (the adventurer)
@@ -1182,7 +1183,6 @@ mail           enable the mail daemon                              [True]
 mention_decor  give feedback when walking across stairs, altars,  [False]
                fountains, and such even when not obscured by objects
 mention_walls  give feedback when walking against a wall          [False]
-menu_objsyms   show object symbols in menus if it is selectable   [False]
 menu_overlay   overlay menus on the screen and align to right      [True]
 menucolors     enable MENUCOLOR pattern matching to highlight     [False]
                lines in object menus like inventory; might highlight with
@@ -1332,6 +1332,16 @@ menustyle     user interface for selection of multiple objects:      [Full]
               only the first letter ('T','C','F','P') matters
               (With Traditional, many actions allow pseudo-class 'm' to
               request a menu for choosing items: one-shot Combination.)
+menu_objsyms  whether to include object class symbols in menus:         [4]
+              0 - none    -- don't add object symbols to menus;
+              1 - headers -- append object class symbol to menu header lines;
+              2 - entries -- show object glyphs (same as class symbol
+                             for ASCII interfaces) on each menu entry line;
+              3 - both    -- 1 and 2 combined;
+              4 - conditional  -- as 2 but only if no headers are present;
+              5 - one-or-other -- 1 and 4 combined;
+              choices 0 and 1 should work with any interface; 2 through 5
+              are supported by tty and curses
 msg_window    behavior of ^P message recall for tty interface:          [s]
               single      -- one message at a time
               full        -- full window with all saved top line messages
@@ -1822,7 +1832,7 @@ dungeon = {
             base = 10,
             range = 3,
             chance = 40,
-            nlevels = 11
+            nlevels = 12
          },
          {
             name = "medusa",
@@ -5750,7 +5760,7 @@ and needs to see in the dark.  Strange but true.
 %e passage
 # p. 218
 %passage 9
-"He's bound to have done /something/," Noddy repeated.
+"He's bound to have done /something/," Nobby repeated.
 
 In this he was echoing the Patrician's view of crime and punishment.  If
 there was a crime, there should be punishment.  If the specific criminal
@@ -8116,7 +8126,7 @@ was mostly unexplored, too.(1)
 %e passage
 # p. 219 (passage begins mid-sentence)
 %passage 12
-[...] Sam Vines had learned a lot from watching Lady Sybil.  She didn't
+[...] Sam Vimes had learned a lot from watching Lady Sybil.  She didn't
 mean to act like that, but she'd been born to it, into a class which had
 always behaved this way:  You went through the world as if there was
 /no possibility/ that anyone would stop you or question you, and most of
@@ -12360,6 +12370,91 @@ for i = 1,28 do
   des.monster();
 end
 
+-- NetHack bigroom bigrm-12.lua	$NHDT-Date: $  $NHDT-Branch: NetHack-3.7 $
+--	Copyright (c) 2024 by Pasi Kallinen
+-- NetHack may be freely redistributed.  See license for details.
+--
+-- Two hexagons
+
+des.level_flags("mazelevel", "noflipy");
+des.level_init({ style = "solidfill", fg = " " });
+
+des.map([[
+                                                                           
+         .......................           .......................         
+        .........................         .........................        
+       ...........................       ...........................       
+      .............................     .............................      
+     ........PPPPPPPPPPPPPPP........   ........LLLLLLLLLLLLLLL........     
+    ........PPPPPPPPPPPPPPPPP........ ........LLLLLLLLLLLLLLLLL........    
+   ........PPPWWWWWWWWWWWWWPPP...............LLLZZZZZZZZZZZZZLLL........   
+  ........PPPWWWWWWWWWWWWWWWPPP.............LLLZZZZZZZZZZZZZZZLLL........  
+ ........PPPWWWWWWWWWWWWWWWWWPPP...........LLLZZZZZZZZZZZZZZZZZLLL........ 
+  ........PPPWWWWWWWWWWWWWWWPPP.............LLLZZZZZZZZZZZZZZZLLL........  
+   ........PPPWWWWWWWWWWWWWPPP...............LLLZZZZZZZZZZZZZLLL........   
+    ........PPPPPPPPPPPPPPPPP........ ........LLLLLLLLLLLLLLLLL........    
+     ........PPPPPPPPPPPPPPP........   ........LLLLLLLLLLLLLLL........     
+      .............................     .............................      
+       ...........................       ...........................       
+        .........................         .........................        
+         .......................           .......................         
+                                                                           
+]]);
+
+-- maybe replace lavawalls/waterwalls with stone walls
+if percent(20) then
+   if percent(50) then
+      des.replace_terrain({ fromterrain = "W", toterrain = "-" });
+   end
+   if percent(50) then
+      des.replace_terrain({ fromterrain = "Z", toterrain = "-" });
+   end
+end
+
+-- maybe replace pools with floor and then possibly walls with pools
+if percent(25) then
+   des.replace_terrain({ fromterrain = "P", toterrain = "." });
+   if percent(75) then
+      des.replace_terrain({ fromterrain = "W", toterrain = "P" });
+   end
+end
+if percent(25) then
+   des.replace_terrain({ fromterrain = "L", toterrain = "." });
+   if percent(75) then
+      des.replace_terrain({ fromterrain = "Z", toterrain = "L" });
+   end
+end
+
+-- maybe make both sides have the same terrain
+if percent(20) then
+   if percent(50) then
+      -- both are lava
+      des.replace_terrain({ fromterrain = "P", toterrain = "L" });
+      des.replace_terrain({ fromterrain = "W", toterrain = "Z" });
+   else
+      -- both are water
+      des.replace_terrain({ fromterrain = "L", toterrain = "P" });
+      des.replace_terrain({ fromterrain = "Z", toterrain = "W" });
+   end
+end
+
+des.region(selection.area(00,00,75,19), "lit")
+des.non_diggable();
+
+des.wallify();
+
+des.stair("up");
+des.stair("down");
+
+for i = 1,15 do
+   des.object();
+end
+for i = 1,6 do
+   des.trap();
+end
+for i = 1,28 do
+  des.monster();
+end
 -- NetHack bigroom bigrm-2.lua	$NHDT-Date: 1652196021 2022/05/10 15:20:21 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990 by M. Stephenson
@@ -12525,20 +12620,20 @@ des.level_flags("mazelevel", "noflip");
 des.map([[
 -----------                                                     -----------
 |.........|                                                     |.........|
-|.........|-----------|                             |-----------|.........|
-|-|...................|----------|       |----------|...................|-|
-  -|.............................|-------|.............................|-  
-   -|.................................................................|-   
-    -|...............................................................|-    
-     -|......LLLLL.......................................LLLLL......|-     
-      -|.....LLLLL.......................................LLLLL.....|-      
-      -|.....LLLLL.......................................LLLLL.....|-      
-     -|......LLLLL.......................................LLLLL......|-     
-    -|...............................................................|-    
-   -|.................................................................|-   
-  -|.............................|-------|.............................|-  
-|-|...................|----------|       |----------|...................|-|
-|.........|-----------|                             |-----------|.........|
+|.........-------------                             -------------.........|
+---...................------------       ------------...................---
+  --.............................---------.............................--  
+   --.................................................................--   
+    --...............................................................--    
+     --......LLLLL.......................................LLLLL......--     
+      --.....LLLLL.......................................LLLLL.....--      
+      --.....LLLLL.......................................LLLLL.....--      
+     --......LLLLL.......................................LLLLL......--     
+    --...............................................................--    
+   --.................................................................--   
+  --.............................---------.............................--  
+---...................------------       ------------...................---
+|.........-------------                             -------------.........|
 |.........|                                                     |.........|
 -----------                                                     -----------
 ]]);
@@ -12641,7 +12736,7 @@ des.map([[
   --...........--   --...........--   --...........--   --...........--  
  --.............-- --.............-- --.............-- --.............-- 
  -...............- -...............- -...............- -...............- 
-|-...............---...............---...............---...............--
+--...............---...............---...............---...............--
 |.................-.................-.................-.................|
 |........T.................T.................T.................T........|
 |.......................................................................|
@@ -12691,11 +12786,11 @@ des.map([[
                         ---------.................................---      
                 ---------...........................................---    
         ---------.....................................................---  
-|--------...............................................................--|
+---------...............................................................---
 |.........................................................................|
 |.L.....................................................................L.|
 |.........................................................................|
-|--...............................................................--------|
+---...............................................................---------
   ---.....................................................---------        
     ---...........................................---------                
       ---.................................---------                        
@@ -12978,6 +13073,7 @@ local loc = place:rndcoord(1);
 des.object({ id = "chest", trapped = 0, locked = 1, coord = loc ,
              contents = function()
                 des.object("wishing");
+                des.object("potion of gain level");
              end
 });
 -- Prevent monsters from eating it.  (@'s never eat objects)
@@ -13851,7 +13947,7 @@ des.monster("water nymph")
 des.monster("water nymph")
 
 for i=1,30 do
-   des.monster({ id = "raven", hostile = 1 })
+   des.monster({ id = "raven", peaceful = 0 })
 end
 
 --#medusa-3.lua
@@ -15658,6 +15754,13 @@ local orcus1 = des.map({ halign = "right", valign = "center", map = [[
    des.object()
    des.object()
    des.object()
+   -- An object that's worth most of a wish
+   -- (this is part of the compensation for the reduced wishes at the Castle)
+   if math.random(0, 1) == 1 then
+      des.object("magic marker")
+   else
+      des.object("magic lamp")
+   end
    -- The resident nasty
    des.monster("Orcus",33,15)
    -- And its preferred companions
@@ -15900,6 +16003,8 @@ des.object("boulder", 09, 12);
 --
 des.object("boulder", 03, 14);
 
+-- prevent monster generation over the (filled) holes
+des.exclusion({ type = "monster-generation", region = { 08,01, 23,01 } });
 -- Traps
 des.trap("hole", 08, 01);
 des.trap("hole", 09, 01);
@@ -16010,6 +16115,8 @@ des.object("boulder",10,08);
 des.object("boulder",12,09);
 des.object("boulder",11,10);
 
+-- prevent monster generation over the (filled) holes
+des.exclusion({ type = "monster-generation", region = { 05,01, 22,01 } });
 -- Traps
 des.trap("hole",05,01)
 des.trap("hole",06,01)
@@ -16106,6 +16213,8 @@ des.object("boulder",03,09)
 des.object("boulder",05,07)
 des.object("boulder",06,06)
 
+-- prevent monster generation over the (filled) holes
+des.exclusion({ type = "monster-generation", region = { 07,09, 18,09 } });
 -- Traps
 des.trap("hole",08,09)
 des.trap("hole",09,09)
@@ -16173,6 +16282,8 @@ des.object("boulder",06,09)
 des.object("boulder",05,10)
 des.object("boulder",05,11)
 
+-- prevent monster generation over the (filled) holes
+des.exclusion({ type = "monster-generation", region = { 06,11, 18,11 } });
 -- Traps
 des.trap("hole",07,11)
 des.trap("hole",08,11)
@@ -16247,6 +16358,8 @@ des.object("boulder",09,09)
 des.object("boulder",10,07)
 des.object("boulder",10,10)
 
+-- prevent monster generation over the (filled) holes
+des.exclusion({ type = "monster-generation", region = { 11,10, 27,10 } });
 -- Traps
 des.trap("hole",12,10)
 des.trap("hole",13,10)
@@ -16321,6 +16434,8 @@ des.object("boulder",07,10)
 des.object("boulder",10,10)
 des.object("boulder",03,11)
 
+-- prevent monster generation over the (filled) holes
+des.exclusion({ type = "monster-generation", region = { 12,10, 24,10 } });
 -- Traps
 des.trap("hole",12,10)
 des.trap("hole",13,10)
@@ -16417,6 +16532,8 @@ des.object("boulder",09,09)
 des.object("boulder",08,10)
 des.object("boulder",10,10)
 
+-- prevent monster generation over the (filled) pits
+des.exclusion({ type = "monster-generation", region = { 01,06, 07,11 } });
 -- Traps
 des.trap("pit",03,06)
 des.trap("pit",04,06)
@@ -16483,6 +16600,9 @@ des.object("boulder",08,08)
 des.object("boulder",09,08)
 des.object("boulder",10,08)
 
+-- prevent monster generation over the (filled) pits
+des.exclusion({ type = "monster-generation", region = { 01,01, 01,09 } });
+des.exclusion({ type = "monster-generation", region = { 01,08, 07,09 } });
 -- Traps
 des.trap("pit",01,02)
 des.trap("pit",01,03)
@@ -16547,9 +16667,14 @@ des.monster("V",niches[3])
 -- gave them titles rather than (or perhaps in addition to) specific names
 -- and we use those titles here.  Marking them as 'waiting' forces them to
 -- start in vampire form instead of vampshifted into bat/fog/wolf form.
-des.monster({ id="Vampire Lady", niches[4], name="Madame", waiting=1 })
-des.monster({ id="Vampire Lady", niches[5], name="Marquise", waiting=1 })
-des.monster({ id="Vampire Lady", niches[6], name="Countess", waiting=1 })
+local Vgenod = nh.is_genocided("vampire");
+local Vnames = { nil, nil, nil };
+if (not Vgenod) then
+   Vnames = { "Madame", "Marquise", "Countess" };
+end
+des.monster({ id="vampire lady", coord=niches[4], name=Vnames[1], waiting=1 })
+des.monster({ id="vampire lady", coord=niches[5], name=Vnames[2], waiting=1 })
+des.monster({ id="vampire lady", coord=niches[6], name=Vnames[3], waiting=1 })
 -- The doors
 des.door("closed",08,03)
 des.door("closed",10,03)
@@ -17503,16 +17628,31 @@ function tutorial_turn()
    end
    -- nh.pline("TUT:turn");
 end
--- NetHack themerms.lua	$NHDT-Date: 1652196294 2022/05/10 15:24:54 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.16 $
+-- NetHack themerms.lua	$NHDT-Date: 1744445274 2025/04/12 00:07:54 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.40 $
 --	Copyright (c) 2020 by Pasi Kallinen
 -- NetHack may be freely redistributed.  See license for details.
 --
--- themerooms is an array of tables and/or functions.
--- the tables define "frequency", "contents", "mindiff" and "maxdiff".
--- frequency is optional; if omitted, 1 is assumed.
--- mindiff and maxdiff are optional and independent; if omitted, the room is
--- not constrained by level difficulty.
--- a plain function has frequency of 1, and no difficulty constraints.
+-- themerooms is an array of tables.
+-- the tables define "name", "frequency", "contents", "mindiff" and "maxdiff".
+-- * "name" is not shown in-game; it is so that developers can specify a
+--   certain room to generate by using the THEMERM or THEMERMFILL environment
+--   variable. While technically optional, it should be provided on all the
+--   rooms; if it isn't, the room can't be directly specified.
+-- * "frequency" is optional; if omitted, 1 is assumed.
+-- * "contents" is a function describing what gets put into the room.
+-- * "mindiff" and "maxdiff" are optional and independent; if omitted, the
+--    room is not constrained by level difficulty.
+-- * "eligible" is optional; if omitted, True is assumed.
+--
+-- themeroom_fills is an array of tables with the exact same structure as
+-- themerooms. It is used for contents of a room that are independent of its
+-- shape, so that interestingly-shaped themerooms can be filled with a variety
+-- of contents.
+-- * The "contents" functions in themeroom_fills take the room they are
+--   filling as an argument.
+-- * Frequency of themeroom_fills is a separate pool from themerooms, and has
+--   no effect on how likely that any given room will receive a themeroom_fill.
+--
 -- des.room({ type = "ordinary", filled = 1 })
 --   - ordinary rooms can be converted to shops or any other special rooms.
 --   - filled = 1 means the room gets random room contents, even if it
@@ -17529,35 +17669,38 @@ end
 -- The lua state is persistent through the gameplay, but not across saves,
 -- so remember to reset any variables.
 
-
 local postprocess = { };
 
 themeroom_fills = {
 
-   -- Ice room
-   function(rm)
-      local ice = selection.room();
-      des.terrain(ice, "I");
-      if (percent(25)) then
-         local mintime = 1000 - (nh.level_difficulty() * 100);
-         local ice_melter = function(x,y)
-            nh.start_timer_at(x,y, "melt-ice", mintime + nh.rn2(1000));
-         end;
-         ice:iterate(ice_melter);
-      end
-   end,
-
-   -- Cloud room
-   function(rm)
-      local fog = selection.room();
-      for i = 1, (fog:numpoints() / 4) do
-         des.monster({ id = "fog cloud", asleep = true });
-      end
-      des.gas_cloud({ selection = fog });
-   end,
-
-   -- Boulder room
    {
+      name = "Ice room",
+      contents = function(rm)
+         local ice = selection.room();
+         des.terrain(ice, "I");
+         if (percent(25)) then
+            local mintime = 1000 - (nh.level_difficulty() * 100);
+            local ice_melter = function(x,y)
+               nh.start_timer_at(x,y, "melt-ice", mintime + nh.rn2(1000));
+            end;
+            ice:iterate(ice_melter);
+         end
+      end,
+   },
+
+   {
+      name = "Cloud room",
+      contents = function(rm)
+         local fog = selection.room();
+         for i = 1, (fog:numpoints() / 4) do
+            des.monster({ id = "fog cloud", asleep = true });
+         end
+         des.gas_cloud({ selection = fog });
+      end,
+   },
+
+   {
+      name = "Boulder room",
       mindiff = 4,
       contents = function(rm)
          local locs = selection.room():percentage(30);
@@ -17569,35 +17712,39 @@ themeroom_fills = {
             end
          end;
          locs:iterate(func);
-      end
+      end,
    },
 
-   -- Spider nest
-   function(rm)
-      local spooders = nh.level_difficulty() > 8;
-      local locs = selection.room():percentage(30);
-      local func = function(x,y)
-         des.trap({ type = "web", x = x, y = y,
-                    spider_on_web = spooders and percent(80) });
-      end
-      locs:iterate(func);
-   end,
-
-   -- Trap room
-   function(rm)
-      local traps = { "arrow", "dart", "falling rock", "bear",
-                      "land mine", "sleep gas", "rust",
-                      "anti magic" };
-      shuffle(traps);
-      local locs = selection.room():percentage(30);
-      local func = function(x,y)
-         des.trap(traps[1], x, y);
-      end
-      locs:iterate(func);
-   end,
-
-   -- Garden
    {
+      name = "Spider nest",
+      contents = function(rm)
+         local spooders = nh.level_difficulty() > 8;
+         local locs = selection.room():percentage(30);
+         local func = function(x,y)
+            des.trap({ type = "web", x = x, y = y,
+                       spider_on_web = spooders and percent(80) });
+         end
+         locs:iterate(func);
+      end,
+   },
+
+   {
+      name = "Trap room",
+      contents = function(rm)
+         local traps = { "arrow", "dart", "falling rock", "bear",
+                        "land mine", "sleep gas", "rust",
+                        "anti magic" };
+         shuffle(traps);
+         local locs = selection.room():percentage(30);
+         local func = function(x,y)
+            des.trap(traps[1], x, y);
+         end
+         locs:iterate(func);
+      end,
+   },
+
+   {
+      name = "Garden",
       eligible = function(rm) return rm.lit == true; end,
       contents = function(rm)
          local s = selection.room();
@@ -17608,220 +17755,255 @@ themeroom_fills = {
                des.feature("fountain");
             end
          end
-         table.insert(postprocess, { handler = make_garden_walls, data = { sel = selection.room() } });
+         table.insert(postprocess, { handler = make_garden_walls,
+                                     data = { sel = selection.room() } });
       end
    },
 
-   -- Buried treasure
-   function(rm)
-      des.object({ id = "chest", buried = true, contents = function(otmp)
-                      local xobj = otmp:totable();
-                      -- keep track of the last buried treasure
-                      if (xobj.NO_OBJ == nil) then
-                         table.insert(postprocess, { handler = make_dig_engraving, data = { x = xobj.ox, y = xobj.oy }});
-                      end
-                      for i = 1, d(3,4) do
-                         des.object();
-                      end
-      end });
-   end,
-
-   -- Buried zombies
-   function(rm)
-      local diff = nh.level_difficulty()
-      -- start with [1..4] for low difficulty
-      local zombifiable = { "kobold", "gnome", "orc", "dwarf" };
-      if diff > 3 then          -- medium difficulty
-         zombifiable[5], zombifiable[6] = "elf", "human";
-         if diff > 6 then       -- high difficulty (relatively speaking)
-            zombifiable[7], zombifiable[8] = "ettin", "giant";
-         end
-      end
-      for i = 1, (rm.width * rm.height) / 2 do
-         shuffle(zombifiable);
-         local o = des.object({ id = "corpse", montype = zombifiable[1],
-                                buried = true });
-         o:stop_timer("rot-corpse");
-         o:start_timer("zombify-mon", math.random(990, 1010));
-      end
-   end,
-
-   -- Massacre
-   function(rm)
-      local mon = { "apprentice", "warrior", "ninja", "thug",
-                    "hunter", "acolyte", "abbot", "page",
-                    "attendant", "neanderthal", "chieftain",
-                    "student", "wizard", "valkyrie", "tourist",
-                    "samurai", "rogue", "ranger", "priestess",
-                    "priest", "monk", "knight", "healer",
-                    "cavewoman", "caveman", "barbarian",
-                    "archeologist" };
-      local idx = math.random(#mon);
-      for i = 1, d(5,5) do
-         if (percent(10)) then idx = math.random(#mon); end
-         des.object({ id = "corpse", montype = mon[idx] });
-      end
-   end,
-
-   -- Statuary
-   function(rm)
-      for i = 1, d(5,5) do
-         des.object({ id = "statue" });
-      end
-      for i = 1, d(3) do
-         des.trap("statue");
-      end
-   end,
-
-   -- Light source
    {
+      name = "Buried treasure",
+      contents = function(rm)
+         des.object({ id = "chest", buried = true, contents = function(otmp)
+            local xobj = otmp:totable();
+            -- keep track of the last buried treasure
+            if (xobj.NO_OBJ == nil) then
+               table.insert(postprocess, { handler = make_dig_engraving,
+                                        data = { x = xobj.ox, y = xobj.oy }});
+            end
+            for i = 1, d(3,4) do
+               des.object();
+            end
+         end });
+      end,
+   },
+
+   {
+      name = "Buried zombies",
+      contents = function(rm)
+         local diff = nh.level_difficulty()
+         -- start with [1..4] for low difficulty
+         local zombifiable = { "kobold", "gnome", "orc", "dwarf" };
+         if diff > 3 then          -- medium difficulty
+            zombifiable[5], zombifiable[6] = "elf", "human";
+            if diff > 6 then       -- high difficulty (relatively speaking)
+               zombifiable[7], zombifiable[8] = "ettin", "giant";
+            end
+         end
+         for i = 1, (rm.width * rm.height) / 2 do
+            shuffle(zombifiable);
+            local o = des.object({ id = "corpse", montype = zombifiable[1],
+                                 buried = true });
+            o:stop_timer("rot-corpse");
+            o:start_timer("zombify-mon", math.random(990, 1010));
+         end
+      end,
+   },
+
+   {
+      name = "Massacre",
+      contents = function(rm)
+         local mon = { "apprentice", "warrior", "ninja", "thug",
+                     "hunter", "acolyte", "abbot", "page",
+                     "attendant", "neanderthal", "chieftain",
+                     "student", "wizard", "valkyrie", "tourist",
+                     "samurai", "rogue", "ranger", "priestess",
+                     "priest", "monk", "knight", "healer",
+                     "cavewoman", "caveman", "barbarian",
+                     "archeologist" };
+         local idx = math.random(#mon);
+         for i = 1, d(5,5) do
+            if (percent(10)) then idx = math.random(#mon); end
+            des.object({ id = "corpse", montype = mon[idx] });
+         end
+      end,
+   },
+
+   {
+      name = "Statuary",
+      contents = function(rm)
+         for i = 1, d(5,5) do
+            des.object({ id = "statue" });
+         end
+         for i = 1, d(3) do
+            des.trap("statue");
+         end
+      end,
+   },
+
+
+   {
+      name = "Light source",
       eligible = function(rm) return rm.lit == false; end,
       contents = function(rm)
          des.object({ id = "oil lamp", lit = true });
       end
    },
 
-   -- Temple of the gods
-   function(rm)
-      des.altar({ align = align[1] });
-      des.altar({ align = align[2] });
-      des.altar({ align = align[3] });
-   end,
+   {
+      name = "Temple of the gods",
+      contents = function(rm)
+         des.altar({ align = align[1] });
+         des.altar({ align = align[2] });
+         des.altar({ align = align[3] });
+      end,
+   },
 
-   -- Ghost of an Adventurer
-   function(rm)
-      local loc = selection.room():rndcoord(0);
-      des.monster({ id = "ghost", asleep = true, waiting = true, coord = loc });
-      if percent(65) then
-         des.object({ id = "dagger", coord = loc, buc = "not-blessed" });
-      end
-      if percent(55) then
-         des.object({ class = ")", coord = loc, buc = "not-blessed" });
-      end
-      if percent(45) then
-         des.object({ id = "bow", coord = loc, buc = "not-blessed" });
-         des.object({ id = "arrow", coord = loc, buc = "not-blessed" });
-      end
-      if percent(65) then
-         des.object({ class = "[", coord = loc, buc = "not-blessed" });
-      end
-      if percent(20) then
-         des.object({ class = "=", coord = loc, buc = "not-blessed" });
-      end
-      if percent(20) then
-         des.object({ class = "?", coord = loc, buc = "not-blessed" });
-      end
-   end,
-
-   -- Storeroom
-   function(rm)
-      local locs = selection.room():percentage(30);
-      local func = function(x,y)
-         if (percent(25)) then
-            des.object("chest");
-         else
-            des.monster({ class = "m", appear_as = "obj:chest" });
+   {
+      name = "Ghost of an Adventurer",
+      contents = function(rm)
+         local loc = selection.room():rndcoord(0);
+         des.monster({ id = "ghost", asleep = true, waiting = true,
+                       coord = loc });
+         if percent(65) then
+            des.object({ id = "dagger", coord = loc, buc = "not-blessed" });
          end
-      end;
-      locs:iterate(func);
-   end,
-
-   -- Teleportation hub
-   function(rm)
-      local locs = selection.room():filter_mapchar(".");
-      for i = 1, 2 + nh.rn2(3) do
-         local pos = locs:rndcoord(1);
-         if (pos.x > 0) then
-            pos.x = pos.x + rm.region.x1 - 1;
-            pos.y = pos.y + rm.region.y1;
-            table.insert(postprocess, { handler = make_a_trap, data = { type = "teleport", seen = true, coord = pos, teledest = 1 } });
+         if percent(55) then
+            des.object({ class = ")", coord = loc, buc = "not-blessed" });
          end
-      end
-   end,
+         if percent(45) then
+            des.object({ id = "bow", coord = loc, buc = "not-blessed" });
+            des.object({ id = "arrow", coord = loc, buc = "not-blessed" });
+         end
+         if percent(65) then
+            des.object({ class = "[", coord = loc, buc = "not-blessed" });
+         end
+         if percent(20) then
+            des.object({ class = "=", coord = loc, buc = "not-blessed" });
+         end
+         if percent(20) then
+            des.object({ class = "?", coord = loc, buc = "not-blessed" });
+         end
+      end,
+   },
+
+   {
+      name = "Storeroom",
+      contents = function(rm)
+         local locs = selection.room():percentage(30);
+         local func = function(x,y)
+            if (percent(25)) then
+               des.object("chest");
+            else
+               des.monster({ class = "m", appear_as = "obj:chest" });
+            end
+         end;
+         locs:iterate(func);
+      end,
+   },
+
+   {
+      name = "Teleportation hub",
+      contents = function(rm)
+         local locs = selection.room():filter_mapchar(".");
+         for i = 1, 2 + nh.rn2(3) do
+            local pos = locs:rndcoord(1);
+            if (pos.x > 0) then
+               pos.x = pos.x + rm.region.x1 - 1;
+               pos.y = pos.y + rm.region.y1;
+               table.insert(postprocess, { handler = make_a_trap,
+                                      data = { type = "teleport", seen = true,
+                                               coord = pos, teledest = 1 } });
+            end
+         end
+      end,
+   },
 };
 
 themerooms = {
    {
-     -- the "default" room
+      name = "default",
       frequency = 1000,
       contents = function()
          des.room({ type = "ordinary", filled = 1 });
-         end
+      end
    },
 
-   -- Fake Delphi
-   function()
-      des.room({ type = "ordinary", w = 11,h = 9, filled = 1,
-                 contents = function()
-                    des.room({ type = "ordinary", x = 4,y = 3, w = 3,h = 3, filled = 1,
-                               contents = function()
-                                  des.door({ state="random", wall="all" });
-                               end
-                    });
-                 end
-      });
-   end,
-
-   -- Room in a room
-   function()
-      des.room({ type = "ordinary", filled = 1,
-                 contents = function()
-                    des.room({ type = "ordinary",
-                               contents = function()
-                                  des.door({ state="random", wall="all" });
-                               end
-                    });
-                 end
-      });
-   end,
-
-   -- Huge room, with another room inside (90%)
-   function()
-      des.room({ type = "ordinary", w = nh.rn2(10)+11,h = nh.rn2(5)+8, filled = 1,
-                 contents = function()
-                    if (percent(90)) then
-                    des.room({ type = "ordinary", filled = 1,
-                               contents = function()
-                                  des.door({ state="random", wall="all" });
-                                  if (percent(50)) then
-                                     des.door({ state="random", wall="all" });
-                                  end
-                               end
-                    });
-                    end
-                 end
-      });
-   end,
-
-   -- Nesting rooms
-   function()
-      des.room({ type = "ordinary", w = 9 + nh.rn2(4), h = 9 + nh.rn2(4), filled = 1,
-                 contents = function(rm)
-                    local wid = math.random(math.floor(rm.width / 2), rm.width - 2);
-                    local hei = math.random(math.floor(rm.height / 2), rm.height - 2);
-                    des.room({ type = "ordinary", w = wid,h = hei, filled = 1,
-                               contents = function()
-                                  if (percent(90)) then
-                                     des.room({ type = "ordinary", filled = 1,
-                                                contents = function()
-                                                   des.door({ state="random", wall="all" });
-                                                   if (percent(15)) then
-                                                      des.door({ state="random", wall="all" });
-                                                   end
-                                                end
-                                     });
-                                  end
-                                  des.door({ state="random", wall="all" });
-                                  if (percent(15)) then
-                                     des.door({ state="random", wall="all" });
-                                  end
-                               end
-                    });
-                 end
-      });
-   end,
+   {
+      name = "Fake Delphi",
+      contents = function()
+         des.room({ type = "ordinary", w = 11,h = 9, filled = 1,
+                  contents = function()
+                     des.room({ type = "ordinary", x = 4,y = 3, w = 3,h = 3,
+                                filled = 1,
+                                contents = function()
+                                   des.door({ state="random", wall="all" });
+                                end
+                     });
+                  end
+         });
+      end,
+   },
 
    {
+      name = "Room in a room",
+      contents = function()
+         des.room({ type = "ordinary", filled = 1,
+                  contents = function()
+                     des.room({ type = "ordinary",
+                                contents = function()
+                                   des.door({ state="random", wall="all" });
+                                end
+                     });
+                  end
+         });
+      end,
+   },
+
+   {
+      name = "Huge room with another room inside",
+      contents = function()
+         des.room({ type = "ordinary", w = nh.rn2(10)+11,h = nh.rn2(5)+8,
+                    filled = 1,
+            contents = function()
+               if (percent(90)) then
+                  des.room({ type = "ordinary", filled = 1,
+                             contents = function()
+                                des.door({ state="random", wall="all" });
+                                   if (percent(50)) then
+                                      des.door({ state="random", wall="all" });
+                                   end
+                              end
+                  });
+               end
+            end
+         });
+      end,
+   },
+
+   {
+      name = "Nesting rooms",
+      contents = function()
+         des.room({ type = "ordinary", w = 9 + nh.rn2(4), h = 9 + nh.rn2(4),
+                    filled = 1,
+            contents = function(rm)
+               local wid = math.random(math.floor(rm.width / 2), rm.width - 2);
+               local hei = math.random(math.floor(rm.height / 2),
+                                       rm.height - 2);
+               des.room({ type = "ordinary", w = wid,h = hei, filled = 1,
+                  contents = function()
+                     if (percent(90)) then
+                        des.room({ type = "ordinary", filled = 1,
+                           contents = function()
+                              des.door({ state="random", wall="all" });
+                              if (percent(15)) then
+                                 des.door({ state="random", wall="all" });
+                              end
+                           end
+                        });
+                     end
+                     des.door({ state="random", wall="all" });
+                     if (percent(15)) then
+                        des.door({ state="random", wall="all" });
+                     end
+                  end
+               });
+            end
+         });
+      end,
+   },
+
+   {
+      name = "Default room with themed fill",
       frequency = 6,
       contents = function()
          des.room({ type = "themed", contents = themeroom_fill });
@@ -17829,6 +18011,7 @@ themerooms = {
    },
 
    {
+      name = "Unlit room with themed fill",
       frequency = 2,
       contents = function()
          des.room({ type = "themed", lit = 0, contents = themeroom_fill });
@@ -17836,71 +18019,79 @@ themerooms = {
    },
 
    {
+      name = "Room with both normal contents and themed fill",
       frequency = 2,
       contents = function()
          des.room({ type = "themed", filled = 1, contents = themeroom_fill });
       end
    },
 
-   -- Pillars
-   function()
-      des.room({ type = "themed", w = 10, h = 10,
-                 contents = function(rm)
-                    local terr = { "-", "-", "-", "-", "L", "P", "T" };
-                    shuffle(terr);
-                    for x = 0, (rm.width / 4) - 1 do
-                       for y = 0, (rm.height / 4) - 1 do
-                          des.terrain({ x = x * 4 + 2, y = y * 4 + 2, typ = terr[1], lit = -2 });
-                          des.terrain({ x = x * 4 + 3, y = y * 4 + 2, typ = terr[1], lit = -2 });
-                          des.terrain({ x = x * 4 + 2, y = y * 4 + 3, typ = terr[1], lit = -2 });
-                          des.terrain({ x = x * 4 + 3, y = y * 4 + 3, typ = terr[1], lit = -2 });
-                       end
-                    end
-                 end
-      });
-   end,
+   {
+      name = 'Pillars',
+      contents = function()
+         des.room({ type = "themed", w = 10, h = 10,
+                  contents = function(rm)
+                     local terr = { "-", "-", "-", "-", "L", "P", "T" };
+                     shuffle(terr);
+                     for x = 0, (rm.width / 4) - 1 do
+                        for y = 0, (rm.height / 4) - 1 do
+                           des.terrain({ x = x * 4 + 2, y = y * 4 + 2, typ = terr[1], lit = -2 });
+                           des.terrain({ x = x * 4 + 3, y = y * 4 + 2, typ = terr[1], lit = -2 });
+                           des.terrain({ x = x * 4 + 2, y = y * 4 + 3, typ = terr[1], lit = -2 });
+                           des.terrain({ x = x * 4 + 3, y = y * 4 + 3, typ = terr[1], lit = -2 });
+                        end
+                     end
+                  end
+         });
+      end,
+   },
 
-   -- Mausoleum
-   function()
-      des.room({ type = "themed", w = 5 + nh.rn2(3)*2, h = 5 + nh.rn2(3)*2,
-                 contents = function(rm)
-                    des.room({ type = "themed",
-			       x = (rm.width - 1) / 2, y = (rm.height - 1) / 2,
-			       w = 1, h = 1, joined = false,
-                               contents = function()
-                                  if (percent(50)) then
-                                     local mons = { "M", "V", "L", "Z" };
-                                     shuffle(mons);
-                                     des.monster({ class = mons[1], x=0,y=0, waiting = 1 });
-                                  else
-                                     des.object({ id = "corpse", montype = "@", coord = {0,0} });
-                                  end
-                                  if (percent(20)) then
-                                     des.door({ state="secret", wall="all" });
-                                  end
-                               end
-                    });
-                 end
-      });
-   end,
+   {
+      name = 'Mausoleum',
+      contents = function()
+         des.room({ type = "themed", w = 5 + nh.rn2(3)*2, h = 5 + nh.rn2(3)*2,
+                  contents = function(rm)
+                     des.room({ type = "themed",
+                                 x = (rm.width - 1) / 2, y = (rm.height - 1) / 2,
+                                 w = 1, h = 1, joined = false,
+                                 contents = function()
+                                    if (percent(50)) then
+                                       local mons = { "M", "V", "L", "Z" };
+                                       shuffle(mons);
+                                       des.monster({ class = mons[1], x=0,y=0, waiting = 1 });
+                                    else
+                                       des.object({ id = "corpse", montype = "@", coord = {0,0} });
+                                    end
+                                    if (percent(20)) then
+                                       des.door({ state="secret", wall="all" });
+                                    end
+                                 end
+                     });
+                  end
+         });
+      end,
+   },
 
-   -- Random dungeon feature in the middle of an odd-sized room
-   function()
-      local wid = 3 + (nh.rn2(3) * 2);
-      local hei = 3 + (nh.rn2(3) * 2);
-      des.room({ type = "ordinary", filled = 1, w = wid, h = hei,
-                 contents = function(rm)
-                    local feature = { "C", "L", "I", "P", "T" };
-                    shuffle(feature);
-                    des.terrain((rm.width - 1) / 2, (rm.height - 1) / 2,
-				feature[1]);
-                 end
-      });
-   end,
+   {
+      name = 'Random dungeon feature in the middle of an odd-sized room',
+      contents = function()
+         local wid = 3 + (nh.rn2(3) * 2);
+         local hei = 3 + (nh.rn2(3) * 2);
+         des.room({ type = "ordinary", filled = 1, w = wid, h = hei,
+                  contents = function(rm)
+                     local feature = { "C", "L", "I", "P", "T" };
+                     shuffle(feature);
+                     des.terrain((rm.width - 1) / 2, (rm.height - 1) / 2,
+                                 feature[1]);
+                  end
+         });
+      end,
+   },
 
-   -- L-shaped
-   function()
-      des.map({ map = [[
+   {
+      name = 'L-shaped',
+      contents = function()
+         des.map({ map = [[
 -----xxx
 |...|xxx
 |...|xxx
@@ -17909,11 +18100,13 @@ themerooms = {
 |......|
 |......|
 --------]], contents = function(m) filler_region(1,1); end });
-   end,
+      end,
+   },
 
-   -- L-shaped, rot 1
-   function()
-      des.map({ map = [[
+   {
+      name = 'L-shaped, rot 1',
+      contents = function()
+         des.map({ map = [[
 xxx-----
 xxx|...|
 xxx|...|
@@ -17922,11 +18115,13 @@ xxx|...|
 |......|
 |......|
 --------]], contents = function(m) filler_region(5,1); end });
-   end,
+      end,
+   },
 
-   -- L-shaped, rot 2
-   function()
-      des.map({ map = [[
+   {
+      name = 'L-shaped, rot 2',
+      contents = function()
+         des.map({ map = [[
 --------
 |......|
 |......|
@@ -17935,11 +18130,13 @@ xxx|...|
 xxx|...|
 xxx|...|
 xxx-----]], contents = function(m) filler_region(1,1); end });
-   end,
+      end,
+   },
 
-   -- L-shaped, rot 3
-   function()
-      des.map({ map = [[
+   {
+      name = 'L-shaped, rot 3',
+      contents = function()
+         des.map({ map = [[
 --------
 |......|
 |......|
@@ -17948,11 +18145,13 @@ xxx-----]], contents = function(m) filler_region(1,1); end });
 |...|xxx
 |...|xxx
 -----xxx]], contents = function(m) filler_region(1,1); end });
-   end,
+      end,
+   },
 
-   -- Blocked center
-   function()
-      des.map({ map = [[
+   {
+      name = 'Blocked center',
+      contents = function()
+         des.map({ map = [[
 -----------
 |.........|
 |.........|
@@ -17964,18 +18163,22 @@ xxx-----]], contents = function(m) filler_region(1,1); end });
 |.........|
 |.........|
 -----------]], contents = function(m)
-if (percent(30)) then
-   local terr = { "-", "P" };
-   shuffle(terr);
-   des.replace_terrain({ region = {1,1, 9,9}, fromterrain = "L", toterrain = terr[1] });
-end
-filler_region(1,1);
-end });
-   end,
+            if (percent(30)) then
+               local terr = { "-", "P" };
+               shuffle(terr);
+               des.replace_terrain({ region = {1,1, 9,9},
+                                     fromterrain = "L",
+                                     toterrain = terr[1] });
+            end
+            filler_region(1,1);
+         end });
+      end,
+   },
 
-   -- Circular, small
-   function()
-      des.map({ map = [[
+   {
+      name = 'Circular, small',
+      contents = function()
+         des.map({ map = [[
 xx---xx
 x--.--x
 --...--
@@ -17983,11 +18186,13 @@ x--.--x
 --...--
 x--.--x
 xx---xx]], contents = function(m) filler_region(3,3); end });
-   end,
+      end,
+   },
 
-   -- Circular, medium
-   function()
-      des.map({ map = [[
+   {
+      name = 'Circular, medium',
+      contents = function()
+         des.map({ map = [[
 xx-----xx
 x--...--x
 --.....--
@@ -17997,11 +18202,13 @@ x--...--x
 --.....--
 x--...--x
 xx-----xx]], contents = function(m) filler_region(4,4); end });
-   end,
+      end,
+   },
 
-   -- Circular, big
-   function()
-      des.map({ map = [[
+   {
+      name = 'Circular, big',
+      contents = function()
+         des.map({ map = [[
 xxx-----xxx
 x---...---x
 x-.......-x
@@ -18013,11 +18220,13 @@ x-.......-x
 x-.......-x
 x---...---x
 xxx-----xxx]], contents = function(m) filler_region(5,5); end });
-   end,
+      end,
+   },
 
-   -- T-shaped
-   function()
-      des.map({ map = [[
+   {
+      name = 'T-shaped',
+      contents = function()
+         des.map({ map = [[
 xxx-----xxx
 xxx|...|xxx
 xxx|...|xxx
@@ -18026,11 +18235,13 @@ xxx|...|xxx
 |.........|
 |.........|
 -----------]], contents = function(m) filler_region(5,5); end });
-   end,
+      end,
+   },
 
-   -- T-shaped, rot 1
-   function()
-      des.map({ map = [[
+   {
+      name = 'T-shaped, rot 1',
+      contents = function()
+         des.map({ map = [[
 -----xxx
 |...|xxx
 |...|xxx
@@ -18042,11 +18253,13 @@ xxx|...|xxx
 |...|xxx
 |...|xxx
 -----xxx]], contents = function(m) filler_region(2,2); end });
-   end,
+      end,
+   },
 
-   -- T-shaped, rot 2
-   function()
-      des.map({ map = [[
+   {
+      name = 'T-shaped, rot 2',
+      contents = function()
+         des.map({ map = [[
 -----------
 |.........|
 |.........|
@@ -18055,11 +18268,13 @@ xxx|...|xxx
 xxx|...|xxx
 xxx|...|xxx
 xxx-----xxx]], contents = function(m) filler_region(2,2); end });
-   end,
+      end,
+   },
 
-   -- T-shaped, rot 3
-   function()
-      des.map({ map = [[
+   {
+      name = 'T-shaped, rot 3',
+      contents = function()
+         des.map({ map = [[
 xxx-----
 xxx|...|
 xxx|...|
@@ -18071,11 +18286,13 @@ xxx|...|
 xxx|...|
 xxx|...|
 xxx-----]], contents = function(m) filler_region(5,5); end });
-   end,
+      end,
+   },
 
-   -- S-shaped
-   function()
-      des.map({ map = [[
+   {
+      name = 'S-shaped',
+      contents = function()
+         des.map({ map = [[
 -----xxx
 |...|xxx
 |...|xxx
@@ -18087,11 +18304,13 @@ xxx-----]], contents = function(m) filler_region(5,5); end });
 xxx|...|
 xxx|...|
 xxx-----]], contents = function(m) filler_region(2,2); end });
-   end,
+      end,
+   },
 
-   -- S-shaped, rot 1
-   function()
-      des.map({ map = [[
+   {
+      name = 'S-shaped, rot 1',
+      contents = function()
+         des.map({ map = [[
 xxx--------
 xxx|......|
 xxx|......|
@@ -18100,11 +18319,13 @@ xxx|......|
 |......|xxx
 |......|xxx
 --------xxx]], contents = function(m) filler_region(5,5); end });
-   end,
+      end,
+   },
 
-   -- Z-shaped
-   function()
-      des.map({ map = [[
+   {
+      name = 'Z-shaped',
+      contents = function()
+         des.map({ map = [[
 xxx-----
 xxx|...|
 xxx|...|
@@ -18116,11 +18337,13 @@ xxx|...|
 |...|xxx
 |...|xxx
 -----xxx]], contents = function(m) filler_region(5,5); end });
-   end,
+      end,
+   },
 
-   -- Z-shaped, rot 1
-   function()
-      des.map({ map = [[
+   {
+      name = 'Z-shaped, rot 1',
+      contents = function()
+         des.map({ map = [[
 --------xxx
 |......|xxx
 |......|xxx
@@ -18129,11 +18352,13 @@ xxx|...|
 xxx|......|
 xxx|......|
 xxx--------]], contents = function(m) filler_region(2,2); end });
-   end,
+      end,
+   },
 
-   -- Cross
-   function()
-      des.map({ map = [[
+   {
+      name = 'Cross',
+      contents = function()
+         des.map({ map = [[
 xxx-----xxx
 xxx|...|xxx
 xxx|...|xxx
@@ -18145,11 +18370,13 @@ xxx|...|xxx
 xxx|...|xxx
 xxx|...|xxx
 xxx-----xxx]], contents = function(m) filler_region(6,6); end });
-   end,
+      end,
+   },
 
-   -- Four-leaf clover
-   function()
-      des.map({ map = [[
+   {
+      name = 'Four-leaf clover',
+      contents = function()
+         des.map({ map = [[
 -----x-----
 |...|x|...|
 |...---...|
@@ -18161,59 +18388,65 @@ xx|.....|xx
 |...---...|
 |...|x|...|
 -----x-----]], contents = function(m) filler_region(6,6); end });
-   end,
+      end,
+   },
 
-   -- Water-surrounded vault
-   function()
-      des.map({ map = [[
+   {
+      name = 'Water-surrounded vault',
+      contents = function()
+         des.map({ map = [[
 }}}}}}
 }----}
 }|..|}
 }|..|}
 }----}
-}}}}}}]], contents = function(m) des.region({ region={3,3,3,3}, type="themed", irregular=true, filled=0, joined=false });
-     local nasty_undead = { "giant zombie", "ettin zombie", "vampire lord" };
-     local chest_spots = { { 2, 2 }, { 3, 2 }, { 2, 3 }, { 3, 3 } };
+}}}}}}]], contents = function(m)
+            des.region({ region={3,3,3,3}, type="themed", irregular=true,
+                         filled=0, joined=false });
+            local nasty_undead = { "giant zombie", "ettin zombie", "vampire lord" };
+            local chest_spots = { { 2, 2 }, { 3, 2 }, { 2, 3 }, { 3, 3 } };
 
-     shuffle(chest_spots)
-     -- Guarantee an escape item inside one of the chests, to prevent the hero
-     -- falling in from above and becoming permanently stuck
-     -- [cf. generate_way_out_method(sp_lev.c)].
-     -- If the escape item is made of glass or crystal, make sure that the
-     -- chest isn't locked so that kicking it to gain access to its contents
-     -- won't be necessary; otherwise retain lock state from random creation.
-     -- "pick-axe", "dwarvish mattock" could be included in the list of escape
-     -- items but don't normally generate in containers.
-     local escape_items = {
-        "scroll of teleportation", "ring of teleportation",
-        "wand of teleportation", "wand of digging"
-     };
-     local itm = obj.new(escape_items[math.random(#escape_items)]);
-     local itmcls = itm:class()
-     local box
-     if itmcls[ "material" ] == 19 then                         -- GLASS==19
-         -- item is made of glass so explicitly force chest to be unlocked
-	 box = des.object({ id = "chest", coord = chest_spots[1],
-                            olocked = "no" });
-     else
-         -- item isn't made of glass; accept random locked/unlocked state
-	 box = des.object({ id = "chest", coord = chest_spots[1] });
-     end;
-     box:addcontent(itm);
+            shuffle(chest_spots)
+            -- Guarantee an escape item inside one of the chests, to prevent
+            -- the hero falling in from above and becoming permanently stuck
+            -- [cf. generate_way_out_method(sp_lev.c)].
+            -- If the escape item is made of glass or crystal, make sure that
+            -- the chest isn't locked so that kicking it to gain access to its
+            -- contents won't be necessary; otherwise retain lock state from
+            -- random creation.
+            -- "pick-axe", "dwarvish mattock" could be included in the list of
+            -- escape items but don't normally generate in containers.
+            local escape_items = {
+               "scroll of teleportation", "ring of teleportation",
+               "wand of teleportation", "wand of digging"
+            };
+            local itm = obj.new(escape_items[math.random(#escape_items)]);
+            local itmcls = itm:class()
+            local box
+            if itmcls[ "material" ] == "glass" then
+                  -- explicitly force chest to be unlocked
+                  box = des.object({ id = "chest", coord = chest_spots[1],
+                                    olocked = "no" });
+            else
+                  -- accept random locked/unlocked state
+                  box = des.object({ id = "chest", coord = chest_spots[1] });
+            end;
+            box:addcontent(itm);
 
-     for i = 2, #chest_spots do
-         des.object({ id = "chest", coord = chest_spots[i] });
-     end
+            for i = 2, #chest_spots do
+                  des.object({ id = "chest", coord = chest_spots[i] });
+            end
 
-     shuffle(nasty_undead);
-     des.monster(nasty_undead[1], 2, 2);
-     des.exclusion({ type = "teleport", region = { 2,2, 3,3 } });
-end });
-   end,
+            shuffle(nasty_undead);
+            des.monster(nasty_undead[1], 2, 2);
+            des.exclusion({ type = "teleport", region = { 2,2, 3,3 } });
+         end });
+      end,
+   },
 
-   -- Twin businesses
    {
-      mindiff = 4; -- arbitrary
+      name = 'Twin businesses',
+      mindiff = 4, -- arbitrary
       contents = function()
          -- Due to the way room connections work in mklev.c, we must guarantee
          -- that the "aisle" between the shops touches all four walls of the
@@ -18266,7 +18499,14 @@ end });
 
 };
 
+-- store these at global scope, they will be reinitialized in
+-- pre_themerooms_generate
+debug_rm_idx = nil
+debug_fill_idx = nil
 
+-- Given a point in a themed room, ensure that themed room is stocked with
+-- regular room contents.
+-- With 30% chance, also give it a random themed fill.
 function filler_region(x, y)
    local rmtyp = "ordinary";
    local func = nil;
@@ -18280,31 +18520,76 @@ end
 function is_eligible(room, mkrm)
    local t = type(room);
    local diff = nh.level_difficulty();
-   if (t == "table") then
-      if (room.mindiff ~= nil and diff < room.mindiff) then
-         return false
-      elseif (room.maxdiff ~= nil and diff > room.maxdiff) then
-         return false
-      end
-      if (mkrm ~= nil and room.eligible ~= nil) then
-         return room.eligible(mkrm);
-      end
-   elseif (t == "function") then
-      -- functions currently have no constraints
+   if (room.mindiff ~= nil and diff < room.mindiff) then
+      return false
+   elseif (room.maxdiff ~= nil and diff > room.maxdiff) then
+      return false
+   end
+   if (mkrm ~= nil and room.eligible ~= nil) then
+      return room.eligible(mkrm);
    end
    return true
 end
 
+-- given the name of a themed room or fill, return its index in that array
+function lookup_by_name(name, checkfills)
+   if name == nil then
+      return nil
+   end
+   if checkfills then
+      for i = 1, #themeroom_fills do
+         if themeroom_fills[i].name == name then
+            return i
+         end
+      end
+   else
+      for i = 1, #themerooms do
+         if themerooms[i].name == name then
+            return i
+         end
+      end
+   end
+   return nil
+end
+
 -- called repeatedly until the core decides there are enough rooms
 function themerooms_generate()
-   local pick = 1;
+   if debug_rm_idx ~= nil then
+      -- room may not be suitable for stairs/portals, so create the "default"
+      -- room half of the time
+      -- (if the user specified BOTH a room and a fill, presumably they are
+      -- interested in what happens when that room gets that fill, so don't
+      -- bother generating default-with-fill rooms as happens below)
+      local actualrm = lookup_by_name("default", false);
+      if percent(50) then
+         if is_eligible(themerooms[debug_rm_idx]) then
+            actualrm = debug_rm_idx
+         else
+            pline("Warning: themeroom '"..themerooms[debug_rm_idx].name
+                  .."' is ineligible")
+         end
+      end
+      themerooms[actualrm].contents();
+      return
+   elseif debug_fill_idx ~= nil then
+      -- when a fill is requested but not a room, still create the "default"
+      -- room half of the time, and "default with themed fill" half of the time
+      -- (themeroom_fill will take care of guaranteeing the fill in it)
+      local actualrm = lookup_by_name(percent(50) and "Default room with themed fill"
+                                                  or "default")
+      themerooms[actualrm].contents();
+      return
+   end
+   local pick = nil;
    local total_frequency = 0;
    for i = 1, #themerooms do
-      -- Reservoir sampling: select one room from the set of eligible rooms,
-      -- which may change on different levels because of level difficulty.
-      if is_eligible(themerooms[i], nil) then
+      if (type(themerooms[i]) ~= "table") then
+         nh.impossible('themed room '..i..' is not a table')
+      elseif is_eligible(themerooms[i], nil) then
+         -- Reservoir sampling: select one room from the set of eligible rooms,
+         -- which may change on different levels because of level difficulty.
          local this_frequency;
-         if (type(themerooms[i]) == "table" and themerooms[i].frequency ~= nil) then
+         if (themerooms[i].frequency ~= nil) then
             this_frequency = themerooms[i].frequency;
          else
             this_frequency = 1;
@@ -18316,17 +18601,34 @@ function themerooms_generate()
          end
       end
    end
-
-   local t = type(themerooms[pick]);
-   if (t == "table") then
-      themerooms[pick].contents();
-   elseif (t == "function") then
-      themerooms[pick]();
+   if pick == nil then
+      nh.impossible('no eligible themed rooms?')
+      return
    end
+   themerooms[pick].contents();
 end
 
 -- called before any rooms are generated
 function pre_themerooms_generate()
+   local debug_themerm = nh.debug_themerm(false)
+   local debug_fill = nh.debug_themerm(true)
+   local xtrainfo = ""
+   debug_rm_idx = lookup_by_name(debug_themerm, false)
+   debug_fill_idx = lookup_by_name(debug_fill, true)
+   if debug_themerm ~= nil and debug_rm_idx == nil then
+      if lookup_by_name(debug_themerm, true) ~= nil then
+         xtrainfo = "; it is a fill type"
+      end
+      pline("Warning: themeroom '"..debug_themerm
+            .."' not found in themerooms"..xtrainfo, true)
+   end
+   if debug_fill ~= nil and debug_fill_idx == nil then
+      if lookup_by_name(debug_fill, false) ~= nil then
+         xtrainfo = "; it is a room type"
+      end
+      pline("Warning: themeroom fill '"..debug_fill
+            .."' not found in themeroom_fills"..xtrainfo, true)
+   end
 end
 
 -- called after all rooms have been generated
@@ -18335,32 +18637,45 @@ function post_themerooms_generate()
 end
 
 function themeroom_fill(rm)
-   local pick = 1;
+   if debug_fill_idx ~= nil then
+      if is_eligible(themeroom_fills[debug_fill_idx], rm) then
+         themeroom_fills[debug_fill_idx].contents(rm);
+      else
+         -- ideally this would be a debugpline, not a full pline, and offer
+         -- some more context on whether it failed because of difficulty or
+         -- because of eligible function returning false; the warning doesn't
+         -- necessarily mean anything.
+         pline("Warning: fill '"..themeroom_fills[debug_fill_idx].name
+               .."' is not eligible in room that generated it")
+      end
+      return
+   end
+   local pick = nil;
    local total_frequency = 0;
    for i = 1, #themeroom_fills do
-      -- Reservoir sampling: select one room from the set of eligible rooms,
-      -- which may change on different levels because of level difficulty.
-      if is_eligible(themeroom_fills[i], rm) then
+      if (type(themeroom_fills[i]) ~= "table") then
+         nh.impossible('themeroom fill '..i..' must be a table')
+      elseif is_eligible(themeroom_fills[i], rm) then
+         -- Reservoir sampling: select one room from the set of eligible rooms,
+         -- which may change on different levels because of level difficulty.
          local this_frequency;
-         if (type(themeroom_fills[i]) == "table" and themeroom_fills[i].frequency ~= nil) then
+         if (themeroom_fills[i].frequency ~= nil) then
             this_frequency = themeroom_fills[i].frequency;
          else
             this_frequency = 1;
          end
          total_frequency = total_frequency + this_frequency;
-         -- avoid rn2(0) if a room has freq 0
+         -- avoid rn2(0) if a fill has freq 0
          if this_frequency > 0 and nh.rn2(total_frequency) < this_frequency then
             pick = i;
          end
       end
    end
-
-   local t = type(themeroom_fills[pick]);
-   if (t == "table") then
-      themeroom_fills[pick].contents(rm);
-   elseif (t == "function") then
-      themeroom_fills[pick](rm);
+   if pick == nil then
+      nh.impossible('no eligible themed room fills?')
+      return
    end
+   themeroom_fills[pick].contents(rm);
 end
 
 -- postprocess callback: create an engraving pointing at a location
@@ -18386,7 +18701,10 @@ end
 -- postprocess callback: turn room walls into trees
 function make_garden_walls(data)
    local sel = data.sel:grow();
+   -- change walls to trees
    des.replace_terrain({ selection = sel, fromterrain="w", toterrain = "T" });
+   -- update secret doors; attempting to change to AIR will set arboreal flag
+   des.replace_terrain({ selection = sel, fromterrain="S", toterrain = "A" });
 end
 
 -- postprocess callback: make a trap
@@ -19504,6 +19822,20 @@ hells = {
       end
       des.terrain(outside_walls, " ");  -- return the outside back to solid wall
    end,
+
+   -- 7: open cavern, "mines" with more space
+   function ()
+      des.level_init({ style = "solidfill", fg = " ", lit = 0 });
+      des.level_flags("mazelevel", "noflip");
+      des.level_init({ style="mines", fg=".", smoothed=true ,joined=true, lit=0 });
+      local sel = selection.match("."):grow();
+      des.terrain({ selection = sel, typ = "." });
+
+      local border = selection.rect(0,0, 78, 20);
+      des.terrain({ selection = border, typ = " " });
+      des.wallify();
+   end,
+
 };
 
 local hellno = math.random(1, #hells);
@@ -19520,28 +19852,55 @@ end
 
 populatemaze();
 
+local tut_ctrl_key = nil;
+local tut_alt_key = nil;
+
+function tut_key(command)
+   local s = nh.eckey(command);
+   local m = s:match("^^([A-Z])$"); -- ^X is Ctrl-X
+   if (m ~= nil) then
+      tut_ctrl_key = m;
+      return "Ctrl-" .. m;
+   end
+
+   m = s:match("^M%-([A-Z])$"); -- M-X is Alt-X
+   if (m ~= nil) then
+      tut_alt_key = m;
+      return "Alt-" .. m;
+   end
+
+   return s;
+end
+
+function tut_key_help(x, y)
+   if (tut_ctrl_key ~= nil) then
+      des.engraving({ coord = { x,y }, type = "engrave", text = "Note: Outside the tutorial, Ctrl-key combinations are shown prefixed with a caret, like '^" .. tut_ctrl_key .. "'", degrade = false });
+      tut_ctrl_key = nil;
+   end
+end
+
 des.level_init({ style = "solidfill", fg = " " });
 des.level_flags("mazelevel", "noflip",
                 "nomongen", "nodeathdrops", "noautosearch");
 
 des.map([[
 ---------------------------------------------------------------------------
-|-.--|.......|......|..S....|.F.......|.............|.....................|
+|-.--|.......|......|..S....|.F.......|.............|.......|.............|
 |.-..........|......|--|....|.F.....|.|S-------.....|.....................|
-||.--|.......|..T......|....|.F.....|.|.......|.....|.....................|
-||.|.|.......|......|-.|....|.F.....|.|.......|.....|.....................|
+||.--|.......|..T......|....|.F.....|.|.......|.....|.......|.............|
+||.|.|.......|......|-.|....|.F.....|.|.......|.....|--------.............|
 ||.|.|.......|......||.|-.-----------.-.......|-S----.....................|
 |-+-S---------..---.||........................|...|.......................|
 |......|          |.-------------------.......|...|....--S----............|
 |......|  ######  |.........|      |..S.......|...|....|.....|............|
 |----.-| -+-   #  |.....---.|######+..|.......S...|....|.....|............|
-|----+----.----+---.|.--|.|.|#     ------------...|....|.....|............|
+|----+----.----+---.|.--|.|.|#     ------------...|....|.....F............|
 |........|.|......|.|...F...|#  ........|.....+...|....|.....|............|
-|.P......-S|......|------.---# .........|.....|...|....-------............|
-|..........|......+.|...|.|.S# ..--S-----.....|LLL|.......................|
-|.W......---......|.|.|.|.|.|# ..|......|.....|LLL|.......................|
-|....Z.L.S.F......|.|.|.|.---#   |......+.....|...|.......................|
-|........|--......|...|.....|####+......|.....|...+.......................|
+|.P......-S|......|------.---# .........|.....|...|....-------........----|
+|..........|......+.|...|.|.S# ..--S-----.....|LLL|..................|..| |
+|.W......---......|.|.|.|.|.|# ..|......|.....|LLL|..................|..--|
+|....Z.L.S.F......|.|.|.|.---#   |......+.....|...|..................|..|.|
+|........|--......|...|.....|####+......|.....|...+..................||...|
 ---------------------------------------------------------------------------
 ]]);
 
@@ -19561,18 +19920,22 @@ nh.parse_config("OPTIONS=mention_walls");
 nh.parse_config("OPTIONS=mention_decor");
 nh.parse_config("OPTIONS=lit_corridor");
 
-local movekeys = nh.eckey("movewest") .. " " ..
-   nh.eckey("movesouth") .. " " ..
-   nh.eckey("movenorth") .. " " ..
-   nh.eckey("moveeast");
+local movekeys = tut_key("movewest") .. " " ..
+   tut_key("movesouth") .. " " ..
+   tut_key("movenorth") .. " " ..
+   tut_key("moveeast");
 
-local diagmovekeys = nh.eckey("movesouthwest") .. " " ..
-   nh.eckey("movenortheast") .. " " ..
-   nh.eckey("movesoutheast") .. " " ..
-   nh.eckey("movenorthwest");
+local diagmovekeys = tut_key("movesouthwest") .. " " ..
+   tut_key("movenortheast") .. " " ..
+   tut_key("movesoutheast") .. " " ..
+   tut_key("movenorthwest");
 
 des.engraving({ coord = { 9,3 }, type = "engrave", text = "Move around with " .. movekeys, degrade = false });
 des.engraving({ coord = { 5,2 }, type = "engrave", text = "Move diagonally with " .. diagmovekeys, degrade = false });
+
+if (u.role == "Knight") then
+   des.engraving({ coord = { 12,1 }, type = "engrave", text = "Knights can jump with '" .. tut_key("jump") .. "'", degrade = false });
+end
 
 --
 
@@ -19580,7 +19943,7 @@ des.engraving({ coord = { 2,4 }, type = "engrave", text = "Some actions may requ
 des.engraving({ coord = { 2,5 }, type = "engrave", text = "Open the door by moving into it", degrade = false });
 des.door({ coord = { 2,6 }, state = "closed" });
 
-des.engraving({ coord = { 2,7 }, type = "engrave", text = "Close the door with '" .. nh.eckey("close") .. "'", degrade = false });
+des.engraving({ coord = { 2,7 }, type = "engrave", text = "Close the door with '" .. tut_key("close") .. "'", degrade = false });
 
 
 --
@@ -19590,14 +19953,20 @@ des.trap({ type = "magic portal", coord = { 4,4 }, seen = true });
 
 --
 
-des.engraving({ coord = { 5,9 }, type = "engrave", text = "This door is locked. Kick it with '" .. nh.eckey("kick") .. "'", degrade = false });
+des.engraving({ coord = { 5,9 }, type = "engrave", text = "This door is locked. Kick it with '" .. tut_key("kick") .. "'", degrade = false });
 des.door({ coord = { 5,10 }, state = "locked" });
 
-des.engraving({ coord = { 5,12 }, type = "engrave", text = "Look around the map with '" .. nh.eckey("glance") .. "'", degrade = false });
+-- by default, kick is the first command that can be a ctrl-key combo
+tut_key_help(6, 8);
+
+
+des.engraving({ coord = { 5,12 }, type = "engrave", text = "Look around the map with '" .. tut_key("glance") .. "', press ESC when you're done", degrade = false });
 
 --
 
-des.engraving({ coord = { 10,13 }, type = "engrave", text = "Use '" .. nh.eckey("search") .. "' to search for secret doors", degrade = false });
+des.engraving({ coord = { 10,13 }, type = "engrave", text = "Use '" .. tut_key("search") .. "' to search for secret doors", degrade = false });
+
+des.engraving({ coord = { 10,15 }, type = "engrave", text = "Wrong secret", degrade = false });
 
 --
 
@@ -19617,21 +19986,24 @@ for i = 1, 4 do
               coord = locs[i], victim = false });
 end
 
+des.engraving({ coord = { 15,15 }, type = "engrave", text = "Some traps can be disabled with '" .. tut_key("untrap") .. "'", degrade = false });
+des.trap({ coord = { 15,16 }, type = "web", spider_on_web = false });
+
 --
 
 des.door({ coord = { 18,13 }, state = "closed" });
 
-des.engraving({ coord = { 19,13 }, type = "engrave", text = "Pick up items with '" .. nh.eckey("pickup") .. "'", degrade = false });
+des.engraving({ coord = { 19,13 }, type = "engrave", text = "Pick up items with '" .. tut_key("pickup") .. "'", degrade = false });
 
 local armor = (u.role == "Monk") and "leather gloves" or "leather armor";
 
 des.object({ id = armor, spe = 0, buc = "cursed", coord = { 19,14} });
 
-des.engraving({ coord = { 19,15 }, type = "engrave", text = "Wear armor with '" .. nh.eckey("wear") .. "'", degrade = false });
+des.engraving({ coord = { 19,15 }, type = "engrave", text = "Wear armor with '" .. tut_key("wear") .. "'", degrade = false });
 
 des.object({ id = "dagger", spe = 0, buc = "not-cursed", coord = { 21,15} });
 
-des.engraving({ coord = { 21,14 }, type = "engrave", text = "Wield weapons with '" .. nh.eckey("wield") .. "'", degrade = false });
+des.engraving({ coord = { 21,14 }, type = "engrave", text = "Wield weapons with '" .. tut_key("wield") .. "'", degrade = false });
 
 
 des.engraving({ coord = { 22,13 }, type = "engrave", text = "Hit monsters by walking into them.", degrade = false });
@@ -19652,13 +20024,13 @@ des.object({ id = "boulder", coord = {25,12} });
 
 --
 
-des.engraving({ coord = { 27,9 }, type = "engrave", text = "Take off armor with '" .. nh.eckey("takeoff") .. "'", degrade = false });
+des.engraving({ coord = { 27,9 }, type = "engrave", text = "Take off armor with '" .. tut_key("takeoff") .. "'", degrade = false });
 
 --
 
 des.object({ class = "?", id = "remove curse", buc = "blessed", coord = {23,11} })
 des.engraving({ coord = { 22,11 }, type = "engrave", text = "Some items have shuffled descriptions, different each game", degrade = false });
-des.engraving({ coord = { 23,11 }, type = "engrave", text = "Pick up this scroll, read it with '" .. nh.eckey("read") .. "', and try to remove the armor again", degrade = false });
+des.engraving({ coord = { 23,11 }, type = "engrave", text = "Pick up this scroll, read it with '" .. tut_key("read") .. "', and try to remove the armor again", degrade = false });
 
 --
 
@@ -19678,14 +20050,14 @@ des.object({ coord = {14, 6}, id = "boulder" });
 des.door({ coord = { 20,3 }, state = percent(50) and "open" or "closed" });
 
 des.engraving({ coord = { 21,3 }, type = "engrave", text = "Avoid being burdened, it slows you down", degrade = false });
-des.engraving({ coord = { 22,3 }, type = "engrave", text = "Drop items with '" .. nh.eckey("drop") .. "'", degrade = false });
+des.engraving({ coord = { 22,3 }, type = "engrave", text = "Drop items with '" .. tut_key("drop") .. "'", degrade = false });
 des.engraving({ coord = { 22,4 }, type = "engrave", text = "You can drop partial stacks by prefixing the item slot letter with a number", degrade = false });
 
 --
 
 des.monster({ id = "yellow mold", coord = { 26,2 }, waiting = true, countbirth = false });
 
-des.engraving({ coord = { 25,5 }, type = "engrave", text = "Throw items with '" .. nh.eckey("throw") .. "'", degrade = false });
+des.engraving({ coord = { 25,5 }, type = "engrave", text = "Throw items with '" .. tut_key("throw") .. "'", degrade = false });
 
 des.trap({ type = "magic portal", coord = { 21,1 }, seen = true });
 
@@ -19697,35 +20069,36 @@ des.engraving({ coord = { 37,4 }, type = "engrave", text = "Missiles, such as ro
 
 des.object({ coord = { 37,3 }, id = "sling", buc = "not-cursed", spe = 9 });
 des.engraving({ coord = { 37,3 }, type = "engrave", text = "Wield the sling", degrade = false });
-des.engraving({ coord = { 36,1 }, type = "engrave", text = "Use '" .. nh.eckey("fire") .. "' to fire missiles with the wielded launcher", degrade = false });
+des.engraving({ coord = { 36,1 }, type = "engrave", text = "Use '" .. tut_key("fire") .. "' to fire missiles with the wielded launcher", degrade = false });
 
-des.engraving({ coord = { 35,4 }, type = "engrave", text = "Firing launches items from your quiver; Use '" .. nh.eckey("quiver") .. "' to put items in it", degrade = false });
+des.engraving({ coord = { 35,4 }, type = "engrave", text = "Firing launches items from your quiver; Use '" .. tut_key("quiver") .. "' to put items in it", degrade = false });
 
-des.engraving({ coord = { 33,4 }, type = "engrave", text = "You can wait a turn with '" .. nh.eckey("wait") .. "'", degrade = false });
+des.engraving({ coord = { 33,4 }, type = "engrave", text = "You can wait a turn with '" .. tut_key("wait") .. "'", degrade = false });
 
 
 --
 
 des.door({ coord = { 38,6 }, state = "closed" });
 
-des.engraving({ coord = { 39,6 }, type = "engrave", text = "You loot containers with '" .. nh.eckey("loot") .. "'", degrade = false });
+des.engraving({ coord = { 39,6 }, type = "engrave", text = "You loot containers with '" .. tut_key("loot") .. "'", degrade = false });
 
-des.object({ coord = { 42,6 }, id = "large box", broken = true,
+des.object({ coord = { 41,6 }, id = "large box", broken = true, trapped = false,
              contents = function(obj)
                 des.object({ id = "secret door detection", class = "/", spe = 30 }); end
 });
+des.engraving({ coord = { 42,6 }, type = "engrave", text = "Containers can also be emptied with '" .. tut_key("tip") .. "'", degrade = false });
 
-des.engraving({ coord = { 45,6 }, type = "engrave", text = "Magic wands are used with '" .. nh.eckey("zap") .. "'", degrade = false });
+des.engraving({ coord = { 45,6 }, type = "engrave", text = "Magic wands are used with '" .. tut_key("zap") .. "'", degrade = false });
 
 --
 
 des.door({ coord = { 35,9 }, state = "nodoor" });
-des.engraving({ coord = { 34,9 }, type = "engrave", text = "You can run by prefixing a movement key with '" .. nh.eckey("run") .. "'", degrade = false });
+des.engraving({ coord = { 34,9 }, type = "engrave", text = "You can run by prefixing a movement key with '" .. tut_key("run") .. "'", degrade = false });
 
 --
 
 des.door({ coord = { 33,16 }, state = "nodoor" });
-des.engraving({ coord = { 35,15 }, type = "engrave", text = "Travel across the level with '" .. nh.eckey("travel") .. "'", degrade = false });
+des.engraving({ coord = { 35,15 }, type = "engrave", text = "Travel across the level with '" .. tut_key("travel") .. "'", degrade = false });
 
 --
 
@@ -19733,23 +20106,22 @@ des.trap({ type = "magic portal", coord = { 27,14 }, seen = true });
 
 --
 
-des.engraving({ coord = { 48,1 }, type = "burn", text = "Use '" .. nh.eckey("eat") .. "' to eat edible things", degrade = false });
+des.engraving({ coord = { 48,1 }, type = "burn", text = "Use '" .. tut_key("eat") .. "' to eat edible things", degrade = false });
 
 des.object({ coord = { 50,3 }, id = "apple", buc = "not-cursed"  });
 des.object({ coord = { 50,3 }, id = "candy bar", buc = "not-cursed"  });
 
-local otmp = des.object({ coord = { 50,3 }, id = "corpse", montype = "newt", buc = "not-cursed" });
-otmp:stop_timer("rot-corpse");
+des.object({ coord = { 50,3 }, id = "corpse", montype = "lichen", buc = "not-cursed" });
 
 --
 
 des.door({ coord = { 46,11 }, state = "closed" });
 
-des.engraving({ coord = { 43,11 }, type = "burn", text = "Use '" .. nh.eckey("twoweapon") .. "' to use two weapons at once", degrade = false });
+des.engraving({ coord = { 43,11 }, type = "burn", text = "Use '" .. tut_key("twoweapon") .. "' to use two weapons at once", degrade = false });
 des.object({ coord = { 43,13 }, id = "knife", buc = "uncursed" });
 des.object({ coord = { 43,14 }, id = "dagger", buc = "blessed" });
 
-des.engraving({ coord = { 43,16 }, type = "burn", text = "Swap weapons quickly with '" .. nh.eckey("swap") .. "'", degrade = false });
+des.engraving({ coord = { 43,16 }, type = "burn", text = "Swap weapons quickly with '" .. tut_key("swap") .. "'", degrade = false });
 
 des.door({ coord = { 40,15 }, state = "random" });
 
@@ -19757,23 +20129,59 @@ des.door({ coord = { 40,15 }, state = "random" });
 
 des.object({ coord = { 48,7 }, id = "ring of levitation", buc = "not-cursed" });
 
-des.engraving({ coord = { 48,10 }, type = "burn", text = "Put on accessories with '" .. nh.eckey("puton") .. "'", degrade = false });
+des.engraving({ coord = { 48,10 }, type = "burn", text = "Put on accessories with '" .. tut_key("puton") .. "'", degrade = false });
 
-des.engraving({ coord = { 48,16 }, type = "burn", text = "Remove accessories with '" .. nh.eckey("remove") .. "'", degrade = false });
+des.engraving({ coord = { 48,16 }, type = "burn", text = "Remove accessories with '" .. tut_key("remove") .. "'", degrade = false });
 
 des.door({ coord = { 50,16 }, state = "closed" });
 
 
 --
 
-des.engraving({ coord = { 58,9 }, type = "burn", text = "Use '" .. nh.eckey("down") .. "' to go down the stairs", degrade = false });
+des.engraving({ coord = { 58,9 }, type = "burn", text = "Use '" .. tut_key("down") .. "' to go down the stairs", degrade = false });
 des.stair({ dir = "down", coord = { 58,10 } });
 
 --
 
+-- one more ctrl-key help, if needed
+tut_key_help(64, 4);
+
 des.engraving({ coord = { 65,3 }, type = "burn", text = "UNDER CONSTRUCTION", degrade = false });
 
 des.trap({ type = "magic portal", coord = { 66,2 }, seen = true });
+
+--
+
+-- squeezing through small gaps
+
+des.engraving({ coord = { 69,12 }, type = "burn", text = "Can't get through?  You're carrying too much.", degrade = false });
+
+-- try to squeeze over boulders, find a trap door
+
+des.object({ id = "boulder", coord = {71,16} });
+des.object({ id = "boulder", coord = {72,16} });
+des.object({ id = "boulder", coord = {73,16} });
+des.trap({ type = "trap door", coord = { 73,15 } });
+
+--
+
+des.engraving({ coord = { 60,2 }, type = "engrave", text = "Spellcasting", degrade = false });
+if (u.uenmax < 5) then
+   -- TODO: make sure hero has enough Pw to cast the spell (5 pw) instead?
+   -- TODO: ensure the first cast of this spell succeeds?
+   des.engraving({ coord = { 59,2 }, type = "engrave", text = "Unfortunately you don't have enough energy to cast spells.", degrade = false });
+end
+des.engraving({ coord = { 57,2 }, type = "engrave", text = "Pick up the spellbook with '" .. tut_key("pickup") .. "'", degrade = false });
+des.object({ coord = { 57,2 }, id = "spellbook of light", buc = "blessed" });
+des.engraving({ coord = { 55,2 }, type = "engrave", text = "Read the spellbook with '" .. tut_key("read") .. "'", degrade = false });
+des.engraving({ coord = { 53,2 }, type = "engrave", text = "Use '" .. tut_key("cast") .. "' to cast a spell", degrade = false });
+des.region(selection.area(53,01, 59, 3), "unlit");
+
+--
+
+des.engraving({ coord = { 72,2 }, type = "engrave", text = "You \"quaff\" potions with '" .. tut_key("quaff") .. "'", degrade = false });
+des.object({ coord = { 72,2 }, id = "potion of object detection", buc = "blessed" });
+
 
 ----------------
 
@@ -25673,7 +26081,7 @@ vcpmb!oado][WO^][W
 vkjoue"czy{xhqO^][W
 xghdv"sawiv[WO^][W
 #	This data file is generated by 'makedefs'.  Do not edit. 
-000035b0
+000035b4
 abbot
 0,11
 ac
@@ -26096,115 +26504,114 @@ gelatinous cube
 gem or rock
 85620,4
 genetic engineer
-85796,5
+85796,15
 geryon
-86084,24
+86518,24
 *ghost
 valley of *dea*
-87182,10
+87616,10
 ghoul
-87754,16
+88188,16
 *giant
 giant humanoid
-88659,6
+89093,6
 *gloves
 gauntlets*
-89010,3
+89444,3
 ~gnome ??m*
 gnome*
 gnomish wizard
-89134,28
+89568,28
 goblin
-90630,10
+91064,10
 god
 goddess
-91161,13
+91595,13
 gold
 gold piece
-91949,9
+92383,9
 gold golem
-92416,10
+92850,10
 ~flesh golem
 ~gold golem
 ~straw golem
 ~wood golem
 ~clay golem
 *golem
-92982,18
+93416,18
 grave
-94001,5
+94435,5
 grayswandir
-94206,6
+94640,6
 *grease
-94564,3
+94998,3
 gremlin
-94703,14
+95137,14
 grid bug
-95365,14
+95799,14
 gunyoki
-96075,2
+96509,2
 hachi
-96186,8
+96620,8
 hallucinat*
 potion of hallucination
-96664,9
+97098,9
 *harp
-97222,22
+97656,22
 hawaiian*shirt
-98435,9
+98869,9
 healer
 * healer
 attendant
 doctor
 physician
-98968,20
+99402,20
 heart of ahriman
-100103,19
+100537,19
 hell hound*
-101224,15
+101658,15
 ~helm of *
 ~crystal helmet
 helm*
-dented pot
 * helmet
-102095,2
+102529,2
 helm of telepathy
-102171,2
+102605,2
 helm of opposite alignment
-102297,2
+102731,2
 helm of caution
-102414,2
+102848,2
 helm of brilliance
 crystal helmet
-102530,4
+102964,4
 hermes
-102769,15
+103203,15
 hezrou
-103681,3
+104115,3
 hippocrates
-103824,11
+104258,11
 hobbit
-104422,10
+104856,10
 hobgoblin
-105014,23
+105448,23
 holy water
-106261,22
+106695,22
 hom*nculus
-107391,13
+107825,13
 *hook
-108050,9
+108484,9
 ~unicorn horn
 *horn
-108530,9
+108964,9
 horn of plenty
 cornucopia
-108921,11
+109355,11
 horned devil
 barbed devil
-109401,2
+109835,2
 ~horsem*
 *horse
-109490,8
+109924,8
 *horsem*
 rider*
 death
@@ -26212,14 +26619,14 @@ famine
 pestilence
 war
 hunger
-109955,26
+110389,26
 huan*ti
-111344,5
+111778,5
 hu*h*eto*l
 minion of huhetotl
-111646,6
+112080,6
 humanoid
-111968,5
+112402,5
 human
 chieftain
 guard
@@ -26230,298 +26637,298 @@ student
 warrior
 *watch*
 human or elf*
-112230,7
+112664,7
 hunter
-112635,9
+113069,9
 ~ice box
 ice
 * ice
 frozen *
-112984,9
+113418,9
 ice box
-113605,15
+114039,15
 ice devil
-113821,4
+114255,4
 idefix
-114024,8
+114458,8
 imp
 imp or minor demon
-114458,13
+114892,13
 incubus
 succubus
 amorous demon
-115108,4
+115542,4
 *insect
 *insects
-115317,21
+115751,21
 *iron ball
 *iron chain
-116407,11
+116841,11
 iron bars
-116989,9
+117423,9
 ishtar
-117266,7
+117700,7
 issek
-117633,13
+118067,13
 izchak
-118383,19
+118817,19
 jabberwock
 vorpal*
-119573,20
+120007,20
 jacinth*
-120193,9
+120627,9
 jackal
-120460,13
+120894,13
 *jack*boot*
-121184,7
+121618,7
 jade*
-121606,10
+122040,10
 jaguar
-122180,4
+122614,4
 jellyfish
-122401,5
+122835,5
 juiblex
 jubilex
-122583,6
+123017,6
 k?ration
 c?ration
-122925,11
+123359,11
 kabuto
-123453,19
+123887,19
 katana
-124597,3
+125031,3
 kelp*
 *frond
-124764,13
+125198,13
 ki-rin
-125504,5
+125938,5
 king arthur
 *arthur
-125764,23
+126198,23
 knife
 stiletto
-126965,15
+127399,15
 knight
 * knight
-127565,9
+127999,9
 ~kobold ??m*
 *kobold*
-127915,5
+128349,5
 *kop*
 rubber hose
-128184,28
+128618,28
 kos
-129841,6
+130275,6
 koto
-130156,1
+130590,1
 kraken
-130174,8
+130608,8
 the lady
 lady
 lady luck
 offler
-130632,30
+131066,30
 *lamp
-131945,15
+132379,15
 lance
-132637,13
+133071,13
 land mine
-133411,5
+133845,5
 *lantern
-133676,4
+134110,4
 lava
 * lava
-133861,23
+134295,23
 leash
-135218,9
+135652,9
 lembas*
-135750,18
+136184,18
 lemure
 larvae
-136773,10
+137207,10
 leocrotta
 leu*otta
-137359,7
+137793,7
 leprechaun
-137747,18
+138181,18
 *lich
-138748,18
+139182,18
 lichen
-139871,7
+140305,7
 ~* of light
 * light
 light
-140230,3
+140664,3
 gecko
 iguana
 lizard
-140356,9
+140790,9
 loki
-140883,14
+141317,14
 *longbow of diana
-141685,2
+142119,2
 looking glass
 mirror
-141822,13
+142256,13
 lord carnarvon
-142272,8
+142706,8
 lord sato
-142733,3
+143167,3
 lord surt*
-142911,9
+143345,9
 luck
 bad luck
-143392,13
+143826,13
 lug*
-144024,8
+144458,8
 lurker*
-144497,3
+144931,3
 lycanthrope
 were*
 human were*
 *were
-144653,17
+145087,17
 lynx
-145646,6
+146080,6
 ~*sceptre of might
 mace
 sceptre
-145968,7
+146402,7
 magic marker
-146357,2
+146791,2
 magic mirror of merlin
-146435,15
+146869,15
 magicbane
-147105,2
+147539,2
 mail d*emon
-147194,2
+147628,2
 ma*annan*
-147284,7
+147718,7
 manes
-147649,11
+148083,11
 marduk
-148157,10
+148591,10
 marilith
-148723,5
+149157,5
 mars
-148975,7
+149409,7
 martial arts
 unarmed combat
 bare*handed combat
-149372,6
+149806,6
 master assassin
-149713,19
+150147,19
 master key of thievery
-150616,5
+151050,5
 master of thieves
-150907,11
+151341,11
 mastodon
-151531,5
+151965,5
 *mattock
-151771,7
+152205,7
 meat*
 huge chunk of meat
-152157,5
+152591,5
 medusa
 perseus
 shield of reflection
-152326,23
+152760,23
 melon
-153514,10
+153948,10
 mercury
-154045,3
+154479,3
 *mimic
-154200,6
+154634,6
 *mind flayer
-154544,6
+154978,6
 mine*
 gnomish mines
-154878,12
+155312,12
 minotaur
-155595,9
+156029,9
 mit*ra*
-156092,15
+156526,15
 *mithril*
-156939,6
+157373,6
 *mitre of holiness
-157274,4
+157708,4
 mjollnir
-157520,14
+157954,14
 mog
-158360,2
+158794,2
 ~slime mold
 *mold
-158476,6
+158910,6
 mol?ch
-158809,16
+159243,16
 monk
 * monk
 grand master
 master kaen
-159645,38
+160079,38
 monkey
-161448,15
+161882,15
 morning star
-162350,15
+162784,15
 mumak*
-163135,8
+163569,8
 *mummy
-163591,14
+164025,14
 mummy wrapping
-164333,15
+164767,15
 *naga*
 *naja*
-165173,4
+165607,4
 naginata
-165414,19
+165848,19
 nalfeshnee
-166373,2
+166807,2
 nalzok
-166491,7
+166925,7
 neanderthal*
-166894,3
+167328,3
 neferet
 neferet the green
-167073,7
+167507,7
 newt
-167483,13
+167917,13
 ninja-to
-167926,1
+168360,1
 *norn
-167950,13
+168384,13
 nunchaku
-168701,13
+169135,13
 *nymph
 naiad
-169411,24
+169845,24
 obsidian*
-170703,10
+171137,10
 odin
-171289,22
+171723,22
 ogre*
-172508,16
+172942,16
 oilskin cloak
-173407,9
+173841,9
 oilskin sack
-173922,9
+174356,9
 olog-hai
-174413,13
+174847,13
 oracle
 delphi
 p*thia
-175207,9
+175641,9
 orange
 pear
-175686,11
+176120,11
 *orb of detection
-176311,4
+176745,4
 *orb of fate
-176528,7
+176962,7
 goblin king
 orcrist
-176928,9
+177362,9
 orcus
-177430,3
+177864,3
 ~orc ??m*
 ~orcish barbarian
 ~orcish ranger
@@ -26530,47 +26937,47 @@ orcus
 orc*
 * orc
 uruk*hai
-177607,15
+178041,15
 orion
 sirius
-178449,19
+178883,19
 osaku
-179411,1
+179845,1
 owlbear
-179457,6
+179891,6
 page
-179770,5
+180204,5
 *pall
-180031,6
+180465,6
 panther
-180352,9
+180786,9
 *paper
-180674,13
+181108,13
 pelias
-181455,18
+181889,18
 pick*ax*
 broad pick
-182456,5
+182890,5
 *piercer
-182639,8
+183073,8
 piranha
-183046,8
+183480,8
 pit
 spiked pit
-183464,10
+183898,10
 pit fiend
-184043,4
+184477,4
 platinum yendorian express card
-184230,6
+184664,6
 player
 play* style
 user
-184584,12
+185018,12
 poison
 poisoned
 potion of sickness
 *venom
-184925,6
+185359,6
 polearm
 * polearm
 partisan
@@ -26589,390 +26996,391 @@ guisarme
 bill-guisarme
 lucern hammer
 bec de corbin
-185204,6
+185638,6
 polymorph trap
-185586,10
+186020,10
 pony
-186172,14
+186606,14
 *portal
-186805,6
+187239,6
 trident
 poseido*n
-187147,19
+187581,19
 ~*sleeping
 ~*booze
 *potion*
-188083,25
+188517,25
 pray*
-189272,4
+189706,4
 priest*
 * priest*
 cleric
 * cleric
 acolyte
-189450,16
+189884,16
 paddle cactus
-190400,6
+190834,6
 prisoner
-190729,15
+191163,15
 ptah
-191087,9
+191521,9
 *purple worm
-191564,6
+191998,6
 pyrolisk
-191895,13
+192329,13
 python
-192650,12
+193084,12
 quadruped
-193250,5
+193684,5
 quantum mechanic
-193541,17
+193975,17
 quasit
-194421,2
+194855,2
 *quest
-194541,13
+194975,13
 quetzalcoatl
-195276,13
+195710,13
 quit*
-196064,8
+196498,8
 raijin
 raiden
-196445,8
+196879,8
 ranger
 * ranger
-196901,14
+197335,14
 rat
 * rat
-197728,14
+198162,14
 raven
-198393,7
+198827,7
 ~*invisibility
 ring
 * ring
 ring of *
-198801,9
+199235,9
 ring of invisibility
-199233,18
+199667,18
 robe
-200301,11
+200735,11
 rock
 large rock
-200892,21
+201326,21
 rock mole
-202100,6
+202534,6
 rodent*
-202442,5
+202876,5
 rogue
 * rogue
-202706,11
+203140,11
 root
 dwarven root
-203328,21
+203762,21
 roshi
-204386,7
+204820,7
 rothe
-204748,3
+205182,3
 *royal jelly
-204890,14
+205324,14
 ruby
 sapphire
-205461,7
+205895,7
 rust monster
-205844,3
+206278,3
 rust monster or disenchanter
-205982,2
+206416,2
 *saber
 *sabre
-206092,14
+206526,14
 saddle
-206500,9
+206934,9
 sake
-206768,1
+207202,1
 salamander
-206789,7
+207223,7
 samurai
 * samurai
-207140,11
+207574,11
 sandestin
-207803,31
+208237,31
 sasquatch
-209142,18
+209576,18
 scalpel
-210221,5
+210655,5
 *sceptre of might
-210504,6
+210938,6
 scimitar
-210806,5
+211240,5
 scorpio*
-211061,5
+211495,5
 scorpius
-211335,6
+211769,6
 scroll of punishment
 punish*
-211690,5
+212124,5
 *scroll
 scroll *
-211869,18
+212303,18
 set
 seth
-212673,13
+213107,13
 shad*
-213422,21
+213856,21
 shaman karnov
-214430,3
+214864,3
 shan*lai*ching
-214585,5
+215019,5
 shark
-214843,15
+215277,15
 ~uruk*
 ~white*
 *shield
-215606,15
+216040,15
 shito
-216522,1
+216956,1
 shopkeeper
-216550,24
+216984,24
 shrieker
-217857,7
+218291,7
 throwing star
 shuriken
-218254,7
+218688,7
 skeleton
-218665,4
+219099,4
 slasher
-218908,17
+219342,17
 *sleep
-219886,5
+220320,5
 slime mold
-220053,8
+220487,8
 sling
-220497,11
+220931,11
 *snake
 serpent
 water moccasin
 pit viper
-221034,24
+221468,24
 snickersnee
-222432,6
+222866,6
 sokoban
-222654,12
+223088,12
 *soldier
 sergeant
 lieutenant
 captain
-223292,8
+223726,8
 *spear
 javelin
-223752,18
+224186,18
 *spellbook*
-224785,16
+225219,16
 *spider
-225669,11
+226103,11
 *spore
 *sphere
-226104,4
+226538,4
 squeaky board
-226284,8
+226718,8
 ~*aesculapius
 *staff
-226700,18
+227134,18
 *staff of aesculapius
-227788,5
+228222,5
 stair*
-228059,20
+branch stair*
+228493,20
 *stalker
-229097,25
+229531,25
 ~statue trap
 statue*
-230543,17
+230977,17
 stethoscope
-231558,3
+231992,3
 microscope
 telescope
 telephone
 television
-231693,1
+232127,1
 sting
-231712,13
+232146,13
 stormbringer
-232333,17
+232767,17
 *strange object
 strange
 glorkum*
-233235,6
+233669,6
 straw golem
-233530,11
+233964,11
 sunsword
-234158,4
+234592,4
 susano*o
-234293,6
+234727,6
 tanko
-234598,1
+235032,1
 tengu
-234656,7
+235090,7
 thoth
-235050,19
+235484,19
 thoth*amon
-236108,5
+236542,5
 *throne
-236360,16
+236794,16
 thug
-237025,9
+237459,9
 tiger
-237539,12
+237973,12
 tin
 tin of *
 tinning kit
-238037,8
+238471,8
 tin opener
-238373,20
+238807,20
 titan
-239304,11
+239738,11
 topaz
-239898,10
+240332,10
 touch*stone
-240479,2
+240913,2
 tourist
 * tourist
-240551,18
+240985,18
 towel
 wet towel
 moist towel
-241514,19
+241948,19
 *tower
 *tower of darkness
-242584,7
+243018,7
 trap*door
-242992,8
+243426,8
 trapper
 trapper or lurker above
-243448,5
+243882,5
 tree
-243751,13
+244185,13
 tripe
 tripe ration
-244181,10
+244615,10
 ~water troll
 *troll
-244773,15
+245207,15
 *tsurugi of muramasa
-245596,5
+246030,5
 ~*muramasa
 tsurugi
-245901,6
+246335,6
 ~*spellbook
 turquoise*
-246210,10
+246644,10
 twoflower
 guide
-246716,23
+247150,23
 tyr
-247731,14
+248165,14
 *hulk
-248540,5
+248974,5
 *unicorn
 unicorn horn
-248810,26
+249244,26
 unreconnoitered
-250227,2
+250661,2
 uruk*hai shield
 white-handed shield
-250324,7
+250758,7
 valkyrie
 * valkyrie
-250712,12
+251146,12
 vampire
 ~vampire bat
 vampire l*
-251364,20
+251798,20
 venus
-252389,11
+252823,11
 vlad*
-252999,9
+253433,9
 *vortex
 vortices
-253544,5
+253978,5
 vrock
-253837,4
+254271,4
 wakizashi
-254087,10
+254521,10
 ~*sleep
 wand *
 *wand
-254638,10
+255072,10
 warg
-255215,17
+255649,17
 ~mjollnir
 war*hammer
-256063,13
+256497,13
 water
-256815,10
+257249,10
 water demon
-257107,22
+257541,22
 water troll
-258289,14
+258723,14
 weapon
 club
 flail
 ~*broadsword
 ~sunsword
 *sword
-259082,2
+259516,2
 web
-259187,3
+259621,3
 *whistle
-259291,14
+259725,14
 *wight
-259875,9
+260309,9
 win
 winner
 winning
-260369,6
+260803,6
 ~gnomish wizard
 wizard
 * wizard
 apprentice
-260669,8
+261103,8
 wizard of yendor
-261130,10
+261564,10
 wolf
 *wolf
 *wolf cub
-261710,5
+262144,5
 *wolfsbane
-261963,9
+262397,9
 wood golem
-262432,19
+262866,19
 woodchuck
-263012,13
+263446,13
 *worm
 long worm tail
 worm tooth
 crysknife
-263643,6
+264077,6
 wraith
 nazgul
-263975,17
+264409,17
 *wumpus
-264941,11
+265375,11
 xan
-265462,12
+265896,12
 xorn
-266087,5
+266521,5
 ya
-266352,2
+266786,2
 yeenoghu
-266463,5
+266897,5
 yeti
-266728,15
+267162,15
 *yugake
-267599,3
+268033,3
 yumi
-267784,4
+268218,4
 *zombi*
-267993,5
+268427,5
 zruty
-268236,2
+268670,2
 arc* ranks
 archeologist
 digger
@@ -26984,7 +27392,7 @@ spelunker
 speleologist
 collector
 curator
-268329,11
+268763,11
 bar* ranks
 barbarian
 plunder?*
@@ -26996,7 +27404,7 @@ reaver
 slayer
 chieftain*
 conquer*
-268612,14
+269046,14
 cav* ranks
 caveman
 cavewoman
@@ -27010,7 +27418,7 @@ roamer
 nomad
 rover
 pioneer
-268928,11
+269362,11
 hea* ranks
 healer
 rhizotomist
@@ -27023,7 +27431,7 @@ magister
 magistra
 physician
 chirurgeon
-269229,13
+269663,13
 kni* ranks
 knight
 gallant
@@ -27036,7 +27444,7 @@ chevalier*
 seignieur
 dame
 paladin
-269534,13
+269968,13
 mon* ranks
 monk
 candidate
@@ -27048,7 +27456,7 @@ student of metals
 student of winds
 student of fire
 master
-269835,12
+270269,12
 pri* ranks
 priest*
 aspirant
@@ -27059,7 +27467,7 @@ canon*
 lama
 ?atriarch
 high priest*
-270119,15
+270553,15
 ran* ranks
 ranger
 tenderfoot
@@ -27071,7 +27479,7 @@ arbalester
 archer
 sharpshooter
 marks*man
-270456,13
+270890,13
 rog* ranks
 rogue
 footpad
@@ -27083,7 +27491,7 @@ burglar
 filcher
 mags*man
 thief
-270760,12
+271194,12
 sam* ranks
 samurai
 hatamoto
@@ -27096,7 +27504,7 @@ kokushu
 daimyo
 kuge
 shogun
-271046,12
+271480,12
 tou* ranks
 tourist
 rambler
@@ -27108,7 +27516,7 @@ journeyer
 voyager
 explorer
 adventurer
-271332,12
+271766,12
 val* ranks
 valkyrie
 stripling
@@ -27122,7 +27530,7 @@ heroine
 champion
 lord
 lady
-271625,14
+272059,14
 wiz* ranks
 wizard
 evoker
@@ -27135,13 +27543,13 @@ sorcerer
 sorceress
 necromancer
 mage
-271932,13
+272366,13
 novel
 paperback book
 discworld novel*
-272232,43
+272666,43
 .
-272995,0
+273429,0
 	For it had been long apparent to Count Landulf that nothing
 	could be done with his seventh son Thomas, except to make him
 	an Abbot or something of that kind.  Born in 1226, he had from
@@ -28849,6 +29257,16 @@ discworld novel*
 	immediate mutations in the subject.  Far from needing an
 	elaborate laboratory to accomplish such abominations, a mere
 	touch seems to be all that is necessary.
+		[]
+
+	"I thought the whole point of genetic engineering was to avoid
+	the random waste of natural evolution, and replace it with
+	the efficiency of reason," Miles piped up.  All three haut-
+	women turned to stare at him in astonishment, as if a potted
+	plant had suddenly offered a critique of its fertilization
+	routine.  "Or ... so it seems to me," Miles trailed off in
+	a much smaller voice.
+		[ Cetaganda, Lois McMaster Bujold ]
 	Forthwith that image vile of fraud appear'd,
 	His head and upper part expos'd on land,
 	But laid not on the shore his bestial train.
@@ -29652,7 +30070,7 @@ discworld novel*
 	And was a bugbear in men's eyes;
 	But had the fortune in his age
 	To live a fool and die a sage.
-	  [ Don Quixote of La Mancha, by Miquel de Cervantes Saavedra ]
+	  [ Don Quixote of La Mancha, by Miguel de Cervantes Saavedra ]
 	The race of kobolds are reputed to be an artificial creation
 	of a master wizard (demi-god?).  They are about 3' tall with
 	a vaguely dog-like face.  They bear a violent dislike of the
@@ -29758,7 +30176,7 @@ discworld novel*
 	his lance into shivers, carrying him and his horse after it,
 	and finally tumbled him a good way off from it on the field in
 	evil plight.
-	  [ Don Quixote of La Mancha, by Miquel de Cervantes Saavedra ]
+	  [ Don Quixote of La Mancha, by Miguel de Cervantes Saavedra ]
 	Your heart is intact, your brain is not badly damaged, but the rest
 	of your injuries are comparable to stepping on a land mine.  You'd
 	never walk again, and you'd be in great pain.  You would come to
@@ -32866,6 +33284,7 @@ H"`aue"hiefjmfw^][WO^][WO^][WO^][WO^][WO^][WO^][WO^][WO^][W
 H"`accghauwg`(yo"vmyoaez~`vmg~!kj(}x"hicu"havd.$|n,[WO^][W
 H"lisjg`(}xqadv!vk(tdcp`O^][WO^][WO^][WO^][WO^][WO^][WO^][W
 H"lifd"ed|!vlm0ukim0hl$|xd"sgbmf[WO^][WO^][WO^][WO^][WO^][W
+H"lifd"vmqbjal0Lkjm7r"Aft^][WO^][WO^][WO^][WO^][WO^][WO^][W
 H"ofuv"M/t!dmft!c$}cd"bgb!vlac!evifdqpg~d#[WO^][WO^][WO^][W
 H"ofv"iq0lkjl>!"Eft!kp/c!cvgeof$`usg${lgtdqbg*WO^][WO^][W
 H"haue#$(Y&nh(~dtaz0cg$i|skc`d ][WO^][WO^][WO^][WO^][WO^][W
@@ -33128,18 +33547,18 @@ gga|0raqnv!vlm0hlwkbhrpao.$kqoaad|hlc(yuq$xugjku/
 
 Options compiled into this edition:
 
-    color, data file compression, data librarian, end-of-game dumplogs,
-    deferred handling of hangup signal, insurance files for recovering from
-    crashes, live logging support, log file, extended log file, errors and
-    warnings log file, mail daemon, news file, internal pager used for
-    viewing help files, pattern matching via :PATMATCH:, pseudo random
-    numbers generated by ISAAC64, strong PRNG seed from /dev/urandom,
-    restore saved games via menu, screen clipping, shell command,
-    traditional status display, status via windowport with highlighting,
-    suspend command, terminal info library, timed wait for display effects,
-    system configuration at run-time, show stack trace on error, launch
-    browser to report issues, save and bones files accepted from version
-    3.7.0 only, and basic NetHack features.
+    I32LP64 data model, color, data file compression, data librarian,
+    end-of-game dumplogs, deferred handling of hangup signal, insurance
+    files for recovering from crashes, live logging support, log file,
+    extended log file, errors and warnings log file, mail daemon, news file,
+    internal pager used for viewing help files, pattern matching via
+    :PATMATCH:, pseudo random numbers generated by ISAAC64, strong PRNG seed
+    from /dev/urandom, restore saved games via menu, screen clipping, shell
+    command, traditional status display, status via windowport with
+    highlighting, suspend command, terminal info library, timed wait for
+    display effects, system configuration at run-time, show stack trace on
+    error, launch browser to report issues, save and bones files accepted
+    from version 3.7.0 only, and basic NetHack features.
 
 Supported windowing system:
 
@@ -36247,7 +36666,7 @@ So, have you succeeded in your quest for the Amulet of Yendor?"]],
    },
 }
 #	This data file is generated by 'makedefs'.  Do not edit. 
-0374,023875,00006d;0396,025702,005db0;0,0,00c216
+0374,023875,00006d;0397,025762,005db0;0,0,00c252
 @"fdyofbg|e"gi~!`a(fdp}(ergb}|!kb(inw#zu!vaduqcp`yb,[WO^][W
 @"gi~eghirswi(qgdmpue"sadi"wmfdl$kqofhmc!qlggr"p`u!ueq0vkp`0`"iiwhaed0mkc`d/
 @"gzu`o$xyd"lic!vsg0tqa{*!dkgt/,*(qof$m~ugv|qhlim~u,[WO^][W
@@ -36652,6 +37071,7 @@ Zakg{hgY(Q!um{x>"$G{`{((}`ia(}d"e(vnpp}~d"ggjka)O^][WO^][W
 @nsiir"e|d`ao(q!dhgqukjo0d{a(vsmi(rdjmft ][WO^][WO^][WO^][W
 @l$m|wgj(smmec0hq$i|vc}{0uja(xdkc`d!mb(v`qlao,[WO^][WO^][W
 @l}(clchd0n`nmsu"p`qu"m{0`agatdlpi|m{$lbnrtmt!umd|!jmlu!wjlus"e(|`pcmb!mfbubv*
+@pg`unnkoyrvw(qsg$~us{${atkw`i-"knddl$ntl`(eofaz0cmqdtdpw&
 @pg`unnkoyrvw(vhl`(}npa(rnla{0qkhmc/][WO^][WO^][WO^][WO^][W
 @ww|yo"Tggdpw(c`{w20L{$Ekm$ac!`ek{ "$Qu`j((r``})O^][WO^][W
 Cchzfq$l!lk|0`rtmqs"ejwg$duwgh("1,[WO^][WO^][WO^][WO^][W

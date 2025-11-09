@@ -4,6 +4,7 @@
 
 #include "hack.h"
 #include "dlb.h"
+#include "androidrecover.h"
 #include <setjmp.h>
 
 #include <sys/stat.h>
@@ -61,17 +62,17 @@ int NetHackMain(int argc, char** argv)
 
 #endif
 
-#ifdef ENHANCED_SYMBOLS
-    if (argcheck(argc, argv, ARG_DUMPGLYPHIDS) == 2)
-        exit(EXIT_SUCCESS);
-#endif
-
 #ifdef CHDIR
     /*
      * Change directories before we initialize the window system so
      * we can find the tile file.
      */
     chdirx(dir);
+#endif
+
+#ifdef ENHANCED_SYMBOLS
+    if (argcheck(argc, argv, ARG_DUMPGLYPHIDS) == 2)
+        exit(EXIT_SUCCESS);
 #endif
 
     initoptions();
@@ -106,11 +107,14 @@ int NetHackMain(int argc, char** argv)
 #ifdef MAIL
     getmailstatus();
 #endif
+    /* wizard mode access is deferred until here */
+    set_playmode(); /* sets plname to "wizard" for wizard mode */
+    /* hide any hyphens from plnamesuffix() */
+    gp.plnamelen = (int) strlen(svp.plname);
     /* strip role,race,&c suffix; in android set plname/plnamelen in askname()
        or holds a generic user name like "player" or "games" */
     plnamesuffix();
-    /* wizard mode access is deferred until here */
-    set_playmode(); /* sets plname to "wizard" for wizard mode */
+
     if (wizard) {
         /* use character name rather than lock letter for file names */
         gl.locknum = 0;
@@ -332,74 +336,25 @@ sys_random_seed(void)
     return seed;
 }
 
-// reference recover.c/restore_savefile
-char * plname_from_running(const char *filename)
-{
-    int fd;
-    char *result = 0;
-    char savename[SAVESIZE];
-    int savelev, hpid, pltmpsiz, filecmc;
-    struct version_info version_data;
-    struct savefile_info sfi;
-    char plbuf[PL_NSIZ], indicator;
-
-    /* level 0 file contains:
-     *  pid of creating process (ignored here)
-     *  level number for current level of save file
-     *  name of save file nethack would have created
-     *  savefile info
-     *  player name
-     *  and game state
-     */
-    if((fd = open(filename, O_RDONLY, 0)) >= 0) {
-        if (read(fd, (genericptr_t) &hpid, sizeof hpid) == sizeof hpid
-            && read(fd, (genericptr_t) &savelev, sizeof(savelev))
-                == sizeof(savelev)
-            && (read(fd, (genericptr_t) savename, sizeof savename)
-                == sizeof savename)
-            && (read(fd, (genericptr_t) &indicator, sizeof indicator)
-                == sizeof indicator)
-            && (read(fd, (genericptr_t) &filecmc, sizeof filecmc)
-                == sizeof filecmc)
-            && (read(fd, (genericptr_t) &version_data, sizeof version_data)
-                == sizeof version_data)
-            && (read(fd, (genericptr_t) &sfi, sizeof sfi) == sizeof sfi)
-            && (read(fd, (genericptr_t) &pltmpsiz, sizeof pltmpsiz)
-                == sizeof pltmpsiz) && (pltmpsiz > 0 && pltmpsiz <= PL_NSIZ)
-            && (read(fd, (genericptr_t) plbuf, pltmpsiz) == pltmpsiz)) {
-            result = dupstr(plbuf);
-        }
-        close(fd);
-    }
-
-    return result;
-}
-
 int filter_running_game(const struct dirent* entry)
 {
     return *entry->d_name && entry->d_name[strlen(entry->d_name)-1] == '0';
 }
 
-char ** get_aborted_games() {
-    char **result = NULL;
+void restore_aborted_games() {
     char name[64]; /* more than PL_NSIZ */
     struct dirent **namelist;
-    int i, j, uid, myuid=getuid();
+    int i, uid, myuid=getuid();
     int n = scandir(".", &namelist, filter_running_game, 0);
     if(n > 0) {
-        result = (char **) alloc((n + 1) * sizeof(char *)); /* at most */
-        (void) memset((genericptr_t) result, 0, (n + 1) * sizeof(char *));
-        for (i = 0, j = 0; i<n; i++) {
-            if (sscanf(namelist[i]->d_name, "%d%63[^.].0", &uid, name ) == 2 ) {
+        for (i = 0; i < n; i++) {
+            if (sscanf(namelist[i]->d_name, "%d%63[^.].0", &uid, name) == 2) {
                 if (uid==myuid) {
-                    char *r = plname_from_running(namelist[i]->d_name);
-                    if (r)
-                        result[j++] = r;
+                    and_restore_savefile(namelist[i]->d_name);
                 }
             }
         }
     }
-    return result;
 }
 
 /*
@@ -418,4 +373,31 @@ append_slash(char *name)
         *++ptr = '/';
         *++ptr = '\0';
     }
+}
+
+
+/* for command-line options that perform some immediate action and then
+   terminate the program without starting play, like 'nethack --version'
+   or 'nethack -s Zelda'; do some cleanup before that termination */
+ATTRNORETURN static void
+opt_terminate(void)
+{
+    config_error_done(); /* free memory allocated by config_error_init() */
+
+    nh_terminate(EXIT_SUCCESS);
+    /*NOTREACHED*/
+}
+
+/* show the sysconf file name, playground directory, run-time configuration
+   file name, dumplog file name if applicable, and some other things */
+ATTRNORETURN void
+after_opt_showpaths(const char *dir)
+{
+#ifdef CHDIR
+    chdirx(dir);
+#else
+    nhUse(dir);
+#endif
+    opt_terminate();
+    /*NOTREACHED*/
 }

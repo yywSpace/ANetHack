@@ -33,11 +33,12 @@ class NHPlayerChoose(val nh: NetHack) {
         this.saves = saves
         var hasWizardSave = false
         saves.distinct().forEach {
-            if(it == PLAY_MOD_WIZARD) {
+            if(it.startsWith("$PLAY_MOD_WIZARD-")) {
                 hasWizardSave = true
                 players.add(0, NHPlayer(it, PLAY_MOD_WIZARD))
             }else {
-                players.add(NHPlayer(it, nh.prefs.getSaves()[it]?:"undefine"))
+                val userName = it.split('-').firstOrNull()
+                players.add(NHPlayer(it, nh.prefs.getSaves()[userName]?:"undefine"))
             }
         }
         if(!hasWizardSave)
