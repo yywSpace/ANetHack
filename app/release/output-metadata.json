@@ -11,9 +11,9 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 2,
-      "versionName": "3.7.0.a1.2",
-      "outputFile": "ANetHack-3.7.0.a1.2.apk"
+      "versionCode": 4,
+      "versionName": "3.7.0.a2.0",
+      "outputFile": "ANetHack-3.7.0.a2.0.apk"
     }
   ],
   "elementType": "File"
