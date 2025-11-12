@@ -75,6 +75,9 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                 selectList.add(item.identifier)
                 selectList.add(item.selectedCount)
             }
+            // 清空列表
+            textList.clear()
+            nhMenuItems.clear()
             if (selectList.isNotEmpty())
                 return selectList.toLongArray()
             else // 若未命中列表，后续指令清理，等待用户选择，防止出现意外情况
@@ -123,7 +126,6 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun dismissMenu(onDismiss:(()->Unit) ?= null) {
         // 同时关闭，防止打开窗口后切换窗口模式导致旧窗口无法关闭
         nh.runOnUi { binding, _ ->
@@ -140,7 +142,6 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             }
             textList.clear()
             nhMenuItems.clear()
-            menuAdapter?.notifyDataSetChanged()
             onDismiss?.invoke()
         }
     }
