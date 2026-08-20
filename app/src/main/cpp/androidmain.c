@@ -16,9 +16,6 @@
 #endif
 #include <fcntl.h>
 #endif
-#ifdef CHDIR
-static void chdirx(const char *);
-#endif /* CHDIR */
 
 #include <android/log.h>
 #include <dirent.h>
@@ -26,6 +23,9 @@ static void chdirx(const char *);
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, "Tag", __VA_ARGS__)
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, "Tag", __VA_ARGS__)
 
+#ifdef SND_LIB_INTEGRATED
+uint32_t soundlibchoice = soundlib_nosound;
+#endif
 
 static void process_options(int, char **);
 static void wd_message(void);
@@ -67,7 +67,7 @@ int NetHackMain(int argc, char** argv)
      * Change directories before we initialize the window system so
      * we can find the tile file.
      */
-    chdirx(dir);
+    chdirx(dir, TRUE);
 #endif
 
 #ifdef ENHANCED_SYMBOLS
@@ -271,9 +271,32 @@ boolean authorize_explore_mode(void)
     return TRUE; /* no restrictions on explore mode */
 }
 
+/* Android has no Unix user accounts; the player name is supplied by the
+   app through the player-selection UI, so leave plname alone here. */
+boolean
+whoami(void)
+{
+    return FALSE;
+}
+
+void
+get_nhuuid(void)
+{
+    /* NHUUID is not defined for the Android build; svn.nhuuid stays empty. */
+}
+
+void
+free_nhuuid(void)
+{
+    int i;
+
+    for (i = 0; i < SIZE(svn.nhuuid); i++)
+        svn.nhuuid[i] = 0;
+}
+
 #ifdef CHDIR
-static void
-chdirx(const char *dir)
+void
+chdirx(const char *dir, boolean wr)
 {
 
 #ifdef HACKDIR
@@ -287,7 +310,8 @@ chdirx(const char *dir)
         /*NOTREACHED*/
     }
 
-    check_recordfile(dir);
+    if (wr)
+        check_recordfile(dir);
 }
 #endif /* CHDIR */
 
@@ -373,31 +397,4 @@ append_slash(char *name)
         *++ptr = '/';
         *++ptr = '\0';
     }
-}
-
-
-/* for command-line options that perform some immediate action and then
-   terminate the program without starting play, like 'nethack --version'
-   or 'nethack -s Zelda'; do some cleanup before that termination */
-ATTRNORETURN static void
-opt_terminate(void)
-{
-    config_error_done(); /* free memory allocated by config_error_init() */
-
-    nh_terminate(EXIT_SUCCESS);
-    /*NOTREACHED*/
-}
-
-/* show the sysconf file name, playground directory, run-time configuration
-   file name, dumplog file name if applicable, and some other things */
-ATTRNORETURN void
-after_opt_showpaths(const char *dir)
-{
-#ifdef CHDIR
-    chdirx(dir);
-#else
-    nhUse(dir);
-#endif
-    opt_terminate();
-    /*NOTREACHED*/
 }
