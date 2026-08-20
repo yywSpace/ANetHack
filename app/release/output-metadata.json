@@ -12,9 +12,26 @@
       "filters": [],
       "attributes": [],
       "versionCode": 4,
-      "versionName": "3.7.0.a2.0",
-      "outputFile": "ANetHack-3.7.0.a2.0.apk"
+      "versionName": "5.0.0.a1.0",
+      "outputFile": "ANetHack-5.0.0.a1.0.apk"
     }
   ],
-  "elementType": "File"
+  "elementType": "File",
+  "baselineProfiles": [
+    {
+      "minApi": 28,
+      "maxApi": 30,
+      "baselineProfiles": [
+        "baselineProfiles/1/ANetHack-5.0.0.a1.0.dm"
+      ]
+    },
+    {
+      "minApi": 31,
+      "maxApi": 2147483647,
+      "baselineProfiles": [
+        "baselineProfiles/0/ANetHack-5.0.0.a1.0.dm"
+      ]
+    }
+  ],
+  "minSdkVersionForDexing": 29
 }
