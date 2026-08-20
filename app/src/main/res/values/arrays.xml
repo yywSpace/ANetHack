@@ -12,11 +12,13 @@
         <item>@string/pref_map_tile_ascii</item>
         <item>@string/pref_map_tile_default</item>
         <item>@string/pref_map_tile_nevanda</item>
+        <item>@string/pref_map_tile_pixelhack</item>
     </string-array>
     <string-array name="map_tile_value">
         <item>1</item>
         <item>2</item>
         <item>3</item>
+        <item>4</item>
     </string-array>
     <string-array name="surcharge_cond_array">
         <item>@string/price_id_surcharge_none</item>

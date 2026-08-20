@@ -31,26 +31,31 @@ class NHTileSet(val nh: NetHack) {
     }
 
     fun updateTileSet() {
+        val am: AssetManager = nh.context.resources.assets
+        var tileSprite: String? = null
         when(nh.prefs.tileSet) {
             // default
             "2" -> {
-                val am: AssetManager = nh.context.resources.assets
-                am.open("tiles/default_tiles_16.bmp").use {
-                    tileBitmap = BitmapFactory.decodeStream(it)
-                }
+                tileSprite = "tiles/default_tiles_16.bmp"
                 tileHeight = 16
                 tileWidth = 16
-                tileCache.clear()
             }
             "3" -> {
-                val am: AssetManager = nh.context.resources.assets
-                am.open("tiles/nevanda_32.png").use {
-                    tileBitmap = BitmapFactory.decodeStream(it)
-                }
+                tileSprite = "tiles/nevanda_32.png"
                 tileHeight = 32
                 tileWidth = 32
-                tileCache.clear()
             }
+            "4" -> {
+                tileSprite = "tiles/PixelHack.png"
+                tileHeight = 32
+                tileWidth = 32
+            }
+        }
+        if (tileSprite != null ) {
+            am.open(tileSprite).use {
+                tileBitmap = BitmapFactory.decodeStream(it)
+            }
+            tileCache.clear()
         }
     }
 
@@ -101,5 +106,14 @@ class NHTileSet(val nh: NetHack) {
         const val MG_PET = 0x00010
         const val MG_OBJPILE = 0x00080
 
+        /**
+         * Tile index used for glyph-less entries (menus, empty map cells).
+         * Equals NetHack's TILE_UNEXPLORED in the generated tile.c
+         * (other.txt:197 "unexplored").  The native side sends this tile
+         * index for items that have no real glyph, so the UI treats it as
+         * "no tile to show".  Keep in sync with tile.c if the tileset is
+         * regenerated.
+         */
+        const val TILE_UNEXPLORED = 1469
     }
 }

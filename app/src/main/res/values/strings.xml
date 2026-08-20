@@ -91,6 +91,7 @@
     <string name="pref_map_tileset">Tileset</string>
     <string name="pref_map_tile_default">Default</string>
     <string name="pref_map_tile_nevanda">Nevanda</string>
+    <string name="pref_map_tile_pixelhack">PixelHack</string>
     <string name="pref_map_tile_ascii">Ascii</string>
     <string name="pref_map_indicator">Show indicator</string>
     <string name="pref_map_last_travel_indicator">Show last travel indicator</string>

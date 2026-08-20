@@ -1,152 +1,153 @@
-  1      148     1750     3270  1475571
+  1      149     1763     3293  1485087
 nDirectory        0
-nhelp     3270
-nhh    15125
-ncmdhelp    24126
-nkeyhelp    31662
-nhistory    34839
-nopthelp    53188
-noptmenu    78297
-nusagehlp    80549
-nwizhelp    87128
-ndungeon.lua    89670
-ntribute    96532
-nasmodeus.lua   480221
-nbaalz.lua   483070
-nbigrm-1.lua   485539
-nbigrm-10.lua   488379
-nbigrm-11.lua   491009
-nbigrm-12.lua   492066
-nbigrm-2.lua   495188
-nbigrm-3.lua   497874
-nbigrm-4.lua   501009
-nbigrm-5.lua   503353
-nbigrm-6.lua   505569
-nbigrm-7.lua   507584
-nbigrm-8.lua   509797
-nbigrm-9.lua   511978
-ncastle.lua   514201
-nfakewiz1.lua   522821
-nfakewiz2.lua   524436
-njuiblex.lua   525931
-nknox.lua   529929
-nmedusa-1.lua   536812
-nmedusa-2.lua   541554
-nmedusa-3.lua   547150
-nmedusa-4.lua   553145
-nminend-1.lua   559176
-nminend-2.lua   563500
-nminend-3.lua   568832
-nminefill.lua   572246
-nminetn-1.lua   573372
-nminetn-2.lua   579189
-nminetn-3.lua   585852
-nminetn-4.lua   590403
-nminetn-5.lua   595307
-nminetn-6.lua   600415
-nminetn-7.lua   603986
-noracle.lua   611268
-norcus.lua   613772
-nsanctum.lua   618998
-nsoko1-1.lua   624414
-nsoko1-2.lua   627591
-nsoko2-1.lua   630750
-nsoko2-2.lua   632559
-nsoko3-1.lua   634479
-nsoko3-2.lua   636698
-nsoko4-1.lua   638744
-nsoko4-2.lua   641713
-ntower1.lua   643581
-ntower2.lua   646189
-ntower3.lua   647991
-nvalley.lua   649526
-nwizard1.lua   655343
-nwizard2.lua   659053
-nwizard3.lua   661335
-nnhcore.lua   664668
-nnhlib.lua   669485
-nthemerms.lua   676586
-nastral.lua   710535
-nair.lua   720080
-nearth.lua   725373
-nfire.lua   731550
-nwater.lua   737327
-nhellfill.lua   741868
-ntut-1.lua   753636
-ntut-2.lua   768543
-nArc-goal.lua   769150
-nBar-goal.lua   773486
-nCav-goal.lua   777332
-nHea-goal.lua   779888
-nKni-goal.lua   782622
-nMon-goal.lua   786906
-nPri-goal.lua   788873
-nRan-goal.lua   791053
-nRog-goal.lua   795684
-nSam-goal.lua   800486
-nTou-goal.lua   803860
-nVal-goal.lua   810129
-nWiz-goal.lua   813663
-nArc-fila.lua   819177
-nArc-filb.lua   820607
-nBar-fila.lua   822046
-nBar-filb.lua   822889
-nCav-fila.lua   824110
-nCav-filb.lua   825074
-nHea-fila.lua   826147
-nHea-filb.lua   827307
-nKni-fila.lua   828634
-nKni-filb.lua   829569
-nMon-fila.lua   830639
-nMon-filb.lua   832235
-nPri-fila.lua   833807
-nPri-filb.lua   835131
-nRan-fila.lua   836623
-nRan-filb.lua   837617
-nRog-fila.lua   838661
-nRog-filb.lua   840466
-nSam-fila.lua   842271
-nSam-filb.lua   843101
-nTou-fila.lua   845005
-nTou-filb.lua   845985
-nVal-fila.lua   846985
-nVal-filb.lua   847903
-nWiz-fila.lua   848927
-nWiz-filb.lua   850467
-nArc-loca.lua   851980
-nBar-loca.lua   857122
-nCav-loca.lua   861782
-nHea-loca.lua   865929
-nKni-loca.lua   868667
-nMon-loca.lua   872916
-nPri-loca.lua   876654
-nRan-loca.lua   879483
-nRog-loca.lua   882680
-nSam-loca.lua   886921
-nTou-loca.lua   891857
-nVal-loca.lua   898004
-nWiz-loca.lua   900442
-nArc-strt.lua   906099
-nBar-strt.lua   910663
-nCav-strt.lua   915006
-nHea-strt.lua   919476
-nKni-strt.lua   923659
-nMon-strt.lua   927776
-nPri-strt.lua   932109
-nRan-strt.lua   936122
-nRog-strt.lua   940512
-nSam-strt.lua   946575
-nTou-strt.lua   950704
-nVal-strt.lua   955599
-nWiz-strt.lua   959587
-nbogusmon   964265
-ndata   971645
-nengrave  1258822
-nepitaph  1261776
-noracles  1285911
-noptions  1292086
-nquest.lua  1293809
-nrumors  1425825
+nhelp     3293
+nhh    15148
+ncmdhelp    24163
+nkeyhelp    31699
+nhistory    34876
+nopthelp    56754
+noptmenu    82309
+nusagehlp    84561
+nwizhelp    91140
+ndungeon.lua    93752
+ntribute   100615
+nasmodeus.lua   484304
+nbaalz.lua   487153
+nbigrm-1.lua   489622
+nbigrm-10.lua   492725
+nbigrm-11.lua   495355
+nbigrm-12.lua   496412
+nbigrm-13.lua   499534
+nbigrm-2.lua   502371
+nbigrm-3.lua   505057
+nbigrm-4.lua   508192
+nbigrm-5.lua   510536
+nbigrm-6.lua   512752
+nbigrm-7.lua   514767
+nbigrm-8.lua   516980
+nbigrm-9.lua   519161
+ncastle.lua   521384
+nfakewiz1.lua   530004
+nfakewiz2.lua   531619
+njuiblex.lua   533114
+nknox.lua   537112
+nmedusa-1.lua   543995
+nmedusa-2.lua   548737
+nmedusa-3.lua   554333
+nmedusa-4.lua   560329
+nminend-1.lua   566360
+nminend-2.lua   570684
+nminend-3.lua   576016
+nminefill.lua   579430
+nminetn-1.lua   580556
+nminetn-2.lua   586442
+nminetn-3.lua   593105
+nminetn-4.lua   597656
+nminetn-5.lua   602560
+nminetn-6.lua   607668
+nminetn-7.lua   611592
+noracle.lua   618874
+norcus.lua   621378
+nsanctum.lua   626604
+nsoko1-1.lua   632020
+nsoko1-2.lua   635235
+nsoko2-1.lua   638429
+nsoko2-2.lua   640272
+nsoko3-1.lua   642277
+nsoko3-2.lua   644530
+nsoko4-1.lua   646610
+nsoko4-2.lua   649650
+ntower1.lua   651587
+ntower2.lua   654195
+ntower3.lua   655997
+nvalley.lua   657532
+nwizard1.lua   663349
+nwizard2.lua   667059
+nwizard3.lua   669341
+nnhcore.lua   672674
+nnhlib.lua   677491
+nthemerms.lua   684593
+nastral.lua   718542
+nair.lua   728083
+nearth.lua   733376
+nfire.lua   739553
+nwater.lua   745330
+nhellfill.lua   749871
+ntut-1.lua   761756
+ntut-2.lua   776663
+nArc-goal.lua   777270
+nBar-goal.lua   781606
+nCav-goal.lua   785452
+nHea-goal.lua   788008
+nKni-goal.lua   790742
+nMon-goal.lua   795026
+nPri-goal.lua   796993
+nRan-goal.lua   799173
+nRog-goal.lua   803804
+nSam-goal.lua   808606
+nTou-goal.lua   811980
+nVal-goal.lua   818249
+nWiz-goal.lua   821783
+nArc-fila.lua   827297
+nArc-filb.lua   828727
+nBar-fila.lua   830166
+nBar-filb.lua   831009
+nCav-fila.lua   832230
+nCav-filb.lua   833194
+nHea-fila.lua   834267
+nHea-filb.lua   835427
+nKni-fila.lua   836754
+nKni-filb.lua   837689
+nMon-fila.lua   838759
+nMon-filb.lua   840355
+nPri-fila.lua   841927
+nPri-filb.lua   843251
+nRan-fila.lua   844743
+nRan-filb.lua   845737
+nRog-fila.lua   846781
+nRog-filb.lua   848586
+nSam-fila.lua   850391
+nSam-filb.lua   851221
+nTou-fila.lua   853125
+nTou-filb.lua   854105
+nVal-fila.lua   855105
+nVal-filb.lua   856023
+nWiz-fila.lua   857047
+nWiz-filb.lua   858587
+nArc-loca.lua   860100
+nBar-loca.lua   865242
+nCav-loca.lua   869902
+nHea-loca.lua   874049
+nKni-loca.lua   876787
+nMon-loca.lua   881036
+nPri-loca.lua   884774
+nRan-loca.lua   887603
+nRog-loca.lua   890800
+nSam-loca.lua   895041
+nTou-loca.lua   899977
+nVal-loca.lua   906124
+nWiz-loca.lua   908562
+nArc-strt.lua   914219
+nBar-strt.lua   918783
+nCav-strt.lua   923126
+nHea-strt.lua   927596
+nKni-strt.lua   931779
+nMon-strt.lua   935896
+nPri-strt.lua   940229
+nRan-strt.lua   944242
+nRog-strt.lua   948632
+nSam-strt.lua   954680
+nTou-strt.lua   958809
+nVal-strt.lua   963704
+nWiz-strt.lua   967692
+nbogusmon   972370
+ndata   980070
+nengrave  1267247
+nepitaph  1270201
+noracles  1294336
+noptions  1300553
+nquest.lua  1302276
+nrumors  1434292
         Welcome to NetHack!                ( description of version 3.6 )
 
         NetHack is a Dungeons and Dragons like game where you (the adventurer)
@@ -397,8 +398,8 @@ O     options   set options
 /     what-is   tell what a map symbol represents
 \     known     display list of what's been discovered
 |     perminv   interact with persistent inventory window instead of hero+map
-v     version   display version number
-V     history   display game history
+v     chronicle display a list of important events
+V     version   display version number
 ^A    again     redo the previous command
 ^R    redraw    redraw the screen
 ^P    prevmsg   repeat previous message (consecutive ^P's repeat earlier ones)
@@ -805,7 +806,7 @@ M-X	Switch from normal play to explore mode
 	true for meta-characters:  they can be either case, so you need
 	to use shift as well as <meta> or <alt> to generate an uppercase
 	letter meta-character.
-NetHack History file for release 3.7
+NetHack History file for release 5.0
 
 Behold, mortal, the origins of NetHack...
 
@@ -1081,6 +1082,70 @@ some bug fixes.
 NetHack 3.6.7 was released on February 16, 2023 containing a security fix and
 some bug fixes.
 
+Development work for the major release to follow NetHack 3.6 began in 2015
+around the same time as NetHack 3.6.0 was being released. That development
+work continued in parallel to each of the NetHack 3.6 releases from 2015
+through 2023, and continued until the end of April 2026.  For the first time,
+that development was shared publicly on GitHub and SourceForge as it occurred.
+It was done under the label NetHack-3.7 work-in-progress (WIP), although the
+version number for the next release had not yet been solidified.
+
+Exposure of the development to the public brought many good things, and some
+challenges. People were able to observe and criticize changes and new features
+almost immediately, and they often did. The GitHub pull request system made
+it straightforward for people to contribute directly to development.
+Contributions resolved many, many bugs in the game and we thank all the
+contributors.
+
+In early 2026, with the game development getting stable enough to consider
+initiating an official release, the devteam reviewed the nature and number of
+changes in the game. It was clear that there was sufficient depth and
+breadth to warrant a major release and version 5.0 was decided on.
+That's a new major release over 3.x, without opening up any ambiguity
+or confusion with existing variants that there might have been had it
+been released as version 4.0.
+
+NetHack 5.0.0 was released on May 2, 2026.
+
+The source code for NetHack 5.0.0 was modified and modernized to be compliant
+with the C99 standard. The 5.0.0 release contained over 3100 fixes,changes,
+and updated features.
+
+NetHack 5.0 was the first version to replace the lex and yacc level
+and dungeon compilers of past versions, with a new Lua interpreter-based
+approach to provide those elements. Lua is also used for the quest texts
+in NetHack 5.0.0. The entire development team acknowledges the work
+done by Pasi Kallinen to make that happen.
+
+At the time of the NetHack 5.0 release, the core development team,
+active and erstwhile, included Warwick Allison, Michael Allison,
+Ken Arromdee, David Cohrs, Jessie Collet, Bart House, Kevin Hugo,
+Pasi Kallinen, Ken Lorber, Dean Luick, Pat Rankin, Derek S. Ray,
+Alex Smith, Patric Mueller, Mike Stephenson, Janet Walz, Paul Winner.
+
+Ken Lorber, Pat Rankin, Patrick Mueller and Michael Allison helped ensure
+that NetHack 5.0 would run on macOS.
+
+Ingo Paschke somehow managed to revive a NetHack 5.0 port for the Amiga,
+using a cross-compiler on a modern platform to do so. His work was shared
+so others can straightforwardly produce NetHack 5.0 for the Amiga thanks
+to his efforts.
+
+Ray Chason contributed the majority of maintenance work for the NetHack 5.0
+MS-DOS port, including porting the curses interface to it.
+Michael Allison ensured that NetHack 5.0 core changes continued to work
+with the msdos port and keep it alive.  Cross-compiling the MS-DOS port
+has helped make that possible and mostly painless.
+
+People that contributed to the Windows port of NetHack 5.0 since the
+development of NetHack 5.0 began over eleven years ago, included
+Michael Allison, David Cohrs, Bart House, Pasi Kallinen, Alex Kompel,
+Dion Nicolaas, Derek S. Ray and Yitzhak Sapir.
+
+With sadness, the devteam would like to acknowledge and remember the past
+contributions from the late Ron Van Iwaarden, who was the sole maintainer
+of NetHack for OS/2 for several past NetHack releases. Ron will be missed.
+
 The official NetHack web site is maintained by Ken Lorber at
 https://www.nethack.org/.
 
@@ -1099,53 +1164,55 @@ particularly intriguing modification to help out with the game.  The
 NetHack Development Team sometimes makes note of the names of the worst
 of these miscreants in this, the list of Dungeoneers:
 
-    Adam Aronow               J. Ali Harlow             Mikko Juola
-    Alex Kompel               Janet Walz                Nathan Eady
-    Alex Smith                Janne Salmijarvi          Norm Meluch
-    Andreas Dorn              Jean-Christophe Collet    Olaf Seibert
-    Andy Church               Jeff Bailey               Pasi Kallinen
-    Andy Swanson              Jochen Erwied             Pat Rankin
-    Andy Thomson              John Kallen               Patric Mueller
-    Ari Huttunen              John Rupley               Paul Winner
-    Bart House                John S. Bien              Pierre Martineau
-    Benson I. Margulies       Johnny Lee                Ralf Brown
-    Bill Dyer                 Jon W{tte                 Ray Chason
-    Boudewijn Waijers         Jonathan Handler          Richard Addison
-    Bruce Cox                 Joshua Delahunty          Richard Beigel
-    Bruce Holloway            Karl Garrison             Richard P. Hughey
-    Bruce Mewborne            Keizo Yamamoto            Rob Menke
-    Carl Schelin              Keith Simpson             Robin Bandy
-    Chris Russo               Ken Arnold                Robin Johnson
-    David Cohrs               Ken Arromdee              Roderick Schertler
-    David Damerell            Ken Lorber                Roland McGrath
-    David Gentzel             Ken Washikita             Ron Van Iwaarden
-    David Hairston            Kevin Darcy               Ronnen Miller
-    Dean Luick                Kevin Hugo                Ross Brown
-    Del Lamb                  Kevin Sitze               Sascha Wostmann
-    Derek S. Ray              Kevin Smolkowski          Scott Bigham
-    Deron Meranda             Kevin Sweet               Scott R. Turner
-    Dion Nicolaas             Lars Huttar               Sean Hunt
-    Dylan O'Donnell           Leon Arnott               Stephen Spackman
-    Eric Backus               M. Drew Streib            Stefan Thielscher
-    Eric Hendrickson          Malcolm Ryan              Stephen White
-    Eric R. Smith             Mark Gooderum             Steve Creps
-    Eric S. Raymond           Mark Modrall              Steve Linhart
-    Erik Andersen             Marvin Bressler           Steve VanDevender
-    Fredrik Ljungdahl         Matthew Day               Teemu Suikki
-    Frederick Roeber          Merlyn LeRoy              Tim Lennan
-    Gil Neiger                Michael Allison           Timo Hakulinen
-    Greg Laskin               Michael Feir              Tom Almy
-    Greg Olson                Michael Hamel             Tom West
-    Gregg Wonderly            Michael Sokolov           Warren Cheung
-    Hao-yang Wang             Mike Engber               Warwick Allison
-    Helge Hafting             Mike Gallop               Yitzhak Sapir
-    Irina Rempt-Drijfhout     Mike Passaretti
-    Izchak Miller             Mike Stephenson
+    Adam Aronow               Irina Rempt-Drijfhout     Mike Gallop
+    Alex Kompel               Izchak Miller             Mike Passaretti
+    Alex Smith                J. Ali Harlow             Mike Stephenson
+    Andreas Dorn              Janet Walz                Mikko Juola
+    Andy Church               Janne Salmijarvi          Nathan Eady
+    Andy Swanson              Jean-Christophe Collet    Norm Meluch
+    Andy Thomson              Jeff Bailey               Olaf Seibert
+    Ari Huttunen              Jochen Erwied             Pasi Kallinen
+    Bart House                John Kallen               Pat Rankin
+    Benson I. Margulies       John Rupley               Patric Mueller
+    Bill Dyer                 John S. Bien              Paul Winner
+    Boudewijn Waijers         Johnny Lee                Pierre Martineau
+    Bruce Cox                 Jon W{tte                 Ralf Brown
+    Bruce Holloway            Jonathan Handler          Ray Chason
+    Bruce Mewborne            Joshua Delahunty          Richard Addison
+    Cameron Root              Karl Garrison             Richard Beigel
+    Carl Schelin              Keizo Yamamoto            Richard P. Hughey
+    Chris Russo               Keith Simpson             Rob Menke
+    David Cohrs               Ken Arnold                Robin Bandy
+    David Damerell            Ken Arromdee              Robin Johnson
+    David Gentzel             Ken Lorber                Roderick Schertler
+    David Hairston            Ken Washikita             Roland McGrath
+    Dean Luick                Kestrel Gregorich-Trevor  Ron Van Iwaarden
+    Del Lamb                  Kevin Darcy               Ronnen Miller
+    Derek S. Ray              Kevin Hugo                Ross Brown
+    Deron Meranda             Kevin Sitze               Sascha Wostmann
+    Dion Nicolaas             Kevin Smolkowski          Scott Bigham
+    Dylan O'Donnell           Kevin Sweet               Scott R. Turner
+    Eric Backus               Lars Huttar               Sean Hunt
+    Eric Hendrickson          Leon Arnott               Stephen Spackman
+    Eric R. Smith             M. Drew Streib            Stefan Thielscher
+    Eric S. Raymond           Malcolm Ryan              Stephen White
+    Erik Andersen             Mark Gooderum             Steve Creps
+    Fredrik Ljungdahl         Mark Modrall              Steve Linhart
+    Frederick Roeber          Marvin Bressler           Steve VanDevender
+    G. Branden Robinson       Matthew Day               Teemu Suikki
+    Gil Neiger                Merlyn LeRoy              Tim Lennan
+    Greg Laskin               Michael Allison           Timo Hakulinen
+    Greg Olson                Michael Feir              Tom Almy
+    Gregg Wonderly            Michael Hamel             Tom West
+    Hao-yang Wang             Michael Meyer             Warren Cheung
+    Helge Hafting             Michael Sokolov           Warwick Allison
+    Ingo Paschke              Mike Engber               Yitzhak Sapir
 Boolean options not under specific compile flags (with default values in []):
 (You can learn which options exist in your version by checking your current
 option setting, which is reached via the 'O' command.)
 
 acoustics      can your character hear anything                    [True]
+armorstatus    show extra status field summarizing worn armor     [False]
 autodescribe   describe the terrain under cursor                  [False]
 autodig        dig if moving and wielding digging tool            [False]
 autoopen       walking into a door attempts to open it             [True]
@@ -1191,14 +1258,17 @@ nudist         start your character without armor                 [False]
 null           allow nulls to be sent to your terminal             [True]
                try turning this option off (forcing NetHack to use its own
                delay code) if moving objects seem to teleport across rooms
+pauper         start your character with no possessions           [False]
 perm_invent    keep inventory in a permanent window               [False]
 pickup_stolen  override pickup_types for stolen objects            [True]
 pickup_thrown  override pickup_types for thrown objects            [True]
+price_quotes   show remembered price quotes for unIDed items      [False]
 pushweapon     when wielding a new weapon, put your previously    [False]
                wielded weapon into the secondary weapon slot
 quick_farsight usually skip the chance to browse the map when     [False]
                randomly triggered clairvoyance takes place
 rawio          allow the use of raw I/O                           [False]
+reroll         allow rerolling of starting inventory              [False]
 rest_on_space  count the space bar as a rest character            [False]
 safe_pet       prevent you from (knowingly) attacking your pet(s)  [True]
 safe_wait      require use of 'm' prefix before '.' or 's' to      [True]
@@ -1213,6 +1283,7 @@ sparkle        display sparkly effect for resisted magical         [True]
                attacks (e.g. fire attack on fire-resistant monster)
 standout       use standout mode for --More-- on messages         [False]
 status_updates update the status lines                             [True]
+terrainstatus  show extra status field describing current location  [False]
 time           display elapsed game time, in moves                [False]
 tips           show some helpful tips during gameplay              [True]
 tombstone      print tombstone when you die                        [True]
@@ -1223,6 +1294,7 @@ travel         enables travelling via mouse click if supported;    [True]
 use_darkgray   use bold black instead of blue for black glyphs.    [True]
 use_inverse    display detected monsters in highlighted manner    [False]
 verbose        print more commentary during the game               [True]
+weaponstatus   show extra status field listing wielded weapon(s)  [False]
 whatis_menu    show menu when getting a map location              [False]
 whatis_moveskip skip same glyphs when getting a map location      [False]
 
@@ -1742,6 +1814,7 @@ Debug-Mode Quick Reference:
 #wizloadlua     == load and execute a lua script
 #wizmakemap     == recreate the current dungeon level
 #wizmondiff     == [Opt] check for discrepancies in monster difficulty ratings
+#wizobjprobs    == [Opt] list actual probabilities of item generation
 #wizrumorcheck  == validate rumor indexing; also show first, second, and last
                    random engravings, epitaphs, and hallucinatory monsters
 #wizseenv       == show map locations' seen vectors
@@ -1760,7 +1833,7 @@ sanity_check    == evaluate monsters, objects, and map prior to each turn
 wizweight       == augment object descriptions with their objects' weight
 
 [Opt] = conditionally available depending upon build-time settings
--- NetHack 3.6	dungeon dungeon.lua	$NHDT-Date: 1652196135 2022/05/10 15:22:15 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack 3.6	dungeon dungeon.lua	$NHDT-Date: 1781994881 2026/06/20 22:34:41 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.11 $
 -- Copyright (c) 1990-95 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -1832,7 +1905,7 @@ dungeon = {
             base = 10,
             range = 3,
             chance = 40,
-            nlevels = 12
+            nlevels = 13
          },
          {
             name = "medusa",
@@ -1947,7 +2020,7 @@ dungeon = {
          },
          {
             name = "minend",
---          3.7.0: minend changed to no-bones to simplify achievement tracking
+--          5.0.0: minend changed to no-bones to simplify achievement tracking
 --          bonetag = "E"
             base = -1,
             nlevels = 3
@@ -2093,7 +2166,7 @@ dungeon = {
       }
    },
 }
-# NetHack 3.7  tribute       $NHDT-Date: 1726809275 2024/09/20 05:14:35 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.118 $
+# NetHack 5.0  tribute       $NHDT-Date: 1726809275 2024/09/20 05:14:35 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.118 $
 # Copyright (c) 2017 by Robert Patrick Rankin
 # NetHack may be freely redistributed.  See license for details.
 # A tribute introduced in NetHack 3.6.0 to:
@@ -3358,7 +3431,7 @@ They are not necessarily very good at it.
   [Sourcery, by Terry Pratchett]
 %e passage
 #
-# additional passage added for 3.7
+# additional passage added for 5.0
 #
 # p. 164 (passage begins mid-sentence)
 %passage 11
@@ -4559,7 +4632,7 @@ Dibbler removed his cigar.
   [Moving Pictures, by Terry Pratchett]
 %e passage
 #
-# New for 3.7 - these are worthy but 16 passages are already more than enough.
+# New for 5.0 - these are worthy but 16 passages are already more than enough.
 #-#
 #-# p. 304
 #-%passage 17
@@ -5296,7 +5369,7 @@ But, on the whole, there are worse places to be buried than inside a lion.
   [Small Gods, by Terry Pratchett]
 %e passage
 #
-# 3 more passages added for 3.7
+# 3 more passages added for 5.0
 #
 # p. 7 (Brother Nhumrod is in charge of a group of novices; he's thinking
 #       about one of them, Brutha, the main character of the story)
@@ -5558,7 +5631,7 @@ kingdom.
   [Lords and Ladies, by Terry Pratchett]
 %e passage
 #
-# passage added for 3.7
+# passage added for 5.0
 #
 # p. 60 (passage starts mid-paragraph; "paddlin'" is accurate but unclear;
 #        "ooh-jar" is accurate for ouija after having been butchered by
@@ -6057,7 +6130,7 @@ The Chair came down slowly, occasionally glancing fearfully up the stairs.
   [Soul Music, by Terry Pratchett]
 %e passage
 #
-# 2 more passages added for 3.7
+# 2 more passages added for 5.0
 #
 # p. 242 (passage starts and ends mid-paragraph; "the Old" rather than "the
 #         Old <some language>" is accurate)
@@ -6233,7 +6306,7 @@ followed by long periods of being dead."
   [Interesting Times, by Terry Pratchett]
 %e passage
 #
-# 3 new passages for 3.7
+# 3 new passages for 5.0
 #
 # p. 45
 %passage 11
@@ -6562,7 +6635,7 @@ Come on.  I want to try a leg of the elephant that bit me."
   [Maskerade, by Terry Pratchett]
 %e passage
 #
-# 4 new passages added for 3.7
+# 4 new passages added for 5.0
 #
 # pp. 51-52 (Granny Weatherwax and Nanny Ogg are traveling to Ankh-Morpork
 #            and Nanny feels that the weather is too chilly for flying;
@@ -7139,7 +7212,7 @@ Death.  OR THE FAME.  OR BECAUSE THEY SHOULDN'T.
   [Hogfather, by Terry Pratchett]
 %e passage
 #
-# 3 new passages added for 3.7
+# 3 new passages added for 5.0
 #
 # pp. 2-3 (the door turns out to lead to a bathroom designed by Bergholt
 #          Stuttly "Bloody Stupid" Johnson, an infamous architect and
@@ -7468,7 +7541,7 @@ him and he's warm for the rest of his life.'  See my point?"
   [Jingo, by Terry Pratchett]
 %e passage
 #
-# 2 new passages added for 3.7
+# 2 new passages added for 5.0
 #
 # p. 90 (second line beginning with "Sir." rather than "Sir," is accurate)
 %passage 13
@@ -7690,7 +7763,7 @@ of clothes, often with the same sort of insignia.
   [The Last Continent, by Terry Pratchett]
 %e passage
 #
-# 4 new passages added for 3.7
+# 4 new passages added for 5.0
 #
 # pp. 113-114 (passage ends mid-paragraph)
 %passage 11
@@ -7882,7 +7955,7 @@ saw what happened to the others!  /You/ got your fingers burned!."
   [Carpe Jugulum, by Terry Pratchett]
 %e passage
 #
-# 4 new passages added for 3.7
+# 4 new passages added for 5.0
 #
 # p. 24 (ellipsis occurs at start of paragraph; Quite Reverend Oats has opened
 #        /The Book of Om/ at random and is reading the passage found there)
@@ -8082,7 +8155,7 @@ Been there, done that, bought the doublet...
   [The Fifth Elephant, by Terry Pratchett]
 %e passage
 #
-# 3 new passages added for 3.7
+# 3 new passages added for 5.0
 #
 # pp. 34-35 (a footnote about Cpl Nobbs lately dressing as a woman omitted)
 %passage 10
@@ -8268,7 +8341,7 @@ EYES...
   [The Truth, by Terry Pratchett]
 %e passage
 #
-# 5 new passages added for 3.7
+# 5 new passages added for 5.0
 #
 # p. 3 (two paragraphs in the middle skipped)
 %passage 9
@@ -8562,7 +8635,7 @@ there to make you think before you broke them.
   [Thief of Time, by Terry Pratchett]
 %e passage
 #
-# 6 new passages added for 3.7
+# 6 new passages added for 5.0
 #
 # p. 80 (passage ends mid-paragraph)
 %passage 9
@@ -8777,7 +8850,7 @@ betray 'em, quick as a wink.  'Cos that's villaining.'
   [The Last Hero, written by Terry Pratchett, illustrated by Paul Kidby]
 %e passage
 #
-# 6 new passages added for 3.7
+# 6 new passages added for 5.0
 #
 # p. 16
 %passage 8
@@ -9108,7 +9181,7 @@ I'll promise to pretend that humans can think, too."
   [The Amazing Maurice and His Educated Rodents, by Terry Pratchett]
 %e passage
 #
-# 4 new passages added for 3.7
+# 4 new passages added for 5.0
 #
 # p. 19 (passage begins mid-paragraph)
 %passage 11
@@ -9782,7 +9855,7 @@ girls of seven are magnetically attracted to the color pink.
   [Monstrous Regiment, by Terry Pratchett]
 %e passage
 #
-# 4 new passages added for 3.7
+# 4 new passages added for 5.0
 #
 # p. 114 (the sergeant known as "Threeparts" is a bit daft, but Polly does
 #         eventually walk with Death--not die, just walk and talk with him)
@@ -9989,7 +10062,7 @@ is 'me'?"
   [A Hat Full of Sky, by Terry Pratchett]
 %e passage
 #
-# 2 new passages added for 3.7
+# 2 new passages added for 5.0
 #
 # p. 124 (first speaker is Tiffany)
 %passage 12
@@ -12035,7 +12108,7 @@ I HAD AN APPOINTMENT WITH YOU TONIGHT.
 %e section
 #
 #eof
--- NetHack gehennom asmodeus.lua	$NHDT-Date: 1652196020 2022/05/10 15:20:20 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack gehennom asmodeus.lua	$NHDT-Date: 1781994877 2026/06/20 22:34:37 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992 by M. Stephenson and Izchak Miller
 -- NetHack may be freely redistributed.  See license for details.
@@ -12131,7 +12204,7 @@ end });
 
 local protected = bounds2:negate() | asmo1 | asmo2;
 hell_tweaks(protected);
--- NetHack gehennom baalz.lua	$NHDT-Date: 1652196020 2022/05/10 15:20:20 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack gehennom baalz.lua	$NHDT-Date: 1781994878 2026/06/20 22:34:38 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.6 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992 by M. Stephenson and Izchak Miller
 -- NetHack may be freely redistributed.  See license for details.
@@ -12197,7 +12270,7 @@ des.monster("V")
 des.monster("V")
 des.monster("V")
 
--- NetHack bigroom bigrm-1.lua	$NHDT-Date: 1652196021 2022/05/10 15:20:21 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.3 $
+-- NetHack bigroom bigrm-1.lua	$NHDT-Date: 1781994878 2026/06/20 22:34:38 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -12227,10 +12300,10 @@ des.map([[
 ]]);
 
 
-if percent(75) then
+if percent(80) then
    local terrains = { "-", "F", "L", "T", "C" };
    local tidx = math.random(1, #terrains);
-   local choice = math.random(0, 4);
+   local choice = math.random(0, 5);
    if choice == 0 then
       -- one horizontal line
       des.terrain(selection.line(10,8, 65,8), terrains[tidx]);
@@ -12247,6 +12320,14 @@ if percent(75) then
       des.terrain(selection.rect(4,4, 70,13), terrains[tidx]);
       local sel = selection.line(25,4, 50,4) | selection.line(25,13, 50,13);
       des.terrain(sel, '.');
+   elseif choice == 4 then
+      -- snake
+      des.terrain(selection.fillrect(5,5, 69, 12), terrains[tidx]);
+      for i = 0, 7 do
+         local x = 6 + i*8;
+         local y = 5 + (i%2);
+         des.terrain(selection.fillrect(x, y, x+6, y+6), '.');
+      end
    else
       -- nothing
    end
@@ -12270,7 +12351,7 @@ end
 for i = 1,28 do
   des.monster();
 end
--- NetHack bigroom bigrm-10.lua	$NHDT-Date: 1652196024 2022/05/10 15:20:24 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack bigroom bigrm-10.lua	$NHDT-Date: 1781994878 2026/06/20 22:34:38 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -12331,7 +12412,7 @@ des.mazewalk({ x=4, y=2, dir="south", stocked=0 });
 -- Stairs up, not in the fog maze
 des.levregion({ region = {00,00,70,18}, exclude = {02,03,68,15}, type="stair-up"});
 des.stair("down");
--- NetHack bigroom bigrm-11.lua	$NHDT-Date: 1652196024 2022/05/10 15:20:24 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.0 $
+-- NetHack bigroom bigrm-11.lua	$NHDT-Date: 1781994878 2026/06/20 22:34:38 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.1 $
 --	Copyright (c) 2021 by Pasi Kallinen
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -12370,7 +12451,7 @@ for i = 1,28 do
   des.monster();
 end
 
--- NetHack bigroom bigrm-12.lua	$NHDT-Date: $  $NHDT-Branch: NetHack-3.7 $
+-- NetHack bigroom bigrm-12.lua	$NHDT-Date: $  $NHDT-Branch: NetHack-5.0 $
 --	Copyright (c) 2024 by Pasi Kallinen
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -12455,7 +12536,89 @@ end
 for i = 1,28 do
   des.monster();
 end
--- NetHack bigroom bigrm-2.lua	$NHDT-Date: 1652196021 2022/05/10 15:20:21 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack bigroom bigrm-13.lua	$NHDT-Date: 1781994879 2026/06/20 22:34:39 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
+--	Copyright (c) 2026 by Pasi Kallinen
+-- NetHack may be freely redistributed.  See license for details.
+--
+-- Pillars
+
+des.level_init({ style = "solidfill", fg = " " });
+des.level_flags("mazelevel", "noflip");
+
+des.map([[
+---------------------------------------------------------------------------
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+---------------------------------------------------------------------------
+]]);
+
+local pillar = [[
+---
+| |
+---]];
+
+filters = {
+   -- 1: all pillars
+   function(x, y) return true; end,
+   -- 2: 3 vertical lines
+   function(x, y) return (x%2 == 1); end,
+   -- 3: checkerboard
+   function(x, y) return (((x+y)%2) == 0); end,
+   -- 4: center row
+   function(x, y) return (y%2 == 1); end,
+   -- 5: top and bottom rows
+   function(x, y) return (y%2 == 0); end,
+   -- 6: random 50%
+   function(x, y) return (math.random(0,1) == 0); end,
+   -- 7: corners and center
+   function(x, y) return ((x/3)%2 == y%2); end,
+   -- 8: slanted
+   function(x, y) return ((x+1)//3 == y); end,
+};
+
+idx = math.random(1, #filters);
+
+for y = 0,2 do
+   for x = 0,6 do
+      if (filters[idx](x, y)) then
+         des.map({ coord = {12 + x*9, 4 + y*5}, map = pillar, contents=function() end });
+      end
+   end
+end
+
+des.region(selection.area(00,00,75,18), "lit");
+des.wallify();
+des.non_diggable();
+
+des.stair("up");
+des.stair("down");
+
+for i = 1,15 do
+   des.object();
+end
+for i = 1,6 do
+   des.trap();
+end
+for i = 1,28 do
+  des.monster();
+end
+
+-- NetHack bigroom bigrm-2.lua	$NHDT-Date: 1781994879 2026/06/20 22:34:39 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -12526,7 +12689,7 @@ end
 for i = 1,28 do
    des.monster();
 end
--- NetHack bigroom bigrm-3.lua	$NHDT-Date: 1652196021 2022/05/10 15:20:21 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack bigroom bigrm-3.lua	$NHDT-Date: 1781994879 2026/06/20 22:34:39 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -12609,7 +12772,7 @@ des.monster({ x = 37, y = 16 });
 des.monster({ x = 49, y = 16 });
 des.monster({ x = 61, y = 16 });
 des.monster({ x = 73, y = 16 });
--- NetHack bigroom bigrm-4.lua	$NHDT-Date: 1652196022 2022/05/10 15:20:22 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack bigroom bigrm-4.lua	$NHDT-Date: 1781994879 2026/06/20 22:34:39 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -12668,7 +12831,7 @@ end
 for i = 1,28 do
   des.monster();
 end
--- NetHack bigroom bigrm-5.lua	$NHDT-Date: 1652196022 2022/05/10 15:20:22 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack bigroom bigrm-5.lua	$NHDT-Date: 1781994879 2026/06/20 22:34:39 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -12722,7 +12885,7 @@ end
 for i = 1,28 do
   des.monster();
 end
--- NetHack bigroom bigrm-6.lua	$NHDT-Date: 1652196022 2022/05/10 15:20:22 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack bigroom bigrm-6.lua	$NHDT-Date: 1781994880 2026/06/20 22:34:40 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -12770,7 +12933,7 @@ end
 for i = 1,28 do
   des.monster();
 end
--- NetHack bigroom bigrm-7.lua	$NHDT-Date: 1652196023 2022/05/10 15:20:23 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.0 $
+-- NetHack bigroom bigrm-7.lua	$NHDT-Date: 1781994880 2026/06/20 22:34:40 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -12822,7 +12985,7 @@ end
 for i = 1,28 do
   des.monster();
 end
--- NetHack bigroom bigrm-8.lua	$NHDT-Date: 1652196023 2022/05/10 15:20:23 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack bigroom bigrm-8.lua	$NHDT-Date: 1781994880 2026/06/20 22:34:40 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -12875,7 +13038,7 @@ end
 for i = 1,28 do
   des.monster();
 end
--- NetHack bigroom bigrm-9.lua	$NHDT-Date: 1652196023 2022/05/10 15:20:23 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack bigroom bigrm-9.lua	$NHDT-Date: 1781994880 2026/06/20 22:34:40 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -12927,7 +13090,7 @@ end
 for i = 1,28 do
   des.monster();
 end
--- NetHack castle castle.lua	$NHDT-Date: 1652196024 2022/05/10 15:20:24 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.7 $
+-- NetHack castle castle.lua	$NHDT-Date: 1781994880 2026/06/20 22:34:40 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.9 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -13184,7 +13347,7 @@ des.region(selection.area(39,08,55,08),"unlit")
 --   Storeroom alcoves
 des.region(selection.area(47,05,47,06),"unlit")
 des.region(selection.area(47,10,47,11),"unlit")
--- NetHack yendor fakewiz1.lua	$NHDT-Date: 1652196025 2022/05/10 15:20:25 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack yendor fakewiz1.lua	$NHDT-Date: 1781994881 2026/06/20 22:34:41 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992 by M. Stephenson and Izchak Miller
 -- NetHack may be freely redistributed.  See license for details.
@@ -13228,7 +13391,7 @@ end
 
 local protected = bounds2:negate() | fakewiz1;
 hell_tweaks(protected);
--- NetHack yendor fakewiz2.lua	$NHDT-Date: 1652196026 2022/05/10 15:20:26 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack yendor fakewiz2.lua	$NHDT-Date: 1781994881 2026/06/20 22:34:41 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992 by M. Stephenson and Izchak Miller
 -- NetHack may be freely redistributed.  See license for details.
@@ -13272,7 +13435,7 @@ end
 
 local protected = bounds2:negate() | fakewiz2;
 hell_tweaks(protected);
--- NetHack gehennom juiblex.lua	$NHDT-Date: 1652196026 2022/05/10 15:20:26 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.5 $
+-- NetHack gehennom juiblex.lua	$NHDT-Date: 1781994882 2026/06/20 22:34:42 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.7 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992 by M. Stephenson and Izchak Miller
 -- NetHack may be freely redistributed.  See license for details.
@@ -13394,7 +13557,7 @@ des.trap("anti magic")
 des.trap("anti magic")
 des.trap("magic")
 des.trap("magic")
--- NetHack knox knox.lua	$NHDT-Date: 1652196027 2022/05/10 15:20:27 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.5 $
+-- NetHack knox knox.lua	$NHDT-Date: 1781994882 2026/06/20 22:34:42 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.6 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992 by Izchak Miller
 -- NetHack may be freely redistributed.  See license for details.
@@ -13561,7 +13724,7 @@ des.object("ruby",48,06)
 des.object("amethyst",46,13)
 des.object("amethyst",47,13)
 des.object("amethyst",48,13)
--- NetHack medusa medusa-1.lua	$NHDT-Date: 1652196027 2022/05/10 15:20:27 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack medusa medusa-1.lua	$NHDT-Date: 1781994882 2026/06/20 22:34:42 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990, 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -13684,7 +13847,7 @@ des.monster()
 des.monster()
 des.monster()
 des.monster()
--- NetHack medusa medusa-2.lua	$NHDT-Date: 1652196027 2022/05/10 15:20:27 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack medusa medusa-2.lua	$NHDT-Date: 1781994882 2026/06/20 22:34:42 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990, 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -13813,7 +13976,7 @@ des.monster()
 des.monster()
 des.monster()
 
--- NetHack medusa medusa-3.lua	$NHDT-Date: 1716152250 2024/05/19 20:57:30 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.8 $
+-- NetHack medusa medusa-3.lua	$NHDT-Date: 1781994883 2026/06/20 22:34:43 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.10 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990, 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -13951,7 +14114,7 @@ for i=1,30 do
 end
 
 --#medusa-3.lua
--- NetHack medusa medusa-4.lua	$NHDT-Date: 1716152274 2024/05/19 20:57:54 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.8 $
+-- NetHack medusa medusa-4.lua	$NHDT-Date: 1781994883 2026/06/20 22:34:43 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.9 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1990, 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -14103,7 +14266,7 @@ for i=1,4 do
 end
 
 --#medusa-4.lua
--- NetHack mines minend-1.lua	$NHDT-Date: 1652196029 2022/05/10 15:20:29 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.3 $
+-- NetHack mines minend-1.lua	$NHDT-Date: 1781994883 2026/06/20 22:34:43 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989-95 by Jean-Christophe Collet
 --	Copyright (c) 1991-95 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -14222,7 +14385,7 @@ des.monster("dwarf")
 des.monster("dwarf")
 des.monster("dwarf")
 des.monster("h")
--- NetHack mines minend-2.lua	$NHDT-Date: 1652196029 2022/05/10 15:20:29 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack mines minend-2.lua	$NHDT-Date: 1781994884 2026/06/20 22:34:44 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.7 $
 --	Copyright (c) 1989-95 by Jean-Christophe Collet
 --	Copyright (c) 1991-95 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -14381,7 +14544,7 @@ des.monster("dwarf")
 des.monster("dwarf")
 des.monster("dwarf")
 des.monster("h")
--- NetHack mines minend-3.lua	$NHDT-Date: 1652196029 2022/05/10 15:20:29 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack mines minend-3.lua	$NHDT-Date: 1781994884 2026/06/20 22:34:44 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989-95 by Jean-Christophe Collet
 --	Copyright (c) 1991-95 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -14488,7 +14651,7 @@ des.monster("e")
 des.monster("e")
 des.monster("e")
 des.monster("e")
--- NetHack mines minefill.lua	$NHDT-Date: 1652196028 2022/05/10 15:20:28 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.3 $
+-- NetHack mines minefill.lua	$NHDT-Date: 1781994883 2026/06/20 22:34:43 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1989-95 by Jean-Christophe Collet
 --	Copyright (c) 1991-95 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -14539,7 +14702,7 @@ des.trap()
 des.trap()
 des.trap()
 des.trap()
--- NetHack 3.7	mines minetn-1.lua	$NHDT-Date: 1652196030 2022/05/10 15:20:30 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.8 $
+-- NetHack 5.0	mines minetn-1.lua	$NHDT-Date: 1781994884 2026/06/20 22:34:44 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.13 $
 --	Copyright (c) 1989-95 by Jean-Christophe Collet
 --	Copyright (c) 1991-95 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -14629,7 +14792,7 @@ des.object({ id = "corpse", montype="watchman" })
 des.object({ id = "corpse", montype="watch captain" })
 
 -- Rubble!
-for i=1,9 + math.random(2 - 1,2*5) do
+for i = 1, math.random(10,19) do
   if percent(90) then
     des.object("boulder")
   end
@@ -14659,7 +14822,7 @@ des.object({ id = "wand of magic missile", coord = place[5], buc="uncursed", spe
 local inside = selection.floodfill(18,8)
 local near_temple = selection.area(17,8, 23,14) & inside
 
-for i=1,5 + math.random(1 - 1,1*10) do
+for i = 1, math.random(5,15) do
    if percent(50) then
       des.monster({ id = "orc-captain", coord = inside:rndcoord(1), peaceful=0 });
    else
@@ -14671,12 +14834,14 @@ for i=1,5 + math.random(1 - 1,1*10) do
    end
 end
 -- shamans can be hanging out in/near the temple
-for i=1,math.random(2 - 1,2*3) do
-   des.monster({ id = "orc shaman", coord = near_temple:rndcoord(0), peaceful=0 });
+-- one of the shamans is higher level
+for i = 1, math.random(1,6) do
+   des.monster({ id = "orc shaman", coord = near_temple:rndcoord(0), peaceful=0,
+                 m_lev_adj = (i == 1) and 3 or 0 });
 end
 -- these are not such a big deal
 -- to run into outside the bars
-for i=1,9 + math.random(2 - 1,2*5) do
+for i = 1, math.random(10,19) do
    if percent(90) then
       des.monster({ id = "hill orc", peaceful = 0 })
    else
@@ -14687,7 +14852,7 @@ end
 -- Hack to force full-level wallification
 
 des.wallify()
--- NetHack mines minetn-2.lua	$NHDT-Date: 1652196030 2022/05/10 15:20:30 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.3 $
+-- NetHack mines minetn-2.lua	$NHDT-Date: 1781994884 2026/06/20 22:34:44 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989-95 by Jean-Christophe Collet
 --	Copyright (c) 1991-95 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -14869,7 +15034,7 @@ des.room({ contents = function()
 
 des.random_corridors()
 
--- NetHack mines minetn-3.lua	$NHDT-Date: 1652196030 2022/05/10 15:20:30 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack mines minetn-3.lua	$NHDT-Date: 1781994885 2026/06/20 22:34:45 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989-95 by Jean-Christophe Collet
 --	Copyright (c) 1991-95 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -15019,7 +15184,7 @@ des.room({ type = "ordinary", contents = function()
 })
 
 des.random_corridors()
--- NetHack mines minetn-4.lua	$NHDT-Date: 1652196031 2022/05/10 15:20:31 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack mines minetn-4.lua	$NHDT-Date: 1781994885 2026/06/20 22:34:45 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989-95 by Jean-Christophe Collet
 --	Copyright (c) 1991-95 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -15152,7 +15317,7 @@ des.room({ type = "ordinary",
 })
 
 des.random_corridors()
--- NetHack mines minetn-5.lua	$NHDT-Date: 1652196031 2022/05/10 15:20:31 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.5 $
+-- NetHack mines minetn-5.lua	$NHDT-Date: 1781994885 2026/06/20 22:34:45 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.6 $
 --	Copyright (c) 1989-95 by Jean-Christophe Collet
 --	Copyright (c) 1991-95 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -15289,7 +15454,7 @@ des.object({ id = "statue", x=38, y=15, montype="gnome king", historic=1 })
 des.region({ region={29,02, 33,04}, lit=1, type="temple", filled=1 })
 des.door("closed",31,05)
 des.altar({ x=31,y=03, align=align[1], type="shrine" })
--- NetHack mines minetn-6.lua	$NHDT-Date: 1652196031 2022/05/10 15:20:31 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.3 $
+-- NetHack mines minetn-6.lua	$NHDT-Date: 1781994885 2026/06/20 22:34:45 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.7 $
 --	Copyright (c) 1989-95 by Jean-Christophe Collet
 --	Copyright (c) 1991-95 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -15377,13 +15542,21 @@ des.monster("gnome lord")
 des.monster("dwarf")
 des.monster("dwarf")
 des.monster("dwarf")
+des.monster({ id = "dwarf", peaceful = 1 })
+des.monster({ id = "dwarf", peaceful = 1 })
+des.monster({ id = "gnome", peaceful = 1 })
+des.monster({ id = "gnome", peaceful = 1 })
+des.monster({ id = "hobbit", peaceful = 1 })
+des.monster({ id = "goblin", peaceful = 1 })
+des.monster({ id = "kobold", peaceful = 1 })
+des.monster({ id = "dog", peaceful = 1 })
 des.monster({ id = "watchman", peaceful = 1 })
 des.monster({ id = "watchman", peaceful = 1 })
 des.monster({ id = "watchman", peaceful = 1 })
 des.monster({ id = "watch captain", peaceful = 1 })
 des.monster({ id = "watch captain", peaceful = 1 })
 
--- NetHack mines minetn-7.lua	$NHDT-Date: 1652196032 2022/05/10 15:20:32 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.3 $
+-- NetHack mines minetn-7.lua	$NHDT-Date: 1781994885 2026/06/20 22:34:45 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989-95 by Jean-Christophe Collet
 --	Copyright (c) 1991-95 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -15581,7 +15754,7 @@ des.room({ type="ordinary",
 })
 
 des.random_corridors()
--- NetHack oracle oracle.lua	$NHDT-Date: 1652196033 2022/05/10 15:20:33 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack oracle oracle.lua	$NHDT-Date: 1781994886 2026/06/20 22:34:46 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 -- Copyright (c) 2015 by Pasi Kallinen
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -15650,7 +15823,7 @@ des.room({ contents = function()
 });
 
 des.random_corridors();
--- NetHack gehennom orcus.lua	$NHDT-Date: 1652196033 2022/05/10 15:20:33 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.3 $
+-- NetHack gehennom orcus.lua	$NHDT-Date: 1781994886 2026/06/20 22:34:46 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.6 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992 by M. Stephenson and Izchak Miller
 -- NetHack may be freely redistributed.  See license for details.
@@ -15809,7 +15982,7 @@ des.teleport_region({ region={01,00,12,20}, region_islev=1, exclude={20,01,70,20
 
 local protected = bounds2:negate() | orcus1;
 hell_tweaks(protected);
--- NetHack gehennom sanctum.lua	$NHDT-Date: 1652196034 2022/05/10 15:20:34 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.5 $
+-- NetHack gehennom sanctum.lua	$NHDT-Date: 1781994887 2026/06/20 22:34:47 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.6 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992 by M. Stephenson and Izchak Miller
 -- NetHack may be freely redistributed.  See license for details.
@@ -15942,7 +16115,7 @@ des.stair("up", 63,15)
 -- Teleporting to this level is allowed after the invocation creates its
 -- entrance.  Force arrival in that case to be on rightmost third of level.
 des.teleport_region({ region = {54,1,79,18}, region_islev=1, dir="down" })
--- NetHack sokoban soko1-1.lua	$NHDT-Date: 1652196034 2022/05/10 15:20:34 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.6 $
+-- NetHack sokoban soko1-1.lua	$NHDT-Date: 1781994887 2026/06/20 22:34:47 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.10 $
 --	Copyright (c) 1998-1999 by Kevin Hugo
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -16004,9 +16177,10 @@ des.object("boulder", 09, 12);
 des.object("boulder", 03, 14);
 
 -- prevent monster generation over the (filled) holes
-des.exclusion({ type = "monster-generation", region = { 08,01, 23,01 } });
+des.exclusion({ type = "monster-generation", region = { 07,01, 23,01 } });
 -- Traps
-des.trap("hole", 08, 01);
+des.trap("hole", 07, 01);
+des.trap("rolling boulder", 08, 01);
 des.trap("hole", 09, 01);
 des.trap("hole", 10, 01);
 des.trap("hole", 11, 01);
@@ -16053,7 +16227,7 @@ end
 des.engraving({ coord = pt, type = "burn", text = "Elbereth" });
 des.object({ id = "scroll of scare monster", coord = pt, buc = "cursed" });
 
--- NetHack sokoban soko1-2.lua	$NHDT-Date: 1652196034 2022/05/10 15:20:34 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.6 $
+-- NetHack sokoban soko1-2.lua	$NHDT-Date: 1781994887 2026/06/20 22:34:47 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.10 $
 --	Copyright (c) 1998-1999 by Kevin Hugo
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -16116,9 +16290,9 @@ des.object("boulder",12,09);
 des.object("boulder",11,10);
 
 -- prevent monster generation over the (filled) holes
-des.exclusion({ type = "monster-generation", region = { 05,01, 22,01 } });
+des.exclusion({ type = "monster-generation", region = { 05,01, 23,01 } });
 -- Traps
-des.trap("hole",05,01)
+des.trap("rolling boulder",05,01)
 des.trap("hole",06,01)
 des.trap("hole",07,01)
 des.trap("hole",08,01)
@@ -16136,6 +16310,7 @@ des.trap("hole",19,01)
 des.trap("hole",20,01)
 des.trap("hole",21,01)
 des.trap("hole",22,01)
+des.trap("hole",23,01)
 
 des.monster({ id = "giant mimic", appear_as = "obj:boulder" });
 des.monster({ id = "giant mimic", appear_as = "obj:boulder" });
@@ -16165,7 +16340,7 @@ else
 end
 des.engraving({ coord = pt, type = "burn", text = "Elbereth" });
 des.object({ id = "scroll of scare monster", coord = pt, buc = "cursed" });
--- NetHack sokoban soko2-1.lua	$NHDT-Date: 1652196035 2022/05/10 15:20:35 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack sokoban soko2-1.lua	$NHDT-Date: 1781994888 2026/06/20 22:34:48 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1998-1999 by Kevin Hugo
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -16216,6 +16391,7 @@ des.object("boulder",06,06)
 -- prevent monster generation over the (filled) holes
 des.exclusion({ type = "monster-generation", region = { 07,09, 18,09 } });
 -- Traps
+des.trap("rolling boulder",07,09)
 des.trap("hole",08,09)
 des.trap("hole",09,09)
 des.trap("hole",10,09)
@@ -16234,7 +16410,7 @@ des.object({ class = "%" });
 des.object({ class = "%" });
 des.object({ class = "=" });
 des.object({ class = "/" });
--- NetHack sokoban soko2-2.lua	$NHDT-Date: 1652196035 2022/05/10 15:20:35 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack sokoban soko2-2.lua	$NHDT-Date: 1781994888 2026/06/20 22:34:48 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1998-1999 by Kevin Hugo
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -16243,26 +16419,27 @@ des.level_init({ style = "solidfill", fg = " " });
 des.level_flags("mazelevel", "noteleport", "premapped", "sokoban", "solidify");
 
 des.map([[
-  --------          
---|.|....|          
-|........|----------
-|.-...-..|.|.......|
-|...-......|.......|
-|.-....|...|.......|
-|....-.--.-|.......|
-|..........|.......|
-|.--...|...|.......|
-|....-.|---|.......|
---|....|----------+|
-  |................|
-  ------------------
+  --------            
+--|.|....|            
+|........|----------  
+|.-...-..|.|.......|  
+|...-......|.......|  
+|.-....|...|.......|  
+|....-.--.-|.......|  
+|..........|.......|  
+|.--...|...|.......---
+|....-.|---|.......+.|
+--|....|------------.|
+  |................+.|
+  --------------------
 ]]);
 des.stair("down", 06,11)
 des.stair("up", 15,06)
-des.door("locked",18,10)
-des.region(selection.area(00,00,19,12), "lit");
-des.non_diggable(selection.area(00,00,19,12));
-des.non_passwall(selection.area(00,00,19,12));
+des.door("locked",19,09)
+des.door("locked",19,11)
+des.region(selection.area(00,00,21,12), "lit");
+des.non_diggable(selection.area(00,00,21,12));
+des.non_passwall(selection.area(00,00,21,12));
 
 -- Boulders
 des.object("boulder",04,02)
@@ -16285,7 +16462,7 @@ des.object("boulder",05,11)
 -- prevent monster generation over the (filled) holes
 des.exclusion({ type = "monster-generation", region = { 06,11, 18,11 } });
 -- Traps
-des.trap("hole",07,11)
+des.trap("rolling boulder",07,11)
 des.trap("hole",08,11)
 des.trap("hole",09,11)
 des.trap("hole",10,11)
@@ -16296,6 +16473,7 @@ des.trap("hole",14,11)
 des.trap("hole",15,11)
 des.trap("hole",16,11)
 des.trap("hole",17,11)
+des.trap("hole",18,11)
 
 -- Random objects
 des.object({ class = "%" });
@@ -16304,7 +16482,7 @@ des.object({ class = "%" });
 des.object({ class = "%" });
 des.object({ class = "=" });
 des.object({ class = "/" });
--- NetHack sokoban soko3-1.lua	$NHDT-Date: 1652196035 2022/05/10 15:20:35 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack sokoban soko3-1.lua	$NHDT-Date: 1781994888 2026/06/20 22:34:48 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1998-1999 by Kevin Hugo
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -16361,6 +16539,7 @@ des.object("boulder",10,10)
 -- prevent monster generation over the (filled) holes
 des.exclusion({ type = "monster-generation", region = { 11,10, 27,10 } });
 -- Traps
+des.trap("rolling boulder",11,10)
 des.trap("hole",12,10)
 des.trap("hole",13,10)
 des.trap("hole",14,10)
@@ -16385,7 +16564,7 @@ des.object({ class = "%" });
 des.object({ class = "=" });
 des.object({ class = "/" });
 
--- NetHack sokoban soko3-2.lua	$NHDT-Date: 1652196036 2022/05/10 15:20:36 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack sokoban soko3-2.lua	$NHDT-Date: 1781994888 2026/06/20 22:34:48 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1998-1999 by Kevin Hugo
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -16435,8 +16614,9 @@ des.object("boulder",10,10)
 des.object("boulder",03,11)
 
 -- prevent monster generation over the (filled) holes
-des.exclusion({ type = "monster-generation", region = { 12,10, 24,10 } });
+des.exclusion({ type = "monster-generation", region = { 11,10, 24,10 } });
 -- Traps
+des.trap("rolling boulder",11,10)
 des.trap("hole",12,10)
 des.trap("hole",13,10)
 des.trap("hole",14,10)
@@ -16458,7 +16638,7 @@ des.object({ class = "%" });
 des.object({ class = "=" });
 des.object({ class = "/" });
 
--- NetHack sokoban soko4-1.lua	$NHDT-Date: 1652196036 2022/05/10 15:20:36 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack sokoban soko4-1.lua	$NHDT-Date: 1781994888 2026/06/20 22:34:48 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.6 $
 --	Copyright (c) 1998-1999 by Kevin Hugo
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -16534,16 +16714,21 @@ des.object("boulder",10,10)
 
 -- prevent monster generation over the (filled) pits
 des.exclusion({ type = "monster-generation", region = { 01,06, 07,11 } });
+
 -- Traps
-des.trap("pit",03,06)
 des.trap("pit",04,06)
-des.trap("pit",05,06)
+
+des.trap("pit",02,06)
+des.trap("pit",02,07)
 des.trap("pit",02,08)
-des.trap("pit",02,09)
+des.trap("rolling boulder",02,09)
+
+des.trap("pit",02,10)
+des.trap("pit",03,10)
 des.trap("pit",04,10)
 des.trap("pit",05,10)
 des.trap("pit",06,10)
-des.trap("pit",07,10)
+des.trap("rolling boulder",07,10)
 
 -- A little help
 des.object("scroll of earth",02,11)
@@ -16557,7 +16742,7 @@ des.object({ class = "%" });
 des.object({ class = "=" });
 des.object({ class = "/" });
 
--- NetHack sokoban soko4-2.lua	$NHDT-Date: 1652196036 2022/05/10 15:20:36 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack sokoban soko4-2.lua	$NHDT-Date: 1781994889 2026/06/20 22:34:49 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.6 $
 --	Copyright (c) 1998-1999 by Kevin Hugo
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -16609,11 +16794,14 @@ des.trap("pit",01,03)
 des.trap("pit",01,04)
 des.trap("pit",01,05)
 des.trap("pit",01,06)
-des.trap("pit",01,07)
+des.trap("rolling boulder",01,07)
+
+des.trap("pit",01,08)
+des.trap("pit",02,08)
 des.trap("pit",03,08)
 des.trap("pit",04,08)
 des.trap("pit",05,08)
-des.trap("pit",06,08)
+des.trap("rolling boulder",06,08)
 
 -- A little help
 des.object("scroll of earth",01,09)
@@ -16628,7 +16816,7 @@ des.object({ class = "=" });
 des.object({ class = "/" });
 
 
--- NetHack tower tower1.lua	$NHDT-Date: 1717178759 2024/05/31 18:05:59 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.3 $
+-- NetHack tower tower1.lua	$NHDT-Date: 1781994889 2026/06/20 22:34:49 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.7 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -16702,7 +16890,7 @@ des.object({ id = "chest", coord=niches[5],
 });
 -- We have to protect the tower against outside attacks
 des.non_diggable(selection.area(00,00,14,10))
--- NetHack tower tower2.lua	$NHDT-Date: 1652196037 2022/05/10 15:20:37 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack tower tower2.lua	$NHDT-Date: 1781994889 2026/06/20 22:34:49 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -16764,7 +16952,7 @@ des.object(spbooks[1],place[9])
 -- Walls in the tower are non diggable
 des.non_diggable(selection.area(00,00,14,10))
 
--- NetHack tower tower3.lua	$NHDT-Date: 1652196038 2022/05/10 15:20:38 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack tower tower3.lua	$NHDT-Date: 1781994889 2026/06/20 22:34:49 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -16814,7 +17002,7 @@ des.object("blindfold",place[3])
 des.trap({ coord = place[3] })
 -- Walls in the tower are non diggable
 des.non_diggable(selection.area(00,00,18,12))
--- NetHack gehennom valley.lua	$NHDT-Date: 1652196038 2022/05/10 15:20:38 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack gehennom valley.lua	$NHDT-Date: 1781994890 2026/06/20 22:34:50 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.6 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992 by M. Stephenson and Izchak Miller
 -- NetHack may be freely redistributed.  See license for details.
@@ -16988,7 +17176,7 @@ des.monster("M")
 des.monster("M")
 des.monster("M")
 des.monster("M")
--- NetHack yendor wizard1.lua	$NHDT-Date: 1652196039 2022/05/10 15:20:39 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.3 $
+-- NetHack yendor wizard1.lua	$NHDT-Date: 1781994890 2026/06/20 22:34:50 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992 by M. Stephenson and Izchak Miller
 -- NetHack may be freely redistributed.  See license for details.
@@ -17090,7 +17278,7 @@ end
 
 local protected = bounds2:negate() | wiz1;
 hell_tweaks(protected);
--- NetHack yendor wizard2.lua	$NHDT-Date: 1652196039 2022/05/10 15:20:39 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack yendor wizard2.lua	$NHDT-Date: 1781994890 2026/06/20 22:34:50 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992 by M. Stephenson and Izchak Miller
 -- NetHack may be freely redistributed.  See license for details.
@@ -17152,7 +17340,7 @@ end
 
 local protected = bounds2:negate() | wiz2;
 hell_tweaks(protected);
--- NetHack yendor wizard3.lua	$NHDT-Date: 1652196040 2022/05/10 15:20:40 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack yendor wizard3.lua	$NHDT-Date: 1781994891 2026/06/20 22:34:51 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.6 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992 by M. Stephenson and Izchak Miller
 -- NetHack may be freely redistributed.  See license for details.
@@ -17242,7 +17430,7 @@ end
 
 local protected = bounds2:negate() | wiz3;
 hell_tweaks(protected);
--- NetHack core nhcore.lua	$NHDT-Date: 1652196284 2022/05/10 15:24:44 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.0 $
+-- NetHack core nhcore.lua	$NHDT-Date: 1781994886 2026/06/20 22:34:46 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 2021 by Pasi Kallinen
 -- NetHack may be freely redistributed.  See license for details.
 -- This file contains lua code used by NetHack core.
@@ -17386,7 +17574,7 @@ nhcore = {
     leave_tutorial = tutorial_leave,
 };
 
--- NetHack nhlib.lua	$NHDT-Date: 1652196140 2022/05/10 15:22:20 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack nhlib.lua	$NHDT-Date: 1781994886 2026/06/20 22:34:46 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.20 $
 --	Copyright (c) 2021 by Pasi Kallinen
 -- NetHack may be freely redistributed.  See license for details.
 -- compatibility shim
@@ -17628,7 +17816,7 @@ function tutorial_turn()
    end
    -- nh.pline("TUT:turn");
 end
--- NetHack themerms.lua	$NHDT-Date: 1744445274 2025/04/12 00:07:54 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.40 $
+-- NetHack themerms.lua	$NHDT-Date: 1781994889 2026/06/20 22:34:49 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.43 $
 --	Copyright (c) 2020 by Pasi Kallinen
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -18725,7 +18913,7 @@ function post_level_generate()
    end
    postprocess = { };
 end
--- NetHack endgame astral.lua	$NHDT-Date: 1652196020 2022/05/10 15:20:20 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.7 $
+-- NetHack endgame astral.lua	$NHDT-Date: 1781994877 2026/06/20 22:34:37 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.9 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992,1993 by Izchak Miller, David Cohrs,
 --                      and Timo Hakulinen
@@ -18762,7 +18950,7 @@ des.map([[
 
 -- chance to alter above map and turn the wings of the bottom-center into
 -- a pair of big (5x15) rooms
-for i=1,2 do
+for i = 1, 2 do
    -- 3.6.[01]: 75% chance that both sides opened up, 25% that neither did;
    -- 3.6.2: 60% twice == 36% chance that both sides open up, 24% left side
    -- only, 24% right side only, 16% that neither side opens up
@@ -18785,7 +18973,7 @@ for i=1,2 do
         des.terrain(41,18, ".")
      end
      -- extra monsters; was [6 + 3d4] when both wings were opened up at once
-     for i=1,3 + math.random(2 - 1,2*3) do
+     for j = 1, math.random(4,9) do
         des.monster({ id="Angel", coord = hall:rndcoord(1), align="noalign", peaceful=0 })
         if percent(50) then
            des.monster({ coord = hall:rndcoord(1), peaceful=0 })
@@ -18912,7 +19100,7 @@ des.monster({ class = "V", peaceful=0 })
 des.monster({ class = "D", peaceful=0 })
 des.monster({ class = "D", peaceful=0 })
 des.monster({ class = "D", peaceful=0 })
--- NetHack endgame air.lua	$NHDT-Date: 1652196019 2022/05/10 15:20:19 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack endgame air.lua	$NHDT-Date: 1781994877 2026/06/20 22:34:37 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992,1993 by Izchak Miller, David Cohrs,
 --                      and Timo Hakulinen
@@ -19020,7 +19208,7 @@ des.monster({ id = "steam vortex", peaceful = 0 })
 des.monster({ id = "steam vortex", peaceful = 0 })
 des.monster({ id = "steam vortex", peaceful = 0 })
 
--- NetHack endgame earth.lua	$NHDT-Date: 1652196025 2022/05/10 15:20:25 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack endgame earth.lua	$NHDT-Date: 1781994881 2026/06/20 22:34:41 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992,1993 by Izchak Miller, David Cohrs,
 --                      and Timo Hakulinen
@@ -19150,7 +19338,7 @@ des.monster({ id = "earth elemental", x = 04, y = 18, peaceful = 0 })
 
 des.object("boulder")
 
--- NetHack endgame fire.lua	$NHDT-Date: 1700398454 2023/11/19 12:54:14 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack endgame fire.lua	$NHDT-Date: 1781994882 2026/06/20 22:34:42 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992,1993 by Izchak Miller, David Cohrs,
 --                      and Timo Hakulinen
@@ -19308,7 +19496,7 @@ des.object("boulder")
 des.object("boulder")
 des.object("boulder")
 
--- NetHack endgame water.lua	$NHDT-Date: 1652196038 2022/05/10 15:20:38 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack endgame water.lua	$NHDT-Date: 1781994890 2026/06/20 22:34:50 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1992,1993 by Izchak Miller, David Cohrs,
 --                      and Timo Hakulinen
@@ -19410,7 +19598,7 @@ des.monster({ id = "water elemental", peaceful = 0 })
 des.monster({ id = "water elemental", peaceful = 0 })
 des.monster({ id = "water elemental", peaceful = 0 })
 
--- NetHack 3.7	hellfill.des	$NHDT-Date: 1432512783 2015/05/25 00:13:03 $  $NHDT-Branch: master $:$NHDT-Revision: 1.25 $
+-- NetHack 5.0	hellfill.des	$NHDT-Date: 1432512783 2015/05/25 00:13:03 $  $NHDT-Branch: master $:$NHDT-Revision: 1.25 $
 --	Copyright (c) 2022 by Pasi Kallinen
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -19825,14 +20013,16 @@ hells = {
 
    -- 7: open cavern, "mines" with more space
    function ()
+      -- walls are either stone or lava
+      local wter = percent(50) and " " or "L";
       des.level_init({ style = "solidfill", fg = " ", lit = 0 });
       des.level_flags("mazelevel", "noflip");
-      des.level_init({ style="mines", fg=".", smoothed=true ,joined=true, lit=0 });
+      des.level_init({ style="mines", fg=".", bg = wter, smoothed=true ,joined=true, lit=0 });
       local sel = selection.match("."):grow();
-      des.terrain({ selection = sel, typ = "." });
+      des.terrain({ selection = sel, typ = ".", lit = 0 });
 
       local border = selection.rect(0,0, 78, 20);
-      des.terrain({ selection = border, typ = " " });
+      des.terrain({ selection = border, typ = wter, lit = 0 });
       des.wallify();
    end,
 
@@ -20225,7 +20415,7 @@ des.engraving({ coord = { 1,1 }, type = "burn", text = "Use '" .. nh.eckey("up")
 des.trap({ type = "magic portal", coord = { 11,5 }, seen = true });
 
 des.non_diggable();
--- NetHack Archeologist Arc-goal.lua	$NHDT-Date: 1652195998 2022/05/10 15:19:58 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Archeologist Arc-goal.lua	$NHDT-Date: 1781994864 2026/06/20 22:34:24 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -20340,7 +20530,7 @@ des.monster("human mummy")
 des.monster("human mummy")
 des.monster("human mummy")
 des.monster("M")
--- NetHack Barbarian Bar-goal.lua	$NHDT-Date: 1652196000 2022/05/10 15:20:00 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Barbarian Bar-goal.lua	$NHDT-Date: 1781994865 2026/06/20 22:34:25 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -20435,7 +20625,7 @@ des.monster({ id = "rock troll", peaceful=0 })
 des.monster({ class = "T", peaceful=0 })
 des.wallify()
 
--- NetHack Caveman Cav-goal.lua	$NHDT-Date: 1652196002 2022/05/10 15:20:02 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Caveman Cav-goal.lua	$NHDT-Date: 1781994866 2026/06/20 22:34:26 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -20494,7 +20684,7 @@ des.monster("shrieker", 26, 13)
 des.monster("shrieker", 25, 8)
 des.monster("shrieker", 45, 11)
 des.wallify()
--- NetHack Healer Hea-goal.lua	$NHDT-Date: 1652196003 2022/05/10 15:20:03 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Healer Hea-goal.lua	$NHDT-Date: 1781994867 2026/06/20 22:34:27 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991, 1993 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -20584,7 +20774,7 @@ des.monster({ class = "S", peaceful=0 })
 des.monster({ class = "S", peaceful=0 })
 des.monster({ class = "S", peaceful=0 })
 
--- NetHack Knight Kni-goal.lua	$NHDT-Date: 1652196005 2022/05/10 15:20:05 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Knight Kni-goal.lua	$NHDT-Date: 1781994868 2026/06/20 22:34:28 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991,92 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -20683,7 +20873,7 @@ des.monster({ id = "ochre jelly", peaceful=0 })
 des.monster({ id = "ochre jelly", peaceful=0 })
 des.monster({ id = "ochre jelly", peaceful=0 })
 des.monster({ class = "j", peaceful=0 })
--- NetHack Monk Mon-goal.lua	$NHDT-Date: 1652196007 2022/05/10 15:20:07 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Monk Mon-goal.lua	$NHDT-Date: 1781994869 2026/06/20 22:34:29 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -20758,7 +20948,7 @@ des.monster("xorn")
 des.monster("xorn")
 des.monster("xorn")
 des.monster("xorn")
--- NetHack Priest Pri-goal.lua	$NHDT-Date: 1687033651 2023/06/17 20:27:31 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Priest Pri-goal.lua	$NHDT-Date: 1781994870 2026/06/20 22:34:30 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -20842,7 +21032,7 @@ des.monster("wraith")
 des.monster("wraith")
 des.monster("wraith")
 des.monster("W")
--- NetHack Ranger Ran-goal.lua	$NHDT-Date: 1652196010 2022/05/10 15:20:10 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Ranger Ran-goal.lua	$NHDT-Date: 1781994871 2026/06/20 22:34:31 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -20948,7 +21138,7 @@ des.monster({ id = "scorpion", peaceful=0 })
 des.monster({ class = "s", peaceful=0 })
 
 des.wallify()
--- NetHack Rogue Rog-goal.lua	$NHDT-Date: 1652196012 2022/05/10 15:20:12 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Rogue Rog-goal.lua	$NHDT-Date: 1781994872 2026/06/20 22:34:32 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1992 by Dean Luick
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -21058,7 +21248,7 @@ des.monster({ id = "shark", x=51, y=14, peaceful=0 })
 des.monster({ id = "shark", x=53, y=09, peaceful=0 })
 des.monster({ id = "shark", x=55, y=15, peaceful=0 })
 des.monster({ id = "shark", x=58, y=10, peaceful=0 })
--- NetHack Samurai Sam-goal.lua	$NHDT-Date: 1652196013 2022/05/10 15:20:13 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Samurai Sam-goal.lua	$NHDT-Date: 1781994873 2026/06/20 22:34:33 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-92 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -21169,7 +21359,7 @@ des.monster("stalker")
 des.monster("stalker")
 des.monster("stalker")
 des.monster("stalker")
--- NetHack Tourist Tou-goal.lua	$NHDT-Date: 1652196015 2022/05/10 15:20:15 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack Tourist Tou-goal.lua	$NHDT-Date: 1781994874 2026/06/20 22:34:34 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.6 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991,92 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -21328,7 +21518,7 @@ des.monster("prisoner", 24, 13)
 des.monster({ id = "watchman", x=33, y=10, peaceful = 0 })
 
 des.wallify()
--- NetHack Valkyrie Val-goal.lua	$NHDT-Date: 1652196017 2022/05/10 15:20:17 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.5 $
+-- NetHack Valkyrie Val-goal.lua	$NHDT-Date: 1781994875 2026/06/20 22:34:35 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.6 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -21432,7 +21622,7 @@ des.monster({ class = "H", peaceful = 0 })
 --	start and locate levels, and "fillb" the lower between the locate
 --	and goal levels.
 --
--- NetHack Wizard Wiz-goal.lua	$NHDT-Date: 1652196018 2022/05/10 15:20:18 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Wizard Wiz-goal.lua	$NHDT-Date: 1781994876 2026/06/20 22:34:36 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1992 by David Cohrs
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -21564,7 +21754,7 @@ des.monster({ id = "hill giant", x=47, y=11, peaceful=1, asleep=1 })
 des.monster({ id = "gnomish wizard", x=38, y=06, peaceful=1 })
 des.monster({ id = "prisoner", x=35, y=11, peaceful=1 })
 des.monster({ id = "prisoner", x=41, y=11, peaceful=1, asleep=1 })
--- NetHack Archeologist Arc-fila.lua	$NHDT-Date: 1652195998 2022/05/10 15:19:58 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Archeologist Arc-fila.lua	$NHDT-Date: 1781994863 2026/06/20 22:34:23 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -21623,7 +21813,7 @@ des.room({ type = "ordinary",
 })
 
 des.random_corridors()
--- NetHack Archeologist Arc-filb.lua	$NHDT-Date: 1652195998 2022/05/10 15:19:58 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Archeologist Arc-filb.lua	$NHDT-Date: 1781994863 2026/06/20 22:34:23 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -21682,7 +21872,7 @@ des.room({ type = "ordinary",
 })
 
 des.random_corridors()
--- NetHack Barbarian Bar-fila.lua	$NHDT-Date: 1652195999 2022/05/10 15:19:59 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Barbarian Bar-fila.lua	$NHDT-Date: 1781994864 2026/06/20 22:34:24 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -21715,7 +21905,7 @@ des.monster({ id = "ogre", peaceful=0 })
 des.monster({ id = "ogre", peaceful=0 })
 des.monster({ class = "O", peaceful=0 })
 des.monster({ id = "rock troll", peaceful=0 })
--- NetHack Barbarian Bar-filb.lua	$NHDT-Date: 1652196000 2022/05/10 15:20:00 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Barbarian Bar-filb.lua	$NHDT-Date: 1781994864 2026/06/20 22:34:24 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -21759,7 +21949,7 @@ des.monster({ id = "rock troll", peaceful=0 })
 des.monster({ id = "rock troll", peaceful=0 })
 des.monster({ id = "rock troll", peaceful=0 })
 des.monster({ class = "T", peaceful=0 })
--- NetHack Caveman Cav-fila.lua	$NHDT-Date: 1652196001 2022/05/10 15:20:01 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Caveman Cav-fila.lua	$NHDT-Date: 1781994865 2026/06/20 22:34:25 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -21794,7 +21984,7 @@ des.monster({ id = "bugbear", peaceful=0 })
 des.monster({ id = "bugbear", peaceful=0 })
 des.monster({ class = "h", peaceful=0 })
 des.monster({ id = "hill giant", peaceful=0 })
--- NetHack Caveman Cav-filb.lua	$NHDT-Date: 1652196001 2022/05/10 15:20:01 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Caveman Cav-filb.lua	$NHDT-Date: 1781994866 2026/06/20 22:34:26 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -21835,7 +22025,7 @@ des.monster({ class = "h", peaceful=0 })
 des.monster({ class = "h", peaceful=0 })
 des.monster({ id = "hill giant", peaceful=0 })
 des.monster({ id = "hill giant", peaceful=0 })
--- NetHack Healer Hea-fila.lua	$NHDT-Date: 1652196003 2022/05/10 15:20:03 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Healer Hea-fila.lua	$NHDT-Date: 1781994866 2026/06/20 22:34:26 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991, 1993 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -21877,7 +22067,7 @@ des.trap()
 des.trap()
 des.trap()
 des.trap()
--- NetHack Healer Hea-filb.lua	$NHDT-Date: 1652196003 2022/05/10 15:20:03 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Healer Hea-filb.lua	$NHDT-Date: 1781994867 2026/06/20 22:34:27 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991, 1993 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -21927,7 +22117,7 @@ des.trap()
 des.trap()
 des.trap()
 des.trap()
--- NetHack Knight Kni-fila.lua	$NHDT-Date: 1652196004 2022/05/10 15:20:04 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Knight Kni-fila.lua	$NHDT-Date: 1781994867 2026/06/20 22:34:27 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991,92 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -21962,7 +22152,7 @@ des.trap()
 des.trap()
 des.trap()
 des.trap()
--- NetHack Knight Kni-filb.lua	$NHDT-Date: 1652196005 2022/05/10 15:20:05 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Knight Kni-filb.lua	$NHDT-Date: 1781994868 2026/06/20 22:34:28 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991,92 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -22002,7 +22192,7 @@ des.trap()
 des.trap()
 des.trap()
 des.trap()
--- NetHack Monk Mon-fila.lua	$NHDT-Date: 1652196006 2022/05/10 15:20:06 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Monk Mon-fila.lua	$NHDT-Date: 1781994868 2026/06/20 22:34:28 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -22063,7 +22253,7 @@ des.room({ type = "ordinary",
 })
 
 des.random_corridors()
--- NetHack Monk Mon-filb.lua	$NHDT-Date: 1652196006 2022/05/10 15:20:06 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Monk Mon-filb.lua	$NHDT-Date: 1781994869 2026/06/20 22:34:29 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -22123,7 +22313,7 @@ des.room({ type = "ordinary",
 })
 
 des.random_corridors()
--- NetHack Priest Pri-fila.lua	$NHDT-Date: 1652196008 2022/05/10 15:20:08 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Priest Pri-fila.lua	$NHDT-Date: 1781994870 2026/06/20 22:34:30 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -22178,7 +22368,7 @@ des.room({ type = "morgue",
 })
 
 des.random_corridors()
--- NetHack Priest Pri-filb.lua	$NHDT-Date: 1652196008 2022/05/10 15:20:08 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Priest Pri-filb.lua	$NHDT-Date: 1781994870 2026/06/20 22:34:30 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -22240,7 +22430,7 @@ des.room({ type = "morgue",
 })
 
 des.random_corridors()
--- NetHack Ranger Ran-fila.lua	$NHDT-Date: 1652196009 2022/05/10 15:20:09 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Ranger Ran-fila.lua	$NHDT-Date: 1781994871 2026/06/20 22:34:31 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -22275,7 +22465,7 @@ des.monster({ id = "forest centaur", peaceful=0 })
 des.monster({ id = "forest centaur", peaceful=0 })
 des.monster({ class = "C", peaceful=0 })
 des.monster({ id = "scorpion", peaceful=0 })
--- NetHack Ranger Ran-filb.lua	$NHDT-Date: 1652196010 2022/05/10 15:20:10 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Ranger Ran-filb.lua	$NHDT-Date: 1781994871 2026/06/20 22:34:31 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -22314,7 +22504,7 @@ des.monster({ id = "mountain centaur", peaceful=0 })
 des.monster({ class = "C", peaceful=0 })
 des.monster({ id = "scorpion", peaceful=0 })
 des.monster({ id = "scorpion", peaceful=0 })
--- NetHack Rogue Rog-fila.lua	$NHDT-Date: 1652196011 2022/05/10 15:20:11 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Rogue Rog-fila.lua	$NHDT-Date: 1781994872 2026/06/20 22:34:32 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1992 by Dean Luick
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -22378,7 +22568,7 @@ des.room({ type = "ordinary",
 })
 
 des.random_corridors()
--- NetHack Rogue Rog-filb.lua	$NHDT-Date: 1652196011 2022/05/10 15:20:11 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Rogue Rog-filb.lua	$NHDT-Date: 1781994872 2026/06/20 22:34:32 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1992 by Dean Luick
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -22442,7 +22632,7 @@ des.room({ type = "ordinary",
 })
 
 des.random_corridors()
--- NetHack Samurai Sam-fila.lua	$NHDT-Date: 1652196013 2022/05/10 15:20:13 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Samurai Sam-fila.lua	$NHDT-Date: 1781994873 2026/06/20 22:34:33 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-92 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -22479,7 +22669,7 @@ des.trap()
 des.trap()
 des.trap()
 des.trap()
--- NetHack Samurai Sam-filb.lua	$NHDT-Date: 1652196013 2022/05/10 15:20:13 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Samurai Sam-filb.lua	$NHDT-Date: 1781994873 2026/06/20 22:34:33 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-92 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -22539,7 +22729,7 @@ des.trap()
 des.trap()
 des.trap()
 des.trap()
--- NetHack Tourist Tou-fila.lua	$NHDT-Date: 1652196014 2022/05/10 15:20:14 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Tourist Tou-fila.lua	$NHDT-Date: 1781994874 2026/06/20 22:34:34 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991,92 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -22574,7 +22764,7 @@ des.monster({ id = "soldier", peaceful = 0 })
 des.monster({ id = "soldier", peaceful = 0 })
 des.monster({ class = "H", peaceful = 0 })
 des.monster({ class = "C", peaceful = 0 })
--- NetHack Tourist Tou-filb.lua	$NHDT-Date: 1652196015 2022/05/10 15:20:15 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Tourist Tou-filb.lua	$NHDT-Date: 1781994874 2026/06/20 22:34:34 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991,92 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -22613,7 +22803,7 @@ des.monster({ class = "H", peaceful = 0 })
 des.monster({ class = "H", peaceful = 0 })
 des.monster({ class = "C", peaceful = 0 })
 des.monster("s")
--- NetHack Valkyrie Val-fila.lua	$NHDT-Date: 1652196016 2022/05/10 15:20:16 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Valkyrie Val-fila.lua	$NHDT-Date: 1781994875 2026/06/20 22:34:35 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -22653,7 +22843,7 @@ des.trap()
 des.trap()
 des.trap()
 des.trap()
--- NetHack Valkyrie Val-filb.lua	$NHDT-Date: 1652196016 2022/05/10 15:20:16 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Valkyrie Val-filb.lua	$NHDT-Date: 1781994875 2026/06/20 22:34:35 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -22695,7 +22885,7 @@ des.trap("fire")
 des.trap("fire")
 des.trap()
 des.trap()
--- NetHack Wizard Wiz-fila.lua	$NHDT-Date: 1652196018 2022/05/10 15:20:18 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Wizard Wiz-fila.lua	$NHDT-Date: 1781994876 2026/06/20 22:34:36 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1992 by David Cohrs
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -22754,7 +22944,7 @@ des.room({ type = "ordinary",
 })
 
 des.random_corridors()
--- NetHack Wizard Wiz-filb.lua	$NHDT-Date: 1652196018 2022/05/10 15:20:18 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Wizard Wiz-filb.lua	$NHDT-Date: 1781994876 2026/06/20 22:34:36 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1992 by David Cohrs
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -22812,7 +23002,7 @@ des.room({ type = "ordinary",
 })
 
 des.random_corridors()
--- NetHack Archeologist Arc-loca.lua	$NHDT-Date: 1652195999 2022/05/10 15:19:59 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Archeologist Arc-loca.lua	$NHDT-Date: 1781994864 2026/06/20 22:34:24 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -22957,7 +23147,7 @@ des.monster("human mummy")
 des.monster("human mummy")
 des.monster("human mummy")
 des.monster("M")
--- NetHack Barbarian Bar-loca.lua	$NHDT-Date: 1652196000 2022/05/10 15:20:00 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Barbarian Bar-loca.lua	$NHDT-Date: 1781994865 2026/06/20 22:34:25 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -23064,7 +23254,7 @@ des.monster({ id = "rock troll", peaceful=0 })
 des.monster({ id = "rock troll", peaceful=0 })
 des.monster({ class = "T", peaceful=0 })
 
--- NetHack Caveman Cav-loca.lua	$NHDT-Date: 1652196002 2022/05/10 15:20:02 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Caveman Cav-loca.lua	$NHDT-Date: 1781994866 2026/06/20 22:34:26 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -23165,7 +23355,7 @@ des.wallify()
 --	defeat Tiamat in combat to gain the artifact you have
 --	been assigned to retrieve.
 --
--- NetHack Healer Hea-loca.lua	$NHDT-Date: 1652196004 2022/05/10 15:20:04 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Healer Hea-loca.lua	$NHDT-Date: 1781994867 2026/06/20 22:34:27 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991, 1993 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -23262,7 +23452,7 @@ des.monster({ class = "S", peaceful=0 })
 des.monster({ class = "S", peaceful=0 })
 des.monster({ class = "S", peaceful=0 })
 des.monster({ class = "S", peaceful=0 })
--- NetHack Knight Kni-loca.lua	$NHDT-Date: 1652196005 2022/05/10 15:20:05 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Knight Kni-loca.lua	$NHDT-Date: 1781994868 2026/06/20 22:34:28 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991,92 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -23399,7 +23589,7 @@ des.monster({ id = "ochre jelly", peaceful=0 })
 des.monster({ id = "ochre jelly", peaceful=0 })
 des.monster({ id = "ochre jelly", peaceful=0 })
 des.monster({ class = "j", peaceful=0 })
--- NetHack Monk Mon-loca.lua	$NHDT-Date: 1652196007 2022/05/10 15:20:07 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Monk Mon-loca.lua	$NHDT-Date: 1781994869 2026/06/20 22:34:29 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -23497,7 +23687,7 @@ des.monster("xorn")
 des.monster("xorn")
 des.monster("xorn")
 des.monster("xorn")
--- NetHack Priest Pri-loca.lua	$NHDT-Date: 1652196009 2022/05/10 15:20:09 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack Priest Pri-loca.lua	$NHDT-Date: 1781994870 2026/06/20 22:34:30 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -23570,7 +23760,7 @@ des.trap({ coord = { 25,09 } })
 des.trap()
 des.trap()
 -- No random monsters - the morgue generation will put them in.
--- NetHack Ranger Ran-loca.lua	$NHDT-Date: 1652196010 2022/05/10 15:20:10 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Ranger Ran-loca.lua	$NHDT-Date: 1781994871 2026/06/20 22:34:31 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -23649,7 +23839,7 @@ des.monster({ id = "scorpion", peaceful=0 })
 des.monster({ class = "s", peaceful=0 })
 des.monster({ class = "s", peaceful=0 })
 
--- NetHack Rogue Rog-loca.lua	$NHDT-Date: 1652196012 2022/05/10 15:20:12 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Rogue Rog-loca.lua	$NHDT-Date: 1781994872 2026/06/20 22:34:32 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1992 by Dean Luick
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -23748,7 +23938,7 @@ des.monster({ id = "chameleon", peaceful=0 })
 des.monster({ id = "chameleon", peaceful=0 })
 des.monster({ id = "chameleon", peaceful=0 })
 des.monster({ id = "chameleon", peaceful=0 })
--- NetHack Samurai Sam-loca.lua	$NHDT-Date: 1652196014 2022/05/10 15:20:14 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.1 $
+-- NetHack Samurai Sam-loca.lua	$NHDT-Date: 1781994873 2026/06/20 22:34:33 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.2 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-92 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -23889,7 +24079,7 @@ des.monster({ id = "samurai", x=32, y=05, peaceful=0 })
 des.monster({ id = "samurai", x=32, y=14, peaceful=0 })
 des.monster({ id = "samurai", x=33, y=14, peaceful=0 })
 des.monster({ id = "samurai", x=34, y=14, peaceful=0 })
--- NetHack Tourist Tou-loca.lua	$NHDT-Date: 1652196015 2022/05/10 15:20:15 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Tourist Tou-loca.lua	$NHDT-Date: 1781994874 2026/06/20 22:34:34 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991,92 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -24042,7 +24232,7 @@ des.monster("giant spider")
 des.monster("giant spider")
 des.monster("s")
 des.monster("s")
--- NetHack Valkyrie Val-loca.lua	$NHDT-Date: 1652196017 2022/05/10 15:20:17 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Valkyrie Val-loca.lua	$NHDT-Date: 1781994875 2026/06/20 22:34:35 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -24127,7 +24317,7 @@ des.monster({ id = "fire giant", peaceful = 0 })
 des.monster({ id = "fire giant", peaceful = 0 })
 des.monster({ class = "H", peaceful = 0 })
 
--- NetHack Wizard Wiz-loca.lua	$NHDT-Date: 1652196019 2022/05/10 15:20:19 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Wizard Wiz-loca.lua	$NHDT-Date: 1781994876 2026/06/20 22:34:36 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1992 by David Cohrs
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -24278,7 +24468,7 @@ des.monster("vampire bat")
 des.monster("vampire bat")
 des.monster("vampire bat")
 des.monster({ class = "i", peaceful = 0 })
--- NetHack Archeologist Arc-strt.lua	$NHDT-Date: 1652195999 2022/05/10 15:19:59 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Archeologist Arc-strt.lua	$NHDT-Date: 1781994864 2026/06/20 22:34:24 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -24394,7 +24584,7 @@ des.monster("S", 30, 03)
 des.monster("M", 20, 17)
 des.monster("S", 67, 02)
 des.monster("S", 10, 19)
--- NetHack Barbarian Bar-strt.lua	$NHDT-Date: 1652196001 2022/05/10 15:20:01 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack Barbarian Bar-strt.lua	$NHDT-Date: 1781994865 2026/06/20 22:34:25 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -24493,7 +24683,7 @@ local ogrelocs = selection.floodfill(37,7) & selection.area(40,03, 45,20)
 for i = 0, 11 do
    des.monster({ id = "ogre", coord = ogrelocs:rndcoord(1), peaceful = 0 })
 end
--- NetHack Caveman Cav-strt.lua	$NHDT-Date: 1652196002 2022/05/10 15:20:02 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.3 $
+-- NetHack Caveman Cav-strt.lua	$NHDT-Date: 1781994866 2026/06/20 22:34:26 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -24587,7 +24777,7 @@ des.monster({ id ="bugbear", x=65, y=09, peaceful=0 })
 des.monster({ id ="bugbear", x=67, y=10, peaceful=0 })
 des.monster({ id ="bugbear", x=69, y=11, peaceful=0 })
 des.wallify()
--- NetHack Healer Hea-strt.lua	$NHDT-Date: 1652196004 2022/05/10 15:20:04 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Healer Hea-strt.lua	$NHDT-Date: 1781994867 2026/06/20 22:34:27 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.3 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991, 1993 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -24696,7 +24886,7 @@ des.monster({ class = "S", peaceful=0 })
 des.monster({ class = "S", peaceful=0 })
 des.monster({ class = "S", peaceful=0 })
 des.monster({ class = "S", peaceful=0 })
--- NetHack Knight Kni-strt.lua	$NHDT-Date: 1652196006 2022/05/10 15:20:06 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack Knight Kni-strt.lua	$NHDT-Date: 1781994868 2026/06/20 22:34:28 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991,92 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -24805,7 +24995,7 @@ des.monster({ id = "quasit", x=36, y=00, peaceful=0 })
 for i = 1, 2 + nh.rn2(3) do
     des.monster({ id = "warhorse", peaceful = 1, inventory = function() if percent(50) then des.object("saddle"); end end });
 end
--- NetHack Monk Mon-strt.lua	$NHDT-Date: 1652196007 2022/05/10 15:20:07 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack Monk Mon-strt.lua	$NHDT-Date: 1781994869 2026/06/20 22:34:29 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.9 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -24913,7 +25103,7 @@ end
 des.object({ id="tin", coord = {29, 9}, quantity=2, montype="spinach" })
 -- ensure enough vegetarian food generates for vegetarian games
 des.object({ id="food ration", coord = {46, 4}, quantity = 4})
--- NetHack Priest Pri-strt.lua	$NHDT-Date: 1652196009 2022/05/10 15:20:09 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.5 $
+-- NetHack Priest Pri-strt.lua	$NHDT-Date: 1781994870 2026/06/20 22:34:30 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.6 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -25015,7 +25205,7 @@ des.trap()
 for i = 1, 12 do
    des.monster("human zombie", spacelocs:rndcoord(1));
 end
--- NetHack Ranger Ran-strt.lua	$NHDT-Date: 1652196011 2022/05/10 15:20:11 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Ranger Ran-strt.lua	$NHDT-Date: 1781994871 2026/06/20 22:34:31 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -25116,7 +25306,7 @@ des.monster({ id = "plains centaur", peaceful=0 })
 des.monster({ id = "plains centaur", peaceful=0 })
 des.monster({ id = "scorpion", peaceful=0 })
 des.monster({ id = "scorpion", peaceful=0 })
--- NetHack Rogue Rog-strt.lua	$NHDT-Date: 1652196012 2022/05/10 15:20:12 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack Rogue Rog-strt.lua	$NHDT-Date: 1781994872 2026/06/20 22:34:32 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.7 $
 --	Copyright (c) 1992 by Dean Luick
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -25275,14 +25465,14 @@ des.monster({ id = "leprechaun", x=74, y=04, peaceful=0 })
 des.monster({ id = "leprechaun", x=25, y=19, peaceful=0 })
 des.monster({ id = "water nymph", x=25, y=18, peaceful=0 })
 -- Wandering the streets.
-for i=1,4 + math.random(1 - 1,1*3)  do
+for i = 1, math.random(4,7) do
    des.monster({ id = "water nymph", coord = streets:rndcoord(1), peaceful=0 })
    des.monster({ id = "leprechaun", coord = streets:rndcoord(1), peaceful=0 })
 end
-for i=1,7 + math.random(1 - 1,1*3)  do
+for i = 1, math.random(7,10) do
    des.monster({ id = "chameleon", coord = streets:rndcoord(1), peaceful=0 })
 end
--- NetHack Samurai Sam-strt.lua	$NHDT-Date: 1695932714 2023/09/28 20:25:14 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.4 $
+-- NetHack Samurai Sam-strt.lua	$NHDT-Date: 1781994874 2026/06/20 22:34:34 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-92 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -25380,7 +25570,7 @@ des.monster("wolf", 75, 09)
 des.monster({ id = "ninja", x=73, y=05, peaceful=0 })
 des.monster({ id = "ninja", x=68, y=02, peaceful=0 })
 des.monster("stalker")
--- NetHack Tourist Tou-strt.lua	$NHDT-Date: 1652196016 2022/05/10 15:20:16 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.3 $
+-- NetHack Tourist Tou-strt.lua	$NHDT-Date: 1781994875 2026/06/20 22:34:35 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991,92 by M. Stephenson, P. Winner
 -- NetHack may be freely redistributed.  See license for details.
@@ -25514,7 +25704,7 @@ des.trap()
 des.trap()
 des.trap()
 des.trap()
--- NetHack Valkyrie Val-strt.lua	$NHDT-Date: 1652196017 2022/05/10 15:20:17 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.2 $
+-- NetHack Valkyrie Val-strt.lua	$NHDT-Date: 1781994876 2026/06/20 22:34:36 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1989 by Jean-Christophe Collet
 --	Copyright (c) 1991-2 by M. Stephenson
 -- NetHack may be freely redistributed.  See license for details.
@@ -25614,7 +25804,7 @@ des.monster("fire ant", 63, 17)
 des.monster({ id = "fire giant", x=18, y=01, peaceful = 0 })
 des.monster({ id = "fire giant", x=10, y=16, peaceful = 0 })
 
--- NetHack Wizard Wiz-strt.lua	$NHDT-Date: 1652196019 2022/05/10 15:20:19 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.3 $
+-- NetHack Wizard Wiz-strt.lua	$NHDT-Date: 1781994877 2026/06/20 22:34:37 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.4 $
 --	Copyright (c) 1992 by David Cohrs
 -- NetHack may be freely redistributed.  See license for details.
 --
@@ -25807,6 +25997,22 @@ wmq{cnkvWO^][WO^][W
 ccvcyoe${`hfazO^][W
 gpko0bnk}t^][WO^][W
 umk|xrc}mb^][WO^][W
+ujmzt!g}mO^][WO^][W
+nuhxef][WO^][WO^][W
+qwcictq[WO^][WO^][W
+`akz~^][WO^][WO^][W
+sg`(tnv[WO^][WO^][W
+smfgd!alasjgjWO^][W
+emkrus][WO^][WO^][W
+qmm{o"gisjnazO^][W
+mjqzwn{bWO^][WO^][W
+qjadtecczyg][WO^][W
+uko|q`nmcO^][WO^][W
+vgvm}nww|qbjaWO^][W
+sctaus"pi`hp[WO^][W
+bjkx|dv[WO^][WO^][W
+qmieum`qoO^][WO^][W
+pwa{d!qtztv[WO^][W
 fpqmO^][WO^][WO^][W
 Bjvacuoe{=upam0lmj{ddp
 mwgc0rwgcus][WO^][W
@@ -25919,6 +26125,7 @@ vkoaO^][WO^][WO^][W
 qgazO^][WO^][WO^][W
 BMFG\^][WO^][WO^][W
 vkvm0rjez{^][WO^][W
+rvvii!vejO^][WO^][W
 cmlzrte[WO^][WO^][W
 lcjlum`qoO^][WO^][W
 ralzdfmfrte[WO^][W
@@ -25965,7 +26172,6 @@ ujvmu,jaitdf$eoiaq
 *Gh(@nnhg0Ekej|n][W
 mkp||d"czudl$eqo][W
 vgmoxug`(Snoti~hmj(St`a
-.`+|qsf[WO^][WO^][W
 lcjju`ptaw^][WO^][W
 cmj{qh/oadugjWO^][W
 uka%diwh}O^][WO^][W
@@ -27673,7 +27879,7 @@ discworld novel*
 	shall come forth, and sever the wicked from among the just,
 	and shall cast them into the furnace of fire; there shall be
 	wailing and gnashing of teeth.
-		[ The Gospel According to Matthew, 13:37-42, 49-50 ]
+		[ The Gospel According to Matthew, 13:37-40, 49-50 ]
 	Cold wind blows.
 	The gods look down in anger on this poor child.
 
@@ -33426,7 +33632,7 @@ Xmq(cdv$ei!jaibu"en|`oa&0![k}0fcrm0lg$`u`ppjesl*WO^][WO^][W
 0141f
 01623
 0170a
-0181f
+01849
 ---
 #,*&yu"m{0scp`us"`acbmjkusvmfw!vk(rd"gg~gpkfddf$yuj$|xd
 gmhdvkjo0ujagbdo$nbno$SR`iaz<!Emd|-"eft!Qkdwc}$00;3=M/
@@ -33540,10 +33746,11 @@ cg$g|e"eft!om{usn}&
 Uja(~`oa(g"Adrdpa|x!oeq0rvva{d"bmqs"mfdn"p`u!jaibuq$gv!vla~d"afulka{<!kb
 ujk}0emw|0vpm|u!kp(eqmj(dig$obnwjl0`v$|xx"bmuu,$(Yg"p`t"iiyovea~dqp(dig
 tvigcu"gi|l.$|xx"wivdv}(ghnh(rd"eatdf$obdcpdi-"f}d!`aqsg$durv$|xx"gdelq}
-gga|0raqnv!vlm0hlwkbhrpao.$kqoaad|hlc(yuq$xugjku/
+gga|0raqnv!vlm0hlwkbhrpao.$kqoaad|hlc(yuq$xugjku-"kz0uj}(g`{sibe
+rukzt,cve0cpai{!vlm0upqku/
 ---
 
-    NetHack version 3.7.0 [work-in-progress]
+    NetHack version 5.0.0 [work-in-progress]
 
 Options compiled into this edition:
 
@@ -33558,13 +33765,13 @@ Options compiled into this edition:
     highlighting, suspend command, terminal info library, timed wait for
     display effects, system configuration at run-time, show stack trace on
     error, launch browser to report issues, save and bones files accepted
-    from version 3.7.0 only, and basic NetHack features.
+    from version 5.0.0 only, and basic NetHack features.
 
 Supported windowing system:
 
     "tty" (traditional text with optional line-drawing).
 
-NetHack 3.7.* uses the 'Lua' interpreter to process some data:
+NetHack 5.0.* uses the 'Lua' interpreter to process some data:
 
     :LUACOPYRIGHT:
 
@@ -33578,7 +33785,7 @@ NetHack 3.7.* uses the 'Lua' interpreter to process some data:
      The above copyright notice and this permission notice shall be
      included in all copies or substantial portions of the Software."
 
--- NetHack quest.lua	$NHDT-Date: 1726894904 2024/09/21 05:01:44 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.10 $
+-- NetHack quest.lua	$NHDT-Date: 1781994887 2026/06/20 22:34:47 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.11 $
 -- Copyright (c) 2021 by Pasi Kallinen
 -- NetHack may be freely redistributed.  See license for details.
 -- TODO:
@@ -36666,11 +36873,12 @@ So, have you succeeded in your quest for the Amulet of Yendor?"]],
    },
 }
 #	This data file is generated by 'makedefs'.  Do not edit. 
-0374,023875,00006d;0397,025762,005db0;0,0,00c252
+0390,024924,00006d;0397,025762,0061c9;0,0,00c66b
 @"fdyofbg|e"gi~!`a(fdp}(ergb}|!kb(inw#zu!vaduqcp`yb,[WO^][W
 @"gi~eghirswi(qgdmpue"sadi"wmfdl$kqofhmc!qlggr"p`u!ueq0vkp`0`"iiwhaed0mkc`d/
 @"gzu`o$xyd"lic!vsg0tqa{*!dkgt/,*(qof$m~ugv|qhlim~u,[WO^][W
 @"gzirved0qne|u!oea|!umd|!lk|0sww|>^][WO^][WO^][WO^][WO^][W
+@"`mqe"fgtx"iii!rvgddap(inwv(|hta(rnf}&0!@q|0nlhq0`l$addo$kqo"tzugg|0`l$addo*
 @"oid`le(}hel|0rnmku!c$so$a~!vsg>^][WO^][WO^][WO^][WO^][W
 @"iiwha$~lkp(`tot(snwhl0cg$}cddqd0gmv(wnwveqofw&O^][WO^][W
 @"jq}qj$c~nuw(xnu$|!wjdbi$kx`kj{>^][WO^][WO^][WO^][WO^][W
@@ -36698,7 +36906,6 @@ Ccjlqfkjo0vmqftr"lm|qq$cudr$}`!ctxu`pefsdq*WO^][WO^][WO^][W
 Ccw`yoe$eoqpmbr"sadi"e(rnu$ac!lk|0rwg`0`"cge"mlu`,[WO^][W
 Cg$kqsgb}| "$\xd"Saj`p`(}`{$x|`l$i~!cijerj%WO^][WO^][WO^][W
 Cg$fybg$|!c$fesqa20!Rq|0`ueq0xmqz0vgexo"eft!vecu!mbn0xmqz0bnk|xdq*
-Cgmfw!fmourval0hq$i0qcmfvtnhq0rnk0qpkkurq*WO^][WO^][WO^][W
 Cnef{!qgzmnw(}`ia(}npa(yovazurvmfw!paithlc&O^][WO^][WO^][W
 Cnmft>"$Kqual(q!dhgqukjo0d{a)O^][WO^][WO^][WO^][WO^][WO^][W
 Cmkccdnhmbr"jmfdp$zu`f${ssmhdc:"p`ux"iawiv$ouu"gibskal0`ueq>
@@ -36714,6 +36921,7 @@ Emj/d!dkzwdv%(0Mcvou!fkoc!cvm0LWG@0icvlus"pg0jkhd0ujef0mkp||d"`gwr,
 Emj/d!ne{x!mq|0`v$xunrhm0vjmdu!`ha~eg`&O^][WO^][WO^][WO^][W
 Emj/d!oa{c!um|x!qlg`jgaxusq((s"}ge&nh(wdv$|xd"C}ymf$ivugv(inw*
 Epeooq$fuwgv(gikt(digmz0bjmdtsgj30ujaq0vmqdto%p(vdgh(yu#[W
+Euezfdq$}cd"p`uhp$k|nco{0um$cudr$|xdkv(tskjcc!akg|/][WO^][W
 Dcp(inwv(s`pvgdr,$(Dig}/bd"cge"bgb!{k}b!g}mc/][WO^][WO^][W
 Dcpa~f"e(vsgaryoe${`igvm0hq$dyjg$mqukjo0`"}mdh,[WO^][WO^][W
 Dcpa~f"e({hnhmb!`am0hq$dyjg$mqukjo0`"wksrmg~/][WO^][WO^][W
@@ -36725,9 +36933,10 @@ Dnb(snpt{ur"ezu!kjklre|ycna(ghvl(dig${qofii~-"eft!cp(dhoa{0uja(wnfw(qr"sm|m,
 Dnrm~!ahgqjq$kqolk|0sww|>^][WO^][WO^][WO^][WO^][WO^][WO^][W
 Dnrmc!aef0ighx0xmq(vdgh(|dqw(dhpal>^][WO^][WO^][WO^][WO^][W
 Dtaf0dtmd0qnequsq$`qwg$i0fwezthcj(qoead>^][WO^][WO^][WO^][W
+Dtaf0uja(}nqp(`nuazvtn$`usma{0rmimdhoa{0ogal0um$ye`db(qvc}(digmz0hln}bhgw&
 Dtaz0gmqoxu"sadi"ef0dlg`qoval0umk|x>][WO^][WO^][WO^][WO^][W
 Dtaz0upmmt!paithlc(gikhm0bmjnerg`7O^][WO^][WO^][WO^][WO^][W
-Dtaz0upmmt!vk(`tv$i0upkd|!kj|!c$dqsea(rnz;WO^][WO^][WO^][W
+Dtaz0upmmt!vk(|nao(q!vvg|m"mfchfa(q!nezwd"fgh>][WO^][WO^][W
 Dtaz0vmjlusg`(gi{$g~d"sgemf$qov$|!fmx0rmimdikjo0hl$i0qmpao=
 Dztm~rkrm0bcimb`q$`qwg$xuogpzqukjo0gne{x!nmoxuq*WO^][WO^][W
 Dzpzq!qpiysae{ur"hmqe"pg0dzpzq!na~umq*WO^][WO^][WO^][WO^][W
@@ -36743,6 +36952,7 @@ Fmp(q!sqmcukkf/!"Pzi!pak>fcimc/pkoednmcu/la|x`ao&O^][WO^][W
 Fpe~u!pkjrdpw(cnoa|ylgw(wdv$zybj*WO^][WO^][WO^][WO^][WO^][W
 Fw}(]nlpiw!iam`r"lac!qgzmnw(yo"e(r`e*WO^][WO^][WO^][WO^][W
 Icjl|d"}ges"bdqriw(s`panemn}(=,"p`usg$eyfjp(rd"e(wimw|0hlwatd#
+Ige~i,fq|i!`kgdr"gi~!rvgddap(}npa(dicj(ztqp(inwv(vdgp&O^][W
 Imhq0vcpmb!je{0lcjq0tqa{>^][WO^][WO^][WO^][WO^][WO^][WO^][W
 Imv{ur"pzerv$|xdkv(bhfazc-"a~uo"s`uo"jgd!qk(tdqazfdf*WO^][W
 Iwjous"m{0`"gg~gwwa~f"ap`dpmm~bg$ns"e(tne%WO^][WO^][WO^][W
@@ -36759,6 +36969,7 @@ Hd$qt"si~u"pg0ikp$0tqa(q!feowdp*WO^][WO^][WO^][WO^][WO^][W
 Hd$qt"si~u"pg0smf(q!qlg`-"pzqhl$qtp$lf,[WO^][WO^][WO^][W
 Hd$qt%vm0mmw|<!vvq0cw}a~f"e(}`r$fuyv$|ylg$qt%vm0hl$i0rjkx>
 Hd$qtp$`qofw(qsg$obdcwq<!ulq0omp(g`ql(digi7O^][WO^][WO^][W
+Hd$qtp$addow(wdv$lurvvgidf((inw$usgj/d!uaibhlc(dig$zyfjp(bhlc&
 Hlwatd"e(cimt(inw$juuvaz0ucom0`"hgj"e|0uja(`skgm0ucc{0cgbgbd"f}ihlc(qo{p`yoe*
 Hv$ac!`el0lcjfusq$|!wwm0`"si~e"mf0`"w`q,[WO^][WO^][WO^][W
 Hv$ac!fefwdpk}c!vk(fhqm|0`"czqwg}ibe"e|0lk`fyfjp&O^][WO^][W
@@ -36767,7 +36978,7 @@ Hv$ac!pqesg`(dicp(dig$_y{cvl0icw(xhpal0rmim0ighx>^][WO^][W
 Hv$ac!vlm0mgp|us"#k7!cjl0omp(7d%$|x`v$kx`lcmc!qpidtq$|!qpidtg*
 Hv$eyfjp(rd"e(wnm`(yege(dn"knvdp$|xd"qfybmvf0`"v}rx,[WO^][W
 Hv$tn`(rd"tmstnmibm{${qe"smbd"}ges"`gw!vqz~df$|!qpg~d,[W
-Hv#{0`"dl7!ge|c!b`/0vmvdt/][WO^][WO^][WO^][WO^][WO^][WO^][W
+Hv#{0`"#l7!ge|c!%`/0vmvdt/][WO^][WO^][WO^][WO^][WO^][WO^][W
 Kww|0cggierg$ad!qeqc!PAIT!OA(tngwf7u"imqo"}ge!qlgemf*WO^][W
 Jgax0xmqz0`pigbr"eqx"bzl"v}cu,[WO^][WO^][WO^][WO^][WO^][W
 Jgax0xmqz0vgexop}(qvc}(vsmi(qbk`{>^][WO^][WO^][WO^][WO^][W
@@ -36788,6 +36999,7 @@ Owv{ur"ezu!vviyog`(dn"pgebj$fqjg`(`dpwg~r8$(dig}(tnl#|0icve0ujae>
 O{ixxr"gi~!wjdyoi$esg$|x`l$qtp$kx`kj(}`kh&O^][WO^][WO^][W
 Nlgm0xmqz0mkp||d"`gw!umd|!`a(q!`mo0emc$0`l`(inw$ymn$ju!rvgee"kn0hv*
 Nlhq0ggii|d"ig~rvazc!aef0mc}(ufew&O^][WO^][WO^][WO^][WO^][W
+Nlhq0uja(}nqp(snlb}cdf$itwgj|esgv{0vmqdt!pait!aqzcdf$lurvvgi!cves"wkbnnh{>
 Nrafyoe$i0ukj(yr"`avgkg}|u.$mcqggaqmn}(gigj(inw$idugixd!kp(r`pa(x`l`mt 
 Npg{0`l`({hnhmb!`amc!qlibd"p`uhp$dyggw|img*WO^][WO^][WO^][W
 Npg{0em$fu"tzbpaidd"mf0ecvc0smkec/][WO^][WO^][WO^][WO^][W
@@ -36824,12 +37036,14 @@ Rmimdhoa{0lmj{ddpw(qsg$esg$dyjghq0um$nyfjp(u`al(ujaz0ujef0`vpisj"}ge/
 Rrmfqbj((s`pvgd-"eft!had|x")%0`"imqm"bad!dkz0`"j}brg%WO^][W
 Rwv~ywkjo0uja(vtnh(uyvafd!mb(dig$eyogw(snwhl0lgef0uje|0xmqz0mwgc0hq$kx`lca~f,
 Ucmfddf$eu`v$ac!grm~!okzu!qmk{dlmfw!vli~!rkacnl%WO^][WO^][W
+Ucom0xmqz0igedyoe$xukkfc!vk(dig$fuyv$duwgh)O^][WO^][WO^][W
 Ughm``vlq0hq$berv$i0upmk{;"$g~bg$qt"ofv"lgg!vk(tn"m|<!kp/c!ge{i/
 Uja(\drvmsicqf0Fmhl0Upq,d!kw(~n"`afhqmg~!mb(dig$Eqfkg(]dokzi!Te}|u,
 Uja(Ghxezt!dmftr"`mquj$|!`a(atkpm0`l$mhqgvauoaa&O^][WO^][W
 Uja(rdqp(upwmx}dlp(vnp$qtp$si$ac-"kn0bmqzcd.$|xd"igcu"ap`dlwafd,
 Uja(wnfw(tnl#|0`rtzubke|u!ra{{x"tzydqp`nf*WO^][WO^][WO^][W
 Uja(wnfw(ghnh(wdv$i~fp}(yg"}ge!imd|!{k}b!fko>^][WO^][WO^][W
+Uja(|dqw(}`emk0hl$qtp$iblmv$0uja(}npa(inw$kqo"elt/][WO^][W
 Uja(}`emk0lcvcus"m{0lkc`dhgv(dicj(dig${gnp`&O^][WO^][WO^][W
 Uja(}nmj(yr"jgd!vlm0nlhq0ige~uon}(rnf}(dn"mfvmwafsd"p`yr"ci}d,
 Uja(sa${ghlc{0ikw(sam{x!`vgqeqsgbe"ji}df$M|gpm{d!cp(inw*(0Xmq(thg*&>
@@ -36842,10 +37056,10 @@ Ujazu!kw(~n"libl"mf0qpeachlc(q!nezwd"`gw/][WO^][WO^][WO^][W
 Ujazu!kw(~nvla~f"ha{d"aidhlc(q!omeyb,[WO^][WO^][WO^][WO^][W
 Ujazu!mjku!ue{0`"Ofyfjp(~`oal0Mcjkummp(gim$dyjg`(dn"vatd"sadi"lac!nefsd"e(|nv*
 Ujaq0rc}(q!eadqukjger"g}rd"gi~!rezqm{~m0xmq&>/][WO^][WO^][W
-Ujaq0rc}(dicp(Ztkfduy"m{0`dviye"kn0`"si~e"kn0ekcoyoe*WO^][W
+Ujaq0rc}(dicp(Ztkfduy"m{0rmimgicp(qgpeat!mb(q!ueft!mb(theca~f,
 Ujaq0rc}(dicp(]dfq{q!uk}|e"ha{d"pg0qwp(inw$g~!c$xuegw|qm,[W
-Ujaq0rc}(dicp(Fmc`(|hta{1 #$&>/"mf0uja(}`xa{>^][WO^][WO^][W
-Ujaq0rc}(dicp(pDnfmbdvl/0hq$gvugj(gskp|uo"ejtv*WO^][WO^][W
+Ujaq0rc}(dicp(Fmc`(|hta{1 #$&>/"jmqs"p`u!oerur,[WO^][WO^][W
+Ujaq0rc}(dicp(7Dnfmbdvl/0hq$gvugj(gskp|uo"ejtv*WO^][WO^][W
 Ujaq0rc}(dicp(q!`eo0nd$`mfmfw!aef7u"lg|e"a~us{p`yoe*WO^][W
 Ujaq0rc}(dicp(q!`hmcrg`(dhl$gv!sqichv$eu`v$ac!c$yehao(}dch&
 Ujaq0rc}(dicp(q!ae|0`tkatr"pzqqq*WO^][WO^][WO^][WO^][WO^][W
@@ -36874,6 +37088,7 @@ Ujaq0rc}(dicp(q!wjasnpj(}hel|0cpmfw!{k}0mwgc>^][WO^][WO^][W
 Ujaq0rc}(dicp(q!ueft!mb(s`lgm|mcpao"m{0mkom0`"si~e"kn0qmhq}npt`>
 Ujaq0rc}(dicp(q!ueft!mb(|naoa~f"gi~!ahgcd"igbd"p`qo"n}cu"`gsq*
 Ujaq0rc}(dicp(q!ueft!mb(`nn}esrl(s`l$kx`lcm0xmqz0fcim>^][W
+Ujaq0rc}(dicp(q!um{u!algybg$gv!fkfqukkfc!na|c!{k}0bjkgcd"}ges"fdurqmfwr,
 Ujaq0rc}(dicp(q!umrqsf$ac!grm~!okzu!rkusdqd0uja(cdakft!vmeu!cvgeof*
 Ujaq0rc}(dicp(q!zkz~!ijggr"kn0om$grrvek|dq$xdl$xesqqa~f"}ge/
 Ujaq0rc}(dicp(qcwwa~f"e(ssg`ad!aezt!ak}|e"w`bi$qt"wgogv(s"hiddp*
@@ -36885,7 +37100,6 @@ Ujaq0rc}(dicp(qovmyed"`mqmgv{0`pa(qmueqc!kj|usgw|ue"mf0qpakynww(cumjmc/
 Ujaq0rc}(dicp(r`l`iwhlc(og#{0vmqftr"lm|qq$|!iam`!wt(og#{0`rtmqscjku/
 Ujaq0rc}(dicp(rnm~m0bcj(rd"`a|tval0cwp(~nv$kqoaad|df*WO^][W
 Ujaq0rc}(dicp(rx"hacugja~f"gibddqd|x.$qt"gi~!jaib!c${ubpa|0emkz1
-Ujaq0rc}(dicp(s`ng}|`vmfw!{k}b!fkfqukkfc!na|c!{k}0bjkgcd"}ges"fdurqmfwr,
 Ujaq0rc}(dicp(s`pvgdr"eft!aezbnv$behaa(}`{$a}qpk~u!{k}b!tm{ynl*
 Ujaq0rc}(dicp(s`ta(cqk`mbr"ezu!lk|0bmj{yegvmt!g|xuoqm~u!jai|uj$nnf*
 Ujaq0rc}(dicp(tdomoeq$eerv$du`ta(rdjmft!vlmys"tzy{g`(u`pp`|x"tgcrgw{ynlw&
@@ -36896,11 +37110,12 @@ Ujaq0rc}(dicp(tvcv~ur"higgwhdi!omft!vlmys"k~!`q{yogw{>^][W
 Ujaq0rc}(dicp(u`vmfw!c$jqu"ggbqqa(ghnh(}`ia(inw$jquv}$0gmv(q!ula|d,
 Ujaq0rc}(dicp(u`vmfw!c$kb`o$zqukkf0hq$i0roezd!ok~u/][WO^][W
 Ujaq0rc}(dicp(u`vmfw!`h}u!had|x"m{0bmkd0hd$qt"`g~&v$nyfjp(dig$nudnmfw/
+Ujaq0rc}(dicp(umtaf0`pigb!aef0imhl0uja(}nqp(}`emk>^][WO^][W
 Ujaq0rc}(dicp(uraexyoe$i0ewjounl$ac!mjdi!vlm0cgca~okjo0nd$|xd"aft/
 Ujaq0rc}(dicp(vdgha~f"ef0tlap`dapmt!fvivu"kn0`kv(yr"wgbu"kn0`"fzu`ip`bnwc`>
 Ujaq0rc}(dicp(vhl`a~f"e(stpwmt!evii!qpg~d"m{0`nsiir"fit!nqk{/
 Ujaq0rc}(dicp(w`kja~f"e(|dtad0hq$i~!g|xuskafsd"p`qu"gi~!peacd"}ges"wawivw&
-Ujaq0rc}(dicp(w`ppmb!qji{d"imqu"vibdn}(d`qpmc!ekgt!`q|0hv#{0rvmd|!jai|uj}&
+Ujaq0rc}(dicp(w`ppmb!qji{d"imqu"iii!lk|0ucw|u!ekgt!`q|0hv#{0rvmd|!jai|uj}&
 Ujaq0rc}(dicp(w`wj||dvw(g"`mhugvadx"lifd"e(xhf`m~!gjkx`lpmt!vk}si,
 Ujaq0rc}(dicp(wnkjo0um$`u`taf0hq$berv$i~nvlmb!ueq0nd$mcbcta~f"p`u!fqfwdmj&
 Ujaq0rc}(dicp(wnn`m~!leoqr"ezu!ne=``mlyoe$luok~m~r"e{0mmjo0`q$qt"ezu!vkg>
@@ -36908,6 +37123,7 @@ Ujaq0rc}(dicp(wsgidyoq$kqo"ii{d"}ge!dam|!akg|dp$|x`l$qt"ezu!lk>
 Ujaq0rc}(dicp(wsk`(rtew(on}(uykw|0hl$i0rvvasun}(S`ppmchcj(cdlwm>
 Ujaq0rc}(dicp(x`aombr"knddl$nudn$belr}(qcmq|0dcpa~f"jq}qjw&
 Ujaq0rc}(dicp(x`tmfw!rkdilmvxx!akfdsmh(gnl#|0rjkk{!{k}>^][W
+Ujaq0rc}(dicp(xdcha~f"tgdhmj{0ndpm~!akeu!kj(``kv{>^][WO^][W
 Ujaq0rc}(dicp(yg"m|7r"libe"cmdukjo0xmqz0gmkl0emsf0`lk|xdp$jyug$ktn`({hnh&
 Ujaq0rc}(dicp(yg"}ge!fkf7u"smqs"cdqrqa{0vj}(rnvlmb!um|x!aezbnvw7
 Ujaq0rc}(dicp(yg"}ge!lk|ybg$i0mmk{u!`kibe"fm~dcp`0xmq$0emj/d!qpm`!mj(yu,
@@ -36940,6 +37156,7 @@ Ujaq0rc}(dicp(on}(sick|ybq$kqo"oa|m"w`qiam`dpw(qof$ouu"eqx"sadi"m|>
 Ujaq0rc}(dicp(on}(vdoedu!okfcugv{0bcj(|`{$mwfq*WO^][WO^][W
 Ujaq0rc}(dicp(`mc}a~f"e(xnpj(bdchdi!`el0hq$zu`nhq0fmkl>^][W
 Ujaq0rc}(dicp(`sc}mb!cp(qo"edd`p$kqo"wg}dvmeur"ii{d"p`u!ue|us"p`usg$`m{*
+Ujaq0rc}(dicp(dig$zyfjp(g`l`(}`{$`umr$qt"g`qrg$i0o{ixx/][W
 Ujaq0rc}(dicp(bt`fa~f"e(wmmsa~f"tgdhmj(tngw(~nv$eqjg$ad!c$eqfkg(|`ot&
 Ujaq0rc}(dicp(cbchxumq$jubmim0ewhd0cggierg$|xd{#zu!lk|0`vli}dq*
 Ujaq0rc}(dicp(cimtcudrazc!fkf7u"ha{d"tasj/epur,[WO^][WO^][W
@@ -36949,6 +37166,7 @@ Ujaq0rc}(dicp(cimtcudrazc!mb|uo"lifd"e(|`pcm0`ok}~u"kn0lmjmi!kj(digmz0qwv{ur,
 Ujaq0rc}(dicp(cimtcudrazc!mb|uo"vm}dofmb!vla~fq$|x`v$qt"iawiv$nsea|>
 Ujaq0rc}(dicp(chlo{0`l`(qsokz0emj/d!omp<!vecu!{k}b!ahgqj"knv!lk1
 Ujaq0rc}(dicp(chlo{0swj(xnv$i~e"gg|e"eft!oefi!dhifnpw(yo"fmdvgaf>
+Ujaq0rc}(dicp(chvpa~f"kf0`"ri}qkvm7r"p`bnla(yr"sgbuj$|xd"`i~fgv&
 Ujaq0rc}(dicp(cocom0bjez}dpw(qsgj/d!alibhqiidha((ztqp(}tqmkqm,
 Ujaq0rc}(dicp(cnn`ausq$ibd"edg`{w(`sgtibdf$i~e"q{e`nhq0qpk|ubval>
 Ujaq0rc}(dicp(cnoa(ufew(snwhl0icpkx!kj(inwv(``ao$0mwgci!mv(~nv*
@@ -36965,6 +37183,7 @@ Ujaq0rc}(dicp(ddnaxsv$|b`rw(qsg$|xd"`mfhn#{0vmvc>^][WO^][W
 Ujaq0rc}(dicp(ddlc}0emj/d!uaib!pmfwr.$xx"w`tn`(inw;WO^][W
 Ujaq0rc}(dicp(ddlc}0ogrmb!qpmqm"cg|e"eddimqox!vlmi!uk}|e"fm0fmkl0`v$ad/
 Ujaq0rc}(dicp(dicp(gikg`0vcw(cumhm~!mjku!aef0cg${dnnaf0`eea~-"e{{!cjq0o{ixx/
+Ujaq0rc}(dicp(dig$jurv$qx"pg0gk|(inwv(yohqzydq$ac!c$xukkf>
 Ujaq0rc}(dicp(dig$Lumrlas!Mvismg$c~nuw(dicp(|hxezt!akz`rgw(qsgj/d!akfvtqmfw/
 Ujaq0rc}(dicp(dig$@qof$gv!Ghjusgp`0bcj(xnn`(eq"}ges"tzqxgv{>
 Ujaq0rc}(dicp(dig$Duqpakx`wj([hlc(yr"vasi"e{0Bpkmctq*WO^][W
@@ -36982,6 +37201,7 @@ Ujaq0rc}(dicp(dig$~ydu$nbno$i0gmc(smmql0hq$zu`nhq0wgvq0lmra~f,
 Ujaq0rc}(dicp(dig$qmnw(yo"w`qq$ibd"iitd"kn0dzpzq!jezt!oe|usked>
 Ujaq0rc}(dicp(digvm0`pa(qu"hmqrv$9%!ueqc!vk(|nqa(q!reab!mb(|dtm|qukkf0cmk|c/
 Ujaq0rc}(dicp(dipkyoe$o|`qw(wdow(yr"p`u!qeeu!cw(dipkyoe$zbiw&
+Ujaq0rc}(dicp(dn"fdbi$i0rjkk{hlc(cqjazu-"}ge!lamt!vlm0skc`d!qlaumf*
 Ujaq0rc}(dicp(dsgwxqrqmfw!c$jtn`mb!kw(`smfirm{$juoge|x!{k}>
 Ujaq0rc}(dicp(dswa(`nuaz0bmimc!dvg}!um|xhl*&>dzgm`u"s`uo"m|0ema{~&v*
 Ujaq0rc}(dicp(eokggboq$ibd"bg~e"kn0qpakynww(wdow&O^][WO^][W
@@ -36993,6 +37213,7 @@ Ujaq0rc}(dicp(ghvl(q!dhgqukjo0d{a(inw$ktn`(cdg$a~!vlm0ecvc>
 Ujaq0rc}(dicp(inw$ibd"h}sj{$av!{k}0bcj(wdv$i0tlmksl$|!ae|si"e(bt`}&
 Ujaq0rc}(dicp(inw$ibd"s`qu"}ge!ge|>^][WO^][WO^][WO^][WO^][W
 Ujaq0rc}(dicp(inw$kqo"ba~e"ji}df$u`rkfc!cp(qo"edd`p$av!{k}7sg$debi}&
+Ujaq0rc}(dicp(inw$kqo"cafd"tgdhmj{0nd$mhupe(xdcha~f"jmg!gjmbf{*
 Ujaq0rc}(dicp(inw$kqo"wivdn}(dnwg`0bmgcqupmku!gcoc!`q|0vj}(rnvlmb>
 Ujaq0rc}(dicp(inw$kqo%p(rsgec0`l$i}tna|0nd$zugnakdhmj&O^][W
 Ujaq0rc}(dicp(inw$lo%p(qmueqc!ea|0vje|0xmq(ghql(vnp*WO^][W
@@ -37020,6 +37241,7 @@ Wcixysgw(x`va(w`phas/][WO^][WO^][WO^][WO^][WO^][WO^][WO^][W
 Wcqdd!eqibeq$fuwgv(thqp}bc"p`uhp$Dsfw&O^][WO^][WO^][WO^][W
 Wgcmd`pmi~r"afzn{$dybjaf0`l`(cdcsmue,[WO^][WO^][WO^][WO^][W
 Wkwadnpw(qsg$zupwa{ddf$fu"pg0`rtdi!eafbk`m0um${xnromuqgv{>
+Vcj|0um$`u`n$nqrvaz/!"@a`!{k}b!rk|ynlw(g"lmqmkjo0hl$i0qmpao"kn0rramt 
 Vcpkx!mq|<!vlm0Vk~ibe"iawiv$klg$jqbi*WO^][WO^][WO^][WO^][W
 Vcpmb!vvi`r"lifd"jg0ddbmsu"kf0epeooq*WO^][WO^][WO^][WO^][W
 Vje|0hq$i0bmgcqupmku!eka~f"pg0dcp(gigj(yu"cmdr"l}~fp}7O^][W
@@ -37030,6 +37252,7 @@ Vj}(gnwhl0`l}je{$a~!jm{0rcjm0lkjl0dlczqwg$*Um`azuuj&7O^][W
 Vkw`yoe$|n"i}si"iii!`va~f"}ge!vkg0mkp||d,[WO^][WO^][WO^][W
 Xmq(s`l#|0cpmju!qkdthgv(qovw&O^][WO^][WO^][WO^][WO^][WO^][W
 Xmq(s`l#|0mge~u!c${xnr$|xsmqox!vlm0ccgc0emkz*!"p`usg$aco%p(og%
+Xmq(s`l#|0sgbdubv$mhqnk{ynlw&0!@q|0xmq(}hel|0sgwacu"p`ul,[W
 Xmq(}`{$lyrak~us"e(vhla(cqkvad!kj{yeg$i0qmpao"fgduna&O^][W
 Xmq(}`{$qov$|!fmx0hlpg0`"tgdhmj(g"fgdunal0cna{chlc{>^][W
 Xmq(}hel|0cg$irmg$|!`vard"e(tdokf0mmvl>^][WO^][WO^][WO^][W
