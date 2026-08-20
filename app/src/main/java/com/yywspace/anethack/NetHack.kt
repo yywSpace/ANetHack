@@ -238,7 +238,7 @@ class NetHack(
     }
 
     fun ynFunction(question: String, choices: String, ynNumber:LongArray, def: Char):Char {
-        if (question.startsWith("In what direction")) {
+        if (question.startsWith(context.resources.getString(R.string.menu_header_direction))) {
             return command.waitForCommand().key
         }
         return this.question.answerSelectQuestion(question, choices, ynNumber, def)

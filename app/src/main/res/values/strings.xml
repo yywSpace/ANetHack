@@ -120,4 +120,7 @@
     <string name="permission_denied">Permission request was denied, you must manually grant permission. </string>
     <string name="permission_denied_hint">NetHack need permission to play user sound.</string>
 
+    <!-- special menu header   -->
+    <string name="menu_header_direction">In what direction</string>
+
 </resources>
