@@ -31,7 +31,7 @@ jmethodID jEndMenu;
 jmethodID jSelectMenu;
 jmethodID jClipAround;
 jmethodID jDelayOutput;
-jmethodID jSetNumPadOption;
+// jmethodID jSetNumPadOption;
 jmethodID jAskName;
 jmethodID jRenderStatus;
 jmethodID jShowExtCmdMenu;
@@ -54,15 +54,16 @@ void initNetHackWin();
 JNIEXPORT void JNICALL
 Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring path) {
     char* params[10];
-    const char *path_c = jstring2Char(env, path);
+    char *path_c = jstring2Char(env, path);
     params[0] = "NetHack";
-    params[1] = strdup(path_c);
+    params[1] = (char *) path_c; /* use the buffer from jstring2Char() */
     jEnv = env;
     jAppInstance = thiz;
     jApp = (*jEnv)->GetObjectClass(jEnv, jAppInstance);
     initNetHackWin();
     initNetHackSound();
     NetHackMain(2, params);
+    free(path_c);
 }
 
 JNIEXPORT void JNICALL
@@ -113,30 +114,50 @@ void initNetHackSound() {
 jstring char2Jstring(JNIEnv *env, const char *c_str) {
     if (c_str == NULL)
         return NULL;
-    jclass str_cls = (*env)->FindClass(env, "java/lang/String");
-    jmethodID constructor_mid = (*env)->GetMethodID(env, str_cls, "<init>", "([BLjava/lang/String;)V");
-    int len = (int)strlen(c_str);
+    static jclass str_cls = NULL;
+    static jmethodID constructor_mid = NULL;
+    if (str_cls == NULL) {
+        jclass local = (*env)->FindClass(env, "java/lang/String");
+        str_cls = (jclass) (*env)->NewGlobalRef(env, local);
+        (*env)->DeleteLocalRef(env, local);
+        constructor_mid = (*env)->GetMethodID(env, str_cls, "<init>", "([BLjava/lang/String;)V");
+    }
+    int len = (int) strlen(c_str);
     jbyteArray bytes = (*env)->NewByteArray(env, len);
-    (*env)->SetByteArrayRegion(env, bytes, 0, len, (signed char *)c_str);
+    (*env)->SetByteArrayRegion(env, bytes, 0, len, (signed char *) c_str);
     jstring charsetName = (*env)->NewStringUTF(env, "utf-8");
-    return (*env)->NewObject(env,str_cls,constructor_mid,bytes,charsetName);
+    jstring result = (*env)->NewObject(env, str_cls, constructor_mid, bytes, charsetName);
+    (*env)->DeleteLocalRef(env, bytes);
+    (*env)->DeleteLocalRef(env, charsetName);
+    return result;
 }
 
 char* jstring2Char(JNIEnv *env, jstring jstr)
 {
     char* rtn = NULL;
-    jclass jclass = (*env)->FindClass(env, "java/lang/String");
-    jmethodID mid = (*env)->GetMethodID(env, jclass, "getBytes", "(Ljava/lang/String;)[B");
-    jstring jencode = (*env)->NewStringUTF(env, "utf-8");
-    jbyteArray barr= (jbyteArray)(*env)->CallObjectMethod(env, jstr, mid, jencode);
-    jsize alen = (*env)->GetArrayLength(env, barr);
-    jbyte* ba = (*env)->GetByteArrayElements(env, barr, JNI_FALSE);
-    if (alen > 0)
-    {
-        rtn = (char*)malloc(alen + 1);
-        memcpy(rtn, ba, alen);
-        rtn[alen] = 0;
+    if (!jstr)
+        return NULL;
+    static jclass str_cls = NULL;
+    static jmethodID mid = NULL;
+    if (str_cls == NULL) {
+        jclass local = (*env)->FindClass(env, "java/lang/String");
+        str_cls = (jclass) (*env)->NewGlobalRef(env, local);
+        (*env)->DeleteLocalRef(env, local);
+        mid = (*env)->GetMethodID(env, str_cls, "getBytes", "(Ljava/lang/String;)[B");
     }
-    (*env)->ReleaseByteArrayElements(env, barr, ba, 0);
+    jstring jencode = (*env)->NewStringUTF(env, "utf-8");
+    jbyteArray barr = (jbyteArray) (*env)->CallObjectMethod(env, jstr, mid, jencode);
+    (*env)->DeleteLocalRef(env, jencode);
+    if (barr) {
+        jsize alen = (*env)->GetArrayLength(env, barr);
+        if (alen > 0) {
+            jbyte* ba = (*env)->GetByteArrayElements(env, barr, JNI_FALSE);
+            rtn = (char*) malloc(alen + 1);
+            memcpy(rtn, ba, alen);
+            rtn[alen] = 0;
+            (*env)->ReleaseByteArrayElements(env, barr, ba, 0);
+        }
+        (*env)->DeleteLocalRef(env, barr);
+    }
     return rtn;
 }

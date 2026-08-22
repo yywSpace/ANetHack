@@ -50,6 +50,7 @@ andsound_exit_nhsound(const char *reason)
     LOGD("exit_nhsound %s", reason);
     jstring jreason = char2Jstring(jEnv, reason);
     JNICallV(jExitNHSound, jreason)
+    if (jreason) (*jEnv)->DeleteLocalRef(jEnv, jreason);
 }
 
 static void
@@ -70,6 +71,8 @@ andsound_soundeffect(char *desc, int32_t seid, int32_t volume)
     jstring jsoundname = char2Jstring(jEnv, soundname);
     jstring jdesc = char2Jstring(jEnv, desc);
     JNICallV(jSoundEffect, jsoundname, jdesc, seid, volume)
+    if (jsoundname) (*jEnv)->DeleteLocalRef(jEnv, jsoundname);
+    if (jdesc) (*jEnv)->DeleteLocalRef(jEnv, jdesc);
 #endif
 }
 
@@ -78,6 +81,7 @@ static void andsound_hero_playnotes(int32_t instrument, const char *str, int32_t
     LOGD("hero_playnotes instrument::%d, str:%s， volume:%d", instrument, str, volume);
     jstring jstr = char2Jstring(jEnv, str);
     JNICallV(jHeroPlayNotes, instrument, jstr, volume)
+    if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
 }
 
 static void
@@ -86,6 +90,7 @@ andsound_play_usersound(char *filename, int32_t volume UNUSED, int32_t idx UNUSE
     LOGD("play_usersound filename:%s, volume:%d, idx:%d", filename, volume, idx);
     jstring jfilename = char2Jstring(jEnv, filename);
     JNICallV(jPlayUserSound, jfilename, volume, idx)
+    if (jfilename) (*jEnv)->DeleteLocalRef(jEnv, jfilename);
 }
 
 static void
@@ -104,6 +109,7 @@ andsound_verbal(char *text, int32_t gender, int32_t tone,
     LOGD("verbal text:%s, gender:%d, tone:%d, vol:%d, moreinfo:%d", text, gender, tone, vol, moreinfo);
     jstring jtext = char2Jstring(jEnv, text);
     JNICallV(jSoundVerbal, jtext, gender, tone, vol, moreinfo)
+    if (jtext) (*jEnv)->DeleteLocalRef(jEnv, jtext);
 #endif
 }
 

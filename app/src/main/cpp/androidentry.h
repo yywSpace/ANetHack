@@ -28,7 +28,7 @@ extern jmethodID jEndMenu;
 extern jmethodID jSelectMenu;
 extern jmethodID jClipAround;
 extern jmethodID jDelayOutput;
-extern jmethodID jSetNumPadOption;
+// extern jmethodID jSetNumPadOption;
 extern jmethodID jAskName;
 extern jmethodID jRenderStatus;
 extern jmethodID jShowExtCmdMenu;

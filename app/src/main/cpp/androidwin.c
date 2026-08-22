@@ -482,6 +482,7 @@ void and_putstr(winid wid, int attr, const char *str)
     if(attr) attr = 1<<attr;
     jstring jstr = char2Jstring(jEnv, str);
     JNICallV(jPutString, wid, attr, jstr, NO_COLOR)
+    if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
 }
 
 void and_status_field_render(int idx, const char *filed_name, const char *fmt_val, const char *real_val, int attr, int color, int percent) {
@@ -489,6 +490,9 @@ void and_status_field_render(int idx, const char *filed_name, const char *fmt_va
     jstring fmtVal = char2Jstring(jEnv, fmt_val);
     jstring realVal = char2Jstring(jEnv, real_val);
     JNICallV(jRenderStatus, idx, jFiledName, fmtVal, realVal, attr, color, percent)
+    if (jFiledName) (*jEnv)->DeleteLocalRef(jEnv, jFiledName);
+    if (fmtVal) (*jEnv)->DeleteLocalRef(jEnv, fmtVal);
+    if (realVal) (*jEnv)->DeleteLocalRef(jEnv, realVal);
 }
 
 
@@ -798,6 +802,7 @@ void and_add_menu(winid window, const glyph_info * glyph, const union any * iden
         menu_attr = 1<<menu_attr;
     jstring jstr = char2Jstring(jEnv, str);
     JNICallV(jAddMenu, window, tile, (long long )identifier->a_lptr, accelerator, groupacc, menu_attr, menu_color, jstr, preselected)
+    if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
 }
 
 //____________________________________________________________________________________
@@ -812,6 +817,7 @@ void and_end_menu(winid wid, const char *prompt)
 {
     jstring jstr = char2Jstring(jEnv, prompt);
     JNICallV(jEndMenu, wid, jstr)
+    if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
 }
 
 //____________________________________________________________________________________
@@ -860,7 +866,10 @@ int and_select_menu(winid wid, int how, MENU_ITEM_P **selected)
     } else if(itemCnt == 1) {
         //  0 if none were chosen, -1 when explicitly cancelled
         jlong *result =  (*jEnv)->GetLongArrayElements(jEnv, selectedItems, NULL);
-        return (int)*result;
+        int ret = (int) *result;
+        (*jEnv)->ReleaseLongArrayElements(jEnv, selectedItems, result, 0);
+        (*jEnv)->DeleteLocalRef(jEnv, selectedItems);
+        return ret;
     }
     (*jEnv)->DeleteLocalRef(jEnv, selectedItems);
     return itemCnt;
@@ -975,6 +984,7 @@ void and_raw_print(const char* str)
     LOGD("and_raw_print %s", str);
     jstring jstr = char2Jstring(jEnv,str);
     JNICallV(jRawPrint, 1<<ATR_BOLD, jstr)
+    if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
 }
 
 //____________________________________________________________________________________
@@ -985,6 +995,7 @@ void and_raw_print_bold(const char* str)
     LOGD("and_raw_print_bold %s", str);
     jstring jstr = char2Jstring(jEnv,str);
     JNICallV(jRawPrint, 1<<ATR_BOLD, jstr)
+    if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
 }
 
 //____________________________________________________________________________________
@@ -1098,6 +1109,8 @@ char and_yn_function(const char *question, const char *choices, char def)
             ch = JNICallC(jYNFunction, jQuestion, jChoices, jYnNumber, def)
         }
         (*jEnv)->DeleteLocalRef(jEnv, jYnNumber);
+        if (jQuestion) (*jEnv)->DeleteLocalRef(jEnv, jQuestion);
+        if (jChoices) (*jEnv)->DeleteLocalRef(jEnv, jChoices);
     } else {
         // otherwise treat it as message
         putstr(WIN_MESSAGE, 1<<ATR_BOLD, question);
@@ -1121,11 +1134,20 @@ char and_yn_function(const char *question, const char *choices, char def)
 void and_getlin(const char *question, char *input)
 {
 	LOGD("and_getlin %s, %s", question, input);
-    jstring jquestion = char2Jstring(jEnv, question);
-    jstring jinput = char2Jstring(jEnv, input);
+    JNIEnv *e = jEnv;
+    jstring jquestion = char2Jstring(e, question);
+    jstring jinput = char2Jstring(e, input);
     jstring result = (jstring)JNICallO(jGetLine, jquestion, jinput, BUFSZ)
-    const char* chars = jstring2Char(jEnv, result);
-    strcpy(input,chars);
+    if (result) {
+        char *chars = jstring2Char(e, result);
+        if (chars) {
+            strcpy(input, chars);
+            free(chars);
+        }
+    }
+    if (jquestion) (*e)->DeleteLocalRef(e, jquestion);
+    if (jinput) (*e)->DeleteLocalRef(e, jinput);
+    if (result) (*e)->DeleteLocalRef(e, result);
     LOGD("and_getlin %s", input);
 }
 
@@ -1144,19 +1166,23 @@ void and_askname()
     if (saved != NULL)
         for(i = 0; i < saved_size; i++)
             (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i, char2Jstring(jEnv, saved[i]));
+    (*jEnv)->DeleteLocalRef(jEnv, stringClass);
     jobjectArray jPlayerInfo = (jobjectArray)JNICallO(jAskName, PL_NSIZ, jSavedList)
     // int itemCnt = (*jEnv)->GetArrayLength(jEnv, jPlayerInfo);
     jstring jPlayer = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 0);
     jstring jPlaymode = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 1);
-    const char *player = jstring2Char(jEnv, jPlayer);
-    const char *playmode = jstring2Char(jEnv, jPlaymode);
+    char *player = jstring2Char(jEnv, jPlayer);
+    char *playmode = jstring2Char(jEnv, jPlaymode);
     if(strncmp(playmode, "wizard", strlen(playmode)) == 0)
         wizard = TRUE;
     else if(strncmp(playmode, "discover", strlen(playmode)) == 0)
         discover = TRUE;
     gp.plnamelen = (int) strlen(strncpy(svp.plname, player, sizeof svp.plname - 1));
-    (*jEnv)->ReleaseStringUTFChars(jEnv, jPlayer, player);
-    (*jEnv)->ReleaseStringUTFChars(jEnv, jPlaymode, playmode);
+    free(player);   /* jstring2Char() malloc'd these; do NOT use
+                       ReleaseStringUTFChars() on them */
+    free(playmode);
+    (*jEnv)->DeleteLocalRef(jEnv, jPlayer);
+    (*jEnv)->DeleteLocalRef(jEnv, jPlaymode);
     (*jEnv)->DeleteLocalRef(jEnv, jSavedList);
     (*jEnv)->DeleteLocalRef(jEnv, jPlayerInfo);
     LOGD("and_askname");
@@ -1174,6 +1200,7 @@ int and_get_ext_cmd()
     for(size = 0; extcmdlist[size].ef_txt != (char *)0; size++) ;
     jclass stringClass = (*jEnv)->FindClass(jEnv, "java/lang/String");
     jobjectArray jExtCmdList = (*jEnv)->NewObjectArray(jEnv, size * 2, stringClass, 0);
+    (*jEnv)->DeleteLocalRef(jEnv, stringClass);
     for(int i = 0; i < size; i++) {
         flgs = extcmdlist[i].flags;
         jstring jCmdName, jCmdDesc;
@@ -1203,7 +1230,9 @@ int and_get_ext_cmd()
 void and_number_pad(int state)
 {
     LOGD("and_number_pad(%d)", state);
-    JNICallV(jSetNumPadOption, state)
+    /* Kotlin has no setNumPadOption() counterpart; the previous code called
+       an uninitialized (NULL) jSetNumPadOption method id, which crashed.
+       Kept as a no-op until a Kotlin-side handler is added. */
 }
 
 //delay_output()	-- Causes a visible delay of 50ms in the output.
@@ -1242,11 +1271,24 @@ char* and_getmsghistory(boolean init)
         nxtidx = 0;
     }
     LOGD("and_getmsghistory(nxtidx:%d)", nxtidx);
+    JNIEnv *e = jEnv;
     jstring result = (jstring)JNICallO(jGetMessageHistory, nxtidx++)
-    char *msg = jstring2Char(jEnv, result);
-    if(strncmp(msg, "message_end", strlen(msg)) == 0)
+    if (!result)
         return NULL;
-    return msg;
+    char *msg = jstring2Char(e, result);
+    (*e)->DeleteLocalRef(e, result);
+    if (!msg)
+        return NULL;
+    if (strncmp(msg, "message_end", strlen(msg)) == 0) {
+        free(msg);
+        return NULL;
+    }
+    /* the core does not free the returned buffer; hand back a static copy */
+    static char msg_buf[BUFSZ];
+    strncpy(msg_buf, msg, sizeof(msg_buf) - 1);
+    msg_buf[sizeof(msg_buf) - 1] = '\0';
+    free(msg);
+    return msg_buf;
 }
 
 // and_putmsghistory(msg, restoring)
@@ -1267,6 +1309,7 @@ void and_putmsghistory(const char *msg, boolean restoring)
     if(restoring) {
         jstring jmsg = char2Jstring(jEnv, msg);
         JNICallV(jPutMessageHistory, jmsg, restoring)
+        if (jmsg) (*jEnv)->DeleteLocalRef(jEnv, jmsg);
     }
     // LOGD("and_putmsghistory(msg: %s, restoring:%d)", msg, restoring);
 }
