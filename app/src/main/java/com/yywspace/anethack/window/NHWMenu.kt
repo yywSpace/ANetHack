@@ -27,7 +27,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {
     var title: String = ""
     var behavior: Long = -1
-    val nhMenuItems = CopyOnWriteArrayList<NHMenuItem>()
+    val nhMenuItems = ArrayList<NHMenuItem>()
     var selectMode: SelectMode = SelectMode.PickNone
     private var numPrefix = -1
     private var menuAdapter:NHWMenuAdapter? = null
@@ -306,7 +306,11 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             else -> {
                 nhMenuItems.firstOrNull { it.accelerator == operate.key }?.apply {
                     nh.runOnUi { _, _ ->
-                        menuList?.smoothScrollToPosition(nhMenuItems.indexOf(this))
+                        // 异步回调可能晚于 dismissMenu 执行，此时列表已清空、
+                        // indexOf 为 -1，直接滚动会抛 Invalid target position
+                        val idx = nhMenuItems.indexOf(this)
+                        if (idx >= 0)
+                            menuList?.smoothScrollToPosition(idx)
                         if (selectMode == SelectMode.PickOne) {
                             dismissMenu {
                                 nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(identifier, numPrefix.toLong())))
@@ -314,7 +318,8 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                         } else if (selectMode == SelectMode.PickMany) {
                             selectedCount = if (numPrefix != -1) numPrefix.toLong() else selectedCount
                             isSelected = !isSelected
-                            menuAdapter?.notifyItemChanged(nhMenuItems.indexOf(this))
+                            if (idx >= 0)
+                                menuAdapter?.notifyItemChanged(idx)
                         }
                         numPrefix = -1
                     }

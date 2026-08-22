@@ -22,10 +22,6 @@ class NHBlockingCommandController {
 
     fun waitForCommand(): NHCommand {
         val cmd = cmdQueue.take()
-        try {
-            Thread.sleep(50)
-        } catch (_: InterruptedException) {
-        }
         return cmd
     }
 
@@ -47,10 +43,6 @@ class NHBlockingCommandController {
             val cmd = cmdQueue.take()
             if (cmd is T)
                 return cmd
-            try {
-                Thread.sleep(50)
-            } catch (_: InterruptedException) {
-            }
             otherCommandDiscard?.invoke(cmd)
         }
     }
