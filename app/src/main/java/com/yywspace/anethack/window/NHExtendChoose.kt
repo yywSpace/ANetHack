@@ -79,7 +79,7 @@ class NHExtendChoose(val nh: NetHack) {
             commandList.add(NHExtCmd(i/2, extCmdList[i], extCmdList[i+1]))
         }
         showExtCmdDialog(commandList)
-        cmd = nh.command.waitForAnyCommand()
+        cmd = nh.command.waitForAnyCommand<NHExtendCommand>()
         return cmd.idx
     }
 
@@ -90,7 +90,7 @@ class NHExtendChoose(val nh: NetHack) {
     private class NHExtCmdAdapter(val commandList: List<NHExtCmd>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var onItemClick:((view: View, index:Int, item: NHExtCmd)->Unit)? = null
         var filteredCmdList: MutableList<NHExtCmd> = commandList.toMutableList()
-        inner class ExtCmdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        class ExtCmdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val itemCommandDesc : TextView = view.findViewById(R.id.item_command_desc)
             val itemCommand : TextView = view.findViewById(R.id.item_command)
         }

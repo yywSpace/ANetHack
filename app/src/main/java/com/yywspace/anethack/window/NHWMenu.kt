@@ -85,8 +85,16 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         }
         selectMode = SelectMode.fromInt(how)
         showMenu()
-        val menuCommand = nh.command.waitForAnyCommand<NHMenuCommand> { other ->
+        var menuCommand = nh.command.waitForAnyCommand<NHMenuCommand> { other ->
             processMenuOperate(other)
+        }
+        // 只接受属于本菜单(wid)的命令。上一个菜单的异步残留命令（dismissMenu
+        // 回调里发送）即使 identifier 与本菜单条目巧合相同（如连续两个动作菜单
+        // 都用小整数动作码），也会因为 wid 不匹配被丢弃。
+        while (menuCommand.wid != wid) {
+            menuCommand = nh.command.waitForAnyCommand<NHMenuCommand> { other ->
+                processMenuOperate(other)
+            }
         }
         Log.d("selectMenu", menuCommand.selectedItems.toString())
         return menuCommand.selectedItems.toLongArray()
@@ -152,7 +160,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             onItemClick = { _, _, item ->
                 if (selectMode == SelectMode.PickOne) {
                     dismissMenu {
-                        nh.command.sendCommand(NHMenuCommand(item.accelerator, mutableListOf(item.identifier, item.selectedCount)))
+                        nh.command.sendCommand(NHMenuCommand(item.accelerator, mutableListOf(item.identifier, item.selectedCount), wid))
                     }
                 }
             }
@@ -189,7 +197,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                     setOnClickListener {
                         // 27:Key ESC
                         dismissMenu {
-                            nh.command.sendCommand(NHMenuCommand(27.toChar(), mutableListOf(-1)))
+                            nh.command.sendCommand(NHMenuCommand(27.toChar(), mutableListOf(-1), wid))
                         }
                     }
                 }
@@ -228,7 +236,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                                 }
                                 // 13:Key Enter
                                 dismissMenu {
-                                    nh.command.sendCommand(NHMenuCommand(13.toChar(), selectList))
+                                    nh.command.sendCommand(NHMenuCommand(13.toChar(), selectList, wid))
                                 }
                             }
                         }
@@ -245,7 +253,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                             setOnClickListener {
                                 // 27:Key ESC
                                 dismissMenu {
-                                    nh.command.sendCommand(NHMenuCommand(27.toChar(), mutableListOf(-1)))
+                                    nh.command.sendCommand(NHMenuCommand(27.toChar(), mutableListOf(-1), wid))
                                 }
                             }
                         }
@@ -260,7 +268,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             operate.key.code == 27 -> {
                 numPrefix = -1
                 dismissMenu {
-                    nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(-1)))
+                    nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(-1), wid))
                 }
             }
             // ENTER
@@ -275,7 +283,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                         }
                         // 13:Key Enter
                         dismissMenu {
-                            nh.command.sendCommand(NHMenuCommand(operate.key, selectList))
+                            nh.command.sendCommand(NHMenuCommand(operate.key, selectList, wid))
                         }
                     }
                 }
@@ -313,7 +321,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                             menuList?.smoothScrollToPosition(idx)
                         if (selectMode == SelectMode.PickOne) {
                             dismissMenu {
-                                nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(identifier, numPrefix.toLong())))
+                                nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(identifier, numPrefix.toLong()), wid))
                             }
                         } else if (selectMode == SelectMode.PickMany) {
                             selectedCount = if (numPrefix != -1) numPrefix.toLong() else selectedCount

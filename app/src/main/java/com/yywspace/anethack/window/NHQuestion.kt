@@ -22,7 +22,13 @@ import com.yywspace.anethack.extensions.show
 
 
 class NHQuestion(val nh: NetHack) {
+    // 防连点：一次输入/回答只发一条命令，避免残留命令被下一次同类型窗口消费。
+    // 每次 answerInputQuestion / answerSelectQuestion 开始时重置。
+    private var finished = false
+
     private fun finishLine(line:String) {
+        if (finished) return
+        finished = true
         nh.command.sendCommand(NHLineCommand(line))
     }
 
@@ -31,6 +37,7 @@ class NHQuestion(val nh: NetHack) {
     }
 
     fun answerInputQuestion(question: String, input:String, bufSize: Int):String {
+        finished = false
         // 弹窗前首先查找是否已存在NHLineCommand,如果有直接返回
         nh.command.findAnyCommand<NHLineCommand>()?.apply {
             return line
@@ -106,6 +113,7 @@ class NHQuestion(val nh: NetHack) {
     }
 
     fun answerSelectQuestion(question: String, choices: String, ynNumber:LongArray, def: Char):Char {
+        finished = false
         // 弹窗前首先查找是否已存在NHKeyCommand
         nh.command.findAnyCommand<NHKeyCommand>()?.apply {
             return key
@@ -243,6 +251,8 @@ class NHQuestion(val nh: NetHack) {
     }
 
     private fun finishAnswer(answer:Char, count:Int) {
+        if (finished) return
+        finished = true
         nh.command.sendCommand(NHAnswerCommand(answer, count))
     }
 
@@ -255,7 +265,7 @@ class NHQuestion(val nh: NetHack) {
         var onItemClick:((view:View, index:Int, item:Pair<Char,Int>)->Unit)? = null
         var onItemLongClick:((view:View, index:Int, item:Pair<Char,Int>)->Unit)? = null
 
-        inner class ButtonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        class ButtonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val button : Button = view.findViewById(R.id.item_answer_btn)
         }
 
