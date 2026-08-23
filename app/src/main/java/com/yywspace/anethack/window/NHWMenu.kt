@@ -32,11 +32,8 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
     private var numPrefix = -1
     private var menuAdapter:NHWMenuAdapter? = null
     private var menuList:RecyclerView? = null
-    private var menuDialog:AlertDialog? = null
     private val textList = mutableListOf<NHString>()
     private var selectedAll = false
-    private var cachedMenuView: View? = null
-    private var dialogViewAttached = false
 
 
     fun startMenu(behavior: Long) {
@@ -168,8 +165,29 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
 
     @SuppressLint("NotifyDataSetChanged")
     private fun initMenuView(context: Context): View {
-        // 复用缓存的弹窗视图：第一次创建，之后只刷新数据，避免每次 inflate 的开销
+        // 复用静态缓存的弹窗视图（跨窗口实例）；第一次创建，之后只刷新数据
         val menuView = cachedMenuView ?: createMenuView(context)
+        if (menuAdapter == null) {
+            // 视图可能是其他窗口实例创建的，本实例首次使用补挂自己的 adapter（数据/回调绑定本实例）
+            menuAdapter = NHWMenuAdapter(this, nh.tileSet).apply {
+                onItemClick = { _, _, item ->
+                    if (selectMode == SelectMode.PickOne) {
+                        dismissMenu {
+                            nh.command.sendCommand(NHMenuCommand(item.accelerator, mutableListOf(item.identifier, item.selectedCount), wid))
+                        }
+                    }
+                }
+                onItemLongClick = { _, position, item ->
+                    showAmountPickerDialog(context, item, position, this)
+                }
+            }
+        }
+        menuList = menuView.findViewById<RecyclerView>(R.id.menu_item_list)
+        // 静态视图被多个窗口实例共享，每次打开都确保当前实例的 adapter 挂载
+        // （防止残留其他实例已清空数据的 adapter，导致列表空白）
+        if (menuList?.adapter !== menuAdapter) {
+            menuList?.adapter = menuAdapter
+        }
 
         menuAdapter?.notifyDataSetChanged()
         menuList?.scrollToPosition(0)
@@ -185,38 +203,30 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         return menuView
     }
 
-    /** 首次创建弹窗视图：inflate + 一次性配置（adapter、RecyclerView、点击回调） */
+    /** 首次创建弹窗视图（布局+RecyclerView 配置；adapter 由 initMenuView 首次使用时挂载） */
     private fun createMenuView(context: Context): View {
-        val menuView = View.inflate(context, R.layout.dialog_menu, null)
-        menuAdapter = NHWMenuAdapter(this@NHWMenu, nh.tileSet).apply {
-            onItemClick = { _, _, item ->
-                if (selectMode == SelectMode.PickOne) {
-                    dismissMenu {
-                        nh.command.sendCommand(NHMenuCommand(item.accelerator, mutableListOf(item.identifier, item.selectedCount), wid))
-                    }
-                }
-            }
-            onItemLongClick = { _, position, item ->
-                showAmountPickerDialog(context, item, position, this)
-            }
-        }
-        menuList = menuView.findViewById<RecyclerView>(R.id.menu_item_list)?.apply {
-            adapter = menuAdapter
-            layoutManager = object : LinearLayoutManager(context) {
-                override fun onLayoutChildren(
-                    recycler: RecyclerView.Recycler?,
-                    state: RecyclerView.State?
-                ) {
-                    try {
-                        super.onLayoutChildren(recycler, state)
-                    } catch (e: IndexOutOfBoundsException) {
-                        e.printStackTrace()
-                    }
-                }
-            }
-        }
+        val menuView = createCachedMenuView(context)
         cachedMenuView = menuView
         return menuView
+    }
+
+    /** 创建弹窗视图（含 RecyclerView 配置），供首次打开使用 */
+    private fun createCachedMenuView(context: Context): View {
+        return View.inflate(context, R.layout.dialog_menu, null).apply {
+            findViewById<RecyclerView>(R.id.menu_item_list)?.layoutManager =
+                object : LinearLayoutManager(context) {
+                    override fun onLayoutChildren(
+                        recycler: RecyclerView.Recycler?,
+                        state: RecyclerView.State?
+                    ) {
+                        try {
+                            super.onLayoutChildren(recycler, state)
+                        } catch (e: IndexOutOfBoundsException) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+        }
     }
 
     /** 每次打开菜单时按 selectMode 配置底部按钮（可见性/文案/行为） */
@@ -445,5 +455,23 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
 
     override fun putString(attr: Int, msg: String, color: Int) {
         textList.add(NHString(msg, attr))
+    }
+
+    companion object {
+        // 静态缓存：窗口实例会被 createWindow 反复重建，缓存放静态才能跨实例复用
+        // 安全：单 Activity + manifest 声明 configChanges（Activity 不重建），
+        // 且 NetHackActivity.onDestroy 会 clearCache()，缓存随进程结束释放，无泄漏
+        @SuppressLint("StaticFieldLeak")
+        private var cachedMenuView: View? = null
+        @SuppressLint("StaticFieldLeak")
+        private var menuDialog: AlertDialog? = null
+        private var dialogViewAttached = false
+
+        /** 清空静态缓存（Activity 重建等场景兜底） */
+        fun clearCache() {
+            cachedMenuView = null
+            menuDialog = null
+            dialogViewAttached = false
+        }
     }
 }

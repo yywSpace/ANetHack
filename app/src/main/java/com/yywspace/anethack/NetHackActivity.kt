@@ -21,6 +21,7 @@ import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
 import com.yywspace.anethack.identify.NHPriceIDialog
 import com.yywspace.anethack.setting.SettingsActivity
+import com.yywspace.anethack.window.NHWMenu
 import java.io.File
 import java.io.FileFilter
 import java.io.FileInputStream
@@ -52,6 +53,12 @@ class NetHackActivity : AppCompatActivity() {
             processConf(overwrite)
             nethack.run()
         }
+    }
+
+    override fun onDestroy() {
+        // 静态缓存持有 Activity context，Activity 重建时清空兜底
+        NHWMenu.clearCache()
+        super.onDestroy()
     }
 
     override fun onResume() {
