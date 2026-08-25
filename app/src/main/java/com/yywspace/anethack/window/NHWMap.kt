@@ -5,7 +5,6 @@ import android.util.Log
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.map.NHMapSurfaceView
-import java.util.concurrent.CopyOnWriteArrayList
 
 class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type) {
     private var mapView: NHMapSurfaceView = nh.binding.mapView
@@ -18,13 +17,17 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
     // 玩家位置
     val player = Point(-1,-1)
 
+    /** 格子数据唯一来源：绘制线程读，applyPendingTiles 写 */
     private val tiles = Array(height){Array(width) { Tile() } }
-    private val updatedTiles = mutableListOf<Tile>()
-    private val updatedTilesList = CopyOnWriteArrayList<List<Tile>>()
+
+    /** printTile 待应用队列：native 线程写，绘制线程消费（applyPendingTiles） */
+    private val pendingTiles = mutableListOf<Tile>()
+    private val pendingLock = Any()
 
     init {
         mapView.initMap(nh,this)
     }
+
 
     fun getTileList(c:Char):List<Tile> {
         val locList = mutableListOf<Tile>()
@@ -41,20 +44,26 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
         return tiles[y][x]
     }
 
-    fun updateTiles() {
-        synchronized(updatedTilesList) {
-            for (tilesList in updatedTilesList) {
-                tilesList.onEach {
-                    tiles[it.y][it.x].x = it.x
-                    tiles[it.y][it.x].y = it.y
-                    tiles[it.y][it.x].glyph = it.glyph
-                    tiles[it.y][it.x].ch = it.ch
-                    tiles[it.y][it.x].color = it.color
-                    tiles[it.y][it.x].overlay = it.overlay
-                }
+    /** 是否有待应用的格子更新（绘制线程变化检测用） */
+    fun hasPendingTiles(): Boolean = synchronized(pendingLock) { pendingTiles.isNotEmpty() }
+
+    /** 应用待应用队列到 tiles 数组，返回实际变化的格子坐标（增量绘制用） */
+    fun applyPendingTiles(): List<Pair<Int, Int>> {
+        val changed = ArrayList<Pair<Int, Int>>()
+        synchronized(pendingLock) {
+            pendingTiles.forEach { t ->
+                val dst = tiles[t.y][t.x]
+                dst.x = t.x
+                dst.y = t.y
+                dst.glyph = t.glyph
+                dst.ch = t.ch
+                dst.color = t.color
+                dst.overlay = t.overlay
+                changed.add(Pair(t.x, t.y))
             }
-            updatedTilesList.clear()
+            pendingTiles.clear()
         }
+        return changed
     }
 
     fun clipAround(cx: Int, cy: Int,ux: Int, uy: Int) {
@@ -65,23 +74,25 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
             firstCenter = false
         }
     }
-    
+
     override fun curs(x: Int, y: Int) {
         curse.x = x
         curse.y = y
+        mapView.requestRedraw()
     }
 
     override fun displayWindow(blocking: Boolean) {
         Log.d("NHWMap", "displayWindow")
-        synchronized(updatedTilesList) {
-            updatedTilesList.add(updatedTiles.toList())
-            updatedTiles.clear()
-        }
+        // 格子数据在 printTile 时已入队，这里只需唤醒绘制线程
+        mapView.requestRedraw()
     }
 
     override fun clearWindow(isRogueLevel: Int) {
         Log.d("NHWMap", "clearWindow")
         firstCenter = true
+        synchronized(pendingLock) {
+            pendingTiles.clear()
+        }
         for (row in tiles)
             for (col in row) {
                 col.glyph = -1
@@ -111,7 +122,11 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
         mapTile.ch = CP437_UNICODE[ch and 0xff]
         mapTile.color = NHColor.fromInt(col)
         mapTile.overlay = special
-        updatedTiles.add(mapTile)
+        // 只入队数据：printTile 是一批更新的中间过程（4-5 个格子逐格到达），
+        // 全部更新完后才调用 displayWindow，由 displayWindow 统一触发界面更新
+        synchronized(pendingLock) {
+            pendingTiles.add(mapTile)
+        }
     }
 
     class Tile {
@@ -125,262 +140,38 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
 
     companion object {
         private val CP437_UNICODE = charArrayOf(
-            0x00A0.toChar(),
-            0x263A.toChar(),
-            0x263B.toChar(),
-            0x2665.toChar(),
-            0x2666.toChar(),
-            0x2663.toChar(),
-            0x2660.toChar(),
-            0x2022.toChar(),
-            0x25D8.toChar(),
-            0x25CB.toChar(),
-            0x25D9.toChar(),
-            0x2660.toChar(),
-            0x2661.toChar(),
-            0x266A.toChar(),
-            0x266B.toChar(),
-            0x2609.toChar(),
-            0x25BA.toChar(),
-            0x25C4.toChar(),
-            0x2195.toChar(),
-            0x203C.toChar(),
-            0x00B6.toChar(),
-            0x00A7.toChar(),
-            0x25AC.toChar(),
-            0x2607.toChar(),
-            0x2191.toChar(),
-            0x2193.toChar(),
-            0x2192.toChar(),
-            0x2190.toChar(),
-            0x221F.toChar(),
-            0x2194.toChar(),
-            0x25B2.toChar(),
-            0x25BC.toChar(),
-            0x0020.toChar(),
-            0x0021.toChar(),
-            0x0022.toChar(),
-            0x0023.toChar(),
-            0x0024.toChar(),
-            0x0025.toChar(),
-            0x0026.toChar(),
-            0x0027.toChar(),
-            0x0028.toChar(),
-            0x0029.toChar(),
-            0x002A.toChar(),
-            0x002B.toChar(),
-            0x002C.toChar(),
-            0x002D.toChar(),
-            0x002E.toChar(),
-            0x002F.toChar(),
-            0x0030.toChar(),
-            0x0031.toChar(),
-            0x0032.toChar(),
-            0x0033.toChar(),
-            0x0034.toChar(),
-            0x0035.toChar(),
-            0x0036.toChar(),
-            0x0037.toChar(),
-            0x0038.toChar(),
-            0x0039.toChar(),
-            0x003A.toChar(),
-            0x003B.toChar(),
-            0x003C.toChar(),
-            0x003D.toChar(),
-            0x003E.toChar(),
-            0x003F.toChar(),
-            0x0040.toChar(),
-            0x0041.toChar(),
-            0x0042.toChar(),
-            0x0043.toChar(),
-            0x0044.toChar(),
-            0x0045.toChar(),
-            0x0046.toChar(),
-            0x0047.toChar(),
-            0x0048.toChar(),
-            0x0049.toChar(),
-            0x004A.toChar(),
-            0x004B.toChar(),
-            0x004C.toChar(),
-            0x004D.toChar(),
-            0x004E.toChar(),
-            0x004F.toChar(),
-            0x0050.toChar(),
-            0x0051.toChar(),
-            0x0052.toChar(),
-            0x0053.toChar(),
-            0x0054.toChar(),
-            0x0055.toChar(),
-            0x0056.toChar(),
-            0x0057.toChar(),
-            0x0058.toChar(),
-            0x0059.toChar(),
-            0x005A.toChar(),
-            0x005B.toChar(),
-            0x005C.toChar(),
-            0x005D.toChar(),
-            0x005E.toChar(),
-            0x005F.toChar(),
-            0x0060.toChar(),
-            0x0061.toChar(),
-            0x0062.toChar(),
-            0x0063.toChar(),
-            0x0064.toChar(),
-            0x0065.toChar(),
-            0x0066.toChar(),
-            0x0067.toChar(),
-            0x0068.toChar(),
-            0x0069.toChar(),
-            0x006A.toChar(),
-            0x006B.toChar(),
-            0x006C.toChar(),
-            0x006D.toChar(),
-            0x006E.toChar(),
-            0x006F.toChar(),
-            0x0070.toChar(),
-            0x0071.toChar(),
-            0x0072.toChar(),
-            0x0073.toChar(),
-            0x0074.toChar(),
-            0x0075.toChar(),
-            0x0076.toChar(),
-            0x0077.toChar(),
-            0x0078.toChar(),
-            0x0079.toChar(),
-            0x007A.toChar(),
-            0x007B.toChar(),
-            0x007C.toChar(),
-            0x007D.toChar(),
-            0x007E.toChar(),
-            0x2206.toChar(),
-            0x00C7.toChar(),
-            0x00FC.toChar(),
-            0x00E9.toChar(),
-            0x00E2.toChar(),
-            0x00E4.toChar(),
-            0x00E0.toChar(),
-            0x00E5.toChar(),
-            0x00E7.toChar(),
-            0x00EA.toChar(),
-            0x00EB.toChar(),
-            0x00E8.toChar(),
-            0x00EF.toChar(),
-            0x00EE.toChar(),
-            0x00EC.toChar(),
-            0x00C4.toChar(),
-            0x00C5.toChar(),
-            0x00C9.toChar(),
-            0x00E6.toChar(),
-            0x00C6.toChar(),
-            0x00F4.toChar(),
-            0x00F6.toChar(),
-            0x00F2.toChar(),
-            0x00FB.toChar(),
-            0x00F9.toChar(),
-            0x00FF.toChar(),
-            0x00D6.toChar(),
-            0x00DC.toChar(),
-            0x00A2.toChar(),
-            0x00A3.toChar(),
-            0x00A5.toChar(),
-            0x20A3.toChar(),
-            0x0192.toChar(),
-            0x00E1.toChar(),
-            0x00ED.toChar(),
-            0x00F3.toChar(),
-            0x00FA.toChar(),
-            0x00F1.toChar(),
-            0x00D1.toChar(),
-            0x00AA.toChar(),
-            0x00BA.toChar(),
-            0x00BF.toChar(),
-            0x2310.toChar(),
-            0x00AC.toChar(),
-            0x00BD.toChar(),
-            0x00BC.toChar(),
-            0x00A1.toChar(),
-            0x00AB.toChar(),
-            0x00BB.toChar(),
-            0x2591.toChar(),
-            0x2592.toChar(),
-            0x2591.toChar(),
-            0x2502.toChar(),
-            0x2524.toChar(),
-            0x2561.toChar(),
-            0x2562.toChar(),
-            0x2556.toChar(),
-            0x2555.toChar(),
-            0x2563.toChar(),
-            0x2551.toChar(),
-            0x2557.toChar(),
-            0x255D.toChar(),
-            0x255C.toChar(),
-            0x255B.toChar(),
-            0x2510.toChar(),
-            0x2514.toChar(),
-            0x2534.toChar(),
-            0x252C.toChar(),
-            0x251C.toChar(),
-            0x2500.toChar(),
-            0x253C.toChar(),
-            0x255E.toChar(),
-            0x255F.toChar(),
-            0x255A.toChar(),
-            0x2554.toChar(),
-            0x2569.toChar(),
-            0x2566.toChar(),
-            0x2560.toChar(),
-            0x2550.toChar(),
-            0x256C.toChar(),
-            0x2567.toChar(),
-            0x2568.toChar(),
-            0x2564.toChar(),
-            0x2565.toChar(),
-            0x2559.toChar(),
-            0x2558.toChar(),
-            0x2552.toChar(),
-            0x2553.toChar(),
-            0x256B.toChar(),
-            0x256A.toChar(),
-            0x2518.toChar(),
-            0x250C.toChar(),
-            0x2588.toChar(),
-            0x2584.toChar(),
-            0x258C.toChar(),
-            0x2590.toChar(),
-            0x2580.toChar(),
-            0x03B1.toChar(),
-            0x00DF.toChar(),
-            0x0393.toChar(),
-            0x03C0.toChar(),
-            0x03A3.toChar(),
-            0x03C3.toChar(),
-            0x00B5.toChar(),
-            0x03C4.toChar(),
-            0x03A6.toChar(),
-            0x0398.toChar(),
-            0x03A9.toChar(),
-            0x03B4.toChar(),
-            0x221E.toChar(),
-            0x03C6.toChar(),
-            0x25A0.toChar(),
-            0x002B.toChar(),
-            0x2261.toChar(),
-            0x00B1.toChar(),
-            0x2265.toChar(),
-            0x2264.toChar(),
-            0x2320.toChar(),
-            0x2321.toChar(),
-            0x00F7.toChar(),
-            0x2248.toChar(),
-            0x00B0.toChar(),
-            0x2219.toChar(),
-            0x00B7.toChar(),
-            0x221A.toChar(),
-            0x207F.toChar(),
-            0x00B2.toChar(),
-            0x25A0.toChar(),
-            0x00A0.toChar()
+            0x00A0.toChar(), 0x263A.toChar(), 0x263B.toChar(), 0x2665.toChar(), 0x2666.toChar(), 0x2663.toChar(), 0x2660.toChar(), 0x2022.toChar(),
+            0x25D8.toChar(), 0x25CB.toChar(), 0x25D9.toChar(), 0x2660.toChar(), 0x2661.toChar(), 0x266A.toChar(), 0x266B.toChar(), 0x2609.toChar(),
+            0x25BA.toChar(), 0x25C4.toChar(), 0x2195.toChar(), 0x203C.toChar(), 0x00B6.toChar(), 0x00A7.toChar(), 0x25AC.toChar(), 0x2607.toChar(),
+            0x2191.toChar(), 0x2193.toChar(), 0x2192.toChar(), 0x2190.toChar(), 0x221F.toChar(), 0x2194.toChar(), 0x25B2.toChar(), 0x25BC.toChar(),
+            0x0020.toChar(), 0x0021.toChar(), 0x0022.toChar(), 0x0023.toChar(), 0x0024.toChar(), 0x0025.toChar(), 0x0026.toChar(), 0x0027.toChar(),
+            0x0028.toChar(), 0x0029.toChar(), 0x002A.toChar(), 0x002B.toChar(), 0x002C.toChar(), 0x002D.toChar(), 0x002E.toChar(), 0x002F.toChar(),
+            0x0030.toChar(), 0x0031.toChar(), 0x0032.toChar(), 0x0033.toChar(), 0x0034.toChar(), 0x0035.toChar(), 0x0036.toChar(), 0x0037.toChar(),
+            0x0038.toChar(), 0x0039.toChar(), 0x003A.toChar(), 0x003B.toChar(), 0x003C.toChar(), 0x003D.toChar(), 0x003E.toChar(), 0x003F.toChar(),
+            0x0040.toChar(), 0x0041.toChar(), 0x0042.toChar(), 0x0043.toChar(), 0x0044.toChar(), 0x0045.toChar(), 0x0046.toChar(), 0x0047.toChar(),
+            0x0048.toChar(), 0x0049.toChar(), 0x004A.toChar(), 0x004B.toChar(), 0x004C.toChar(), 0x004D.toChar(), 0x004E.toChar(), 0x004F.toChar(),
+            0x0050.toChar(), 0x0051.toChar(), 0x0052.toChar(), 0x0053.toChar(), 0x0054.toChar(), 0x0055.toChar(), 0x0056.toChar(), 0x0057.toChar(),
+            0x0058.toChar(), 0x0059.toChar(), 0x005A.toChar(), 0x005B.toChar(), 0x005C.toChar(), 0x005D.toChar(), 0x005E.toChar(), 0x005F.toChar(),
+            0x0060.toChar(), 0x0061.toChar(), 0x0062.toChar(), 0x0063.toChar(), 0x0064.toChar(), 0x0065.toChar(), 0x0066.toChar(), 0x0067.toChar(),
+            0x0068.toChar(), 0x0069.toChar(), 0x006A.toChar(), 0x006B.toChar(), 0x006C.toChar(), 0x006D.toChar(), 0x006E.toChar(), 0x006F.toChar(),
+            0x0070.toChar(), 0x0071.toChar(), 0x0072.toChar(), 0x0073.toChar(), 0x0074.toChar(), 0x0075.toChar(), 0x0076.toChar(), 0x0077.toChar(),
+            0x0078.toChar(), 0x0079.toChar(), 0x007A.toChar(), 0x007B.toChar(), 0x007C.toChar(), 0x007D.toChar(), 0x007E.toChar(), 0x2206.toChar(),
+            0x00C7.toChar(), 0x00FC.toChar(), 0x00E9.toChar(), 0x00E2.toChar(), 0x00E4.toChar(), 0x00E0.toChar(), 0x00E5.toChar(), 0x00E7.toChar(),
+            0x00EA.toChar(), 0x00EB.toChar(), 0x00E8.toChar(), 0x00EF.toChar(), 0x00EE.toChar(), 0x00EC.toChar(), 0x00C4.toChar(), 0x00C5.toChar(),
+            0x00C9.toChar(), 0x00E6.toChar(), 0x00C6.toChar(), 0x00F4.toChar(), 0x00F6.toChar(), 0x00F2.toChar(), 0x00FB.toChar(), 0x00F9.toChar(),
+            0x00FF.toChar(), 0x00D6.toChar(), 0x00DC.toChar(), 0x00A2.toChar(), 0x00A3.toChar(), 0x00A5.toChar(), 0x20A3.toChar(), 0x0192.toChar(),
+            0x00E1.toChar(), 0x00ED.toChar(), 0x00F3.toChar(), 0x00FA.toChar(), 0x00F1.toChar(), 0x00D1.toChar(), 0x00AA.toChar(), 0x00BA.toChar(),
+            0x00BF.toChar(), 0x2310.toChar(), 0x00AC.toChar(), 0x00BD.toChar(), 0x00BC.toChar(), 0x00A1.toChar(), 0x00AB.toChar(), 0x00BB.toChar(),
+            0x2591.toChar(), 0x2592.toChar(), 0x2591.toChar(), 0x2502.toChar(), 0x2524.toChar(), 0x2561.toChar(), 0x2562.toChar(), 0x2556.toChar(),
+            0x2555.toChar(), 0x2563.toChar(), 0x2551.toChar(), 0x2557.toChar(), 0x255D.toChar(), 0x255C.toChar(), 0x255B.toChar(), 0x2510.toChar(),
+            0x2514.toChar(), 0x2534.toChar(), 0x252C.toChar(), 0x251C.toChar(), 0x2500.toChar(), 0x253C.toChar(), 0x255E.toChar(), 0x255F.toChar(),
+            0x255A.toChar(), 0x2554.toChar(), 0x2569.toChar(), 0x2566.toChar(), 0x2560.toChar(), 0x2550.toChar(), 0x256C.toChar(), 0x2567.toChar(),
+            0x2568.toChar(), 0x2564.toChar(), 0x2565.toChar(), 0x2559.toChar(), 0x2558.toChar(), 0x2552.toChar(), 0x2553.toChar(), 0x256B.toChar(),
+            0x256A.toChar(), 0x2518.toChar(), 0x250C.toChar(), 0x2588.toChar(), 0x2584.toChar(), 0x258C.toChar(), 0x2590.toChar(), 0x2580.toChar(),
+            0x03B1.toChar(), 0x00DF.toChar(), 0x0393.toChar(), 0x03C0.toChar(), 0x03A3.toChar(), 0x03C3.toChar(), 0x00B5.toChar(), 0x03C4.toChar(),
+            0x03A6.toChar(), 0x0398.toChar(), 0x03A9.toChar(), 0x03B4.toChar(), 0x221E.toChar(), 0x03C6.toChar(), 0x25A0.toChar(), 0x002B.toChar(),
+            0x2261.toChar(), 0x00B1.toChar(), 0x2265.toChar(), 0x2264.toChar(), 0x2320.toChar(), 0x2321.toChar(), 0x00F7.toChar(), 0x2248.toChar(),
+            0x00B0.toChar(), 0x2219.toChar(), 0x00B7.toChar(), 0x221A.toChar(), 0x207F.toChar(), 0x00B2.toChar(), 0x25A0.toChar(), 0x00A0.toChar()
         )
     }
 }

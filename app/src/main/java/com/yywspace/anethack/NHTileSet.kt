@@ -59,10 +59,18 @@ class NHTileSet(val nh: NetHack) {
         }
     }
 
-    fun isTileSetChange():Boolean {
-        if (tileSetName == null)
+    /** 只检查是否有贴图切换（不消费状态，供绘制线程变化检测） */
+    fun hasTileSetChange():Boolean {
+        if (tileSetName == null) {
             tileSetName = nh.prefs.tileSet
-        if (tileSetName != nh.prefs.tileSet) {
+            return false
+        }
+        return tileSetName != nh.prefs.tileSet
+    }
+
+    /** 检查并消费贴图切换（draw 内调用，消费后执行重新加载） */
+    fun isTileSetChange():Boolean {
+        if (hasTileSetChange()) {
             tileSetName = nh.prefs.tileSet?:"1"
             return true
         }
@@ -81,7 +89,10 @@ class NHTileSet(val nh: NetHack) {
         return Rect(0, 0, 32, 32)
     }
 
+    private val overlayCache = mutableMapOf<Int, Bitmap>()
+
     fun getTileOverlay(overlay: Int): Bitmap? {
+        overlayCache[overlay]?.let { return it }
         val overlayPath = if (overlay and MG_PET != 0)
             "tiles/overlay_pet.png"
         else if (overlay and MG_OBJPILE != 0)
@@ -93,8 +104,8 @@ class NHTileSet(val nh: NetHack) {
         else
             ""
         if(overlayPath.isNotEmpty()) {
-            nh.context.resources.assets.open(overlayPath).use {
-                return BitmapFactory.decodeStream(it)
+            nh.context.resources.assets.open(overlayPath).use {  overlayIO ->
+                return BitmapFactory.decodeStream(overlayIO).also { overlayCache[overlay] = it }
             }
         }
         return null

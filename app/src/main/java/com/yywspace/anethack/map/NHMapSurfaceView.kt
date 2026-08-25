@@ -2,6 +2,7 @@ package com.yywspace.anethack.map
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -38,10 +39,13 @@ import com.yywspace.anethack.map.operation.NHMapScale
 import com.yywspace.anethack.map.operation.NHMapTransform
 import com.yywspace.anethack.window.NHWMap
 import java.util.concurrent.LinkedBlockingDeque
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.locks.ReentrantLock
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.ceil
 import kotlin.math.floor
+import androidx.core.graphics.createBitmap
 
 
 class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
@@ -49,10 +53,11 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var scaleFactor = 1f
     private var mapTranslated = false
     private var mapInit = false
+    /** 视口被外部改动（指示符点击/居中/缩放）后置位，hasChange 据此触发重绘 */
+    private var mapTransformDirty = false
     private val paint = Paint()
     private val asciiPaint = TextPaint()
     private var operationQueue = LinkedBlockingDeque<NHMapOperation>()
-    private val fps = 60
 
     private lateinit var nh: NetHack
     private lateinit var map: NHWMap
@@ -65,9 +70,30 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var borderWidth:Float = 0F
     private var tileWidth:Float = 0F
     private var tileHeight:Float = 0F
+    /** 离屏地图缓冲：基础尺寸（不随缩放变），脏格子只更新这里，屏幕整图 blit 杜绝残影 */
+    private var baseTileWidth = 0f
+    private var baseTileHeight = 0f
+    private var mapBitmap: Bitmap? = null
+    private var mapCanvas: Canvas? = null
+    /** 需要全量重绘离屏缓冲（surface 重建/首帧） */
+    private var mapContentDirty = false
     private var holder: SurfaceHolder? = null
     private var isDrawing = false
     private lateinit var indicatorController:NHMapIndicatorController
+
+    /** 变化通知锁：绘制线程挂起，内容/手势变化时 signalAll 唤醒 */
+    private val redrawLock = ReentrantLock()
+    private val redrawCondition = redrawLock.newCondition()
+
+    /** 有内容/手势/光标变化时唤醒绘制线程（NHWMap 与手势回调调用） */
+    fun requestRedraw() {
+        redrawLock.lock()
+        try {
+            redrawCondition.signalAll()
+        } finally {
+            redrawLock.unlock()
+        }
+    }
 
     private var mapTouchListener: NHMapTouchListener = NHMapTouchListener().apply {
         onNHMapTouchListener = object : NHMapTouchListener.OnNHMapTouchListener {
@@ -92,7 +118,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         playerMove(direction, false)
                     }
                 }
-
+                // 点击框（lastTouchTile）变化：触发一次绘制刷新覆盖层
+                mapTransformDirty = true
+                requestRedraw()
             }
 
             override fun onLongPressUp(e: PointF) {
@@ -115,13 +143,17 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         showPopupWindow(border.centerX(), border.centerY())
                     }
                 }
+                mapTransformDirty = true
+                requestRedraw()
             }
             override fun onMove(e1: PointF, e2: PointF) {
                 operationQueue.push(NHMapTransform(e2.x - e1.x, e2.y - e1.y))
+                requestRedraw()
             }
 
             override fun onScale(scaleFactor: Float, cx: Float, cy: Float) {
                 operationQueue.push(NHMapScale(scaleFactor, cx, cy))
+                requestRedraw()
             }
         }
     }
@@ -154,6 +186,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         initMapParam()
         initIndicators()
         this.mapInit = true
+        // 首帧强制全量重绘离屏 + 唤醒
+        mapContentDirty = true
+        mapTransformDirty = true
     }
 
     private fun initMapParam() {
@@ -161,6 +196,13 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         scaleFactor = 1f
         tileWidth = getBaseTileWidth()
         tileHeight = getBaseTileHeight()
+        baseTileWidth = tileWidth
+        baseTileHeight = tileHeight
+        // 重建离屏缓冲（基础尺寸；缩放/平移只改 blit 目标，不重建缓冲）
+        mapBitmap =
+            createBitmap((map.width * baseTileWidth).toInt(), (map.height * baseTileHeight).toInt()).also { mapCanvas = Canvas(it) }
+        mapBitmap?.eraseColor(Color.BLACK)
+        drawAllToOffscreen()
         mapBorder = RectF(
             mapBorder.left, mapBorder.top,
             mapBorder.left + map.width * tileWidth,
@@ -261,6 +303,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     private fun transformMap(dx:Float, dy:Float) {
         mapBorder.offset(dx, dy)
+        mapTransformDirty = true
+        requestRedraw()
     }
 
     private fun scaleMap(scaleFactor:Float, centerX:Float, centerY:Float) {
@@ -276,6 +320,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         mapBorder.top += (mapBorder.top - centerY) * (scaleFactor - 1)
         mapBorder.right = mapBorder.left + map.width * tileWidth
         mapBorder.bottom = mapBorder.top + map.height * tileHeight
+        mapTransformDirty = true
+        requestRedraw()
     }
 
     private fun playerMove(direction: Direction, straight:Boolean) {
@@ -337,56 +383,63 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         }
     }
 
-    private fun drawTile(canvas: Canvas?) {
-        map.apply {
-            for (x in 0 until width) {
-                for (y in 0 until height) {
-                    val tile = getTile(x, y)
-                    val tb = getTileBorder(x,y)
-                    if(tile.glyph >= 0) {
-                        nh.tileSet.getTile(tile.glyph)?.apply {
-                            canvas?.drawBitmap(this, Rect(0,0, this.width, this.height), tb, paint)
-                        }
-                    }
-                    if(tile.overlay != 0 && tile.glyph >= 0) {
-                        val overlay = nh.tileSet.getTileOverlay(tile.overlay)
-                        if (overlay != null) {
-                            canvas?.drawBitmap(
-                                overlay, nh.tileSet.getOverlayRect(tile.overlay),
-                                tb, paint
-                            )
-                        }
-                    }
+    /** 绘制单个格子到离屏缓冲（基础坐标，不随缩放变） */
+    private fun drawOneToOffscreen(x: Int, y: Int) {
+        val canvas = mapCanvas ?: return
+        val tile = map.getTile(x, y)
+        val tb = RectF(
+            x * baseTileWidth, y * baseTileHeight,
+            (x + 1) * baseTileWidth, (y + 1) * baseTileHeight
+        )
+        if (nh.tileSet.isTTY()) {
+            paint.style = Paint.Style.FILL
+            var bgColor = Color.BLACK
+            var fgColor = tile.color.toColor()
+            // reverse special object color
+            if (tile.overlay != 0 && tile.glyph >= 0) {
+                fgColor = Color.BLACK
+                bgColor = tile.color.toColor()
+            }
+            paint.color = bgColor
+            canvas.drawRect(tb, paint)
+            if (tile.glyph >= 0) {
+                asciiPaint.textSize = textSize // 离屏用基础字号，屏幕层 blit 时缩放
+                asciiPaint.color = fgColor
+                canvas.drawText(tile.ch.toString(), 0, 1, tb.left, tb.bottom - asciiPaint.descent(), asciiPaint)
+            }
+        } else {
+            if (tile.glyph >= 0) {
+                nh.tileSet.getTile(tile.glyph)?.apply {
+                    canvas.drawBitmap(this, Rect(0, 0, this.width, this.height), tb, paint)
+                }
+            } else {
+                // 无 tile：画背景覆盖旧内容（离屏也是覆盖式，杜绝残影）
+                paint.color = Color.BLACK
+                paint.style = Paint.Style.FILL
+                canvas.drawRect(tb, paint)
+            }
+            if (tile.overlay != 0 && tile.glyph >= 0) {
+                val overlay = nh.tileSet.getTileOverlay(tile.overlay)
+                if (overlay != null) {
+                    canvas.drawBitmap(overlay, nh.tileSet.getOverlayRect(tile.overlay), tb, paint)
                 }
             }
         }
-
     }
 
-    private fun drawAscii(canvas: Canvas?) {
-        map.apply {
-            for (x in 0 until width) {
-                for (y in 0 until height) {
-                    val tile = getTile(x, y)
-                    val tb = getTileBorder(x,y)
-                    paint.style = Paint.Style.FILL
-                    var bgColor = Color.BLACK
-                    var fgColor = tile.color.toColor()
-                    // reverse special objet color
-                    if(tile.overlay != 0 && tile.glyph >= 0) {
-                        fgColor = Color.BLACK
-                        bgColor = tile.color.toColor()
-                    }
-                    paint.color = bgColor
-                    canvas?.drawRect(tb, paint)
-                    if(tile.glyph >= 0) {
-                        val ch = String(tile.ch.toString().toByteArray())
-                        asciiPaint.color = fgColor
-                        canvas?.drawText(ch,0, 1,
-                            tb.left, tb.bottom - asciiPaint.descent() , asciiPaint)
-                    }
-                }
+    /** 全量重绘离屏缓冲 */
+    private fun drawAllToOffscreen() {
+        for (x in 0 until map.width) {
+            for (y in 0 until map.height) {
+                drawOneToOffscreen(x, y)
             }
+        }
+    }
+
+    /** 将离屏缓冲整体绘制到屏幕（mapBorder 定位，缩放通过目标矩形实现） */
+    private fun blitMap(canvas: Canvas?) {
+        mapBitmap?.let { bmp ->
+            canvas?.drawBitmap(bmp, Rect(0, 0, bmp.width, bmp.height), mapBorder, paint)
         }
     }
     fun centerPlayerInScreen() {
@@ -416,7 +469,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             dy = offsetY - py
         if (py > height - offsetY)
             dy = height - offsetY - py
-        transformMap(dx, dy)
+        // 视口没动（玩家在安全区内）时不触发 transformMap，保持增量绘制
+        if (dx != 0f || dy != 0f)
+            transformMap(dx, dy)
     }
 
     private fun drawAsciiCurse(canvas: Canvas?) {
@@ -430,6 +485,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             canvas?.drawRect(tb, paint)
             if(tile.glyph >= 0) {
                 asciiPaint.color = tile.color.toColor()
+                // 覆盖层用屏幕层字号（缩放后）；离屏绘制会重置为基础字号，这里必须显式设置
+                asciiPaint.textSize = textSize * scaleFactor
                 canvas?.drawText(tile.ch.toString(),0, 1,
                     tb.left, tb.bottom - asciiPaint.descent() , asciiPaint)
             }
@@ -551,6 +608,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     override fun surfaceCreated(holder: SurfaceHolder) {
         isDrawing = true
+        // surface 重建（切后台返回/设置返回）后画布清空，必须无条件重绘一帧，
+        // 否则事件驱动下没有变化源通知绘制线程 → 黑屏
+        mapContentDirty = true
+        mapTransformDirty = true
         Thread(this).start()
     }
 
@@ -561,15 +622,31 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         isDrawing = false
     }
 
-    private fun draw() {
+    /** 是否有需要重绘的变化（格子更新/手势/光标/贴图切换/视口移动） */
+    private fun hasChange(): Boolean {
+        if (!mapInit) return false // 绘制线程可能先于 initMap 启动
+        return map.hasPendingTiles()
+            || operationQueue.isNotEmpty()
+            || lastCurse != map.curse
+            || mapTransformDirty
+            || nh.tileSet.hasTileSetChange()
+    }
+
+    private fun draw(): Boolean {
         holder?.apply {
             if (mapInit) {
+                // 变化检测：没有更新内容/手势/光标/贴图变化 → 跳过本帧（不 lockCanvas）
+                if (!hasChange()) {
+                    return false
+                }
                 val canvas = lockCanvas()
                 try {
-                    // 绘制前检测是否改变了TileSet
-                    if (nh.tileSet.isTileSetChange())
-                        initMapParam()
-                    // 每一帧获取所有Scale和Transform操作并处理
+                    val curseChanged = lastCurse != map.curse
+                    val tileSetChanged = nh.tileSet.isTileSetChange()
+
+                    if (tileSetChanged)
+                        initMapParam() // 重建离屏并全量重绘
+                    // 处理手势操作（拖动/缩放 → 只改视口，离屏不变）
                     while (operationQueue.isNotEmpty()) {
                         val op = operationQueue.pop()
                         if (op is NHMapTransform) {
@@ -579,47 +656,66 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         if (op is NHMapScale)
                             scaleMap(op.scale, op.cx, op.cy)
                     }
-
-                    if (lastCurse != map.curse) {
+                    // 光标/玩家移动 → 视口跟随
+                    if (curseChanged) {
                         transformMapWithMove(nh.prefs.walkRange)
-                        lastCurse = Point(map.curse)
                     }
                     if (mapTranslated && nh.prefs.travelAfterPanned && !playerInWalkRange(nh.prefs.walkRange))
                         nh.status.runMode = NHStatus.RunMode.RUN
                     else
                         nh.status.runMode = NHStatus.RunMode.WALK
-                    // 绘制
+
+                    // 离屏更新：贴图切换/强制全量 → 重绘全部；否则只重绘变化的格子+光标新旧格
+                    if (tileSetChanged || mapContentDirty) {
+                        drawAllToOffscreen()
+                        mapContentDirty = false
+                    } else {
+                        val changed = map.applyPendingTiles()
+                        (changed + listOf(
+                            Pair(lastCurse.x, lastCurse.y),
+                            Pair(map.curse.x, map.curse.y)
+                        ))
+                            .filter { it.first in 0 until map.width && it.second in 0 until map.height }
+                            .distinct()
+                            .forEach { (x, y) -> drawOneToOffscreen(x, y) }
+                    }
+                    // 屏幕输出：清背景 + 整图 blit（永远完整画面，无残影）+ 覆盖层
                     canvas?.drawColor(Color.BLACK)
+                    blitMap(canvas)
                     if (nh.tileSet.isTTY()) {
-                        drawAscii(canvas)
                         drawAsciiCurse(canvas)
                     } else {
-                        drawTile(canvas)
                         drawTileCurse(canvas)
                     }
                     drawLastTouchTile(canvas)
                     drawBorder(canvas)
                     // drawWalkRange(canvas)
                     drawIndicator(canvas)
-                    // 每一帧绘制完成后才更新Tile
-                    map.updateTiles()
+                    lastCurse = Point(map.curse)
+                    mapTransformDirty = false
                 } finally {
                     if (canvas != null)
                         unlockCanvasAndPost(canvas)
                 }
+                return true
             }
         }
+        return false
     }
     override fun run() {
         while (isDrawing) {
-            val startMs = System.currentTimeMillis()
-            draw()
-            val endMs = System.currentTimeMillis()
-            val needTime = 1000 / fps
-            val usedTime = endMs - startMs
-            if (usedTime < needTime) {
-                Thread.sleep(needTime - usedTime)
+            // 无变化时挂起（最多 500ms 兜底，防通知丢失）；变化来源：displayWindow/curs/手势 signalAll
+            redrawLock.lock()
+            try {
+                while (!hasChange() && isDrawing) {
+                    redrawCondition.await(500, TimeUnit.MILLISECONDS)
+                }
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            } finally {
+                redrawLock.unlock()
             }
+            draw()
         }
     }
 }
