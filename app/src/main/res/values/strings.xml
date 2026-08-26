@@ -23,6 +23,7 @@
     <string name="key_dot_status_desc">key dot status image view</string>
     <string name="menu_item_tile_desc">menu tile image</string>
     <string name="run_mode_run">Run</string>
+    <string name="run_mode_travel">Travel</string>
     <string name="run_mode_walk">Walk</string>
 
     <string name="settings_title">Settings</string>

@@ -105,7 +105,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 if(indicatorController.onIndicatorClick(e))
                     return
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
-                    if (nh.status.runMode == NHStatus.RunMode.RUN) {
+                    if (nh.status.runMode == NHStatus.RunMode.TRAVEL) {
                         nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
                         mapTranslated = false
                     }else {
@@ -653,10 +653,16 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     if (curseChanged) {
                         transformMapWithMove(nh.prefs.walkRange)
                     }
-                    if (mapTranslated && nh.prefs.travelAfterPanned && !playerInWalkRange(nh.prefs.walkRange))
-                        nh.status.runMode = NHStatus.RunMode.RUN
+                    val newRunMode = if (mapTranslated && nh.prefs.travelAfterPanned && !playerInWalkRange(nh.prefs.walkRange))
+                        NHStatus.RunMode.TRAVEL
                     else
-                        nh.status.runMode = NHStatus.RunMode.WALK
+                        NHStatus.RunMode.WALK
+                    if (nh.status.runMode != newRunMode) {
+                        nh.status.runMode = newRunMode
+                        // runMode 显示在状态栏条件里：变化时刷新状态栏，
+                        // 否则要等下一回合 displayWindow 才更新（脱屏是纯 UI 操作，无 native 回合）
+                        nh.binding.statusView.requestRedraw()
+                    }
 
                     // 离屏更新：贴图切换/强制全量 → 重绘全部；否则只重绘变化的格子+光标新旧格
                     if (tileSetChanged || mapContentDirty) {

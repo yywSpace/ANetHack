@@ -69,6 +69,7 @@ class NHStatus(val context: Context) {
         if (!title.isEmpty()) {
             val runModeStr = when(runMode) {
                 RunMode.RUN -> NHString(context.getString(R.string.run_mode_run), colorIdx = NHColor.CLR_GREEN.ordinal)
+                RunMode.TRAVEL -> NHString(context.getString(R.string.run_mode_travel), colorIdx = NHColor.CLR_GREEN.ordinal)
                 RunMode.WALK -> NHString(context.getString(R.string.run_mode_walk), colorIdx = NHColor.CLR_WHITE.ordinal)
             }
             conditions.append(runModeStr.toSpannableString())
@@ -113,6 +114,7 @@ class NHStatus(val context: Context) {
 
     enum class RunMode{
         RUN,
+        TRAVEL,
         WALK
     }
 
