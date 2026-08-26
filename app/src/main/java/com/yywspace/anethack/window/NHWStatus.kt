@@ -19,7 +19,8 @@ class NHWStatus(wid: Int, type:NHWindowType, nh: NetHack) : NHWindow(wid, type) 
 
     override fun displayWindow(blocking: Boolean) {
         status.updateStatus()
-        Log.d("NHWStatus", "Status: $status")
+        // 状态渲染完成（每回合全量 renderField 提交后）→ 唤醒状态绘制线程
+        statusView.requestRedraw()
     }
 
     override fun clearWindow(isRogueLevel: Int) {
@@ -31,11 +32,8 @@ class NHWStatus(wid: Int, type:NHWindowType, nh: NetHack) : NHWindow(wid, type) 
     }
 
     fun renderField(fldIdx: Int, fldName: String, fmtVal: String, realVal:String, attr: Int, color: Int, percent:Int) {
+        // 只更新数据；绘制由 displayWindow（渲染完成，全量提交后）统一触发
         status.addStatusAttr(fldIdx, color, attr, percent, fmtVal, realVal)
-        Log.d(
-            "NHWStatus",
-            "renderField(fldIdx:$fldIdx, fldName:$fldName, fmtVal:$fmtVal, realVal:$realVal, attr:$attr, color:$color, percent:$percent)"
-        )
     }
 
     override fun putString(attr: Int, msg: String, color: Int) {

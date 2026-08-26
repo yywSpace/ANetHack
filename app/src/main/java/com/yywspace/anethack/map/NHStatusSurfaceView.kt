@@ -3,10 +3,8 @@ package com.yywspace.anethack.map
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.PixelFormat
 import android.graphics.PorterDuff
-import android.graphics.RectF
 import android.text.DynamicLayout
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -19,21 +17,43 @@ import android.widget.LinearLayout
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.entity.NHStatus.StatusField
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.locks.ReentrantLock
 import kotlin.math.ceil
 import androidx.core.graphics.withTranslation
 
 
 class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 42f
-    private val paint: Paint = Paint()
     private val textPaint:TextPaint = TextPaint()
     private lateinit var nh: NetHack
     private lateinit var status: NHStatus
     private var statusInit: Boolean = false
 
-    private var holder: SurfaceHolder? = null
     private var canvas: Canvas? = null
     private var isDrawing = false
+
+    /** 变化通知锁：displayWindow 唤醒，绘制线程挂起（事件驱动） */
+    private val redrawLock = ReentrantLock()
+    private val redrawCondition = redrawLock.newCondition()
+    private var pendingDirty = false
+    /** 上次绘制的高度（变化才 post layoutParams） */
+    private var lastHeight = 0
+    /** 字段值签名缓存：值没变的字段复用上次布局（C 侧每回合全量发字段，这里做对比增量） */
+    private val valueCache = HashMap<StatusField, String>()
+    /** 布局缓存：field → DynamicLayout（值没变复用） */
+    private val layoutCache = HashMap<StatusField, DynamicLayout>()
+
+    /** 状态渲染完成时唤醒绘制线程（NHWStatus.displayWindow 调用） */
+    fun requestRedraw() {
+        redrawLock.lock()
+        try {
+            pendingDirty = true
+            redrawCondition.signalAll()
+        } finally {
+            redrawLock.unlock()
+        }
+    }
 
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -47,7 +67,6 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun initView() {
-        holder = getHolder()
         holder?.addCallback(this)
         holder?.setFormat(PixelFormat.TRANSLUCENT)
         isFocusable = true
@@ -60,10 +79,13 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
     override fun surfaceCreated(holder: SurfaceHolder) {
         isDrawing = true
+        pendingDirty = true // surface 重建后强制重绘一帧
         Thread(this).start()
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        // surface 尺寸变化（高度动态调整后）→ 强制重绘，否则内容被旧尺寸裁剪（只显示前几行）
+        requestRedraw()
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
@@ -125,20 +147,28 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         return statusBarList
     }
 
-    private fun drawTitle(status:Pair<StatusField, Spannable>,  canvas: Canvas):RectF {
-        val hp = this.status.hitPoints
-        val title = SpannableStringBuilder(status.second)
+    /** 字段值签名：显示文本（title 额外含 HP 百分比，HP 条随百分比变化） */
+    private fun valueSignature(field: StatusField, spannable: Spannable): String {
+        return if (field == StatusField.BL_TITLE) {
+            spannable.toString() + "|" + status.hitPoints.percent
+        } else {
+            spannable.toString()
+        }
+    }
+
+    /** 构建标题布局（HP 条背景按百分比） */
+    private fun buildTitleLayout(titleSpannable: Spannable): DynamicLayout {
+        val hp = status.hitPoints
+        val title = SpannableStringBuilder(titleSpannable)
         val percent = hp.percent
-        val remainSpan = BackgroundColorSpan(Color.argb(200, 220,220,220))
+        val remainSpan = BackgroundColorSpan(Color.argb(200, 220, 220, 220))
         val colorSpan = BackgroundColorSpan(hp.color)
         title.setSpan(colorSpan, 0, title.length * percent / 100, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
         title.setSpan(remainSpan, title.length * percent / 100, title.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-        val statusLayout =DynamicLayout.Builder.obtain(
+        return DynamicLayout.Builder.obtain(
             title, textPaint,
             ceil(DynamicLayout.getDesiredWidth(title, textPaint)).toInt()
         ).build()
-        statusLayout.draw(canvas)
-        return RectF(0f,0f, statusLayout.width.toFloat(), statusLayout.height.toFloat())
     }
 
     private fun drawStatusBar(canvas: Canvas?) {
@@ -146,47 +176,58 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             if (statusInit) {
                 val statusBarList = buildStatusBar()
                 var statusBarHeight = 0f
-                statusBarList.forEach{
+                statusBarList.forEach { row ->
                     var statusBarWidth = 0f
                     var maxHeight = 0f
-                    it.forEach { s ->
-                        canvas.withTranslation(statusBarWidth, statusBarHeight) {
-                            if (s.first == StatusField.BL_TITLE) {
-                                val border = drawTitle(s, this)
-                                statusBarWidth += (border.width() + 20f)
-                                maxHeight = maxHeight.coerceAtLeast(border.height())
-                            } else {
-                                if (s.second.isNotEmpty()) {
-                                    val dynamicLayout = DynamicLayout.Builder.obtain(
-                                        s.second,
-                                        textPaint,
-                                        ceil(
-                                            DynamicLayout.getDesiredWidth(
-                                                s.second,
-                                                textPaint
-                                            )
-                                        ).toInt()
-                                    ).build()
-                                    dynamicLayout.draw(this)
-                                    statusBarWidth += (dynamicLayout.width + 20f)
-                                    maxHeight =
-                                        maxHeight.coerceAtLeast(dynamicLayout.height.toFloat())
+                    row.forEach { s ->
+                        val field = s.first
+                        if (s.second.isNotEmpty()) {
+                            canvas.withTranslation(statusBarWidth, statusBarHeight) {
+                                // 值对比：签名没变 → 复用布局；变了 → 重建（只重建变化的字段）
+                                val sig = valueSignature(field, s.second)
+                                val layout = if (valueCache[field] == sig) {
+                                    layoutCache[field]
+                                } else {
+                                    val newLayout = if (field == StatusField.BL_TITLE) {
+                                        buildTitleLayout(s.second)
+                                    } else {
+                                        DynamicLayout.Builder.obtain(
+                                            s.second, textPaint,
+                                            ceil(DynamicLayout.getDesiredWidth(s.second, textPaint)).toInt()
+                                        ).build()
+                                    }
+                                    valueCache[field] = sig
+                                    layoutCache[field] = newLayout
+                                    newLayout
+                                }
+                                layout?.let { l ->
+                                    l.draw(this)
+                                    statusBarWidth += (l.width + 20f)
+                                    maxHeight = maxHeight.coerceAtLeast(l.height.toFloat())
                                 }
                             }
                         }
                     }
                     statusBarHeight += maxHeight
                 }
-                post {
-                    layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT, ceil(statusBarHeight+5).toInt()
-                    )
+                // 高度变化才回主线程调整布局（SurfaceView 尺寸变化开销大）
+                val h = ceil(statusBarHeight + 5).toInt()
+                if (h != lastHeight) {
+                    lastHeight = h
+                    // 高度变化 → surface 尺寸变化 → surfaceChanged 触发重绘
+                    post {
+                        layoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT, h
+                        )
+                    }
                 }
             }
         }
     }
 
     private fun draw() {
+        // 无变化（兜底唤醒）不绘制，避免空转清屏
+        if (!hasChange()) return
         try {
             canvas = holder?.lockCanvas()
             canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
@@ -195,11 +236,25 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             if (canvas != null)
                 holder?.unlockCanvasAndPost(canvas)
         }
+        pendingDirty = false
     }
+
+    private fun hasChange(): Boolean = pendingDirty
+
     override fun run() {
         while (isDrawing) {
+            // 无变化挂起（500ms 兜底）；变化来源：displayWindow signalAll
+            redrawLock.lock()
+            try {
+                while (!hasChange() && isDrawing) {
+                    redrawCondition.await(500, TimeUnit.MILLISECONDS)
+                }
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            } finally {
+                redrawLock.unlock()
+            }
             draw()
-            Thread.sleep(100)
         }
     }
 }
