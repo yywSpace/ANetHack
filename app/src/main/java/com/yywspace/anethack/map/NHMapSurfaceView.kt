@@ -28,7 +28,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
-import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.command.NHPosCommand.PosMod
@@ -77,7 +76,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var mapCanvas: Canvas? = null
     /** 需要全量重绘离屏缓冲（surface 重建/首帧） */
     private var mapContentDirty = false
-    private var holder: SurfaceHolder? = null
+    /** 首次以玩家位置居中是否已做（绘制线程首帧执行，保证 view 已测量） */
+    private var playerCentered = false
     private var isDrawing = false
     private lateinit var indicatorController:NHMapIndicatorController
 
@@ -173,7 +173,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun initView() {
-        holder = getHolder()
         holder?.addCallback(this)
         isFocusable = true
         // isFocusableInTouchMode = true
@@ -189,6 +188,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         // 首帧强制全量重绘离屏 + 唤醒
         mapContentDirty = true
         mapTransformDirty = true
+        playerCentered = false
     }
 
     private fun initMapParam() {
@@ -211,7 +211,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         val scale = measuredWidth.toFloat() / mapBorder.height()
         val tb = getTileBorder(map.curse.x, map.curse.y)
         scaleMap(scale, tb.centerX(), tb.centerY())
-        centerPlayerInScreen()
     }
 
     private fun initIndicators() {
@@ -375,12 +374,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             direction = Direction.RIGHT_UP
         Log.d("getMoveDirection", angle.toString())
         return direction
-    }
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        if (mapInit) {
-            centerView(map.curse.x, map.curse.y)
-        }
     }
 
     /** 绘制单个格子到离屏缓冲（基础坐标，不随缩放变） */
@@ -678,6 +671,12 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                             .filter { it.first in 0 until map.width && it.second in 0 until map.height }
                             .distinct()
                             .forEach { (x, y) -> drawOneToOffscreen(x, y) }
+                    }
+                    // 首次以玩家位置为中心（绘制时 view 已测量，measuredWidth 有效；
+                    // 且 clipAround 已把玩家位置写入 map.player）
+                    if (!playerCentered && map.player.x >= 0 && map.player.y >= 0) {
+                        centerView(map.player.x, map.player.y)
+                        playerCentered = true
                     }
                     // 屏幕输出：清背景 + 整图 blit（永远完整画面，无残影）+ 覆盖层
                     canvas?.drawColor(Color.BLACK)

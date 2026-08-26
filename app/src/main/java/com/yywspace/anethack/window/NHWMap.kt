@@ -8,7 +8,6 @@ import com.yywspace.anethack.map.NHMapSurfaceView
 
 class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type) {
     private var mapView: NHMapSurfaceView = nh.binding.mapView
-    private var firstCenter = true
 
     val width = 80
     val height = 21
@@ -69,10 +68,8 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
     fun clipAround(cx: Int, cy: Int,ux: Int, uy: Int) {
         player.x = ux
         player.y = uy
-        if(firstCenter) {
-            mapView.centerView(cx,cy)
-            firstCenter = false
-        }
+        // 居中由绘制线程首帧处理（此时 view 已测量，measuredWidth 有效；
+        mapView.requestRedraw()
     }
 
     override fun curs(x: Int, y: Int) {
@@ -89,7 +86,6 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
 
     override fun clearWindow(isRogueLevel: Int) {
         Log.d("NHWMap", "clearWindow")
-        firstCenter = true
         synchronized(pendingLock) {
             pendingTiles.clear()
         }
