@@ -97,6 +97,8 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         if (messageList.size > nh.prefs.messageHistorySize)
             messageList.removeAt(0)
         messageList.add(NHMessage(NHString(msg.trim(), attr), nh.command.lastCmdTime))
+        // 新消息到达 → 唤醒消息绘制线程（事件驱动，取代定时循环）
+        messageView.requestRedraw()
     }
 
     class NHWMessageAdapter(private val messageList:List<NHMessage>, private val itemSize:Int): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -128,7 +130,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             }
         }
 
-        private inner class MessageViewHolder(itemView: View)  : RecyclerView.ViewHolder(itemView) {
+        private class MessageViewHolder(itemView: View)  : RecyclerView.ViewHolder(itemView) {
             val itemMessage: TextView = itemView.findViewById(R.id.message)
         }
     }

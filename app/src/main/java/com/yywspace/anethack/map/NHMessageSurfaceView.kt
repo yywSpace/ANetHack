@@ -13,9 +13,9 @@ import android.view.SurfaceView
 import android.widget.LinearLayout
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.window.NHWMessage
-import java.util.stream.Collectors
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.locks.ReentrantLock
 import kotlin.math.ceil
-import kotlin.streams.toList
 import androidx.core.graphics.withTranslation
 
 
@@ -26,11 +26,30 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private lateinit var nhMessage: NHWMessage
     private var messageInit: Boolean = false
     private var messageSize = 3
-    private var maxMessageSize = 5
 
-    private var holder: SurfaceHolder? = null
     private var canvas: Canvas? = null
     private var isDrawing = false
+
+    /** 变化通知锁：putString 唤醒，绘制线程挂起（事件驱动） */
+    private val redrawLock = ReentrantLock()
+    private val redrawCondition = redrawLock.newCondition()
+    private var pendingDirty = false
+    /** 上次绘制的高度（变化才 post layoutParams） */
+    private var lastHeight = 0
+    /** 布局缓存：key = 消息文本，同文本复用 DynamicLayout。
+     *  窗口内旧消息跨帧内容不变（即使位置后移），每次绘制只有新消息构建布局 */
+    private val layoutCache = HashMap<String, DynamicLayout>()
+
+    /** 新消息到达时唤醒绘制线程（NHWMessage.putString 调用） */
+    fun requestRedraw() {
+        redrawLock.lock()
+        try {
+            pendingDirty = true
+            redrawCondition.signalAll()
+        } finally {
+            redrawLock.unlock()
+        }
+    }
 
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -44,7 +63,6 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun initView() {
-        holder = getHolder()
         holder?.addCallback(this)
         holder?.setFormat(PixelFormat.TRANSLUCENT)
         isFocusable = true
@@ -57,6 +75,7 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
     override fun surfaceCreated(holder: SurfaceHolder) {
         isDrawing = true
+        pendingDirty = true // surface 重建后强制重绘一帧
         Thread(this).start()
     }
 
@@ -70,30 +89,43 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         canvas?.apply {
             if (messageInit) {
                 var messageListHeight = 0f
-                nhMessage.getRecentMessageList(messageSize)
-                    .stream()
-                    .limit(maxMessageSize.toLong())
-                    .collect(Collectors.toList())
-                    .reversed().forEach{
-                    val dynamicLayout = DynamicLayout.Builder.obtain(
-                        it.toSpannableString(), textPaint,
-                        width
-                    ).build()
+                val messages = nhMessage.getRecentMessageList(messageSize).reversed()
+                // 内容缓存：窗口内旧消息文本不变 → 复用布局；只对新消息构建
+                val layouts = messages.map { msg ->
+                    val key = msg.toString()
+                    layoutCache.getOrPut(key) {
+                        DynamicLayout.Builder.obtain(
+                            msg.toSpannableString(), textPaint,
+                            width
+                        ).build()
+                    }
+                }
+                // 缓存上限，防止无限增长（游戏消息文本有限）
+                if (layoutCache.size > 50)
+                    layoutCache.clear()
+                layouts.forEach { dynamicLayout ->
                     canvas.withTranslation(0f, messageListHeight) {
                         dynamicLayout.draw(this)
                     }
                     messageListHeight += dynamicLayout.height
                 }
-                post {
-                    layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT, ceil(messageListHeight).toInt()
-                    )
+                // 高度变化才回主线程调整布局（SurfaceView 尺寸变化开销大）
+                val h = ceil(messageListHeight).toInt()
+                if (h != lastHeight) {
+                    lastHeight = h
+                    post {
+                        layoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT, h
+                        )
+                    }
                 }
             }
         }
     }
 
     private fun draw() {
+        // 无变化（兜底唤醒）不绘制，避免空转清屏
+        if (!hasChange()) return
         try {
             canvas = holder?.lockCanvas()
             canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
@@ -102,11 +134,25 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             if (canvas != null)
                 holder?.unlockCanvasAndPost(canvas)
         }
+        pendingDirty = false
     }
+
+    private fun hasChange(): Boolean = pendingDirty
+
     override fun run() {
         while (isDrawing) {
+            // 无变化挂起（500ms 兜底）；变化来源：putString signalAll
+            redrawLock.lock()
+            try {
+                while (!hasChange() && isDrawing) {
+                    redrawCondition.await(500, TimeUnit.MILLISECONDS)
+                }
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            } finally {
+                redrawLock.unlock()
+            }
             draw()
-            Thread.sleep(100)
         }
     }
 }
