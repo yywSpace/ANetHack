@@ -10,6 +10,10 @@ data class NHMessage(private val value:NHString, val time: LocalDateTime) :Clone
         return value.toString()
     }
 
+    /** 当前显示颜色索引（attach 后：最新批绿色/旧消息原色），布局缓存 key 用 */
+    val colorIndex: Int
+        get() = value.nhColor.ordinal
+
     fun attach(lastUpdate: LocalDateTime, color: NHColor?=null):NHMessage {
         val message = clone().apply {
             if (time ==lastUpdate)

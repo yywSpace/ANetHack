@@ -80,6 +80,8 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        // surface 尺寸变化（高度动态调整后）→ 强制重绘
+        requestRedraw()
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
@@ -90,9 +92,10 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             if (messageInit) {
                 var messageListHeight = 0f
                 val messages = nhMessage.getRecentMessageList(messageSize).reversed()
-                // 内容缓存：窗口内旧消息文本不变 → 复用布局；只对新消息构建
+                // 内容缓存：key = 文本 + 颜色（attach 后最新批绿色/旧消息原色，
+                // 只按文本缓存会导致旧消息复用"绿色时"的布局，永远显示绿色）
                 val layouts = messages.map { msg ->
-                    val key = msg.toString()
+                    val key = msg.toString() + "|" + msg.colorIndex
                     layoutCache.getOrPut(key) {
                         DynamicLayout.Builder.obtain(
                             msg.toSpannableString(), textPaint,
