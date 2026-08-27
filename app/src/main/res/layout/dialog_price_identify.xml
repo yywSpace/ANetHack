@@ -14,18 +14,20 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:id="@+id/obj_surcharge_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:layout_height="wrap_content"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_arrow_drop_down">
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/obj_surcharge_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/pride_id_surcharge_label"
                 android:cursorVisible="false"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:textCursorDrawable="@color/transparent"
-                android:hint="@string/pride_id_surcharge_label"/>
+                android:longClickable="false"
+                android:clickable="true"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -34,36 +36,40 @@
             android:orientation="horizontal"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:id="@+id/obj_type_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:layout_height="wrap_content"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down">
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/obj_type_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/pride_id_type_label"
                     android:cursorVisible="false"
-                    android:singleLine="true"
-                    android:imeOptions="actionDone"
-                    android:textCursorDrawable="@color/transparent"
-                    android:hint="@string/pride_id_type_label"/>
-
+                    android:longClickable="false"
+                    android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:id="@+id/obj_id_mod_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginStart="10dp">
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:layout_width="0dp"
+                android:layout_marginStart="10dp"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down">
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/obj_id_mod_input"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
+                    android:hint="@string/pride_id_mode_label"
                     android:cursorVisible="false"
-                    android:singleLine="true"
-                    android:imeOptions="actionDone"
-                    android:textCursorDrawable="@color/transparent"
-                    android:hint="@string/pride_id_mode_label"/>
+                    android:longClickable="false"
+                    android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <LinearLayout
