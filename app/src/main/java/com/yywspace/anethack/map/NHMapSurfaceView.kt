@@ -65,6 +65,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var lastTouchTile:Point? = null
     var lastTravelTile:Pair<String,Point>? = null
     private var lastCurse:Point = Point()
+    /** 上次跟随的玩家位置（clipAround 每回合更新；curs 仅在 cursor_on_u 时更新，不可靠） */
+    private var lastFollowPlayer:Point = Point(-1, -1)
     private var baseBorderWidth:Float = .5F
     private var borderWidth:Float = 0F
     private var tileWidth:Float = 0F
@@ -445,7 +447,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun transformMapWithMove(walkRange:Int) {
-        val tb = getTileBorder(map.curse.x, map.curse.y)
+        // 玩家位置：clipAround 的 player 优先（curs 不一定更新）
+        val followX = if (map.player.x >= 0) map.player.x else map.curse.x
+        val followY = if (map.player.y >= 0) map.player.y else map.curse.y
+        val tb = getTileBorder(followX, followY)
         var dx = 0f
         var dy = 0f
         val px = tb.centerX()
@@ -634,7 +639,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 }
                 val canvas = lockCanvas()
                 try {
-                    val curseChanged = lastCurse != map.curse
                     val tileSetChanged = nh.tileSet.isTileSetChange()
 
                     if (tileSetChanged)
@@ -649,9 +653,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         if (op is NHMapScale)
                             scaleMap(op.scale, op.cx, op.cy)
                     }
-                    // 光标/玩家移动 → 视口跟随
-                    if (curseChanged) {
+                    // 玩家移动 → 视口跟随（用 clipAround 的 player 位置，curs 不一定更新）
+                    if (lastFollowPlayer != map.player) {
                         transformMapWithMove(nh.prefs.walkRange)
+                        lastFollowPlayer = Point(map.player)
                     }
                     val newRunMode = if (mapTranslated && nh.prefs.travelAfterPanned && !playerInWalkRange(nh.prefs.walkRange))
                         NHStatus.RunMode.TRAVEL
