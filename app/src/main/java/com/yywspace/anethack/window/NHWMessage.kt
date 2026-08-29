@@ -41,9 +41,10 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         if (messageList.isEmpty())
             return emptyList()
         val lastMsg = messageList.maxBy { it.time }
-        val newestCnt = messageList.count { it.time.isEqual(lastMsg.time) }
+        // 最多取最新 size 条：同一回合的多条消息共享时间戳，若按同批全部取出会
+        // 超过消息栏行数，最新消息被底部裁剪看不见
         val msgSize = messageList.size.coerceAtMost(size)
-        return messageList.reversed().subList(0, if (newestCnt > msgSize) newestCnt else msgSize).map  { nhMessage ->
+        return messageList.reversed().subList(0, msgSize).map { nhMessage ->
             nhMessage.attach(lastMsg.time)
         }.toList()
     }

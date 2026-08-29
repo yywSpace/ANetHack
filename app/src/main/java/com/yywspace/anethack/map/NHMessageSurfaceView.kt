@@ -129,6 +129,9 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private fun draw() {
         // 无变化（兜底唤醒）不绘制，避免空转清屏
         if (!hasChange()) return
+        // 绘制前消费信号：绘制期间到达的新请求保持 pendingDirty=true，
+        // 完成后会立即再绘制一帧，避免"绘制中 putString 被吞 → 最新消息永远不显示"
+        pendingDirty = false
         try {
             canvas = holder?.lockCanvas()
             canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
@@ -137,7 +140,6 @@ class NHMessageSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             if (canvas != null)
                 holder?.unlockCanvasAndPost(canvas)
         }
-        pendingDirty = false
     }
 
     private fun hasChange(): Boolean = pendingDirty
