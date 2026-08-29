@@ -193,6 +193,14 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         playerCentered = false
     }
 
+    /** 地图清空（换楼层等）：下一帧以玩家为中心重新居中 + 全量重绘离屏。
+     *  不主动唤醒：换楼层后 clipAround 会更新玩家位置并唤醒，避免按旧位置居中 */
+    fun onMapCleared() {
+        playerCentered = false
+        mapContentDirty = true
+        mapTransformDirty = true
+    }
+
     private fun initMapParam() {
         nh.tileSet.updateTileSet()
         scaleFactor = 1f

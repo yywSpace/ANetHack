@@ -93,6 +93,8 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
             for (col in row) {
                 col.glyph = -1
             }
+        // 换楼层等清屏后：下一帧以玩家为中心重新居中 + 全量重绘离屏
+        mapView.onMapCleared()
     }
 
     override fun destroyWindow() {
