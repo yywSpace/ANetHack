@@ -16,9 +16,11 @@ data class NHMenuItem(
     var count = -1
     init {
         if(!isHeader() and !isHint()) {
-            Regex("(.*)(?<!\\[)\\((.*)\\)(?!])").find(title.value)?.apply {
+            // 圆括号 → 子信息；大括号保留在主标题上（如 "scroll (KO BATE) {sell 7}"
+            // → 主标题 "scroll {sell 7}"，子信息 "KO BATE"）
+            Regex("(.*?)\\s*(?<!\\[)\\((.*?)\\)\\s*(?:\\{(.*?)\\})?(?!])").find(title.value)?.apply {
                 if(groupValues.size >= 3 && groupValues[1].isNotEmpty()) {
-                    title.value = groupValues[1]
+                    title.value = groupValues[1] + if (groupValues[3].isNotEmpty()) " {${groupValues[3]}}" else ""
                     subtitle = groupValues[2]
                 }
             }
