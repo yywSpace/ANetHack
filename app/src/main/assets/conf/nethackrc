@@ -37,7 +37,7 @@ OPTIONS=autounlock:apply-key + kick + force
 OPTIONS=autopickup,pickup_types:$"=/!?+
 OPTIONS=IBMgraphics,boulder:0
 
-OPTIONS=whatis_menu,force_invmenu,mention_walls,runmode:walk
+OPTIONS=price_quotes,whatis_menu,force_invmenu,mention_walls,runmode:walk
 OPTIONS=lit_corridor,showexp,time,toptenwin
 OPTIONS=pile_limit:2,hilite_pile,hilite_pet
 
