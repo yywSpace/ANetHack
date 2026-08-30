@@ -52,6 +52,9 @@
     <string name="price_id_mode_sell">Sell</string>
     <string name="price_id_mode_buy">Buy</string>
     <string name="price_id_mode_base">Base</string>
+    <!-- 价格段关键词：匹配游戏端文本（{buy 267 sell 67}），本地化时与游戏端保持一致 -->
+    <string name="price_quote_buy">buy</string>
+    <string name="price_quote_sell">sell</string>
     <string name="price_id_invalid_json">Invalid json format.</string>
 
     <!-- Preference Log -->

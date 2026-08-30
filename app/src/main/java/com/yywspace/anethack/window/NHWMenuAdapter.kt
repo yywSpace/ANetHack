@@ -126,7 +126,9 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
                 // 大括号内的每个价格段（如 "buy 267" / "sell 67"）分别可点击
                 val content = menuItem.priceQuote.removeSurrounding("{", "}")
                 val contentStart = quoteStart + 2 // 跳过 " {" 
-                Regex("buy\\s*[0-9]+(?:-[0-9]+)?|sell\\s*[0-9]+(?:-[0-9]+)?").findAll(content).forEach { match ->
+                val buy = Regex.escape(itemView.context.getString(R.string.price_quote_buy))
+                val sell = Regex.escape(itemView.context.getString(R.string.price_quote_sell))
+                Regex("$buy\\s*[0-9]+(?:-[0-9]+)?|$sell\\s*[0-9]+(?:-[0-9]+)?").findAll(content).forEach { match ->
                     val absStart = contentStart + match.range.first
                     val absEnd = contentStart + match.range.last + 1
                     spannable.setSpan(object : ClickableSpan() {

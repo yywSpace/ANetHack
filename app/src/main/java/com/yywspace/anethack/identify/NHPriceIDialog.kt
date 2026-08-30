@@ -49,8 +49,8 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
         tradePrice = result["tradePrice"]?:tradePrice
         currentType = result["objType"]?:currentType
         currentIdMode = when(result["tradeMode"]) {
-            "buy"-> context.getString(R.string.price_id_mode_buy)
-            "sell"-> context.getString(R.string.price_id_mode_sell)
+            context.getString(R.string.price_quote_buy) -> context.getString(R.string.price_id_mode_buy)
+            context.getString(R.string.price_quote_sell) -> context.getString(R.string.price_id_mode_sell)
             else -> currentIdMode
         }
         return true
@@ -230,8 +230,8 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
     private fun parseQuoteInfo(menuItem: NHMenuItem, quote: String) {
         val parts = quote.split(" ").filter { it.isNotEmpty() }
         currentIdMode = when (parts[0]) {
-            "buy" -> context.getString(R.string.price_id_mode_buy)
-            "sell" -> context.getString(R.string.price_id_mode_sell)
+            context.getString(R.string.price_quote_buy) -> context.getString(R.string.price_id_mode_buy)
+            context.getString(R.string.price_quote_sell) -> context.getString(R.string.price_id_mode_sell)
             else -> currentIdMode
         }
         currentType = priceID.parseObjType(menuItem.title.value)
