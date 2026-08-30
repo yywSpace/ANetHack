@@ -11,6 +11,7 @@ import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.entity.NHString
+import com.yywspace.anethack.identify.NHPriceIDialog
 import com.yywspace.anethack.sound.NHSound
 import com.yywspace.anethack.window.NHExtendChoose
 import com.yywspace.anethack.window.NHPlayerChoose
@@ -40,6 +41,8 @@ class NetHack(
     val tileSet = NHTileSet(this)
     val command = NHBlockingCommandController()
     var isRunning = false
+    /** 价格鉴定弹窗（NetHackActivity 初始化后设置），菜单点击价格引用时打开 */
+    var priceIDialog: NHPriceIDialog? = null
     val prefs by lazy { SharedPreferencesUtils(context) }
     val status:NHStatus
         get() =
@@ -181,7 +184,7 @@ class NetHack(
     }
 
     fun askName(nameSize: Int, saves: Array<String>):Array<String> {
-        Log.d(TAG, "askName(playerNSize:$nameSize,saves:${saves})")
+        Log.d(TAG, "askName(playerNSize:$nameSize,saves:${saves.contentToString()})")
         playerChoose.askName(nameSize, saves)
         return playerChoose.waitForPlayerChoose()
     }

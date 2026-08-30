@@ -63,7 +63,7 @@ class NHPriceID(context: Context) {
         return objects.keys.toList().sorted()
     }
 
-    private fun parseObjType(objDesc:String):String {
+    fun parseObjType(objDesc:String):String {
         for (type in objectTypesRegex.keys) {
             val typeRegex = objectTypesRegex[type]?:""
             val typeMatcher = Pattern.compile(typeRegex).matcher(objDesc)

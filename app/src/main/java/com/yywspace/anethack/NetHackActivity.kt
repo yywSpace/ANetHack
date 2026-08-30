@@ -43,6 +43,7 @@ class NetHackActivity : AppCompatActivity() {
         handler = Handler(Looper.getMainLooper())
         nethack = NetHack(handler, this, binding,"${filesDir.path}/nethackdir")
         priceIDialog = NHPriceIDialog(this, nethack)
+        nethack.priceIDialog = priceIDialog
         initView()
         initKeyboard()
         initControlPanel()
@@ -92,7 +93,7 @@ class NetHackActivity : AppCompatActivity() {
         else
             binding.floatingButton.visibility = View.GONE
         binding.floatingButton.setOnClickListener {
-            priceIDialog.show()
+            priceIDialog.showFromMessages()
         }
     }
     private fun initKeyboard() {

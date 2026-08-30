@@ -180,9 +180,13 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                 onItemLongClick = { _, position, item ->
                     showAmountPickerDialog(context, item, position, this)
                 }
+                // 点击大括号价格文本（如 "sell 67"）→ 打开价格鉴定弹窗并预填
+                onPriceQuoteClick = { menuItem, quote ->
+                    nh.priceIDialog?.showFromQuote(menuItem, quote)
+                }
             }
         }
-        menuList = menuView.findViewById<RecyclerView>(R.id.menu_item_list)
+        menuList = menuView.findViewById(R.id.menu_item_list)
         // 静态视图被多个窗口实例共享，每次打开都确保当前实例的 adapter 挂载
         // （防止残留其他实例已清空数据的 adapter，导致列表空白）
         if (menuList?.adapter !== menuAdapter) {

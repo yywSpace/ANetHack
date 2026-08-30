@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.databinding.DialogPriceIdentifyBinding
+import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.extensions.show
 
 
@@ -225,8 +226,37 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
         objListAdapter.notifyDataSetChanged()
     }
 
+    /** 解析价格段（如 "sell 67" / "buy 2-5"），更新交易信息 */
+    private fun parseQuoteInfo(menuItem: NHMenuItem, quote: String) {
+        val parts = quote.split(" ").filter { it.isNotEmpty() }
+        currentIdMode = when (parts[0]) {
+            "buy" -> context.getString(R.string.price_id_mode_buy)
+            "sell" -> context.getString(R.string.price_id_mode_sell)
+            else -> currentIdMode
+        }
+        currentType = priceID.parseObjType(menuItem.title.value)
+        // 价格可能是范围（如 "2-5"），取最小值
+        tradePrice = parts.getOrNull(1)?.split("-")?.first() ?: tradePrice
+    }
+
+    /** 从菜单点击的价格段打开弹窗并预填（不解析消息覆盖）：
+     *  价格/模式来自 quote，物品类型由菜单项标题判断 */
+    fun showFromQuote(menuItem: NHMenuItem, quote: String) {
+        parseQuoteInfo(menuItem, quote)
+        showPriceIDialog()
+    }
+
+    fun showFromMessages() {
+        // 正常打开：从最近消息解析交易信息预填
+        val messageList = nh.messages.getRecentMessageList(5)
+        for (i in messageList.indices) {
+            if (parseTradeInfo(messageList[i].toString())) break
+        }
+        showPriceIDialog()
+    }
+
     @SuppressLint("NotifyDataSetChanged")
-    fun show() {
+    private fun showPriceIDialog() {
         if (isShowing)
             return
         isShowing = true
@@ -234,10 +264,6 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
             if (parent != null) {
                 (parent as ViewGroup).removeView(this)
             }
-        }
-        val messageList = nh.messages.getRecentMessageList(5)
-        for (i in messageList.indices) {
-            if (parseTradeInfo(messageList[i].toString())) break
         }
 
         binding.roleCharismaInput.setText(nh.status.charisma.realVal)

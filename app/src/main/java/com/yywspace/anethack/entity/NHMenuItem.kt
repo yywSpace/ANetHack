@@ -12,16 +12,26 @@ data class NHMenuItem(
 ) {
     var isSelected:Boolean = preselected
     var subtitle:String = ""
+    /** 大括号价格内容（如 "sell 7"），无则空串 */
+    var priceQuote:String = ""
     var selectedCount :Long = -1
     var count = -1
     init {
         if(!isHeader() and !isHint()) {
-            // 圆括号 → 子信息；大括号保留在主标题上（如 "scroll (KO BATE) {sell 7}"
-            // → 主标题 "scroll {sell 7}"，子信息 "KO BATE"）
+            // 圆括号 → 子信息；大括号内容独立存到 priceQuote（如 "scroll (KO BATE) {sell 7}"
+            // → 主标题 "scroll"，子信息 "KO BATE"，priceQuote "{sell 7}"）
             Regex("(.*?)\\s*(?<!\\[)\\((.*?)\\)\\s*(?:\\{(.*?)\\})?(?!])").find(title.value)?.apply {
                 if(groupValues.size >= 3 && groupValues[1].isNotEmpty()) {
-                    title.value = groupValues[1] + if (groupValues[3].isNotEmpty()) " {${groupValues[3]}}" else ""
+                    title.value = groupValues[1]
                     subtitle = groupValues[2]
+                    priceQuote = if (groupValues[3].isNotEmpty()) "{${groupValues[3]}}" else ""
+                }
+            }
+            // 大括号独立提取：兼容没有圆括号的文本（如 "scroll {sell 7}"）
+            if (priceQuote.isEmpty()) {
+                Regex("\\{(.*?)\\}").find(title.value)?.apply {
+                    title.value = title.value.replace(" {${groupValues[1]}}", "").trim()
+                    priceQuote = "{${groupValues[1]}}"
                 }
             }
 
