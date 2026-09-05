@@ -999,6 +999,13 @@
         "Attack type": "ray"
       },
       {
+        "Name": "wand of stasis",
+        "Cost": "150",
+        "Weight": "7",
+        "Starting charges": "3–6",
+        "Attack type": "non-directional"
+      },
+      {
         "Name": "wand of wishing",
         "Cost": "500",
         "Weight": "7",
