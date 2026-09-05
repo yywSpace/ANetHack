@@ -227,11 +227,15 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
     /** 从菜单点击的价格段打开弹窗并预填（不解析消息覆盖）：
      *  价格/模式来自 quote，物品类型由菜单项标题判断 */
     fun showFromQuote(menuItem: NHMenuItem, quote: String) {
+        if (!nh.prefs.priceId)
+            return // 受设置开关 priceId 控制
         parseQuoteInfo(menuItem, quote)
         showPriceIDialog()
     }
 
     fun showFromMessages() {
+        if (!nh.prefs.priceId)
+            return // 受设置开关 priceId 控制
         // 正常打开：从最近消息解析交易信息预填
         val messageList = nh.messages.getRecentMessageList(5)
         for (i in messageList.indices) {

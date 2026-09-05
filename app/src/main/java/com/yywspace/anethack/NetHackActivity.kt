@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHCommandParser
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.command.NHKeyCommand
@@ -23,10 +22,8 @@ import com.yywspace.anethack.identify.NHPriceIDialog
 import com.yywspace.anethack.setting.SettingsActivity
 import com.yywspace.anethack.window.NHWMenu
 import java.io.File
-import java.io.FileFilter
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.lang.Integer.parseInt
 
 
 class NetHackActivity : AppCompatActivity() {
@@ -44,7 +41,6 @@ class NetHackActivity : AppCompatActivity() {
         nethack = NetHack(handler, this, binding,"${filesDir.path}/nethackdir")
         priceIDialog = NHPriceIDialog(this, nethack)
         nethack.priceIDialog = priceIDialog
-        initView()
         initKeyboard()
         initControlPanel()
         AssetsLoader(this).loadAssets(
@@ -68,10 +64,6 @@ class NetHackActivity : AppCompatActivity() {
             hideSystemUi()
         else
             showSystemUi()
-        if (nethack.prefs.priceId)
-            binding.floatingButton.visibility = View.VISIBLE
-        else
-            binding.floatingButton.visibility = View.GONE
         binding.keyboardView.setKeyboardVibrate(nethack.prefs.keyboardVibrate)
         initControlPanel()
     }
@@ -87,15 +79,6 @@ class NetHackActivity : AppCompatActivity() {
         }
     }
 
-    private fun initView() {
-        if (nethack.prefs.priceId)
-            binding.floatingButton.visibility = View.VISIBLE
-        else
-            binding.floatingButton.visibility = View.GONE
-        binding.floatingButton.setOnClickListener {
-            priceIDialog.showFromMessages()
-        }
-    }
     private fun initKeyboard() {
         binding.keyboardView.apply {
             onKeyPress = {
@@ -170,23 +153,14 @@ class NetHackActivity : AppCompatActivity() {
                     hideKeyboard()
                 isKeyboardShow = !isKeyboardShow
             }
-            "Repeat" -> {
-                Thread {
-                    for (i in 0..100) {
-                        for (j in 0..5) {
-                            nethack.command.sendCommand(NHKeyCommand('h'))
-                        }
-                        for (j in 0..5) {
-                            nethack.command.sendCommand(NHKeyCommand('l'))
-                        }
-                    }
-                }.start()
-            }
             "Center" -> {
                 binding.mapView.centerPlayerInScreen()
             }
             "Setting" -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
+            }
+            "PriceID" -> {
+                priceIDialog.showFromMessages()
             }
             else -> {
                 if(nethack.isRunning) {
@@ -246,7 +220,7 @@ class NetHackActivity : AppCompatActivity() {
                 }
                 // delete dump logs that exceed the size
                 val dumpDir = File(filesDir,"logs/dump")
-                dumpDir.listFiles(FileFilter { it.extension == "log" })
+                dumpDir.listFiles { it.extension == "log" }
                     ?.apply {
                     if (size > dumpLogMaxSize) {
                         toList()

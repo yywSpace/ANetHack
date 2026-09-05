@@ -140,7 +140,7 @@
             app:title="@string/pref_price_id_enable"
             app:iconSpaceReserved="false"
             app:defaultValue="true"
-            app:summary="@string/pride_id_title_desc"/>
+            app:summary="@string/pref_price_id_enable_desc"/>
     </PreferenceCategory>
 
     <PreferenceCategory
