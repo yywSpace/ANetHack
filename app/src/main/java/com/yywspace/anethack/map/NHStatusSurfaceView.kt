@@ -10,6 +10,7 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextPaint
 import android.text.style.BackgroundColorSpan
+import android.text.style.ForegroundColorSpan
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -147,12 +148,21 @@ class NHStatusSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         return statusBarList
     }
 
-    /** 字段值签名：显示文本（title 额外含 HP 百分比，HP 条随百分比变化） */
+    /** 字段值签名：显示文本 + 颜色（title 额外含 HP 百分比和 HP 条颜色）。
+     *  文本相同但颜色变化时缓存也需失效，否则布局复用旧颜色不更新 */
     private fun valueSignature(field: StatusField, spannable: Spannable): String {
+        val colorSig = {
+            val fg = spannable.getSpans(0, spannable.length, ForegroundColorSpan::class.java)
+                .joinToString(",") { it.foregroundColor.toString() }
+            val bg = spannable.getSpans(0, spannable.length, BackgroundColorSpan::class.java)
+                .joinToString(",") { it.backgroundColor.toString() }
+            "|$fg|$bg"
+        }
         return if (field == StatusField.BL_TITLE) {
-            spannable.toString() + "|" + status.hitPoints.percent
+            // HP 条背景色来自 hitPoints 颜色，独立于标题文本的 span
+            spannable.toString() + "|" + status.hitPoints.percent + colorSig + "|" + status.hitPoints.color
         } else {
-            spannable.toString()
+            spannable.toString() + colorSig
         }
     }
 
