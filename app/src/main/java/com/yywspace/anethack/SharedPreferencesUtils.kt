@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import java.time.Instant
-import java.util.stream.Collectors
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -32,36 +31,34 @@ class SharedPreferencesUtils(val context: Context) {
     var internalSound by SharedPreferenceDelegates.boolean(true)
     var commandPanel by SharedPreferenceDelegates.string(context.getString(R.string.pref_keyboard_command_panel_default))
 
-    fun getInputPrompts():List<String> {
-        return inputPrompts.map {
-            it.split("-").first()
-        }.toList()
+    /** 解析存储条目 "prompt-时间戳"：用最后一个 '-' 分隔，prompt 内含 '-' 也不受影响 */
+    private fun splitPrompt(entry: String): Pair<String, Long> {
+        val idx = entry.lastIndexOf('-')
+        return if (idx > 0)
+            entry.substring(0, idx) to (entry.substring(idx + 1).toLongOrNull() ?: 0L)
+        else
+            entry to 0L
     }
 
-    fun addInputPrompts(prompt:String) {
-        val prompts = inputPrompts.toList().sortedByDescending {
-            it.split("-").last().toLong()
-        }.stream().limit(50).collect(Collectors.toList())
-        // 查看prompt是否重复
-        var oldPrompt = ""
-        for (p in prompts) {
-            if (p.startsWith(prompt.trim())) {
-                oldPrompt = p
-                break
-            }
-        }
-        inputPrompts = prompts.toMutableList().run {
-            // 如果重复则更新其时间为最新
-            if (oldPrompt.isNotEmpty())
-                remove(oldPrompt)
-            add("${prompt.trim()}-${Instant.now().epochSecond}")
-            toMutableSet()
-        }
+    /** 历史输入（最近使用的在前；读取时按时间排序，不受 Set 无序存储影响） */
+    fun getInputPrompts(): List<String> {
+        return inputPrompts.map { splitPrompt(it) }
+            .sortedByDescending { it.second }
+            .map { it.first }
     }
-    fun removeInputPrompts(prompt:String) {
-        inputPrompts = inputPrompts.toMutableSet().apply {
-            removeIf { it.startsWith(prompt.trim()) }
-        }
+
+    fun addInputPrompts(prompt: String) {
+        val trimmed = prompt.trim()
+        if (trimmed.isEmpty())
+            return
+        val prompts = inputPrompts.map { splitPrompt(it) }
+            .filterNot { it.first.equals(trimmed, ignoreCase = true) } // 大小写不敏感去重，保留最新
+            .toMutableList()
+        prompts.add(trimmed to Instant.now().epochSecond)
+        inputPrompts = prompts.sortedByDescending { it.second }
+            .take(50) // 最多保留 50 条
+            .map { "${it.first}-${it.second}" }
+            .toSet()
     }
     fun getSaves():Map<String, String> {
         return _saves
@@ -108,17 +105,6 @@ class SharedPreferencesUtils(val context: Context) {
             }
         }
 
-        fun long(defaultValue: Long = 0L) = object : ReadWriteProperty<SharedPreferencesUtils, Long> {
-
-            override fun getValue(thisRef: SharedPreferencesUtils, property: KProperty<*>): Long {
-                return thisRef.preferences.getLong(property.name, defaultValue)
-            }
-
-            override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Long) {
-                thisRef.preferences.edit { putLong(property.name, value) }
-            }
-        }
-
         fun boolean(defaultValue: Boolean = false) = object : ReadWriteProperty<SharedPreferencesUtils, Boolean> {
             override fun getValue(thisRef: SharedPreferencesUtils, property: KProperty<*>): Boolean {
                 return thisRef.preferences.getBoolean(property.name, defaultValue)
@@ -126,16 +112,6 @@ class SharedPreferencesUtils(val context: Context) {
 
             override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Boolean) {
                 thisRef.preferences.edit { putBoolean(property.name, value) }
-            }
-        }
-
-        fun float(defaultValue: Float = 0.0f) = object : ReadWriteProperty<SharedPreferencesUtils, Float> {
-            override fun getValue(thisRef: SharedPreferencesUtils, property: KProperty<*>): Float {
-                return thisRef.preferences.getFloat(property.name, defaultValue)
-            }
-
-            override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Float) {
-                thisRef.preferences.edit { putFloat(property.name, value) }
             }
         }
 

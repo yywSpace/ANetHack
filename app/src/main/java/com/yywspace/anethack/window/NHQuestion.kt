@@ -97,7 +97,6 @@ class NHQuestion(val nh: NetHack) {
                         inputDialog?.dismiss()
                         return@setOnClickListener
                     }
-                    // nh.prefs.removeInputPrompts(inputText.text.substring(delPrefix.length))
                     nh.prefs.addInputPrompts(inputText.text.toString())
                     if (inputText.text.length > currentBufSize)
                         finishLine(inputText.text.substring(0, currentBufSize))
