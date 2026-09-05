@@ -72,22 +72,7 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
         currentType = if (typeAdapter.isEmpty) "" else typeAdapter.getItem(0) ?: ""
         currentSurcharge = if (surchargeAdapter.isEmpty) "" else surchargeAdapter.getItem(0) ?: ""
         currentIdMode = if (idModeAdapter.isEmpty) "" else idModeAdapter.getItem(0) ?: ""
-        objListAdapter = NHPriceObjListAdapter(objList).apply {
-            onItemClick = { _, _, obj ->
-                var objDesc = ""
-                obj.keys.forEach {
-                    if (it != "name" && (obj[it]?:"").trim().isNotEmpty())
-                        objDesc += "${it}:${obj[it]}\n"
-                }
-                AlertDialog.Builder(context).run {
-                    setTitle(obj["name"])
-                    setMessage(objDesc)
-                    setPositiveButton(R.string.dialog_confirm, null)
-                    create()
-                    show(nh.prefs.immersiveMode)
-                }
-            }
-        }
+        objListAdapter = NHPriceObjListAdapter(objList)
     }
     private fun initView(){
         val view = View.inflate(context, R.layout.dialog_price_identify,null)

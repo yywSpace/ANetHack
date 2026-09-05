@@ -7,8 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.R
 class NHPriceObjListAdapter(private val objList: List<Map<String,String>>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var onItemClick:((view: View, index:Int, item: Map<String,String>)->Unit)? = null
-    inner class ObjListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ObjListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val objName : TextView = view.findViewById(R.id.obj_name)
         val objCost : TextView = view.findViewById(R.id.obj_cost)
     }
@@ -28,9 +27,6 @@ class NHPriceObjListAdapter(private val objList: List<Map<String,String>>): Recy
             val obj = objList[position]
             objName.text = obj["Name"]
             objCost.text = obj["Cost"]
-            itemView.setOnClickListener {
-                onItemClick?.invoke(it, position, obj)
-            }
         }
     }
 }
