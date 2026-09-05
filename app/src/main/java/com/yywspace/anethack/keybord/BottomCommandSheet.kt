@@ -145,12 +145,26 @@ class BottomCommandSheet: GridLayout {
         return true
     }
 
+    /** 是否处于展开状态 */
+    val isExpanded: Boolean
+        get() = currentHeight > peekHeight
+
+    /** 展开/折叠（动画切换；已在目标状态则忽略） */
+    fun setExpanded(expanded: Boolean) {
+        if (expanded == isExpanded)
+            return
+        animateHeightChange(if (expanded) viewHeight else peekHeight)
+    }
+
     private fun animateHeightChange(targetHeight: Int) {
+        if (currentHeight == targetHeight)
+            return // 防止无意义动画及 viewHeight==peekHeight 时除零
         val valueAnimator = ValueAnimator.ofInt(height, targetHeight)
         // 根据剩余路径计算动画时间
-        valueAnimator.duration = (
-                200 * abs(currentHeight - targetHeight) / abs(viewHeight - peekHeight)
-                ).toLong()
+        valueAnimator.duration = if (viewHeight == peekHeight)
+            0L
+        else
+            (200 * abs(currentHeight - targetHeight) / abs(viewHeight - peekHeight)).toLong()
         // 更新最新高度值
         currentHeight = targetHeight
         valueAnimator.addUpdateListener { animator ->

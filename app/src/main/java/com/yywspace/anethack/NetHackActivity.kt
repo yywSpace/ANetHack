@@ -111,6 +111,10 @@ class NetHackActivity : AppCompatActivity() {
                         processKeyPress("#")
                 }
             }
+            // 键盘上下滑动 → 联动命令面板展开/折叠
+            onVerticalSwipe = { upward ->
+                binding.baseCommandPanel.setExpanded(upward)
+            }
             visibility = View.GONE
         }
 

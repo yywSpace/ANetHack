@@ -7,13 +7,16 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewConfiguration
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.setMargins
 import com.yywspace.anethack.R
 import com.yywspace.anethack.Utils
+import kotlin.math.abs
 
 
 class KeyboardView : GridLayout {
@@ -35,6 +38,12 @@ class KeyboardView : GridLayout {
     private var isNumberPanelShow = false
     var onKeyPress:((key:NHKeyboard.Key)->Unit)? = null
     var onSpecialKeyLongPress:((key:NHKeyboard.Key)->Unit)? = null
+    /** 垂直滑动联动回调：true=向上滑（展开），false=向下滑（折叠） */
+    var onVerticalSwipe:((upward:Boolean)->Unit)? = null
+
+    private var initialSwipeY = 0f
+    private var isSwiping = false
+    private val touchSlop: Int = ViewConfiguration.get(context).scaledTouchSlop
 
     private var vibrator: Vibrator
     private var keyboardVibrate: Boolean = true
@@ -85,10 +94,10 @@ class KeyboardView : GridLayout {
 
     private fun initNumPanel() {
         keyboardView[0].forEach {
-            it.visibility = if (!isNumberPanelShow) View.GONE else View.VISIBLE
+            it.visibility = if (!isNumberPanelShow) GONE else VISIBLE
         }
         placeholderView[0].forEach {
-            it.visibility = if (!isNumberPanelShow) View.GONE else View.VISIBLE
+            it.visibility = if (!isNumberPanelShow) GONE else VISIBLE
         }
     }
     @SuppressLint("ClickableViewAccessibility")
@@ -125,10 +134,10 @@ class KeyboardView : GridLayout {
                         switchNHKeyboard(NHKeyboard.Type.SYMBOL)
                     "Num" -> {
                         keyboardView[0].forEach {
-                            it.visibility = if (isNumberPanelShow) View.GONE else View.VISIBLE
+                            it.visibility = if (isNumberPanelShow) GONE else VISIBLE
                         }
                         placeholderView[0].forEach {
-                            it.visibility = if (isNumberPanelShow) View.GONE else View.VISIBLE
+                            it.visibility = if (isNumberPanelShow) GONE else VISIBLE
                         }
                         if (isNumberPanelShow)
                             statusImage.setImageResource(R.drawable.dot_unselected)
@@ -142,7 +151,7 @@ class KeyboardView : GridLayout {
             }
             setOnLongClickListener {
                 val k = this@KeyboardView.keyboard.rows[x].keys[y]
-                if (k.label in listOf<String>( "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "ESC", "DEL", "Enter")) {
+                if (k.label in listOf( "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "ESC", "DEL", "Enter")) {
                     onSpecialKeyLongPress?.invoke(k)
                     return@setOnLongClickListener true
                 }
@@ -227,9 +236,9 @@ class KeyboardView : GridLayout {
                 keyboardView[i][j].apply {
                     findViewById<ImageView>(R.id.key_status).apply {
                         visibility = if(key.label in listOf("Num", "Shift"))
-                                View.VISIBLE
+                            VISIBLE
                             else
-                                View.INVISIBLE
+                            INVISIBLE
                     }
                     findViewById<TextView>(R.id.key_main).apply {
                         tag = key.value
@@ -238,9 +247,9 @@ class KeyboardView : GridLayout {
                     findViewById<TextView>(R.id.key_sub).apply {
                         when(key.label) {
                             "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "ESC", "DEL", "Enter"->
-                                visibility = View.GONE
+                                visibility = GONE
                             else -> {
-                                visibility = View.VISIBLE
+                                visibility = VISIBLE
                                 when(keyboardType) {
                                     NHKeyboard.Type.UPPER_LETTER,  NHKeyboard.Type.LETTER -> {
                                         keyboardSymbol.rows[i].keys[j].apply {
@@ -255,7 +264,7 @@ class KeyboardView : GridLayout {
                                         }
                                     }
                                     else -> {
-                                        visibility = View.GONE
+                                        visibility = GONE
                                     }
                                 }
                             }
@@ -264,5 +273,35 @@ class KeyboardView : GridLayout {
                 }
             }
         }
+    }
+
+    /** 垂直滑动手势：超过阈值后拦截（避免触发按键点击），松手时按方向回调 */
+    override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                initialSwipeY = event.y
+                isSwiping = false
+            }
+            MotionEvent.ACTION_MOVE -> {
+                if (!isSwiping && abs(event.y - initialSwipeY) > touchSlop) {
+                    isSwiping = true
+                    return true // 拦截本次触摸，按键不再收到点击
+                }
+            }
+        }
+        return super.onInterceptTouchEvent(event)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.actionMasked) {
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                if (isSwiping) {
+                    isSwiping = false
+                    onVerticalSwipe?.invoke(event.y - initialSwipeY < 0) // 上滑→展开，下滑→折叠
+                }
+            }
+        }
+        return super.onTouchEvent(event)
     }
 }
