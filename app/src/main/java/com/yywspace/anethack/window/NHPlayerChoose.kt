@@ -95,7 +95,11 @@ class NHPlayerChoose(val nh: NetHack) {
 
             popupWindow.apply {
                 contentView = view
-                showAtLocation(binding.root, Gravity.CENTER, 0, 0)
+                // 等根视图 attach 到窗口后再显示：native 线程可能在 Activity 窗口就绪前触发弹窗，直接 showAtLocation 会抛 BadTokenException
+                binding.root.post {
+                    if (binding.root.isAttachedToWindow)
+                        showAtLocation(binding.root, Gravity.CENTER, 0, 0)
+                }
             }
         }
     }
@@ -147,13 +151,13 @@ class NHPlayerChoose(val nh: NetHack) {
         var onItemClick:((view: View, index:Int, item:NHPlayer)->Unit)? = null
         var onPlayerAddClick:((view: View)->Unit)? = null
 
-        inner class PlayerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        class PlayerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val itemPlayer : TextView = view.findViewById(R.id.item_player)
             val itemPlayMod : TextView = view.findViewById(R.id.item_play_mod)
             val itemCheckbox : CheckBox = view.findViewById(R.id.item_checkbox)
         }
 
-        inner class PlayerAddViewHolder(view: View) : RecyclerView.ViewHolder(view)
+        class PlayerAddViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
