@@ -108,8 +108,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     return
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
                     if (nh.status.runMode == NHStatus.RunMode.TRAVEL) {
-                        nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
-                        mapTranslated = false
+                        travelTo(point)
                     }else {
                         val curseBorder = getTileBorder(map.curse.x, map.curse.y)
                         val direction = getMoveDirection(
@@ -136,7 +135,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 if (indicatorController.onIndicatorLongPress(e))
                     return
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
-                    // long click yourself
+                    // long click yourself: this is a left click on the hero (CLICK_1),
+                    // NetHack answers with its "What do you want to do?" self menu
                     if (abs(map.curse.x - point.x) < 1 && abs(map.curse.y - point.y) < 1) {
                         nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
                     } else {
@@ -278,13 +278,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                                     playerMove(direction, true)
                                 }
                                 "Travel" -> {
-                                    // whether travel to tile
-                                    nh.command.sendCommand(
-                                        NHPosCommand(point.x, point.y, PosMod.TRAVEL)
-                                    )
-                                    if (!(point.x >= map.width || point.y >= map.height || point.x <= 0 || point.y <= 0))
-                                        lastTravelTile = Pair(nh.status.dungeonLevel.realVal, point)
-                                    mapTranslated = false
+                                    travelTo(point)
                                 }
                             }
                             popupWindow.dismiss()
@@ -449,6 +443,25 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         if (mapInit)
             centerView(map.curse.x, map.curse.y)
     }
+
+    /** 人物是否已经显示在屏幕里（用于 travel 前决定要不要居中） */
+    private fun playerOnScreen(): Boolean {
+        if (!mapInit || map.curse.x < 0 || map.curse.y < 0)
+            return true
+        val tb = getTileBorder(map.curse.x, map.curse.y)
+        return tb.right > 0 && tb.left < measuredWidth && tb.bottom > 0 && tb.top < measuredHeight
+    }
+
+    /** 统一的 travel 入口：人物不在屏幕里时先居中，发完指令记录目的地并退出 travel 模式 */
+    private fun travelTo(point: Point) {
+        if (!playerOnScreen())
+            centerPlayerInScreen()
+        nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
+        if (point.x in 1 until map.width && point.y in 1 until map.height)
+            lastTravelTile = Pair(nh.status.dungeonLevel.realVal, point)
+        mapTranslated = false
+    }
+
     fun centerView(x:Int, y:Int) {
         val tb = getTileBorder(x,y)
         transformMap(-(tb.centerX() - measuredWidth / 2F), -(tb.centerY() - measuredHeight / 2F))

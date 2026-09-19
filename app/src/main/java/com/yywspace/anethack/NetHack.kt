@@ -253,7 +253,9 @@ class NetHack(
 
     private fun delayOutput() {
         try {
-            Thread.sleep(10)
+            // let the map thread draw each step of a run, a beam or an
+            // explosion before the game continues
+            Thread.sleep(15)
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
