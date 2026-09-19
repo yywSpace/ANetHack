@@ -50,19 +50,13 @@ class SettingsActivity : AppCompatActivity() {
 
     class SettingsFragment : PreferenceFragmentCompat(){
         private var userSoundPerm:CheckBoxPreference? = null
-        // 是否手动申请权限
-        private var requestSoundPerm = false
 
         override fun onResume() {
             super.onResume()
-            userSoundPerm?.apply {
-                if (!XXPermissions.isGranted(context, Permission.READ_MEDIA_AUDIO))
-                    isChecked = false
-                else {
-                    // 拥有权限时，若为手动申请则设为有效
-                    if (requestSoundPerm) isChecked = true
-                }
-            }
+            // without the permission the sound files of the player cannot be
+            // read at all, so the switch is forced off in that case
+            if (!XXPermissions.isGranted(requireContext(), Permission.READ_MEDIA_AUDIO))
+                userSoundPerm?.isChecked = false
         }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -111,37 +105,39 @@ class SettingsActivity : AppCompatActivity() {
             }
             userSoundPerm = findPreference<CheckBoxPreference>("userSound")?.apply {
                 setOnPreferenceClickListener {
-                    if (!XXPermissions.isGranted(context, Permission.READ_MEDIA_AUDIO)) {
-                        isChecked = false
-                        XXPermissions.with(context)
-                            .permission(Permission.READ_MEDIA_AUDIO)
-                            .request(object : OnPermissionCallback {
-                                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
-                                    if (!allGranted)
-                                        return
-                                    isChecked = true
-                                    Toast.makeText(context, R.string.permission_granted, Toast.LENGTH_SHORT).show()
-                                }
-                                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
-                                    if (doNotAskAgain) {
-                                        isChecked = false
-                                        AlertDialog.Builder(context).apply {
-                                            setTitle(R.string.permission_audio)
-                                            setMessage(R.string.permission_denied)
-                                            setNegativeButton(R.string.dialog_confirm) {_, _ ->
-                                                // 是否手动申请权限
-                                                requestSoundPerm = true
-                                                XXPermissions.startPermissionActivity(context, permissions)
-                                            }
-                                            create()
-                                            show()
-                                        }
-
-                                    }
-                                }
-                            })
-                        return@setOnPreferenceClickListener true
+                    if (XXPermissions.isGranted(context, Permission.READ_MEDIA_AUDIO)) {
+                        // permission is there: let the switch toggle itself
+                        return@setOnPreferenceClickListener false
                     }
+                    isChecked = false
+                    XXPermissions.with(context)
+                        .permission(Permission.READ_MEDIA_AUDIO)
+                        .request(object : OnPermissionCallback {
+                            override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
+                                if (!allGranted)
+                                    return
+                                isChecked = true
+                                Toast.makeText(context, R.string.permission_granted, Toast.LENGTH_SHORT).show()
+                            }
+
+                            override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
+                                isChecked = false
+                                if (doNotAskAgain) {
+                                    AlertDialog.Builder(context).apply {
+                                        setTitle(R.string.permission_audio)
+                                        setMessage(R.string.permission_denied)
+                                        setPositiveButton(R.string.permission_open_settings) { _, _ ->
+                                            XXPermissions.startPermissionActivity(context, permissions)
+                                        }
+                                        setNegativeButton(R.string.dialog_cancel, null)
+                                        create()
+                                        show()
+                                    }
+                                } else {
+                                    Toast.makeText(context, R.string.permission_denied_hint, Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        })
                     true
                 }
             }

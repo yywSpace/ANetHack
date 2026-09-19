@@ -1,12 +1,9 @@
 package com.yywspace.anethack.sound
 
-import android.content.Context
 import android.media.AudioAttributes
 import android.media.MediaMetadataRetriever
 import android.media.SoundPool
 import android.util.Log
-import android.widget.Toast
-import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.NetHack
@@ -46,6 +43,12 @@ class NHSound(val nh:NetHack) {
     private fun playUserSound(soundPath: String, volume: Int) {
         if (!nh.prefs.userSound)
             return
+        // the files of the player live in shared storage, so reading them needs
+        // READ_MEDIA_AUDIO (Android 13+) or READ_EXTERNAL_STORAGE before that
+        if (!XXPermissions.isGranted(nh.context, Permission.READ_MEDIA_AUDIO)) {
+            Log.w(TAG, "playUserSound skipped, no permission to read $soundPath")
+            return
+        }
         val soundFile = File(soundPath)
         if (!soundFile.exists()) {
             Log.d(TAG, "playUserSound $soundPath not exists.")
@@ -193,7 +196,7 @@ class NHSound(val nh:NetHack) {
 
         companion object {
             fun fromInt(value: Int): AchievementsS2 {
-                AchievementsS2.values().forEach {
+                entries.forEach {
                     if (it.ordinal == value)
                         return it
                 }
@@ -213,7 +216,7 @@ class NHSound(val nh:NetHack) {
         INS_NO_INSTRUMENT(-1);
         companion object {
             fun fromInt(value: Int):Instruments {
-                Instruments.values().forEach {
+                entries.forEach {
                     if (it.value == value)
                         return it
                 }
@@ -226,7 +229,7 @@ class NHSound(val nh:NetHack) {
 
         companion object {
             fun fromInt(value: Int):Ambiences {
-                Ambiences.values().forEach {
+                entries.forEach {
                     if (it.ordinal == value)
                         return it
                 }
@@ -239,7 +242,7 @@ class NHSound(val nh:NetHack) {
         AMBIENCE_NOTHING, AMBIENCE_BEGIN, AMBIENCE_END, AMBIENCE_UPDATE;
         companion object {
             fun fromInt(value: Int):AmbienceActions {
-                AmbienceActions.values().forEach {
+                entries.forEach {
                     if (it.ordinal == value)
                         return it
                 }
