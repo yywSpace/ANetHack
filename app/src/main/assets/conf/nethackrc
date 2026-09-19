@@ -96,8 +96,14 @@ OPTIONS=hilite_status:carrying-capacity/overloaded/red&inverse
 # *** User sound ***
 #
 # In Android you must enable user sound in settings
-# and grant audio permission.
+# and grant the audio permission.
+#
 ## The directory that houses the sound files to be played.
+## SOUNDDIR has to be a media directory such as Music or Download
 #SOUNDDIR=/sdcard/Music/NetHack
-## An entry that maps a sound file to a user-specified message pattern.
+#SOUNDDIR=/sdcard/Download/NetHack
+## An entry that maps a sound file to a user-specified message pattern
+## The mapped files in SOUND have to be audio files (.wav, .mp3, .ogg, ...)
 #SOUND=MESG "This door is locked" "lock.wav" 100
+#SOUND=MESG "You hear a door open" "door_open.wav" 80
+#SOUND=MESG hide "^You miss the " "swing.mp3" 75
