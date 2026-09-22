@@ -80,6 +80,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var mapContentDirty = false
     /** 首次以玩家位置居中是否已做（绘制线程首帧执行，保证 view 已测量） */
     private var playerCentered = false
+    /** 尺寸变化前玩家是否在屏幕内（键盘弹出/收起时据此决定要不要跟随） */
+    private var playerWasOnScreen = true
     private var isDrawing = false
     private lateinit var indicatorController:NHMapIndicatorController
 
@@ -248,9 +250,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         val height = measuredHeight.toFloat()
         val px = if (cx > width/2) playerBorder.left else playerBorder.right
         val py = if (cy > height/2) playerBorder.top else playerBorder.bottom
-        if (px > offsetX && py > offsetY && px < width-offsetX && py < height-offsetY)
-            return true
-        return false
+        return px > offsetX && py > offsetY && px < width-offsetX && py < height-offsetY
     }
 
     @SuppressLint("InflateParams")
@@ -445,11 +445,11 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     /** 人物是否已经显示在屏幕里（用于 travel 前决定要不要居中） */
-    private fun playerOnScreen(): Boolean {
+    private fun playerOnScreen(width:Int = measuredWidth, height:Int = measuredHeight): Boolean {
         if (!mapInit || map.curse.x < 0 || map.curse.y < 0)
             return true
         val tb = getTileBorder(map.curse.x, map.curse.y)
-        return tb.right > 0 && tb.left < measuredWidth && tb.bottom > 0 && tb.top < measuredHeight
+        return tb.right > 0 && tb.left < width && tb.bottom > 0 && tb.top < height
     }
 
     /** 统一的 travel 入口：人物不在屏幕里时先居中，发完指令记录目的地并退出 travel 模式 */
@@ -625,6 +625,13 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         UP, DOWN, LEFT, RIGHT, LEFT_UP, LEFT_DOWN, RIGHT_UP, RIGHT_DOWN, CENTER, UNDEFINE;
     }
 
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        // 尺寸变化前的玩家可见性，键盘顶起/收起时据此决定要不要跟随
+        if (mapInit && oldw > 0 && oldh > 0)
+            playerWasOnScreen = playerOnScreen(oldw, oldh)
+    }
+
     override fun surfaceCreated(holder: SurfaceHolder) {
         isDrawing = true
         // surface 重建（切后台返回/设置返回）后画布清空，必须无条件重绘一帧，
@@ -635,6 +642,12 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        // 键盘顶起/收起、旋转都会改变地图尺寸：先重绘一帧，
+        // 尺寸变化前玩家在屏幕里才跟随一次，否则会把玩家手动拖走的视口拽回来
+        mapTransformDirty = true
+        requestRedraw()
+        if (mapInit && playerWasOnScreen)
+            transformMapWithMove(nh.prefs.walkRange)
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {

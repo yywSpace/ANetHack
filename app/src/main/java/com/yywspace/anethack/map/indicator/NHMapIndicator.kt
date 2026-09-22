@@ -20,6 +20,8 @@ class NHMapIndicator(private val mapView: NHMapSurfaceView,
     private val textSize = 50f
     val location = PointF()
     val radius = 50f
+    private val margin = 10f // 指示符与屏幕边界之间的间隙
+    private val inset = radius + margin
 
     init {
         paint.textSize = textSize
@@ -27,19 +29,30 @@ class NHMapIndicator(private val mapView: NHMapSurfaceView,
         paint.isFilterBitmap = false
     }
 
+    // 角上时交点的另一个坐标会跑到屏幕外，把指示符整体限制在屏幕内
+    private fun clampInside(value: Float, border: Float): Float {
+        return value.coerceAtLeast(inset).coerceAtMost(border - inset)
+    }
+
     fun updateLocation() {
-        // 屏幕中心到人物与左右屏幕的交点
+        // 屏幕中心到人物与屏幕边界的交点
         val width = mapView.measuredWidth.toFloat()
         val height = mapView.measuredHeight.toFloat()
         val border = mapView.getTileBorder(tile.x, tile.y)
         val target = PointF(border.centerX(), border.centerY())
-        val cross = IndicatorUtils.getBorderCrossPoint(width, height, target)
-        val cx = cross.x + radius * if (cross.x > width / 2) -1 else 1
-        val cy = cross.y
-        // 人物超出屏幕时绘制, 目标点到中心点的x轴距离大于width / 2
-        if (abs(target.x -width / 2) > width / 2) {
+        canIndicatorDraw = false
+        if (target.x !in 0.0f..width) {
+            // 目标超出左右屏幕: 指示符贴在左右边界内侧
+            val cross = IndicatorUtils.getHorizontalBorderCrossPoint(width, height, target)
+            val cx = cross.x + inset * if (cross.x > width / 2) -1 else 1
             canIndicatorDraw = true
-            location.set(cx, cy)
+            location.set(cx, clampInside(cross.y, height))
+        } else if (target.y > height) {
+            // 目标超出屏幕下方(例如被键盘顶出可见区域): 指示符贴在下边界内侧
+            val cross = IndicatorUtils.getVerticalBorderCrossPoint(width, height, target)
+            val cy = cross.y + inset * if (cross.y > height / 2) -1 else 1
+            canIndicatorDraw = true
+            location.set(clampInside(cross.x, width), cy)
         }
     }
 

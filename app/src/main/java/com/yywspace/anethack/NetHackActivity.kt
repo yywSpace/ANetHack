@@ -7,9 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.Animation.AnimationListener
-import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -100,54 +97,13 @@ class NetHackActivity : AppCompatActivity() {
 
     }
 
-    private fun hideKeyboard() {
-        //向下位移隐藏动画  从自身位置的最上端向下滑动了自身的高度
-        TranslateAnimation(
-            Animation.RELATIVE_TO_SELF, 0f,
-            Animation.RELATIVE_TO_SELF, 0f,
-            Animation.RELATIVE_TO_SELF, 0f,
-            Animation.RELATIVE_TO_SELF, 1f
-        ).apply {
-            repeatMode = Animation.REVERSE
-            duration = 200
-            setAnimationListener(object :AnimationListener{
-                override fun onAnimationStart(animation: Animation?) {
-                }
-                override fun onAnimationEnd(animation: Animation?) {
-                    binding.keyboardView.visibility = View.GONE
-                }
-                override fun onAnimationRepeat(animation: Animation?) {
-                }
-            })
-            binding.keyboardView.startAnimation(this)
-        }
-    }
-    private fun showKeyboard() {
-        //向上位移显示动画  从自身位置的最下端向上滑动了自身的高度
-        TranslateAnimation(
-            Animation.RELATIVE_TO_SELF, 0f,
-            Animation.RELATIVE_TO_SELF, 0f,
-            Animation.RELATIVE_TO_SELF, 1f,
-            Animation.RELATIVE_TO_SELF, 0f
-        ).apply {
-            repeatMode = Animation.REVERSE
-            duration = 200
-            binding.keyboardView.startAnimation(this)
-            binding.keyboardView.visibility = View.VISIBLE
-        }
-    }
-
-
-
     private fun processKeyPress(cmd:String) {
         if (cmd.isEmpty()) return
         when (cmd) {
             "Keyboard" -> {
-                if (!isKeyboardShow)
-                    showKeyboard()
-                else
-                    hideKeyboard()
                 isKeyboardShow = !isKeyboardShow
+                binding.keyboardView.visibility =
+                    if (isKeyboardShow) View.VISIBLE else View.GONE
             }
             "Center" -> {
                 binding.mapView.centerPlayerInScreen()
