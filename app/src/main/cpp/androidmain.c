@@ -366,18 +366,33 @@ int filter_running_game(const struct dirent* entry)
 }
 
 void restore_aborted_games() {
+    char path[BUFSZ];
     char name[64]; /* more than PL_NSIZ */
-    struct dirent **namelist;
+    struct dirent **namelist = 0;
     int i, uid, myuid=getuid();
-    int n = scandir(".", &namelist, filter_running_game, 0);
+    /* level and lock files live in LEVELDIR (sysconf has LEVELDIR=levels);
+       without a LEVELDIR they end up in the current directory */
+    const char *leveldir = fqname("", LEVELPREFIX, 0);
+    if (!leveldir || !*leveldir)
+        leveldir = ".";
+    int n = scandir(leveldir, &namelist, filter_running_game, 0);
     if(n > 0) {
         for (i = 0; i < n; i++) {
             if (sscanf(namelist[i]->d_name, "%d%63[^.].0", &uid, name) == 2) {
-                if (uid==myuid) {
-                    and_restore_savefile(namelist[i]->d_name);
+                if (uid == myuid) {
+                    /* and_restore_savefile() opens the lock file and the
+                       level files relative to the current directory */
+                    if (strlen(leveldir) + strlen(namelist[i]->d_name)
+                        < sizeof path) {
+                        strcpy(path, leveldir);
+                        strcat(path, namelist[i]->d_name);
+                        and_restore_savefile(path);
+                    }
                 }
             }
+            free(namelist[i]);
         }
+        free(namelist);
     }
 }
 
