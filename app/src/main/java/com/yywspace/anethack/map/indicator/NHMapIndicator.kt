@@ -15,13 +15,19 @@ import kotlin.math.abs
 class NHMapIndicator(private val mapView: NHMapSurfaceView,
                      private val nh:NetHack,
                      private val tile:NHWMap.Tile){
-    private var canIndicatorDraw = false
+    var canIndicatorDraw = false
+        private set
     private val paint = Paint()
     private val textSize = 50f
     val location = PointF()
     val radius = 50f
     private val margin = 10f // 指示符与屏幕边界之间的间隙
     private val inset = radius + margin
+    /** 贴左右边界时沿 y 排开，贴下边界时沿 x */
+    var alongY = true
+        private set
+    private var tangentMin = 0f
+    private var tangentMax = 0f
 
     init {
         paint.textSize = textSize
@@ -30,8 +36,16 @@ class NHMapIndicator(private val mapView: NHMapSurfaceView,
     }
 
     // 角上时交点的另一个坐标会跑到屏幕外，把指示符整体限制在屏幕内
-    private fun clampInside(value: Float, border: Float): Float {
-        return value.coerceAtLeast(inset).coerceAtMost(border - inset)
+    private fun clampTangent(value: Float): Float {
+        return value.coerceAtLeast(tangentMin).coerceAtMost(tangentMax)
+    }
+
+    /** 去重叠时沿边界平移，并夹回可用范围 */
+    fun slide(delta: Float) {
+        if (alongY)
+            location.y = clampTangent(location.y + delta)
+        else
+            location.x = clampTangent(location.x + delta)
     }
 
     fun updateLocation() {
@@ -45,14 +59,20 @@ class NHMapIndicator(private val mapView: NHMapSurfaceView,
             // 目标超出左右屏幕: 指示符贴在左右边界内侧
             val cross = IndicatorUtils.getHorizontalBorderCrossPoint(width, height, target)
             val cx = cross.x + inset * if (cross.x > width / 2) -1 else 1
+            alongY = true
+            tangentMin = inset
+            tangentMax = height - inset
+            location.set(cx, clampTangent(cross.y))
             canIndicatorDraw = true
-            location.set(cx, clampInside(cross.y, height))
         } else if (target.y > height) {
             // 目标超出屏幕下方(例如被键盘顶出可见区域): 指示符贴在下边界内侧
             val cross = IndicatorUtils.getVerticalBorderCrossPoint(width, height, target)
             val cy = cross.y + inset * if (cross.y > height / 2) -1 else 1
+            alongY = false
+            tangentMin = inset
+            tangentMax = width - inset
+            location.set(clampTangent(cross.x), cy)
             canIndicatorDraw = true
-            location.set(clampInside(cross.x, width), cy)
         }
     }
 
