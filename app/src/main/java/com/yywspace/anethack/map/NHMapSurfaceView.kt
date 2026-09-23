@@ -464,7 +464,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     fun centerView(x:Int, y:Int) {
         val tb = getTileBorder(x,y)
-        transformMap(-(tb.centerX() - measuredWidth / 2F), -(tb.centerY() - measuredHeight / 2F))
+        // 上下按整个屏幕范围居中，只按地图区域算会偏上
+        val screenHeight = nh.binding.root.height.takeIf { it > 0 } ?: measuredHeight
+        transformMap(-(tb.centerX() - measuredWidth / 2F), -(tb.centerY() - screenHeight / 2F))
     }
 
     private fun transformMapWithMove(walkRange:Int) {
