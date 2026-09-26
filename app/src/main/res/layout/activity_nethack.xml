@@ -61,7 +61,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
-        android:paddingBottom="2dp" />
+        android:paddingBottom="2dp"
+        app:key_height="@dimen/command_item_height" />
 
     <!-- 底部命令栏：命令按钮一行横向滚动，键盘开关固定在最右侧 -->
     <LinearLayout

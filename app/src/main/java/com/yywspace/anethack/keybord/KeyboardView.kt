@@ -16,7 +16,9 @@ import com.yywspace.anethack.R
 import com.yywspace.anethack.Utils
 
 
-class KeyboardView : GridLayout {
+class KeyboardView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : GridLayout(context, attrs, defStyleAttr) {
     private var keyboardView:MutableList<MutableList<View>> = mutableListOf()
     private var placeholderView:MutableList<MutableList<View>> = mutableListOf()
 
@@ -29,7 +31,7 @@ class KeyboardView : GridLayout {
     private lateinit var keyboardCustom:NHKeyboard
     private lateinit var keyboardUpperLetter:NHKeyboard
 
-    private var keyHeight = 40F
+    private var keyHeight = Utils.dip2px(context, 40f) // 按键高度（px）
     private var keyGap = 3
     private var isUpper = false
     private var isNumberPanelShow = false
@@ -39,12 +41,15 @@ class KeyboardView : GridLayout {
     private var vibrator: Vibrator
     private var keyboardVibrate: Boolean = true
 
-    constructor(context: Context?) : this(context, null, 0)
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
-            super(context, attrs, defStyleAttr)
-
     init {
+        // 按键高度可在布局里用 app:key_height 配置
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.KeyboardView)
+        try {
+            keyHeight = typedArray.getDimensionPixelSize(R.styleable.KeyboardView_key_height,
+                                                         keyHeight)
+        } finally {
+            typedArray.recycle()
+        }
         columnCount = 20
         rowCount = 5
         vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -85,10 +90,10 @@ class KeyboardView : GridLayout {
 
     private fun initNumPanel() {
         keyboardView[0].forEach {
-            it.visibility = if (!isNumberPanelShow) View.GONE else View.VISIBLE
+            it.visibility = if (!isNumberPanelShow) GONE else VISIBLE
         }
         placeholderView[0].forEach {
-            it.visibility = if (!isNumberPanelShow) View.GONE else View.VISIBLE
+            it.visibility = if (!isNumberPanelShow) GONE else VISIBLE
         }
     }
     @SuppressLint("ClickableViewAccessibility")
@@ -125,10 +130,10 @@ class KeyboardView : GridLayout {
                         switchNHKeyboard(NHKeyboard.Type.SYMBOL)
                     "Num" -> {
                         keyboardView[0].forEach {
-                            it.visibility = if (isNumberPanelShow) View.GONE else View.VISIBLE
+                            it.visibility = if (isNumberPanelShow) GONE else VISIBLE
                         }
                         placeholderView[0].forEach {
-                            it.visibility = if (isNumberPanelShow) View.GONE else View.VISIBLE
+                            it.visibility = if (isNumberPanelShow) GONE else VISIBLE
                         }
                         if (isNumberPanelShow)
                             statusImage.setImageResource(R.drawable.dot_unselected)
@@ -142,7 +147,7 @@ class KeyboardView : GridLayout {
             }
             setOnLongClickListener {
                 val k = this@KeyboardView.keyboard.rows[x].keys[y]
-                if (k.label in listOf<String>( "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "ESC", "DEL", "Enter")) {
+                if (k.label in listOf( "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "ESC", "DEL", "Enter")) {
                     onSpecialKeyLongPress?.invoke(k)
                     return@setOnLongClickListener true
                 }
@@ -191,7 +196,7 @@ class KeyboardView : GridLayout {
                 ).apply {
                     setMargins(keyGap)
                     width = 0
-                    height = Utils.dip2px(context, keyHeight)
+                    height = keyHeight
                 }
                 addView(view, params)
                 rowView.add(view)

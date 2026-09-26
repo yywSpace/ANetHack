@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="KeyboardView">
+        <!-- 键盘按键高度 -->
+        <attr name="key_height" format="dimension" />
+    </declare-styleable>
+</resources>
