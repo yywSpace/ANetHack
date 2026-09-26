@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/command_item_height"
+    android:minWidth="@dimen/command_item_min_width"
+    android:background="?android:attr/selectableItemBackground"
+    android:gravity="center"
+    android:paddingHorizontal="@dimen/command_bar_item_padding"
+    android:textColor="@color/black" />

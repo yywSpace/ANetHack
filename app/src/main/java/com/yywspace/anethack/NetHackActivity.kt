@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -29,6 +30,8 @@ class NetHackActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNethackBinding
     private lateinit var priceIDialog: NHPriceIDialog
     private var isKeyboardShow = false
+    /** 固定在命令栏右侧（键盘、设置），不放进可滚动的命令列表 */
+    private val pinnedCommands = setOf(KEYBOARD_COMMAND, SETTING_COMMAND)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,7 +103,7 @@ class NetHackActivity : AppCompatActivity() {
     private fun processKeyPress(cmd:String) {
         if (cmd.isEmpty()) return
         when (cmd) {
-            "Keyboard" -> {
+            KEYBOARD_COMMAND -> {
                 isKeyboardShow = !isKeyboardShow
                 binding.keyboardView.visibility =
                     if (isKeyboardShow) View.VISIBLE else View.GONE
@@ -108,7 +111,7 @@ class NetHackActivity : AppCompatActivity() {
             "Center" -> {
                 binding.mapView.centerPlayerInScreen()
             }
-            "Setting" -> {
+            SETTING_COMMAND -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
             "PriceID" -> {
@@ -127,21 +130,23 @@ class NetHackActivity : AppCompatActivity() {
     }
 
     private fun initControlPanel() {
-        // Ctrl|^C Meta|^M
-        // Setting LS|Save #quit|Quit L20s|20s Keyboard|Abc
-        nethack.prefs.commandPanel?.apply {
-            var panelDefault = ifEmpty {
-                getString(R.string.pref_keyboard_command_panel_default)
+        var commands = nethack.prefs.commandPanel.orEmpty()
+        if (commands.isEmpty())
+            commands = getString(R.string.pref_keyboard_command_panel_default)
+        binding.commandList.removeAllViews()
+        commands.split(" ")
+            .filter { it.isNotBlank() && it.substringBefore('|') !in pinnedCommands }
+            .forEach { cmdStr ->
+                val cmd = cmdStr.substringBefore('|')
+                val item = layoutInflater
+                    .inflate(R.layout.item_command, binding.commandList, false) as TextView
+                item.text = cmdStr.substringAfter('|', cmd)
+                item.setOnClickListener { processKeyPress(cmd) }
+                binding.commandList.addView(item)
             }
-            if (!panelDefault.contains("Setting"))
-                panelDefault = "${panelDefault}\nSetting"
-            binding.baseCommandPanel.apply {
-                initBottomCommandSheet(panelDefault)
-                onCommandPress = { cmd->
-                    processKeyPress(cmd)
-                }
-            }
-        }
+        // 键盘和设置固定在右侧，不跟着列表滚动
+        binding.keyboardSwitch.setOnClickListener { processKeyPress(KEYBOARD_COMMAND) }
+        binding.settingsSwitch.setOnClickListener { processKeyPress(SETTING_COMMAND) }
     }
 
     private fun hideSystemUi() {
@@ -199,6 +204,12 @@ class NetHackActivity : AppCompatActivity() {
             FileOutputStream(userConfTarget).use { fileOut ->
                 FileInputStream(userConf).copyTo(fileOut)
             }
+    }
+
+    companion object {
+        /** 固定在命令栏右侧、不参与横向滚动的两个命令 */
+        private const val KEYBOARD_COMMAND = "Keyboard"
+        private const val SETTING_COMMAND = "Setting"
     }
 
 }

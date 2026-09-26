@@ -110,7 +110,9 @@
     <string name="pref_keyboard_header">Keyboard</string>
     <string name="pref_keyboard_vibrate">Keyboard vibration</string>
     <string name="pref_keyboard_command_panel">Edit command panel</string>
-    <string name="pref_keyboard_command_panel_default">Setting SS|Save #quit|Quit PriceID|Price S#engrave#-nL\"Elbereth\":|Elber S20s|20s Keyboard|Abc\n#|Extend d|Drop e|Eat a|Apply :|Look ,|Pick .|Rest</string>
+    <string name="pref_keyboard_command_panel_default">SS|Save #quit|Quit PriceID|Price S#engrave#-nL\"Elbereth\":|Elber S20s|20s .|Rest #|Extend</string>
+    <string name="command_bar_keyboard_switch">Show or hide the keyboard</string>
+    <string name="command_bar_settings_switch">Open settings</string>
 
     <!-- Preference Other -->
     <string name="pref_other_header">Other</string>

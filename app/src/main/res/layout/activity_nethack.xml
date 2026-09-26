@@ -1,79 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/panel_container"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:clickable="true"
     tools:context=".NetHackActivity">
 
     <!-- 地图、键盘、命令面板从上到下排列：键盘弹出时地图被顶上去（缩小），
          而不是被键盘盖住，这样地图的可见高度就是它真实的 measuredHeight -->
-    <LinearLayout
-        android:id="@+id/panel_container"
-        android:orientation="vertical"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.yywspace.anethack.map.NHMapSurfaceView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.yywspace.anethack.map.NHMapSurfaceView>
+
+        <!-- 状态栏与消息栏是透明的，允许叠在地图上 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:clickable="true">
+
+            <com.yywspace.anethack.map.NHStatusSurfaceView
+                android:id="@+id/status_view"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <com.yywspace.anethack.map.NHMessageSurfaceView
+                android:id="@+id/message_view"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            </com.yywspace.anethack.map.NHMessageSurfaceView>
+        </LinearLayout>
+
+        <!-- 菜单叠加在地图上（键盘上方），不覆盖键盘与命令面板 -->
+        <FrameLayout
+            android:id="@+id/dialog_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:visibility="invisible" />
+    </FrameLayout>
+
+    <com.yywspace.anethack.keybord.KeyboardView
+        android:id="@+id/keyboard_view"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp" />
+
+    <!-- 底部命令栏：命令按钮一行横向滚动，键盘开关固定在最右侧 -->
+    <LinearLayout
+        android:id="@+id/base_command_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
         android:clickable="true">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
-            <com.yywspace.anethack.map.NHMapSurfaceView
-                android:id="@+id/map_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </com.yywspace.anethack.map.NHMapSurfaceView>
-
-            <!-- 状态栏与消息栏是透明的，允许叠在地图上 -->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/command_list"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:focusable="true"
-                android:clickable="true">
-                <com.yywspace.anethack.map.NHStatusSurfaceView
-                    android:id="@+id/status_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"/>
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
 
-                <com.yywspace.anethack.map.NHMessageSurfaceView
-                    android:id="@+id/message_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
+        <!-- 分隔线：左边是可滚动的命令列表，右边是两个固定按钮 -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:background="@color/divider" />
 
-                </com.yywspace.anethack.map.NHMessageSurfaceView>
+        <ImageView
+            android:id="@+id/keyboard_switch"
+            android:layout_width="@dimen/command_icon_width"
+            android:layout_height="@dimen/command_item_height"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/command_bar_keyboard_switch"
+            android:scaleType="center"
+            android:src="@drawable/ic_keyboard" />
 
-            </LinearLayout>
-
-            <!-- 菜单叠加在地图上（键盘上方），不覆盖键盘与命令面板 -->
-            <FrameLayout
-                android:id="@+id/dialog_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="15dp"
-                android:visibility="invisible" />
-        </FrameLayout>
-
-        <com.yywspace.anethack.keybord.KeyboardView
-            android:id="@+id/keyboard_view"
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"/>
-
-        <com.yywspace.anethack.keybord.BottomCommandSheet
-            android:id="@+id/base_command_panel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:clickable="true">
-        </com.yywspace.anethack.keybord.BottomCommandSheet>
+        <ImageView
+            android:id="@+id/settings_switch"
+            android:layout_width="@dimen/command_icon_width"
+            android:layout_height="@dimen/command_item_height"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/command_bar_settings_switch"
+            android:scaleType="center"
+            android:src="@drawable/ic_settings" />
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>
