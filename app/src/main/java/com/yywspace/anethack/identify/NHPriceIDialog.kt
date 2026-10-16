@@ -42,17 +42,20 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
     }
 
 
+    /** 交易方向（buy/sell）转成查询模式；认不出来时保持当前模式 */
+    private fun idModeOf(quote:String?):String = when(quote) {
+        context.getString(R.string.price_quote_buy) -> context.getString(R.string.price_id_mode_buy)
+        context.getString(R.string.price_quote_sell) -> context.getString(R.string.price_id_mode_sell)
+        else -> currentIdMode
+    }
+
     private fun parseTradeInfo(info:String):Boolean {
         val result = priceID.parseTradeInfo(info)
         if (result.isEmpty())
             return false
         tradePrice = result["tradePrice"]?:tradePrice
         currentType = result["objType"]?:currentType
-        currentIdMode = when(result["tradeMode"]) {
-            context.getString(R.string.price_quote_buy) -> context.getString(R.string.price_id_mode_buy)
-            context.getString(R.string.price_quote_sell) -> context.getString(R.string.price_id_mode_sell)
-            else -> currentIdMode
-        }
+        currentIdMode = idModeOf(result["tradeMode"])
         return true
     }
 
@@ -201,10 +204,15 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
                 objList.addAll(priceID.getObjByBasePrice(currentType, price))
             }
             context.getString(R.string.price_id_mode_buy) -> {
-                objList.addAll(priceID.getObjByBuyPrice(currentType, price, charisma, sucker))
+                // 价格可能是范围（如 "2-5"）：交给 NHPriceID 逐个价格查询并去重
+                objList.addAll(
+                    priceID.getObjByBuyPrice(currentType, price.split('-').map { it.trim() }, charisma, sucker)
+                )
             }
             context.getString(R.string.price_id_mode_sell) -> {
-                objList.addAll(priceID.getObjBySellPrice(currentType, price, sucker))
+                objList.addAll(
+                    priceID.getObjBySellPrice(currentType, price.split('-').map { it.trim() }, sucker)
+                )
             }
         }
         tradePrice = price
@@ -214,14 +222,10 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
     /** 解析价格段（如 "sell 67" / "buy 2-5"），更新交易信息 */
     private fun parseQuoteInfo(menuItem: NHMenuItem, quote: String) {
         val parts = quote.split(" ").filter { it.isNotEmpty() }
-        currentIdMode = when (parts[0]) {
-            context.getString(R.string.price_quote_buy) -> context.getString(R.string.price_id_mode_buy)
-            context.getString(R.string.price_quote_sell) -> context.getString(R.string.price_id_mode_sell)
-            else -> currentIdMode
-        }
+        currentIdMode = idModeOf(parts.firstOrNull())
         currentType = priceID.parseObjType(menuItem.title.value)
-        // 价格可能是范围（如 "2-5"），取最小值
-        tradePrice = parts.getOrNull(1)?.split("-")?.first() ?: tradePrice
+        // 价格可能是范围（如 "2-5"），原样填进去，查询时逐个价格查
+        tradePrice = parts.getOrNull(1)?: tradePrice
     }
 
     /** 从菜单点击的价格段打开弹窗并预填（不解析消息覆盖）：
@@ -271,6 +275,10 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
             }
             setOnDismissListener {
                 isShowing = false
+                // 收起可能还展开着的下拉：ListPopupWindow 持有锚点 View，别让它挂在那儿
+                dropdown?.dismiss()
+                dropdown = null
+                dropdownDismissField = null
             }
         }.create()
         queryObjList(false)

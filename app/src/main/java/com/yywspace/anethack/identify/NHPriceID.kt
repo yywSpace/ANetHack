@@ -12,6 +12,9 @@ class NHPriceID(context: Context) {
     private val objects = mutableMapOf<String, List<Map<String,String>>>()
     private val tradeTypesRegex = mutableMapOf<String, String>()
     private val objectTypesRegex = mutableMapOf<String, String>()
+    /** 物品列表顺序：先基础价格，再名称 */
+    private val objComparator =
+        compareBy<Map<String,String>>({ it["Cost"]?.toInt() ?: 0 }, { it["Name"] })
 
     init {
         try {
@@ -35,6 +38,13 @@ class NHPriceID(context: Context) {
         return objList
     }
 
+    /** 价格区间（"2-5"），逐个价格查询后合并，按名称+基础价格去重，按基础价格排序 */
+    fun getObjBySellPrice(type:String, prices:List<String>, sucker:Boolean):List<Map<String,String>> {
+        return prices.flatMap { getObjBySellPrice(type, it, sucker) }
+            .distinctBy { it["Name"] to it["Cost"] }
+            .sortedWith(objComparator)
+    }
+
     fun getObjByBuyPrice(type:String, price:String, charisma:String, sucker:Boolean):List<Map<String,String>> {
         if (charisma.isEmpty() || price.isEmpty())
             return emptyList()
@@ -50,13 +60,21 @@ class NHPriceID(context: Context) {
         }
         return objList
     }
+
+    /** 价格区间（"2-5"），逐个价格查询后合并，按名称+基础价格去重，按基础价格排序 */
+    fun getObjByBuyPrice(type:String, prices:List<String>, charisma:String, sucker:Boolean):List<Map<String,String>> {
+        return prices.flatMap { getObjByBuyPrice(type, it, charisma, sucker) }
+            .distinctBy { it["Name"] to it["Cost"] }
+            .sortedWith(objComparator)
+    }
+
     fun getObjByBasePrice(type:String, basePrice:String):List<Map<String,String>> {
         if (basePrice.isEmpty())
             return getObjByType(type)
         return getObjByType(type).filter { obj->obj["Cost"] == basePrice }
     }
     private fun getObjByType(type:String):List<Map<String,String>> {
-        return objects[type]?.sortedWith(compareBy({it["Cost"]?.toInt()?:0}, {it["Name"]}))?: emptyList()
+        return objects[type]?.sortedWith(objComparator) ?: emptyList()
     }
 
     fun getObjTypes(): List<String> {
