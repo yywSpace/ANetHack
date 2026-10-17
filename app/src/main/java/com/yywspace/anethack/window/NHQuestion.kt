@@ -10,6 +10,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
+import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHAnswerCommand
@@ -191,7 +192,6 @@ class NHQuestion(val nh: NetHack) {
                 select.add(Pair('?', -1))
                 select.add(Pair('*', -1))
             }
-            select.add(Pair(27.toChar(), -1))
 
             buildDialog(ques, select,null, def)
         }
@@ -200,12 +200,9 @@ class NHQuestion(val nh: NetHack) {
     private fun ynQuestion(question: String, choices: String, ynNumber:LongArray?, def: Char) {
         val select = choices.toCharArray().filter {
             it!= ' '
-        }.toMutableList().run {
-            add(27.toChar())
-            map {
-                Pair(it, if(it == '#') 1 else -1)
-            }.toMutableList()
-        }
+        }.map {
+            Pair(it, if(it == '#') 1 else -1)
+        }.toMutableList()
         buildDialog(question, select, ynNumber, def)
     }
 
@@ -228,10 +225,16 @@ class NHQuestion(val nh: NetHack) {
             questionView?.apply {
                 findViewById<TextView>(R.id.dialog_question).text = question
                 findViewById<ScrollView>(R.id.dialog_question_scroll).scrollTo(0, 0)
+                findViewById<MaterialButton>(R.id.dialog_question_cancel).apply {
+                    setOnClickListener {
+                        // 取消时使用用默认答案
+                        finishAnswer(def, -1)
+                        questionDialog?.dismiss()
+                    }
+                }
                 findViewById<NHAnswerGrid>(R.id.dialog_question_answer).apply {
                     onPick = { _, answer ->
                         when {
-                            answer.first.code == 27 -> finishAnswer(def, -1)
                             answer.first == '#' -> {
                                 ynNumber?.set(0, answer.second.toLong())
                                 finishAnswer('#', -1)

@@ -96,14 +96,29 @@ class NHAnswerGrid(context: Context, attrs: AttributeSet? = null) : View(context
     }
 
     override fun onDraw(canvas: Canvas) {
-        val baseline = (textPaint.fontMetrics.ascent + textPaint.fontMetrics.descent) / 2f
         answers.forEachIndexed { index, answer ->
             val rect = cellRect(index)
             cellPaint.color = if (index == pressedIndex) pressedColor else cellColor
             canvas.drawRoundRect(rect, cornerRadius, cornerRadius, cellPaint)
             textPaint.color = textColor
-            canvas.drawText(label(answer), rect.centerX(), rect.centerY() - baseline, textPaint)
+            drawLabel(canvas, label(answer), rect)
         }
+    }
+
+    /** 把文本画在格子中央，放不下时先缩字号，仍放不下再把字横向压扁（数量很大时 [123456]a 也不会溢出） */
+    private fun drawLabel(canvas: Canvas, text: String, rect: RectF) {
+        val maxWidth = rect.width() - cellGap
+        textPaint.textSize = textSize
+        textPaint.textScaleX = 1f
+        var width = textPaint.measureText(text)
+        if (width > maxWidth) {
+            textPaint.textSize = (textSize * maxWidth / width).coerceAtLeast(textSize * 0.55f)
+            width = textPaint.measureText(text)
+            if (width > maxWidth)
+                textPaint.textScaleX = maxWidth / width
+        }
+        val baseline = (textPaint.fontMetrics.ascent + textPaint.fontMetrics.descent) / 2f
+        canvas.drawText(text, rect.centerX(), rect.centerY() - baseline, textPaint)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -168,15 +183,12 @@ class NHAnswerGrid(context: Context, attrs: AttributeSet? = null) : View(context
             return -1
         val column = ((x - paddingLeft) / width).toInt()
         val row = ((y - paddingTop) / cellHeight).toInt()
-        if (column < 0 || column >= columns || row < 0)
+        if (column !in 0..<columns || row < 0)
             return -1
         val index = row * columns + column
         return if (index in answers.indices) index else -1
     }
 
-    private fun label(answer: Pair<Char, Int>): String = when {
-        answer.first.code == 27 -> context.getString(R.string.button_esc)
-        answer.second > 1 -> "[${answer.second}]${answer.first}"
-        else -> answer.first.toString()
-    }
+    private fun label(answer: Pair<Char, Int>): String =
+        if (answer.second > 1) "[${answer.second}]${answer.first}" else answer.first.toString()
 }
