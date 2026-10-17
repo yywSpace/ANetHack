@@ -2,17 +2,14 @@ package com.yywspace.anethack.window
 
 import android.content.Context
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHAnswerCommand
@@ -212,7 +209,7 @@ class NHQuestion(val nh: NetHack) {
         buildDialog(question, select, ynNumber, def)
     }
 
-    /** 首次创建问题对话框（inflate + create + RecyclerView 配置）；构造时和运行时兜底调用 */
+    /** 首次创建问题对话框（inflate + create）；构造时和运行时兜底调用 */
     private fun ensureQuestionDialog(context: Context) {
         if (questionDialog != null) return
         questionView = View.inflate(context, R.layout.dialog_question, null)
@@ -220,14 +217,6 @@ class NHQuestion(val nh: NetHack) {
             setView(questionView)
             setCancelable(false)
         }.create()
-        questionView?.findViewById<RecyclerView>(R.id.dialog_question_answer)?.layoutManager =
-            GridLayoutManager(context, 3).apply {
-                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int): Int {
-                        return 1
-                    }
-                }
-            }
     }
 
     private fun buildDialog(question: String, choices:MutableList<Pair<Char, Int>>, ynNumber: LongArray?, def: Char) {
@@ -235,27 +224,26 @@ class NHQuestion(val nh: NetHack) {
             if (questionDialog == null) {
                 ensureQuestionDialog(context)
             }
-            // 每次打开刷新内容（问题文本 + 选项 adapter，choices 每次不同）
+            // 每次打开刷新内容（问题文本 + 答案格子，choices 每次不同）
             questionView?.apply {
                 findViewById<TextView>(R.id.dialog_question).text = question
-                findViewById<RecyclerView>(R.id.dialog_question_answer).apply {
-                    val colCount = if (choices.size < 3) choices.size else 3
-                    (layoutManager as? GridLayoutManager)?.spanCount = colCount
-                    adapter = NHQuestionAnswerAdapter(choices).apply {
-                        onItemClick = { _, _, answer ->
-                            if (answer.first.code == 27)
-                                finishAnswer(def, -1)
-                            else if (answer.first == '#') {
+                findViewById<ScrollView>(R.id.dialog_question_scroll).scrollTo(0, 0)
+                findViewById<NHAnswerGrid>(R.id.dialog_question_answer).apply {
+                    onPick = { _, answer ->
+                        when {
+                            answer.first.code == 27 -> finishAnswer(def, -1)
+                            answer.first == '#' -> {
                                 ynNumber?.set(0, answer.second.toLong())
                                 finishAnswer('#', -1)
-                            } else
-                                finishAnswer(answer.first, answer.second)
-                            questionDialog?.dismiss()
+                            }
+                            else -> finishAnswer(answer.first, answer.second)
                         }
-                        onItemLongClick = { _, index, _ ->
-                            showNumberInputDialog(context, choices, index, this)
-                        }
+                        questionDialog?.dismiss()
                     }
+                    onLongPress = { index ->
+                        showNumberInputDialog(context, choices, index, this)
+                    }
+                    submit(choices)
                 }
             }
             questionDialog?.show(nh.prefs.immersiveMode)
@@ -263,7 +251,7 @@ class NHQuestion(val nh: NetHack) {
     }
 
     private fun showNumberInputDialog(context: Context, choices:MutableList<Pair<Char, Int>>,
-                                      parentPosition:Int, parentAdapter: NHQuestionAnswerAdapter) {
+                                      parentPosition:Int, parentGrid: NHAnswerGrid) {
         val answer = choices[parentPosition]
         val dialogView = View.inflate(context, R.layout.dialog_number_input, null)
         val input = dialogView.findViewById<EditText>(R.id.dialog_number_input).apply {
@@ -274,10 +262,9 @@ class NHQuestion(val nh: NetHack) {
             setTitle(title)
             setView(dialogView)
             setPositiveButton(R.string.dialog_confirm){ _, _ ->
-                if(input.text.isNotEmpty()) {
-                    choices[parentPosition] = answer
-                        .copy(second = input.text.toString().toInt())
-                    parentAdapter.notifyItemChanged(parentPosition)
+                input.text.toString().toIntOrNull()?.let { count ->
+                    choices[parentPosition] = answer.copy(second = count)
+                    parentGrid.updateCount(parentPosition, count)
                 }
             }
             setNegativeButton(R.string.dialog_cancel){ _, _ ->
@@ -301,44 +288,4 @@ class NHQuestion(val nh: NetHack) {
         return cmd.key
     }
 
-    private class NHQuestionAnswerAdapter(val answers:List<Pair<Char,Int>>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        var onItemClick:((view:View, index:Int, item:Pair<Char,Int>)->Unit)? = null
-        var onItemLongClick:((view:View, index:Int, item:Pair<Char,Int>)->Unit)? = null
-
-        class ButtonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val button : Button = view.findViewById(R.id.item_answer_btn)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.dialog_question_answer_item, parent, false)
-            return ButtonViewHolder(view)
-        }
-
-        override fun getItemCount(): Int {
-            return answers.size
-        }
-
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            val answer = answers[position]
-            (holder as ButtonViewHolder).apply {
-                if(answer.first.code == 27) {
-                    button.text = holder.itemView.context.getString(R.string.button_esc)
-                }else{
-                    button.text = if(answer.second > 1)
-                         "[${answer.second}]${answer.first}"
-                    else
-                        answer.first.toString()
-                }
-                button.setOnClickListener {
-                    onItemClick?.invoke(it, position, answer)
-                }
-                button.setOnLongClickListener {
-                    if(answer.second > 0)
-                        onItemLongClick?.invoke(it, position, answer)
-                    true
-                }
-            }
-        }
-    }
 }
