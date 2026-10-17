@@ -147,7 +147,7 @@ static int status_attrmasks[MAXBLSTATS];
 static unsigned long* and_colormasks;
 static long and_condition_bits = 0L;
 
-void restore_aborted_games();
+char **get_aborted_games(void);
 
 void more(void){
 
@@ -1154,19 +1154,39 @@ void and_getlin(const char *question, char *input)
 
 //____________________________________________________________________________________
 //askname()	-- Ask the user for a player name.
+
+/* A saved game name carries its playmode in the final byte (see
+   store_plname_in_file()), which char2Jstring() stops short of; pass it along
+   so that the chooser doesn't need to remember the mode. */
+static jstring
+savedName2Jstring(const char *name)
+{
+    char buf[BUFSZ];
+    char playmode = name[PL_NSIZ_PLUS - 1];
+
+    Snprintf(buf, sizeof buf, "%s\t%c", name,
+             (playmode == 'D' || playmode == 'X') ? playmode : '-');
+    return char2Jstring(jEnv, buf);
+}
+
 void and_askname()
 {
     int saved_size = 0, aborted_size = 0, i;
-    restore_aborted_games();
     char ** saved = get_saved_games();
+    char ** aborted = get_aborted_games();
     for (i = 0; saved && saved[i]; i++)
         saved_size++;
+    for (i = 0; aborted && aborted[i]; i++)
+        aborted_size++;
     jclass stringClass = (*jEnv)->FindClass(jEnv, "java/lang/String");
     jobjectArray jSavedList = (*jEnv)->NewObjectArray(jEnv, saved_size + aborted_size, stringClass, 0);
-    if (saved != NULL)
-        for(i = 0; i < saved_size; i++)
-            (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i, char2Jstring(jEnv, saved[i]));
+    for (i = 0; i < saved_size; i++)
+        (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i, savedName2Jstring(saved[i]));
+    for (i = 0; i < aborted_size; i++)
+        (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, saved_size + i, savedName2Jstring(aborted[i]));
     (*jEnv)->DeleteLocalRef(jEnv, stringClass);
+    free_saved_games(saved);
+    free_saved_games(aborted);
     jobjectArray jPlayerInfo = (jobjectArray)JNICallO(jAskName, PL_NSIZ, jSavedList)
     // int itemCnt = (*jEnv)->GetArrayLength(jEnv, jPlayerInfo);
     jstring jPlayer = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 0);

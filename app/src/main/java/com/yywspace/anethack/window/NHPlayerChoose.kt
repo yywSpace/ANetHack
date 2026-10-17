@@ -33,12 +33,18 @@ class NHPlayerChoose(val nh: NetHack) {
         this.saves = saves
         var hasWizardSave = false
         saves.distinct().forEach {
-            if(it.startsWith("$PLAY_MOD_WIZARD-")) {
+            // 名字后面跟的是存档里记录的 playmode（'\t' 分隔，见 and_askname()）
+            val name = it.substringBefore('\t')
+            val playMod = when (it.substringAfter('\t', "").firstOrNull()) {
+                'D' -> PLAY_MOD_WIZARD
+                'X' -> PLAY_MOD_DISCOVER
+                else -> PLAY_MOD_NORMAL
+            }
+            if(name.startsWith("$PLAY_MOD_WIZARD-")) {
                 hasWizardSave = true
-                players.add(0, NHPlayer(it, PLAY_MOD_WIZARD))
+                players.add(0, NHPlayer(name, playMod))
             }else {
-                val userName = it.split('-').firstOrNull()
-                players.add(NHPlayer(it, nh.prefs.getSaves()[userName]?:"undefine"))
+                players.add(NHPlayer(name, playMod))
             }
         }
         if(!hasWizardSave)
@@ -131,7 +137,6 @@ class NHPlayerChoose(val nh: NetHack) {
                         }
                     }
                     popupWindow.dismiss()
-                    nh.prefs.addSaves(player, playMod)
                     finishPlayerChoose(NHPlayer(player, playMod))
                 }
                 setNegativeButton(R.string.dialog_cancel, null)

@@ -43,7 +43,6 @@ set(NETHACK_SRC
         "NetHack/sys/unix/unixres.c"
         "tile.c"
         "androidmain.c"
-        "androidrecover.c"
         "androidunix.c"
         "androidwin.c"
         "androidsound.c"

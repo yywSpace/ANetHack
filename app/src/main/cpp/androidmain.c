@@ -4,7 +4,6 @@
 
 #include "hack.h"
 #include "dlb.h"
-#include "androidrecover.h"
 #include <setjmp.h>
 
 #include <sys/stat.h>
@@ -365,35 +364,93 @@ int filter_running_game(const struct dirent* entry)
     return *entry->d_name && entry->d_name[strlen(entry->d_name)-1] == '0';
 }
 
-void restore_aborted_games() {
-    char path[BUFSZ];
+staticfn int QSORTCALLBACK
+aborted_name_cmp(const void *p, const void *q)
+{
+    return strcmp(*(const char *const *) p, *(const char *const *) q);
+}
+
+/* Return the names of aborted games (level 0 checkpoints) in the same form
+   get_saved_games() returns saved games, so that the player chooser can list
+   them.  The final byte of a name holds the playmode, see
+   store_plname_in_file(); the chosen game gets recovered later by
+   getlock() -> recover_savefile(). */
+char **
+get_aborted_games(void)
+{
+    char path[BUFSZ], plbuf[PL_NSIZ_PLUS], svname[SAVESIZE];
     char name[64]; /* more than PL_NSIZ */
+    uchar csc[256];
+    struct version_info version_data;
     struct dirent **namelist = 0;
-    int i, uid, myuid=getuid();
+    char **result;
     /* level and lock files live in LEVELDIR (sysconf has LEVELDIR=levels);
        without a LEVELDIR they end up in the current directory */
     const char *leveldir = fqname("", LEVELPREFIX, 0);
+    int i, uid, myuid = getuid(), hpid, savelev, pltmpsiz, n, cnt = 0;
+    unsigned char indicator, cscsize;
+
     if (!leveldir || !*leveldir)
         leveldir = ".";
-    int n = scandir(leveldir, &namelist, filter_running_game, 0);
-    if(n > 0) {
-        for (i = 0; i < n; i++) {
-            if (sscanf(namelist[i]->d_name, "%d%63[^.].0", &uid, name) == 2) {
-                if (uid == myuid) {
-                    /* and_restore_savefile() opens the lock file and the
-                       level files relative to the current directory */
-                    if (strlen(leveldir) + strlen(namelist[i]->d_name)
-                        < sizeof path) {
-                        strcpy(path, leveldir);
-                        strcat(path, namelist[i]->d_name);
-                        and_restore_savefile(path);
-                    }
+    n = scandir(leveldir, &namelist, filter_running_game, 0);
+    if (n <= 0)
+        return (char **) 0;
+    result = (char **) alloc((unsigned) ((n + 1) * sizeof (char *)));
+    for (i = 0; i < n; i++) {
+        struct dirent *entry = namelist[i];
+        int fd;
+
+        if (sscanf(entry->d_name, "%d%63[^.].0", &uid, name) == 2
+            && uid == myuid
+            && strlen(leveldir) + strlen(entry->d_name) < sizeof path) {
+            /* read the checkpoint header savestateinlock() wrote */
+            strcpy(path, leveldir);
+            strcat(path, entry->d_name);
+            fd = open(path, O_RDONLY);
+            if (fd >= 0) {
+                memset((genericptr_t) plbuf, 0, sizeof plbuf);
+                if (read(fd, (genericptr_t) &hpid, sizeof hpid) == sizeof hpid
+                    && read(fd, (genericptr_t) &savelev, sizeof savelev)
+                           == sizeof savelev
+                    && read(fd, (genericptr_t) svname, sizeof svname)
+                           == sizeof svname
+                    && read(fd, (genericptr_t) &indicator, 1) == 1
+                    && read(fd, (genericptr_t) &cscsize, 1) == 1
+                    && (cscsize == 0
+                        || read(fd, (genericptr_t) csc, (int) cscsize)
+                               == (int) cscsize)
+                    && read(fd, (genericptr_t) &version_data,
+                            sizeof version_data) == sizeof version_data
+                    && read(fd, (genericptr_t) &pltmpsiz, sizeof pltmpsiz)
+                           == sizeof pltmpsiz
+                    && pltmpsiz > 0 && pltmpsiz <= PL_NSIZ_PLUS
+                    && read(fd, (genericptr_t) plbuf, pltmpsiz) == pltmpsiz
+                    && check_version(&version_data, (char *) 0, FALSE, 0)) {
+                    /* same shape as plname_from_file() returns: the whole
+                       PL_NSIZ_PLUS buffer, playmode in its final byte */
+                    char *nm;
+
+                    *eos(plbuf) = '-';
+                    nm = (char *) alloc(PL_NSIZ_PLUS);
+                    memcpy((genericptr_t) nm, (genericptr_t) plbuf,
+                           PL_NSIZ_PLUS);
+                    result[cnt++] = nm;
                 }
+                close(fd);
             }
-            free(namelist[i]);
         }
-        free(namelist);
+        free(entry);
     }
+    free(namelist);
+    if (cnt == 0) {
+        free((genericptr_t) result);
+        return (char **) 0;
+    }
+    if (cnt > 1)
+        qsort((genericptr_t) result, (size_t) cnt, sizeof (char *),
+              aborted_name_cmp);
+    result[cnt] = (char *) 0;
+    return result;
 }
 
 /*

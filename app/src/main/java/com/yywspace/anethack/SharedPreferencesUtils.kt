@@ -12,7 +12,6 @@ class SharedPreferencesUtils(val context: Context) {
 
     private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    private var _saves by SharedPreferenceDelegates.map()
     private var inputPrompts by SharedPreferenceDelegates.stringSet()
 
     var dumpLogMaxSize by SharedPreferenceDelegates.string2int(10)
@@ -60,40 +59,8 @@ class SharedPreferencesUtils(val context: Context) {
             .map { "${it.first}-${it.second}" }
             .toSet()
     }
-    fun getSaves():Map<String, String> {
-        return _saves
-    }
-    fun addSaves(player:String, mode:String) {
-        _saves = _saves.toMutableMap().apply {
-            put(player, mode)
-        }
-    }
     private object SharedPreferenceDelegates {
 
-        fun map() = object : ReadWriteProperty<SharedPreferencesUtils, Map<String, String>> {
-
-            override fun getValue(thisRef: SharedPreferencesUtils, property: KProperty<*>): Map<String, String> {
-                // a:b,c:d
-                val map = HashMap<String, String>()
-                thisRef.preferences.getString(property.name, "")?.apply {
-                    split(",").forEach { kvStr ->
-                        val kv = kvStr.split(":")
-                        if (kv.size == 2)
-                            map[kv[0]] = kv[1]
-                    }
-                }
-                return map
-            }
-
-            override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Map<String, String>) {
-                val sb = StringBuilder()
-                value.forEach {
-                    sb.append("${it.key}:${it.value},")
-                }
-                thisRef.preferences.edit { putString(property.name, sb.toString()) }
-            }
-
-        }
         fun int(defaultValue: Int = 0) = object : ReadWriteProperty<SharedPreferencesUtils, Int> {
 
             override fun getValue(thisRef: SharedPreferencesUtils, property: KProperty<*>): Int {
