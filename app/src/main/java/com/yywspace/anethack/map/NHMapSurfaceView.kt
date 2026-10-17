@@ -50,7 +50,8 @@ import androidx.core.graphics.createBitmap
 class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var textSize = 64f
     private var scaleFactor = 1f
-    private var mapTranslated = false
+    /** 点击指示符后，下一次点地图直接 travel（不受 walkRange 影响） */
+    private var travelArmed = false
     private var mapInit = false
     /** 视口被外部改动（指示符点击/居中/缩放）后置位，hasChange 据此触发重绘 */
     private var mapTransformDirty = false
@@ -201,6 +202,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         playerCentered = false
         mapContentDirty = true
         mapTransformDirty = true
+        // 换楼层后旧地图上置的 travel 意图作废
+        travelArmed = false
     }
 
     private fun initMapParam() {
@@ -229,8 +232,11 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         indicatorController = NHMapIndicatorController(this, nh, map)
         indicatorController.setOnIndicatorClickListener(object :NHMapIndicatorController.OnIndicatorClickListener{
             override fun onIndicatorClick(e: PointF, tile: NHWMap.Tile) {
-                mapTranslated = true
+                // 点指示符，下一次点地图要强制TRAVEL
+                travelArmed = true
                 centerView(tile.x, tile.y)
+                // 立即把状态栏切到 TRAVEL，不等绘制线程下一帧
+                updateRunMode()
             }
 
             override fun onIndicatorLongPress(e: PointF, tile: NHWMap.Tile) {
@@ -251,6 +257,20 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         val px = if (cx > width/2) playerBorder.left else playerBorder.right
         val py = if (cy > height/2) playerBorder.top else playerBorder.bottom
         return px > offsetX && py > offsetY && px < width-offsetX && py < height-offsetY
+    }
+
+    /** 刷新运行模式（WALK/TRAVEL）。点指示符、拖动视图后立即调用，不等线程绘制下一帧 */
+    private fun updateRunMode() {
+        val newRunMode = if (travelArmed
+            || (nh.prefs.travelAfterPanned && !playerInWalkRange(nh.prefs.walkRange)))
+            NHStatus.RunMode.TRAVEL
+        else
+            NHStatus.RunMode.WALK
+        if (nh.status.runMode != newRunMode) {
+            nh.status.runMode = newRunMode
+            // runMode 显示在状态栏条件里，变化时刷新状态栏，
+            nh.binding.statusView.requestRedraw()
+        }
     }
 
     @SuppressLint("InflateParams")
@@ -459,7 +479,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
         if (point.x in 1 until map.width && point.y in 1 until map.height)
             lastTravelTile = Pair(nh.status.dungeonLevel.realVal, point)
-        mapTranslated = false
+        travelArmed = false
     }
 
     fun centerView(x:Int, y:Int) {
@@ -682,10 +702,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     // 处理手势操作（拖动/缩放 → 只改视口，离屏不变）
                     while (operationQueue.isNotEmpty()) {
                         val op = operationQueue.pop()
-                        if (op is NHMapTransform) {
-                            mapTranslated = true
+                        if (op is NHMapTransform)
                             transformMapWithGesture(op.dx, op.dy)
-                        }
                         if (op is NHMapScale)
                             scaleMap(op.scale, op.cx, op.cy)
                     }
@@ -694,16 +712,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         transformMapWithMove(nh.prefs.walkRange)
                         lastFollowPlayer = Point(map.player)
                     }
-                    val newRunMode = if (mapTranslated && nh.prefs.travelAfterPanned && !playerInWalkRange(nh.prefs.walkRange))
-                        NHStatus.RunMode.TRAVEL
-                    else
-                        NHStatus.RunMode.WALK
-                    if (nh.status.runMode != newRunMode) {
-                        nh.status.runMode = newRunMode
-                        // runMode 显示在状态栏条件里：变化时刷新状态栏，
-                        // 否则要等下一回合 displayWindow 才更新（脱屏是纯 UI 操作，无 native 回合）
-                        nh.binding.statusView.requestRedraw()
-                    }
+                    updateRunMode()
 
                     // 离屏更新：贴图切换/强制全量 → 重绘全部；否则只重绘变化的格子+光标新旧格
                     if (tileSetChanged || mapContentDirty) {
