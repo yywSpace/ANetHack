@@ -261,8 +261,8 @@
         "column": 1
       },
       {
-        "label": "ESC",
-        "value": "27",
+        "label": "Space",
+        "value": "32",
         "row": 4,
         "column": 2
       },
@@ -273,8 +273,8 @@
         "column": 3
       },
       {
-        "label": "Enter",
-        "value": "13",
+        "label": "ESC",
+        "value": "27",
         "row": 4,
         "column": 4
       }

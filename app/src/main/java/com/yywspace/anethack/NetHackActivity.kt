@@ -87,7 +87,8 @@ class NetHackActivity : AppCompatActivity() {
             }
             onSpecialKeyLongPress = {
                 when(it.label) {
-                    "ESC" -> {
+                    // 长按空格条：把角色居中到屏幕
+                    "Space" -> {
                         processKeyPress("Center")
                     }
                     "Meta", "Ctrl" ->

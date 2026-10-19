@@ -338,7 +338,7 @@
         "columnWeight": 1
       },
       {
-        "desc": "ESC",
+        "desc": "Space",
         "row": 4,
         "column": 6,
         "rowSpan": 1,
@@ -354,7 +354,7 @@
         "columnWeight": 1
       },
       {
-        "desc": "Enter",
+        "desc": "ESC",
         "row": 4,
         "column": 17,
         "rowSpan": 1,

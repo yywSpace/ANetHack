@@ -147,7 +147,7 @@ class KeyboardView @JvmOverloads constructor(
             }
             setOnLongClickListener {
                 val k = this@KeyboardView.keyboard.rows[x].keys[y]
-                if (k.label in listOf( "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "ESC", "DEL", "Enter")) {
+                if (k.label in listOf( "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Space", "ESC", "DEL")) {
                     onSpecialKeyLongPress?.invoke(k)
                     return@setOnLongClickListener true
                 }
@@ -232,9 +232,9 @@ class KeyboardView @JvmOverloads constructor(
                 keyboardView[i][j].apply {
                     findViewById<ImageView>(R.id.key_status).apply {
                         visibility = if(key.label in listOf("Num", "Shift"))
-                                View.VISIBLE
+                                VISIBLE
                             else
-                                View.INVISIBLE
+                                INVISIBLE
                     }
                     findViewById<TextView>(R.id.key_main).apply {
                         tag = key.value
@@ -242,10 +242,10 @@ class KeyboardView @JvmOverloads constructor(
                     }
                     findViewById<TextView>(R.id.key_sub).apply {
                         when(key.label) {
-                            "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "ESC", "DEL", "Enter"->
-                                visibility = View.GONE
+                            "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Space", "ESC", "DEL"->
+                                visibility = GONE
                             else -> {
-                                visibility = View.VISIBLE
+                                visibility = VISIBLE
                                 when(keyboardType) {
                                     NHKeyboard.Type.UPPER_LETTER,  NHKeyboard.Type.LETTER -> {
                                         keyboardSymbol.rows[i].keys[j].apply {
@@ -260,7 +260,7 @@ class KeyboardView @JvmOverloads constructor(
                                         }
                                     }
                                     else -> {
-                                        visibility = View.GONE
+                                        visibility = GONE
                                     }
                                 }
                             }
