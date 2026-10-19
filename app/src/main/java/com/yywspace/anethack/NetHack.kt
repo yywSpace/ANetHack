@@ -28,6 +28,8 @@ import java.time.LocalTime
 import java.util.concurrent.CopyOnWriteArrayList
 
 
+// 大量方法是被 native 层（JNI）回调的，Kotlin 侧看不到调用点
+@Suppress("unused")
 class NetHack(
     val handler: Handler, val context: Activity,
     val binding: ActivityNethackBinding, private val netHackDir:String) {
@@ -44,6 +46,14 @@ class NetHack(
     /** 价格鉴定弹窗（NetHackActivity 初始化后设置），菜单点击价格引用时打开 */
     var priceIDialog: NHPriceIDialog? = null
     val prefs by lazy { SharedPreferencesUtils(context) }
+
+    /** 明暗主题切换，丢弃按旧配色创建并缓存的对话框 */
+    fun onThemeChanged() {
+        question.clearCache()
+        playerChoose.onThemeChanged()
+        // 仍打开的菜单（operation 内联 / dialog）按新配色重建
+        windows.forEach { (it as? NHWMenu)?.onThemeChanged() }
+    }
     val status:NHStatus
         get() =
             if (hasWindow(NHWindowType.NHW_STATUS))

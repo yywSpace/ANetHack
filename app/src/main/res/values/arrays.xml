@@ -20,6 +20,15 @@
         <item>3</item>
         <item>4</item>
     </string-array>
+    <string-array name="theme_mode_array">
+        <item>@string/pref_ui_theme_light</item>
+        <item>@string/pref_ui_theme_dark</item>
+    </string-array>
+    <string-array name="theme_mode_value">
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+
     <string-array name="surcharge_cond_array">
         <item>@string/price_id_surcharge_none</item>
         <item>@string/price_id_surcharge_tourist</item>

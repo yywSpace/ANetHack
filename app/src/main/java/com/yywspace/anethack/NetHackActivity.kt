@@ -1,6 +1,7 @@
 package com.yywspace.anethack
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
@@ -30,11 +31,15 @@ class NetHackActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNethackBinding
     private lateinit var priceIDialog: NHPriceIDialog
     private var isKeyboardShow = false
+    /** 当前明暗模式（uiMode），用来判断配置变化是否来自主题切换 */
+    private var uiMode = Configuration.UI_MODE_NIGHT_NO
     /** 固定在命令栏右侧（键盘、设置），不放进可滚动的命令列表 */
     private val pinnedCommands = setOf(KEYBOARD_COMMAND, SETTING_COMMAND)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Utils.applyThemeMode(this)
         super.onCreate(savedInstanceState)
+        uiMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         binding = ActivityNethackBinding.inflate(layoutInflater)
         setContentView(binding.root)
         handler = Handler(Looper.getMainLooper())
@@ -70,13 +75,48 @@ class NetHackActivity : AppCompatActivity() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if(isKeyboardShow) {
+        val newUiMode = newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        if (newUiMode != uiMode) {
+            uiMode = newUiMode
+            // 换主题，applyThemeColors() 内部会 refreshTheme() 重建键盘，键盘不需要再单独刷新
+            applyThemeColors()
+        } else if (isKeyboardShow) {
+            // 旋转/键盘弹出等非主题变化：只重放按键标签
             binding.keyboardView.apply {
                 postDelayed({
                     refreshNHKeyboard()
                 }, 100)
             }
         }
+    }
+
+    /**
+     * 明暗主题切换（uiMode）不重建 Activity，避免游戏重开：手动刷新受影响的颜色和缓存。
+     * 注意：布局里的 @color 是在 inflate 时解析的，本 Activity 不重建就不会自动更新，
+     * 所以下面这些"再设一次"是必要的；能整体 inflate 的（按键、命令栏）走重建。
+     */
+    private fun applyThemeColors() {
+        Utils.applyThemeMode(this)
+        // setTheme 让之后创建的对话框按新的（night）主题解析
+        setTheme(R.style.Theme_ANetHack)
+        // 面板背景：view 已存在，drawable 是旧的，只能重新设置
+        binding.keyboardView.setBackgroundColor(getColor(R.color.app_background))
+        binding.baseCommandPanel.setBackgroundColor(getColor(R.color.app_background))
+        // 图标 tint 同理，inflate 时解析，切换后重新设置
+        val iconTint = ColorStateList.valueOf(getColor(R.color.app_text))
+        binding.keyboardSwitch.imageTintList = iconTint
+        binding.settingsSwitch.imageTintList = iconTint
+        // 命令栏条目重新 inflate（文字色来自 item_command.xml）
+        initControlPanel()
+        // 按键背景来自 drawable，需要重建按键视图才能换配色
+        binding.keyboardView.postDelayed({
+            binding.keyboardView.refreshTheme()
+        }, 100)
+        NHWMenu.clearCache()
+        nethack.onThemeChanged()
+        // 价格鉴定弹窗的视图是构造时 inflate 的，按新配色重建一份
+        priceIDialog = NHPriceIDialog(this, nethack)
+        nethack.priceIDialog = priceIDialog
     }
 
     private fun initKeyboard() {

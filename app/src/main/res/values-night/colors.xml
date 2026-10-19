@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 深色模式下的语义颜色（浅色版本在 values/colors.xml）
+         地图本身是纯黑，面板/对话框要更亮一些才能和它区分开 -->
+    <color name="app_background">#FF1F1F1F</color>
+    <color name="app_text">#FFD2D2D2</color>
+    <color name="app_text_secondary">#FF9E9E9E</color>
+    <color name="key_background">#FF2A2A2A</color>
+    <color name="key_border">#FF444444</color>
+    <color name="app_divider">#FF3A3A3A</color>
+    <color name="extend_search_bg">#FF2A2A2A</color>
+    <!-- 深色下答案格子用低饱和的深灰，避免亮紫配黑底 -->
+    <color name="answer_cell">#FF33313C</color>
+    <color name="answer_cell_pressed">#FF4A4458</color>
+    <color name="answer_cell_text">#FFD2D2D2</color>
+</resources>

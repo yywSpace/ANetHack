@@ -12,7 +12,7 @@
             android:id="@+id/option_edit_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/app_background"
             app:title="@string/option_edit_title"/>
     </com.google.android.material.appbar.AppBarLayout>
 

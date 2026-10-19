@@ -51,10 +51,18 @@
     <string name="price_id_mode_sell">Sell</string>
     <string name="price_id_mode_buy">Buy</string>
     <string name="price_id_mode_base">Base</string>
+    <string name="price_id_invalid_json">Invalid json format.</string>
     <!-- 价格段关键词：匹配游戏端文本（{buy 267 sell 67}），本地化时与游戏端保持一致 -->
     <string name="price_quote_buy">buy</string>
     <string name="price_quote_sell">sell</string>
-    <string name="price_id_invalid_json">Invalid json format.</string>
+
+    <!-- Preference UI -->
+    <string name="pref_ui_header">UI</string>
+    <string name="pref_ui_theme_mode">Theme</string>
+    <string name="pref_ui_theme_light">Light</string>
+    <string name="pref_ui_theme_dark">Dark</string>
+    <string name="pref_ui_immersive_mode">Immersive mode</string>
+    <string name="pref_ui_immersive_mode_desc">Hide system ui.</string>
 
     <!-- Preference Log -->
     <string name="pref_log_header">Logs</string>
@@ -114,13 +122,7 @@
     <string name="command_bar_keyboard_switch">Show or hide the keyboard</string>
     <string name="command_bar_settings_switch">Open settings</string>
 
-    <!-- Preference Other -->
-    <string name="pref_other_header">Other</string>
-    <string name="pref_other_lock_view">Lock view</string>
-    <string name="pref_other_lock_view_desc">Always put the player in the center of the view.</string>
-    <string name="pref_other_immersive_mode">Immersive mode</string>
-    <string name="pref_other_immersive_mode_desc">Hide system ui.</string>
-
+    <!-- Permission -->
     <string name="permission_audio">Audio permission</string>
     <string name="permission_granted">Permission has been granted. </string>
     <string name="permission_denied">The audio permission is blocked. You need to grant it manually in the app settings.</string>

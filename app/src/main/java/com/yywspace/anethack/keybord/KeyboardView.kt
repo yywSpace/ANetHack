@@ -67,6 +67,16 @@ class KeyboardView @JvmOverloads constructor(
     fun refreshNHKeyboard() {
         switchNHKeyboard(keyboardType)
     }
+
+    /** 明暗主题切换，按键背景是 drawable，重新解析需要重建按键视图 */
+    fun refreshTheme() {
+        removeAllViews()
+        keyboardView.clear()
+        placeholderView.clear()
+        initKeyboardView()
+        initNumPanel()
+        refreshNHKeyboard()
+    }
     private fun initKeyboardData() {
         val keyboardLetterJson = Utils.readAssetsFile(
             context, "keyboard/keyboard_letter.json")
@@ -99,7 +109,7 @@ class KeyboardView @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     private fun initKeyView(x:Int, y:Int):View{
         val view = inflate(context, R.layout.keyboard_key_view, null).apply {
-            setBackgroundResource(R.drawable.btn_bg_selector)
+            setBackgroundResource(R.drawable.key_bg_selector)
             val statusImage = findViewById<ImageView>(R.id.key_status)
             setOnClickListener {
                 if (keyboardVibrate)

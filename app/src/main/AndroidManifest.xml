@@ -34,7 +34,7 @@
             android:label="@string/activity_option_edit_title" />
         <activity
             android:name=".NetHackActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
             android:exported="true"
             android:hardwareAccelerated="true"
             android:launchMode="singleTop">

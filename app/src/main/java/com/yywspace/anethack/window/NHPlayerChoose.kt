@@ -27,6 +27,8 @@ class NHPlayerChoose(val nh: NetHack) {
     private var nameSize = 0
     lateinit var saves: Array<String>
     var players: MutableList<NHPlayer> = mutableListOf()
+    /** 当前显示的选人弹窗，主题切换时重建 */
+    private var popup: PopupWindow? = null
 
     fun askName(nameSize: Int, saves: Array<String>) {
         this.nameSize = nameSize
@@ -107,7 +109,16 @@ class NHPlayerChoose(val nh: NetHack) {
                         showAtLocation(binding.root, Gravity.CENTER, 0, 0)
                 }
             }
+            popup = popupWindow
         }
+    }
+
+    /** 明暗主题切换：按新配色重建仍在显示的选人弹窗 */
+    fun onThemeChanged() {
+        val showing = popup?.takeIf { it.isShowing } ?: return
+        showing.dismiss()
+        popup = null
+        showPlayerChooseDialog(players)
     }
 
     private fun showNewPlayerDialog(popupWindow: PopupWindow) {

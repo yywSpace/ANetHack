@@ -5,5 +5,5 @@
         android:id="@+id/option_edit_save"
         android:title="@string/option_menu_save"
         app:showAsAction="always"
-        android:icon="@drawable/icon_save"/>
+        android:icon="@drawable/ic_save"/>
 </menu>

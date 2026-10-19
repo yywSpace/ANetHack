@@ -6,4 +6,4 @@
     android:background="?android:attr/selectableItemBackground"
     android:gravity="center"
     android:paddingHorizontal="@dimen/command_bar_item_padding"
-    android:textColor="@color/black" />
+    android:textColor="@color/app_text" />

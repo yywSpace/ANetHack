@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/app_background"
     android:orientation="vertical">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:breakStrategy="high_quality"
-        android:textColor="@color/black"
+        android:textColor="@color/app_text"
         android:textSize="16sp"
         android:text="@string/player_select"
         android:layout_marginStart="20dp"

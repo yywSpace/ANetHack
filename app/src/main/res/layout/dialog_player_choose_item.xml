@@ -14,6 +14,7 @@
             android:id="@+id/item_player"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/app_text"
             tools:text="player" />
 
         <TextView
@@ -22,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/item_player"
             android:textSize="11sp"
+            android:textColor="@color/app_text_secondary"
             tools:text="normal" />
     </RelativeLayout>
 

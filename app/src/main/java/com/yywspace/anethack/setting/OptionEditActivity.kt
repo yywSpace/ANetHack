@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.yywspace.anethack.R
@@ -93,7 +94,8 @@ class OptionEditActivity: AppCompatActivity() {
                             ForegroundColorSpan("#77B767".toColorInt()),
                             startIdx + 1, endIdx + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE )
                     } else {
-                        editableText.setSpan(ForegroundColorSpan(Color.BLACK),
+                        editableText.setSpan(
+                            ForegroundColorSpan(ContextCompat.getColor(this@OptionEditActivity, R.color.app_text)),
                             startIdx + 1, endIdx + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE )
                     }
                 }

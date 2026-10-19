@@ -4,12 +4,34 @@ import android.content.Context
 import android.view.Gravity
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.PreferenceManager
+import com.yywspace.anethack.entity.NHColor
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.nio.charset.Charset
 
 
 object Utils {
+    /**
+     * 按设置里的 themeMode 应用明暗主题（light / dark）。
+     * @param mode 显式传入的模式；切换偏好的回调里偏好尚未落盘，先把新值写进内存再应用，
+     *             这样随后重建的 Activity 读到的就是新值
+     */
+    fun applyThemeMode(context: Context, mode: String? = null) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        if (mode != null)
+            prefs.edit().putString("themeMode", mode).apply()
+        val value = mode ?: prefs.getString("themeMode", "light")
+        val dark = value == "dark"
+        // 游戏调色板（NHColor）在深色模式下用柔和的一套
+        NHColor.darkTheme = dark
+        AppCompatDelegate.setDefaultNightMode(
+            if (dark) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
+        )
+    }
+
     fun readAssetsFile(context: Context, filename: String): String {
         val stream = context.assets.open(filename)
         val fileLength = stream.available()

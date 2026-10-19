@@ -2,6 +2,7 @@ package com.yywspace.anethack.setting
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
@@ -20,12 +21,14 @@ import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.R
+import com.yywspace.anethack.Utils
 import java.io.File
 
 
 class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Utils.applyThemeMode(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         if (savedInstanceState == null) {
@@ -40,11 +43,17 @@ class SettingsActivity : AppCompatActivity() {
         initStatusBar()
     }
 
+    /** 当前是否为深色（按资源当前配置判断） */
+    private fun isNightMode(): Boolean =
+        (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
+                Configuration.UI_MODE_NIGHT_YES
+
     private fun initStatusBar() {
         window.statusBarColor = Color.TRANSPARENT
         val windowInsetsController =
             WindowCompat.getInsetsController(window, window.decorView)
-        windowInsetsController.isAppearanceLightStatusBars = true
+        // 深色主题下状态栏图标要用亮色
+        windowInsetsController.isAppearanceLightStatusBars = !isNightMode()
         windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
     }
 
@@ -95,6 +104,14 @@ class SettingsActivity : AppCompatActivity() {
             findPreference<EditTextPreference>("messageHistorySize")?.apply {
                 setOnBindEditTextListener {
                     it.inputType = InputType.TYPE_CLASS_NUMBER
+                }
+            }
+            findPreference<Preference>("themeMode")?.apply {
+                setOnPreferenceChangeListener { _, newValue ->
+                    // 先把新值写进内存再切换主题，然后重建本页让配色立刻生效
+                    Utils.applyThemeMode(requireContext(), newValue as String)
+                    activity?.recreate()
+                    true
                 }
             }
             findPreference<Preference>("optionEdit")?.apply {

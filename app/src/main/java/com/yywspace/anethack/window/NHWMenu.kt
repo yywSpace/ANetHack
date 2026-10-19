@@ -461,6 +461,31 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         textList.add(NHString(msg, attr))
     }
 
+    /** 明暗主题切换，打开的菜单是按旧配色 inflate 的，按当前数据重建一次 */
+    fun onThemeChanged() {
+        nh.runOnUi { binding, context ->
+            // Operation：内联在面板里
+            if (binding.dialogContainer.isNotEmpty()) {
+                cachedMenuView = null
+                val menuView = initMenuView(context)
+                binding.dialogContainer.removeAllViews()
+                val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).apply {
+                    gravity = Gravity.CENTER
+                }
+                binding.dialogContainer.addView(menuView, params)
+                binding.dialogContainer.visibility = View.VISIBLE
+            }
+            // Dialog：重新创建对话框并按新配色显示
+            if (menuDialog?.isShowing == true) {
+                menuDialog?.dismiss()
+                menuDialog = null
+                dialogViewAttached = false
+                ensureCachedDialog(context)
+                menuDialog?.show(nh.prefs.immersiveMode)
+            }
+        }
+    }
+
     companion object {
         // 静态缓存：窗口实例会被 createWindow 反复重建，缓存放静态才能跨实例复用
         // 安全：单 Activity + manifest 声明 configChanges（Activity 不重建），

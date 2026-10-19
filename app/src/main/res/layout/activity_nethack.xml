@@ -57,7 +57,7 @@
 
     <com.yywspace.anethack.keybord.KeyboardView
         android:id="@+id/keyboard_view"
-        android:background="@color/white"
+        android:background="@color/app_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
@@ -69,7 +69,7 @@
         android:id="@+id/base_command_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/app_background"
         android:orientation="horizontal"
         android:clickable="true">
 
@@ -94,7 +94,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="2dp"
             android:layout_marginEnd="2dp"
-            android:background="@color/divider" />
+            android:background="@color/app_divider" />
 
         <ImageView
             android:id="@+id/keyboard_switch"
@@ -103,7 +103,8 @@
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/command_bar_keyboard_switch"
             android:scaleType="center"
-            android:src="@drawable/ic_keyboard" />
+            android:src="@drawable/ic_keyboard"
+            app:tint="@color/app_text" />
 
         <ImageView
             android:id="@+id/settings_switch"
@@ -112,7 +113,8 @@
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/command_bar_settings_switch"
             android:scaleType="center"
-            android:src="@drawable/ic_settings" />
+            android:src="@drawable/ic_settings"
+            app:tint="@color/app_text" />
     </LinearLayout>
 
 </LinearLayout>

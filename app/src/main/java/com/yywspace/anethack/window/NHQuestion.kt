@@ -291,4 +291,14 @@ class NHQuestion(val nh: NetHack) {
         return cmd.key
     }
 
+    /** 主题切换后丢弃缓存的对话框，下次提问按新配色重建 */
+    fun clearCache() {
+        inputDialog?.dismiss()
+        inputDialog = null
+        inputView = null
+        questionDialog?.dismiss()
+        questionDialog = null
+        questionView = null
+    }
+
 }

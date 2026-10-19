@@ -9,7 +9,17 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#2196F3</color>
     <color name="green">#86cd3e</color>
-    <color name="gray">#808080</color>
-    <color name="divider">#FFE0E0E0</color>
     <color name="transparent">#00FFFFFF</color>
+    <!-- 明暗主题共用一套语义颜色，深色版本在 values-night/colors.xml -->
+    <color name="app_background">#FFFFFFFF</color>
+    <color name="app_text">#FF000000</color>
+    <color name="app_text_secondary">#FF808080</color>
+    <color name="key_background">#FFFFFFFF</color>
+    <color name="key_border">#FF808080</color>
+    <color name="app_divider">#FFE0E0E0</color>
+    <color name="extend_search_bg">#FFF5F5F5</color>
+    <!-- 问答弹窗的答案格子，亮色沿用主题紫，深色见 values-night -->
+    <color name="answer_cell">#FF6200EE</color>
+    <color name="answer_cell_pressed">#FF3700B3</color>
+    <color name="answer_cell_text">#FFFFFFFF</color>
 </resources>

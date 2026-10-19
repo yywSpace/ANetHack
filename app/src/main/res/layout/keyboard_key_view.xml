@@ -21,13 +21,13 @@
             android:id="@+id/key_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/app_text"
             tools:text = 'B' />
         <TextView
             android:id="@+id/key_sub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
+            android:textColor="@color/app_text_secondary"
             android:layout_marginStart="2dp"
             tools:text=">"/>
     </LinearLayout>

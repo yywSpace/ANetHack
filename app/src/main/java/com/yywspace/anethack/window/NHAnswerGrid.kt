@@ -33,9 +33,9 @@ class NHAnswerGrid(context: Context, attrs: AttributeSet? = null) : View(context
     private val cellPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL }
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { textAlign = Paint.Align.CENTER }
 
-    private val cellColor = ContextCompat.getColor(context, R.color.purple_500)
-    private val pressedColor = ContextCompat.getColor(context, R.color.purple_700)
-    private val textColor = ContextCompat.getColor(context, R.color.white)
+    private val cellColor = ContextCompat.getColor(context, R.color.answer_cell)
+    private val pressedColor = ContextCompat.getColor(context, R.color.answer_cell_pressed)
+    private val textColor = ContextCompat.getColor(context, R.color.answer_cell_text)
 
     private val density = resources.displayMetrics.density
     private val cellHeight = 38f * density
