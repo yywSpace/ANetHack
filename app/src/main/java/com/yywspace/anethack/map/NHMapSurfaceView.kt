@@ -70,6 +70,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var lastFollowPlayer:Point = Point(-1, -1)
     private var baseBorderWidth:Float = .5F
     private var borderWidth:Float = 0F
+    /** 光标半透明填充的 alpha（0-255），贴图模式下光标为半透明方块 */
+    private val curseFillAlpha = 0x26
     private var tileWidth:Float = 0F
     private var tileHeight:Float = 0F
     /** 离屏地图缓冲：基础尺寸（不随缩放变），脏格子只更新这里，屏幕整图 blit 杜绝残影 */
@@ -539,9 +541,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             if(curse.x < 0 || curse.y < 0)
                 return
             val tb = getTileBorder(curse.x, curse.y)
-            paint.color = nh.status.hitPoints.color
-            paint.style = Paint.Style.STROKE
-            paint.strokeWidth = borderWidth
+            // 半透明填充
+            paint.style = Paint.Style.FILL
+            paint.color = (nh.status.hitPoints.color and 0x00FFFFFF) or (curseFillAlpha shl 24)
             canvas?.drawRect(tb, paint)
         }
     }
