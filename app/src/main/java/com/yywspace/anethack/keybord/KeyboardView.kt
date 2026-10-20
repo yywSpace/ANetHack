@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.setMargins
 import com.yywspace.anethack.R
 import com.yywspace.anethack.Utils
@@ -68,15 +69,23 @@ class KeyboardView @JvmOverloads constructor(
         switchNHKeyboard(keyboardType)
     }
 
-    /** 明暗主题切换，按键背景是 drawable，重新解析需要重建按键视图 */
-    fun refreshTheme() {
-        removeAllViews()
-        keyboardView.clear()
-        placeholderView.clear()
-        initKeyboardView()
-        initNumPanel()
-        refreshNHKeyboard()
+    /**
+     * 明暗主题切换：面板背景和按键颜色都要按新主题重新解析。
+     * 背景是已有的 drawable，只能重新设置；按键需要重建视图（延后一点，避免和页面重建抢主线程）。
+     */
+    fun applyTheme() {
+        setBackgroundColor(ContextCompat.getColor(context, R.color.app_background))
+        postDelayed({
+            // 按键背景是 drawable，重新解析需要重建按键视图
+            removeAllViews()
+            keyboardView.clear()
+            placeholderView.clear()
+            initKeyboardView()
+            initNumPanel()
+            refreshNHKeyboard()
+        }, 100)
     }
+
     private fun initKeyboardData() {
         val keyboardLetterJson = Utils.readAssetsFile(
             context, "keyboard/keyboard_letter.json")

@@ -1,14 +1,12 @@
 package com.yywspace.anethack
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -33,8 +31,6 @@ class NetHackActivity : AppCompatActivity() {
     private var isKeyboardShow = false
     /** 当前明暗模式（uiMode），用来判断配置变化是否来自主题切换 */
     private var uiMode = Configuration.UI_MODE_NIGHT_NO
-    /** 固定在命令栏右侧（键盘、设置），不放进可滚动的命令列表 */
-    private val pinnedCommands = setOf(KEYBOARD_COMMAND, SETTING_COMMAND)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Utils.applyThemeMode(this)
@@ -78,7 +74,7 @@ class NetHackActivity : AppCompatActivity() {
         val newUiMode = newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK
         if (newUiMode != uiMode) {
             uiMode = newUiMode
-            // 换主题，applyThemeColors() 内部会 refreshTheme() 重建键盘，键盘不需要再单独刷新
+            // 换主题：applyThemeColors() 里键盘、命令栏、对话框各自刷新
             applyThemeColors()
         } else if (isKeyboardShow) {
             // 旋转/键盘弹出等非主题变化：只重放按键标签
@@ -99,19 +95,9 @@ class NetHackActivity : AppCompatActivity() {
         Utils.applyThemeMode(this)
         // setTheme 让之后创建的对话框按新的（night）主题解析
         setTheme(R.style.Theme_ANetHack)
-        // 面板背景：view 已存在，drawable 是旧的，只能重新设置
-        binding.keyboardView.setBackgroundColor(getColor(R.color.app_background))
-        binding.baseCommandPanel.setBackgroundColor(getColor(R.color.app_background))
-        // 图标 tint 同理，inflate 时解析，切换后重新设置
-        val iconTint = ColorStateList.valueOf(getColor(R.color.app_text))
-        binding.keyboardSwitch.imageTintList = iconTint
-        binding.settingsSwitch.imageTintList = iconTint
-        // 命令栏条目重新 inflate（文字色来自 item_command.xml）
+        // 键盘和命令栏各自按新主题刷新（背景、键帽、按钮、图标都在各自类里处理）
+        binding.keyboardView.applyTheme()
         initControlPanel()
-        // 按键背景来自 drawable，需要重建按键视图才能换配色
-        binding.keyboardView.postDelayed({
-            binding.keyboardView.refreshTheme()
-        }, 100)
         NHWMenu.clearCache()
         nethack.onThemeChanged()
         // 价格鉴定弹窗的视图是构造时 inflate 的，按新配色重建一份
@@ -171,23 +157,13 @@ class NetHackActivity : AppCompatActivity() {
     }
 
     private fun initControlPanel() {
-        var commands = nethack.prefs.commandPanel.orEmpty()
-        if (commands.isEmpty())
-            commands = getString(R.string.pref_keyboard_command_panel_default)
-        binding.commandList.removeAllViews()
-        commands.split(" ")
-            .filter { it.isNotBlank() && it.substringBefore('|') !in pinnedCommands }
-            .forEach { cmdStr ->
-                val cmd = cmdStr.substringBefore('|')
-                val item = layoutInflater
-                    .inflate(R.layout.item_command, binding.commandList, false) as TextView
-                item.text = cmdStr.substringAfter('|', cmd)
-                item.setOnClickListener { processKeyPress(cmd) }
-                binding.commandList.addView(item)
-            }
-        // 键盘和设置固定在右侧，不跟着列表滚动
-        binding.keyboardSwitch.setOnClickListener { processKeyPress(KEYBOARD_COMMAND) }
-        binding.settingsSwitch.setOnClickListener { processKeyPress(SETTING_COMMAND) }
+        binding.bottomCommandPanel.apply {
+            immersiveProvider = { nethack.prefs.immersiveMode }
+            onCommand = { processKeyPress(it) }
+            onCommandsChanged = { nethack.prefs.commandPanel = it }
+            setCommands(nethack.prefs.commandPanel)
+            refreshTheme()
+        }
     }
 
     private fun hideSystemUi() {

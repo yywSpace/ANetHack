@@ -65,56 +65,10 @@
         app:key_height="@dimen/command_item_height" />
 
     <!-- 底部命令栏：命令按钮一行横向滚动，键盘开关固定在最右侧 -->
-    <LinearLayout
-        android:id="@+id/base_command_panel"
+    <com.yywspace.anethack.keybord.NHBottomCommandPanel
+        android:id="@+id/bottom_command_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/app_background"
-        android:orientation="horizontal"
-        android:clickable="true">
-
-        <HorizontalScrollView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:overScrollMode="never"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:id="@+id/command_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
-
-        <!-- 分隔线：左边是可滚动的命令列表，右边是两个固定按钮 -->
-        <View
-            android:layout_width="1dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="2dp"
-            android:background="@color/app_divider" />
-
-        <ImageView
-            android:id="@+id/keyboard_switch"
-            android:layout_width="@dimen/command_icon_width"
-            android:layout_height="@dimen/command_item_height"
-            android:background="?android:attr/selectableItemBackground"
-            android:contentDescription="@string/command_bar_keyboard_switch"
-            android:scaleType="center"
-            android:src="@drawable/ic_keyboard"
-            app:tint="@color/app_text" />
-
-        <ImageView
-            android:id="@+id/settings_switch"
-            android:layout_width="@dimen/command_icon_width"
-            android:layout_height="@dimen/command_item_height"
-            android:background="?android:attr/selectableItemBackground"
-            android:contentDescription="@string/command_bar_settings_switch"
-            android:scaleType="center"
-            android:src="@drawable/ic_settings"
-            app:tint="@color/app_text" />
-    </LinearLayout>
+        android:background="@color/app_background" />
 
 </LinearLayout>

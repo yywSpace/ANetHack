@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- NHBottomCommandPanel 的内容：命令按钮横向滚动 + 分隔线 + 固定的键盘/设置按钮 -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <HorizontalScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/command_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+    <View
+        android:id="@+id/command_divider"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:background="@color/app_divider" />
+
+    <ImageView
+        android:id="@+id/keyboard_switch"
+        android:layout_width="@dimen/command_icon_width"
+        android:layout_height="@dimen/command_item_height"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/command_bar_keyboard_switch"
+        android:scaleType="center"
+        android:src="@drawable/ic_keyboard"
+        app:tint="@color/app_text" />
+
+    <ImageView
+        android:id="@+id/settings_switch"
+        android:layout_width="@dimen/command_icon_width"
+        android:layout_height="@dimen/command_item_height"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/command_bar_settings_switch"
+        android:scaleType="center"
+        android:src="@drawable/ic_settings"
+        app:tint="@color/app_text" />
+
+</merge>
