@@ -42,7 +42,6 @@ class NetHack(
 
     val tileSet = NHTileSet(this)
     val command = NHBlockingCommandController()
-    var isRunning = false
     /** 价格鉴定弹窗（NetHackActivity 初始化后设置），菜单点击价格引用时打开 */
     var priceIDialog: NHPriceIDialog? = null
     val prefs by lazy { SharedPreferencesUtils(context) }
@@ -67,24 +66,38 @@ class NetHack(
 
     companion object {
         private const val TAG = "NetHack"
-    }
 
-    private val runNHThread:Thread = Thread {
-        Log.d(TAG, "start native process")
-        try {
-            isRunning = true
+        init {
+            // native 库只加载一次；失败要在启动阶段暴露，而不是等到线程里
             System.loadLibrary("NetHack")
-            runNetHack(netHackDir)
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
-        isRunning = false
-        Log.d(TAG, "native process finished")
-    }
-    fun run() {
-        runNHThread.start()
     }
 
+    /** 主循环是否在运行 */
+    @Volatile
+    var isRunning = false
+        private set
+
+    private var gameThread: Thread? = null
+
+    fun run() {
+        // 线程不能重复 start；已经在跑就直接返回
+        if (gameThread?.isAlive == true) return
+        isRunning = true
+        gameThread = Thread({
+            Log.d(TAG, "start native process")
+            try {
+                runNetHack(netHackDir)
+            } catch (t: Throwable) {
+                Log.e(TAG, "native process failed", t)
+            } finally {
+                isRunning = false
+                Log.d(TAG, "native process finished")
+            }
+        }, "NetHackMain").also { it.start() }
+    }
+
+    /** 结束游戏：目前是直接终止 native 主循环，会连带结束进程 */
     fun stop() {
         stopNetHack()
     }
