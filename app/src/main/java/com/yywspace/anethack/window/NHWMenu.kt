@@ -435,7 +435,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                 .apply {
                     findViewById<TextView>(R.id.text_view).apply {
                         // movementMethod = ScrollingMovementMethod.getInstance()
-                        text = NHWText.buildContent(textList.map { it.toString() })
+                        text = NHWText.buildContent(textList.map { it.toString() }, nh.prefs.textReflow)
                     }
                 }
             val dialog = AlertDialog.Builder(context).apply {

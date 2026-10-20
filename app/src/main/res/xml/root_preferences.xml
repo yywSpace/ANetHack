@@ -19,6 +19,13 @@
             app:iconSpaceReserved="false"
             app:defaultValue="true"
             app:summary="@string/pref_ui_immersive_mode_desc"/>
+
+        <CheckBoxPreference
+            app:key="textReflow"
+            app:title="@string/pref_ui_text_reflow"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"
+            app:summary="@string/pref_ui_text_reflow_desc"/>
     </PreferenceCategory>
 
     <PreferenceCategory

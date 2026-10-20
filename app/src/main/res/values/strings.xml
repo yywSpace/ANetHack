@@ -63,6 +63,8 @@
     <string name="pref_ui_theme_dark">Dark</string>
     <string name="pref_ui_immersive_mode">Immersive mode</string>
     <string name="pref_ui_immersive_mode_desc">Hide system ui.</string>
+    <string name="pref_ui_text_reflow">Reflow text</string>
+    <string name="pref_ui_text_reflow_desc">Join lines that were wrapped for a terminal so paragraphs flow with the screen width.</string>
 
     <!-- Preference Log -->
     <string name="pref_log_header">Logs</string>
