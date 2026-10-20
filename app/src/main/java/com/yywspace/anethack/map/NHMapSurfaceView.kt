@@ -698,8 +698,12 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 try {
                     val tileSetChanged = nh.tileSet.isTileSetChange()
 
-                    if (tileSetChanged)
+                    if (tileSetChanged) {
                         initMapParam() // 重建离屏并全量重绘
+                        // 切换贴图后视野重新居中到角色（贴图尺寸变化会让原视口偏移）
+                        if (map.player.x >= 0 && map.player.y >= 0)
+                            centerView(map.player.x, map.player.y)
+                    }
                     // 处理手势操作（拖动/缩放 → 只改视口，离屏不变）
                     while (operationQueue.isNotEmpty()) {
                         val op = operationQueue.pop()
