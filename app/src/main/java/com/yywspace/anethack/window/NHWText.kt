@@ -62,20 +62,27 @@ class NHWText(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
 
             val content = StringBuilder()
             var prev: String? = null
+            // "Things that are here:" 这类以冒号结尾的行后面是一串列表项，不能拼成一段
+            var inList = false
             for (raw in textList) {
                 val line = raw.trimEnd()
                 if (line.isBlank()) {
                     // 空行：段落分隔
                     content.append('\n')
                     prev = null
+                    inList = false
                     continue
                 }
                 val p = prev
                 when {
                     p == null -> content.append(line)
+                    // 列表里同缩进的行各自成行
+                    inList && leadingSpaces(p) == leadingSpaces(line) ->
+                        content.append('\n').append(line)
                     shouldJoin(p, line) -> content.append(' ').append(line.trimStart())
                     else -> content.append('\n').append(line)
                 }
+                inList = line.endsWith(":") || (inList && !line.endsWith("."))
                 prev = line
             }
             // 合并连续空行并去掉结尾空白
