@@ -7,4 +7,7 @@
     <dimen name="command_item_min_width">40dp</dimen>
     <!-- 右侧两个图标按钮的宽度：图标是居中的，宽度越小两个图标靠得越近 -->
     <dimen name="command_icon_width">35dp</dimen>
+    <!-- 状态栏/消息栏字号：用 sp，跟随系统字体大小设置（14sp ≈ 原 42px@3x） -->
+    <dimen name="status_text_size">14sp</dimen>
+    <dimen name="message_text_size">14sp</dimen>
 </resources>

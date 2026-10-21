@@ -16,19 +16,20 @@ import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.show
-import com.yywspace.anethack.map.NHMessageSurfaceView
+import com.yywspace.anethack.map.NHMessageView
 import java.lang.Integer.min
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.math.ceil
 
 class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {
     val messageList = CopyOnWriteArrayList<NHMessage>()
-    private var messageView: NHMessageSurfaceView = nh.binding.messageView
+    private var messageView: NHMessageView = nh.binding.messageView
     private var lastClickTime = 0L
 
     init {
         messageView.initMessage(nh,this)
-        messageView.setOnClickListener {
+        // 只设置回调，不在这里直接操作 View（本类在游戏线程里创建）
+        messageView.onMessageClick = {
             if (System.currentTimeMillis() - lastClickTime >= 1000) {
                 displayWindow(true)
                 lastClickTime = System.currentTimeMillis()

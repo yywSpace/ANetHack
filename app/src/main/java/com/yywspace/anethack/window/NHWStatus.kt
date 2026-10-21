@@ -1,14 +1,14 @@
 package com.yywspace.anethack.window
 
 import android.util.Log
-import com.yywspace.anethack.map.NHStatusSurfaceView
+import com.yywspace.anethack.map.NHStatusView
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.NetHack
 
 
 class NHWStatus(wid: Int, type:NHWindowType, nh: NetHack) : NHWindow(wid, type) {
     val status = NHStatus(nh.context)
-    private var statusView: NHStatusSurfaceView = nh.binding.statusView
+    private var statusView: NHStatusView = nh.binding.statusView
 
     init {
         statusView.initStatus(nh, status)

@@ -33,17 +33,15 @@
             android:focusable="true"
             android:clickable="true">
 
-            <com.yywspace.anethack.map.NHStatusSurfaceView
+            <com.yywspace.anethack.map.NHStatusView
                 android:id="@+id/status_view"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="wrap_content" />
 
-            <com.yywspace.anethack.map.NHMessageSurfaceView
+            <com.yywspace.anethack.map.NHMessageView
                 android:id="@+id/message_view"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-            </com.yywspace.anethack.map.NHMessageSurfaceView>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <!-- 菜单叠加在地图上（键盘上方），不覆盖键盘与命令面板 -->
