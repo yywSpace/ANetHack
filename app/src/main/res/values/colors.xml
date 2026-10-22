@@ -22,4 +22,6 @@
     <color name="answer_cell">#FF6200EE</color>
     <color name="answer_cell_pressed">#FF3700B3</color>
     <color name="answer_cell_text">#FFFFFFFF</color>
+    <!-- 菜单项文字：游戏没给颜色（NO_COLOR）时使用 -->
+    <color name="menu_item_text">#FF262626</color>
 </resources>

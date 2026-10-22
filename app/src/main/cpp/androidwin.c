@@ -63,6 +63,9 @@ static void and_start_screen();
 static void and_end_screen();
 win_request_info *and_ctrl_nhwindow(winid, int, win_request_info *);
 color_attr and_menu_promptstyle = { NO_COLOR, ATR_NONE };
+/* 菜单选择字母：窗口端口负责给"可选中但没给 accelerator"的条目分配 a..z / A..Z，
+   tty/curses 端口也是这么做的；不分配的话界面上就没有 "a - " 这样的前缀 */
+static char next_menu_selector = 'a';
 
 static char* and_getmsghistory(boolean);
 static void and_putmsghistory(const char *, boolean);
@@ -756,6 +759,8 @@ void and_display_file(const char *name, boolean complain)
 //		   be used for menus.
 void and_start_menu(winid wid,unsigned long mbehavior)
 {
+    /* 每个菜单从 a 开始分配选择字母 */
+    next_menu_selector = 'a';
     JNICallV(jStartMenu, wid, mbehavior)
 }
 
@@ -797,6 +802,19 @@ void and_add_menu(winid window, const glyph_info * glyph, const union any * iden
     boolean preselected = (itemflags & MENU_ITEMFLAGS_SELECTED) != 0;
     int tile = glyph->gm.tileidx;
     int menu_color = clr, menu_attr = attr;
+    /* 可选中但调用方没给 accelerator 的条目，由窗口端口分配一个选择字母，
+       界面上显示成 "a - " 这样的前缀（tty/curses 端口也是这么做的） */
+    if (identifier->a_lptr && !accelerator) {
+        accelerator = next_menu_selector;
+        if (next_menu_selector >= 'a' && next_menu_selector < 'z')
+            next_menu_selector++;
+        else if (next_menu_selector == 'z')
+            next_menu_selector = 'A';
+        else if (next_menu_selector >= 'A' && next_menu_selector < 'Z')
+            next_menu_selector++;
+        else
+            next_menu_selector = 'a';
+    }
     LOGD("and_add_menu attr=%d, tile=%d, color=%d, groupacc=%d, accelerator:%c address:%ld",menu_attr, tile, menu_color,groupacc, accelerator, (long )identifier->a_lptr);
     if(menu_attr)
         menu_attr = 1<<menu_attr;

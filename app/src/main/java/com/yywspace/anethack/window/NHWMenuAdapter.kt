@@ -5,6 +5,7 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -12,9 +13,11 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NHTileSet
 import com.yywspace.anethack.R
+import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMenuItem
 
 
@@ -120,6 +123,16 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
         /** 标题文本：保留颜色，大括号内每个价格段（buy/sell）设为可点击链接 */
         private fun buildTitle(menuItem: NHMenuItem): CharSequence {
             val spannable = SpannableStringBuilder(menuItem.title.toSpannableString())
+            // 游戏没给颜色（NO_COLOR）时用主题里的菜单文字色：
+            // 浅色下是深灰、深色下是浅灰，不再统一折成 CLR_BLACK
+            if (menuItem.title.nhColor == NHColor.NO_COLOR) {
+                val color = ContextCompat.getColor(itemView.context, R.color.menu_item_text)
+                spannable.setSpan(
+                    ForegroundColorSpan(color), 0, spannable.length,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+
             if (menuItem.priceQuote.isNotEmpty()) {
                 val quoteStart = spannable.length
                 spannable.append(" ${menuItem.priceQuote}") // priceQuote 已带大括号（如 "{buy 267 sell 67}"）

@@ -13,4 +13,6 @@
     <color name="answer_cell">#FF33313C</color>
     <color name="answer_cell_pressed">#FF4A4458</color>
     <color name="answer_cell_text">#FFD2D2D2</color>
+    <!-- 菜单项文字：游戏没给颜色（NO_COLOR）时使用；比正文略亮，但不刺眼 -->
+    <color name="menu_item_text">#FFE4E4E4</color>
 </resources>
