@@ -465,6 +465,16 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             centerView(map.curse.x, map.curse.y)
     }
 
+    /**
+     * 等同于"长按地图上的角色自己"：给游戏发一个落在角色位置上的 travel 命令，
+     * NetHack 会弹出 "What do you want to do?" 菜单。
+     */
+    fun longPressPlayer() {
+        if (!mapInit)
+            return
+        nh.command.sendCommand(NHPosCommand(map.curse.x, map.curse.y, PosMod.TRAVEL))
+    }
+
     /** 人物是否已经显示在屏幕里（用于 travel 前决定要不要居中） */
     private fun playerOnScreen(width:Int = measuredWidth, height:Int = measuredHeight): Boolean {
         if (!mapInit || map.curse.x < 0 || map.curse.y < 0)

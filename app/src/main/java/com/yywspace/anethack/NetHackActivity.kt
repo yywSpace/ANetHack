@@ -113,9 +113,9 @@ class NetHackActivity : AppCompatActivity() {
             }
             onSpecialKeyLongPress = {
                 when(it.label) {
-                    // 长按空格条：把角色居中到屏幕
+                    // 长按空格条：等同于长按地图上的角色自己（弹出"你想做什么"菜单）
                     "Space" -> {
-                        processKeyPress("Center")
+                        binding.mapView.longPressPlayer()
                     }
                     "Meta", "Ctrl" ->
                         processKeyPress("#")
