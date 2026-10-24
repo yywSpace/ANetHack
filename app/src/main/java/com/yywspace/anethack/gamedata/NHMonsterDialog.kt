@@ -130,7 +130,7 @@ class NHMonsterDialog(
         header.addView(TextView(context).apply {
             text = monster.symbol
             textSize = 28f
-            setTextColor(colorOf(monster.color))
+            setTextColor(NHColor.fromInt(monster.colorCode).toColor())
             setPadding(0, 0, dp(12), 0)
         })
         header.addView(TextView(context).apply {
@@ -141,7 +141,7 @@ class NHMonsterDialog(
         content.addView(header)
 
         row(R.string.monster_field_difficulty, monster.difficulty.toString())
-        row(R.string.monster_field_attacks, monster.attacks)
+        row(R.string.monster_field_attacks, monster.attacks.joinToString(", "))
         row(R.string.monster_field_level, monster.baseLevel.toString())
         row(R.string.monster_field_experience, monster.experience?.toString() ?: "—")
         row(R.string.monster_field_speed, monster.speed.toString())
@@ -188,13 +188,6 @@ class NHMonsterDialog(
         textSize = 14f
         setTextColor(ContextCompat.getColor(context, R.color.app_text))
         setPadding(0, dp(8), 0, dp(8))
-    }
-
-    /** 颜色名 → NHColor（bright blue → CLR_BRIGHT_BLUE） */
-    private fun colorOf(name: String): Int {
-        val enumName = "CLR_" + name.uppercase().replace(" ", "_")
-        val nhColor = NHColor.entries.firstOrNull { it.name == enumName } ?: NHColor.NO_COLOR
-        return nhColor.toColor()
     }
 
     private fun dp(value: Int): Int =

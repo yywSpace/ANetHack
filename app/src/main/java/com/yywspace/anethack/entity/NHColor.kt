@@ -76,11 +76,5 @@ enum class NHColor {
             }
             return NO_COLOR
         }
-
-        /** 按资料里的颜色名取色："brown" → CLR_BROWN，"bright blue" → CLR_BRIGHT_BLUE */
-        fun fromName(name: String): NHColor {
-            val enumName = "CLR_" + name.trim().uppercase().replace(' ', '_')
-            return entries.firstOrNull { it.name == enumName } ?: NO_COLOR
-        }
     }
 }

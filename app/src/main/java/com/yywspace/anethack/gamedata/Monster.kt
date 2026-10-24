@@ -1,5 +1,7 @@
 package com.yywspace.anethack.gamedata
 
+import com.yywspace.anethack.entity.NHColor
+
 /**
  * 图鉴里的一条怪物信息，字段顺序与 wiki 怪物信息框一致
  * （数据来自 NetHack 5.0.0 源码 monsters.h，`experience` 取自 wiki）。
@@ -9,13 +11,15 @@ package com.yywspace.anethack.gamedata
 data class Monster(
     /** 屏幕符号 */
     val symbol: String = "",
-    /** 显示颜色 */
+    /** 显示颜色（仅用于展示，取色请用 [colorCode]） */
     val color: String = "",
+    /** 颜色索引，对应 [NHColor] 的 ordinal（同 NetHack color.h 的 CLR_* 编号） */
+    val colorCode: Int = NHColor.NO_COLOR.ordinal,
     /** 怪物名；多形态怪物带后缀，如 "werejackal (human)" / "werejackal (animal)" */
     val name: String,
     val difficulty: Int = 0,
-    /** 攻击描述，如 "Bite 1d4 physical, Claw 1d8 physical" */
-    val attacks: String = "",
+    /** 攻击列表，按源码里的攻击槽顺序，如 ["Bite 1d4 physical", "Claw 1d8 physical"] */
+    val attacks: List<String> = emptyList(),
     val baseLevel: Int = 0,
     /** 击杀经验（wiki 数据，源码表里没有该字段） */
     val experience: Int? = null,

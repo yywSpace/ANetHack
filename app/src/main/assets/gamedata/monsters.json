@@ -2,9 +2,14 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "abbot",
     "difficulty": 8,
-    "attacks": "Claw 8d2 physical, Kick 3d2 stun, Spell-casting 0d0 clerical",
+    "attacks": [
+      "Claw 8d2 physical",
+      "Kick 3d2 stun",
+      "Spell-casting 0d0 clerical"
+    ],
     "baseLevel": 5,
     "experience": 66,
     "speed": 12,
@@ -43,9 +48,12 @@
   {
     "symbol": "b",
     "color": "green",
+    "colorCode": 2,
     "name": "acid blob",
     "difficulty": 2,
-    "attacks": "Passive 1d8 acid",
+    "attacks": [
+      "Passive 1d8 acid"
+    ],
     "baseLevel": 1,
     "experience": 9,
     "speed": 3,
@@ -59,7 +67,7 @@
     "nutrition": 10,
     "size": "tiny",
     "resistances": "Sleep resistance, Poison resistance, Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Acid resistance, Petrification resistance",
+    "resistancesConveyed": "Acid resistance (33%), Petrification resistance (16%)",
     "attributes": [
       "breathless",
       "amorphous",
@@ -86,9 +94,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "acolyte",
     "difficulty": 8,
-    "attacks": "Weapon 1d6 physical, Spell-casting 0d0 clerical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Spell-casting 0d0 clerical"
+    ],
     "baseLevel": 5,
     "experience": null,
     "speed": 12,
@@ -127,9 +139,12 @@
   {
     "symbol": "E",
     "color": "cyan",
+    "colorCode": 6,
     "name": "air elemental",
     "difficulty": 10,
-    "attacks": "Engulf 1d10 physical",
+    "attacks": [
+      "Engulf 1d10 physical"
+    ],
     "baseLevel": 8,
     "experience": 126,
     "speed": 36,
@@ -170,9 +185,14 @@
   {
     "symbol": "A",
     "color": "yellow",
+    "colorCode": 11,
     "name": "Aleax",
     "difficulty": 12,
-    "attacks": "Weapon 1d6 physical, Weapon 1d6 physical, Kick 1d4 physical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Weapon 1d6 physical",
+      "Kick 1d4 physical"
+    ],
     "baseLevel": 10,
     "experience": 298,
     "speed": 8,
@@ -209,9 +229,14 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "aligned cleric",
     "difficulty": 15,
-    "attacks": "Weapon 4d10 physical, Kick 1d4 physical, Spell-casting 0d0 clerical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Kick 1d4 physical",
+      "Spell-casting 0d0 clerical"
+    ],
     "baseLevel": 12,
     "experience": 294,
     "speed": 12,
@@ -250,9 +275,14 @@
   {
     "symbol": "&",
     "color": "gray",
+    "colorCode": 7,
     "name": "amorous demon",
     "difficulty": 8,
-    "attacks": "Bite 0d0 seduction, Claw 1d3 physical, Claw 1d3 physical",
+    "attacks": [
+      "Bite 0d0 seduction",
+      "Claw 1d3 physical",
+      "Claw 1d3 physical"
+    ],
     "baseLevel": 6,
     "experience": 122,
     "speed": 12,
@@ -293,9 +323,15 @@
   {
     "symbol": "A",
     "color": "white",
+    "colorCode": 15,
     "name": "Angel",
     "difficulty": 19,
-    "attacks": "Weapon 1d6 physical, Weapon 1d6 physical, Claw 1d4 physical, Spell-casting 2d6 magic missile",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Weapon 1d6 physical",
+      "Claw 1d4 physical",
+      "Spell-casting 2d6 magic missile"
+    ],
     "baseLevel": 14,
     "experience": 485,
     "speed": 10,
@@ -338,9 +374,14 @@
   {
     "symbol": "Y",
     "color": "brown",
+    "colorCode": 3,
     "name": "ape",
     "difficulty": 6,
-    "attacks": "Claw 1d3 physical, Claw 1d3 physical, Bite 1d6 physical",
+    "attacks": [
+      "Claw 1d3 physical",
+      "Claw 1d3 physical",
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 4,
     "experience": 41,
     "speed": 12,
@@ -373,9 +414,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "apprentice",
     "difficulty": 8,
-    "attacks": "Weapon 1d6 physical, Spell-casting 0d0 magical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 5,
     "experience": 71,
     "speed": 12,
@@ -416,9 +461,15 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "Arch Priest",
     "difficulty": 30,
-    "attacks": "Weapon 4d10 physical, Kick 2d8 physical, Spell-casting 2d8 clerical, Spell-casting 2d8 clerical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Kick 2d8 physical",
+      "Spell-casting 2d8 clerical",
+      "Spell-casting 2d8 clerical"
+    ],
     "baseLevel": 25,
     "experience": 876,
     "speed": 15,
@@ -463,9 +514,13 @@
   {
     "symbol": "L",
     "color": "magenta",
+    "colorCode": 5,
     "name": "arch-lich",
     "difficulty": 29,
-    "attacks": "Touch 5d6 cold, Spell-casting 0d0 magical",
+    "attacks": [
+      "Touch 5d6 cold",
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 25,
     "experience": 915,
     "speed": 9,
@@ -479,7 +534,7 @@
     "nutrition": 100,
     "size": "medium",
     "resistances": "Fire resistance, Cold resistance, Sleep resistance, Shock resistance, Poison resistance",
-    "resistancesConveyed": "Fire resistance, Cold resistance",
+    "resistancesConveyed": "Fire resistance (100%), Cold resistance (100%)",
     "attributes": [
       "breathless",
       "humanoid",
@@ -504,9 +559,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "archeologist",
     "difficulty": 12,
-    "attacks": "Weapon 1d6 physical, Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 10,
     "experience": 221,
     "speed": 12,
@@ -547,9 +606,16 @@
   {
     "symbol": "A",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Archon",
     "difficulty": 26,
-    "attacks": "Weapon 2d4 physical, Weapon 2d4 physical, Gaze 2d6 blindness, Claw 1d8 physical, Spell-casting 4d6 magical",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Weapon 2d4 physical",
+      "Gaze 2d6 blindness",
+      "Claw 1d8 physical",
+      "Spell-casting 4d6 magical"
+    ],
     "baseLevel": 19,
     "experience": 730,
     "speed": 16,
@@ -598,9 +664,14 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Ashikaga Takauji",
     "difficulty": 19,
-    "attacks": "Weapon 2d6 physical, Weapon 2d6 physical, Claw 2d6 amulet theft",
+    "attacks": [
+      "Weapon 2d6 physical",
+      "Weapon 2d6 physical",
+      "Claw 2d6 amulet theft"
+    ],
     "baseLevel": 15,
     "experience": 488,
     "speed": 12,
@@ -647,9 +718,13 @@
   {
     "symbol": "&",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Asmodeus",
     "difficulty": 53,
-    "attacks": "Claw 4d4 physical, Spell-casting 6d6 cold",
+    "attacks": [
+      "Claw 4d4 physical",
+      "Spell-casting 6d6 cold"
+    ],
     "baseLevel": 105,
     "experience": 3225,
     "speed": 12,
@@ -700,9 +775,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "attendant",
     "difficulty": 7,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 12,
@@ -741,9 +819,13 @@
   {
     "symbol": "&",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Baalzebub",
     "difficulty": 45,
-    "attacks": "Bite 2d6 poison, Gaze 2d6 stun",
+    "attacks": [
+      "Bite 2d6 poison",
+      "Gaze 2d6 stun"
+    ],
     "baseLevel": 89,
     "experience": 2333,
     "speed": 9,
@@ -790,9 +872,12 @@
   {
     "symbol": "D",
     "color": "black",
+    "colorCode": 0,
     "name": "baby black dragon",
     "difficulty": 13,
-    "attacks": "Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 12,
     "experience": 200,
     "speed": 9,
@@ -831,9 +916,12 @@
   {
     "symbol": "D",
     "color": "blue",
+    "colorCode": 4,
     "name": "baby blue dragon",
     "difficulty": 13,
-    "attacks": "Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 12,
     "experience": 200,
     "speed": 9,
@@ -872,9 +960,12 @@
   {
     "symbol": ":",
     "color": "brown",
+    "colorCode": 3,
     "name": "baby crocodile",
     "difficulty": 4,
-    "attacks": "Bite 1d4 physical",
+    "attacks": [
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 6,
@@ -909,9 +1000,12 @@
   {
     "symbol": "D",
     "color": "yellow",
+    "colorCode": 11,
     "name": "baby gold dragon",
     "difficulty": 13,
-    "attacks": "Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 12,
     "experience": 272,
     "speed": 9,
@@ -952,9 +1046,12 @@
   {
     "symbol": "D",
     "color": "gray",
+    "colorCode": 7,
     "name": "baby gray dragon",
     "difficulty": 13,
-    "attacks": "Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 12,
     "experience": 200,
     "speed": 9,
@@ -993,9 +1090,12 @@
   {
     "symbol": "D",
     "color": "green",
+    "colorCode": 2,
     "name": "baby green dragon",
     "difficulty": 13,
-    "attacks": "Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 12,
     "experience": 200,
     "speed": 9,
@@ -1036,9 +1136,12 @@
   {
     "symbol": "w",
     "color": "brown",
+    "colorCode": 3,
     "name": "baby long worm",
     "difficulty": 6,
-    "attacks": "Bite 1d4 physical",
+    "attacks": [
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 5,
     "experience": 113,
     "speed": 3,
@@ -1073,9 +1176,12 @@
   {
     "symbol": "D",
     "color": "orange",
+    "colorCode": 9,
     "name": "baby orange dragon",
     "difficulty": 13,
-    "attacks": "Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 12,
     "experience": 200,
     "speed": 9,
@@ -1114,9 +1220,12 @@
   {
     "symbol": "w",
     "color": "magenta",
+    "colorCode": 5,
     "name": "baby purple worm",
     "difficulty": 9,
-    "attacks": "Bite 1d6 physical",
+    "attacks": [
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 8,
     "experience": 113,
     "speed": 3,
@@ -1149,9 +1258,12 @@
   {
     "symbol": "D",
     "color": "red",
+    "colorCode": 1,
     "name": "baby red dragon",
     "difficulty": 13,
-    "attacks": "Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 12,
     "experience": 200,
     "speed": 9,
@@ -1192,8 +1304,11 @@
   {
     "symbol": "D",
     "color": "bright cyan",
+    "colorCode": 14,
     "name": "baby silver dragon",
-    "attacks": "Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 12,
     "experience": 200,
     "speed": 9,
@@ -1232,9 +1347,12 @@
   {
     "symbol": "D",
     "color": "white",
+    "colorCode": 15,
     "name": "baby white dragon",
     "difficulty": 13,
-    "attacks": "Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 12,
     "experience": 200,
     "speed": 9,
@@ -1273,9 +1391,12 @@
   {
     "symbol": "D",
     "color": "yellow",
+    "colorCode": 11,
     "name": "baby yellow dragon",
     "difficulty": 13,
-    "attacks": "Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 12,
     "experience": 200,
     "speed": 9,
@@ -1316,9 +1437,13 @@
   {
     "symbol": "&",
     "color": "red",
+    "colorCode": 1,
     "name": "balrog",
     "difficulty": 20,
-    "attacks": "Weapon 8d4 physical, Weapon 4d6 physical",
+    "attacks": [
+      "Weapon 8d4 physical",
+      "Weapon 4d6 physical"
+    ],
     "baseLevel": 16,
     "experience": 575,
     "speed": 5,
@@ -1363,9 +1488,13 @@
   {
     "symbol": "q",
     "color": "gray",
+    "colorCode": 7,
     "name": "baluchitherium",
     "difficulty": 15,
-    "attacks": "Claw 5d4 physical, Claw 5d4 physical",
+    "attacks": [
+      "Claw 5d4 physical",
+      "Claw 5d4 physical"
+    ],
     "baseLevel": 14,
     "experience": 331,
     "speed": 12,
@@ -1402,9 +1531,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "barbarian",
     "difficulty": 12,
-    "attacks": "Weapon 1d6 physical, Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 10,
     "experience": 221,
     "speed": 12,
@@ -1441,9 +1574,14 @@
   {
     "symbol": "&",
     "color": "red",
+    "colorCode": 1,
     "name": "barbed devil",
     "difficulty": 11,
-    "attacks": "Claw 2d4 physical, Claw 2d4 sticky, Sting 3d4 physical",
+    "attacks": [
+      "Claw 2d4 physical",
+      "Claw 2d4 sticky",
+      "Sting 3d4 physical"
+    ],
     "baseLevel": 8,
     "experience": 179,
     "speed": 12,
@@ -1482,9 +1620,15 @@
   {
     "symbol": "W",
     "color": "gray",
+    "colorCode": 7,
     "name": "barrow wight",
     "difficulty": 8,
-    "attacks": "Weapon 0d0 drain life, Spell-casting 0d0 magical, Claw 1d4 physical, Touch 1d4 cold",
+    "attacks": [
+      "Weapon 0d0 drain life",
+      "Spell-casting 0d0 magical",
+      "Claw 1d4 physical",
+      "Touch 1d4 cold"
+    ],
     "baseLevel": 3,
     "experience": 90,
     "speed": 12,
@@ -1519,9 +1663,12 @@
   {
     "symbol": "B",
     "color": "brown",
+    "colorCode": 3,
     "name": "bat",
     "difficulty": 2,
-    "attacks": "Bite 1d4 physical",
+    "attacks": [
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 0,
     "experience": 6,
     "speed": 22,
@@ -1556,9 +1703,15 @@
   {
     "symbol": "D",
     "color": "black",
+    "colorCode": 0,
     "name": "black dragon",
     "difficulty": 20,
-    "attacks": "Breath 1d255 disintegration, Bite 3d8 physical, Claw 1d4 physical, Claw 1d4 physical",
+    "attacks": [
+      "Breath 1d255 disintegration",
+      "Bite 3d8 physical",
+      "Claw 1d4 physical",
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 15,
     "experience": 460,
     "speed": 9,
@@ -1572,7 +1725,7 @@
     "nutrition": 1500,
     "size": "gigantic",
     "resistances": "Disintegration resistance",
-    "resistancesConveyed": "Disintegration resistance",
+    "resistancesConveyed": "Disintegration resistance (100%)",
     "attributes": [
       "fly",
       "thick",
@@ -1605,9 +1758,12 @@
   {
     "symbol": "y",
     "color": "black",
+    "colorCode": 0,
     "name": "black light",
     "difficulty": 7,
-    "attacks": "Explode 10d12 hallucination",
+    "attacks": [
+      "Explode 10d12 hallucination"
+    ],
     "baseLevel": 5,
     "experience": 74,
     "speed": 15,
@@ -1654,9 +1810,13 @@
   {
     "symbol": "N",
     "color": "black",
+    "colorCode": 0,
     "name": "black naga",
     "difficulty": 10,
-    "attacks": "Bite 2d6 physical, Spit 0d0 acid",
+    "attacks": [
+      "Bite 2d6 physical",
+      "Spit 0d0 acid"
+    ],
     "baseLevel": 8,
     "experience": 132,
     "speed": 14,
@@ -1670,7 +1830,7 @@
     "nutrition": 400,
     "size": "huge",
     "resistances": "Poison resistance, Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Poison resistance, Acid resistance, Petrification resistance",
+    "resistancesConveyed": "Poison resistance (53%), Acid resistance (100%), Petrification resistance (100%)",
     "attributes": [
       "nolimbs",
       "slithy",
@@ -1695,9 +1855,12 @@
   {
     "symbol": "N",
     "color": "black",
+    "colorCode": 0,
     "name": "black naga hatchling",
     "difficulty": 4,
-    "attacks": "Bite 1d4 physical",
+    "attacks": [
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 10,
@@ -1711,7 +1874,7 @@
     "nutrition": 100,
     "size": "large",
     "resistances": "Poison resistance, Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (20%)",
     "attributes": [
       "nolimbs",
       "slithy",
@@ -1734,9 +1897,13 @@
   {
     "symbol": "P",
     "color": "black",
+    "colorCode": 0,
     "name": "black pudding",
     "difficulty": 12,
-    "attacks": "Bite 3d8 corr, Passive 0d0 corr",
+    "attacks": [
+      "Bite 3d8 corr",
+      "Passive 0d0 corr"
+    ],
     "baseLevel": 10,
     "experience": 221,
     "speed": 6,
@@ -1750,7 +1917,7 @@
     "nutrition": 250,
     "size": "large",
     "resistances": "Cold resistance, Shock resistance, Poison resistance, Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Cold resistance, Shock resistance, Poison resistance",
+    "resistancesConveyed": "Cold resistance (66%), Shock resistance (66%), Poison resistance (66%)",
     "attributes": [
       "breathless",
       "amorphous",
@@ -1779,9 +1946,13 @@
   {
     "symbol": "u",
     "color": "black",
+    "colorCode": 0,
     "name": "black unicorn",
     "difficulty": 6,
-    "attacks": "Butt 1d12 physical, Kick 1d6 physical",
+    "attacks": [
+      "Butt 1d12 physical",
+      "Kick 1d6 physical"
+    ],
     "baseLevel": 4,
     "experience": 51,
     "speed": 24,
@@ -1795,7 +1966,7 @@
     "nutrition": 300,
     "size": "large",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (26%)",
     "attributes": [
       "nohands",
       "herbivore",
@@ -1816,9 +1987,15 @@
   {
     "symbol": "D",
     "color": "blue",
+    "colorCode": 4,
     "name": "blue dragon",
     "difficulty": 20,
-    "attacks": "Breath 4d6 shock, Bite 3d8 physical, Claw 1d4 physical, Claw 1d4 physical",
+    "attacks": [
+      "Breath 4d6 shock",
+      "Bite 3d8 physical",
+      "Claw 1d4 physical",
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 15,
     "experience": 460,
     "speed": 9,
@@ -1832,7 +2009,7 @@
     "nutrition": 1500,
     "size": "gigantic",
     "resistances": "Shock resistance",
-    "resistancesConveyed": "Shock resistance",
+    "resistancesConveyed": "Shock resistance (100%)",
     "attributes": [
       "fly",
       "thick",
@@ -1865,9 +2042,12 @@
   {
     "symbol": "j",
     "color": "blue",
+    "colorCode": 4,
     "name": "blue jelly",
     "difficulty": 5,
-    "attacks": "Passive 0d6 cold",
+    "attacks": [
+      "Passive 0d6 cold"
+    ],
     "baseLevel": 4,
     "experience": 45,
     "speed": 0,
@@ -1881,7 +2061,7 @@
     "nutrition": 20,
     "size": "medium",
     "resistances": "Cold resistance, Poison resistance",
-    "resistancesConveyed": "Cold resistance, Poison resistance",
+    "resistancesConveyed": "Cold resistance (26%), Poison resistance (26%)",
     "attributes": [
       "breathless",
       "amorphous",
@@ -1908,9 +2088,13 @@
   {
     "symbol": "&",
     "color": "gray",
+    "colorCode": 7,
     "name": "bone devil",
     "difficulty": 13,
-    "attacks": "Weapon 3d4 physical, Sting 2d4 poison",
+    "attacks": [
+      "Weapon 3d4 physical",
+      "Sting 2d4 poison"
+    ],
     "baseLevel": 9,
     "experience": 285,
     "speed": 15,
@@ -1949,9 +2133,12 @@
   {
     "symbol": "F",
     "color": "brown",
+    "colorCode": 3,
     "name": "brown mold",
     "difficulty": 2,
-    "attacks": "Passive 0d6 cold",
+    "attacks": [
+      "Passive 0d6 cold"
+    ],
     "baseLevel": 1,
     "experience": 9,
     "speed": 0,
@@ -1965,7 +2152,7 @@
     "nutrition": 30,
     "size": "small",
     "resistances": "Cold resistance, Poison resistance",
-    "resistancesConveyed": "Cold resistance, Poison resistance",
+    "resistancesConveyed": "Cold resistance (6%), Poison resistance (6%)",
     "attributes": [
       "breathless",
       "noeyes",
@@ -1990,9 +2177,12 @@
   {
     "symbol": "P",
     "color": "brown",
+    "colorCode": 3,
     "name": "brown pudding",
     "difficulty": 6,
-    "attacks": "Bite 0d0 decay",
+    "attacks": [
+      "Bite 0d0 decay"
+    ],
     "baseLevel": 5,
     "experience": 56,
     "speed": 3,
@@ -2006,7 +2196,7 @@
     "nutrition": 250,
     "size": "medium",
     "resistances": "Cold resistance, Shock resistance, Poison resistance, Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Cold resistance, Shock resistance, Poison resistance",
+    "resistancesConveyed": "Cold resistance (33%), Shock resistance (33%), Poison resistance (33%)",
     "attributes": [
       "breathless",
       "amorphous",
@@ -2035,9 +2225,12 @@
   {
     "symbol": "h",
     "color": "brown",
+    "colorCode": 3,
     "name": "bugbear",
     "difficulty": 5,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 3,
     "experience": 33,
     "speed": 9,
@@ -2072,9 +2265,13 @@
   {
     "symbol": "@",
     "color": "blue",
+    "colorCode": 4,
     "name": "captain",
     "difficulty": 14,
-    "attacks": "Weapon 4d4 physical, Weapon 4d4 physical",
+    "attacks": [
+      "Weapon 4d4 physical",
+      "Weapon 4d4 physical"
+    ],
     "baseLevel": 12,
     "experience": 277,
     "speed": 10,
@@ -2117,9 +2314,14 @@
   {
     "symbol": "Y",
     "color": "black",
+    "colorCode": 0,
     "name": "carnivorous ape",
     "difficulty": 8,
-    "attacks": "Claw 1d4 physical, Claw 1d4 physical, Hug 1d8 physical",
+    "attacks": [
+      "Claw 1d4 physical",
+      "Claw 1d4 physical",
+      "Hug 1d8 physical"
+    ],
     "baseLevel": 6,
     "experience": 76,
     "speed": 12,
@@ -2154,9 +2356,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "cave dweller",
     "difficulty": 12,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 10,
     "experience": null,
     "speed": 12,
@@ -2193,9 +2398,12 @@
   {
     "symbol": "s",
     "color": "gray",
+    "colorCode": 7,
     "name": "cave spider",
     "difficulty": 3,
-    "attacks": "Bite 1d2 physical",
+    "attacks": [
+      "Bite 1d2 physical"
+    ],
     "baseLevel": 1,
     "experience": 8,
     "speed": 12,
@@ -2209,7 +2417,7 @@
     "nutrition": 50,
     "size": "tiny",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (6%)",
     "attributes": [
       "conceal",
       "animal",
@@ -2230,9 +2438,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "caveman",
     "difficulty": 12,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 10,
     "experience": null,
     "speed": 12,
@@ -2269,9 +2480,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "cavewoman",
     "difficulty": 12,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 10,
     "experience": null,
     "speed": 12,
@@ -2308,9 +2522,12 @@
   {
     "symbol": "s",
     "color": "yellow",
+    "colorCode": 11,
     "name": "centipede",
     "difficulty": 4,
-    "attacks": "Bite 1d3 poison",
+    "attacks": [
+      "Bite 1d3 poison"
+    ],
     "baseLevel": 2,
     "experience": 19,
     "speed": 4,
@@ -2324,7 +2541,7 @@
     "nutrition": 50,
     "size": "tiny",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (13%)",
     "attributes": [
       "conceal",
       "animal",
@@ -2345,9 +2562,14 @@
   {
     "symbol": "d",
     "color": "red",
+    "colorCode": 1,
     "name": "Cerberus",
     "difficulty": 14,
-    "attacks": "Bite 3d6 physical, Bite 3d6 physical, Bite 3d6 physical",
+    "attacks": [
+      "Bite 3d6 physical",
+      "Bite 3d6 physical",
+      "Bite 3d6 physical"
+    ],
     "baseLevel": 12,
     "experience": 475,
     "speed": 10,
@@ -2361,7 +2583,7 @@
     "nutrition": 350,
     "size": "large",
     "resistances": "Fire resistance",
-    "resistancesConveyed": "Fire resistance",
+    "resistancesConveyed": "Fire resistance (80%)",
     "attributes": [
       "animal",
       "nohands",
@@ -2386,9 +2608,12 @@
   {
     "symbol": ":",
     "color": "brown",
+    "colorCode": 3,
     "name": "chameleon",
     "difficulty": 7,
-    "attacks": "Bite 4d2 physical",
+    "attacks": [
+      "Bite 4d2 physical"
+    ],
     "baseLevel": 6,
     "experience": 73,
     "speed": 5,
@@ -2421,9 +2646,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "Charon",
     "difficulty": 38,
-    "attacks": "Weapon 1d8 physical, Touch 1d8 paralysis",
+    "attacks": [
+      "Weapon 1d8 physical",
+      "Touch 1d8 paralysis"
+    ],
     "baseLevel": 76,
     "experience": null,
     "speed": 18,
@@ -2466,9 +2695,14 @@
   {
     "symbol": "c",
     "color": "brown",
+    "colorCode": 3,
     "name": "chickatrice",
     "difficulty": 7,
-    "attacks": "Bite 1d2 physical, Touch 0d0 stoning, Passive 0d0 stoning",
+    "attacks": [
+      "Bite 1d2 physical",
+      "Touch 0d0 stoning",
+      "Passive 0d0 stoning"
+    ],
     "baseLevel": 4,
     "experience": 136,
     "speed": 4,
@@ -2482,7 +2716,7 @@
     "nutrition": 10,
     "size": "tiny",
     "resistances": "Poison resistance, Petrification resistance",
-    "resistancesConveyed": "Poison resistance, Petrification resistance",
+    "resistancesConveyed": "Poison resistance (26%), Petrification resistance (66%)",
     "attributes": [
       "animal",
       "nohands",
@@ -2501,9 +2735,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "chieftain",
     "difficulty": 7,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 12,
@@ -2542,9 +2779,17 @@
   {
     "symbol": "D",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Chromatic Dragon",
     "difficulty": 23,
-    "attacks": "Breath 6d6 rbre, Spell-casting 0d0 magical, Claw 2d8 amulet theft, Bite 4d8 physical, Bite 4d8 physical, Sting 1d6 physical",
+    "attacks": [
+      "Breath 6d6 rbre",
+      "Spell-casting 0d0 magical",
+      "Claw 2d8 amulet theft",
+      "Bite 4d8 physical",
+      "Bite 4d8 physical",
+      "Sting 1d6 physical"
+    ],
     "baseLevel": 16,
     "experience": 586,
     "speed": 12,
@@ -2558,7 +2803,7 @@
     "nutrition": 1700,
     "size": "gigantic",
     "resistances": "Fire resistance, Cold resistance, Sleep resistance, Disintegration resistance, Shock resistance, Poison resistance, Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Fire resistance, Cold resistance, Sleep resistance, Disintegration resistance, Shock resistance, Poison resistance, Acid resistance, Petrification resistance",
+    "resistancesConveyed": "Fire resistance (100%), Cold resistance (100%), Sleep resistance (100%), Disintegration resistance (100%), Shock resistance (100%), Poison resistance (100%), Acid resistance (100%), Petrification resistance (100%)",
     "attributes": [
       "thick",
       "nohands",
@@ -2599,9 +2844,12 @@
   {
     "symbol": "'",
     "color": "brown",
+    "colorCode": 3,
     "name": "clay golem",
     "difficulty": 12,
-    "attacks": "Claw 3d10 physical",
+    "attacks": [
+      "Claw 3d10 physical"
+    ],
     "baseLevel": 11,
     "experience": 249,
     "speed": 7,
@@ -2636,9 +2884,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "cleric",
     "difficulty": 12,
-    "attacks": "Weapon 1d6 physical, Spell-casting 0d0 clerical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Spell-casting 0d0 clerical"
+    ],
     "baseLevel": 10,
     "experience": null,
     "speed": 12,
@@ -2675,9 +2927,13 @@
   {
     "symbol": "S",
     "color": "blue",
+    "colorCode": 4,
     "name": "cobra",
     "difficulty": 10,
-    "attacks": "Bite 2d4 poison, Spit 0d0 blindness",
+    "attacks": [
+      "Bite 2d4 poison",
+      "Spit 0d0 blindness"
+    ],
     "baseLevel": 6,
     "experience": 90,
     "speed": 18,
@@ -2691,7 +2947,7 @@
     "nutrition": 100,
     "size": "medium",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (40%)",
     "attributes": [
       "swim",
       "conceal",
@@ -2720,9 +2976,14 @@
   {
     "symbol": "c",
     "color": "yellow",
+    "colorCode": 11,
     "name": "cockatrice",
     "difficulty": 8,
-    "attacks": "Bite 1d3 physical, Touch 0d0 stoning, Passive 0d0 stoning",
+    "attacks": [
+      "Bite 1d3 physical",
+      "Touch 0d0 stoning",
+      "Passive 0d0 stoning"
+    ],
     "baseLevel": 5,
     "experience": 149,
     "speed": 6,
@@ -2736,7 +2997,7 @@
     "nutrition": 30,
     "size": "small",
     "resistances": "Poison resistance, Petrification resistance",
-    "resistancesConveyed": "Poison resistance, Petrification resistance",
+    "resistancesConveyed": "Poison resistance (33%), Petrification resistance (83%)",
     "attributes": [
       "animal",
       "nohands",
@@ -2757,9 +3018,14 @@
   {
     "symbol": "A",
     "color": "green",
+    "colorCode": 2,
     "name": "couatl",
     "difficulty": 11,
-    "attacks": "Bite 2d4 poison, Bite 1d3 physical, Hug 2d4 wrap",
+    "attacks": [
+      "Bite 2d4 poison",
+      "Bite 1d3 physical",
+      "Hug 2d4 wrap"
+    ],
     "baseLevel": 8,
     "experience": 180,
     "speed": 10,
@@ -2800,9 +3066,12 @@
   {
     "symbol": "d",
     "color": "brown",
+    "colorCode": 3,
     "name": "coyote",
     "difficulty": 2,
-    "attacks": "Bite 1d4 physical",
+    "attacks": [
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 1,
     "experience": 8,
     "speed": 12,
@@ -2835,9 +3104,13 @@
   {
     "symbol": ":",
     "color": "brown",
+    "colorCode": 3,
     "name": "crocodile",
     "difficulty": 7,
-    "attacks": "Bite 4d2 physical, Claw 1d12 physical",
+    "attacks": [
+      "Bite 4d2 physical",
+      "Claw 1d12 physical"
+    ],
     "baseLevel": 6,
     "experience": 73,
     "speed": 9,
@@ -2878,9 +3151,12 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Croesus",
     "difficulty": 22,
-    "attacks": "Weapon 4d10 physical",
+    "attacks": [
+      "Weapon 4d10 physical"
+    ],
     "baseLevel": 20,
     "experience": 746,
     "speed": 15,
@@ -2935,9 +3211,14 @@
   {
     "symbol": "H",
     "color": "gray",
+    "colorCode": 7,
     "name": "Cyclops",
     "difficulty": 23,
-    "attacks": "Weapon 4d8 physical, Weapon 4d8 physical, Claw 2d6 amulet theft",
+    "attacks": [
+      "Weapon 4d8 physical",
+      "Weapon 4d8 physical",
+      "Claw 2d6 amulet theft"
+    ],
     "baseLevel": 18,
     "experience": 662,
     "speed": 12,
@@ -2988,9 +3269,15 @@
   {
     "symbol": "@",
     "color": "black",
+    "colorCode": 0,
     "name": "Dark One",
     "difficulty": 20,
-    "attacks": "Weapon 1d6 physical, Weapon 1d6 physical, Claw 1d4 amulet theft, Spell-casting 0d0 magical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Weapon 1d6 physical",
+      "Claw 1d4 amulet theft",
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 15,
     "experience": 498,
     "speed": 12,
@@ -3035,9 +3322,13 @@
   {
     "symbol": "&",
     "color": "bright magenta",
+    "colorCode": 13,
     "name": "Death",
     "difficulty": 34,
-    "attacks": "Touch 8d8 deth, Touch 8d8 deth",
+    "attacks": [
+      "Touch 8d8 deth",
+      "Touch 8d8 deth"
+    ],
     "baseLevel": 30,
     "experience": 1431,
     "speed": 12,
@@ -3084,9 +3375,13 @@
   {
     "symbol": "L",
     "color": "red",
+    "colorCode": 1,
     "name": "demilich",
     "difficulty": 18,
-    "attacks": "Touch 3d4 cold, Spell-casting 0d0 magical",
+    "attacks": [
+      "Touch 3d4 cold",
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 14,
     "experience": 378,
     "speed": 9,
@@ -3100,7 +3395,7 @@
     "nutrition": 100,
     "size": "medium",
     "resistances": "Cold resistance, Sleep resistance, Poison resistance",
-    "resistancesConveyed": "Cold resistance",
+    "resistancesConveyed": "Cold resistance (93%)",
     "attributes": [
       "breathless",
       "humanoid",
@@ -3125,9 +3420,15 @@
   {
     "symbol": "&",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Demogorgon",
     "difficulty": 57,
-    "attacks": "Spell-casting 8d6 magical, Sting 1d4 drain life, Claw 1d6 disease, Claw 1d6 disease",
+    "attacks": [
+      "Spell-casting 8d6 magical",
+      "Sting 1d4 drain life",
+      "Claw 1d6 disease",
+      "Claw 1d6 disease"
+    ],
     "baseLevel": 106,
     "experience": 3297,
     "speed": 15,
@@ -3176,9 +3477,12 @@
   {
     "symbol": "d",
     "color": "yellow",
+    "colorCode": 11,
     "name": "dingo",
     "difficulty": 5,
-    "attacks": "Bite 1d6 physical",
+    "attacks": [
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 4,
     "experience": 44,
     "speed": 16,
@@ -3211,9 +3515,13 @@
   {
     "symbol": "R",
     "color": "blue",
+    "colorCode": 4,
     "name": "disenchanter",
     "difficulty": 14,
-    "attacks": "Claw 4d4 disenchantment, Passive 0d0 disenchantment",
+    "attacks": [
+      "Claw 4d4 disenchantment",
+      "Passive 0d0 disenchantment"
+    ],
     "baseLevel": 12,
     "experience": 301,
     "speed": 12,
@@ -3244,9 +3552,13 @@
   {
     "symbol": "&",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Dispater",
     "difficulty": 40,
-    "attacks": "Weapon 4d6 physical, Spell-casting 6d6 magical",
+    "attacks": [
+      "Weapon 4d6 physical",
+      "Spell-casting 6d6 magical"
+    ],
     "baseLevel": 78,
     "experience": 1923,
     "speed": 15,
@@ -3297,9 +3609,14 @@
   {
     "symbol": "f",
     "color": "blue",
+    "colorCode": 4,
     "name": "displacer beast",
     "difficulty": 14,
-    "attacks": "Claw 4d4 physical, Claw 4d4 physical, Bite 2d10 physical",
+    "attacks": [
+      "Claw 4d4 physical",
+      "Claw 4d4 physical",
+      "Bite 2d10 physical"
+    ],
     "baseLevel": 12,
     "experience": 301,
     "speed": 12,
@@ -3336,9 +3653,12 @@
   {
     "symbol": "&",
     "color": "yellow",
+    "colorCode": 11,
     "name": "djinni",
     "difficulty": 8,
-    "attacks": "Weapon 2d8 physical",
+    "attacks": [
+      "Weapon 2d8 physical"
+    ],
     "baseLevel": 7,
     "experience": 97,
     "speed": 12,
@@ -3375,9 +3695,12 @@
   {
     "symbol": "d",
     "color": "white",
+    "colorCode": 15,
     "name": "dog",
     "difficulty": 5,
-    "attacks": "Bite 1d6 physical",
+    "attacks": [
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 4,
     "experience": 44,
     "speed": 16,
@@ -3410,9 +3733,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "doppelganger",
     "difficulty": 11,
-    "attacks": "Weapon 1d12 physical",
+    "attacks": [
+      "Weapon 1d12 physical"
+    ],
     "baseLevel": 9,
     "experience": 191,
     "speed": 12,
@@ -3451,9 +3777,12 @@
   {
     "symbol": "v",
     "color": "brown",
+    "colorCode": 3,
     "name": "dust vortex",
     "difficulty": 6,
-    "attacks": "Engulf 2d8 blindness",
+    "attacks": [
+      "Engulf 2d8 blindness"
+    ],
     "baseLevel": 4,
     "experience": 54,
     "speed": 20,
@@ -3492,9 +3821,12 @@
   {
     "symbol": "h",
     "color": "red",
+    "colorCode": 1,
     "name": "dwarf",
     "difficulty": 4,
-    "attacks": "Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 2,
     "experience": 22,
     "speed": 6,
@@ -3539,9 +3871,13 @@
   {
     "symbol": "h",
     "color": "magenta",
+    "colorCode": 5,
     "name": "dwarf king",
     "difficulty": 8,
-    "attacks": "Weapon 2d6 physical, Weapon 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical",
+      "Weapon 2d6 physical"
+    ],
     "baseLevel": 6,
     "experience": 83,
     "speed": 6,
@@ -3588,9 +3924,13 @@
   {
     "symbol": "h",
     "color": "blue",
+    "colorCode": 4,
     "name": "dwarf lady",
     "difficulty": 6,
-    "attacks": "Weapon 2d4 physical, Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 4,
     "experience": 51,
     "speed": 6,
@@ -3637,9 +3977,13 @@
   {
     "symbol": "h",
     "color": "blue",
+    "colorCode": 4,
     "name": "dwarf leader",
     "difficulty": 6,
-    "attacks": "Weapon 2d4 physical, Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 4,
     "experience": 51,
     "speed": 6,
@@ -3686,9 +4030,13 @@
   {
     "symbol": "h",
     "color": "blue",
+    "colorCode": 4,
     "name": "dwarf lord",
     "difficulty": 6,
-    "attacks": "Weapon 2d4 physical, Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 4,
     "experience": 51,
     "speed": 6,
@@ -3735,9 +4083,12 @@
   {
     "symbol": "M",
     "color": "red",
+    "colorCode": 1,
     "name": "dwarf mummy",
     "difficulty": 6,
-    "attacks": "Claw 1d6 physical",
+    "attacks": [
+      "Claw 1d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 56,
     "speed": 10,
@@ -3780,9 +4131,13 @@
   {
     "symbol": "h",
     "color": "magenta",
+    "colorCode": 5,
     "name": "dwarf queen",
     "difficulty": 8,
-    "attacks": "Weapon 2d6 physical, Weapon 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical",
+      "Weapon 2d6 physical"
+    ],
     "baseLevel": 6,
     "experience": 112,
     "speed": 6,
@@ -3829,9 +4184,13 @@
   {
     "symbol": "h",
     "color": "magenta",
+    "colorCode": 5,
     "name": "dwarf ruler",
     "difficulty": 8,
-    "attacks": "Weapon 2d6 physical, Weapon 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical",
+      "Weapon 2d6 physical"
+    ],
     "baseLevel": 6,
     "experience": 83,
     "speed": 6,
@@ -3878,9 +4237,12 @@
   {
     "symbol": "Z",
     "color": "red",
+    "colorCode": 1,
     "name": "dwarf zombie",
     "difficulty": 3,
-    "attacks": "Claw 1d6 physical",
+    "attacks": [
+      "Claw 1d6 physical"
+    ],
     "baseLevel": 2,
     "experience": 17,
     "speed": 6,
@@ -3921,9 +4283,12 @@
   {
     "symbol": "E",
     "color": "brown",
+    "colorCode": 3,
     "name": "earth elemental",
     "difficulty": 10,
-    "attacks": "Claw 4d6 physical",
+    "attacks": [
+      "Claw 4d6 physical"
+    ],
     "baseLevel": 8,
     "experience": 126,
     "speed": 6,
@@ -3964,9 +4329,13 @@
   {
     "symbol": ";",
     "color": "bright blue",
+    "colorCode": 12,
     "name": "electric eel",
     "difficulty": 10,
-    "attacks": "Bite 4d6 shock, Touch 0d0 wrap",
+    "attacks": [
+      "Bite 4d6 shock",
+      "Touch 0d0 wrap"
+    ],
     "baseLevel": 7,
     "experience": 1129,
     "speed": 10,
@@ -3980,7 +4349,7 @@
     "nutrition": 250,
     "size": "huge",
     "resistances": "Shock resistance",
-    "resistancesConveyed": "Shock resistance",
+    "resistancesConveyed": "Shock resistance (46%)",
     "attributes": [
       "swim",
       "amphibious",
@@ -4009,9 +4378,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "elf",
     "difficulty": 1,
-    "attacks": "Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 0,
     "experience": 216,
     "speed": 12,
@@ -4025,7 +4397,7 @@
     "nutrition": 350,
     "size": "medium",
     "resistances": "Sleep resistance",
-    "resistancesConveyed": "Sleep resistance",
+    "resistancesConveyed": "Sleep resistance (0%)",
     "attributes": [
       "humanoid",
       "omnivore",
@@ -4050,9 +4422,12 @@
   {
     "symbol": "M",
     "color": "green",
+    "colorCode": 2,
     "name": "elf mummy",
     "difficulty": 7,
-    "attacks": "Claw 2d4 physical",
+    "attacks": [
+      "Claw 2d4 physical"
+    ],
     "baseLevel": 6,
     "experience": 73,
     "speed": 12,
@@ -4091,9 +4466,12 @@
   {
     "symbol": "Z",
     "color": "green",
+    "colorCode": 2,
     "name": "elf zombie",
     "difficulty": 4,
-    "attacks": "Claw 1d7 physical",
+    "attacks": [
+      "Claw 1d7 physical"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 6,
@@ -4132,9 +4510,13 @@
   {
     "symbol": "@",
     "color": "bright blue",
+    "colorCode": 12,
     "name": "elf-lady",
     "difficulty": 11,
-    "attacks": "Weapon 2d4 physical, Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 8,
     "experience": 237,
     "speed": 12,
@@ -4148,7 +4530,7 @@
     "nutrition": 350,
     "size": "medium",
     "resistances": "Sleep resistance",
-    "resistancesConveyed": "Sleep resistance",
+    "resistancesConveyed": "Sleep resistance (53%)",
     "attributes": [
       "humanoid",
       "omnivore",
@@ -4175,9 +4557,13 @@
   {
     "symbol": "@",
     "color": "bright blue",
+    "colorCode": 12,
     "name": "elf-lord",
     "difficulty": 11,
-    "attacks": "Weapon 2d4 physical, Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 8,
     "experience": 123,
     "speed": 12,
@@ -4191,7 +4577,7 @@
     "nutrition": 350,
     "size": "medium",
     "resistances": "Sleep resistance",
-    "resistancesConveyed": "Sleep resistance",
+    "resistancesConveyed": "Sleep resistance (53%)",
     "attributes": [
       "humanoid",
       "omnivore",
@@ -4218,9 +4604,13 @@
   {
     "symbol": "@",
     "color": "bright blue",
+    "colorCode": 12,
     "name": "elf-noble",
     "difficulty": 11,
-    "attacks": "Weapon 2d4 physical, Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 8,
     "experience": 123,
     "speed": 12,
@@ -4234,7 +4624,7 @@
     "nutrition": 350,
     "size": "medium",
     "resistances": "Sleep resistance",
-    "resistancesConveyed": "Sleep resistance",
+    "resistancesConveyed": "Sleep resistance (53%)",
     "attributes": [
       "humanoid",
       "omnivore",
@@ -4261,9 +4651,13 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "elven monarch",
     "difficulty": 11,
-    "attacks": "Weapon 2d4 physical, Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 9,
     "experience": 196,
     "speed": 12,
@@ -4277,7 +4671,7 @@
     "nutrition": 350,
     "size": "medium",
     "resistances": "Sleep resistance",
-    "resistancesConveyed": "Sleep resistance",
+    "resistancesConveyed": "Sleep resistance (60%)",
     "attributes": [
       "humanoid",
       "omnivore",
@@ -4304,9 +4698,13 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Elvenking",
     "difficulty": 11,
-    "attacks": "Weapon 2d4 physical, Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 9,
     "experience": 196,
     "speed": 12,
@@ -4320,7 +4718,7 @@
     "nutrition": 350,
     "size": "medium",
     "resistances": "Sleep resistance",
-    "resistancesConveyed": "Sleep resistance",
+    "resistancesConveyed": "Sleep resistance (60%)",
     "attributes": [
       "humanoid",
       "omnivore",
@@ -4347,9 +4745,13 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Elvenqueen",
     "difficulty": 11,
-    "attacks": "Weapon 2d4 physical, Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 9,
     "experience": 330,
     "speed": 12,
@@ -4363,7 +4765,7 @@
     "nutrition": 350,
     "size": "medium",
     "resistances": "Sleep resistance",
-    "resistancesConveyed": "Sleep resistance",
+    "resistancesConveyed": "Sleep resistance (60%)",
     "attributes": [
       "humanoid",
       "omnivore",
@@ -4390,9 +4792,14 @@
   {
     "symbol": "v",
     "color": "bright blue",
+    "colorCode": 12,
     "name": "energy vortex",
     "difficulty": 9,
-    "attacks": "Engulf 1d6 shock, Engulf 2d6 energy drain, Passive 0d4 shock",
+    "attacks": [
+      "Engulf 1d6 shock",
+      "Engulf 2d6 energy drain",
+      "Passive 0d4 shock"
+    ],
     "baseLevel": 6,
     "experience": 101,
     "speed": 20,
@@ -4433,9 +4840,12 @@
   {
     "symbol": "&",
     "color": "red",
+    "colorCode": 1,
     "name": "erinys",
     "difficulty": 10,
-    "attacks": "Weapon 2d4 poison",
+    "attacks": [
+      "Weapon 2d4 poison"
+    ],
     "baseLevel": 7,
     "experience": 158,
     "speed": 12,
@@ -4480,9 +4890,13 @@
   {
     "symbol": "H",
     "color": "brown",
+    "colorCode": 3,
     "name": "ettin",
     "difficulty": 13,
-    "attacks": "Weapon 2d8 physical, Weapon 3d6 physical",
+    "attacks": [
+      "Weapon 2d8 physical",
+      "Weapon 3d6 physical"
+    ],
     "baseLevel": 10,
     "experience": 291,
     "speed": 12,
@@ -4523,9 +4937,13 @@
   {
     "symbol": "M",
     "color": "blue",
+    "colorCode": 4,
     "name": "ettin mummy",
     "difficulty": 8,
-    "attacks": "Claw 2d6 physical, Claw 2d6 physical",
+    "attacks": [
+      "Claw 2d6 physical",
+      "Claw 2d6 physical"
+    ],
     "baseLevel": 7,
     "experience": 92,
     "speed": 12,
@@ -4564,9 +4982,13 @@
   {
     "symbol": "Z",
     "color": "blue",
+    "colorCode": 4,
     "name": "ettin zombie",
     "difficulty": 7,
-    "attacks": "Claw 1d10 physical, Claw 1d10 physical",
+    "attacks": [
+      "Claw 1d10 physical",
+      "Claw 1d10 physical"
+    ],
     "baseLevel": 6,
     "experience": 73,
     "speed": 8,
@@ -4605,9 +5027,13 @@
   {
     "symbol": "&",
     "color": "bright magenta",
+    "colorCode": 13,
     "name": "Famine",
     "difficulty": 34,
-    "attacks": "Touch 8d8 hunger, Touch 8d8 hunger",
+    "attacks": [
+      "Touch 8d8 hunger",
+      "Touch 8d8 hunger"
+    ],
     "baseLevel": 30,
     "experience": 1431,
     "speed": 12,
@@ -4654,9 +5080,13 @@
   {
     "symbol": "a",
     "color": "red",
+    "colorCode": 1,
     "name": "fire ant",
     "difficulty": 6,
-    "attacks": "Bite 2d4 physical, Bite 2d4 fire",
+    "attacks": [
+      "Bite 2d4 physical",
+      "Bite 2d4 fire"
+    ],
     "baseLevel": 3,
     "experience": 34,
     "speed": 18,
@@ -4670,7 +5100,7 @@
     "nutrition": 10,
     "size": "tiny",
     "resistances": "Fire resistance",
-    "resistancesConveyed": "Fire resistance",
+    "resistancesConveyed": "Fire resistance (20%)",
     "attributes": [
       "animal",
       "nohands",
@@ -4691,9 +5121,13 @@
   {
     "symbol": "E",
     "color": "yellow",
+    "colorCode": 11,
     "name": "fire elemental",
     "difficulty": 10,
-    "attacks": "Claw 3d6 fire, Passive 0d4 fire",
+    "attacks": [
+      "Claw 3d6 fire",
+      "Passive 0d4 fire"
+    ],
     "baseLevel": 8,
     "experience": 134,
     "speed": 12,
@@ -4738,9 +5172,12 @@
   {
     "symbol": "H",
     "color": "yellow",
+    "colorCode": 11,
     "name": "fire giant",
     "difficulty": 11,
-    "attacks": "Weapon 2d10 physical",
+    "attacks": [
+      "Weapon 2d10 physical"
+    ],
     "baseLevel": 9,
     "experience": 254,
     "speed": 12,
@@ -4754,7 +5191,7 @@
     "nutrition": 750,
     "size": "huge",
     "resistances": "Fire resistance",
-    "resistancesConveyed": "Fire resistance",
+    "resistancesConveyed": "Fire resistance (60%)",
     "attributes": [
       "humanoid",
       "carnivore",
@@ -4783,9 +5220,13 @@
   {
     "symbol": "v",
     "color": "yellow",
+    "colorCode": 11,
     "name": "fire vortex",
     "difficulty": 10,
-    "attacks": "Engulf 1d10 fire, Passive 0d4 fire",
+    "attacks": [
+      "Engulf 1d10 fire",
+      "Passive 0d4 fire"
+    ],
     "baseLevel": 8,
     "experience": 142,
     "speed": 22,
@@ -4828,9 +5269,12 @@
   {
     "symbol": "e",
     "color": "red",
+    "colorCode": 1,
     "name": "flaming sphere",
     "difficulty": 9,
-    "attacks": "Explode 4d6 fire",
+    "attacks": [
+      "Explode 4d6 fire"
+    ],
     "baseLevel": 6,
     "experience": 91,
     "speed": 13,
@@ -4844,7 +5288,7 @@
     "nutrition": 10,
     "size": "small",
     "resistances": "Fire resistance",
-    "resistancesConveyed": "Fire resistance",
+    "resistancesConveyed": "Fire resistance (40%)",
     "attributes": [
       "fly",
       "breathless",
@@ -4871,9 +5315,13 @@
   {
     "symbol": "'",
     "color": "red",
+    "colorCode": 1,
     "name": "flesh golem",
     "difficulty": 10,
-    "attacks": "Claw 2d8 physical, Claw 2d8 physical",
+    "attacks": [
+      "Claw 2d8 physical",
+      "Claw 2d8 physical"
+    ],
     "baseLevel": 9,
     "experience": 186,
     "speed": 8,
@@ -4887,7 +5335,7 @@
     "nutrition": 600,
     "size": "large",
     "resistances": "Fire resistance, Cold resistance, Shock resistance, Sleep resistance, Poison resistance",
-    "resistancesConveyed": "Fire resistance, Cold resistance, Shock resistance, Sleep resistance, Poison resistance",
+    "resistancesConveyed": "Fire resistance (60%), Cold resistance (60%), Shock resistance (60%), Sleep resistance (60%), Poison resistance (60%)",
     "attributes": [
       "breathless",
       "mindless",
@@ -4906,9 +5354,12 @@
   {
     "symbol": "e",
     "color": "blue",
+    "colorCode": 4,
     "name": "floating eye",
     "difficulty": 3,
-    "attacks": "Passive 0d70 paralysis",
+    "attacks": [
+      "Passive 0d70 paralysis"
+    ],
     "baseLevel": 2,
     "experience": 7,
     "speed": 1,
@@ -4947,9 +5398,12 @@
   {
     "symbol": "v",
     "color": "gray",
+    "colorCode": 7,
     "name": "fog cloud",
     "difficulty": 4,
-    "attacks": "Engulf 1d6 physical",
+    "attacks": [
+      "Engulf 1d6 physical"
+    ],
     "baseLevel": 3,
     "experience": 38,
     "speed": 1,
@@ -4992,9 +5446,13 @@
   {
     "symbol": "C",
     "color": "green",
+    "colorCode": 2,
     "name": "forest centaur",
     "difficulty": 8,
-    "attacks": "Weapon 1d8 physical, Kick 1d6 physical",
+    "attacks": [
+      "Weapon 1d8 physical",
+      "Kick 1d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 64,
     "speed": 18,
@@ -5029,9 +5487,12 @@
   {
     "symbol": "d",
     "color": "red",
+    "colorCode": 1,
     "name": "fox",
     "difficulty": 1,
-    "attacks": "Bite 1d3 physical",
+    "attacks": [
+      "Bite 1d3 physical"
+    ],
     "baseLevel": 0,
     "experience": 4,
     "speed": 15,
@@ -5064,9 +5525,12 @@
   {
     "symbol": "e",
     "color": "white",
+    "colorCode": 15,
     "name": "freezing sphere",
     "difficulty": 9,
-    "attacks": "Explode 4d6 cold",
+    "attacks": [
+      "Explode 4d6 cold"
+    ],
     "baseLevel": 6,
     "experience": 91,
     "speed": 13,
@@ -5080,7 +5544,7 @@
     "nutrition": 10,
     "size": "small",
     "resistances": "Cold resistance",
-    "resistancesConveyed": "Cold resistance",
+    "resistancesConveyed": "Cold resistance (40%)",
     "attributes": [
       "fly",
       "breathless",
@@ -5107,9 +5571,12 @@
   {
     "symbol": "H",
     "color": "white",
+    "colorCode": 15,
     "name": "frost giant",
     "difficulty": 13,
-    "attacks": "Weapon 2d12 physical",
+    "attacks": [
+      "Weapon 2d12 physical"
+    ],
     "baseLevel": 10,
     "experience": 296,
     "speed": 12,
@@ -5123,7 +5590,7 @@
     "nutrition": 750,
     "size": "huge",
     "resistances": "Cold resistance",
-    "resistancesConveyed": "Cold resistance",
+    "resistancesConveyed": "Cold resistance (66%)",
     "attributes": [
       "humanoid",
       "carnivore",
@@ -5152,9 +5619,14 @@
   {
     "symbol": "g",
     "color": "brown",
+    "colorCode": 3,
     "name": "gargoyle",
     "difficulty": 8,
-    "attacks": "Claw 2d6 physical, Claw 2d6 physical, Bite 2d4 physical",
+    "attacks": [
+      "Claw 2d6 physical",
+      "Claw 2d6 physical",
+      "Bite 2d4 physical"
+    ],
     "baseLevel": 6,
     "experience": 95,
     "speed": 10,
@@ -5168,7 +5640,7 @@
     "nutrition": 200,
     "size": "medium",
     "resistances": "Petrification resistance",
-    "resistancesConveyed": "Petrification resistance",
+    "resistancesConveyed": "Petrification resistance (100%)",
     "attributes": [
       "humanoid",
       "thick",
@@ -5187,9 +5659,12 @@
   {
     "symbol": "S",
     "color": "green",
+    "colorCode": 2,
     "name": "garter snake",
     "difficulty": 3,
-    "attacks": "Bite 1d2 physical",
+    "attacks": [
+      "Bite 1d2 physical"
+    ],
     "baseLevel": 1,
     "experience": 8,
     "speed": 8,
@@ -5228,9 +5703,12 @@
   {
     "symbol": "e",
     "color": "gray",
+    "colorCode": 7,
     "name": "gas spore",
     "difficulty": 2,
-    "attacks": "Boom 4d6 physical",
+    "attacks": [
+      "Boom 4d6 physical"
+    ],
     "baseLevel": 1,
     "experience": 12,
     "speed": 3,
@@ -5267,9 +5745,12 @@
   {
     "symbol": ":",
     "color": "green",
+    "colorCode": 2,
     "name": "gecko",
     "difficulty": 2,
-    "attacks": "Bite 1d3 physical",
+    "attacks": [
+      "Bite 1d3 physical"
+    ],
     "baseLevel": 1,
     "experience": 8,
     "speed": 6,
@@ -5300,9 +5781,13 @@
   {
     "symbol": "b",
     "color": "cyan",
+    "colorCode": 6,
     "name": "gelatinous cube",
     "difficulty": 8,
-    "attacks": "Touch 2d4 paralysis, Passive 1d4 paralysis",
+    "attacks": [
+      "Touch 2d4 paralysis",
+      "Passive 1d4 paralysis"
+    ],
     "baseLevel": 6,
     "experience": 76,
     "speed": 6,
@@ -5316,7 +5801,7 @@
     "nutrition": 150,
     "size": "large",
     "resistances": "Fire resistance, Cold resistance, Shock resistance, Sleep resistance, Poison resistance, Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Fire resistance, Cold resistance, Shock resistance, Sleep resistance",
+    "resistancesConveyed": "Fire resistance (40%), Cold resistance (40%), Shock resistance (40%), Sleep resistance (40%)",
     "attributes": [
       "noeyes",
       "nolimbs",
@@ -5343,9 +5828,12 @@
   {
     "symbol": "Q",
     "color": "green",
+    "colorCode": 2,
     "name": "genetic engineer",
     "difficulty": 14,
-    "attacks": "Claw 1d4 polymorph",
+    "attacks": [
+      "Claw 1d4 polymorph"
+    ],
     "baseLevel": 12,
     "experience": 291,
     "speed": 12,
@@ -5382,9 +5870,14 @@
   {
     "symbol": "&",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Geryon",
     "difficulty": 36,
-    "attacks": "Claw 3d6 physical, Claw 3d6 physical, Sting 2d4 poison",
+    "attacks": [
+      "Claw 3d6 physical",
+      "Claw 3d6 physical",
+      "Sting 2d4 poison"
+    ],
     "baseLevel": 72,
     "experience": 1625,
     "speed": 3,
@@ -5433,9 +5926,12 @@
   {
     "symbol": " ",
     "color": "gray",
+    "colorCode": 7,
     "name": "ghost",
     "difficulty": 12,
-    "attacks": "Touch 1d1 physical",
+    "attacks": [
+      "Touch 1d1 physical"
+    ],
     "baseLevel": 10,
     "experience": 238,
     "speed": 3,
@@ -5478,9 +5974,13 @@
   {
     "symbol": "Z",
     "color": "black",
+    "colorCode": 0,
     "name": "ghoul",
     "difficulty": 5,
-    "attacks": "Claw 1d2 paralysis, Claw 1d3 physical",
+    "attacks": [
+      "Claw 1d2 paralysis",
+      "Claw 1d3 physical"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 6,
@@ -5521,9 +6021,12 @@
   {
     "symbol": "H",
     "color": "red",
+    "colorCode": 1,
     "name": "giant",
     "difficulty": 8,
-    "attacks": "Weapon 2d10 physical",
+    "attacks": [
+      "Weapon 2d10 physical"
+    ],
     "baseLevel": 6,
     "experience": 127,
     "speed": 6,
@@ -5566,9 +6069,12 @@
   {
     "symbol": "a",
     "color": "brown",
+    "colorCode": 3,
     "name": "giant ant",
     "difficulty": 4,
-    "attacks": "Bite 1d4 physical",
+    "attacks": [
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 2,
     "experience": 20,
     "speed": 18,
@@ -5601,9 +6107,12 @@
   {
     "symbol": "B",
     "color": "red",
+    "colorCode": 1,
     "name": "giant bat",
     "difficulty": 3,
-    "attacks": "Bite 1d6 physical",
+    "attacks": [
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 2,
     "experience": 22,
     "speed": 22,
@@ -5640,9 +6149,12 @@
   {
     "symbol": "a",
     "color": "black",
+    "colorCode": 0,
     "name": "giant beetle",
     "difficulty": 6,
-    "attacks": "Bite 3d6 physical",
+    "attacks": [
+      "Bite 3d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 56,
     "speed": 6,
@@ -5656,7 +6168,7 @@
     "nutrition": 50,
     "size": "large",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (33%)",
     "attributes": [
       "animal",
       "nohands",
@@ -5675,9 +6187,13 @@
   {
     "symbol": ";",
     "color": "cyan",
+    "colorCode": 6,
     "name": "giant eel",
     "difficulty": 7,
-    "attacks": "Bite 3d6 physical, Touch 0d0 wrap",
+    "attacks": [
+      "Bite 3d6 physical",
+      "Touch 0d0 wrap"
+    ],
     "baseLevel": 5,
     "experience": 1075,
     "speed": 9,
@@ -5720,9 +6236,13 @@
   {
     "symbol": "m",
     "color": "magenta",
+    "colorCode": 5,
     "name": "giant mimic",
     "difficulty": 11,
-    "attacks": "Claw 3d6 sticky, Claw 3d6 sticky",
+    "attacks": [
+      "Claw 3d6 sticky",
+      "Claw 3d6 sticky"
+    ],
     "baseLevel": 9,
     "experience": 186,
     "speed": 3,
@@ -5767,9 +6287,13 @@
   {
     "symbol": "M",
     "color": "cyan",
+    "colorCode": 6,
     "name": "giant mummy",
     "difficulty": 10,
-    "attacks": "Claw 3d4 physical, Claw 3d4 physical",
+    "attacks": [
+      "Claw 3d4 physical",
+      "Claw 3d4 physical"
+    ],
     "baseLevel": 8,
     "experience": 116,
     "speed": 14,
@@ -5812,9 +6336,12 @@
   {
     "symbol": "r",
     "color": "brown",
+    "colorCode": 3,
     "name": "giant rat",
     "difficulty": 2,
-    "attacks": "Bite 1d3 physical",
+    "attacks": [
+      "Bite 1d3 physical"
+    ],
     "baseLevel": 1,
     "experience": 8,
     "speed": 10,
@@ -5847,9 +6374,12 @@
   {
     "symbol": "s",
     "color": "magenta",
+    "colorCode": 5,
     "name": "giant spider",
     "difficulty": 7,
-    "attacks": "Bite 2d4 poison",
+    "attacks": [
+      "Bite 2d4 poison"
+    ],
     "baseLevel": 5,
     "experience": 64,
     "speed": 15,
@@ -5863,7 +6393,7 @@
     "nutrition": 100,
     "size": "large",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (33%)",
     "attributes": [
       "animal",
       "nohands",
@@ -5886,9 +6416,13 @@
   {
     "symbol": "Z",
     "color": "cyan",
+    "colorCode": 6,
     "name": "giant zombie",
     "difficulty": 9,
-    "attacks": "Claw 2d8 physical, Claw 2d8 physical",
+    "attacks": [
+      "Claw 2d8 physical",
+      "Claw 2d8 physical"
+    ],
     "baseLevel": 8,
     "experience": 113,
     "speed": 8,
@@ -5929,9 +6463,13 @@
   {
     "symbol": "'",
     "color": "cyan",
+    "colorCode": 6,
     "name": "glass golem",
     "difficulty": 18,
-    "attacks": "Claw 2d8 physical, Claw 2d8 physical",
+    "attacks": [
+      "Claw 2d8 physical",
+      "Claw 2d8 physical"
+    ],
     "baseLevel": 16,
     "experience": 409,
     "speed": 6,
@@ -5966,9 +6504,12 @@
   {
     "symbol": "p",
     "color": "white",
+    "colorCode": 15,
     "name": "glass piercer",
     "difficulty": 9,
-    "attacks": "Bite 4d6 physical",
+    "attacks": [
+      "Bite 4d6 physical"
+    ],
     "baseLevel": 7,
     "experience": 106,
     "speed": 1,
@@ -6005,9 +6546,12 @@
   {
     "symbol": "G",
     "color": "brown",
+    "colorCode": 3,
     "name": "gnome",
     "difficulty": 3,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 1,
     "experience": 13,
     "speed": 6,
@@ -6042,9 +6586,12 @@
   {
     "symbol": "G",
     "color": "magenta",
+    "colorCode": 5,
     "name": "gnome king",
     "difficulty": 6,
-    "attacks": "Weapon 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 10,
@@ -6081,9 +6628,12 @@
   {
     "symbol": "G",
     "color": "blue",
+    "colorCode": 4,
     "name": "gnome lady",
     "difficulty": 4,
-    "attacks": "Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 3,
     "experience": 48,
     "speed": 8,
@@ -6120,9 +6670,12 @@
   {
     "symbol": "G",
     "color": "blue",
+    "colorCode": 4,
     "name": "gnome leader",
     "difficulty": 4,
-    "attacks": "Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 3,
     "experience": 33,
     "speed": 8,
@@ -6159,9 +6712,12 @@
   {
     "symbol": "G",
     "color": "blue",
+    "colorCode": 4,
     "name": "gnome lord",
     "difficulty": 4,
-    "attacks": "Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 3,
     "experience": 33,
     "speed": 8,
@@ -6198,9 +6754,12 @@
   {
     "symbol": "M",
     "color": "red",
+    "colorCode": 1,
     "name": "gnome mummy",
     "difficulty": 5,
-    "attacks": "Claw 1d6 physical",
+    "attacks": [
+      "Claw 1d6 physical"
+    ],
     "baseLevel": 4,
     "experience": 41,
     "speed": 10,
@@ -6239,9 +6798,12 @@
   {
     "symbol": "G",
     "color": "magenta",
+    "colorCode": 5,
     "name": "gnome queen",
     "difficulty": 6,
-    "attacks": "Weapon 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 84,
     "speed": 10,
@@ -6278,9 +6840,12 @@
   {
     "symbol": "G",
     "color": "magenta",
+    "colorCode": 5,
     "name": "gnome ruler",
     "difficulty": 6,
-    "attacks": "Weapon 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 10,
@@ -6317,9 +6882,12 @@
   {
     "symbol": "Z",
     "color": "brown",
+    "colorCode": 3,
     "name": "gnome zombie",
     "difficulty": 2,
-    "attacks": "Claw 1d5 physical",
+    "attacks": [
+      "Claw 1d5 physical"
+    ],
     "baseLevel": 1,
     "experience": 8,
     "speed": 6,
@@ -6360,9 +6928,12 @@
   {
     "symbol": "G",
     "color": "bright blue",
+    "colorCode": 12,
     "name": "gnomish wizard",
     "difficulty": 5,
-    "attacks": "Spell-casting 0d0 magical",
+    "attacks": [
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 3,
     "experience": 38,
     "speed": 10,
@@ -6397,9 +6968,12 @@
   {
     "symbol": "o",
     "color": "gray",
+    "colorCode": 7,
     "name": "goblin",
     "difficulty": 1,
-    "attacks": "Weapon 1d4 physical",
+    "attacks": [
+      "Weapon 1d4 physical"
+    ],
     "baseLevel": 0,
     "experience": 6,
     "speed": 6,
@@ -6434,9 +7008,15 @@
   {
     "symbol": "D",
     "color": "yellow",
+    "colorCode": 11,
     "name": "gold dragon",
     "difficulty": 20,
-    "attacks": "Breath 4d6 fire, Bite 3d8 physical, Claw 1d4 physical, Claw 1d4 physical",
+    "attacks": [
+      "Breath 4d6 fire",
+      "Bite 3d8 physical",
+      "Claw 1d4 physical",
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 15,
     "experience": 535,
     "speed": 9,
@@ -6485,9 +7065,13 @@
   {
     "symbol": "'",
     "color": "yellow",
+    "colorCode": 11,
     "name": "gold golem",
     "difficulty": 6,
-    "attacks": "Claw 2d3 physical, Claw 2d3 physical",
+    "attacks": [
+      "Claw 2d3 physical",
+      "Claw 2d3 physical"
+    ],
     "baseLevel": 5,
     "experience": 56,
     "speed": 9,
@@ -6522,9 +7106,13 @@
   {
     "symbol": "N",
     "color": "yellow",
+    "colorCode": 11,
     "name": "golden naga",
     "difficulty": 13,
-    "attacks": "Bite 2d6 physical, Spell-casting 4d6 magical",
+    "attacks": [
+      "Bite 2d6 physical",
+      "Spell-casting 4d6 magical"
+    ],
     "baseLevel": 10,
     "experience": 239,
     "speed": 14,
@@ -6538,7 +7126,7 @@
     "nutrition": 400,
     "size": "huge",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (66%)",
     "attributes": [
       "nolimbs",
       "slithy",
@@ -6561,9 +7149,12 @@
   {
     "symbol": "N",
     "color": "yellow",
+    "colorCode": 11,
     "name": "golden naga hatchling",
     "difficulty": 4,
-    "attacks": "Bite 1d4 physical",
+    "attacks": [
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 10,
@@ -6577,7 +7168,7 @@
     "nutrition": 100,
     "size": "large",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (20%)",
     "attributes": [
       "nolimbs",
       "slithy",
@@ -6598,9 +7189,15 @@
   {
     "symbol": "@",
     "color": "black",
+    "colorCode": 0,
     "name": "Grand Master",
     "difficulty": 30,
-    "attacks": "Claw 4d10 physical, Kick 2d8 physical, Spell-casting 2d8 clerical, Spell-casting 2d8 clerical",
+    "attacks": [
+      "Claw 4d10 physical",
+      "Kick 2d8 physical",
+      "Spell-casting 2d8 clerical",
+      "Spell-casting 2d8 clerical"
+    ],
     "baseLevel": 25,
     "experience": 1053,
     "speed": 15,
@@ -6645,9 +7242,15 @@
   {
     "symbol": "D",
     "color": "gray",
+    "colorCode": 7,
     "name": "gray dragon",
     "difficulty": 20,
-    "attacks": "Breath 4d6 magic missile, Bite 3d8 physical, Claw 1d4 physical, Claw 1d4 physical",
+    "attacks": [
+      "Breath 4d6 magic missile",
+      "Bite 3d8 physical",
+      "Claw 1d4 physical",
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 15,
     "experience": 460,
     "speed": 9,
@@ -6694,9 +7297,12 @@
   {
     "symbol": "P",
     "color": "gray",
+    "colorCode": 7,
     "name": "gray ooze",
     "difficulty": 4,
-    "attacks": "Bite 2d8 rust",
+    "attacks": [
+      "Bite 2d8 rust"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 1,
@@ -6710,7 +7316,7 @@
     "nutrition": 250,
     "size": "medium",
     "resistances": "Fire resistance, Cold resistance, Poison resistance, Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Fire resistance, Cold resistance, Poison resistance",
+    "resistancesConveyed": "Fire resistance (20%), Cold resistance (20%), Poison resistance (20%)",
     "attributes": [
       "breathless",
       "amorphous",
@@ -6739,9 +7345,13 @@
   {
     "symbol": "u",
     "color": "gray",
+    "colorCode": 7,
     "name": "gray unicorn",
     "difficulty": 6,
-    "attacks": "Butt 1d12 physical, Kick 1d6 physical",
+    "attacks": [
+      "Butt 1d12 physical",
+      "Kick 1d6 physical"
+    ],
     "baseLevel": 4,
     "experience": 51,
     "speed": 24,
@@ -6755,7 +7365,7 @@
     "nutrition": 300,
     "size": "large",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (26%)",
     "attributes": [
       "nohands",
       "herbivore",
@@ -6776,9 +7386,15 @@
   {
     "symbol": "D",
     "color": "green",
+    "colorCode": 2,
     "name": "green dragon",
     "difficulty": 20,
-    "attacks": "Breath 4d6 poison, Bite 3d8 physical, Claw 1d4 physical, Claw 1d4 physical",
+    "attacks": [
+      "Breath 4d6 poison",
+      "Bite 3d8 physical",
+      "Claw 1d4 physical",
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 15,
     "experience": 460,
     "speed": 9,
@@ -6792,7 +7408,7 @@
     "nutrition": 1500,
     "size": "gigantic",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (100%)",
     "attributes": [
       "fly",
       "thick",
@@ -6827,9 +7443,12 @@
   {
     "symbol": "F",
     "color": "green",
+    "colorCode": 2,
     "name": "green mold",
     "difficulty": 2,
-    "attacks": "Passive 0d4 acid",
+    "attacks": [
+      "Passive 0d4 acid"
+    ],
     "baseLevel": 1,
     "experience": 9,
     "speed": 0,
@@ -6843,7 +7462,7 @@
     "nutrition": 30,
     "size": "small",
     "resistances": "Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Acid resistance, Petrification resistance",
+    "resistancesConveyed": "Acid resistance (33%), Petrification resistance (16%)",
     "attributes": [
       "breathless",
       "noeyes",
@@ -6870,9 +7489,13 @@
   {
     "symbol": "P",
     "color": "green",
+    "colorCode": 2,
     "name": "green slime",
     "difficulty": 8,
-    "attacks": "Touch 1d4 sliming, Passive 0d0 sliming",
+    "attacks": [
+      "Touch 1d4 sliming",
+      "Passive 0d0 sliming"
+    ],
     "baseLevel": 6,
     "experience": 164,
     "speed": 6,
@@ -6886,7 +7509,7 @@
     "nutrition": 150,
     "size": "large",
     "resistances": "Cold resistance, Shock resistance, Poison resistance, Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Acid resistance, Petrification resistance",
+    "resistancesConveyed": "Acid resistance (100%), Petrification resistance (100%)",
     "attributes": [
       "breathless",
       "amorphous",
@@ -6917,9 +7540,12 @@
   {
     "symbol": "@",
     "color": "bright green",
+    "colorCode": 10,
     "name": "Green-elf",
     "difficulty": 7,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 12,
@@ -6933,7 +7559,7 @@
     "nutrition": 350,
     "size": "medium",
     "resistances": "Sleep resistance",
-    "resistancesConveyed": "Sleep resistance",
+    "resistancesConveyed": "Sleep resistance (33%)",
     "attributes": [
       "humanoid",
       "omnivore",
@@ -6956,9 +7582,15 @@
   {
     "symbol": "g",
     "color": "green",
+    "colorCode": 2,
     "name": "gremlin",
     "difficulty": 8,
-    "attacks": "Claw 1d6 physical, Claw 1d6 physical, Bite 1d4 physical, Claw 0d0 curs",
+    "attacks": [
+      "Claw 1d6 physical",
+      "Claw 1d6 physical",
+      "Bite 1d4 physical",
+      "Claw 0d0 curs"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 12,
@@ -6972,7 +7604,7 @@
     "nutrition": 20,
     "size": "small",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (33%)",
     "attributes": [
       "swim",
       "humanoid",
@@ -6991,9 +7623,12 @@
   {
     "symbol": "@",
     "color": "gray",
+    "colorCode": 7,
     "name": "Grey-elf",
     "difficulty": 8,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 6,
     "experience": 78,
     "speed": 12,
@@ -7007,7 +7642,7 @@
     "nutrition": 350,
     "size": "medium",
     "resistances": "Sleep resistance",
-    "resistancesConveyed": "Sleep resistance",
+    "resistancesConveyed": "Sleep resistance (40%)",
     "attributes": [
       "humanoid",
       "omnivore",
@@ -7030,9 +7665,12 @@
   {
     "symbol": "x",
     "color": "magenta",
+    "colorCode": 5,
     "name": "grid bug",
     "difficulty": 1,
-    "attacks": "Bite 1d1 shock",
+    "attacks": [
+      "Bite 1d1 shock"
+    ],
     "baseLevel": 0,
     "experience": 1,
     "speed": 12,
@@ -7063,9 +7701,12 @@
   {
     "symbol": "@",
     "color": "blue",
+    "colorCode": 4,
     "name": "guard",
     "difficulty": 14,
-    "attacks": "Weapon 4d10 physical",
+    "attacks": [
+      "Weapon 4d10 physical"
+    ],
     "baseLevel": 12,
     "experience": 284,
     "speed": 12,
@@ -7106,9 +7747,15 @@
   {
     "symbol": "N",
     "color": "green",
+    "colorCode": 2,
     "name": "guardian naga",
     "difficulty": 17,
-    "attacks": "Spit 1d6 poison, Bite 1d6 paralysis, Touch 0d0 physical, Hug 2d4 wrap",
+    "attacks": [
+      "Spit 1d6 poison",
+      "Bite 1d6 paralysis",
+      "Touch 0d0 physical",
+      "Hug 2d4 wrap"
+    ],
     "baseLevel": 12,
     "experience": 295,
     "speed": 16,
@@ -7122,7 +7769,7 @@
     "nutrition": 400,
     "size": "huge",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (80%)",
     "attributes": [
       "nolimbs",
       "slithy",
@@ -7147,9 +7794,12 @@
   {
     "symbol": "N",
     "color": "green",
+    "colorCode": 2,
     "name": "guardian naga hatchling",
     "difficulty": 4,
-    "attacks": "Bite 1d4 physical",
+    "attacks": [
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 10,
@@ -7163,7 +7813,7 @@
     "nutrition": 100,
     "size": "large",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (20%)",
     "attributes": [
       "nolimbs",
       "slithy",
@@ -7184,9 +7834,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "guide",
     "difficulty": 8,
-    "attacks": "Weapon 1d6 physical, Spell-casting 0d0 magical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 5,
     "experience": 71,
     "speed": 12,
@@ -7227,9 +7881,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "healer",
     "difficulty": 12,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 10,
     "experience": 216,
     "speed": 12,
@@ -7266,9 +7923,13 @@
   {
     "symbol": "d",
     "color": "red",
+    "colorCode": 1,
     "name": "hell hound",
     "difficulty": 14,
-    "attacks": "Bite 3d6 physical, Breath 3d6 fire",
+    "attacks": [
+      "Bite 3d6 physical",
+      "Breath 3d6 fire"
+    ],
     "baseLevel": 12,
     "experience": 290,
     "speed": 14,
@@ -7282,7 +7943,7 @@
     "nutrition": 300,
     "size": "medium",
     "resistances": "Fire resistance",
-    "resistancesConveyed": "Fire resistance",
+    "resistancesConveyed": "Fire resistance (80%)",
     "attributes": [
       "animal",
       "nohands",
@@ -7303,9 +7964,13 @@
   {
     "symbol": "d",
     "color": "red",
+    "colorCode": 1,
     "name": "hell hound pup",
     "difficulty": 9,
-    "attacks": "Bite 2d6 physical, Breath 2d6 fire",
+    "attacks": [
+      "Bite 2d6 physical",
+      "Breath 2d6 fire"
+    ],
     "baseLevel": 7,
     "experience": 102,
     "speed": 12,
@@ -7319,7 +7984,7 @@
     "nutrition": 200,
     "size": "small",
     "resistances": "Fire resistance",
-    "resistancesConveyed": "Fire resistance",
+    "resistancesConveyed": "Fire resistance (46%)",
     "attributes": [
       "animal",
       "nohands",
@@ -7338,9 +8003,14 @@
   {
     "symbol": "&",
     "color": "green",
+    "colorCode": 2,
     "name": "hezrou",
     "difficulty": 12,
-    "attacks": "Claw 1d3 physical, Claw 1d3 physical, Bite 4d4 physical",
+    "attacks": [
+      "Claw 1d3 physical",
+      "Claw 1d3 physical",
+      "Bite 4d4 physical"
+    ],
     "baseLevel": 9,
     "experience": 267,
     "speed": 6,
@@ -7379,9 +8049,15 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "high cleric",
     "difficulty": 30,
-    "attacks": "Weapon 4d10 physical, Kick 2d8 physical, Spell-casting 2d8 clerical, Spell-casting 2d8 clerical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Kick 2d8 physical",
+      "Spell-casting 2d8 clerical",
+      "Spell-casting 2d8 clerical"
+    ],
     "baseLevel": 25,
     "experience": 1054,
     "speed": 15,
@@ -7424,9 +8100,15 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "high priest",
     "difficulty": 30,
-    "attacks": "Weapon 4d10 physical, Kick 2d8 physical, Spell-casting 2d8 clerical, Spell-casting 2d8 clerical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Kick 2d8 physical",
+      "Spell-casting 2d8 clerical",
+      "Spell-casting 2d8 clerical"
+    ],
     "baseLevel": 25,
     "experience": 1054,
     "speed": 15,
@@ -7469,9 +8151,15 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "high priestess",
     "difficulty": 30,
-    "attacks": "Weapon 4d10 physical, Kick 2d8 physical, Spell-casting 2d8 clerical, Spell-casting 2d8 clerical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Kick 2d8 physical",
+      "Spell-casting 2d8 clerical",
+      "Spell-casting 2d8 clerical"
+    ],
     "baseLevel": 25,
     "experience": 1054,
     "speed": 15,
@@ -7514,9 +8202,12 @@
   {
     "symbol": "H",
     "color": "cyan",
+    "colorCode": 6,
     "name": "hill giant",
     "difficulty": 10,
-    "attacks": "Weapon 2d8 physical",
+    "attacks": [
+      "Weapon 2d8 physical"
+    ],
     "baseLevel": 8,
     "experience": 174,
     "speed": 10,
@@ -7559,9 +8250,12 @@
   {
     "symbol": "o",
     "color": "yellow",
+    "colorCode": 11,
     "name": "hill orc",
     "difficulty": 4,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 2,
     "experience": 22,
     "speed": 9,
@@ -7602,9 +8296,14 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Hippocrates",
     "difficulty": 26,
-    "attacks": "Weapon 1d6 physical, Spell-casting 3d8 clerical, Spell-casting 3d8 clerical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Spell-casting 3d8 clerical",
+      "Spell-casting 3d8 clerical"
+    ],
     "baseLevel": 20,
     "experience": 583,
     "speed": 15,
@@ -7647,9 +8346,12 @@
   {
     "symbol": "h",
     "color": "green",
+    "colorCode": 2,
     "name": "hobbit",
     "difficulty": 2,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 1,
     "experience": 13,
     "speed": 9,
@@ -7682,9 +8384,12 @@
   {
     "symbol": "o",
     "color": "brown",
+    "colorCode": 3,
     "name": "hobgoblin",
     "difficulty": 3,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 1,
     "experience": 13,
     "speed": 9,
@@ -7721,9 +8426,12 @@
   {
     "symbol": "i",
     "color": "green",
+    "colorCode": 2,
     "name": "homunculus",
     "difficulty": 3,
-    "attacks": "Bite 1d3 sleep",
+    "attacks": [
+      "Bite 1d3 sleep"
+    ],
     "baseLevel": 2,
     "experience": 19,
     "speed": 12,
@@ -7737,7 +8445,7 @@
     "nutrition": 100,
     "size": "tiny",
     "resistances": "Sleep resistance, Poison resistance",
-    "resistancesConveyed": "Sleep resistance, Poison resistance",
+    "resistancesConveyed": "Sleep resistance (13%), Poison resistance (13%)",
     "attributes": [
       "fly",
       "pois",
@@ -7756,9 +8464,15 @@
   {
     "symbol": "&",
     "color": "brown",
+    "colorCode": 3,
     "name": "horned devil",
     "difficulty": 9,
-    "attacks": "Weapon 1d4 physical, Claw 1d4 physical, Bite 2d3 physical, Sting 1d3 physical",
+    "attacks": [
+      "Weapon 1d4 physical",
+      "Claw 1d4 physical",
+      "Bite 2d3 physical",
+      "Sting 1d3 physical"
+    ],
     "baseLevel": 6,
     "experience": 147,
     "speed": 9,
@@ -7797,9 +8511,13 @@
   {
     "symbol": "u",
     "color": "brown",
+    "colorCode": 3,
     "name": "horse",
     "difficulty": 7,
-    "attacks": "Kick 1d8 physical, Bite 1d3 physical",
+    "attacks": [
+      "Kick 1d8 physical",
+      "Bite 1d3 physical"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 20,
@@ -7836,9 +8554,12 @@
   {
     "symbol": "f",
     "color": "white",
+    "colorCode": 15,
     "name": "housecat",
     "difficulty": 5,
-    "attacks": "Bite 1d6 physical",
+    "attacks": [
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 4,
     "experience": 44,
     "speed": 16,
@@ -7873,9 +8594,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "human",
     "difficulty": 2,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 0,
     "experience": 6,
     "speed": 12,
@@ -7912,9 +8636,13 @@
   {
     "symbol": "M",
     "color": "gray",
+    "colorCode": 7,
     "name": "human mummy",
     "difficulty": 7,
-    "attacks": "Claw 2d4 physical, Claw 2d4 physical",
+    "attacks": [
+      "Claw 2d4 physical",
+      "Claw 2d4 physical"
+    ],
     "baseLevel": 6,
     "experience": 73,
     "speed": 12,
@@ -7951,9 +8679,12 @@
   {
     "symbol": "Z",
     "color": "white",
+    "colorCode": 15,
     "name": "human zombie",
     "difficulty": 5,
-    "attacks": "Claw 1d8 physical",
+    "attacks": [
+      "Claw 1d8 physical"
+    ],
     "baseLevel": 4,
     "experience": 41,
     "speed": 6,
@@ -7990,9 +8721,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "hunter",
     "difficulty": 7,
-    "attacks": "Weapon 1d4 physical",
+    "attacks": [
+      "Weapon 1d4 physical"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 12,
@@ -8035,9 +8769,16 @@
   {
     "symbol": "&",
     "color": "white",
+    "colorCode": 15,
     "name": "ice devil",
     "difficulty": 15,
-    "attacks": "Claw 1d4 physical, Claw 1d4 physical, Bite 2d4 physical, Sting 3d4 cold, Touch 1d1 slow",
+    "attacks": [
+      "Claw 1d4 physical",
+      "Claw 1d4 physical",
+      "Bite 2d4 physical",
+      "Sting 3d4 cold",
+      "Touch 1d1 slow"
+    ],
     "baseLevel": 11,
     "experience": 351,
     "speed": 6,
@@ -8076,9 +8817,14 @@
   {
     "symbol": "T",
     "color": "white",
+    "colorCode": 15,
     "name": "ice troll",
     "difficulty": 12,
-    "attacks": "Weapon 2d6 physical, Claw 2d6 cold, Bite 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical",
+      "Claw 2d6 cold",
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 9,
     "experience": 205,
     "speed": 10,
@@ -8092,7 +8838,7 @@
     "nutrition": 300,
     "size": "large",
     "resistances": "Cold resistance",
-    "resistancesConveyed": "Cold resistance",
+    "resistancesConveyed": "Cold resistance (60%)",
     "attributes": [
       "humanoid",
       "regen",
@@ -8117,9 +8863,12 @@
   {
     "symbol": "v",
     "color": "cyan",
+    "colorCode": 6,
     "name": "ice vortex",
     "difficulty": 7,
-    "attacks": "Engulf 1d6 cold",
+    "attacks": [
+      "Engulf 1d6 cold"
+    ],
     "baseLevel": 5,
     "experience": 74,
     "speed": 20,
@@ -8160,9 +8909,12 @@
   {
     "symbol": ":",
     "color": "brown",
+    "colorCode": 3,
     "name": "iguana",
     "difficulty": 3,
-    "attacks": "Bite 1d4 physical",
+    "attacks": [
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 2,
     "experience": 5,
     "speed": 6,
@@ -8193,9 +8945,12 @@
   {
     "symbol": "i",
     "color": "red",
+    "colorCode": 1,
     "name": "imp",
     "difficulty": 4,
-    "attacks": "Claw 1d4 physical",
+    "attacks": [
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 3,
     "experience": 33,
     "speed": 12,
@@ -8228,9 +8983,14 @@
   {
     "symbol": "&",
     "color": "gray",
+    "colorCode": 7,
     "name": "incubus",
     "difficulty": 8,
-    "attacks": "Bite 0d0 seduction, Claw 1d3 physical, Claw 1d3 physical",
+    "attacks": [
+      "Bite 0d0 seduction",
+      "Claw 1d3 physical",
+      "Claw 1d3 physical"
+    ],
     "baseLevel": 6,
     "experience": 122,
     "speed": 12,
@@ -8271,9 +9031,13 @@
   {
     "symbol": "'",
     "color": "cyan",
+    "colorCode": 6,
     "name": "iron golem",
     "difficulty": 22,
-    "attacks": "Weapon 4d10 physical, Breath 4d6 poison",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Breath 4d6 poison"
+    ],
     "baseLevel": 18,
     "experience": 545,
     "speed": 6,
@@ -8312,9 +9076,12 @@
   {
     "symbol": "p",
     "color": "cyan",
+    "colorCode": 6,
     "name": "iron piercer",
     "difficulty": 6,
-    "attacks": "Bite 3d6 physical",
+    "attacks": [
+      "Bite 3d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 63,
     "speed": 1,
@@ -8351,9 +9118,16 @@
   {
     "symbol": "D",
     "color": "red",
+    "colorCode": 1,
     "name": "Ixoth",
     "difficulty": 22,
-    "attacks": "Breath 8d6 fire, Bite 4d8 physical, Spell-casting 0d0 magical, Claw 2d4 physical, Claw 2d4 amulet theft",
+    "attacks": [
+      "Breath 8d6 fire",
+      "Bite 4d8 physical",
+      "Spell-casting 0d0 magical",
+      "Claw 2d4 physical",
+      "Claw 2d4 amulet theft"
+    ],
     "baseLevel": 15,
     "experience": 545,
     "speed": 12,
@@ -8367,7 +9141,7 @@
     "nutrition": 1600,
     "size": "gigantic",
     "resistances": "Fire resistance, Petrification resistance",
-    "resistancesConveyed": "Fire resistance",
+    "resistancesConveyed": "Fire resistance (100%)",
     "attributes": [
       "fly",
       "thick",
@@ -8406,9 +9180,15 @@
   {
     "symbol": "J",
     "color": "orange",
+    "colorCode": 9,
     "name": "jabberwock",
     "difficulty": 18,
-    "attacks": "Bite 2d10 physical, Bite 2d10 physical, Claw 2d10 physical, Claw 2d10 physical",
+    "attacks": [
+      "Bite 2d10 physical",
+      "Bite 2d10 physical",
+      "Claw 2d10 physical",
+      "Claw 2d10 physical"
+    ],
     "baseLevel": 15,
     "experience": 489,
     "speed": 12,
@@ -8447,9 +9227,12 @@
   {
     "symbol": "d",
     "color": "brown",
+    "colorCode": 3,
     "name": "jackal",
     "difficulty": 1,
-    "attacks": "Bite 1d2 physical",
+    "attacks": [
+      "Bite 1d2 physical"
+    ],
     "baseLevel": 0,
     "experience": 1,
     "speed": 12,
@@ -8482,9 +9265,14 @@
   {
     "symbol": "f",
     "color": "brown",
+    "colorCode": 3,
     "name": "jaguar",
     "difficulty": 6,
-    "attacks": "Claw 1d4 physical, Claw 1d4 physical, Bite 1d8 physical",
+    "attacks": [
+      "Claw 1d4 physical",
+      "Claw 1d4 physical",
+      "Bite 1d8 physical"
+    ],
     "baseLevel": 4,
     "experience": 44,
     "speed": 15,
@@ -8519,9 +9307,12 @@
   {
     "symbol": ";",
     "color": "blue",
+    "colorCode": 4,
     "name": "jellyfish",
     "difficulty": 5,
-    "attacks": "Sting 3d3 poison",
+    "attacks": [
+      "Sting 3d3 poison"
+    ],
     "baseLevel": 3,
     "experience": 34,
     "speed": 3,
@@ -8535,7 +9326,7 @@
     "nutrition": 20,
     "size": "small",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (20%)",
     "attributes": [
       "swim",
       "amphibious",
@@ -8558,9 +9349,13 @@
   {
     "symbol": "&",
     "color": "bright green",
+    "colorCode": 10,
     "name": "Juiblex",
     "difficulty": 26,
-    "attacks": "Engulf 4d10 disease, Spit 3d6 acid",
+    "attacks": [
+      "Engulf 4d10 disease",
+      "Spit 3d6 acid"
+    ],
     "baseLevel": 50,
     "experience": 899,
     "speed": 3,
@@ -8613,9 +9408,12 @@
   {
     "symbol": "K",
     "color": "blue",
+    "colorCode": 4,
     "name": "Keystone Kop",
     "difficulty": 3,
-    "attacks": "Weapon 1d4 physical",
+    "attacks": [
+      "Weapon 1d4 physical"
+    ],
     "baseLevel": 1,
     "experience": 13,
     "speed": 6,
@@ -8652,9 +9450,15 @@
   {
     "symbol": "A",
     "color": "yellow",
+    "colorCode": 11,
     "name": "ki-rin",
     "difficulty": 21,
-    "attacks": "Kick 2d4 physical, Kick 2d4 physical, Butt 3d6 physical, Spell-casting 2d6 magical",
+    "attacks": [
+      "Kick 2d4 physical",
+      "Kick 2d4 physical",
+      "Butt 3d6 physical",
+      "Spell-casting 2d6 magical"
+    ],
     "baseLevel": 16,
     "experience": 552,
     "speed": 18,
@@ -8697,9 +9501,12 @@
   {
     "symbol": "a",
     "color": "yellow",
+    "colorCode": 11,
     "name": "killer bee",
     "difficulty": 6,
-    "attacks": "Sting 1d3 poison",
+    "attacks": [
+      "Sting 1d3 poison"
+    ],
     "baseLevel": 1,
     "experience": 31,
     "speed": 18,
@@ -8713,7 +9520,7 @@
     "nutrition": 5,
     "size": "tiny",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (30%)",
     "attributes": [
       "animal",
       "fly",
@@ -8734,9 +9541,13 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "King Arthur",
     "difficulty": 24,
-    "attacks": "Weapon 4d10 physical, Weapon 4d10 physical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Weapon 4d10 physical"
+    ],
     "baseLevel": 20,
     "experience": 588,
     "speed": 15,
@@ -8779,9 +9590,12 @@
   {
     "symbol": "f",
     "color": "white",
+    "colorCode": 15,
     "name": "kitten",
     "difficulty": 3,
-    "attacks": "Bite 1d6 physical",
+    "attacks": [
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 2,
     "experience": 20,
     "speed": 18,
@@ -8818,9 +9632,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "knight",
     "difficulty": 12,
-    "attacks": "Weapon 1d6 physical, Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 10,
     "experience": 221,
     "speed": 12,
@@ -8857,9 +9675,12 @@
   {
     "symbol": "k",
     "color": "brown",
+    "colorCode": 3,
     "name": "kobold",
     "difficulty": 1,
-    "attacks": "Weapon 1d4 physical",
+    "attacks": [
+      "Weapon 1d4 physical"
+    ],
     "baseLevel": 0,
     "experience": 6,
     "speed": 6,
@@ -8896,9 +9717,12 @@
   {
     "symbol": "k",
     "color": "magenta",
+    "colorCode": 5,
     "name": "kobold lady",
     "difficulty": 3,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 2,
     "experience": 22,
     "speed": 6,
@@ -8937,9 +9761,12 @@
   {
     "symbol": "k",
     "color": "magenta",
+    "colorCode": 5,
     "name": "kobold leader",
     "difficulty": 3,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 2,
     "experience": 22,
     "speed": 6,
@@ -8978,9 +9805,12 @@
   {
     "symbol": "k",
     "color": "magenta",
+    "colorCode": 5,
     "name": "kobold lord",
     "difficulty": 3,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 2,
     "experience": 22,
     "speed": 6,
@@ -9019,9 +9849,12 @@
   {
     "symbol": "M",
     "color": "brown",
+    "colorCode": 3,
     "name": "kobold mummy",
     "difficulty": 4,
-    "attacks": "Claw 1d4 physical",
+    "attacks": [
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 8,
@@ -9058,9 +9891,12 @@
   {
     "symbol": "k",
     "color": "bright blue",
+    "colorCode": 12,
     "name": "kobold shaman",
     "difficulty": 4,
-    "attacks": "Spell-casting 0d0 magical",
+    "attacks": [
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 2,
     "experience": 27,
     "speed": 6,
@@ -9097,9 +9933,12 @@
   {
     "symbol": "Z",
     "color": "brown",
+    "colorCode": 3,
     "name": "kobold zombie",
     "difficulty": 1,
-    "attacks": "Claw 1d4 physical",
+    "attacks": [
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 0,
     "experience": 1,
     "speed": 6,
@@ -9138,9 +9977,12 @@
   {
     "symbol": "K",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Kop Kaptain",
     "difficulty": 6,
-    "attacks": "Weapon 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical"
+    ],
     "baseLevel": 4,
     "experience": 46,
     "speed": 12,
@@ -9179,9 +10021,12 @@
   {
     "symbol": "K",
     "color": "cyan",
+    "colorCode": 6,
     "name": "Kop Lieutenant",
     "difficulty": 5,
-    "attacks": "Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 3,
     "experience": 33,
     "speed": 10,
@@ -9220,9 +10065,12 @@
   {
     "symbol": "K",
     "color": "blue",
+    "colorCode": 4,
     "name": "Kop Sergeant",
     "difficulty": 4,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 2,
     "experience": 22,
     "speed": 8,
@@ -9261,9 +10109,15 @@
   {
     "symbol": ";",
     "color": "red",
+    "colorCode": 1,
     "name": "kraken",
     "difficulty": 22,
-    "attacks": "Claw 2d4 physical, Claw 2d4 physical, Hug 2d6 wrap, Bite 5d4 physical",
+    "attacks": [
+      "Claw 2d4 physical",
+      "Claw 2d4 physical",
+      "Hug 2d6 wrap",
+      "Bite 5d4 physical"
+    ],
     "baseLevel": 20,
     "experience": 1574,
     "speed": 3,
@@ -9304,9 +10158,12 @@
   {
     "symbol": "f",
     "color": "white",
+    "colorCode": 15,
     "name": "large cat",
     "difficulty": 7,
-    "attacks": "Bite 2d4 physical",
+    "attacks": [
+      "Bite 2d4 physical"
+    ],
     "baseLevel": 6,
     "experience": 76,
     "speed": 15,
@@ -9343,9 +10200,12 @@
   {
     "symbol": "d",
     "color": "white",
+    "colorCode": 15,
     "name": "large dog",
     "difficulty": 7,
-    "attacks": "Bite 2d4 physical",
+    "attacks": [
+      "Bite 2d4 physical"
+    ],
     "baseLevel": 6,
     "experience": 76,
     "speed": 15,
@@ -9380,9 +10240,12 @@
   {
     "symbol": "k",
     "color": "red",
+    "colorCode": 1,
     "name": "large kobold",
     "difficulty": 2,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 1,
     "experience": 13,
     "speed": 6,
@@ -9419,9 +10282,12 @@
   {
     "symbol": "m",
     "color": "red",
+    "colorCode": 1,
     "name": "large mimic",
     "difficulty": 9,
-    "attacks": "Claw 3d4 sticky",
+    "attacks": [
+      "Claw 3d4 sticky"
+    ],
     "baseLevel": 8,
     "experience": 113,
     "speed": 3,
@@ -9466,9 +10332,13 @@
   {
     "symbol": "'",
     "color": "brown",
+    "colorCode": 3,
     "name": "leather golem",
     "difficulty": 7,
-    "attacks": "Claw 1d6 physical, Claw 1d6 physical",
+    "attacks": [
+      "Claw 1d6 physical",
+      "Claw 1d6 physical"
+    ],
     "baseLevel": 6,
     "experience": 73,
     "speed": 6,
@@ -9501,9 +10371,12 @@
   {
     "symbol": "i",
     "color": "brown",
+    "colorCode": 3,
     "name": "lemure",
     "difficulty": 5,
-    "attacks": "Claw 1d3 physical",
+    "attacks": [
+      "Claw 1d3 physical"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 3,
@@ -9517,7 +10390,7 @@
     "nutrition": 100,
     "size": "medium",
     "resistances": "Sleep resistance, Poison resistance",
-    "resistancesConveyed": "Sleep resistance",
+    "resistancesConveyed": "Sleep resistance (20%)",
     "attributes": [
       "pois",
       "regen",
@@ -9542,9 +10415,14 @@
   {
     "symbol": "q",
     "color": "red",
+    "colorCode": 1,
     "name": "leocrotta",
     "difficulty": 8,
-    "attacks": "Claw 2d6 physical, Bite 2d6 physical, Claw 2d6 physical",
+    "attacks": [
+      "Claw 2d6 physical",
+      "Bite 2d6 physical",
+      "Claw 2d6 physical"
+    ],
     "baseLevel": 6,
     "experience": 76,
     "speed": 18,
@@ -9579,9 +10457,12 @@
   {
     "symbol": "l",
     "color": "green",
+    "colorCode": 2,
     "name": "leprechaun",
     "difficulty": 4,
-    "attacks": "Claw 1d2 gold theft",
+    "attacks": [
+      "Claw 1d2 gold theft"
+    ],
     "baseLevel": 5,
     "experience": 59,
     "speed": 15,
@@ -9614,9 +10495,13 @@
   {
     "symbol": "L",
     "color": "brown",
+    "colorCode": 3,
     "name": "lich",
     "difficulty": 14,
-    "attacks": "Touch 1d10 cold, Spell-casting 0d0 magical",
+    "attacks": [
+      "Touch 1d10 cold",
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 11,
     "experience": 269,
     "speed": 6,
@@ -9630,7 +10515,7 @@
     "nutrition": 100,
     "size": "medium",
     "resistances": "Cold resistance, Sleep resistance, Poison resistance",
-    "resistancesConveyed": "Cold resistance",
+    "resistancesConveyed": "Cold resistance (73%)",
     "attributes": [
       "breathless",
       "humanoid",
@@ -9655,9 +10540,12 @@
   {
     "symbol": "F",
     "color": "bright green",
+    "colorCode": 10,
     "name": "lichen",
     "difficulty": 1,
-    "attacks": "Touch 0d0 sticky",
+    "attacks": [
+      "Touch 0d0 sticky"
+    ],
     "baseLevel": 0,
     "experience": 4,
     "speed": 1,
@@ -9696,9 +10584,13 @@
   {
     "symbol": "@",
     "color": "green",
+    "colorCode": 2,
     "name": "lieutenant",
     "difficulty": 12,
-    "attacks": "Weapon 3d4 physical, Weapon 3d4 physical",
+    "attacks": [
+      "Weapon 3d4 physical",
+      "Weapon 3d4 physical"
+    ],
     "baseLevel": 10,
     "experience": 221,
     "speed": 10,
@@ -9741,9 +10633,12 @@
   {
     "symbol": "d",
     "color": "white",
+    "colorCode": 15,
     "name": "little dog",
     "difficulty": 3,
-    "attacks": "Bite 1d6 physical",
+    "attacks": [
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 2,
     "experience": 20,
     "speed": 18,
@@ -9776,9 +10671,12 @@
   {
     "symbol": ":",
     "color": "green",
+    "colorCode": 2,
     "name": "lizard",
     "difficulty": 6,
-    "attacks": "Bite 1d6 physical",
+    "attacks": [
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 56,
     "speed": 6,
@@ -9792,7 +10690,7 @@
     "nutrition": 40,
     "size": "tiny",
     "resistances": "Petrification resistance",
-    "resistancesConveyed": "Petrification resistance",
+    "resistancesConveyed": "Petrification resistance (83%)",
     "attributes": [
       "animal",
       "nohands",
@@ -9809,9 +10707,12 @@
   {
     "symbol": "w",
     "color": "brown",
+    "colorCode": 3,
     "name": "long worm",
     "difficulty": 10,
-    "attacks": "Bite 2d4 physical",
+    "attacks": [
+      "Bite 2d4 physical"
+    ],
     "baseLevel": 9,
     "experience": 169,
     "speed": 3,
@@ -9852,9 +10753,10 @@
   {
     "symbol": "~",
     "color": "brown",
+    "colorCode": 3,
     "name": "long worm tail",
     "difficulty": 1,
-    "attacks": "",
+    "attacks": [],
     "baseLevel": 0,
     "experience": 0,
     "speed": 0,
@@ -9878,9 +10780,13 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Lord Carnarvon",
     "difficulty": 24,
-    "attacks": "Weapon 4d10 physical, Spell-casting 4d8 magical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Spell-casting 4d8 magical"
+    ],
     "baseLevel": 20,
     "experience": 583,
     "speed": 15,
@@ -9927,9 +10833,13 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Lord Sato",
     "difficulty": 24,
-    "attacks": "Weapon 4d10 physical, Weapon 4d10 physical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Weapon 4d10 physical"
+    ],
     "baseLevel": 20,
     "experience": 588,
     "speed": 15,
@@ -9972,9 +10882,14 @@
   {
     "symbol": "H",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Lord Surtur",
     "difficulty": 19,
-    "attacks": "Weapon 2d10 physical, Weapon 2d10 physical, Claw 2d6 amulet theft",
+    "attacks": [
+      "Weapon 2d10 physical",
+      "Weapon 2d10 physical",
+      "Claw 2d6 amulet theft"
+    ],
     "baseLevel": 15,
     "experience": 486,
     "speed": 12,
@@ -9988,7 +10903,7 @@
     "nutrition": 850,
     "size": "huge",
     "resistances": "Fire resistance, Petrification resistance",
-    "resistancesConveyed": "Fire resistance",
+    "resistancesConveyed": "Fire resistance (100%)",
     "attributes": [
       "humanoid",
       "omnivore",
@@ -10025,9 +10940,13 @@
   {
     "symbol": "t",
     "color": "gray",
+    "colorCode": 7,
     "name": "lurker above",
     "difficulty": 12,
-    "attacks": "Engulf 1d6 wrap, Engulf 2d6 physical",
+    "attacks": [
+      "Engulf 1d6 wrap",
+      "Engulf 2d6 physical"
+    ],
     "baseLevel": 10,
     "experience": 214,
     "speed": 3,
@@ -10070,9 +10989,14 @@
   {
     "symbol": "f",
     "color": "cyan",
+    "colorCode": 6,
     "name": "lynx",
     "difficulty": 7,
-    "attacks": "Claw 1d4 physical, Claw 1d4 physical, Bite 1d10 physical",
+    "attacks": [
+      "Claw 1d4 physical",
+      "Claw 1d4 physical",
+      "Bite 1d10 physical"
+    ],
     "baseLevel": 5,
     "experience": 59,
     "speed": 15,
@@ -10107,9 +11031,10 @@
   {
     "symbol": "&",
     "color": "bright blue",
+    "colorCode": 12,
     "name": "mail daemon",
     "difficulty": 26,
-    "attacks": "",
+    "attacks": [],
     "baseLevel": 56,
     "experience": 1,
     "speed": 24,
@@ -10154,9 +11079,14 @@
   {
     "symbol": "i",
     "color": "red",
+    "colorCode": 1,
     "name": "manes",
     "difficulty": 3,
-    "attacks": "Claw 1d3 physical, Claw 1d3 physical, Bite 1d4 physical",
+    "attacks": [
+      "Claw 1d3 physical",
+      "Claw 1d3 physical",
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 1,
     "experience": 8,
     "speed": 3,
@@ -10189,9 +11119,17 @@
   {
     "symbol": "&",
     "color": "red",
+    "colorCode": 1,
     "name": "marilith",
     "difficulty": 11,
-    "attacks": "Weapon 2d4 physical, Weapon 2d4 physical, Claw 2d4 physical, Claw 2d4 physical, Claw 2d4 physical, Claw 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Weapon 2d4 physical",
+      "Claw 2d4 physical",
+      "Claw 2d4 physical",
+      "Claw 2d4 physical",
+      "Claw 2d4 physical"
+    ],
     "baseLevel": 7,
     "experience": 135,
     "speed": 12,
@@ -10238,9 +11176,14 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Master Assassin",
     "difficulty": 20,
-    "attacks": "Weapon 2d6 poison, Weapon 2d8 physical, Claw 2d6 amulet theft",
+    "attacks": [
+      "Weapon 2d6 poison",
+      "Weapon 2d8 physical",
+      "Claw 2d6 amulet theft"
+    ],
     "baseLevel": 15,
     "experience": 503,
     "speed": 12,
@@ -10287,9 +11230,15 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Master Kaen",
     "difficulty": 31,
-    "attacks": "Claw 16d2 physical, Claw 16d2 physical, Spell-casting 0d0 clerical, Claw 1d4 amulet theft",
+    "attacks": [
+      "Claw 16d2 physical",
+      "Claw 16d2 physical",
+      "Spell-casting 0d0 clerical",
+      "Claw 1d4 amulet theft"
+    ],
     "baseLevel": 25,
     "experience": 1095,
     "speed": 12,
@@ -10303,7 +11252,7 @@
     "nutrition": 400,
     "size": "medium",
     "resistances": "Poison resistance, Petrification resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (100%)",
     "attributes": [
       "humanoid",
       "herbivore",
@@ -10338,9 +11287,13 @@
   {
     "symbol": "L",
     "color": "magenta",
+    "colorCode": 5,
     "name": "master lich",
     "difficulty": 21,
-    "attacks": "Touch 3d6 cold, Spell-casting 0d0 magical",
+    "attacks": [
+      "Touch 3d6 cold",
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 17,
     "experience": 494,
     "speed": 9,
@@ -10354,7 +11307,7 @@
     "nutrition": 100,
     "size": "medium",
     "resistances": "Fire resistance, Cold resistance, Sleep resistance, Poison resistance",
-    "resistancesConveyed": "Fire resistance, Cold resistance",
+    "resistancesConveyed": "Fire resistance (100%), Cold resistance (100%)",
     "attributes": [
       "breathless",
       "humanoid",
@@ -10379,9 +11332,17 @@
   {
     "symbol": "h",
     "color": "bright magenta",
+    "colorCode": 13,
     "name": "master mind flayer",
     "difficulty": 19,
-    "attacks": "Weapon 1d8 physical, Tent 2d1 brain drain, Tent 2d1 brain drain, Tent 2d1 brain drain, Tent 2d1 brain drain, Tent 2d1 brain drain",
+    "attacks": [
+      "Weapon 1d8 physical",
+      "Tent 2d1 brain drain",
+      "Tent 2d1 brain drain",
+      "Tent 2d1 brain drain",
+      "Tent 2d1 brain drain",
+      "Tent 2d1 brain drain"
+    ],
     "baseLevel": 13,
     "experience": 416,
     "speed": 12,
@@ -10426,9 +11387,14 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Master of Thieves",
     "difficulty": 24,
-    "attacks": "Weapon 4d10 physical, Weapon 2d6 physical, Claw 2d4 amulet theft",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Weapon 2d6 physical",
+      "Claw 2d4 amulet theft"
+    ],
     "baseLevel": 20,
     "experience": 588,
     "speed": 15,
@@ -10475,9 +11441,13 @@
   {
     "symbol": "q",
     "color": "black",
+    "colorCode": 0,
     "name": "mastodon",
     "difficulty": 22,
-    "attacks": "Butt 4d8 physical, Butt 4d8 physical",
+    "attacks": [
+      "Butt 4d8 physical",
+      "Butt 4d8 physical"
+    ],
     "baseLevel": 20,
     "experience": 611,
     "speed": 12,
@@ -10514,9 +11484,15 @@
   {
     "symbol": "@",
     "color": "bright green",
+    "colorCode": 10,
     "name": "Medusa",
     "difficulty": 25,
-    "attacks": "Weapon 2d4 physical, Claw 1d8 physical, Gaze 0d0 stoning, Bite 1d6 poison",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Claw 1d8 physical",
+      "Gaze 0d0 stoning",
+      "Bite 1d6 poison"
+    ],
     "baseLevel": 20,
     "experience": 634,
     "speed": 12,
@@ -10530,7 +11506,7 @@
     "nutrition": 400,
     "size": "large",
     "resistances": "Poison resistance, Petrification resistance",
-    "resistancesConveyed": "Poison resistance, Petrification resistance",
+    "resistancesConveyed": "Poison resistance (100%), Petrification resistance (100%)",
     "attributes": [
       "fly",
       "swim",
@@ -10561,9 +11537,15 @@
   {
     "symbol": "h",
     "color": "bright magenta",
+    "colorCode": 13,
     "name": "mind flayer",
     "difficulty": 13,
-    "attacks": "Weapon 1d4 physical, Tent 2d1 brain drain, Tent 2d1 brain drain, Tent 2d1 brain drain",
+    "attacks": [
+      "Weapon 1d4 physical",
+      "Tent 2d1 brain drain",
+      "Tent 2d1 brain drain",
+      "Tent 2d1 brain drain"
+    ],
     "baseLevel": 9,
     "experience": 263,
     "speed": 12,
@@ -10608,9 +11590,15 @@
   {
     "symbol": "&",
     "color": "orange",
+    "colorCode": 9,
     "name": "Minion of Huhetotl",
     "difficulty": 23,
-    "attacks": "Weapon 8d4 physical, Weapon 4d6 physical, Spell-casting 0d0 magical, Claw 2d6 amulet theft",
+    "attacks": [
+      "Weapon 8d4 physical",
+      "Weapon 4d6 physical",
+      "Spell-casting 0d0 magical",
+      "Claw 2d6 amulet theft"
+    ],
     "baseLevel": 16,
     "experience": 585,
     "speed": 12,
@@ -10657,9 +11645,14 @@
   {
     "symbol": "H",
     "color": "brown",
+    "colorCode": 3,
     "name": "minotaur",
     "difficulty": 17,
-    "attacks": "Claw 3d10 physical, Claw 3d10 physical, Butt 2d8 physical",
+    "attacks": [
+      "Claw 3d10 physical",
+      "Claw 3d10 physical",
+      "Butt 2d8 physical"
+    ],
     "baseLevel": 15,
     "experience": 504,
     "speed": 15,
@@ -10698,9 +11691,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "monk",
     "difficulty": 11,
-    "attacks": "Claw 1d8 physical, Kick 1d8 physical",
+    "attacks": [
+      "Claw 1d8 physical",
+      "Kick 1d8 physical"
+    ],
     "baseLevel": 10,
     "experience": 211,
     "speed": 12,
@@ -10737,9 +11734,13 @@
   {
     "symbol": "Y",
     "color": "gray",
+    "colorCode": 7,
     "name": "monkey",
     "difficulty": 4,
-    "attacks": "Claw 0d0 item theft, Bite 1d3 physical",
+    "attacks": [
+      "Claw 0d0 item theft",
+      "Bite 1d3 physical"
+    ],
     "baseLevel": 2,
     "experience": 17,
     "speed": 12,
@@ -10770,9 +11771,12 @@
   {
     "symbol": "o",
     "color": "blue",
+    "colorCode": 4,
     "name": "Mordor orc",
     "difficulty": 5,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 3,
     "experience": 33,
     "speed": 5,
@@ -10813,9 +11817,14 @@
   {
     "symbol": "C",
     "color": "cyan",
+    "colorCode": 6,
     "name": "mountain centaur",
     "difficulty": 9,
-    "attacks": "Weapon 1d10 physical, Kick 1d6 physical, Kick 1d6 physical",
+    "attacks": [
+      "Weapon 1d10 physical",
+      "Kick 1d6 physical",
+      "Kick 1d6 physical"
+    ],
     "baseLevel": 6,
     "experience": 88,
     "speed": 20,
@@ -10850,9 +11859,13 @@
   {
     "symbol": "n",
     "color": "brown",
+    "colorCode": 3,
     "name": "mountain nymph",
     "difficulty": 5,
-    "attacks": "Claw 0d0 item theft, Claw 0d0 seduction",
+    "attacks": [
+      "Claw 0d0 item theft",
+      "Claw 0d0 seduction"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 12,
@@ -10887,9 +11900,13 @@
   {
     "symbol": "q",
     "color": "gray",
+    "colorCode": 7,
     "name": "mumak",
     "difficulty": 7,
-    "attacks": "Butt 4d12 physical, Bite 2d6 physical",
+    "attacks": [
+      "Butt 4d12 physical",
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 68,
     "speed": 9,
@@ -10926,9 +11943,15 @@
   {
     "symbol": "&",
     "color": "red",
+    "colorCode": 1,
     "name": "nalfeshnee",
     "difficulty": 15,
-    "attacks": "Claw 1d4 physical, Claw 1d4 physical, Bite 2d4 physical, Spell-casting 0d0 magical",
+    "attacks": [
+      "Claw 1d4 physical",
+      "Claw 1d4 physical",
+      "Bite 2d4 physical",
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 11,
     "experience": 341,
     "speed": 9,
@@ -10967,9 +11990,15 @@
   {
     "symbol": "&",
     "color": "orange",
+    "colorCode": 9,
     "name": "Nalzok",
     "difficulty": 23,
-    "attacks": "Weapon 8d4 physical, Weapon 4d6 physical, Spell-casting 0d0 magical, Claw 2d6 amulet theft",
+    "attacks": [
+      "Weapon 8d4 physical",
+      "Weapon 4d6 physical",
+      "Spell-casting 0d0 magical",
+      "Claw 2d6 amulet theft"
+    ],
     "baseLevel": 16,
     "experience": 585,
     "speed": 12,
@@ -11018,9 +12047,13 @@
   {
     "symbol": "W",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Nazgul",
     "difficulty": 17,
-    "attacks": "Weapon 1d4 drain life, Breath 2d25 sleep",
+    "attacks": [
+      "Weapon 1d4 drain life",
+      "Breath 2d25 sleep"
+    ],
     "baseLevel": 13,
     "experience": 376,
     "speed": 12,
@@ -11063,9 +12096,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "neanderthal",
     "difficulty": 7,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 12,
@@ -11104,9 +12140,14 @@
   {
     "symbol": "@",
     "color": "green",
+    "colorCode": 2,
     "name": "Neferet the Green",
     "difficulty": 25,
-    "attacks": "Weapon 4d10 physical, Spell-casting 2d8 magical, Spell-casting 2d8 magical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Spell-casting 2d8 magical",
+      "Spell-casting 2d8 magical"
+    ],
     "baseLevel": 20,
     "experience": 593,
     "speed": 15,
@@ -11149,9 +12190,12 @@
   {
     "symbol": ":",
     "color": "yellow",
+    "colorCode": 11,
     "name": "newt",
     "difficulty": 1,
-    "attacks": "Bite 1d2 physical",
+    "attacks": [
+      "Bite 1d2 physical"
+    ],
     "baseLevel": 0,
     "experience": 1,
     "speed": 6,
@@ -11186,9 +12230,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "ninja",
     "difficulty": 7,
-    "attacks": "Weapon 1d8 physical, Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical",
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 5,
     "experience": 66,
     "speed": 12,
@@ -11227,9 +12275,13 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Norn",
     "difficulty": 24,
-    "attacks": "Weapon 4d10 physical, Weapon 4d10 physical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Weapon 4d10 physical"
+    ],
     "baseLevel": 20,
     "experience": 588,
     "speed": 15,
@@ -11272,9 +12324,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "nurse",
     "difficulty": 13,
-    "attacks": "Claw 2d6 healing",
+    "attacks": [
+      "Claw 2d6 healing"
+    ],
     "baseLevel": 11,
     "experience": 245,
     "speed": 6,
@@ -11288,7 +12343,7 @@
     "nutrition": 400,
     "size": "medium",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (73%)",
     "attributes": [
       "humanoid",
       "omnivore",
@@ -11309,9 +12364,13 @@
   {
     "symbol": "j",
     "color": "brown",
+    "colorCode": 3,
     "name": "ochre jelly",
     "difficulty": 8,
-    "attacks": "Engulf 3d6 acid, Passive 3d6 acid",
+    "attacks": [
+      "Engulf 3d6 acid",
+      "Passive 3d6 acid"
+    ],
     "baseLevel": 6,
     "experience": 88,
     "speed": 3,
@@ -11325,7 +12384,7 @@
     "nutrition": 20,
     "size": "medium",
     "resistances": "Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Acid resistance, Petrification resistance",
+    "resistancesConveyed": "Acid resistance (100%), Petrification resistance (100%)",
     "attributes": [
       "breathless",
       "amorphous",
@@ -11354,9 +12413,12 @@
   {
     "symbol": "O",
     "color": "brown",
+    "colorCode": 3,
     "name": "ogre",
     "difficulty": 7,
-    "attacks": "Weapon 2d5 physical",
+    "attacks": [
+      "Weapon 2d5 physical"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 10,
@@ -11395,9 +12457,12 @@
   {
     "symbol": "O",
     "color": "magenta",
+    "colorCode": 5,
     "name": "ogre king",
     "difficulty": 11,
-    "attacks": "Weapon 3d5 physical",
+    "attacks": [
+      "Weapon 3d5 physical"
+    ],
     "baseLevel": 9,
     "experience": 194,
     "speed": 14,
@@ -11438,9 +12503,12 @@
   {
     "symbol": "O",
     "color": "red",
+    "colorCode": 1,
     "name": "ogre lady",
     "difficulty": 9,
-    "attacks": "Weapon 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical"
+    ],
     "baseLevel": 7,
     "experience": 97,
     "speed": 12,
@@ -11481,9 +12549,12 @@
   {
     "symbol": "O",
     "color": "red",
+    "colorCode": 1,
     "name": "ogre leader",
     "difficulty": 9,
-    "attacks": "Weapon 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical"
+    ],
     "baseLevel": 7,
     "experience": 97,
     "speed": 12,
@@ -11524,9 +12595,12 @@
   {
     "symbol": "O",
     "color": "red",
+    "colorCode": 1,
     "name": "ogre lord",
     "difficulty": 9,
-    "attacks": "Weapon 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical"
+    ],
     "baseLevel": 7,
     "experience": 97,
     "speed": 12,
@@ -11567,9 +12641,12 @@
   {
     "symbol": "O",
     "color": "magenta",
+    "colorCode": 5,
     "name": "ogre queen",
     "difficulty": 11,
-    "attacks": "Weapon 3d5 physical",
+    "attacks": [
+      "Weapon 3d5 physical"
+    ],
     "baseLevel": 9,
     "experience": 194,
     "speed": 14,
@@ -11610,9 +12687,12 @@
   {
     "symbol": "O",
     "color": "magenta",
+    "colorCode": 5,
     "name": "ogre tyrant",
     "difficulty": 11,
-    "attacks": "Weapon 3d5 physical",
+    "attacks": [
+      "Weapon 3d5 physical"
+    ],
     "baseLevel": 9,
     "experience": 194,
     "speed": 14,
@@ -11653,9 +12733,14 @@
   {
     "symbol": "T",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Olog-hai",
     "difficulty": 16,
-    "attacks": "Weapon 3d6 physical, Claw 2d8 physical, Bite 2d6 physical",
+    "attacks": [
+      "Weapon 3d6 physical",
+      "Claw 2d8 physical",
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 13,
     "experience": 325,
     "speed": 12,
@@ -11696,9 +12781,12 @@
   {
     "symbol": "@",
     "color": "bright blue",
+    "colorCode": 12,
     "name": "Oracle",
     "difficulty": 13,
-    "attacks": "Passive 0d4 magic missile",
+    "attacks": [
+      "Passive 0d4 magic missile"
+    ],
     "baseLevel": 12,
     "experience": 286,
     "speed": 0,
@@ -11735,9 +12823,15 @@
   {
     "symbol": "D",
     "color": "orange",
+    "colorCode": 9,
     "name": "orange dragon",
     "difficulty": 20,
-    "attacks": "Breath 4d25 sleep, Bite 3d8 physical, Claw 1d4 physical, Claw 1d4 physical",
+    "attacks": [
+      "Breath 4d25 sleep",
+      "Bite 3d8 physical",
+      "Claw 1d4 physical",
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 15,
     "experience": 460,
     "speed": 9,
@@ -11751,7 +12845,7 @@
     "nutrition": 1500,
     "size": "gigantic",
     "resistances": "Sleep resistance",
-    "resistancesConveyed": "Sleep resistance",
+    "resistancesConveyed": "Sleep resistance (100%)",
     "attributes": [
       "fly",
       "thick",
@@ -11784,9 +12878,12 @@
   {
     "symbol": "o",
     "color": "red",
+    "colorCode": 1,
     "name": "orc",
     "difficulty": 3,
-    "attacks": "Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 1,
     "experience": 13,
     "speed": 9,
@@ -11829,9 +12926,12 @@
   {
     "symbol": "M",
     "color": "gray",
+    "colorCode": 7,
     "name": "orc mummy",
     "difficulty": 6,
-    "attacks": "Claw 1d6 physical",
+    "attacks": [
+      "Claw 1d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 56,
     "speed": 10,
@@ -11876,9 +12976,12 @@
   {
     "symbol": "o",
     "color": "bright blue",
+    "colorCode": 12,
     "name": "orc shaman",
     "difficulty": 5,
-    "attacks": "Spell-casting 0d0 magical",
+    "attacks": [
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 3,
     "experience": 38,
     "speed": 9,
@@ -11917,9 +13020,12 @@
   {
     "symbol": "Z",
     "color": "gray",
+    "colorCode": 7,
     "name": "orc zombie",
     "difficulty": 3,
-    "attacks": "Claw 1d6 physical",
+    "attacks": [
+      "Claw 1d6 physical"
+    ],
     "baseLevel": 2,
     "experience": 17,
     "speed": 6,
@@ -11960,9 +13066,13 @@
   {
     "symbol": "o",
     "color": "magenta",
+    "colorCode": 5,
     "name": "orc-captain",
     "difficulty": 7,
-    "attacks": "Weapon 2d4 physical, Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical",
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 5,
     "experience": 66,
     "speed": 5,
@@ -12003,9 +13113,16 @@
   {
     "symbol": "&",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Orcus",
     "difficulty": 36,
-    "attacks": "Weapon 3d6 physical, Claw 3d4 physical, Claw 3d4 physical, Spell-casting 8d6 magical, Sting 2d4 poison",
+    "attacks": [
+      "Weapon 3d6 physical",
+      "Claw 3d4 physical",
+      "Claw 3d4 physical",
+      "Spell-casting 8d6 magical",
+      "Sting 2d4 poison"
+    ],
     "baseLevel": 66,
     "experience": 1445,
     "speed": 9,
@@ -12054,9 +13171,13 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Orion",
     "difficulty": 24,
-    "attacks": "Weapon 4d10 physical, Spell-casting 4d8 magical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Spell-casting 4d8 magical"
+    ],
     "baseLevel": 20,
     "experience": 583,
     "speed": 15,
@@ -12107,9 +13228,14 @@
   {
     "symbol": "Y",
     "color": "brown",
+    "colorCode": 3,
     "name": "owlbear",
     "difficulty": 7,
-    "attacks": "Claw 1d6 physical, Claw 1d6 physical, Hug 2d8 physical",
+    "attacks": [
+      "Claw 1d6 physical",
+      "Claw 1d6 physical",
+      "Hug 2d8 physical"
+    ],
     "baseLevel": 5,
     "experience": 94,
     "speed": 12,
@@ -12146,9 +13272,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "page",
     "difficulty": 7,
-    "attacks": "Weapon 1d6 physical, Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 66,
     "speed": 12,
@@ -12187,9 +13317,14 @@
   {
     "symbol": "f",
     "color": "black",
+    "colorCode": 0,
     "name": "panther",
     "difficulty": 7,
-    "attacks": "Claw 1d6 physical, Claw 1d6 physical, Bite 1d10 physical",
+    "attacks": [
+      "Claw 1d6 physical",
+      "Claw 1d6 physical",
+      "Bite 1d10 physical"
+    ],
     "baseLevel": 5,
     "experience": 59,
     "speed": 15,
@@ -12224,9 +13359,12 @@
   {
     "symbol": "'",
     "color": "white",
+    "colorCode": 15,
     "name": "paper golem",
     "difficulty": 4,
-    "attacks": "Claw 1d3 physical",
+    "attacks": [
+      "Claw 1d3 physical"
+    ],
     "baseLevel": 3,
     "experience": 31,
     "speed": 12,
@@ -12259,9 +13397,13 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Pelias",
     "difficulty": 24,
-    "attacks": "Weapon 4d10 physical, Weapon 4d10 physical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Weapon 4d10 physical"
+    ],
     "baseLevel": 20,
     "experience": 583,
     "speed": 15,
@@ -12304,9 +13446,13 @@
   {
     "symbol": "&",
     "color": "bright magenta",
+    "colorCode": 13,
     "name": "Pestilence",
     "difficulty": 34,
-    "attacks": "Touch 8d8 pest, Touch 8d8 pest",
+    "attacks": [
+      "Touch 8d8 pest",
+      "Touch 8d8 pest"
+    ],
     "baseLevel": 30,
     "experience": 1431,
     "speed": 12,
@@ -12353,9 +13499,13 @@
   {
     "symbol": ";",
     "color": "red",
+    "colorCode": 1,
     "name": "piranha",
     "difficulty": 7,
-    "attacks": "Bite 2d6 physical, Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical",
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 56,
     "speed": 18,
@@ -12394,9 +13544,14 @@
   {
     "symbol": "&",
     "color": "red",
+    "colorCode": 1,
     "name": "pit fiend",
     "difficulty": 16,
-    "attacks": "Weapon 4d2 physical, Weapon 4d2 physical, Hug 2d4 physical",
+    "attacks": [
+      "Weapon 4d2 physical",
+      "Weapon 4d2 physical",
+      "Hug 2d4 physical"
+    ],
     "baseLevel": 13,
     "experience": 422,
     "speed": 6,
@@ -12437,9 +13592,13 @@
   {
     "symbol": "S",
     "color": "blue",
+    "colorCode": 4,
     "name": "pit viper",
     "difficulty": 9,
-    "attacks": "Bite 1d4 poison, Bite 1d4 poison",
+    "attacks": [
+      "Bite 1d4 poison",
+      "Bite 1d4 poison"
+    ],
     "baseLevel": 6,
     "experience": 93,
     "speed": 15,
@@ -12453,7 +13612,7 @@
     "nutrition": 60,
     "size": "medium",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (40%)",
     "attributes": [
       "swim",
       "conceal",
@@ -12484,9 +13643,13 @@
   {
     "symbol": "C",
     "color": "brown",
+    "colorCode": 3,
     "name": "plains centaur",
     "difficulty": 6,
-    "attacks": "Weapon 1d6 physical, Kick 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Kick 1d6 physical"
+    ],
     "baseLevel": 4,
     "experience": 49,
     "speed": 18,
@@ -12521,9 +13684,13 @@
   {
     "symbol": "u",
     "color": "brown",
+    "colorCode": 3,
     "name": "pony",
     "difficulty": 4,
-    "attacks": "Kick 1d6 physical, Bite 1d2 physical",
+    "attacks": [
+      "Kick 1d6 physical",
+      "Bite 1d2 physical"
+    ],
     "baseLevel": 3,
     "experience": 31,
     "speed": 16,
@@ -12560,9 +13727,14 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "priest",
     "difficulty": 15,
-    "attacks": "Weapon 4d10 physical, Kick 1d4 physical, Spell-casting 0d0 clerical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Kick 1d4 physical",
+      "Spell-casting 0d0 clerical"
+    ],
     "baseLevel": 12,
     "experience": null,
     "speed": 12,
@@ -12601,9 +13773,14 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "priestess",
     "difficulty": 15,
-    "attacks": "Weapon 4d10 physical, Kick 1d4 physical, Spell-casting 0d0 clerical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Kick 1d4 physical",
+      "Spell-casting 0d0 clerical"
+    ],
     "baseLevel": 12,
     "experience": null,
     "speed": 12,
@@ -12642,9 +13819,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "prisoner",
     "difficulty": 14,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 12,
     "experience": 272,
     "speed": 12,
@@ -12683,9 +13863,13 @@
   {
     "symbol": "w",
     "color": "magenta",
+    "colorCode": 5,
     "name": "purple worm",
     "difficulty": 17,
-    "attacks": "Bite 2d8 physical, Engulf 1d10 dgst",
+    "attacks": [
+      "Bite 2d8 physical",
+      "Engulf 1d10 dgst"
+    ],
     "baseLevel": 15,
     "experience": 474,
     "speed": 9,
@@ -12724,9 +13908,13 @@
   {
     "symbol": "c",
     "color": "red",
+    "colorCode": 1,
     "name": "pyrolisk",
     "difficulty": 8,
-    "attacks": "Gaze 2d6 fire, Bite 1d6 physical",
+    "attacks": [
+      "Gaze 2d6 fire",
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 6,
     "experience": 82,
     "speed": 6,
@@ -12740,7 +13928,7 @@
     "nutrition": 30,
     "size": "small",
     "resistances": "Poison resistance, Fire resistance",
-    "resistancesConveyed": "Poison resistance, Fire resistance",
+    "resistancesConveyed": "Poison resistance (40%), Fire resistance (40%)",
     "attributes": [
       "animal",
       "nohands",
@@ -12761,9 +13949,15 @@
   {
     "symbol": "S",
     "color": "magenta",
+    "colorCode": 5,
     "name": "python",
     "difficulty": 8,
-    "attacks": "Bite 1d4 physical, Touch 0d0 physical, Hug 1d4 wrap, Hug 2d4 physical",
+    "attacks": [
+      "Bite 1d4 physical",
+      "Touch 0d0 physical",
+      "Hug 1d4 wrap",
+      "Hug 2d4 physical"
+    ],
     "baseLevel": 6,
     "experience": 82,
     "speed": 3,
@@ -12806,9 +14000,12 @@
   {
     "symbol": "Q",
     "color": "cyan",
+    "colorCode": 6,
     "name": "quantum mechanic",
     "difficulty": 9,
-    "attacks": "Claw 1d4 teleport",
+    "attacks": [
+      "Claw 1d4 teleport"
+    ],
     "baseLevel": 7,
     "experience": 92,
     "speed": 12,
@@ -12843,9 +14040,14 @@
   {
     "symbol": "i",
     "color": "blue",
+    "colorCode": 4,
     "name": "quasit",
     "difficulty": 7,
-    "attacks": "Claw 1d2 dexterity drain, Claw 1d2 dexterity drain, Bite 1d4 physical",
+    "attacks": [
+      "Claw 1d2 dexterity drain",
+      "Claw 1d2 dexterity drain",
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 3,
     "experience": 36,
     "speed": 15,
@@ -12859,7 +14061,7 @@
     "nutrition": 200,
     "size": "small",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (20%)",
     "attributes": [
       "regen",
       "stalk",
@@ -12876,9 +14078,12 @@
   {
     "symbol": "a",
     "color": "magenta",
+    "colorCode": 5,
     "name": "queen bee",
     "difficulty": 12,
-    "attacks": "Sting 1d8 poison",
+    "attacks": [
+      "Sting 1d8 poison"
+    ],
     "baseLevel": 9,
     "experience": 225,
     "speed": 24,
@@ -12892,7 +14097,7 @@
     "nutrition": 5,
     "size": "tiny",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (60%)",
     "attributes": [
       "animal",
       "fly",
@@ -12917,9 +14122,12 @@
   {
     "symbol": "b",
     "color": "white",
+    "colorCode": 15,
     "name": "quivering blob",
     "difficulty": 6,
-    "attacks": "Touch 1d8 physical",
+    "attacks": [
+      "Touch 1d8 physical"
+    ],
     "baseLevel": 5,
     "experience": 59,
     "speed": 1,
@@ -12933,7 +14141,7 @@
     "nutrition": 100,
     "size": "small",
     "resistances": "Sleep resistance, Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (33%)",
     "attributes": [
       "noeyes",
       "nolimbs",
@@ -12956,9 +14164,12 @@
   {
     "symbol": "r",
     "color": "brown",
+    "colorCode": 3,
     "name": "rabid rat",
     "difficulty": 4,
-    "attacks": "Bite 2d4 constitution drain",
+    "attacks": [
+      "Bite 2d4 constitution drain"
+    ],
     "baseLevel": 2,
     "experience": 17,
     "speed": 12,
@@ -12993,9 +14204,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "ranger",
     "difficulty": 12,
-    "attacks": "Weapon 1d4 physical",
+    "attacks": [
+      "Weapon 1d4 physical"
+    ],
     "baseLevel": 10,
     "experience": 216,
     "speed": 12,
@@ -13032,9 +14246,13 @@
   {
     "symbol": "B",
     "color": "black",
+    "colorCode": 0,
     "name": "raven",
     "difficulty": 6,
-    "attacks": "Bite 1d6 physical, Claw 1d6 blindness",
+    "attacks": [
+      "Bite 1d6 physical",
+      "Claw 1d6 blindness"
+    ],
     "baseLevel": 4,
     "experience": 46,
     "speed": 20,
@@ -13073,9 +14291,15 @@
   {
     "symbol": "D",
     "color": "red",
+    "colorCode": 1,
     "name": "red dragon",
     "difficulty": 20,
-    "attacks": "Breath 6d6 fire, Bite 3d8 physical, Claw 1d4 physical, Claw 1d4 physical",
+    "attacks": [
+      "Breath 6d6 fire",
+      "Bite 3d8 physical",
+      "Claw 1d4 physical",
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 15,
     "experience": 460,
     "speed": 9,
@@ -13089,7 +14313,7 @@
     "nutrition": 1500,
     "size": "gigantic",
     "resistances": "Fire resistance",
-    "resistancesConveyed": "Fire resistance",
+    "resistancesConveyed": "Fire resistance (100%)",
     "attributes": [
       "fly",
       "thick",
@@ -13126,9 +14350,12 @@
   {
     "symbol": "F",
     "color": "red",
+    "colorCode": 1,
     "name": "red mold",
     "difficulty": 2,
-    "attacks": "Passive 0d4 fire",
+    "attacks": [
+      "Passive 0d4 fire"
+    ],
     "baseLevel": 1,
     "experience": 9,
     "speed": 0,
@@ -13142,7 +14369,7 @@
     "nutrition": 30,
     "size": "small",
     "resistances": "Fire resistance, Poison resistance",
-    "resistancesConveyed": "Fire resistance, Poison resistance",
+    "resistancesConveyed": "Fire resistance (6%), Poison resistance (6%)",
     "attributes": [
       "breathless",
       "noeyes",
@@ -13169,9 +14396,13 @@
   {
     "symbol": "N",
     "color": "red",
+    "colorCode": 1,
     "name": "red naga",
     "difficulty": 8,
-    "attacks": "Bite 2d4 physical, Breath 2d6 fire",
+    "attacks": [
+      "Bite 2d4 physical",
+      "Breath 2d6 fire"
+    ],
     "baseLevel": 6,
     "experience": 82,
     "speed": 12,
@@ -13185,7 +14416,7 @@
     "nutrition": 400,
     "size": "huge",
     "resistances": "Fire resistance, Poison resistance",
-    "resistancesConveyed": "Fire resistance, Poison resistance",
+    "resistancesConveyed": "Fire resistance (40%), Poison resistance (40%)",
     "attributes": [
       "nolimbs",
       "slithy",
@@ -13210,9 +14441,12 @@
   {
     "symbol": "N",
     "color": "red",
+    "colorCode": 1,
     "name": "red naga hatchling",
     "difficulty": 4,
-    "attacks": "Bite 1d4 physical",
+    "attacks": [
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 10,
@@ -13226,7 +14460,7 @@
     "nutrition": 100,
     "size": "large",
     "resistances": "Fire resistance, Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (20%)",
     "attributes": [
       "nolimbs",
       "slithy",
@@ -13249,9 +14483,12 @@
   {
     "symbol": "r",
     "color": "gray",
+    "colorCode": 7,
     "name": "rock mole",
     "difficulty": 4,
-    "attacks": "Bite 1d6 physical",
+    "attacks": [
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 3,
     "experience": 35,
     "speed": 3,
@@ -13292,9 +14529,12 @@
   {
     "symbol": "p",
     "color": "gray",
+    "colorCode": 7,
     "name": "rock piercer",
     "difficulty": 4,
-    "attacks": "Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 1,
@@ -13331,9 +14571,14 @@
   {
     "symbol": "T",
     "color": "cyan",
+    "colorCode": 6,
     "name": "rock troll",
     "difficulty": 12,
-    "attacks": "Weapon 3d6 physical, Claw 2d8 physical, Bite 2d6 physical",
+    "attacks": [
+      "Weapon 3d6 physical",
+      "Claw 2d8 physical",
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 9,
     "experience": 198,
     "speed": 12,
@@ -13374,9 +14619,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "rogue",
     "difficulty": 12,
-    "attacks": "Weapon 1d6 physical, Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 10,
     "experience": 221,
     "speed": 12,
@@ -13417,9 +14666,14 @@
   {
     "symbol": "'",
     "color": "brown",
+    "colorCode": 3,
     "name": "rope golem",
     "difficulty": 6,
-    "attacks": "Claw 1d4 physical, Claw 1d4 physical, Hug 6d1 physical",
+    "attacks": [
+      "Claw 1d4 physical",
+      "Claw 1d4 physical",
+      "Hug 6d1 physical"
+    ],
     "baseLevel": 4,
     "experience": 44,
     "speed": 9,
@@ -13452,9 +14706,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "roshi",
     "difficulty": 7,
-    "attacks": "Weapon 1d8 physical, Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical",
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 5,
     "experience": 66,
     "speed": 12,
@@ -13493,9 +14751,14 @@
   {
     "symbol": "q",
     "color": "brown",
+    "colorCode": 3,
     "name": "rothe",
     "difficulty": 4,
-    "attacks": "Claw 1d3 physical, Bite 1d3 physical, Bite 1d8 physical",
+    "attacks": [
+      "Claw 1d3 physical",
+      "Bite 1d3 physical",
+      "Bite 1d8 physical"
+    ],
     "baseLevel": 2,
     "experience": 17,
     "speed": 9,
@@ -13528,9 +14791,14 @@
   {
     "symbol": "R",
     "color": "brown",
+    "colorCode": 3,
     "name": "rust monster",
     "difficulty": 8,
-    "attacks": "Touch 0d0 rust, Touch 0d0 rust, Passive 0d0 rust",
+    "attacks": [
+      "Touch 0d0 rust",
+      "Touch 0d0 rust",
+      "Passive 0d0 rust"
+    ],
     "baseLevel": 5,
     "experience": 70,
     "speed": 18,
@@ -13565,9 +14833,15 @@
   {
     "symbol": ":",
     "color": "orange",
+    "colorCode": 9,
     "name": "salamander",
     "difficulty": 12,
-    "attacks": "Weapon 2d8 physical, Touch 1d6 fire, Hug 2d6 physical, Hug 3d6 fire",
+    "attacks": [
+      "Weapon 2d8 physical",
+      "Touch 1d6 fire",
+      "Hug 2d6 physical",
+      "Hug 3d6 fire"
+    ],
     "baseLevel": 8,
     "experience": 159,
     "speed": 12,
@@ -13581,7 +14855,7 @@
     "nutrition": 400,
     "size": "medium",
     "resistances": "Sleep resistance, Fire resistance",
-    "resistancesConveyed": "Fire resistance",
+    "resistancesConveyed": "Fire resistance (53%)",
     "attributes": [
       "humanoid",
       "slithy",
@@ -13608,9 +14882,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "samurai",
     "difficulty": 12,
-    "attacks": "Weapon 1d8 physical, Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical",
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 10,
     "experience": 221,
     "speed": 12,
@@ -13647,9 +14925,13 @@
   {
     "symbol": "&",
     "color": "gray",
+    "colorCode": 7,
     "name": "sandestin",
     "difficulty": 15,
-    "attacks": "Weapon 2d6 physical, Weapon 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical",
+      "Weapon 2d6 physical"
+    ],
     "baseLevel": 13,
     "experience": 308,
     "speed": 12,
@@ -13686,9 +14968,14 @@
   {
     "symbol": "Y",
     "color": "gray",
+    "colorCode": 7,
     "name": "sasquatch",
     "difficulty": 9,
-    "attacks": "Claw 1d6 physical, Claw 1d6 physical, Kick 1d8 physical",
+    "attacks": [
+      "Claw 1d6 physical",
+      "Claw 1d6 physical",
+      "Kick 1d8 physical"
+    ],
     "baseLevel": 7,
     "experience": 95,
     "speed": 15,
@@ -13723,9 +15010,14 @@
   {
     "symbol": "s",
     "color": "red",
+    "colorCode": 1,
     "name": "scorpion",
     "difficulty": 8,
-    "attacks": "Claw 1d2 physical, Claw 1d2 physical, Sting 1d4 poison",
+    "attacks": [
+      "Claw 1d2 physical",
+      "Claw 1d2 physical",
+      "Sting 1d4 poison"
+    ],
     "baseLevel": 5,
     "experience": 67,
     "speed": 15,
@@ -13739,7 +15031,7 @@
     "nutrition": 100,
     "size": "small",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (50%)",
     "attributes": [
       "conceal",
       "animal",
@@ -13762,9 +15054,14 @@
   {
     "symbol": "s",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Scorpius",
     "difficulty": 17,
-    "attacks": "Claw 2d6 physical, Claw 2d6 amulet theft, Sting 1d4 disease",
+    "attacks": [
+      "Claw 2d6 physical",
+      "Claw 2d6 amulet theft",
+      "Sting 1d4 disease"
+    ],
     "baseLevel": 15,
     "experience": 474,
     "speed": 12,
@@ -13778,7 +15075,7 @@
     "nutrition": 350,
     "size": "medium",
     "resistances": "Poison resistance, Petrification resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (100%)",
     "attributes": [
       "animal",
       "nohands",
@@ -13813,9 +15110,12 @@
   {
     "symbol": "@",
     "color": "red",
+    "colorCode": 1,
     "name": "sergeant",
     "difficulty": 10,
-    "attacks": "Weapon 2d6 physical",
+    "attacks": [
+      "Weapon 2d6 physical"
+    ],
     "baseLevel": 8,
     "experience": 118,
     "speed": 10,
@@ -13858,9 +15158,12 @@
   {
     "symbol": "r",
     "color": "brown",
+    "colorCode": 3,
     "name": "sewer rat",
     "difficulty": 1,
-    "attacks": "Bite 1d3 physical",
+    "attacks": [
+      "Bite 1d3 physical"
+    ],
     "baseLevel": 0,
     "experience": 1,
     "speed": 12,
@@ -13893,9 +15196,13 @@
   {
     "symbol": " ",
     "color": "black",
+    "colorCode": 0,
     "name": "shade",
     "difficulty": 14,
-    "attacks": "Touch 2d6 paralysis, Touch 1d6 slow",
+    "attacks": [
+      "Touch 2d6 paralysis",
+      "Touch 1d6 slow"
+    ],
     "baseLevel": 12,
     "experience": 357,
     "speed": 10,
@@ -13944,9 +15251,13 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Shaman Karnov",
     "difficulty": 24,
-    "attacks": "Weapon 4d10 physical, Spell-casting 2d8 clerical",
+    "attacks": [
+      "Weapon 4d10 physical",
+      "Spell-casting 2d8 clerical"
+    ],
     "baseLevel": 20,
     "experience": 583,
     "speed": 15,
@@ -13989,9 +15300,12 @@
   {
     "symbol": ";",
     "color": "gray",
+    "colorCode": 7,
     "name": "shark",
     "difficulty": 9,
-    "attacks": "Bite 5d6 physical",
+    "attacks": [
+      "Bite 5d6 physical"
+    ],
     "baseLevel": 7,
     "experience": 104,
     "speed": 12,
@@ -14032,9 +15346,12 @@
   {
     "symbol": "e",
     "color": "bright blue",
+    "colorCode": 12,
     "name": "shocking sphere",
     "difficulty": 10,
-    "attacks": "Explode 4d6 shock",
+    "attacks": [
+      "Explode 4d6 shock"
+    ],
     "baseLevel": 6,
     "experience": 91,
     "speed": 13,
@@ -14048,7 +15365,7 @@
     "nutrition": 10,
     "size": "small",
     "resistances": "Shock resistance",
-    "resistancesConveyed": "Shock resistance",
+    "resistancesConveyed": "Shock resistance (40%)",
     "attributes": [
       "fly",
       "breathless",
@@ -14075,9 +15392,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "shopkeeper",
     "difficulty": 15,
-    "attacks": "Weapon 4d4 physical, Weapon 4d4 physical",
+    "attacks": [
+      "Weapon 4d4 physical",
+      "Weapon 4d4 physical"
+    ],
     "baseLevel": 12,
     "experience": 287,
     "speed": 16,
@@ -14118,9 +15439,10 @@
   {
     "symbol": "F",
     "color": "magenta",
+    "colorCode": 5,
     "name": "shrieker",
     "difficulty": 2,
-    "attacks": "",
+    "attacks": [],
     "baseLevel": 3,
     "experience": 28,
     "speed": 1,
@@ -14134,7 +15456,7 @@
     "nutrition": 100,
     "size": "small",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (20%)",
     "attributes": [
       "breathless",
       "noeyes",
@@ -14159,8 +15481,14 @@
   {
     "symbol": "D",
     "color": "bright cyan",
+    "colorCode": 14,
     "name": "silver dragon",
-    "attacks": "Breath 4d6 cold, Bite 3d8 physical, Claw 1d4 physical, Claw 1d4 physical",
+    "attacks": [
+      "Breath 4d6 cold",
+      "Bite 3d8 physical",
+      "Claw 1d4 physical",
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 15,
     "experience": 460,
     "speed": 9,
@@ -14207,9 +15535,13 @@
   {
     "symbol": "Z",
     "color": "white",
+    "colorCode": 15,
     "name": "skeleton",
     "difficulty": 14,
-    "attacks": "Weapon 2d6 physical, Touch 1d6 slow",
+    "attacks": [
+      "Weapon 2d6 physical",
+      "Touch 1d6 slow"
+    ],
     "baseLevel": 12,
     "experience": 359,
     "speed": 8,
@@ -14254,9 +15586,12 @@
   {
     "symbol": "m",
     "color": "brown",
+    "colorCode": 3,
     "name": "small mimic",
     "difficulty": 8,
-    "attacks": "Claw 3d4 physical",
+    "attacks": [
+      "Claw 3d4 physical"
+    ],
     "baseLevel": 7,
     "experience": 92,
     "speed": 3,
@@ -14299,9 +15634,12 @@
   {
     "symbol": "S",
     "color": "brown",
+    "colorCode": 3,
     "name": "snake",
     "difficulty": 6,
-    "attacks": "Bite 1d6 poison",
+    "attacks": [
+      "Bite 1d6 poison"
+    ],
     "baseLevel": 4,
     "experience": 48,
     "speed": 15,
@@ -14315,7 +15653,7 @@
     "nutrition": 80,
     "size": "small",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (26%)",
     "attributes": [
       "swim",
       "conceal",
@@ -14344,9 +15682,12 @@
   {
     "symbol": "@",
     "color": "gray",
+    "colorCode": 7,
     "name": "soldier",
     "difficulty": 8,
-    "attacks": "Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 6,
     "experience": 78,
     "speed": 10,
@@ -14389,9 +15730,13 @@
   {
     "symbol": "a",
     "color": "blue",
+    "colorCode": 4,
     "name": "soldier ant",
     "difficulty": 7,
-    "attacks": "Bite 2d4 physical, Sting 3d4 poison",
+    "attacks": [
+      "Bite 2d4 physical",
+      "Sting 3d4 poison"
+    ],
     "baseLevel": 3,
     "experience": 37,
     "speed": 18,
@@ -14405,7 +15750,7 @@
     "nutrition": 5,
     "size": "tiny",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (20%)",
     "attributes": [
       "animal",
       "nohands",
@@ -14426,9 +15771,12 @@
   {
     "symbol": "j",
     "color": "green",
+    "colorCode": 2,
     "name": "spotted jelly",
     "difficulty": 6,
-    "attacks": "Passive 0d6 acid",
+    "attacks": [
+      "Passive 0d6 acid"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 0,
@@ -14442,7 +15790,7 @@
     "nutrition": 20,
     "size": "medium",
     "resistances": "Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Acid resistance, Petrification resistance",
+    "resistancesConveyed": "Acid resistance (100%), Petrification resistance (83%)",
     "attributes": [
       "breathless",
       "amorphous",
@@ -14471,9 +15819,12 @@
   {
     "symbol": "E",
     "color": "white",
+    "colorCode": 15,
     "name": "stalker",
     "difficulty": 9,
-    "attacks": "Claw 4d4 physical",
+    "attacks": [
+      "Claw 4d4 physical"
+    ],
     "baseLevel": 8,
     "experience": 113,
     "speed": 12,
@@ -14512,9 +15863,12 @@
   {
     "symbol": "v",
     "color": "blue",
+    "colorCode": 4,
     "name": "steam vortex",
     "difficulty": 9,
-    "attacks": "Engulf 1d8 fire",
+    "attacks": [
+      "Engulf 1d8 fire"
+    ],
     "baseLevel": 7,
     "experience": 112,
     "speed": 22,
@@ -14557,9 +15911,12 @@
   {
     "symbol": "H",
     "color": "gray",
+    "colorCode": 7,
     "name": "stone giant",
     "difficulty": 8,
-    "attacks": "Weapon 2d10 physical",
+    "attacks": [
+      "Weapon 2d10 physical"
+    ],
     "baseLevel": 6,
     "experience": 127,
     "speed": 6,
@@ -14602,9 +15959,12 @@
   {
     "symbol": "'",
     "color": "gray",
+    "colorCode": 7,
     "name": "stone golem",
     "difficulty": 15,
-    "attacks": "Claw 3d8 physical",
+    "attacks": [
+      "Claw 3d8 physical"
+    ],
     "baseLevel": 14,
     "experience": 345,
     "speed": 6,
@@ -14639,9 +15999,12 @@
   {
     "symbol": "H",
     "color": "blue",
+    "colorCode": 4,
     "name": "storm giant",
     "difficulty": 19,
-    "attacks": "Weapon 2d12 physical",
+    "attacks": [
+      "Weapon 2d12 physical"
+    ],
     "baseLevel": 16,
     "experience": 536,
     "speed": 12,
@@ -14655,7 +16018,7 @@
     "nutrition": 750,
     "size": "huge",
     "resistances": "Shock resistance",
-    "resistancesConveyed": "Shock resistance",
+    "resistancesConveyed": "Shock resistance (100%)",
     "attributes": [
       "humanoid",
       "carnivore",
@@ -14684,9 +16047,13 @@
   {
     "symbol": "'",
     "color": "yellow",
+    "colorCode": 11,
     "name": "straw golem",
     "difficulty": 4,
-    "attacks": "Claw 1d2 physical, Claw 1d2 physical",
+    "attacks": [
+      "Claw 1d2 physical",
+      "Claw 1d2 physical"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 12,
@@ -14719,9 +16086,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "student",
     "difficulty": 7,
-    "attacks": "Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 12,
@@ -14764,9 +16134,14 @@
   {
     "symbol": "&",
     "color": "gray",
+    "colorCode": 7,
     "name": "succubus",
     "difficulty": 8,
-    "attacks": "Bite 0d0 seduction, Claw 1d3 physical, Claw 1d3 physical",
+    "attacks": [
+      "Bite 0d0 seduction",
+      "Claw 1d3 physical",
+      "Claw 1d3 physical"
+    ],
     "baseLevel": 6,
     "experience": 122,
     "speed": 12,
@@ -14807,9 +16182,12 @@
   {
     "symbol": "i",
     "color": "cyan",
+    "colorCode": 6,
     "name": "tengu",
     "difficulty": 7,
-    "attacks": "Bite 1d7 physical",
+    "attacks": [
+      "Bite 1d7 physical"
+    ],
     "baseLevel": 6,
     "experience": 76,
     "speed": 13,
@@ -14823,7 +16201,7 @@
     "nutrition": 200,
     "size": "small",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (40%)",
     "attributes": [
       "tport",
       "tportcntrl",
@@ -14842,9 +16220,15 @@
   {
     "symbol": "@",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Thoth Amon",
     "difficulty": 22,
-    "attacks": "Weapon 1d6 physical, Spell-casting 0d0 magical, Spell-casting 0d0 magical, Claw 1d4 amulet theft",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Spell-casting 0d0 magical",
+      "Spell-casting 0d0 magical",
+      "Claw 1d4 amulet theft"
+    ],
     "baseLevel": 16,
     "experience": 547,
     "speed": 12,
@@ -14891,9 +16275,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "thug",
     "difficulty": 7,
-    "attacks": "Weapon 1d6 physical, Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 5,
     "experience": 66,
     "speed": 12,
@@ -14934,9 +16322,14 @@
   {
     "symbol": "f",
     "color": "yellow",
+    "colorCode": 11,
     "name": "tiger",
     "difficulty": 8,
-    "attacks": "Claw 2d4 physical, Claw 2d4 physical, Bite 1d10 physical",
+    "attacks": [
+      "Claw 2d4 physical",
+      "Claw 2d4 physical",
+      "Bite 1d10 physical"
+    ],
     "baseLevel": 6,
     "experience": 73,
     "speed": 12,
@@ -14971,9 +16364,13 @@
   {
     "symbol": "H",
     "color": "magenta",
+    "colorCode": 5,
     "name": "titan",
     "difficulty": 20,
-    "attacks": "Weapon 2d8 physical, Spell-casting 0d0 magical",
+    "attacks": [
+      "Weapon 2d8 physical",
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 16,
     "experience": 553,
     "speed": 18,
@@ -15016,9 +16413,12 @@
   {
     "symbol": "q",
     "color": "gray",
+    "colorCode": 7,
     "name": "titanothere",
     "difficulty": 13,
-    "attacks": "Claw 2d8 physical",
+    "attacks": [
+      "Claw 2d8 physical"
+    ],
     "baseLevel": 12,
     "experience": 267,
     "speed": 12,
@@ -15055,9 +16455,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "tourist",
     "difficulty": 12,
-    "attacks": "Weapon 1d6 physical, Weapon 1d6 physical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Weapon 1d6 physical"
+    ],
     "baseLevel": 10,
     "experience": 221,
     "speed": 12,
@@ -15094,9 +16498,13 @@
   {
     "symbol": "t",
     "color": "green",
+    "colorCode": 2,
     "name": "trapper",
     "difficulty": 14,
-    "attacks": "Engulf 1d8 wrap, Engulf 2d8 physical",
+    "attacks": [
+      "Engulf 1d8 wrap",
+      "Engulf 2d8 physical"
+    ],
     "baseLevel": 12,
     "experience": 270,
     "speed": 3,
@@ -15137,9 +16545,14 @@
   {
     "symbol": "T",
     "color": "brown",
+    "colorCode": 3,
     "name": "troll",
     "difficulty": 9,
-    "attacks": "Weapon 4d2 physical, Claw 4d2 physical, Bite 2d6 physical",
+    "attacks": [
+      "Weapon 4d2 physical",
+      "Claw 4d2 physical",
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 7,
     "experience": 97,
     "speed": 12,
@@ -15178,9 +16591,12 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "Twoflower",
     "difficulty": 22,
-    "attacks": "Weapon 4d10 physical",
+    "attacks": [
+      "Weapon 4d10 physical"
+    ],
     "baseLevel": 20,
     "experience": 581,
     "speed": 15,
@@ -15223,9 +16639,15 @@
   {
     "symbol": "U",
     "color": "brown",
+    "colorCode": 3,
     "name": "umber hulk",
     "difficulty": 12,
-    "attacks": "Claw 3d4 physical, Claw 3d4 physical, Bite 2d5 physical, Gaze 0d0 confusion",
+    "attacks": [
+      "Claw 3d4 physical",
+      "Claw 3d4 physical",
+      "Bite 2d5 physical",
+      "Gaze 0d0 confusion"
+    ],
     "baseLevel": 9,
     "experience": 194,
     "speed": 6,
@@ -15256,9 +16678,12 @@
   {
     "symbol": "o",
     "color": "black",
+    "colorCode": 0,
     "name": "Uruk-hai",
     "difficulty": 5,
-    "attacks": "Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 3,
     "experience": 33,
     "speed": 7,
@@ -15299,9 +16724,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "valkyrie",
     "difficulty": 12,
-    "attacks": "Weapon 1d8 physical, Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical",
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 10,
     "experience": 221,
     "speed": 12,
@@ -15340,9 +16769,13 @@
   {
     "symbol": "V",
     "color": "red",
+    "colorCode": 1,
     "name": "vampire",
     "difficulty": 12,
-    "attacks": "Claw 1d6 physical, Bite 1d6 drain life",
+    "attacks": [
+      "Claw 1d6 physical",
+      "Bite 1d6 drain life"
+    ],
     "baseLevel": 10,
     "experience": 327,
     "speed": 12,
@@ -15387,9 +16820,13 @@
   {
     "symbol": "B",
     "color": "black",
+    "colorCode": 0,
     "name": "vampire bat",
     "difficulty": 7,
-    "attacks": "Bite 1d6 physical, Bite 0d0 poison",
+    "attacks": [
+      "Bite 1d6 physical",
+      "Bite 0d0 poison"
+    ],
     "baseLevel": 5,
     "experience": 66,
     "speed": 20,
@@ -15428,9 +16865,13 @@
   {
     "symbol": "V",
     "color": "blue",
+    "colorCode": 4,
     "name": "vampire lady",
     "difficulty": 14,
-    "attacks": "Claw 1d8 physical, Bite 1d8 drain life",
+    "attacks": [
+      "Claw 1d8 physical",
+      "Bite 1d8 drain life"
+    ],
     "baseLevel": 12,
     "experience": 576,
     "speed": 14,
@@ -15477,9 +16918,13 @@
   {
     "symbol": "V",
     "color": "blue",
+    "colorCode": 4,
     "name": "vampire leader",
     "difficulty": 14,
-    "attacks": "Claw 1d8 physical, Bite 1d8 drain life",
+    "attacks": [
+      "Claw 1d8 physical",
+      "Bite 1d8 drain life"
+    ],
     "baseLevel": 12,
     "experience": 399,
     "speed": 14,
@@ -15526,9 +16971,13 @@
   {
     "symbol": "V",
     "color": "blue",
+    "colorCode": 4,
     "name": "vampire lord",
     "difficulty": 14,
-    "attacks": "Claw 1d8 physical, Bite 1d8 drain life",
+    "attacks": [
+      "Claw 1d8 physical",
+      "Bite 1d8 drain life"
+    ],
     "baseLevel": 12,
     "experience": 399,
     "speed": 14,
@@ -15575,9 +17024,13 @@
   {
     "symbol": "F",
     "color": "magenta",
+    "colorCode": 5,
     "name": "violet fungus",
     "difficulty": 5,
-    "attacks": "Touch 1d4 physical, Touch 0d0 sticky",
+    "attacks": [
+      "Touch 1d4 physical",
+      "Touch 0d0 sticky"
+    ],
     "baseLevel": 3,
     "experience": 34,
     "speed": 1,
@@ -15591,7 +17044,7 @@
     "nutrition": 100,
     "size": "small",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (20%)",
     "attributes": [
       "breathless",
       "noeyes",
@@ -15616,9 +17069,13 @@
   {
     "symbol": "V",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Vlad the Impaler",
     "difficulty": 32,
-    "attacks": "Weapon 2d10 physical, Bite 1d12 drain life",
+    "attacks": [
+      "Weapon 2d10 physical",
+      "Bite 1d12 drain life"
+    ],
     "baseLevel": 28,
     "experience": 1087,
     "speed": 26,
@@ -15669,9 +17126,16 @@
   {
     "symbol": "&",
     "color": "green",
+    "colorCode": 2,
     "name": "vrock",
     "difficulty": 11,
-    "attacks": "Claw 1d4 physical, Claw 1d4 physical, Claw 1d8 physical, Claw 1d8 physical, Bite 1d6 physical",
+    "attacks": [
+      "Claw 1d4 physical",
+      "Claw 1d4 physical",
+      "Claw 1d8 physical",
+      "Claw 1d8 physical",
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 8,
     "experience": 176,
     "speed": 12,
@@ -15708,9 +17172,12 @@
   {
     "symbol": "d",
     "color": "black",
+    "colorCode": 0,
     "name": "warg",
     "difficulty": 8,
-    "attacks": "Bite 2d6 physical",
+    "attacks": [
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 7,
     "experience": 92,
     "speed": 12,
@@ -15743,9 +17210,13 @@
   {
     "symbol": "u",
     "color": "brown",
+    "colorCode": 3,
     "name": "warhorse",
     "difficulty": 9,
-    "attacks": "Kick 1d10 physical, Bite 1d4 physical",
+    "attacks": [
+      "Kick 1d10 physical",
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 7,
     "experience": 97,
     "speed": 24,
@@ -15782,9 +17253,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "warrior",
     "difficulty": 7,
-    "attacks": "Weapon 1d8 physical, Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical",
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 5,
     "experience": 66,
     "speed": 12,
@@ -15825,9 +17300,13 @@
   {
     "symbol": "@",
     "color": "green",
+    "colorCode": 2,
     "name": "watch captain",
     "difficulty": 12,
-    "attacks": "Weapon 3d4 physical, Weapon 3d4 physical",
+    "attacks": [
+      "Weapon 3d4 physical",
+      "Weapon 3d4 physical"
+    ],
     "baseLevel": 10,
     "experience": 221,
     "speed": 10,
@@ -15870,9 +17349,12 @@
   {
     "symbol": "@",
     "color": "gray",
+    "colorCode": 7,
     "name": "watchman",
     "difficulty": 8,
-    "attacks": "Weapon 1d8 physical",
+    "attacks": [
+      "Weapon 1d8 physical"
+    ],
     "baseLevel": 6,
     "experience": 78,
     "speed": 10,
@@ -15915,9 +17397,14 @@
   {
     "symbol": "&",
     "color": "blue",
+    "colorCode": 4,
     "name": "water demon",
     "difficulty": 11,
-    "attacks": "Weapon 1d3 physical, Claw 1d3 physical, Bite 1d3 physical",
+    "attacks": [
+      "Weapon 1d3 physical",
+      "Claw 1d3 physical",
+      "Bite 1d3 physical"
+    ],
     "baseLevel": 8,
     "experience": 196,
     "speed": 12,
@@ -15962,9 +17449,12 @@
   {
     "symbol": "E",
     "color": "blue",
+    "colorCode": 4,
     "name": "water elemental",
     "difficulty": 10,
-    "attacks": "Claw 5d6 physical",
+    "attacks": [
+      "Claw 5d6 physical"
+    ],
     "baseLevel": 8,
     "experience": 126,
     "speed": 5,
@@ -16007,9 +17497,12 @@
   {
     "symbol": "S",
     "color": "red",
+    "colorCode": 1,
     "name": "water moccasin",
     "difficulty": 7,
-    "attacks": "Bite 1d6 poison",
+    "attacks": [
+      "Bite 1d6 poison"
+    ],
     "baseLevel": 4,
     "experience": 48,
     "speed": 15,
@@ -16023,7 +17516,7 @@
     "nutrition": 80,
     "size": "small",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (26%)",
     "attributes": [
       "swim",
       "conceal",
@@ -16052,9 +17545,13 @@
   {
     "symbol": "n",
     "color": "blue",
+    "colorCode": 4,
     "name": "water nymph",
     "difficulty": 5,
-    "attacks": "Claw 0d0 item theft, Claw 0d0 seduction",
+    "attacks": [
+      "Claw 0d0 item theft",
+      "Claw 0d0 seduction"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 12,
@@ -16091,9 +17588,14 @@
   {
     "symbol": "T",
     "color": "blue",
+    "colorCode": 4,
     "name": "water troll",
     "difficulty": 13,
-    "attacks": "Weapon 2d8 physical, Claw 2d8 physical, Bite 2d6 physical",
+    "attacks": [
+      "Weapon 2d8 physical",
+      "Claw 2d8 physical",
+      "Bite 2d6 physical"
+    ],
     "baseLevel": 11,
     "experience": 246,
     "speed": 14,
@@ -16134,9 +17636,12 @@
   {
     "symbol": "d",
     "color": "brown",
+    "colorCode": 3,
     "name": "werejackal (animal)",
     "difficulty": 4,
-    "attacks": "Bite 1d4 lycanthropy",
+    "attacks": [
+      "Bite 1d4 lycanthropy"
+    ],
     "baseLevel": 2,
     "experience": 22,
     "speed": 12,
@@ -16175,9 +17680,12 @@
   {
     "symbol": "@",
     "color": "red",
+    "colorCode": 1,
     "name": "werejackal (human)",
     "difficulty": 3,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 2,
     "experience": 22,
     "speed": 12,
@@ -16220,9 +17728,12 @@
   {
     "symbol": "r",
     "color": "brown",
+    "colorCode": 3,
     "name": "wererat (animal)",
     "difficulty": 4,
-    "attacks": "Bite 1d4 lycanthropy",
+    "attacks": [
+      "Bite 1d4 lycanthropy"
+    ],
     "baseLevel": 2,
     "experience": 22,
     "speed": 12,
@@ -16261,9 +17772,12 @@
   {
     "symbol": "@",
     "color": "brown",
+    "colorCode": 3,
     "name": "wererat (human)",
     "difficulty": 3,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 2,
     "experience": 22,
     "speed": 12,
@@ -16306,9 +17820,12 @@
   {
     "symbol": "d",
     "color": "gray",
+    "colorCode": 7,
     "name": "werewolf (animal)",
     "difficulty": 7,
-    "attacks": "Bite 2d6 lycanthropy",
+    "attacks": [
+      "Bite 2d6 lycanthropy"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 12,
@@ -16347,9 +17864,12 @@
   {
     "symbol": "@",
     "color": "orange",
+    "colorCode": 9,
     "name": "werewolf (human)",
     "difficulty": 6,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 5,
     "experience": 61,
     "speed": 12,
@@ -16392,9 +17912,15 @@
   {
     "symbol": "D",
     "color": "white",
+    "colorCode": 15,
     "name": "white dragon",
     "difficulty": 20,
-    "attacks": "Breath 4d6 cold, Bite 3d8 physical, Claw 1d4 physical, Claw 1d4 physical",
+    "attacks": [
+      "Breath 4d6 cold",
+      "Bite 3d8 physical",
+      "Claw 1d4 physical",
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 15,
     "experience": 460,
     "speed": 9,
@@ -16408,7 +17934,7 @@
     "nutrition": 1500,
     "size": "gigantic",
     "resistances": "Cold resistance",
-    "resistancesConveyed": "Cold resistance",
+    "resistancesConveyed": "Cold resistance (100%)",
     "attributes": [
       "fly",
       "thick",
@@ -16441,9 +17967,13 @@
   {
     "symbol": "u",
     "color": "white",
+    "colorCode": 15,
     "name": "white unicorn",
     "difficulty": 6,
-    "attacks": "Butt 1d12 physical, Kick 1d6 physical",
+    "attacks": [
+      "Butt 1d12 physical",
+      "Kick 1d6 physical"
+    ],
     "baseLevel": 4,
     "experience": 51,
     "speed": 24,
@@ -16457,7 +17987,7 @@
     "nutrition": 300,
     "size": "large",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (26%)",
     "attributes": [
       "nohands",
       "herbivore",
@@ -16478,9 +18008,14 @@
   {
     "symbol": "g",
     "color": "magenta",
+    "colorCode": 5,
     "name": "winged gargoyle",
     "difficulty": 11,
-    "attacks": "Claw 3d6 physical, Claw 3d6 physical, Bite 3d4 physical",
+    "attacks": [
+      "Claw 3d6 physical",
+      "Claw 3d6 physical",
+      "Bite 3d4 physical"
+    ],
     "baseLevel": 9,
     "experience": 207,
     "speed": 15,
@@ -16494,7 +18029,7 @@
     "nutrition": 300,
     "size": "medium",
     "resistances": "Petrification resistance",
-    "resistancesConveyed": "Petrification resistance",
+    "resistancesConveyed": "Petrification resistance (100%)",
     "attributes": [
       "fly",
       "humanoid",
@@ -16521,9 +18056,13 @@
   {
     "symbol": "d",
     "color": "cyan",
+    "colorCode": 6,
     "name": "winter wolf",
     "difficulty": 9,
-    "attacks": "Bite 2d6 physical, Breath 2d6 cold",
+    "attacks": [
+      "Bite 2d6 physical",
+      "Breath 2d6 cold"
+    ],
     "baseLevel": 7,
     "experience": 102,
     "speed": 12,
@@ -16537,7 +18076,7 @@
     "nutrition": 300,
     "size": "large",
     "resistances": "Cold resistance",
-    "resistancesConveyed": "Cold resistance",
+    "resistancesConveyed": "Cold resistance (46%)",
     "attributes": [
       "animal",
       "nohands",
@@ -16556,9 +18095,13 @@
   {
     "symbol": "d",
     "color": "cyan",
+    "colorCode": 6,
     "name": "winter wolf cub",
     "difficulty": 7,
-    "attacks": "Bite 1d8 physical, Breath 1d6 cold",
+    "attacks": [
+      "Bite 1d8 physical",
+      "Breath 1d6 cold"
+    ],
     "baseLevel": 5,
     "experience": 64,
     "speed": 12,
@@ -16572,7 +18115,7 @@
     "nutrition": 200,
     "size": "small",
     "resistances": "Cold resistance",
-    "resistancesConveyed": "Cold resistance",
+    "resistancesConveyed": "Cold resistance (33%)",
     "attributes": [
       "animal",
       "nohands",
@@ -16589,9 +18132,13 @@
   {
     "symbol": "@",
     "color": "white",
+    "colorCode": 15,
     "name": "wizard",
     "difficulty": 12,
-    "attacks": "Weapon 1d6 physical, Spell-casting 0d0 magical",
+    "attacks": [
+      "Weapon 1d6 physical",
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 10,
     "experience": 216,
     "speed": 12,
@@ -16630,9 +18177,13 @@
   {
     "symbol": "@",
     "color": "bright magenta",
+    "colorCode": 13,
     "name": "Wizard of Yendor",
     "difficulty": 34,
-    "attacks": "Claw 2d12 amulet theft, Spell-casting 0d0 magical",
+    "attacks": [
+      "Claw 2d12 amulet theft",
+      "Spell-casting 0d0 magical"
+    ],
     "baseLevel": 30,
     "experience": 1411,
     "speed": 12,
@@ -16646,7 +18197,7 @@
     "nutrition": 400,
     "size": "medium",
     "resistances": "Fire resistance, Poison resistance",
-    "resistancesConveyed": "Fire resistance, Poison resistance",
+    "resistancesConveyed": "Fire resistance (100%), Poison resistance (100%)",
     "attributes": [
       "fly",
       "breathless",
@@ -16689,9 +18240,12 @@
   {
     "symbol": "d",
     "color": "gray",
+    "colorCode": 7,
     "name": "wolf",
     "difficulty": 6,
-    "attacks": "Bite 2d4 physical",
+    "attacks": [
+      "Bite 2d4 physical"
+    ],
     "baseLevel": 5,
     "experience": 56,
     "speed": 12,
@@ -16724,9 +18278,12 @@
   {
     "symbol": "'",
     "color": "brown",
+    "colorCode": 3,
     "name": "wood golem",
     "difficulty": 8,
-    "attacks": "Claw 3d4 physical",
+    "attacks": [
+      "Claw 3d4 physical"
+    ],
     "baseLevel": 7,
     "experience": 92,
     "speed": 3,
@@ -16761,9 +18318,13 @@
   {
     "symbol": "n",
     "color": "green",
+    "colorCode": 2,
     "name": "wood nymph",
     "difficulty": 5,
-    "attacks": "Claw 0d0 item theft, Claw 0d0 seduction",
+    "attacks": [
+      "Claw 0d0 item theft",
+      "Claw 0d0 seduction"
+    ],
     "baseLevel": 3,
     "experience": 28,
     "speed": 12,
@@ -16798,9 +18359,12 @@
   {
     "symbol": "r",
     "color": "brown",
+    "colorCode": 3,
     "name": "woodchuck",
     "difficulty": 4,
-    "attacks": "Bite 1d6 physical",
+    "attacks": [
+      "Bite 1d6 physical"
+    ],
     "baseLevel": 3,
     "experience": 35,
     "speed": 3,
@@ -16839,9 +18403,12 @@
   {
     "symbol": "@",
     "color": "green",
+    "colorCode": 2,
     "name": "Woodland-elf",
     "difficulty": 6,
-    "attacks": "Weapon 2d4 physical",
+    "attacks": [
+      "Weapon 2d4 physical"
+    ],
     "baseLevel": 4,
     "experience": 46,
     "speed": 12,
@@ -16855,7 +18422,7 @@
     "nutrition": 350,
     "size": "medium",
     "resistances": "Sleep resistance",
-    "resistancesConveyed": "Sleep resistance",
+    "resistancesConveyed": "Sleep resistance (26%)",
     "attributes": [
       "humanoid",
       "omnivore",
@@ -16878,9 +18445,12 @@
   {
     "symbol": "W",
     "color": "black",
+    "colorCode": 0,
     "name": "wraith",
     "difficulty": 8,
-    "attacks": "Touch 1d6 drain life",
+    "attacks": [
+      "Touch 1d6 drain life"
+    ],
     "baseLevel": 6,
     "experience": 120,
     "speed": 12,
@@ -16917,9 +18487,12 @@
   {
     "symbol": "q",
     "color": "cyan",
+    "colorCode": 6,
     "name": "wumpus",
     "difficulty": 9,
-    "attacks": "Bite 3d6 physical",
+    "attacks": [
+      "Bite 3d6 physical"
+    ],
     "baseLevel": 8,
     "experience": 118,
     "speed": 3,
@@ -16954,9 +18527,12 @@
   {
     "symbol": "x",
     "color": "red",
+    "colorCode": 1,
     "name": "xan",
     "difficulty": 9,
-    "attacks": "Sting 1d4 legs",
+    "attacks": [
+      "Sting 1d4 legs"
+    ],
     "baseLevel": 7,
     "experience": 120,
     "speed": 18,
@@ -16970,7 +18546,7 @@
     "nutrition": 300,
     "size": "tiny",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (46%)",
     "attributes": [
       "fly",
       "animal",
@@ -16991,9 +18567,15 @@
   {
     "symbol": "X",
     "color": "brown",
+    "colorCode": 3,
     "name": "xorn",
     "difficulty": 11,
-    "attacks": "Claw 1d3 physical, Claw 1d3 physical, Claw 1d3 physical, Bite 4d6 physical",
+    "attacks": [
+      "Claw 1d3 physical",
+      "Claw 1d3 physical",
+      "Claw 1d3 physical",
+      "Bite 4d6 physical"
+    ],
     "baseLevel": 8,
     "experience": 139,
     "speed": 9,
@@ -17007,7 +18589,7 @@
     "nutrition": 700,
     "size": "medium",
     "resistances": "Fire resistance, Cold resistance, Petrification resistance",
-    "resistancesConveyed": "Petrification resistance",
+    "resistancesConveyed": "Petrification resistance (100%)",
     "attributes": [
       "breathless",
       "wallwalk",
@@ -17028,9 +18610,15 @@
   {
     "symbol": "&",
     "color": "magenta",
+    "colorCode": 5,
     "name": "Yeenoghu",
     "difficulty": 31,
-    "attacks": "Weapon 3d6 physical, Weapon 2d8 confusion, Claw 1d6 paralysis, Spell-casting 2d6 magic missile",
+    "attacks": [
+      "Weapon 3d6 physical",
+      "Weapon 2d8 confusion",
+      "Claw 1d6 paralysis",
+      "Spell-casting 2d6 magic missile"
+    ],
     "baseLevel": 56,
     "experience": 1073,
     "speed": 18,
@@ -17079,9 +18667,15 @@
   {
     "symbol": "D",
     "color": "yellow",
+    "colorCode": 11,
     "name": "yellow dragon",
     "difficulty": 20,
-    "attacks": "Breath 4d6 acid, Bite 3d8 physical, Claw 1d4 physical, Claw 1d4 physical",
+    "attacks": [
+      "Breath 4d6 acid",
+      "Bite 3d8 physical",
+      "Claw 1d4 physical",
+      "Claw 1d4 physical"
+    ],
     "baseLevel": 15,
     "experience": 460,
     "speed": 9,
@@ -17095,7 +18689,7 @@
     "nutrition": 1500,
     "size": "gigantic",
     "resistances": "Acid resistance, Petrification resistance",
-    "resistancesConveyed": "Acid resistance, Petrification resistance",
+    "resistancesConveyed": "Acid resistance (100%), Petrification resistance (100%)",
     "attributes": [
       "fly",
       "thick",
@@ -17130,9 +18724,12 @@
   {
     "symbol": "y",
     "color": "yellow",
+    "colorCode": 11,
     "name": "yellow light",
     "difficulty": 5,
-    "attacks": "Explode 10d20 blindness",
+    "attacks": [
+      "Explode 10d20 blindness"
+    ],
     "baseLevel": 3,
     "experience": 44,
     "speed": 15,
@@ -17179,9 +18776,12 @@
   {
     "symbol": "F",
     "color": "yellow",
+    "colorCode": 11,
     "name": "yellow mold",
     "difficulty": 2,
-    "attacks": "Passive 0d4 stun",
+    "attacks": [
+      "Passive 0d4 stun"
+    ],
     "baseLevel": 1,
     "experience": 8,
     "speed": 0,
@@ -17195,7 +18795,7 @@
     "nutrition": 30,
     "size": "small",
     "resistances": "Poison resistance",
-    "resistancesConveyed": "Poison resistance",
+    "resistancesConveyed": "Poison resistance (6%)",
     "attributes": [
       "breathless",
       "noeyes",
@@ -17222,9 +18822,14 @@
   {
     "symbol": "Y",
     "color": "white",
+    "colorCode": 15,
     "name": "yeti",
     "difficulty": 7,
-    "attacks": "Claw 1d6 physical, Claw 1d6 physical, Bite 1d4 physical",
+    "attacks": [
+      "Claw 1d6 physical",
+      "Claw 1d6 physical",
+      "Bite 1d4 physical"
+    ],
     "baseLevel": 5,
     "experience": 59,
     "speed": 15,
@@ -17238,7 +18843,7 @@
     "nutrition": 700,
     "size": "large",
     "resistances": "Cold resistance",
-    "resistancesConveyed": "Cold resistance",
+    "resistancesConveyed": "Cold resistance (33%)",
     "attributes": [
       "animal",
       "humanoid",
@@ -17259,9 +18864,14 @@
   {
     "symbol": "z",
     "color": "brown",
+    "colorCode": 3,
     "name": "zruty",
     "difficulty": 11,
-    "attacks": "Claw 3d4 physical, Claw 3d4 physical, Bite 3d6 physical",
+    "attacks": [
+      "Claw 3d4 physical",
+      "Claw 3d4 physical",
+      "Bite 3d6 physical"
+    ],
     "baseLevel": 9,
     "experience": 186,
     "speed": 8,

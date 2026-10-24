@@ -100,7 +100,7 @@ object MonsterLink {
         if (lead !in 0..trail)
             return
         text.setSpan(
-            MonsterNameSpan(trimmed, NHColor.fromName(monster.color).toColor(), onClick),
+            MonsterNameSpan(trimmed, NHColor.fromInt(monster.colorCode).toColor(), onClick),
             start + lead,
             start + trail + 1,
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
