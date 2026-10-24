@@ -52,6 +52,13 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var scaleFactor = 1f
     /** 点击指示符后，下一次点地图直接 travel（不受 walkRange 影响） */
     private var travelArmed = false
+    /**
+     * 地图是否被平移过（拖动视口、点指示符跳转）。
+     *
+     * 设置 travelAfterPanned 打开时，只有它为 true 才把点地图解释成 travel，
+     * 否则一直是 walk；发过一次 travel 后复位，回到"正常走"的状态。
+     */
+    private var mapTranslated = false
     private var mapInit = false
     /** 视口被外部改动（指示符点击/居中/缩放）后置位，hasChange 据此触发重绘 */
     private var mapTransformDirty = false
@@ -155,6 +162,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             }
             override fun onMove(e1: PointF, e2: PointF) {
                 operationQueue.push(NHMapTransform(e2.x - e1.x, e2.y - e1.y))
+                // 用户平移了地图
+                mapTranslated = true
+                updateRunMode()
                 requestRedraw()
             }
 
@@ -206,6 +216,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         mapTransformDirty = true
         // 换楼层后旧地图上置的 travel 意图作废
         travelArmed = false
+        mapTranslated = false
     }
 
     private fun initMapParam() {
@@ -236,6 +247,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             override fun onIndicatorClick(e: PointF, tile: NHWMap.Tile) {
                 // 点指示符，下一次点地图要强制TRAVEL
                 travelArmed = true
+                // 视口被移动到别处，这也是"地图平移过"
+                mapTranslated = true
                 centerView(tile.x, tile.y)
                 // 立即把状态栏切到 TRAVEL，不等绘制线程下一帧
                 updateRunMode()
@@ -248,6 +261,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         })
     }
 
+    /** 角色是否还在 walkRange 矩形里（跟随模式下就不该把点击当成 travel） */
     private fun playerInWalkRange(walkRange: Int):Boolean {
         val offsetX = (1 - walkRange / 100f) * width / 2f
         val offsetY = (1 - walkRange / 100f) * height / 2f
@@ -261,10 +275,17 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         return px > offsetX && py > offsetY && px < width-offsetX && py < height-offsetY
     }
 
-    /** 刷新运行模式（WALK/TRAVEL）。点指示符、拖动视图后立即调用，不等线程绘制下一帧 */
+    /**
+     * 刷新运行模式（WALK/TRAVEL）。点指示符、拖动视图后立即调用，不等线程绘制下一帧。
+     *
+     * 只有"地图被平移过"（[mapTranslated]）且"角色已经不在 walkRange 里"
+     * （[playerInWalkRange]）时，点地图才解释成 travel；否则是 walk。
+     * walkRange = 0 时矩形退化成一个点，角色"不在范围内"，
+     * 但只要没拖动过地图，[mapTranslated] 仍是 false，所以点击还是 walk。
+     */
     private fun updateRunMode() {
         val newRunMode = if (travelArmed
-            || (nh.prefs.travelAfterPanned && !playerInWalkRange(nh.prefs.walkRange)))
+            || (nh.prefs.travelAfterPanned && mapTranslated && !playerInWalkRange(nh.prefs.walkRange)))
             NHStatus.RunMode.TRAVEL
         else
             NHStatus.RunMode.WALK
@@ -491,6 +512,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         if (point.x in 1 until map.width && point.y in 1 until map.height)
             lastTravelTile = Pair(nh.status.dungeonLevel.realVal, point)
         travelArmed = false
+        // travel 已经发出，地图平移带来的"点即 travel"意图用完就清掉，回到 walk
+        mapTranslated = false
+        updateRunMode()
     }
 
     fun centerView(x:Int, y:Int) {
