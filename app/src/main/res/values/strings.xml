@@ -86,9 +86,12 @@
     <string name="pref_option_edit">Edit config file</string>
 
     <!-- Preference PriceID -->
-    <string name="pref_price_id_header">Price Identification</string>
-    <string name="pref_price_id_enable">Enable price identification</string>
-    <string name="pref_price_id_enable_desc">Open the price identification dialog when using the Price ID command or tapping a price quote (sell/buy) in menus.</string>
+    <string name="pref_price_id_enable">Price identification</string>
+    <string name="pref_price_id_enable_desc">Highlight price quotes (buy/sell) in menus, tap one to identify the item.</string>
+
+    <!-- Monster information -->
+    <string name="pref_monster_info_enable">Monster information</string>
+    <string name="pref_monster_info_enable_desc">Highlight monster names in the message list, tap one to see its details.</string>
 
     <!-- Preference Menu -->
     <string name="pref_menu_header">Menu</string>

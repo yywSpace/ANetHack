@@ -41,6 +41,9 @@ class NHMonsterDialog(
     }
 
     fun show() {
+        // 设置里关掉"怪物信息"后什么都不做（不建视图、不加载数据）
+        if (nh?.prefs?.monsterInfo == false)
+            return
         if (dialog?.isShowing == true)
             return
         GameData.ensureLoaded(context)

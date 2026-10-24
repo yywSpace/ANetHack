@@ -9,6 +9,7 @@ import android.text.style.ClickableSpan
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
+import com.yywspace.anethack.SharedPreferencesUtils
 import com.yywspace.anethack.entity.NHColor
 
 /**
@@ -23,8 +24,14 @@ import com.yywspace.anethack.entity.NHColor
  */
 object MonsterLink {
 
-    /** 在 [text] 上标出"整行就是一个怪物名"的行；点击时回调名字 */
+    /**
+     * 在 [text] 上标出"整行就是一个怪物名"的行；点击时回调名字。
+     *
+     * 设置里关掉"怪物信息"后直接返回，消息列表完全不动（不高亮、不建 span）。
+     */
     fun highlight(context: Context, text: Spannable, onClick: (String) -> Unit) {
+        if (!SharedPreferencesUtils(context).monsterInfo)
+            return
         GameData.ensureLoaded(context)
         var start = 0
         while (start <= text.length) {

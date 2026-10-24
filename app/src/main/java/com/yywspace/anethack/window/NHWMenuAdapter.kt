@@ -136,23 +136,26 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
             if (menuItem.priceQuote.isNotEmpty()) {
                 val quoteStart = spannable.length
                 spannable.append(" ${menuItem.priceQuote}") // priceQuote 已带大括号（如 "{buy 267 sell 67}"）
-                // 大括号内的每个价格段（如 "buy 267" / "sell 67"）分别可点击
-                val content = menuItem.priceQuote.removeSurrounding("{", "}")
-                val contentStart = quoteStart + 2 // 跳过 " {" 
-                val buy = Regex.escape(itemView.context.getString(R.string.price_quote_buy))
-                val sell = Regex.escape(itemView.context.getString(R.string.price_quote_sell))
-                Regex("$buy\\s*[0-9]+(?:-[0-9]+)?|$sell\\s*[0-9]+(?:-[0-9]+)?").findAll(content).forEach { match ->
-                    val absStart = contentStart + match.range.first
-                    val absEnd = contentStart + match.range.last + 1
-                    spannable.setSpan(object : ClickableSpan() {
-                        override fun onClick(widget: View) {
-                            // 点击由 OnTouchListener 处理，这里无需动作
-                        }
+                // 价格鉴定关掉时只显示原文，不加链接样式（避免出现下划线却点不动）
+                if (nhwMenu.priceIdEnabled) {
+                    // 大括号内的每个价格段（如 "buy 267" / "sell 67"）分别可点击
+                    val content = menuItem.priceQuote.removeSurrounding("{", "}")
+                    val contentStart = quoteStart + 2 // 跳过 " {"
+                    val buy = Regex.escape(itemView.context.getString(R.string.price_quote_buy))
+                    val sell = Regex.escape(itemView.context.getString(R.string.price_quote_sell))
+                    Regex("$buy\\s*[0-9]+(?:-[0-9]+)?|$sell\\s*[0-9]+(?:-[0-9]+)?").findAll(content).forEach { match ->
+                        val absStart = contentStart + match.range.first
+                        val absEnd = contentStart + match.range.last + 1
+                        spannable.setSpan(object : ClickableSpan() {
+                            override fun onClick(widget: View) {
+                                // 点击由 OnTouchListener 处理，这里无需动作
+                            }
 
-                        override fun updateDrawState(ds: TextPaint) {
-                            super.updateDrawState(ds) // 标准链接样式：下划线 + 链接色
-                        }
-                    }, absStart, absEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            override fun updateDrawState(ds: TextPaint) {
+                                super.updateDrawState(ds) // 标准链接样式：下划线 + 链接色
+                            }
+                        }, absStart, absEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
                 }
             }
             return spannable

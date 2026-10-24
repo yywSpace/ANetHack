@@ -26,6 +26,20 @@
             app:iconSpaceReserved="false"
             app:defaultValue="true"
             app:summary="@string/pref_ui_text_reflow_desc"/>
+
+        <CheckBoxPreference
+            app:key="priceId"
+            app:title="@string/pref_price_id_enable"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"
+            app:summary="@string/pref_price_id_enable_desc"/>
+
+        <CheckBoxPreference
+            app:key="monsterInfo"
+            app:title="@string/pref_monster_info_enable"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"
+            app:summary="@string/pref_monster_info_enable_desc"/>
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -159,17 +173,6 @@
 
     </PreferenceCategory>
 
-
-    <PreferenceCategory
-        app:title="@string/pref_price_id_header"
-        app:iconSpaceReserved="false">
-        <CheckBoxPreference
-            app:key="priceId"
-            app:title="@string/pref_price_id_enable"
-            app:iconSpaceReserved="false"
-            app:defaultValue="true"
-            app:summary="@string/pref_price_id_enable_desc"/>
-    </PreferenceCategory>
 
     <PreferenceCategory
         app:title="@string/pref_menu_header"
