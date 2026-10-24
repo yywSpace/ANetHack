@@ -1,4 +1,4 @@
-package com.yywspace.anethack.identify
+package com.yywspace.anethack.gamedata
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -26,7 +26,7 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
     private lateinit var currentType: String
     private lateinit var currentSurcharge :String
     private lateinit var currentIdMode :String
-    private val objList :MutableList<Map<String,String>> = mutableListOf()
+    private val objList :MutableList<PriceItem> = mutableListOf()
     private lateinit var objListAdapter:NHPriceObjListAdapter
     private lateinit var binding: DialogPriceIdentifyBinding
     private val priceID: NHPriceID = NHPriceID(context)

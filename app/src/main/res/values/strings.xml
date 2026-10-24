@@ -120,7 +120,7 @@
     <string name="pref_keyboard_header">Keyboard</string>
     <string name="pref_keyboard_vibrate">Keyboard vibration</string>
     <string name="pref_keyboard_command_panel">Edit command panel</string>
-    <string name="pref_keyboard_command_panel_default">SS|Save #quit|Quit PriceID|Price S#engrave#-nL\"Elbereth\":|Elber S20s|20s .|Rest #|Extend</string>
+    <string name="pref_keyboard_command_panel_default">SS|Save #quit|Quit PriceID|Price S#engrave#-nL\"Elbereth\":|Elber S20s|20s .|Rest #|Extend Monster|Monster</string>
     <string name="command_bar_keyboard_switch">Show or hide the keyboard</string>
     <string name="command_bar_settings_switch">Open settings</string>
     <string name="command_edit_title">Edit command</string>
@@ -137,5 +137,27 @@
 
     <!-- special menu header   -->
     <string name="menu_header_direction">In what direction</string>
+
+    <!-- monster lookup -->
+    <string name="monster_lookup_title">Monster</string>
+    <string name="monster_lookup_hint">Monster name</string>
+    <string name="monster_lookup_show">Show</string>
+    <string name="monster_lookup_not_found">Monster not found.</string>
+    <string name="monster_field_difficulty">Difficulty</string>
+    <string name="monster_field_attacks">Attacks</string>
+    <string name="monster_field_level">Base level</string>
+    <string name="monster_field_experience">Base experience</string>
+    <string name="monster_field_speed">Speed</string>
+    <string name="monster_field_ac">Base AC</string>
+    <string name="monster_field_mr">Base MR</string>
+    <string name="monster_field_alignment">Alignment</string>
+    <string name="monster_field_frequency">Frequency</string>
+    <string name="monster_field_genocidable">Genocidable</string>
+    <string name="monster_field_weight">Weight</string>
+    <string name="monster_field_nutrition">Nutritional value</string>
+    <string name="monster_field_size">Size</string>
+    <string name="monster_field_resistances">Resistances</string>
+    <string name="monster_field_resistances_conveyed">Resistances conveyed</string>
+    <string name="monster_field_attributes">Attributes</string>
 
 </resources>

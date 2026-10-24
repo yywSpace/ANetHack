@@ -15,7 +15,9 @@ import com.yywspace.anethack.command.NHCommandParser
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
-import com.yywspace.anethack.identify.NHPriceIDialog
+import com.yywspace.anethack.gamedata.GameData
+import com.yywspace.anethack.gamedata.NHMonsterDialog
+import com.yywspace.anethack.gamedata.NHPriceIDialog
 import com.yywspace.anethack.setting.SettingsActivity
 import com.yywspace.anethack.window.NHWMenu
 import java.io.File
@@ -28,6 +30,7 @@ class NetHackActivity : AppCompatActivity() {
     private lateinit var handler:Handler
     private lateinit var binding: ActivityNethackBinding
     private lateinit var priceIDialog: NHPriceIDialog
+    private lateinit var monsterDialog: NHMonsterDialog
     private var isKeyboardShow = false
     /** 当前明暗模式（uiMode），用来判断配置变化是否来自主题切换 */
     private var uiMode = Configuration.UI_MODE_NIGHT_NO
@@ -42,6 +45,10 @@ class NetHackActivity : AppCompatActivity() {
         nethack = NetHack(handler, this, binding,"${filesDir.path}/nethackdir")
         priceIDialog = NHPriceIDialog(this, nethack)
         nethack.priceIDialog = priceIDialog
+        monsterDialog = NHMonsterDialog(this,nethack)
+        nethack.monsterDialog = monsterDialog
+        // 后台预热资料（monsters.json 约 400KB），避免第一次弹窗/消息列表卡在主线程
+        Thread { GameData.ensureLoaded(applicationContext) }.start()
         initKeyboard()
         initControlPanel()
         AssetsLoader(this).loadAssets(
@@ -103,6 +110,9 @@ class NetHackActivity : AppCompatActivity() {
         // 价格鉴定弹窗的视图是构造时 inflate 的，按新配色重建一份
         priceIDialog = NHPriceIDialog(this, nethack)
         nethack.priceIDialog = priceIDialog
+        // 怪物弹窗的视图每次显示时重建，但主题切换后也换一份新的，保持一致
+        monsterDialog = NHMonsterDialog(this, nethack)
+        nethack.monsterDialog = monsterDialog
     }
 
     private fun initKeyboard() {
@@ -135,14 +145,17 @@ class NetHackActivity : AppCompatActivity() {
                 binding.keyboardView.visibility =
                     if (isKeyboardShow) View.VISIBLE else View.GONE
             }
-            "Center" -> {
+            CENTER_COMMAND -> {
                 binding.mapView.centerPlayerInScreen()
             }
             SETTING_COMMAND -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
-            "PriceID" -> {
+            PRICE_ID_COMMAND -> {
                 priceIDialog.showFromMessages()
+            }
+            MONSTER_LOOKUP_COMMAND -> {
+                monsterDialog.show()
             }
             else -> {
                 if(nethack.isRunning) {
@@ -227,6 +240,12 @@ class NetHackActivity : AppCompatActivity() {
         /** 固定在命令栏右侧、不参与横向滚动的两个命令 */
         private const val KEYBOARD_COMMAND = "Keyboard"
         private const val SETTING_COMMAND = "Setting"
+        /** 把地图视角移到角色身上 */
+        private const val CENTER_COMMAND = "Center"
+        /** 价格鉴定弹窗（从最近消息解析交易信息） */
+        private const val PRICE_ID_COMMAND = "PriceID"
+        /** 怪物信息弹窗 */
+        private const val MONSTER_LOOKUP_COMMAND = "Monster"
     }
 
 }

@@ -1,0 +1,987 @@
+[
+  {
+    "type": "Potion",
+    "name": "potion of water (uncursed)",
+    "cost": 0
+  },
+  {
+    "type": "Potion",
+    "name": "potion of booze",
+    "cost": 50
+  },
+  {
+    "type": "Potion",
+    "name": "potion of fruit juice",
+    "cost": 50
+  },
+  {
+    "type": "Potion",
+    "name": "potion of see invisible",
+    "cost": 50
+  },
+  {
+    "type": "Potion",
+    "name": "potion of sickness",
+    "cost": 50
+  },
+  {
+    "type": "Potion",
+    "name": "potion of confusion",
+    "cost": 100
+  },
+  {
+    "type": "Potion",
+    "name": "potion of extra healing",
+    "cost": 100
+  },
+  {
+    "type": "Potion",
+    "name": "potion of hallucination",
+    "cost": 100
+  },
+  {
+    "type": "Potion",
+    "name": "potion of healing",
+    "cost": 20
+  },
+  {
+    "type": "Potion",
+    "name": "potion of holy water",
+    "cost": 100
+  },
+  {
+    "type": "Potion",
+    "name": "potion of unholy water",
+    "cost": 100
+  },
+  {
+    "type": "Potion",
+    "name": "potion of restore ability",
+    "cost": 100
+  },
+  {
+    "type": "Potion",
+    "name": "potion of sleeping",
+    "cost": 100
+  },
+  {
+    "type": "Potion",
+    "name": "potion of blindness",
+    "cost": 150
+  },
+  {
+    "type": "Potion",
+    "name": "potion of gain energy",
+    "cost": 150
+  },
+  {
+    "type": "Potion",
+    "name": "potion of invisibility",
+    "cost": 150
+  },
+  {
+    "type": "Potion",
+    "name": "potion of monster detection",
+    "cost": 150
+  },
+  {
+    "type": "Potion",
+    "name": "potion of object detection",
+    "cost": 150
+  },
+  {
+    "type": "Potion",
+    "name": "potion of enlightenment",
+    "cost": 200
+  },
+  {
+    "type": "Potion",
+    "name": "potion of full healing",
+    "cost": 200
+  },
+  {
+    "type": "Potion",
+    "name": "potion of levitation",
+    "cost": 200
+  },
+  {
+    "type": "Potion",
+    "name": "potion of polymorph",
+    "cost": 200
+  },
+  {
+    "type": "Potion",
+    "name": "potion of speed",
+    "cost": 200
+  },
+  {
+    "type": "Potion",
+    "name": "potion of acid",
+    "cost": 250
+  },
+  {
+    "type": "Potion",
+    "name": "potion of oil",
+    "cost": 250
+  },
+  {
+    "type": "Potion",
+    "name": "potion of gain ability",
+    "cost": 300
+  },
+  {
+    "type": "Potion",
+    "name": "potion of gain level",
+    "cost": 300
+  },
+  {
+    "type": "Potion",
+    "name": "potion of paralysis",
+    "cost": 300
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of mail",
+    "cost": 0
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of identify",
+    "cost": 20
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of light",
+    "cost": 50
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of blank paper",
+    "cost": 60
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of enchant weapon",
+    "cost": 60
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of enchant armor",
+    "cost": 80
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of remove curse",
+    "cost": 80
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of confuse monster",
+    "cost": 100
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of destroy armor",
+    "cost": 100
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of fire",
+    "cost": 100
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of food detection",
+    "cost": 100
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of gold detection",
+    "cost": 100
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of magic mapping",
+    "cost": 100
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of scare monster",
+    "cost": 100
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of teleportation",
+    "cost": 100
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of amnesia",
+    "cost": 200
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of create monster",
+    "cost": 200
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of earth",
+    "cost": 200
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of taming",
+    "cost": 200
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of charging",
+    "cost": 300
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of genocide",
+    "cost": 300
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of punishment",
+    "cost": 300
+  },
+  {
+    "type": "Scroll",
+    "name": "scroll of stinking cloud",
+    "cost": 300
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of force bolt",
+    "cost": 100
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of drain life",
+    "cost": 200
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of magic missile",
+    "cost": 200
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of cone of cold",
+    "cost": 400
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of fireball",
+    "cost": 400
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of finger of death",
+    "cost": 700
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of protection",
+    "cost": 100
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of create monster",
+    "cost": 200
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of remove curse",
+    "cost": 300
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of create familiar",
+    "cost": 600
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of turn undead",
+    "cost": 600
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of detect monsters",
+    "cost": 100
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of light",
+    "cost": 100
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of detect food",
+    "cost": 200
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of clairvoyance",
+    "cost": 300
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of detect unseen",
+    "cost": 300
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of identify",
+    "cost": 300
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of detect treasure",
+    "cost": 400
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of magic mapping",
+    "cost": 500
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of sleep",
+    "cost": 300
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of confuse monster",
+    "cost": 100
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of slow monster",
+    "cost": 200
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of cause fear",
+    "cost": 300
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of charm monster",
+    "cost": 500
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of jumping",
+    "cost": 100
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of haste self",
+    "cost": 300
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of invisibility",
+    "cost": 400
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of levitation",
+    "cost": 400
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of teleport away",
+    "cost": 600
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of healing",
+    "cost": 100
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of cure blindness",
+    "cost": 200
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of cure sickness",
+    "cost": 300
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of extra healing",
+    "cost": 300
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of stone to flesh",
+    "cost": 300
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of restore ability",
+    "cost": 400
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of knock",
+    "cost": 100
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of wizard lock",
+    "cost": 200
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of dig",
+    "cost": 500
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of polymorph",
+    "cost": 600
+  },
+  {
+    "type": "Spellbook",
+    "name": "spellbook of cancellation",
+    "cost": 700
+  },
+  {
+    "type": "Ring",
+    "name": "meat ring",
+    "cost": 5
+  },
+  {
+    "type": "Ring",
+    "name": "ring of adornment",
+    "cost": 100
+  },
+  {
+    "type": "Ring",
+    "name": "ring of hunger",
+    "cost": 100
+  },
+  {
+    "type": "Ring",
+    "name": "ring of protection",
+    "cost": 100
+  },
+  {
+    "type": "Ring",
+    "name": "ring of protection from shape changers",
+    "cost": 100
+  },
+  {
+    "type": "Ring",
+    "name": "ring of stealth",
+    "cost": 100
+  },
+  {
+    "type": "Ring",
+    "name": "ring of sustain ability",
+    "cost": 100
+  },
+  {
+    "type": "Ring",
+    "name": "ring of warning",
+    "cost": 100
+  },
+  {
+    "type": "Ring",
+    "name": "ring of aggravate monster",
+    "cost": 150
+  },
+  {
+    "type": "Ring",
+    "name": "ring of cold resistance",
+    "cost": 150
+  },
+  {
+    "type": "Ring",
+    "name": "ring of gain constitution",
+    "cost": 150
+  },
+  {
+    "type": "Ring",
+    "name": "ring of gain strength",
+    "cost": 150
+  },
+  {
+    "type": "Ring",
+    "name": "ring of increase accuracy",
+    "cost": 150
+  },
+  {
+    "type": "Ring",
+    "name": "ring of increase damage",
+    "cost": 150
+  },
+  {
+    "type": "Ring",
+    "name": "ring of invisibility",
+    "cost": 150
+  },
+  {
+    "type": "Ring",
+    "name": "ring of poison resistance",
+    "cost": 150
+  },
+  {
+    "type": "Ring",
+    "name": "ring of see invisible",
+    "cost": 150
+  },
+  {
+    "type": "Ring",
+    "name": "ring of shock resistance",
+    "cost": 150
+  },
+  {
+    "type": "Ring",
+    "name": "ring of fire resistance",
+    "cost": 200
+  },
+  {
+    "type": "Ring",
+    "name": "ring of free action",
+    "cost": 200
+  },
+  {
+    "type": "Ring",
+    "name": "ring of levitation",
+    "cost": 200
+  },
+  {
+    "type": "Ring",
+    "name": "ring of regeneration",
+    "cost": 200
+  },
+  {
+    "type": "Ring",
+    "name": "ring of searching",
+    "cost": 200
+  },
+  {
+    "type": "Ring",
+    "name": "ring of slow digestion",
+    "cost": 200
+  },
+  {
+    "type": "Ring",
+    "name": "ring of teleportation",
+    "cost": 200
+  },
+  {
+    "type": "Ring",
+    "name": "ring of conflict",
+    "cost": 300
+  },
+  {
+    "type": "Ring",
+    "name": "ring of polymorph",
+    "cost": 300
+  },
+  {
+    "type": "Ring",
+    "name": "ring of polymorph control",
+    "cost": 300
+  },
+  {
+    "type": "Ring",
+    "name": "ring of teleport control",
+    "cost": 300
+  },
+  {
+    "type": "Wand",
+    "name": "wand of light",
+    "cost": 100
+  },
+  {
+    "type": "Wand",
+    "name": "wand of nothing",
+    "cost": 100
+  },
+  {
+    "type": "Wand",
+    "name": "wand of digging",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of enlightenment",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of locking",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of magic missile",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of make invisible",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of opening",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of probing",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of secret door detection",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of slow monster",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of speed monster",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of striking",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of undead turning",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of cold",
+    "cost": 175
+  },
+  {
+    "type": "Wand",
+    "name": "wand of fire",
+    "cost": 175
+  },
+  {
+    "type": "Wand",
+    "name": "wand of lightning",
+    "cost": 175
+  },
+  {
+    "type": "Wand",
+    "name": "wand of sleep",
+    "cost": 175
+  },
+  {
+    "type": "Wand",
+    "name": "wand of cancellation",
+    "cost": 200
+  },
+  {
+    "type": "Wand",
+    "name": "wand of create monster",
+    "cost": 200
+  },
+  {
+    "type": "Wand",
+    "name": "wand of polymorph",
+    "cost": 200
+  },
+  {
+    "type": "Wand",
+    "name": "wand of teleportation",
+    "cost": 200
+  },
+  {
+    "type": "Wand",
+    "name": "wand of death",
+    "cost": 500
+  },
+  {
+    "type": "Wand",
+    "name": "wand of stasis",
+    "cost": 150
+  },
+  {
+    "type": "Wand",
+    "name": "wand of wishing",
+    "cost": 500
+  },
+  {
+    "type": "Amulet",
+    "name": "amulet of change",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "amulet of ESP",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "amulet of life saving",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "amulet of magical breathing",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "amulet of reflection",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "amulet of restful sleep",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "amulet of strangulation",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "amulet of unchanging",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "amulet versus poison",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "cheap plastic imitation of the amulet of yendor",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "amulet of yendor",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "the eye of the aethiopica",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "amulet of flying",
+    "cost": 150
+  },
+  {
+    "type": "Amulet",
+    "name": "amulet of guarding",
+    "cost": 150
+  },
+  {
+    "type": "Boots",
+    "name": "low boots(walking shoes)",
+    "cost": 8
+  },
+  {
+    "type": "Boots",
+    "name": "high boots(jackboots)",
+    "cost": 12
+  },
+  {
+    "type": "Boots",
+    "name": "iron shoes(hard shoes)",
+    "cost": 16
+  },
+  {
+    "type": "Boots",
+    "name": "elven boots",
+    "cost": 8
+  },
+  {
+    "type": "Boots",
+    "name": "kicking boots",
+    "cost": 8
+  },
+  {
+    "type": "Boots",
+    "name": "fumble boots",
+    "cost": 30
+  },
+  {
+    "type": "Boots",
+    "name": "levitation boots",
+    "cost": 30
+  },
+  {
+    "type": "Boots",
+    "name": "jumping boots",
+    "cost": 50
+  },
+  {
+    "type": "Boots",
+    "name": "speed boots",
+    "cost": 50
+  },
+  {
+    "type": "Boots",
+    "name": "water walking boots",
+    "cost": 50
+  },
+  {
+    "type": "Cloak",
+    "name": "alchemy smock(apron)",
+    "cost": 50
+  },
+  {
+    "type": "Cloak",
+    "name": "cloak of displacement",
+    "cost": 50
+  },
+  {
+    "type": "Cloak",
+    "name": "cloak of invisibility",
+    "cost": 60
+  },
+  {
+    "type": "Cloak",
+    "name": "cloak of magic resistance",
+    "cost": 60
+  },
+  {
+    "type": "Cloak",
+    "name": "cloak of protection",
+    "cost": 50
+  },
+  {
+    "type": "Cloak",
+    "name": "dwarvish cloak(hooded cloak)",
+    "cost": 50
+  },
+  {
+    "type": "Cloak",
+    "name": "elven cloak(faded pall)",
+    "cost": 60
+  },
+  {
+    "type": "Cloak",
+    "name": "leather cloak",
+    "cost": 40
+  },
+  {
+    "type": "Cloak",
+    "name": "mummy wrapping",
+    "cost": 2
+  },
+  {
+    "type": "Cloak",
+    "name": "oilskin cloak(slippery cloak)",
+    "cost": 50
+  },
+  {
+    "type": "Cloak",
+    "name": "orcish cloak(coarse mantelet)",
+    "cost": 40
+  },
+  {
+    "type": "Cloak",
+    "name": "robe",
+    "cost": 50
+  },
+  {
+    "type": "Helm",
+    "name": "fedora",
+    "cost": 1
+  },
+  {
+    "type": "Helm",
+    "name": "dunce cap",
+    "cost": 1
+  },
+  {
+    "type": "Helm",
+    "name": "cornuthaum",
+    "cost": 80
+  },
+  {
+    "type": "Helm",
+    "name": "elven leather helm",
+    "cost": 8
+  },
+  {
+    "type": "Helm",
+    "name": "orcish helm",
+    "cost": 10
+  },
+  {
+    "type": "Helm",
+    "name": "dented pot",
+    "cost": 8
+  },
+  {
+    "type": "Helm",
+    "name": "dwarvish iron helm",
+    "cost": 20
+  },
+  {
+    "type": "Helm",
+    "name": "helmet (kabuto)",
+    "cost": 10
+  },
+  {
+    "type": "Helm",
+    "name": "helm of brilliance",
+    "cost": 50
+  },
+  {
+    "type": "Helm",
+    "name": "helm of opposite alignment",
+    "cost": 50
+  },
+  {
+    "type": "Helm",
+    "name": "helm of telepathy",
+    "cost": 50
+  },
+  {
+    "type": "Helm",
+    "name": "helm of caution",
+    "cost": 50
+  },
+  {
+    "type": "Gloves",
+    "name": "gauntlets of dexterity",
+    "cost": 50
+  },
+  {
+    "type": "Gloves",
+    "name": "gauntlets of fumbling",
+    "cost": 50
+  },
+  {
+    "type": "Gloves",
+    "name": "gauntlets of power",
+    "cost": 50
+  },
+  {
+    "type": "Gloves",
+    "name": "leather gloves",
+    "cost": 8
+  }
+]

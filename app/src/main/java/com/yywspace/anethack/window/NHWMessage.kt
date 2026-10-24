@@ -1,8 +1,11 @@
 package com.yywspace.anethack.window
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -17,6 +20,7 @@ import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.show
 import com.yywspace.anethack.map.NHMessageView
+import com.yywspace.anethack.gamedata.MonsterLink
 import java.lang.Integer.min
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.math.ceil
@@ -27,13 +31,17 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
     private var lastClickTime = 0L
 
     init {
-        messageView.initMessage(nh,this)
+        messageView.initMessage(this)
         // 只设置回调，不在这里直接操作 View（本类在游戏线程里创建）
         messageView.onMessageClick = {
             if (System.currentTimeMillis() - lastClickTime >= 1000) {
                 displayWindow(true)
                 lastClickTime = System.currentTimeMillis()
             }
+        }
+        // 消息里的怪物名：点击后打开怪物详情（弹窗统一从 nh.monsterDialog 取）
+        messageView.onMonsterClick = { name ->
+            nh.monsterDialog?.showFromMonsterName(name)
         }
     }
 
@@ -61,7 +69,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                 val dialogTextView = View.inflate(context, R.layout.dialog_message, null)
                     .apply {
                         findViewById<RecyclerView>(R.id.dialog_message_list).apply {
-                            val messageAdapter = NHWMessageAdapter(messageList, 20)
+                            val messageAdapter = NHWMessageAdapter(messageList, 20, nh)
                             adapter = messageAdapter
                             layoutManager = LinearLayoutManager(
                                 context,
@@ -103,7 +111,11 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         messageView.requestRedraw()
     }
 
-    class NHWMessageAdapter(private val messageList:List<NHMessage>, private val itemSize:Int): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    class NHWMessageAdapter(
+        private val messageList:List<NHMessage>,
+        private val itemSize:Int,
+        private val nh: NetHack
+    ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private var lastCmdMsg:NHMessage = messageList.maxBy { it.time }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val view = LayoutInflater.from(parent.context)
@@ -115,6 +127,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             return ceil(messageList.size / itemSize.toDouble()).toInt()
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val start = position * itemSize
             val end = min(start + itemSize, messageList.size)
@@ -129,8 +142,25 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                 if (idx != subList.size -1)
                     messageText.append("\n")
             }
+            // 消息里出现的怪物名高亮成可点击，点了弹怪物详情
+            val itemContext = holder.itemView.context
+            MonsterLink.highlight(itemContext, messageText) { name ->
+                nh.monsterDialog?.showFromMonsterName(name)
+            }
             (holder as MessageViewHolder).apply {
                 itemMessage.text = messageText
+                itemMessage.highlightColor = Color.TRANSPARENT
+                // 这一行整行是怪物名时，点这一行的任何位置（含右侧空白）都弹详情
+                itemMessage.setOnTouchListener { view, event ->
+                    if (event.actionMasked == MotionEvent.ACTION_UP) {
+                        val span = MonsterLink.spanAtLine(itemMessage, event)
+                        if (span != null) {
+                            span.onClick(view)
+                            return@setOnTouchListener true
+                        }
+                    }
+                    false
+                }
             }
         }
 

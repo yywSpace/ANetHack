@@ -11,7 +11,8 @@ import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.entity.NHString
-import com.yywspace.anethack.identify.NHPriceIDialog
+import com.yywspace.anethack.gamedata.NHMonsterDialog
+import com.yywspace.anethack.gamedata.NHPriceIDialog
 import com.yywspace.anethack.sound.NHSound
 import com.yywspace.anethack.window.NHExtendChoose
 import com.yywspace.anethack.window.NHPlayerChoose
@@ -44,6 +45,8 @@ class NetHack(
     val command = NHBlockingCommandController()
     /** 价格鉴定弹窗（NetHackActivity 初始化后设置），菜单点击价格引用时打开 */
     var priceIDialog: NHPriceIDialog? = null
+    /** 怪物信息弹窗（NetHackActivity 初始化后设置），消息里点怪物名时打开 */
+    var monsterDialog: NHMonsterDialog? = null
     val prefs by lazy { SharedPreferencesUtils(context) }
 
     /** 明暗主题切换，丢弃按旧配色创建并缓存的对话框 */

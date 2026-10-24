@@ -1,4 +1,4 @@
-package com.yywspace.anethack.identify
+package com.yywspace.anethack.gamedata
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.R
-class NHPriceObjListAdapter(private val objList: List<Map<String,String>>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+class NHPriceObjListAdapter(private val objList: List<PriceItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class ObjListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val objName : TextView = view.findViewById(R.id.obj_name)
         val objCost : TextView = view.findViewById(R.id.obj_cost)
@@ -25,8 +26,8 @@ class NHPriceObjListAdapter(private val objList: List<Map<String,String>>): Recy
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ObjListViewHolder).apply {
             val obj = objList[position]
-            objName.text = obj["Name"]
-            objCost.text = obj["Cost"]
+            objName.text = obj.name
+            objCost.text = obj.cost.toString()
         }
     }
 }
