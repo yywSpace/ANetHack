@@ -12,13 +12,19 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import com.google.gson.Gson
 import com.yywspace.anethack.R
 import com.yywspace.anethack.extensions.show
+
+/** 命令栏里的一条命令：发送的指令 + 按钮上显示的文字 */
+data class CommandEntry(val value: String, val label: String)
 
 /**
  * 底部命令栏：命令按钮一行横向滚动，键盘/设置固定在最右侧。
  * 点击按钮触发 [onCommand]，长按按钮弹出编辑框（改显示名和命令），
- * 编辑后通过 [onCommandsChanged] 交回给调用方保存偏好。
+ * 最右侧的 "+" 用来新增；编辑后通过 [onCommandsChanged] 交回给调用方保存。
+ *
+ * 配置以 JSON 数组保存（[CommandEntry] 的序列）
  */
 class NHBottomCommandPanel @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -36,12 +42,17 @@ class NHBottomCommandPanel @JvmOverloads constructor(
     private val keyboardSwitch: ImageView
     private val settingsSwitch: ImageView
 
-    /** 当前配置里的条目（`value|Label`），编辑时按它定位 */
-    private var entries = mutableListOf<String>()
+    /** 当前配置里的条目 */
+    private var entries = mutableListOf<CommandEntry>()
+
+    private val gson = Gson()
 
     init {
         orientation = HORIZONTAL
         isClickable = true
+        // 命令栏整体的左右留白（含右侧固定的键盘/设置图标）
+        val edge = resources.getDimensionPixelSize(R.dimen.command_bar_panel_padding)
+        setPaddingRelative(edge, 0, edge, 0)
         LayoutInflater.from(context).inflate(R.layout.view_bottom_command_panel, this, true)
         commandList = findViewById(R.id.command_list)
         divider = findViewById(R.id.command_divider)
@@ -54,23 +65,27 @@ class NHBottomCommandPanel @JvmOverloads constructor(
     /** 用配置串刷新命令按钮；空串时回落到内置默认值 */
     fun setCommands(commands: String?) {
         val text = commands.orEmpty()
-            .ifEmpty { context.getString(R.string.pref_keyboard_command_panel_default) }
-        entries = text.split(" ")
-            .filter { it.isNotBlank() && it.substringBefore('|') !in pinnedCommands }
+        entries = (if (text.isBlank()) defaultCommands else parseEntries(text))
+            .filter { it.value !in pinnedCommands }
             .toMutableList()
         commandList.removeAllViews()
         entries.forEach { entry ->
-            val value = entry.substringBefore('|')
             val item = LayoutInflater.from(context)
                 .inflate(R.layout.item_command, commandList, false) as TextView
-            item.text = entry.substringAfter('|', value)
-            item.setOnClickListener { onCommand?.invoke(value) }
+            item.text = entry.label
+            item.setOnClickListener { onCommand?.invoke(entry.value) }
             item.setOnLongClickListener {
                 showEditDialog(entry)
                 true
             }
             commandList.addView(item)
         }
+        // 末尾固定一个"+"：滑到最后可以在这里新增命令
+        val addItem = LayoutInflater.from(context)
+            .inflate(R.layout.item_command, commandList, false) as TextView
+        addItem.text = context.getString(R.string.command_bar_add)
+        addItem.setOnClickListener { showEditDialog(null) }
+        commandList.addView(addItem)
     }
 
     /** 主题切换后重新解析背景、分隔线和图标颜色 */
@@ -82,16 +97,24 @@ class NHBottomCommandPanel @JvmOverloads constructor(
         settingsSwitch.imageTintList = ColorStateList.valueOf(tint)
     }
 
-    /** 长按命令按钮：编辑显示名和命令 */
-    private fun showEditDialog(entry: String) {
+    /** 解析配置：JSON 数组；解析不出来时回落到内置默认值 */
+    private fun parseEntries(text: String): List<CommandEntry> =
+        runCatching {
+            gson.fromJson(text, Array<CommandEntry>::class.java)
+        }.getOrNull()?.toList() ?: defaultCommands
+
+    /** 编辑已有条目；[entry] 为 null 时表示新增（输入框留空） */
+    private fun showEditDialog(entry: CommandEntry?) {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_command_edit, null)
         val labelInput = view.findViewById<EditText>(R.id.command_edit_label)
         val valueInput = view.findViewById<EditText>(R.id.command_edit_value)
-        labelInput.setText(entry.substringAfter('|', entry))
-        valueInput.setText(entry.substringBefore('|'))
+        if (entry != null) {
+            labelInput.setText(entry.label)
+            valueInput.setText(entry.value)
+        }
         val immersive = immersiveProvider?.invoke() ?: false
         val dialog = AlertDialog.Builder(context)
-            .setTitle(R.string.command_edit_title)
+            .setTitle(if (entry == null) R.string.command_add_title else R.string.command_edit_title)
             .setView(view)
             .setPositiveButton(R.string.dialog_confirm, null)
             .setNegativeButton(R.string.dialog_cancel, null)
@@ -99,20 +122,24 @@ class NHBottomCommandPanel @JvmOverloads constructor(
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
             val label = labelInput.text.toString().trim()
             val value = valueInput.text.toString().trim()
-            if (label.isEmpty() || value.isEmpty() || value.any { it.isWhitespace() }) {
+            if (label.isEmpty() || value.isEmpty()) {
                 Toast.makeText(context, R.string.command_edit_invalid, Toast.LENGTH_SHORT).show()
             } else {
-                saveEntry(entry, "$value|$label")
+                saveEntry(entry, CommandEntry(value, label))
                 dialog.dismiss()
             }
         }
     }
 
-    /** 替换配置里对应的条目并通知调用方保存 */
-    private fun saveEntry(oldEntry: String, newEntry: String) {
-        val index = entries.indexOf(oldEntry)
-        if (index >= 0) entries[index] = newEntry else entries.add(newEntry)
-        val text = entries.joinToString(" ")
+    /** 替换（entry 非空）或追加（entry 为空）条目，然后通知调用方保存 */
+    private fun saveEntry(oldEntry: CommandEntry?, newEntry: CommandEntry) {
+        if (oldEntry == null) {
+            entries.add(newEntry)
+        } else {
+            val index = entries.indexOf(oldEntry)
+            if (index >= 0) entries[index] = newEntry else entries.add(newEntry)
+        }
+        val text = gson.toJson(entries)
         onCommandsChanged?.invoke(text)
         setCommands(text)
     }
@@ -122,5 +149,22 @@ class NHBottomCommandPanel @JvmOverloads constructor(
         const val SETTING_COMMAND = "Setting"
         /** 固定在右侧、不参与编辑和滚动的条目 */
         val pinnedCommands = setOf(KEYBOARD_COMMAND, SETTING_COMMAND)
+
+        /**
+         * 内置默认命令：配置为空或解析失败时使用。
+         * 直接写在代码里，省掉 strings.xml 里那一层层转义。
+         */
+        val defaultCommands: List<CommandEntry> = listOf(
+            CommandEntry("SaM\"candle|lantern|lamp\"", "Lamp"),
+            CommandEntry("SaM\"unicorn horn\"", "Cure"),
+            CommandEntry("SaM\"pick-axe\"", "Dig"),
+            CommandEntry("S#engrave#-nL\"Elbereth\":", "Elber"),
+            CommandEntry("S20s", "20s"),
+            CommandEntry(".", "Rest"),
+            CommandEntry("SS", "Save"),
+            CommandEntry("#quit", "Quit"),
+            CommandEntry("PriceID", "Price"),
+            CommandEntry("Monster", "Monster"),
+        )
     }
 }

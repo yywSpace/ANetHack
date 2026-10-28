@@ -125,7 +125,6 @@
             app:key="commandPanel"
             app:title="@string/pref_keyboard_command_panel"
             app:useSimpleSummaryProvider="true"
-            app:defaultValue="@string/pref_keyboard_command_panel_default"
             app:iconSpaceReserved="false"/>
 
         <CheckBoxPreference

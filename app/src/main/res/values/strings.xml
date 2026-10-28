@@ -123,13 +123,14 @@
     <string name="pref_keyboard_header">Keyboard</string>
     <string name="pref_keyboard_vibrate">Keyboard vibration</string>
     <string name="pref_keyboard_command_panel">Edit command panel</string>
-    <string name="pref_keyboard_command_panel_default">SS|Save #quit|Quit PriceID|Price S#engrave#-nL\"Elbereth\":|Elber S20s|20s .|Rest #|Extend Monster|Monster</string>
     <string name="command_bar_keyboard_switch">Show or hide the keyboard</string>
     <string name="command_bar_settings_switch">Open settings</string>
+    <string name="command_bar_add">+</string>
     <string name="command_edit_title">Edit command</string>
+    <string name="command_add_title">Add command</string>
     <string name="command_edit_label">Label</string>
     <string name="command_edit_value">Command</string>
-    <string name="command_edit_invalid">Label and command must not be empty, and the command cannot contain spaces</string>
+    <string name="command_edit_invalid">Label and command must not be empty; the label cannot contain \"|\"</string>
 
     <!-- Permission -->
     <string name="permission_audio">Audio permission</string>

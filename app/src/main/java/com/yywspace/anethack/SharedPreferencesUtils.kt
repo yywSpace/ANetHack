@@ -30,7 +30,8 @@ class SharedPreferencesUtils(val context: Context) {
     var monsterInfo by SharedPreferenceDelegates.boolean(true)
     var userSound by SharedPreferenceDelegates.boolean(false)
     var internalSound by SharedPreferenceDelegates.boolean(true)
-    var commandPanel by SharedPreferenceDelegates.string(context.getString(R.string.pref_keyboard_command_panel_default))
+    /** 空串表示还没自定义过，命令栏会使用它自己的默认列表 */
+    var commandPanel by SharedPreferenceDelegates.string("")
 
     /** 解析存储条目 "prompt-时间戳"：用最后一个 '-' 分隔，prompt 内含 '-' 也不受影响 */
     private fun splitPrompt(entry: String): Pair<String, Long> {

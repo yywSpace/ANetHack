@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 底部命令栏：按钮高度（键盘开关同高）、按钮左右内边距 -->
     <dimen name="command_item_height">40dp</dimen>
-    <dimen name="command_bar_item_padding">10dp</dimen>
+    <dimen name="command_bar_item_padding">5dp</dimen>
+    <!-- 命令栏整体的左右留白：比按钮内边距稍大一些 -->
+    <dimen name="command_bar_panel_padding">5dp</dimen>
     <!-- 按钮最小宽度：文字很短的标签也保证有这么宽（也是最小点击区域） -->
     <dimen name="command_item_min_width">40dp</dimen>
     <!-- 右侧两个图标按钮的宽度：图标是居中的，宽度越小两个图标靠得越近 -->
