@@ -113,12 +113,15 @@ class NHBottomCommandPanel @JvmOverloads constructor(
             valueInput.setText(entry.value)
         }
         val immersive = immersiveProvider?.invoke() ?: false
-        val dialog = AlertDialog.Builder(context)
+        val builder = AlertDialog.Builder(context)
             .setTitle(if (entry == null) R.string.command_add_title else R.string.command_edit_title)
             .setView(view)
             .setPositiveButton(R.string.dialog_confirm, null)
             .setNegativeButton(R.string.dialog_cancel, null)
-            .show(immersive)
+        // 编辑已有命令时多给一个"删除"
+        if (entry != null)
+            builder.setNeutralButton(R.string.command_delete) { _, _ -> deleteEntry(entry) }
+        val dialog = builder.show(immersive)
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
             val label = labelInput.text.toString().trim()
             val value = valueInput.text.toString().trim()
@@ -129,6 +132,14 @@ class NHBottomCommandPanel @JvmOverloads constructor(
                 dialog.dismiss()
             }
         }
+    }
+
+    /** 删除条目并通知调用方保存 */
+    private fun deleteEntry(entry: CommandEntry) {
+        entries.remove(entry)
+        val text = gson.toJson(entries)
+        onCommandsChanged?.invoke(text)
+        setCommands(text)
     }
 
     /** 替换（entry 非空）或追加（entry 为空）条目，然后通知调用方保存 */

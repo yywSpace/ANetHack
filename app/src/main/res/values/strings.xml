@@ -128,9 +128,10 @@
     <string name="command_bar_add">+</string>
     <string name="command_edit_title">Edit command</string>
     <string name="command_add_title">Add command</string>
+    <string name="command_delete">Delete</string>
     <string name="command_edit_label">Label</string>
     <string name="command_edit_value">Command</string>
-    <string name="command_edit_invalid">Label and command must not be empty; the label cannot contain \"|\"</string>
+    <string name="command_edit_invalid">Label and command must not be empty</string>
 
     <!-- Permission -->
     <string name="permission_audio">Audio permission</string>
