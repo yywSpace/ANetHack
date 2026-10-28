@@ -167,7 +167,7 @@
       },
       {
         "label": "Search",
-        "value": "S20s",
+        "value": "20s",
         "row": 2,
         "column": 5,
         "rowSpan": 1,

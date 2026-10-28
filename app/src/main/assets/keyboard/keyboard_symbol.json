@@ -4,61 +4,61 @@
     "key": [
       {
         "label": "",
-        "value": "S1",
+        "value": "1",
         "row": 0,
         "column": 0
       },
       {
         "label": "",
-        "value": "S2",
+        "value": "2",
         "row": 0,
         "column": 1
       },
       {
         "label": "",
-        "value": "S3",
+        "value": "3",
         "row": 0,
         "column": 2
       },
       {
         "label": "",
-        "value": "S4",
+        "value": "4",
         "row": 0,
         "column": 3
       },
       {
         "label": "",
-        "value": "S5",
+        "value": "5",
         "row": 0,
         "column": 4
       },
       {
         "label": "",
-        "value": "S6",
+        "value": "6",
         "row": 0,
         "column": 5
       },
       {
         "label": "",
-        "value": "S7",
+        "value": "7",
         "row": 0,
         "column": 6
       },
       {
         "label": "",
-        "value": "S8",
+        "value": "8",
         "row": 0,
         "column": 7
       },
       {
         "label": "",
-        "value": "S9",
+        "value": "9",
         "row": 0,
         "column": 8
       },
       {
         "label": "",
-        "value": "S0",
+        "value": "0",
         "row": 0,
         "column": 9
       }
@@ -69,61 +69,61 @@
     "key": [
       {
         "label": "!",
-        "value": "S!",
+        "value": "!",
         "row": 1,
         "column": 0
       },
       {
         "label": "@",
-        "value": "S@",
+        "value": "@",
         "row": 1,
         "column": 1
       },
       {
         "label": "$",
-        "value": "S$",
+        "value": "$",
         "row": 1,
         "column": 2
       },
       {
         "label": "(",
-        "value": "S(",
+        "value": "(",
         "row": 1,
         "column": 3
       },
       {
         "label": "+",
-        "value": "S+",
+        "value": "+",
         "row": 1,
         "column": 4
       },
       {
         "label": "\"",
-        "value": "S\"",
+        "value": "\"",
         "row": 1,
         "column": 5
       },
       {
         "label": "=",
-        "value": "S=",
+        "value": "=",
         "row": 1,
         "column": 6
       },
       {
         "label": "*",
-        "value": "S*",
+        "value": "*",
         "row": 1,
         "column": 7
       },
       {
         "label": "[",
-        "value": "S[",
+        "value": "[",
         "row": 1,
         "column": 8
       },
       {
         "label": ")",
-        "value": "S)",
+        "value": ")",
         "row": 1,
         "column": 9
       }
@@ -140,49 +140,49 @@
       },
       {
         "label": "|",
-        "value": "S|",
+        "value": "|",
         "row": 2,
         "column": 1
       },
       {
         "label": "&",
-        "value": "S&",
+        "value": "&",
         "row": 2,
         "column": 2
       },
       {
         "label": "\\",
-        "value": "S\\",
+        "value": "\\",
         "row": 2,
         "column": 3
       },
       {
         "label": "/",
-        "value": "S/",
+        "value": "/",
         "row": 2,
         "column": 4
       },
       {
         "label": "?",
-        "value": "S?",
+        "value": "?",
         "row": 2,
         "column": 5
       },
       {
         "label": "_",
-        "value": "S_",
+        "value": "_",
         "row": 2,
         "column": 6
       },
       {
         "label": ";",
-        "value": "S;",
+        "value": ";",
         "row": 2,
         "column": 7
       },
       {
         "label": ":",
-        "value": "S:",
+        "value": ":",
         "row": 2,
         "column": 8
       }
@@ -205,37 +205,37 @@
       },
       {
         "label": "^",
-        "value": "S^",
+        "value": "^",
         "row": 3,
         "column": 2
       },
       {
         "label": "#",
-        "value": "S#",
+        "value": "#",
         "row": 3,
         "column": 3
       },
       {
         "label": "<",
-        "value": "S<",
+        "value": "<",
         "row": 3,
         "column": 4
       },
       {
         "label": ">",
-        "value": "S>",
+        "value": ">",
         "row": 3,
         "column": 5
       },
       {
         "label": ",",
-        "value": "S,",
+        "value": ",",
         "row": 3,
         "column": 6
       },
       {
         "label": ".",
-        "value": "S.",
+        "value": ".",
         "row": 3,
         "column": 7
       },

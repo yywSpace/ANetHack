@@ -155,13 +155,14 @@ class NHBottomCommandPanel @JvmOverloads constructor(
          * 直接写在代码里，省掉 strings.xml 里那一层层转义。
          */
         val defaultCommands: List<CommandEntry> = listOf(
-            CommandEntry("SaM\"candle|lantern|lamp\"", "Lamp"),
-            CommandEntry("SaM\"unicorn horn\"", "Cure"),
-            CommandEntry("SaM\"pick-axe\"", "Dig"),
-            CommandEntry("S#engrave#-nL\"Elbereth\":", "Elber"),
-            CommandEntry("S20s", "20s"),
-            CommandEntry(".", "Rest"),
-            CommandEntry("SS", "Save"),
+            CommandEntry("aM\"candle|lantern|lamp\"", "Lamp"),
+            CommandEntry("aM\"unicorn horn\"", "Cure"),
+            CommandEntry("aM\"pick-axe\"", "Dig"),
+            CommandEntry("#engrave#-nL\"Elbereth\":", "Elber"),
+            CommandEntry("20s", "20s"),
+            CommandEntry("m.", "FRest"),
+            CommandEntry("300s", "300s"),
+            CommandEntry("S", "Save"),
             CommandEntry("#quit", "Quit"),
             CommandEntry("PriceID", "Price"),
             CommandEntry("Monster", "Monster"),

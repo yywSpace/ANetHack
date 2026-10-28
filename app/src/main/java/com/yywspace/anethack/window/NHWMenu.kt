@@ -77,7 +77,6 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         }
 
     fun selectMenu(how: Int): LongArray {
-        // 指令序列里可能已经指定了菜单要选哪一项：按键加速符，或 M"正则"
         when (val selection = nh.command.findMenuCommand()) {
             is NHKeyCommand -> {
                 val selectList = mutableListOf<Long>()
@@ -85,7 +84,10 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                     item -> (item.accelerator == selection.key) and !item.isHeader() and !item.isHint()
                 }.forEach { item ->
                     selectList.add(item.identifier)
-                    selectList.add(item.selectedCount)
+                    selectList.add(
+                        if (selection.numberPrefix > 0) selection.numberPrefix.toLong()
+                        else item.selectedCount
+                    )
                 }
                 if (selectList.isNotEmpty()) {
                     // 清空列表
@@ -105,9 +107,11 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                         hit.isSelected = true
                     } else {
                         // 单选菜单选中这一条就返回
+                        val count = if (selection.numberPrefix > 0) selection.numberPrefix.toLong()
+                        else hit.selectedCount
                         textList.clear()
                         nhMenuItems.clear()
-                        return longArrayOf(hit.identifier, hit.selectedCount)
+                        return longArrayOf(hit.identifier, count)
                     }
                 } else {
                     // 有匹配指令但菜单里没有对应条目

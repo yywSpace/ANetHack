@@ -3,61 +3,61 @@
     "key": [
       {
         "label": "1",
-        "value": "S1",
+        "value": "1",
         "row": 0,
         "column": 0
       },
       {
         "label": "2",
-        "value": "S2",
+        "value": "2",
         "row": 0,
         "column": 1
       },
       {
         "label": "3",
-        "value": "S3",
+        "value": "3",
         "row": 0,
         "column": 2
       },
       {
         "label": "4",
-        "value": "S4",
+        "value": "4",
         "row": 0,
         "column": 3
       },
       {
         "label": "5",
-        "value": "S5",
+        "value": "5",
         "row": 0,
         "column": 4
       },
       {
         "label": "6",
-        "value": "S6",
+        "value": "6",
         "row": 0,
         "column": 5
       },
       {
         "label": "7",
-        "value": "S7",
+        "value": "7",
         "row": 0,
         "column": 6
       },
       {
         "label": "8",
-        "value": "S8",
+        "value": "8",
         "row": 0,
         "column": 7
       },
       {
         "label": "9",
-        "value": "S9",
+        "value": "9",
         "row": 0,
         "column": 8
       },
       {
         "label": "0",
-        "value": "S0",
+        "value": "0",
         "row": 0,
         "column": 9
       }

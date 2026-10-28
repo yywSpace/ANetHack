@@ -2,33 +2,88 @@ package com.yywspace.anethack.command
 
 import java.io.PushbackReader
 import java.io.StringReader
-import java.lang.Integer.parseInt
 
 object NHCommandParser {
     /*
     key command: -
     extended command: #read
-    sequence command: S#engrave#-L"Elbereth"
+    sequence command: #engrave#-L"Elbereth"
         key command in sequence: -
         extended command in sequence: #read#
         line command in sequence: L"Elbereth"
-    menu match in sequence: M"regex"  (e.g. SaM"unicorn horn")
+    menu match in sequence: M"regex"  (e.g. aM"unicorn horn")
+    number prefix: 20s、d20a  (数字绑到它后面那个按键的 numberPrefix 上)
     */
-    fun parseNHCommand(command:String):List<NHCommand> {
+    fun parseNHCommand(commandText:String):List<NHCommand> {
         val commands = mutableListOf<NHCommand>()
-        if(command.startsWith("#")) {
-            commands.add(NHExtendCommand(command))
-        } else if(command.startsWith("S")) {
-            commands.addAll(parseSequenceCommands(command))
-        } else {
-            try {
-                val key = parseInt(command).toChar()
-                commands.add(NHKeyCommand(key))
-            } catch (_: NumberFormatException) {
-                commands.add(NHKeyCommand(command.firstOrNull()?:27.toChar()))
+        parseCommands(commandText, commands)
+        return commands
+    }
+
+    /**
+     * 逐字符解析：`#…#` 扩展命令、`L"…"` 行输入、`M"…"` 菜单匹配，
+     * 其余字符都是按键，连续数字作为前缀绑到后面那个按键上。
+     */
+    private fun parseCommands(commandText:String, commands: MutableList<NHCommand>) {
+        val reader = PushbackReader(StringReader(commandText), commandText.length)
+        var next = readChar(reader)
+        while (next != null) {
+            when {
+                next.isDigit() -> {
+                    reader.unread(next.code)
+                    commands.addAll(parseKeyWithPrefix(reader))
+                    next = readChar(reader)
+                }
+                next == '#' -> {
+                    commands.add(parseExtendedCommand(reader))
+                    next = readChar(reader)
+                }
+                next == 'L' -> {
+                    commands.add(parseLineCommand(reader) ?: NHKeyCommand('L'))
+                    next = readChar(reader)
+                }
+                next == 'M' -> {
+                    commands.add(parseMenuMatchCommand(reader) ?: NHKeyCommand('M'))
+                    next = readChar(reader)
+                }
+                else -> {
+                    commands.add(NHKeyCommand(next))
+                    next = readChar(reader)
+                }
             }
         }
-        return commands
+    }
+
+    /**
+     * 读"数字前缀 + 后面的按键"。
+     *
+     * 有数字、后面又跟着一个普通按键时，返回一条带 [NHCommand.numberPrefix] 的按键指令；
+     * 数字后面没有按键、数字是 0（0 不当前缀，原样发给游戏由它忽略）、
+     * 或者后面是 [SPECIAL_CHARS] 里的字符（数字前缀对它们不适用）时，
+     * 数字按位作为普通按键返回，并把后面那个字符退回 reader 交给调用方继续处理。
+     */
+    private fun parseKeyWithPrefix(reader: PushbackReader): List<NHCommand> {
+        val prefix = readNumber(reader)
+        val key = readChar(reader)
+        val special = key != null && key in SPECIAL_CHARS
+        if (key == null || special || prefix <= 0) {
+            key?.let { reader.unread(it.code) }
+            return prefix.toString().map { NHKeyCommand(it) }
+        }
+        return listOf(NHKeyCommand(key, prefix))
+    }
+
+    /** 读出当前位置的连续数字（没有数字时返回 0） */
+    private fun readNumber(reader: PushbackReader): Int {
+        val digits = StringBuilder()
+        var next = readChar(reader)
+        while (next != null && next.isDigit()) {
+            digits.append(next)
+            next = readChar(reader)
+        }
+        // 非数字字符不属于数字，退回到 reader
+        next?.apply { reader.unread(code) }
+        return digits.toString().toIntOrNull() ?: 0
     }
 
     private fun readChar(reader:PushbackReader):Char? {
@@ -101,38 +156,6 @@ object NHCommandParser {
         return NHMenuCommand(27.toChar(), emptyList(), 0, pattern.toString())
     }
 
-    // S#engrave#-L"Elbereth"
-    // TODO 适配数字前缀，涉及Menu、Question，向Sd20a这样的指令并不能达到预期
-    private fun parseSequenceCommands(command:String):List<NHCommand> {
-        val commands = mutableListOf<NHCommand>()
-        val reader = PushbackReader(StringReader(command), command.length)
-        readChar(reader) // 排除序列标识S
-        var next = readChar(reader)
-        while (next != null) {
-            when(next) {
-                '#' -> {
-                    commands.add(parseExtendedCommand(reader))
-                }
-                'L' -> {
-                    val lineCmd = parseLineCommand(reader)
-                    if (lineCmd != null)
-                        commands.add(lineCmd)
-                    else
-                        commands.add(NHKeyCommand('L'))
-                }
-                'M' -> {
-                    val menuCmd = parseMenuMatchCommand(reader)
-                    if (menuCmd != null)
-                        commands.add(menuCmd)
-                    else
-                        commands.add(NHKeyCommand('M'))
-                }
-                else -> {
-                    commands.add(NHKeyCommand(next))
-                }
-            }
-            next = readChar(reader)
-        }
-        return commands
-    }
+    /** 这些字符开启特殊语法（扩展命令、行输入、菜单匹配），数字前缀对它们不适用 */
+    private val SPECIAL_CHARS = listOf('#', 'L', 'M')
 }

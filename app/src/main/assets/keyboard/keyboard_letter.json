@@ -3,61 +3,61 @@
     "key": [
       {
         "label": "1",
-        "value": "S1",
+        "value": "1",
         "row": 0,
         "column": 0
       },
       {
         "label": "2",
-        "value": "S2",
+        "value": "2",
         "row": 0,
         "column": 1
       },
       {
         "label": "3",
-        "value": "S3",
+        "value": "3",
         "row": 0,
         "column": 2
       },
       {
         "label": "4",
-        "value": "S4",
+        "value": "4",
         "row": 0,
         "column": 3
       },
       {
         "label": "5",
-        "value": "S5",
+        "value": "5",
         "row": 0,
         "column": 4
       },
       {
         "label": "6",
-        "value": "S6",
+        "value": "6",
         "row": 0,
         "column": 5
       },
       {
         "label": "7",
-        "value": "S7",
+        "value": "7",
         "row": 0,
         "column": 6
       },
       {
         "label": "8",
-        "value": "S8",
+        "value": "8",
         "row": 0,
         "column": 7
       },
       {
         "label": "9",
-        "value": "S9",
+        "value": "9",
         "row": 0,
         "column": 8
       },
       {
         "label": "0",
-        "value": "S0",
+        "value": "0",
         "row": 0,
         "column": 9
       }
@@ -67,61 +67,61 @@
     "key": [
       {
         "label": "q",
-        "value": "Sq",
+        "value": "q",
         "row": 1,
         "column": 0
       },
       {
         "label": "w",
-        "value": "Sw",
+        "value": "w",
         "row": 1,
         "column": 1
       },
       {
         "label": "e",
-        "value": "Se",
+        "value": "e",
         "row": 1,
         "column": 2
       },
       {
         "label": "r",
-        "value": "Sr",
+        "value": "r",
         "row": 1,
         "column": 3
       },
       {
         "label": "t",
-        "value": "St",
+        "value": "t",
         "row": 1,
         "column": 4
       },
       {
         "label": "y",
-        "value": "Sy",
+        "value": "y",
         "row": 1,
         "column": 5
       },
       {
         "label": "u",
-        "value": "Su",
+        "value": "u",
         "row": 1,
         "column": 6
       },
       {
         "label": "i",
-        "value": "Si",
+        "value": "i",
         "row": 1,
         "column": 7
       },
       {
         "label": "o",
-        "value": "So",
+        "value": "o",
         "row": 1,
         "column": 8
       },
       {
         "label": "p",
-        "value": "Sp",
+        "value": "p",
         "row": 1,
         "column": 9
       }
@@ -131,55 +131,55 @@
     "key": [
       {
         "label": "a",
-        "value": "Sa",
+        "value": "a",
         "row": 2,
         "column": 0
       },
       {
         "label": "s",
-        "value": "Ss",
+        "value": "s",
         "row": 2,
         "column": 1
       },
       {
         "label": "d",
-        "value": "Sd",
+        "value": "d",
         "row": 2,
         "column": 2
       },
       {
         "label": "f",
-        "value": "Sf",
+        "value": "f",
         "row": 2,
         "column": 3
       },
       {
         "label": "g",
-        "value": "Sg",
+        "value": "g",
         "row": 2,
         "column": 4
       },
       {
         "label": "h",
-        "value": "Sh",
+        "value": "h",
         "row": 2,
         "column": 5
       },
       {
         "label": "j",
-        "value": "Sj",
+        "value": "j",
         "row": 2,
         "column": 6
       },
       {
         "label": "k",
-        "value": "Sk",
+        "value": "k",
         "row": 2,
         "column": 7
       },
       {
         "label": "l",
-        "value": "Sl",
+        "value": "l",
         "row": 2,
         "column": 8
       }
@@ -195,43 +195,43 @@
       },
       {
         "label": "z",
-        "value": "Sz",
+        "value": "z",
         "row": 3,
         "column": 1
       },
       {
         "label": "x",
-        "value": "Sx",
+        "value": "x",
         "row": 3,
         "column": 2
       },
       {
         "label": "c",
-        "value": "Sc",
+        "value": "c",
         "row": 3,
         "column": 3
       },
       {
         "label": "v",
-        "value": "Sv",
+        "value": "v",
         "row": 3,
         "column": 4
       },
       {
         "label": "b",
-        "value": "Sb",
+        "value": "b",
         "row": 3,
         "column": 5
       },
       {
         "label": "n",
-        "value": "Sn",
+        "value": "n",
         "row": 3,
         "column": 6
       },
       {
         "label": "m",
-        "value": "Sm",
+        "value": "m",
         "row": 3,
         "column": 7
       },
