@@ -5,17 +5,23 @@ import java.io.StringReader
 
 object NHCommandParser {
     /*
+    #engrave#-L"Elbereth"
     key command: -
     extended command: #read
-    sequence command: #engrave#-L"Elbereth"
-        key command in sequence: -
-        extended command in sequence: #read#
-        line command in sequence: L"Elbereth"
-    menu match in sequence: M"regex"  (e.g. aM"unicorn horn")
+    extended command in sequence: #read#
+    line command: L"Elbereth"
+    menu match command: M"regex"  (e.g. aM"unicorn horn")
     number prefix: 20s、d20a  (数字绑到它后面那个按键的 numberPrefix 上)
+    character code: 23、127  (整串都是数字时按字符编码发送，键盘的 ^W、DEL 等用这种写法)
     */
     fun parseNHCommand(commandText:String):List<NHCommand> {
         val commands = mutableListOf<NHCommand>()
+        // 整串都是数字，当作字符编码发送
+        val code = commandText.toIntOrNull()
+        if (code != null) {
+            commands.add(NHKeyCommand(code.toChar()))
+            return commands
+        }
         parseCommands(commandText, commands)
         return commands
     }
