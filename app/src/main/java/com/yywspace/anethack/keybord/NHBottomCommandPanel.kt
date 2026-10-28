@@ -17,7 +17,7 @@ import com.yywspace.anethack.R
 import com.yywspace.anethack.extensions.show
 
 /** 命令栏里的一条命令：发送的指令 + 按钮上显示的文字 */
-data class CommandEntry(val value: String, val label: String)
+data class CommandEntry(val label: String, val command: String)
 
 /**
  * 底部命令栏：命令按钮一行横向滚动，键盘/设置固定在最右侧。
@@ -66,14 +66,14 @@ class NHBottomCommandPanel @JvmOverloads constructor(
     fun setCommands(commands: String?) {
         val text = commands.orEmpty()
         entries = (if (text.isBlank()) defaultCommands else parseEntries(text))
-            .filter { it.value !in pinnedCommands }
+            .filter { it.command !in pinnedCommands }
             .toMutableList()
         commandList.removeAllViews()
         entries.forEach { entry ->
             val item = LayoutInflater.from(context)
                 .inflate(R.layout.item_command, commandList, false) as TextView
             item.text = entry.label
-            item.setOnClickListener { onCommand?.invoke(entry.value) }
+            item.setOnClickListener { onCommand?.invoke(entry.command) }
             item.setOnLongClickListener {
                 showEditDialog(entry)
                 true
@@ -110,7 +110,7 @@ class NHBottomCommandPanel @JvmOverloads constructor(
         val valueInput = view.findViewById<EditText>(R.id.command_edit_value)
         if (entry != null) {
             labelInput.setText(entry.label)
-            valueInput.setText(entry.value)
+            valueInput.setText(entry.command)
         }
         val immersive = immersiveProvider?.invoke() ?: false
         val builder = AlertDialog.Builder(context)
@@ -128,7 +128,7 @@ class NHBottomCommandPanel @JvmOverloads constructor(
             if (label.isEmpty() || value.isEmpty()) {
                 Toast.makeText(context, R.string.command_edit_invalid, Toast.LENGTH_SHORT).show()
             } else {
-                saveEntry(entry, CommandEntry(value, label))
+                saveEntry(entry, CommandEntry(label, value))
                 dialog.dismiss()
             }
         }
@@ -166,16 +166,16 @@ class NHBottomCommandPanel @JvmOverloads constructor(
          * 直接写在代码里，省掉 strings.xml 里那一层层转义。
          */
         val defaultCommands: List<CommandEntry> = listOf(
-            CommandEntry("aM\"candle|lantern|lamp\"", "Lamp"),
-            CommandEntry("aM\"unicorn horn\"", "Cure"),
-            CommandEntry("aM\"pick-axe\"", "Dig"),
-            CommandEntry("#engrave#-nL\"Elbereth\":", "Elber"),
+            CommandEntry("Lamp", "aM\"candle|lantern|lamp\""),
+            CommandEntry("Cure", "aM\"unicorn horn\""),
+            CommandEntry("Dig", "aM\"pick-axe\""),
+            CommandEntry("Elber", "#engrave#-nL\"Elbereth\":"),
             CommandEntry("20s", "20s"),
-            CommandEntry("m.", "FRest"),
+            CommandEntry("FRest", "m."),
             CommandEntry("300s", "300s"),
-            CommandEntry("S", "Save"),
-            CommandEntry("#quit", "Quit"),
-            CommandEntry("PriceID", "Price"),
+            CommandEntry("Save", "S"),
+            CommandEntry("Quit", "#quit"),
+            CommandEntry("Price", "PriceID"),
             CommandEntry("Monster", "Monster"),
         )
     }
