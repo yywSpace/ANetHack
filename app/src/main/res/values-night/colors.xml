@@ -15,4 +15,6 @@
     <color name="answer_cell_text">#FFD2D2D2</color>
     <!-- 菜单项文字：游戏没给颜色（NO_COLOR）时使用；比正文略亮，但不刺眼 -->
     <color name="menu_item_text">#FFE4E4E4</color>
+    <!-- 长按选择文字时的选中底色（深色下用半透明琥珀，和深灰背景区分得开） -->
+    <color name="text_selection_highlight">#66FFC107</color>
 </resources>

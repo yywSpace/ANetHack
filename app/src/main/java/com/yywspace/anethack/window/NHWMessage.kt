@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NetHack
@@ -149,7 +150,9 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             }
             (holder as MessageViewHolder).apply {
                 itemMessage.text = messageText
-                itemMessage.highlightColor = Color.TRANSPARENT
+                // 长按选择文字时的底色：不要设成透明，否则深色主题下看不见选区
+                itemMessage.highlightColor =
+                    ContextCompat.getColor(itemContext, R.color.text_selection_highlight)
                 // 这一行整行是怪物名时，点这一行的任何位置（含右侧空白）都弹详情
                 itemMessage.setOnTouchListener { view, event ->
                     if (event.actionMasked == MotionEvent.ACTION_UP) {

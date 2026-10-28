@@ -14,6 +14,8 @@
         <item name="colorSurface">@color/app_background</item>
         <!-- Material 组件的默认文字色（含对话框标题），与界面文字一致 -->
         <item name="colorOnSurface">@color/app_text</item>
+        <!-- 长按选择文字时的底色，深色版本见 values-night -->
+        <item name="android:textColorHighlight">@color/text_selection_highlight</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
