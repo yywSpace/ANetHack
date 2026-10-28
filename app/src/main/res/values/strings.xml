@@ -141,6 +141,9 @@
     <!-- special menu header   -->
     <string name="menu_header_direction">In what direction</string>
 
+    <!-- menu match command (M"regex") -->
+    <string name="menu_match_not_found">No menu entry matches \"%1$s\"</string>
+
     <!-- monster lookup -->
     <string name="monster_lookup_title">Monster</string>
     <string name="monster_lookup_hint">Monster name</string>

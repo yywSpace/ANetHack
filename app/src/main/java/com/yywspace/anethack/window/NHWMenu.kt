@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout.LayoutParams
 import android.widget.NumberPicker
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -67,23 +68,53 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         title = prompt ?: ""
     }
 
+    /** M"regex" 的匹配：正则非法时退化成不区分大小写的子串匹配，避免打断游戏 */
+    private fun matchesMenuPattern(pattern: String, text: String):Boolean =
+        try {
+            Regex(pattern).containsMatchIn(text)
+        } catch (_: Exception) {
+            text.contains(pattern, ignoreCase = true)
+        }
+
     fun selectMenu(how: Int): LongArray {
-        // 如果指令序列中有能命中的则直接选择不显示弹窗
-        nh.command.findAnyCommand<NHKeyCommand>()?.apply {
-            val selectList = mutableListOf<Long>()
-            nhMenuItems.filter {
-                item -> (item.accelerator == key) and !item.isHeader() and !item.isHint()
-            }.forEach { item ->
-                selectList.add(item.identifier)
-                selectList.add(item.selectedCount)
+        // 指令序列里可能已经指定了菜单要选哪一项：按键加速符，或 M"正则"
+        when (val selection = nh.command.findMenuCommand()) {
+            is NHKeyCommand -> {
+                val selectList = mutableListOf<Long>()
+                nhMenuItems.filter {
+                    item -> (item.accelerator == selection.key) and !item.isHeader() and !item.isHint()
+                }.forEach { item ->
+                    selectList.add(item.identifier)
+                    selectList.add(item.selectedCount)
+                }
+                if (selectList.isNotEmpty()) {
+                    // 清空列表
+                    textList.clear()
+                    nhMenuItems.clear()
+                    return selectList.toLongArray()
+                }
             }
-            // 清空列表
-            textList.clear()
-            nhMenuItems.clear()
-            if (selectList.isNotEmpty())
-                return selectList.toLongArray()
-            else // 若未命中列表，后续指令清理，等待用户选择，防止出现意外情况
-                nh.command.clear()
+            is NHMenuCommand -> {
+                val hit = nhMenuItems.firstOrNull { item ->
+                    !item.isHeader() && !item.isHint()
+                        && matchesMenuPattern(selection.pattern ?: "", item.title.value)
+                }
+                if (hit != null) {
+                    if (SelectMode.fromInt(how) == SelectMode.PickMany) {
+                        // 多选菜单只把命中的条目勾上
+                        hit.isSelected = true
+                    } else {
+                        // 单选菜单选中这一条就返回
+                        textList.clear()
+                        nhMenuItems.clear()
+                        return longArrayOf(hit.identifier, hit.selectedCount)
+                    }
+                } else {
+                    // 有匹配指令但菜单里没有对应条目
+                    showMenuMatchNotFound(selection.pattern ?: "")
+                }
+            }
+            else -> {}
         }
         selectMode = SelectMode.fromInt(how)
         showMenu()
@@ -100,6 +131,16 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         }
         Log.d("selectMenu", menuCommand.selectedItems.toString())
         return menuCommand.selectedItems.toLongArray()
+    }
+
+    private fun showMenuMatchNotFound(pattern: String) {
+        nh.runOnUi { _, context ->
+            Toast.makeText(
+                context,
+                context.getString(R.string.menu_match_not_found, pattern),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun showMenu() {

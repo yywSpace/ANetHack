@@ -1,7 +1,6 @@
 package com.yywspace.anethack.command
 
 import java.time.LocalDateTime
-import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.LinkedBlockingQueue
 
 class NHBlockingCommandController {
@@ -25,17 +24,25 @@ class NHBlockingCommandController {
         return cmd
     }
 
-    inline fun <reified T:NHCommand>findAnyCommand():T?{
-        for(cmd in cmdQueue) {
-            if (cmd is T) {
-                while (cmdQueue.isNotEmpty()) {
-                    if(cmd == cmdQueue.take())
-                        return cmd
-                }
-                return null
-            }
+    /**
+     * 取出队列里第一个"选择菜单条目"用的指令：[NHKeyCommand]或带正则的 [NHMenuCommand]。
+     * 它之前的指令一并丢弃（和 findAnyCommand 的语义一致）；队列为空时返回 null。
+     */
+    fun findMenuCommand(): NHCommand? {
+        while (true) {
+            val cmd = cmdQueue.poll() ?: return null
+            if (cmd is NHKeyCommand || (cmd is NHMenuCommand && cmd.pattern != null))
+                return cmd
         }
-        return null
+    }
+
+    /** 取出队列里第一个 [T] 类型的指令，它之前的指令一并丢弃；没有则返回 null */
+    inline fun <reified T:NHCommand>findAnyCommand():T?{
+        while (true) {
+            val cmd = cmdQueue.poll() ?: return null
+            if (cmd is T)
+                return cmd
+        }
     }
 
     inline fun <reified T:NHCommand>waitForAnyCommand(noinline otherCommandDiscard:((NHCommand)->Unit)? = null):T{
