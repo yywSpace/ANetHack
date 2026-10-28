@@ -121,10 +121,9 @@
         app:title="@string/pref_keyboard_header"
         app:iconSpaceReserved="false">
 
-        <EditTextPreference
+        <Preference
             app:key="commandPanel"
             app:title="@string/pref_keyboard_command_panel"
-            app:useSimpleSummaryProvider="true"
             app:iconSpaceReserved="false"/>
 
         <CheckBoxPreference

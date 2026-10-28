@@ -6,6 +6,8 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
+import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +23,7 @@ import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.R
+import com.yywspace.anethack.SharedPreferencesUtils
 import com.yywspace.anethack.Utils
 import java.io.File
 
@@ -120,6 +123,12 @@ class SettingsActivity : AppCompatActivity() {
                     true
                 }
             }
+            findPreference<Preference>("commandPanel")?.apply {
+                setOnPreferenceClickListener {
+                    showCommandPanelEditor()
+                    true
+                }
+            }
             userSoundPerm = findPreference<CheckBoxPreference>("userSound")?.apply {
                 setOnPreferenceClickListener {
                     if (XXPermissions.isGranted(context, Permission.READ_MEDIA_AUDIO)) {
@@ -158,6 +167,35 @@ class SettingsActivity : AppCompatActivity() {
                     true
                 }
             }
+        }
+
+        /**
+         * 命令栏配置的编辑弹窗。
+         *
+         * 用应用自己的 Confirm/Cancel 按钮（而不是 EditTextPreference 的系统按钮），
+         * 避免在中文系统上和其它英文界面混搭。
+         */
+        private fun showCommandPanelEditor() {
+            val ctx = context ?: return
+            val prefs = SharedPreferencesUtils(ctx)
+            val input = EditText(ctx).apply {
+                setText(prefs.commandPanel)
+                setTextIsSelectable(true)
+                inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+            }
+            val container = FrameLayout(ctx).apply {
+                val pad = (20 * resources.displayMetrics.density).toInt()
+                setPadding(pad, pad / 2, pad, 0)
+                addView(input)
+            }
+            AlertDialog.Builder(ctx)
+                .setTitle(R.string.pref_keyboard_command_panel)
+                .setView(container)
+                .setPositiveButton(R.string.dialog_confirm) { _, _ ->
+                    prefs.commandPanel = input.text.toString().trim()
+                }
+                .setNegativeButton(R.string.dialog_cancel, null)
+                .show()
         }
 
         private fun openInternalFile(context: Context?, relativePath:String) {

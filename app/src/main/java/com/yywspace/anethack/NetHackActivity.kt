@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -102,6 +103,12 @@ class NetHackActivity : AppCompatActivity() {
         Utils.applyThemeMode(this)
         // setTheme 让之后创建的对话框按新的（night）主题解析
         setTheme(R.style.Theme_ANetHack)
+        // XML 里的 @color/app_background 是 inflate 时解析的，切换主题后要按新主题再设一次，
+        // 否则根布局/容器可能还留着旧（浅色）背景，看起来像"命令栏变白了"
+        val background = ContextCompat.getColor(this, R.color.app_background)
+        binding.root.setBackgroundColor(background)
+        binding.panelContainer.setBackgroundColor(Color.TRANSPARENT)
+        binding.dialogContainer.setBackgroundColor(Color.TRANSPARENT)
         // 键盘和命令栏各自按新主题刷新（背景、键帽、按钮、图标都在各自类里处理）
         binding.keyboardView.applyTheme()
         initControlPanel()
