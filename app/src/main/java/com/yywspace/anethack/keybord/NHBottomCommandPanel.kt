@@ -13,10 +13,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
+import com.google.gson.JsonSerializationContext
+import com.google.gson.JsonSerializer
 import com.yywspace.anethack.R
 import com.yywspace.anethack.extensions.show
 
-/** 命令栏里的一条命令：发送的指令 + 按钮上显示的文字 */
+/** 命令栏里的一条命令：按钮上显示的文字 + 发送的指令 */
 data class CommandEntry(val label: String, val command: String)
 
 /**
@@ -45,7 +49,22 @@ class NHBottomCommandPanel @JvmOverloads constructor(
     /** 当前配置里的条目 */
     private var entries = mutableListOf<CommandEntry>()
 
-    private val gson = Gson()
+    /**
+     * 序列化时自己写 JSON：Gson 走反射取字段，键顺序取决于 JVM 返回字段的顺序，
+     * 这里显式按 label、command 写，保证存下来的配置顺序固定。
+     */
+    private val gson: Gson = GsonBuilder()
+        .registerTypeAdapter(CommandEntry::class.java, object : JsonSerializer<CommandEntry> {
+            override fun serialize(
+                src: CommandEntry,
+                type: java.lang.reflect.Type,
+                context: JsonSerializationContext
+            ): JsonObject = JsonObject().apply {
+                addProperty("label", src.label)
+                addProperty("command", src.command)
+            }
+        })
+        .create()
 
     init {
         orientation = HORIZONTAL

@@ -19,10 +19,12 @@ import androidx.preference.CheckBoxPreference
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.google.gson.Gson
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.R
+import com.yywspace.anethack.keybord.CommandEntry
 import com.yywspace.anethack.SharedPreferencesUtils
 import com.yywspace.anethack.Utils
 import java.io.File
@@ -128,6 +130,7 @@ class SettingsActivity : AppCompatActivity() {
                     showCommandPanelEditor()
                     true
                 }
+                updateCommandPanelSummary()
             }
             userSoundPerm = findPreference<CheckBoxPreference>("userSound")?.apply {
                 setOnPreferenceClickListener {
@@ -169,6 +172,32 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
+        /** 读命令栏配置（与设置框架默认使用同一个 SharedPreferences 文件） */
+        private fun readCommandPanel(): String =
+            context?.let { SharedPreferencesUtils(it).commandPanel }.orEmpty()
+
+        /** 写命令栏配置 */
+        private fun writeCommandPanel(value: String) {
+            val ctx = context ?: return
+            SharedPreferencesUtils(ctx).commandPanel = value
+        }
+
+        /** 命令栏配置的简略显示：默认命令或"N 个命令：前几个标签" */
+        private fun updateCommandPanelSummary() {
+            val pref = findPreference<Preference>("commandPanel") ?: return
+            val ctx = pref.context
+            val entries = runCatching {
+                Gson().fromJson(readCommandPanel(), Array<CommandEntry>::class.java)
+            }.getOrNull()?.filter { it.command.isNotEmpty() && it.label.isNotEmpty() }
+            pref.summary = if (entries.isNullOrEmpty())
+                ctx.getString(R.string.command_panel_summary_default)
+            else
+                ctx.getString(
+                    R.string.command_panel_summary,
+                    entries.size,
+                    entries.take(3).joinToString(" / ") { it.label }
+                )
+        }
         /**
          * 命令栏配置的编辑弹窗。
          *
@@ -177,9 +206,8 @@ class SettingsActivity : AppCompatActivity() {
          */
         private fun showCommandPanelEditor() {
             val ctx = context ?: return
-            val prefs = SharedPreferencesUtils(ctx)
             val input = EditText(ctx).apply {
-                setText(prefs.commandPanel)
+                setText(readCommandPanel())
                 setTextIsSelectable(true)
                 inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
             }
@@ -192,7 +220,8 @@ class SettingsActivity : AppCompatActivity() {
                 .setTitle(R.string.pref_keyboard_command_panel)
                 .setView(container)
                 .setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                    prefs.commandPanel = input.text.toString().trim()
+                    writeCommandPanel(input.text.toString().trim())
+                    updateCommandPanelSummary()
                 }
                 .setNegativeButton(R.string.dialog_cancel, null)
                 .show()

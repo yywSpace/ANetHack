@@ -123,6 +123,8 @@
     <string name="pref_keyboard_header">Keyboard</string>
     <string name="pref_keyboard_vibrate">Keyboard vibration</string>
     <string name="pref_keyboard_command_panel">Edit command panel</string>
+    <string name="command_panel_summary_default">Built-in commands</string>
+    <string name="command_panel_summary">%1$d commands: %2$s</string>
     <string name="command_bar_keyboard_switch">Show or hide the keyboard</string>
     <string name="command_bar_settings_switch">Open settings</string>
     <string name="command_bar_add">+</string>
