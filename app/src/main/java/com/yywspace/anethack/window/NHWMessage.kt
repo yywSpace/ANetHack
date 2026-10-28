@@ -1,7 +1,6 @@
 package com.yywspace.anethack.window
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.LayoutInflater
@@ -50,12 +49,12 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         // 避免列表为空时maxBy报NoSuchElementException异常
         if (messageList.isEmpty())
             return emptyList()
-        val lastMsg = messageList.maxBy { it.time }
+        val lastMsg = messageList.lastOrNull { !it.history }
         // 最多取最新 size 条：同一回合的多条消息共享时间戳，若按同批全部取出会
         // 超过消息栏行数，最新消息被底部裁剪看不见
         val msgSize = messageList.size.coerceAtMost(size)
         return messageList.reversed().subList(0, msgSize).map { nhMessage ->
-            nhMessage.attach(lastMsg.time)
+            nhMessage.attach(lastMsg?.source)
         }.toList()
     }
 
@@ -107,7 +106,13 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         Log.d("NHWMessage","NHWMessage: putString $msg")
         if (messageList.size > nh.prefs.messageHistorySize)
             messageList.removeAt(0)
-        messageList.add(NHMessage(NHString(msg.trim(), attr), nh.command.lastCmdTime))
+        // 消息来源：游戏当前正在处理的指令（行走、look、命令栏指令等都会记下来）
+        messageList.add(
+            NHMessage(
+                NHString(msg.trim(), attr),
+                nh.command.lastConsumedCommand
+            )
+        )
         // 新消息到达 → 唤醒消息绘制线程（事件驱动，取代定时循环）
         messageView.requestRedraw()
     }
@@ -117,7 +122,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         private val itemSize:Int,
         private val nh: NetHack
     ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        private var lastCmdMsg:NHMessage = messageList.maxBy { it.time }
+        private var lastCmdMsg: NHMessage? = messageList.lastOrNull { !it.history }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.dialog_message_item, parent, false)
@@ -135,18 +140,21 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             val subList = messageList.subList(start, end)
             // 旧消息（非最新一批）用"默认文字色"：亮色下深灰、深色下柔和白，避免和背景同色
             val oldMsgColor = if (NHColor.darkTheme) NHColor.CLR_WHITE else NHColor.CLR_BLACK
+            val itemContext = holder.itemView.context
             val messageText = SpannableStringBuilder()
             for ((idx, message) in subList.withIndex()) {
-                messageText.append(
-                    message.attach(lastCmdMsg.time, oldMsgColor).toSpannableString()
-                )
-                if (idx != subList.size -1)
+                if (idx != 0)
                     messageText.append("\n")
-            }
-            // 消息里出现的怪物名高亮成可点击，点了弹怪物详情
-            val itemContext = holder.itemView.context
-            MonsterLink.highlight(itemContext, messageText) { name ->
-                nh.monsterDialog?.showFromMonsterName(name)
+                val lineStart = messageText.length
+                messageText.append(
+                    message.attach(lastCmdMsg?.source, oldMsgColor).toSpannableString()
+                )
+                // 只解析 look 指令产生的消息（格式可预期），其它消息保持原样
+                if (message.fromLook) {
+                    MonsterLink.highlight(itemContext, messageText, lineStart, messageText.length) { name ->
+                        nh.monsterDialog?.showFromMonsterName(name)
+                    }
+                }
             }
             (holder as MessageViewHolder).apply {
                 itemMessage.text = messageText

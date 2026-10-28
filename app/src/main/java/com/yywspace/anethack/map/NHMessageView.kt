@@ -58,13 +58,18 @@ class NHMessageView @JvmOverloads constructor(
         messages.forEachIndexed { index, message ->
             if (index > 0)
                 builder.append('\n')
+            val start = builder.length
             builder.append(message.toSpannableString())
+            // 只解析 look 指令产生的消息（格式可预期），其它消息保持原样
+            if (message.fromLook)
+                MonsterLink.highlight(context, builder, start, builder.length) { name ->
+                    onMonsterClick?.invoke(name)
+                }
         }
         val content = builder.toString()
         // 内容没变就不重新布局
         if (content == text)
             return
-        MonsterLink.highlight(context, builder) { name -> onMonsterClick?.invoke(name) }
         text = builder
     }
 

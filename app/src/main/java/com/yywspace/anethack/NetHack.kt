@@ -24,8 +24,6 @@ import com.yywspace.anethack.window.NHWStatus
 import com.yywspace.anethack.window.NHWText
 import com.yywspace.anethack.window.NHWindow
 import com.yywspace.anethack.window.NHWindowType
-import java.time.LocalDateTime
-import java.time.LocalTime
 import java.util.concurrent.CopyOnWriteArrayList
 
 
@@ -202,8 +200,7 @@ class NetHack(
             getWMessage().apply {
                 // set historical messages to the earliest
                 messageList.add(
-                    NHMessage(NHString(msg.trim()),
-                        LocalDateTime.of(LocalDateTime.now().toLocalDate(), LocalTime.MIN))
+                    NHMessage(NHString(msg.trim()), history = true)
                 )
             }
         }

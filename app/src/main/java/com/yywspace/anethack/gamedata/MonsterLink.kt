@@ -15,8 +15,7 @@ import com.yywspace.anethack.entity.NHColor
 /**
  * 消息里出现的怪物名，做成高亮可点击的文本段。
  *
- * 规则：**整行**文字正好等于某个怪物名时才高亮（例如一行只有 "giant ant"），
- * 句子里夹带的怪物名不处理。高亮颜色用这只怪物自己的颜色。
+ * 只有 **look 指令产生的消息** 才会被解析（见 NHMessage.fromLook）
  *
  * 两处点击判定不同：
  * - [spanAtTouch]：必须点在文字的左右边界内（上方三行消息栏用，点右侧空白不触发）；
@@ -24,23 +23,65 @@ import com.yywspace.anethack.entity.NHColor
  */
 object MonsterLink {
 
+    @Volatile
+    private var nameRegex: Regex? = null
+
+    @Volatile
+    private var regexSize = -1
+
     /**
-     * 在 [text] 上标出"整行就是一个怪物名"的行；点击时回调名字。
+     * 在 [text] 的 [from, to) 区间里找怪物名：哪一行出现了怪物名，就把**整行**标成可点击，
+     * 点击时回调那一行里匹配到的名字。
      *
-     * 设置里关掉"怪物信息"后直接返回，消息列表完全不动（不高亮、不建 span）。
+     * 调用方只对 look 来源的消息调用本方法。设置里关掉"怪物信息"时直接返回。
      */
-    fun highlight(context: Context, text: Spannable, onClick: (String) -> Unit) {
+    fun highlight(
+        context: Context,
+        text: Spannable,
+        from: Int,
+        to: Int,
+        onClick: (String) -> Unit
+    ) {
         if (!SharedPreferencesUtils(context).monsterInfo)
             return
+        if (to <= from)
+            return
         GameData.ensureLoaded(context)
-        var start = 0
-        while (start <= text.length) {
-            val end = indexOfNewline(text, start)
-            markLine(text, start, end, onClick)
-            if (end >= text.length)
+        val regex = regex() ?: return
+        var lineStart = from
+        while (lineStart <= to) {
+            val lineEnd = indexOfNewline(text, lineStart, to)
+            if (lineEnd > lineStart) {
+                val line = text.subSequence(lineStart, lineEnd).toString()
+                val match = regex.find(line)
+                val monster = match?.let { GameData.monsterOfLine(it.value) }
+                if (match != null && monster != null) {
+                    // 整行高亮，名字只用来决定颜色和点开哪只怪物
+                    text.setSpan(
+                        MonsterNameSpan(
+                            match.value,
+                            NHColor.fromInt(monster.colorCode).toColor(),
+                            onClick
+                        ),
+                        lineStart,
+                        lineEnd,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+            }
+            if (lineEnd >= to)
                 break
-            start = end + 1
+            lineStart = lineEnd + 1
         }
+    }
+
+    /** 在 [from, limit) 里找下一个换行，没有则返回 [limit] */
+    private fun indexOfNewline(text: CharSequence, from: Int, limit: Int): Int {
+        for (i in from until limit) {
+            if (text[i] == '\n')
+                return i
+        }
+        return limit
     }
 
     /**
@@ -80,39 +121,19 @@ object MonsterLink {
         ).firstOrNull()
     }
 
-    /** 处理 [start, end) 这一行：整行（去掉首尾空白）是怪物名才加 span */
-    private fun markLine(
-        text: Spannable,
-        start: Int,
-        end: Int,
-        onClick: (String) -> Unit
-    ) {
-        if (end <= start)
-            return
-        val line = text.subSequence(start, end).toString()
-        val trimmed = line.trim()
-        if (trimmed.isEmpty())
-            return
-        // O(1) 字典查（消息列表滚动时会大量调用）；索引里同时有完整名和基础名
-        val monster = GameData.monsterOfLine(trimmed) ?: return
-        val lead = line.indexOfFirst { !it.isWhitespace() }
-        val trail = line.indexOfLast { !it.isWhitespace() }
-        if (lead !in 0..trail)
-            return
-        text.setSpan(
-            MonsterNameSpan(trimmed, NHColor.fromInt(monster.colorCode).toColor(), onClick),
-            start + lead,
-            start + trail + 1,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-    }
-
-    private fun indexOfNewline(text: CharSequence, from: Int): Int {
-        for (i in from until text.length) {
-            if (text[i] == '\n')
-                return i
+    /** 所有怪物名拼成的正则：按长度倒序，长名优先匹配 */
+    private fun regex(): Regex? {
+        val names = GameData.monsters.map { it.name }
+        if (names.isEmpty())
+            return null
+        val cached = nameRegex
+        if (cached != null && regexSize == names.size)
+            return cached
+        val body = names.sortedByDescending { it.length }.joinToString("|") { Regex.escape(it) }
+        return Regex("(?<![\\w-])($body)(?![\\w-])", RegexOption.IGNORE_CASE).also {
+            nameRegex = it
+            regexSize = names.size
         }
-        return text.length
     }
 }
 
