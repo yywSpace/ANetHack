@@ -162,7 +162,7 @@ class NetHackActivity : AppCompatActivity() {
                 priceIDialog.showFromMessages()
             }
             MONSTER_LOOKUP_COMMAND -> {
-                monsterDialog.show()
+                monsterDialog.showForMonster()
             }
             else -> {
                 if(nethack.isRunning) {

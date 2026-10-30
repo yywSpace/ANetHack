@@ -31,15 +31,13 @@ data class Monster(
     /** 阵营名：lawful / chaotic / neutral */
     val alignmentName: String = "",
     /** 出现频率（源码里的数字，可能带注释，所以用字符串） */
-    val frequency: String = "",
-    val genocidable: String = "",
+    val frequency: Int = 0,
+    val genocidable: Boolean = false,
     val weight: Int = 0,
     val nutrition: Int = 0,
     val size: String = "",
-    val resistances: String = "",
-    val resistancesConveyed: String = "",
+    val resistances: List<String> = emptyList(),
+    val resistancesConveyed: List<String> = emptyList(),
     /** 属性标识，如 nohands / animal / hostile */
-    val attributes: List<String> = emptyList(),
-    /** 属性的可读描述，与 [attributes] 按下标对应 */
-    val attributeDescriptions: List<String> = emptyList()
+    val attributes: List<String> = emptyList()
 )

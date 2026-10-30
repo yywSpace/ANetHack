@@ -21,6 +21,7 @@ object GameData {
     private const val ITEMS_FILE = "price_items.json"
     private const val RULES_FILE = "price_rules.json"
     private const val MONSTERS_FILE = "monsters.json"
+    private const val MONSTER_ATTRIBUTES_FILE = "monster_attributes.json"
 
     /** 全部物品条目 */
     val priceItems: List<PriceItem>
@@ -36,6 +37,9 @@ object GameData {
 
     /** 名字（小写）→ 怪物，供消息高亮做 O(1) 查询，加载完就建好 */
     private var monsterIndex: Map<String, Monster> = emptyMap()
+
+    /** monster_attributes.json：原始属性标志 → 展示文字 */
+    private var attributeLabels: Map<String, String> = emptyMap()
 
     @Volatile
     private var loaded = false
@@ -75,6 +79,9 @@ object GameData {
      * 消息行 → 怪物，用字典 O(1) 查（消息列表滚动时会大量调用，别用线性扫描）。
      * 完整名和去掉 (human)/(animal) 的基础名都在索引里。
      */
+    /** 原始属性标志转成展示文字；没有映射时原样返回 */
+    fun attributeLabel(raw: String): String = attributeLabels[raw] ?: raw
+
     fun monsterOfLine(line: String): Monster? {
         val key = line.trim().lowercase()
         if (key.isEmpty())
@@ -104,6 +111,11 @@ object GameData {
 
         priceRules = gson.fromJson(readAsset(context, RULES_FILE), PriceRules::class.java)
             ?: PriceRules()
+
+        val labelsType = object : TypeToken<Map<String, String>>() {}.type
+        attributeLabels = gson.fromJson(
+            readAsset(context, MONSTER_ATTRIBUTES_FILE), labelsType
+        ) ?: emptyMap()
     }
 
     /** 建索引：完整名优先，基础名只在没有同名时补充 */

@@ -41,7 +41,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         }
         // 消息里的怪物名：点击后打开怪物详情（弹窗统一从 nh.monsterDialog 取）
         messageView.onMonsterClick = { name ->
-            nh.monsterDialog?.showFromMonsterName(name)
+            nh.monsterDialog?.showForMonster(name)
         }
     }
 
@@ -152,7 +152,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                 // 只解析 look 指令产生的消息（格式可预期），其它消息保持原样
                 if (message.fromLook) {
                     MonsterLink.highlight(itemContext, messageText, lineStart, messageText.length) { name ->
-                        nh.monsterDialog?.showFromMonsterName(name)
+                        nh.monsterDialog?.showForMonster(name)
                     }
                 }
             }

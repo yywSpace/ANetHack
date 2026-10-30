@@ -18,6 +18,12 @@
     <color name="key_border">#FF808080</color>
     <color name="app_divider">#FFE0E0E0</color>
     <color name="extend_search_bg">#FFF5F5F5</color>
+    <!-- 怪物弹窗里的信息卡片底色：比白色背景略深一点才看得出分组 -->
+    <color name="monster_card">#FFF2F2F2</color>
+    <!-- 怪物弹窗里 chip 的底色：要比卡片底色再深/再亮一档 -->
+    <color name="monster_chip">#FFE9E9E9</color>
+    <!-- 怪物弹窗里可点击文字（Search）的颜色：用主题强调色 -->
+    <color name="monster_action">#FF6200EE</color>
     <!-- 问答弹窗的答案格子，亮色沿用主题紫，深色见 values-night -->
     <color name="answer_cell">#FF6200EE</color>
     <color name="answer_cell_pressed">#FF3700B3</color>
