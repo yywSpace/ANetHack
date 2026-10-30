@@ -9,7 +9,7 @@
             app:title="@string/pref_ui_theme_mode"
             app:iconSpaceReserved="false"
             app:useSimpleSummaryProvider="true"
-            app:defaultValue="light"
+            app:defaultValue="system"
             app:entries="@array/theme_mode_array"
             app:entryValues="@array/theme_mode_value"/>
 

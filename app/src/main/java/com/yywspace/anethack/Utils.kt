@@ -1,6 +1,7 @@
 package com.yywspace.anethack
 
 import android.content.Context
+import android.content.res.Configuration
 import android.view.Gravity
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
@@ -10,6 +11,7 @@ import com.yywspace.anethack.entity.NHColor
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.nio.charset.Charset
+import androidx.core.content.edit
 
 
 object Utils {
@@ -21,14 +23,23 @@ object Utils {
     fun applyThemeMode(context: Context, mode: String? = null) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         if (mode != null)
-            prefs.edit().putString("themeMode", mode).apply()
-        val value = mode ?: prefs.getString("themeMode", "light")
-        val dark = value == "dark"
+            prefs.edit { putString("themeMode", mode) }
+        val value = mode ?: prefs.getString("themeMode", "system")
+        // 跟随系统时，深色与否由当前系统配置决定
+        val dark = when (value) {
+            "dark" -> true
+            "light" -> false
+            else -> (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
+                    Configuration.UI_MODE_NIGHT_YES
+        }
         // 游戏调色板（NHColor）在深色模式下用柔和的一套
         NHColor.darkTheme = dark
         AppCompatDelegate.setDefaultNightMode(
-            if (dark) AppCompatDelegate.MODE_NIGHT_YES
-            else AppCompatDelegate.MODE_NIGHT_NO
+            when (value) {
+                "dark" -> AppCompatDelegate.MODE_NIGHT_YES
+                "light" -> AppCompatDelegate.MODE_NIGHT_NO
+                else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            }
         )
     }
 
