@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- "更多命令"面板里的格子：Material Chip，横向排列，底色/圆角直接写在标签上 -->
-<com.google.android.material.chip.Chip
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/Widget.MaterialComponents.Chip.Action"
+<!-- "更多命令"面板里的格子：背景和键盘按键共用 bg_key_selector -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="@dimen/command_bar_item_height"
-    android:layout_marginEnd="@dimen/command_bar_item_spacing"
-    android:textColor="@color/app_text"
-    app:chipBackgroundColor="@color/command_extra_item"
-    app:chipCornerRadius="8dp"
-    app:chipMinHeight="0dp"
-    app:chipStartPadding="0dp"
-    app:chipEndPadding="0dp"
-    app:ensureMinTouchTargetSize="false"
-    app:textStartPadding="8dp"
-    app:textEndPadding="8dp" />
+    android:layout_height="@dimen/command_item_height"
+    android:layout_marginEnd="@dimen/command_item_spacing"
+    android:background="@drawable/bg_key_selector"
+    android:gravity="center"
+    android:minWidth="@dimen/command_item_min_width"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:textColor="@color/app_text" />

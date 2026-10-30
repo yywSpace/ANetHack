@@ -32,6 +32,4 @@
     <color name="menu_item_text">#FF262626</color>
     <!-- 长按选择文字时的选中底色（浅色下用半透明蓝） -->
     <color name="text_selection_highlight">#552196F3</color>
-    <!-- 额外面板格子的底色（浅色） -->
-    <color name="command_extra_item">#FFF1F1F1</color>
 </resources>

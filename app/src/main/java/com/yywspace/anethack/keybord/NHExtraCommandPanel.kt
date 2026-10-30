@@ -85,7 +85,7 @@ class NHExtraCommandPanel @JvmOverloads constructor(
                 scroller.layoutParams = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
                 ).apply {
-                    topMargin = resources.getDimensionPixelSize(R.dimen.command_bar_item_spacing)
+                    topMargin = resources.getDimensionPixelSize(R.dimen.command_item_spacing)
                 }
             }
             rows.addView(scroller)

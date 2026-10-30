@@ -23,6 +23,4 @@
     <color name="menu_item_text">#FFE4E4E4</color>
     <!-- 长按选择文字时的选中底色（深色下用半透明琥珀，和深灰背景区分得开） -->
     <color name="text_selection_highlight">#66FFC107</color>
-    <!-- 额外面板格子的底色（深色） -->
-    <color name="command_extra_item">#FF2C2C2C</color>
 </resources>

@@ -32,8 +32,8 @@ class KeyboardView @JvmOverloads constructor(
     private lateinit var keyboardCustom:NHKeyboard
     private lateinit var keyboardUpperLetter:NHKeyboard
 
-    private var keyHeight = Utils.dip2px(context, 40f) // 按键高度（px）
-    private var keyGap = 3
+    private var keyHeight = 0 // 按键高度（px），init 里从 dimens / 自定义属性读
+    private var keyGap = 0 // 按键四周边距，init 里从 dimens 读
     private var isUpper = false
     private var isNumberPanelShow = false
     var onKeyPress:((key:NHKeyboard.Key)->Unit)? = null
@@ -46,8 +46,11 @@ class KeyboardView @JvmOverloads constructor(
         // 按键高度可在布局里用 app:key_height 配置
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.KeyboardView)
         try {
-            keyHeight = typedArray.getDimensionPixelSize(R.styleable.KeyboardView_key_height,
-                                                         keyHeight)
+            keyHeight = typedArray.getDimensionPixelSize(
+                R.styleable.KeyboardView_key_height,
+                resources.getDimensionPixelSize(R.dimen.command_item_height)
+            )
+            keyGap = resources.getDimensionPixelSize(R.dimen.command_item_gap)
         } finally {
             typedArray.recycle()
         }
