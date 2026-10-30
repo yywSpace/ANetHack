@@ -983,5 +983,50 @@
     "type": "Gloves",
     "name": "leather gloves",
     "cost": 8
+  },
+  {
+    "type": "Shield",
+    "name": "small shield (wooden shield)",
+    "cost": 3
+  },
+  {
+    "type": "Shield",
+    "name": "shield of drain resistance (wooden shield)",
+    "cost": 50
+  },
+  {
+    "type": "Shield",
+    "name": "shield of shock resistance (wooden shield)",
+    "cost": 50
+  },
+  {
+    "type": "Shield",
+    "name": "elven shield (blue and green shield)",
+    "cost": 7
+  },
+  {
+    "type": "Shield",
+    "name": "Uruk-hai shield (white-handed shield)",
+    "cost": 7
+  },
+  {
+    "type": "Shield",
+    "name": "orcish shield (red-eyed shield)",
+    "cost": 7
+  },
+  {
+    "type": "Shield",
+    "name": "large shield",
+    "cost": 10
+  },
+  {
+    "type": "Shield",
+    "name": "dwarvish roundshield (large round shield)",
+    "cost": 10
+  },
+  {
+    "type": "Shield",
+    "name": "shield of reflection (polished silver shield)",
+    "cost": 50
   }
 ]

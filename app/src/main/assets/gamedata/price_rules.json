@@ -13,6 +13,7 @@
     "Boots": "(?:shoes|boots)",
     "Cloak": "(?:apron|robe|smock|mantelet|pall|cape|cope|cloak|cloth)",
     "Helm": "(?:fedora|cap|cornuthaum|helm|pot|hat|helmet)",
-    "Gloves": "(?:gauntlets|gloves)"
+    "Gloves": "(?:gauntlets|gloves)",
+    "Shield": "(?:shield|roundshield)"
   }
 }
