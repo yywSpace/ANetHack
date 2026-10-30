@@ -125,6 +125,13 @@ class SettingsActivity : AppCompatActivity() {
                     true
                 }
             }
+            findPreference<Preference>("commandPanelExtra")?.apply {
+                setOnPreferenceClickListener {
+                    showExtraCommandPanelEditor()
+                    true
+                }
+                summary = extraCommandPanelSummary()
+            }
             findPreference<Preference>("commandPanel")?.apply {
                 setOnPreferenceClickListener {
                     showCommandPanelEditor()
@@ -198,6 +205,42 @@ class SettingsActivity : AppCompatActivity() {
                     entries.take(3).joinToString(" / ") { it.label }
                 )
         }
+        /** "更多命令"面板的简略显示 */
+        private fun extraCommandPanelSummary(): String {
+            val ctx = context ?: return ""
+            val raw = SharedPreferencesUtils(ctx).commandPanelExtra
+            val count = runCatching {
+                Gson().fromJson(raw, Array<Array<CommandEntry>>::class.java)?.sumOf { it.size }
+            }.getOrNull() ?: 0
+            return if (count == 0) ctx.getString(R.string.command_panel_summary_default)
+            else ctx.getString(R.string.command_panel_summary, count, ctx.getString(R.string.pref_keyboard_command_panel_extra))
+        }
+
+        /** "更多命令"面板的编辑弹窗：和命令栏那项一致，只是存到另一个偏好 */
+        private fun showExtraCommandPanelEditor() {
+            val ctx = context ?: return
+            val prefs = SharedPreferencesUtils(ctx)
+            val input = EditText(ctx).apply {
+                setText(prefs.commandPanelExtra)
+                setTextIsSelectable(true)
+                inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+            }
+            val container = FrameLayout(ctx).apply {
+                val pad = (20 * resources.displayMetrics.density).toInt()
+                setPadding(pad, pad / 2, pad, 0)
+                addView(input)
+            }
+            AlertDialog.Builder(ctx)
+                .setTitle(R.string.pref_keyboard_command_panel_extra)
+                .setView(container)
+                .setPositiveButton(R.string.dialog_confirm) { _, _ ->
+                    prefs.commandPanelExtra = input.text.toString().trim()
+                    findPreference<Preference>("commandPanelExtra")?.summary = extraCommandPanelSummary()
+                }
+                .setNegativeButton(R.string.dialog_cancel, null)
+                .show()
+        }
+
         /**
          * 命令栏配置的编辑弹窗。
          *

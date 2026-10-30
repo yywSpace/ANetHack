@@ -63,6 +63,17 @@
         app:key_height="@dimen/command_item_height" />
 
     <!-- 底部命令栏：命令按钮一行横向滚动，键盘开关固定在最右侧 -->
+    <com.yywspace.anethack.keybord.NHExtraCommandPanel
+        android:id="@+id/extra_command_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/command_bar_panel_padding"
+        android:paddingTop="@dimen/command_bar_item_spacing"
+        android:paddingEnd="@dimen/command_bar_panel_padding"
+        android:paddingBottom="@dimen/command_bar_item_spacing"
+        android:visibility="gone" />
+
+
     <com.yywspace.anethack.keybord.NHBottomCommandPanel
         android:id="@+id/bottom_command_panel"
         android:layout_width="match_parent"

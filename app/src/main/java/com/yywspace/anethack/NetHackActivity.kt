@@ -6,7 +6,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
@@ -16,6 +21,7 @@ import com.yywspace.anethack.command.NHCommandParser
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
+import com.yywspace.anethack.extensions.show
 import com.yywspace.anethack.gamedata.GameData
 import com.yywspace.anethack.gamedata.NHMonsterDialog
 import com.yywspace.anethack.gamedata.NHPriceIDialog
@@ -27,6 +33,7 @@ import java.io.FileOutputStream
 
 
 class NetHackActivity : AppCompatActivity() {
+
     private lateinit var nethack:NetHack
     private lateinit var handler:Handler
     private lateinit var binding: ActivityNethackBinding
@@ -52,6 +59,7 @@ class NetHackActivity : AppCompatActivity() {
         Thread { GameData.ensureLoaded(applicationContext) }.start()
         initKeyboard()
         initControlPanel()
+        initExtraCommands()
         AssetsLoader(this).loadAssets(
             listOf("nethackdir", "logs", "conf"), false
         ) { overwrite ->
@@ -112,6 +120,8 @@ class NetHackActivity : AppCompatActivity() {
         // 键盘和命令栏各自按新主题刷新（背景、键帽、按钮、图标都在各自类里处理）
         binding.keyboardView.applyTheme()
         initControlPanel()
+        // 额外面板的按钮颜色也是 inflate 时解析的，这里一并重建
+        binding.extraCommandView.refreshTheme()
         NHWMenu.clearCache()
         nethack.onThemeChanged()
         // 价格鉴定弹窗的视图是构造时 inflate 的，按新配色重建一份
@@ -120,6 +130,14 @@ class NetHackActivity : AppCompatActivity() {
         // 怪物弹窗的视图每次显示时重建，但主题切换后也换一份新的，保持一致
         monsterDialog = NHMonsterDialog(this, nethack)
         nethack.monsterDialog = monsterDialog
+    }
+
+    private fun initExtraCommands() {
+        binding.extraCommandView.apply {
+            onCommand = { processKeyPress(it) }
+            immersiveProvider = { nethack.prefs.immersiveMode }
+            reload()
+        }
     }
 
     private fun initKeyboard() {
@@ -151,6 +169,9 @@ class NetHackActivity : AppCompatActivity() {
                 isKeyboardShow = !isKeyboardShow
                 binding.keyboardView.visibility =
                     if (isKeyboardShow) View.VISIBLE else View.GONE
+                // 键盘和"更多命令"面板互斥：显示其中一个就收起另一个
+                if (isKeyboardShow)
+                    binding.extraCommandView.visibility = View.GONE
             }
             CENTER_COMMAND -> {
                 binding.mapView.centerPlayerInScreen()
@@ -181,9 +202,24 @@ class NetHackActivity : AppCompatActivity() {
             immersiveProvider = { nethack.prefs.immersiveMode }
             onCommand = { processKeyPress(it) }
             onCommandsChanged = { nethack.prefs.commandPanel = it }
+            onExtraCommands = { toggleExtraCommands() }
             setCommands(nethack.prefs.commandPanel)
             refreshTheme()
         }
+    }
+
+    /** 展开/收起"更多命令"面板（样式和键盘一样，占在命令栏上方） */
+    private fun toggleExtraCommands() {
+        val view = binding.extraCommandView
+        if (view.visibility == View.VISIBLE) {
+            view.visibility = View.GONE
+            return
+        }
+        // 只在需要时重建（启动、改配置、切主题），这里直接显示，保留滑动位置
+        view.visibility = View.VISIBLE
+        // 和键盘互斥
+        isKeyboardShow = false
+        binding.keyboardView.visibility = View.GONE
     }
 
     private fun hideSystemUi() {

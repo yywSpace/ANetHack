@@ -24,7 +24,7 @@ import com.yywspace.anethack.extensions.show
 data class CommandEntry(val label: String, val command: String)
 
 /**
- * 底部命令栏：命令按钮一行横向滚动，键盘/设置固定在最右侧。
+ * 底部命令栏：命令按钮一行横向滚动，右侧固定键盘、更多命令、设置三个图标。
  * 点击按钮触发 [onCommand]，长按按钮弹出编辑框（改显示名和命令），
  * 最右侧的 "+" 用来新增；编辑后通过 [onCommandsChanged] 交回给调用方保存。
  *
@@ -34,17 +34,19 @@ class NHBottomCommandPanel @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : LinearLayout(context, attrs) {
 
-    /** 点击按钮（含固定的键盘、设置） */
+    /** 固定按钮：键盘、更多命令、设置 */
     var onCommand: ((String) -> Unit)? = null
     /** 编辑完成后的新配置串，由调用方写入偏好 */
     var onCommandsChanged: ((String) -> Unit)? = null
+    /** 点击"更多命令"图标：由调用方展开或收起额外命令面板 */
+    var onExtraCommands: (() -> Unit)? = null
     /** 弹窗是否需要按沉浸式显示 */
     var immersiveProvider: (() -> Boolean)? = null
 
     private val commandList: LinearLayout
     private val divider: View
     private val keyboardSwitch: ImageView
-    private val settingsSwitch: ImageView
+    private val extraCommandSwitch: ImageView
 
     /** 当前配置里的条目 */
     private var entries = mutableListOf<CommandEntry>()
@@ -76,9 +78,19 @@ class NHBottomCommandPanel @JvmOverloads constructor(
         commandList = findViewById(R.id.command_list)
         divider = findViewById(R.id.command_divider)
         keyboardSwitch = findViewById(R.id.keyboard_switch)
-        settingsSwitch = findViewById(R.id.settings_switch)
+        extraCommandSwitch = findViewById(R.id.extra_command_switch)
         keyboardSwitch.setOnClickListener { onCommand?.invoke(KEYBOARD_COMMAND) }
-        settingsSwitch.setOnClickListener { onCommand?.invoke(SETTING_COMMAND) }
+        // 长按键盘图标 → 打开设置
+        keyboardSwitch.setOnLongClickListener {
+            onCommand?.invoke(SETTING_COMMAND)
+            true
+        }
+        extraCommandSwitch.setOnClickListener { onExtraCommands?.invoke() }
+        // 长按"更多命令"图标 → 打开设置
+        extraCommandSwitch.setOnLongClickListener {
+            onCommand?.invoke(SETTING_COMMAND)
+            true
+        }
     }
 
     /** 用配置串刷新命令按钮；空串时回落到内置默认值 */
@@ -87,6 +99,10 @@ class NHBottomCommandPanel @JvmOverloads constructor(
         entries = (if (text.isBlank()) defaultCommands else parseEntries(text))
             .filter { it.command !in pinnedCommands }
             .toMutableList()
+        // 设置入口永远排在最后：用户删掉或改名后这里会补回来，避免找不到设置
+        val existingSetting = entries.firstOrNull { it.command == SETTING_COMMAND }
+        entries.removeAll { it.command == SETTING_COMMAND }
+        entries.add(existingSetting ?: CommandEntry(SETTING_COMMAND, SETTING_COMMAND))
         commandList.removeAllViews()
         entries.forEach { entry ->
             val item = LayoutInflater.from(context)
@@ -99,7 +115,7 @@ class NHBottomCommandPanel @JvmOverloads constructor(
             }
             commandList.addView(item)
         }
-        // 末尾固定一个"+"：滑到最后可以在这里新增命令
+        // 末尾固定一个"+"按钮，用来新增命令
         val addItem = LayoutInflater.from(context)
             .inflate(R.layout.item_command, commandList, false) as TextView
         addItem.text = context.getString(R.string.command_bar_add)
@@ -107,13 +123,13 @@ class NHBottomCommandPanel @JvmOverloads constructor(
         commandList.addView(addItem)
     }
 
-    /** 主题切换后重新解析背景、分隔线和图标颜色 */
+    /** 切换深浅色后重新上色：背景、分隔线、键盘/更多命令/设置三个图标 */
     fun refreshTheme() {
         setBackgroundColor(ContextCompat.getColor(context, R.color.app_background))
         divider.setBackgroundColor(ContextCompat.getColor(context, R.color.app_divider))
         val tint = ContextCompat.getColor(context, R.color.app_text)
         keyboardSwitch.imageTintList = ColorStateList.valueOf(tint)
-        settingsSwitch.imageTintList = ColorStateList.valueOf(tint)
+        extraCommandSwitch.imageTintList = ColorStateList.valueOf(tint)
     }
 
     /** 解析配置：JSON 数组；解析不出来时回落到内置默认值 */
@@ -178,24 +194,21 @@ class NHBottomCommandPanel @JvmOverloads constructor(
         const val KEYBOARD_COMMAND = "Keyboard"
         const val SETTING_COMMAND = "Setting"
         /** 固定在右侧、不参与编辑和滚动的条目 */
-        val pinnedCommands = setOf(KEYBOARD_COMMAND, SETTING_COMMAND)
+        val pinnedCommands = setOf(KEYBOARD_COMMAND)
 
         /**
          * 内置默认命令：配置为空或解析失败时使用。
          * 直接写在代码里，省掉 strings.xml 里那一层层转义。
          */
         val defaultCommands: List<CommandEntry> = listOf(
+            CommandEntry("Dig", "aM\"pick-axe\""),
             CommandEntry("Lamp", "aM\"candle|lantern|lamp\""),
             CommandEntry("Cure", "aM\"unicorn horn\""),
-            CommandEntry("Dig", "aM\"pick-axe\""),
+            CommandEntry("Scare", "aM\"tooled horn|bugle\"y"),
             CommandEntry("Elber", "#engrave#-nL\"Elbereth\":"),
             CommandEntry("20s", "20s"),
             CommandEntry("FRest", "m."),
-            CommandEntry("300s", "300s"),
-            CommandEntry("Save", "S"),
-            CommandEntry("Quit", "#quit"),
-            CommandEntry("Price", "PriceID"),
-            CommandEntry("Monster", "Monster"),
+            CommandEntry("Setting", "Setting")
         )
     }
 }

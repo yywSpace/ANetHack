@@ -17,7 +17,7 @@
     <color name="key_background">#FFFFFFFF</color>
     <color name="key_border">#FF808080</color>
     <color name="app_divider">#FFE0E0E0</color>
-    <color name="extend_search_bg">#FFF5F5F5</color>
+    <color name="bg_extend_search">#FFF5F5F5</color>
     <!-- 怪物弹窗里的信息卡片底色：比白色背景略深一点才看得出分组 -->
     <color name="monster_card">#FFF2F2F2</color>
     <!-- 怪物弹窗里 chip 的底色：要比卡片底色再深/再亮一档 -->
@@ -32,4 +32,6 @@
     <color name="menu_item_text">#FF262626</color>
     <!-- 长按选择文字时的选中底色（浅色下用半透明蓝） -->
     <color name="text_selection_highlight">#552196F3</color>
+    <!-- 额外面板格子的底色（浅色） -->
+    <color name="command_extra_item">#FFF1F1F1</color>
 </resources>

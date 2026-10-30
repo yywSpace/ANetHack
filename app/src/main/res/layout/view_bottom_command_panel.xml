@@ -37,13 +37,15 @@
         app:tint="@color/app_text" />
 
     <ImageView
-        android:id="@+id/settings_switch"
+        android:id="@+id/extra_command_switch"
         android:layout_width="@dimen/command_icon_width"
         android:layout_height="@dimen/command_item_height"
         android:background="?android:attr/selectableItemBackground"
-        android:contentDescription="@string/command_bar_settings_switch"
+        android:contentDescription="@string/command_bar_extra"
         android:scaleType="center"
-        android:src="@drawable/ic_settings"
+        android:src="@drawable/ic_grid"
         app:tint="@color/app_text" />
+
+
 
 </merge>

@@ -118,7 +118,7 @@ class KeyboardView @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     private fun initKeyView(x:Int, y:Int):View{
         val view = inflate(context, R.layout.keyboard_key_view, null).apply {
-            setBackgroundResource(R.drawable.key_bg_selector)
+            setBackgroundResource(R.drawable.bg_key_selector)
             val statusImage = findViewById<ImageView>(R.id.key_status)
             setOnClickListener {
                 if (keyboardVibrate)

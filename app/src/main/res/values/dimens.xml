@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="command_item_height">40dp</dimen>
+    <dimen name="command_bar_item_height">34dp</dimen>
+    <!-- 色块之间的间隙：左右用 marginEnd，上下靠背景上下内缩补齐 -->
+    <dimen name="command_bar_item_gap">2dp</dimen>
+    <!-- 格子之间的横向间距 -->
+    <dimen name="command_bar_item_spacing">5dp</dimen>
     <dimen name="command_bar_item_padding">5dp</dimen>
     <!-- 命令栏整体的左右留白：比按钮内边距稍大一些 -->
     <dimen name="command_bar_panel_padding">5dp</dimen>

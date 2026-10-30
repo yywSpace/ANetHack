@@ -33,6 +33,9 @@ class SharedPreferencesUtils(val context: Context) {
     /** 空串表示还没自定义过，命令栏会使用它自己的默认列表 */
     var commandPanel by SharedPreferenceDelegates.string("")
 
+    /** "更多"面板里的命令（JSON），与命令栏相互独立 */
+    var commandPanelExtra by SharedPreferenceDelegates.string("")
+
     /** 解析存储条目 "prompt-时间戳"：用最后一个 '-' 分隔，prompt 内含 '-' 也不受影响 */
     private fun splitPrompt(entry: String): Pair<String, Long> {
         val idx = entry.lastIndexOf('-')

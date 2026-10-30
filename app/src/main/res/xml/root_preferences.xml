@@ -122,6 +122,11 @@
         app:iconSpaceReserved="false">
 
         <Preference
+            app:key="commandPanelExtra"
+            app:title="@string/pref_keyboard_command_panel_extra"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
             app:key="commandPanel"
             app:title="@string/pref_keyboard_command_panel"
             app:iconSpaceReserved="false"/>
