@@ -18,7 +18,6 @@ import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
-import com.yywspace.anethack.Utils
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.extensions.show
 

@@ -19,15 +19,27 @@ enum class NHColor {
     CLR_WHITE,
     CLR_MAX;
 
-    /** 按当前主题取色，浅色主题用原调色板，深色主题用一套柔和变体 */
-    fun toColor():Int {
-        val colorMap = if (darkTheme) darkColorMap else lightColorMap
+    /** 按当前调色板取颜色：浅色用原版色板，深色用柔和一档的色板 */
+    fun toColor(): Int {
+        val colorMap = if (darkPalette) darkColorMap else lightColorMap
         return colorMap[ordinal]
     }
 
     companion object {
-        /** 当前是否深色主题（Utils.applyThemeMode 设置） */
-        var darkTheme = false
+
+        /**
+         * 是否使用深色调色板。
+         *
+         * 游戏内颜色数据自己的状态：外部可读，只能由 [applyDarkPalette] 修改，
+         * 调色板本身不依赖主题/UI 层。
+         */
+        var darkPalette = false
+            private set
+
+        /** 切换调色板；只由 AppTheme 在应用主题时调用 */
+        fun applyDarkPalette(useDark: Boolean) {
+            darkPalette = useDark
+        }
 
         /** 浅色主题（原来的颜色表） */
         private val lightColorMap = intArrayOf(

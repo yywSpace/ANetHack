@@ -1,9 +1,9 @@
 package com.yywspace.anethack.setting
 
+import com.yywspace.anethack.theme.AppTheme
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
@@ -13,8 +13,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.preference.CheckBoxPreference
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
@@ -26,14 +24,13 @@ import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.R
 import com.yywspace.anethack.keybord.CommandEntry
 import com.yywspace.anethack.SharedPreferencesUtils
-import com.yywspace.anethack.Utils
 import java.io.File
 
 
 class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Utils.applyThemeMode(this)
+        AppTheme.applyTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         if (savedInstanceState == null) {
@@ -48,19 +45,10 @@ class SettingsActivity : AppCompatActivity() {
         initStatusBar()
     }
 
-    /** 当前是否为深色（按资源当前配置判断） */
-    private fun isNightMode(): Boolean =
         (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
                 Configuration.UI_MODE_NIGHT_YES
 
-    private fun initStatusBar() {
-        window.statusBarColor = Color.TRANSPARENT
-        val windowInsetsController =
-            WindowCompat.getInsetsController(window, window.decorView)
-        // 深色主题下状态栏图标要用亮色
-        windowInsetsController.isAppearanceLightStatusBars = !isNightMode()
-        windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
-    }
+    private fun initStatusBar() = AppTheme.applyStatusBar(this)
 
     class SettingsFragment : PreferenceFragmentCompat(){
         private var userSoundPerm:CheckBoxPreference? = null
@@ -114,7 +102,7 @@ class SettingsActivity : AppCompatActivity() {
             findPreference<Preference>("themeMode")?.apply {
                 setOnPreferenceChangeListener { _, newValue ->
                     // 先把新值写进内存再切换主题，然后重建本页让配色立刻生效
-                    Utils.applyThemeMode(requireContext(), newValue as String)
+                    AppTheme.applyTheme(requireContext(), newValue as String)
                     activity?.recreate()
                     true
                 }

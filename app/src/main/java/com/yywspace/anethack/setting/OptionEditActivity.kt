@@ -1,5 +1,6 @@
 package com.yywspace.anethack.setting
 
+import com.yywspace.anethack.theme.AppTheme
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
@@ -12,8 +13,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import com.yywspace.anethack.R
 import com.yywspace.anethack.databinding.ActivityOptionEditBinding
 import java.io.File
@@ -23,6 +22,7 @@ import androidx.core.graphics.toColorInt
 class OptionEditActivity: AppCompatActivity() {
     private lateinit var binding:ActivityOptionEditBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppTheme.applyTheme(this)
         super.onCreate(savedInstanceState)
         binding = ActivityOptionEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -61,13 +61,7 @@ class OptionEditActivity: AppCompatActivity() {
         return true
     }
 
-    private fun initStatusBar() {
-        window.statusBarColor = Color.TRANSPARENT
-        val windowInsetsController =
-            WindowCompat.getInsetsController(window, window.decorView)
-        windowInsetsController.isAppearanceLightStatusBars = true
-        windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
-    }
+    private fun initStatusBar() = AppTheme.applyStatusBar(this)
 
     private fun initView() {
         val toolbar = findViewById<Toolbar>(R.id.option_edit_toolbar)

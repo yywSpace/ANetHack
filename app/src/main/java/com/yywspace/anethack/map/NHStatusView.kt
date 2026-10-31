@@ -12,7 +12,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
-import com.yywspace.anethack.Utils
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.entity.NHStatus.StatusField
 

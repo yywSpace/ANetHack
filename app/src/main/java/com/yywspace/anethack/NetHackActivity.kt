@@ -9,9 +9,6 @@ import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import com.yywspace.anethack.command.NHCommandParser
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.command.NHKeyCommand
@@ -20,6 +17,7 @@ import com.yywspace.anethack.gamedata.GameData
 import com.yywspace.anethack.gamedata.NHMonsterDialog
 import com.yywspace.anethack.gamedata.NHPriceIDialog
 import com.yywspace.anethack.setting.SettingsActivity
+import com.yywspace.anethack.theme.AppTheme
 import com.yywspace.anethack.window.NHWMenu
 import java.io.File
 import java.io.FileInputStream
@@ -38,7 +36,7 @@ class NetHackActivity : AppCompatActivity() {
     private var uiMode = Configuration.UI_MODE_NIGHT_NO
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Utils.applyThemeMode(this)
+        AppTheme.applyTheme(this)
         super.onCreate(savedInstanceState)
         uiMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         binding = ActivityNethackBinding.inflate(layoutInflater)
@@ -71,10 +69,7 @@ class NetHackActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (nethack.prefs.immersiveMode)
-            hideSystemUi()
-        else
-            showSystemUi()
+        AppTheme.applyGameSystemBars(this, nethack.prefs.immersiveMode)
         binding.keyboardView.setKeyboardVibrate(nethack.prefs.keyboardVibrate)
         initControlPanel()
     }
@@ -102,7 +97,7 @@ class NetHackActivity : AppCompatActivity() {
      * 所以下面这些"再设一次"是必要的；能整体 inflate 的（按键、命令栏）走重建。
      */
     private fun applyThemeColors() {
-        Utils.applyThemeMode(this)
+        AppTheme.applyTheme(this)
         // setTheme 让之后创建的对话框按新的（night）主题解析
         setTheme(R.style.Theme_ANetHack)
         // XML 里的 @color/app_background 是 inflate 时解析的，切换主题后要按新主题再设一次，
@@ -227,22 +222,6 @@ class NetHackActivity : AppCompatActivity() {
             }
         }
         binding.bottomCommandPanel.setSwitchIcon(isKeyboardIcon = !extraPanelVisible)
-    }
-
-    private fun hideSystemUi() {
-        val windowInsetsController =
-            WindowCompat.getInsetsController(window, window.decorView)
-        windowInsetsController.systemBarsBehavior =
-            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
-    }
-
-    private fun showSystemUi() {
-        val windowInsetsController =
-            WindowCompat.getInsetsController(window, window.decorView)
-        window.statusBarColor = Color.BLACK
-        windowInsetsController.isAppearanceLightStatusBars = false
-        windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
     }
 
     private fun processLogs() {

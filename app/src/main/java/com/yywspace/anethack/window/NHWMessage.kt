@@ -139,8 +139,9 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             val end = min(start + itemSize, messageList.size)
             val subList = messageList.subList(start, end)
             // 旧消息（非最新一批）用"默认文字色"：亮色下深灰、深色下柔和白，避免和背景同色
-            val oldMsgColor = if (NHColor.darkTheme) NHColor.CLR_WHITE else NHColor.CLR_BLACK
             val itemContext = holder.itemView.context
+            val oldMsgColor =
+                if (NHColor.darkPalette) NHColor.CLR_WHITE else NHColor.CLR_BLACK
             val messageText = SpannableStringBuilder()
             for ((idx, message) in subList.withIndex()) {
                 if (idx != 0)
