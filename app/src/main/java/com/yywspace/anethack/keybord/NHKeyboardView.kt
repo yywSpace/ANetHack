@@ -17,37 +17,37 @@ import com.yywspace.anethack.AssetsUtils
 import com.yywspace.anethack.R
 
 
-class KeyboardView @JvmOverloads constructor(
+class NHKeyboardView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : GridLayout(context, attrs, defStyleAttr) {
     private var keyboardView:MutableList<MutableList<View>> = mutableListOf()
     private var placeholderView:MutableList<MutableList<View>> = mutableListOf()
 
-    private var keyboardType:NHKeyboard.Type = NHKeyboard.Type.NONE
-    private lateinit var keyboard:NHKeyboard
-    private lateinit var keyboardLetter:NHKeyboard
-    private lateinit var keyboardSymbol:NHKeyboard
-    private lateinit var keyboardCtrl:NHKeyboard
-    private lateinit var keyboardMeta:NHKeyboard
-    private lateinit var keyboardCustom:NHKeyboard
-    private lateinit var keyboardUpperLetter:NHKeyboard
+    private var keyboardType:KeyboardLayout.Type = KeyboardLayout.Type.NONE
+    private lateinit var keyboard:KeyboardLayout
+    private lateinit var keyboardLetter:KeyboardLayout
+    private lateinit var keyboardSymbol:KeyboardLayout
+    private lateinit var keyboardCtrl:KeyboardLayout
+    private lateinit var keyboardMeta:KeyboardLayout
+    private lateinit var keyboardCustom:KeyboardLayout
+    private lateinit var keyboardUpperLetter:KeyboardLayout
 
     private var keyHeight = 0 // 按键高度（px），init 里从 dimens / 自定义属性读
     private var keyGap = 0 // 按键四周边距，init 里从 dimens 读
     private var isUpper = false
     private var isNumberPanelShow = false
-    var onKeyPress:((key:NHKeyboard.Key)->Unit)? = null
-    var onSpecialKeyLongPress:((key:NHKeyboard.Key)->Unit)? = null
+    var onKeyPress:((key:KeyboardLayout.Key)->Unit)? = null
+    var onSpecialKeyLongPress:((key:KeyboardLayout.Key)->Unit)? = null
 
     private var vibrator: Vibrator
     private var keyboardVibrate: Boolean = true
 
     init {
         // 按键高度可在布局里用 app:key_height 配置
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.KeyboardView)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.NHKeyboardView)
         try {
             keyHeight = typedArray.getDimensionPixelSize(
-                R.styleable.KeyboardView_key_height,
+                R.styleable.NHKeyboardView_key_height,
                 resources.getDimensionPixelSize(R.dimen.command_item_height)
             )
             keyGap = resources.getDimensionPixelSize(R.dimen.command_item_gap)
@@ -66,10 +66,10 @@ class KeyboardView @JvmOverloads constructor(
         initKeyboardView()
         initNumPanel()
         initKeyboardData()
-        refreshNHKeyboard()
+        refreshKeyboardLayout()
     }
-    fun refreshNHKeyboard() {
-        switchNHKeyboard(keyboardType)
+    fun refreshKeyboardLayout() {
+        switchKeyboardLayout(keyboardType)
     }
 
     /**
@@ -85,23 +85,23 @@ class KeyboardView @JvmOverloads constructor(
             placeholderView.clear()
             initKeyboardView()
             initNumPanel()
-            refreshNHKeyboard()
+            refreshKeyboardLayout()
         }, 100)
     }
 
     private fun initKeyboardData() {
         val keyboardLetterJson = AssetsUtils.readText(context, "keyboard/keyboard_letter.json").orEmpty()
-        keyboardLetter = NHKeyboard.fromJson(keyboardLetterJson)
+        keyboardLetter = KeyboardLayout.fromJson(keyboardLetterJson)
         val keyboardLetterUpperJson = AssetsUtils.readText(context, "keyboard/keyboard_upper_letter.json").orEmpty()
-        keyboardUpperLetter = NHKeyboard.fromJson(keyboardLetterUpperJson)
+        keyboardUpperLetter = KeyboardLayout.fromJson(keyboardLetterUpperJson)
         val keyboardSymbolJson = AssetsUtils.readText(context, "keyboard/keyboard_symbol.json").orEmpty()
-        keyboardSymbol = NHKeyboard.fromJson(keyboardSymbolJson)
+        keyboardSymbol = KeyboardLayout.fromJson(keyboardSymbolJson)
         val keyboardCtrlJson = AssetsUtils.readText(context, "keyboard/keyboard_ctrl.json").orEmpty()
-        keyboardCtrl = NHKeyboard.fromJson(keyboardCtrlJson)
+        keyboardCtrl = KeyboardLayout.fromJson(keyboardCtrlJson)
         val keyboardMetaJson = AssetsUtils.readText(context, "keyboard/keyboard_meta.json").orEmpty()
-        keyboardMeta = NHKeyboard.fromJson(keyboardMetaJson)
+        keyboardMeta = KeyboardLayout.fromJson(keyboardMetaJson)
         val keyboardCustomJson = AssetsUtils.readText(context, "keyboard/keyboard_custom.json").orEmpty()
-        keyboardCustom = NHKeyboard.fromJson(keyboardCustomJson)
+        keyboardCustom = KeyboardLayout.fromJson(keyboardCustomJson)
     }
 
     private fun initNumPanel() {
@@ -120,30 +120,30 @@ class KeyboardView @JvmOverloads constructor(
             setOnClickListener {
                 if (keyboardVibrate)
                     vibrator.vibrate(VibrationEffect.createOneShot(100, 120))
-                val k = this@KeyboardView.keyboard.rows[x].keys[y]
+                val k = this@NHKeyboardView.keyboard.rows[x].keys[y]
                 when(k.value) {
                     "Letter" -> {
                         if(isUpper)
-                            switchNHKeyboard(NHKeyboard.Type.UPPER_LETTER)
+                            switchKeyboardLayout(KeyboardLayout.Type.UPPER_LETTER)
                         else
-                            switchNHKeyboard(NHKeyboard.Type.LETTER)
+                            switchKeyboardLayout(KeyboardLayout.Type.LETTER)
                     }
                     "Shift" -> {
                         if(isUpper) {
                             statusImage.setImageResource(R.drawable.dot_unselected)
-                            switchNHKeyboard(NHKeyboard.Type.LETTER)
+                            switchKeyboardLayout(KeyboardLayout.Type.LETTER)
                         } else {
                             statusImage.setImageResource(R.drawable.dot_selected)
-                            switchNHKeyboard(NHKeyboard.Type.UPPER_LETTER)
+                            switchKeyboardLayout(KeyboardLayout.Type.UPPER_LETTER)
                         }
                         isUpper = !isUpper
                     }
                     "Ctrl" ->
-                        switchNHKeyboard(NHKeyboard.Type.CTRL)
+                        switchKeyboardLayout(KeyboardLayout.Type.CTRL)
                     "Meta" ->
-                        switchNHKeyboard(NHKeyboard.Type.META)
+                        switchKeyboardLayout(KeyboardLayout.Type.META)
                     "Symbol" ->
-                        switchNHKeyboard(NHKeyboard.Type.SYMBOL)
+                        switchKeyboardLayout(KeyboardLayout.Type.SYMBOL)
                     "Num" -> {
                         keyboardView[0].forEach {
                             it.visibility = if (isNumberPanelShow) GONE else VISIBLE
@@ -162,16 +162,16 @@ class KeyboardView @JvmOverloads constructor(
                 }
             }
             setOnLongClickListener {
-                val k = this@KeyboardView.keyboard.rows[x].keys[y]
+                val k = this@NHKeyboardView.keyboard.rows[x].keys[y]
                 if (k.label in listOf( "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Space", "ESC", "DEL")) {
                     onSpecialKeyLongPress?.invoke(k)
                     return@setOnLongClickListener true
                 }
                 when(keyboardType) {
-                    NHKeyboard.Type.UPPER_LETTER, NHKeyboard.Type.LETTER -> {
+                    KeyboardLayout.Type.UPPER_LETTER, KeyboardLayout.Type.LETTER -> {
                         onKeyPress?.invoke(keyboardSymbol.rows[x].keys[y])
                     }
-                    NHKeyboard.Type.SYMBOL -> {
+                    KeyboardLayout.Type.SYMBOL -> {
                         onKeyPress?.invoke(keyboardLetter.rows[x].keys[y])
                     }
                     else -> {
@@ -185,7 +185,7 @@ class KeyboardView @JvmOverloads constructor(
     }
     private fun initKeyboardView() {
         val keyboardTemplateJson = AssetsUtils.readText(context, "keyboard/keyboard_view_template.json").orEmpty()
-        val keyboardTemplate = NHKeyboard.fromJson(keyboardTemplateJson)
+        val keyboardTemplate = KeyboardLayout.fromJson(keyboardTemplateJson)
         // 占位，使后续排版能够完全按照网格进行
         for (i in 0 until rowCount) {
             val rowView = mutableListOf<View>()
@@ -223,23 +223,23 @@ class KeyboardView @JvmOverloads constructor(
     fun setKeyboardVibrate(vibrate:Boolean) {
         keyboardVibrate = vibrate
     }
-    private fun switchNHKeyboard(keyboardType:NHKeyboard.Type) {
+    private fun switchKeyboardLayout(keyboardType:KeyboardLayout.Type) {
         when(keyboardType) {
-            NHKeyboard.Type.LETTER ->
-                setNHKeyboard(keyboardLetter, NHKeyboard.Type.LETTER)
-            NHKeyboard.Type.UPPER_LETTER ->
-                setNHKeyboard(keyboardUpperLetter, NHKeyboard.Type.UPPER_LETTER)
-            NHKeyboard.Type.SYMBOL ->
-                setNHKeyboard(keyboardSymbol, NHKeyboard.Type.SYMBOL)
-            NHKeyboard.Type.META ->
-                setNHKeyboard(keyboardMeta, NHKeyboard.Type.META)
-            NHKeyboard.Type.CTRL ->
-                setNHKeyboard(keyboardCtrl, NHKeyboard.Type.CTRL)
-            NHKeyboard.Type.CUSTOM, NHKeyboard.Type.NONE ->
-                setNHKeyboard(keyboardLetter, NHKeyboard.Type.LETTER)
+            KeyboardLayout.Type.LETTER ->
+                setKeyboardLayout(keyboardLetter, KeyboardLayout.Type.LETTER)
+            KeyboardLayout.Type.UPPER_LETTER ->
+                setKeyboardLayout(keyboardUpperLetter, KeyboardLayout.Type.UPPER_LETTER)
+            KeyboardLayout.Type.SYMBOL ->
+                setKeyboardLayout(keyboardSymbol, KeyboardLayout.Type.SYMBOL)
+            KeyboardLayout.Type.META ->
+                setKeyboardLayout(keyboardMeta, KeyboardLayout.Type.META)
+            KeyboardLayout.Type.CTRL ->
+                setKeyboardLayout(keyboardCtrl, KeyboardLayout.Type.CTRL)
+            KeyboardLayout.Type.CUSTOM, KeyboardLayout.Type.NONE ->
+                setKeyboardLayout(keyboardLetter, KeyboardLayout.Type.LETTER)
         }
     }
-    private fun setNHKeyboard(keyboard:NHKeyboard, keyboardType:NHKeyboard.Type) {
+    private fun setKeyboardLayout(keyboard:KeyboardLayout, keyboardType:KeyboardLayout.Type) {
         this.keyboard = keyboard
         this.keyboardType = keyboardType
         keyboard.rows.forEachIndexed {  i, row ->
@@ -262,13 +262,13 @@ class KeyboardView @JvmOverloads constructor(
                             else -> {
                                 visibility = VISIBLE
                                 when(keyboardType) {
-                                    NHKeyboard.Type.UPPER_LETTER,  NHKeyboard.Type.LETTER -> {
+                                    KeyboardLayout.Type.UPPER_LETTER,  KeyboardLayout.Type.LETTER -> {
                                         keyboardSymbol.rows[i].keys[j].apply {
                                             tag = value
                                             text = label
                                         }
                                     }
-                                    NHKeyboard.Type.SYMBOL  -> {
+                                    KeyboardLayout.Type.SYMBOL  -> {
                                         keyboardLetter.rows[i].keys[j].apply {
                                             tag = value
                                             text = label

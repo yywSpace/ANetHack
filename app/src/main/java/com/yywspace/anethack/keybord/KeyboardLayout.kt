@@ -4,7 +4,7 @@ import android.util.Log
 import org.json.JSONArray
 import org.json.JSONException
 
-class NHKeyboard {
+class KeyboardLayout {
     val rows: MutableList<Row> = mutableListOf()
 
     class Key(var row: Int, var column: Int) {
@@ -64,8 +64,8 @@ class NHKeyboard {
 
     companion object {
         /** 解析键盘模板 JSON；解析失败时返回空键盘 */
-        fun fromJson(json: String): NHKeyboard {
-            val keyboard = NHKeyboard()
+        fun fromJson(json: String): KeyboardLayout {
+            val keyboard = KeyboardLayout()
             try {
                 val rows = JSONArray(json)
                 for (i in 0 until rows.length()) {
@@ -86,7 +86,7 @@ class NHKeyboard {
                             Key(rowIdx, columnIdx, rowSpan, columnSpan, columnWeight, label, value)
                         )
                     }
-                    Log.d("NHKeyboard", kbRow.toString())
+                    Log.d("KeyboardLayout", kbRow.toString())
                     keyboard.rows.add(kbRow)
                 }
             } catch (e: JSONException) {

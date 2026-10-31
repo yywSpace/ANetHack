@@ -86,7 +86,7 @@ class NetHackActivity : AppCompatActivity() {
             // 旋转/键盘弹出等非主题变化：只重放按键标签
             binding.keyboardView.apply {
                 postDelayed({
-                    refreshNHKeyboard()
+                    refreshKeyboardLayout()
                 }, 100)
             }
         }
