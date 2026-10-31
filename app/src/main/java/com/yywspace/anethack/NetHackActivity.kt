@@ -16,6 +16,7 @@ import com.yywspace.anethack.databinding.ActivityNethackBinding
 import com.yywspace.anethack.gamedata.GameData
 import com.yywspace.anethack.gamedata.NHMonsterDialog
 import com.yywspace.anethack.gamedata.NHPriceIDialog
+import com.yywspace.anethack.keybord.KeyboardVibrate
 import com.yywspace.anethack.setting.SettingsActivity
 import com.yywspace.anethack.theme.AppTheme
 import com.yywspace.anethack.window.NHWMenu
@@ -71,7 +72,8 @@ class NetHackActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         AppTheme.applyGameSystemBars(this, nethack.prefs.immersiveMode)
-        binding.keyboardView.setKeyboardVibrate(nethack.prefs.keyboardVibrate)
+        KeyboardVibrate.bind(this)
+        KeyboardVibrate.enabled = nethack.prefs.keyboardVibrate
         initControlPanel()
     }
 

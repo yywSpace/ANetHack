@@ -2,10 +2,6 @@ package com.yywspace.anethack.keybord
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Build
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.GridLayout
@@ -39,8 +35,6 @@ class NHKeyboardView @JvmOverloads constructor(
     var onKeyPress:((key:KeyboardLayout.Key)->Unit)? = null
     var onSpecialKeyLongPress:((key:KeyboardLayout.Key)->Unit)? = null
 
-    private var vibrator: Vibrator
-    private var keyboardVibrate: Boolean = true
 
     init {
         // 按键高度可在布局里用 app:key_height 配置
@@ -56,18 +50,13 @@ class NHKeyboardView @JvmOverloads constructor(
         }
         columnCount = 20
         rowCount = 5
-        vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vibratorManager =
-                context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-            vibratorManager.defaultVibrator
-        } else {
-            context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        }
+        KeyboardVibrate.bind(context)
         initKeyboardView()
         initNumPanel()
         initKeyboardData()
         refreshKeyboardLayout()
     }
+
     fun refreshKeyboardLayout() {
         switchKeyboardLayout(keyboardType)
     }
@@ -118,8 +107,7 @@ class NHKeyboardView @JvmOverloads constructor(
             setBackgroundResource(R.drawable.bg_key_selector)
             val statusImage = findViewById<ImageView>(R.id.key_status)
             setOnClickListener {
-                if (keyboardVibrate)
-                    vibrator.vibrate(VibrationEffect.createOneShot(100, 120))
+                KeyboardVibrate.vibrate()
                 val k = this@NHKeyboardView.keyboard.rows[x].keys[y]
                 when(k.value) {
                     "Letter" -> {
@@ -220,9 +208,7 @@ class NHKeyboardView @JvmOverloads constructor(
         }
     }
 
-    fun setKeyboardVibrate(vibrate:Boolean) {
-        keyboardVibrate = vibrate
-    }
+
     private fun switchKeyboardLayout(keyboardType:KeyboardLayout.Type) {
         when(keyboardType) {
             KeyboardLayout.Type.LETTER ->
