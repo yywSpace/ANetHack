@@ -129,6 +129,7 @@
     <string name="command_panel_summary">%1$d commands: %2$s</string>
     <string name="command_bar_keyboard_switch">Show or hide the keyboard</string>
     <string name="command_bar_extra">More commands</string>
+    <string name="command_bar_settings_switch">Open settings</string>
     <string name="command_bar_add">+</string>
     <string name="command_edit_title">Edit command</string>
     <string name="command_add_title">Add command</string>

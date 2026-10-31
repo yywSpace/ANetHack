@@ -11,17 +11,34 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
+import androidx.core.content.ContextCompat
+import com.yywspace.anethack.AssetsUtils
 import com.yywspace.anethack.R
 import com.yywspace.anethack.extensions.show
 
 /** 命令栏里的一条命令：按钮上显示的文字 + 发送的指令 */
-data class CommandEntry(val label: String, val command: String)
+data class CommandEntry(val label: String, val command: String) {
+    companion object {
+        /** 序列化时固定写成 label → command 的顺序，不依赖反射 */
+        val gson: Gson = GsonBuilder()
+            .registerTypeAdapter(CommandEntry::class.java, object : JsonSerializer<CommandEntry> {
+                override fun serialize(
+                    src: CommandEntry,
+                    type: java.lang.reflect.Type,
+                    context: JsonSerializationContext
+                ): JsonObject = JsonObject().apply {
+                    addProperty("label", src.label)
+                    addProperty("command", src.command)
+                }
+            })
+            .create()
+    }
+}
 
 /**
  * 底部命令栏：命令按钮一行横向滚动，右侧固定键盘、更多命令、设置三个图标。
@@ -38,35 +55,18 @@ class NHBottomCommandPanel @JvmOverloads constructor(
     var onCommand: ((String) -> Unit)? = null
     /** 编辑完成后的新配置串，由调用方写入偏好 */
     var onCommandsChanged: ((String) -> Unit)? = null
-    /** 点击"更多命令"图标：由调用方展开或收起额外命令面板 */
-    var onExtraCommands: (() -> Unit)? = null
     /** 弹窗是否需要按沉浸式显示 */
     var immersiveProvider: (() -> Boolean)? = null
 
     private val commandList: LinearLayout
     private val divider: View
     private val keyboardSwitch: ImageView
-    private val extraCommandSwitch: ImageView
+    private val settingsSwitch: ImageView
 
     /** 当前配置里的条目 */
+
     private var entries = mutableListOf<CommandEntry>()
 
-    /**
-     * 序列化时自己写 JSON：Gson 走反射取字段，键顺序取决于 JVM 返回字段的顺序，
-     * 这里显式按 label、command 写，保证存下来的配置顺序固定。
-     */
-    private val gson: Gson = GsonBuilder()
-        .registerTypeAdapter(CommandEntry::class.java, object : JsonSerializer<CommandEntry> {
-            override fun serialize(
-                src: CommandEntry,
-                type: java.lang.reflect.Type,
-                context: JsonSerializationContext
-            ): JsonObject = JsonObject().apply {
-                addProperty("label", src.label)
-                addProperty("command", src.command)
-            }
-        })
-        .create()
 
     init {
         orientation = HORIZONTAL
@@ -78,31 +78,17 @@ class NHBottomCommandPanel @JvmOverloads constructor(
         commandList = findViewById(R.id.command_list)
         divider = findViewById(R.id.command_divider)
         keyboardSwitch = findViewById(R.id.keyboard_switch)
-        extraCommandSwitch = findViewById(R.id.extra_command_switch)
+        settingsSwitch = findViewById(R.id.settings_switch)
         keyboardSwitch.setOnClickListener { onCommand?.invoke(KEYBOARD_COMMAND) }
-        // 长按键盘图标 → 打开设置
-        keyboardSwitch.setOnLongClickListener {
-            onCommand?.invoke(SETTING_COMMAND)
-            true
-        }
-        extraCommandSwitch.setOnClickListener { onExtraCommands?.invoke() }
-        // 长按"更多命令"图标 → 打开设置
-        extraCommandSwitch.setOnLongClickListener {
-            onCommand?.invoke(SETTING_COMMAND)
-            true
-        }
+        settingsSwitch.setOnClickListener { onCommand?.invoke(SETTING_COMMAND) }
     }
 
     /** 用配置串刷新命令按钮；空串时回落到内置默认值 */
     fun setCommands(commands: String?) {
         val text = commands.orEmpty()
-        entries = (if (text.isBlank()) defaultCommands else parseEntries(text))
+        entries = (if (text.isBlank()) defaultCommands(context) else parseEntries(text))
             .filter { it.command !in pinnedCommands }
             .toMutableList()
-        // 设置入口永远排在最后：用户删掉或改名后这里会补回来，避免找不到设置
-        val existingSetting = entries.firstOrNull { it.command == SETTING_COMMAND }
-        entries.removeAll { it.command == SETTING_COMMAND }
-        entries.add(existingSetting ?: CommandEntry(SETTING_COMMAND, SETTING_COMMAND))
         commandList.removeAllViews()
         entries.forEach { entry ->
             val item = LayoutInflater.from(context)
@@ -123,20 +109,34 @@ class NHBottomCommandPanel @JvmOverloads constructor(
         commandList.addView(addItem)
     }
 
-    /** 切换深浅色后重新上色：背景、分隔线、键盘/更多命令/设置三个图标 */
+    /** 切换面板按钮当前显示的图标：键盘图标或"更多命令"图标 */
+    fun setSwitchIcon(isKeyboardIcon: Boolean) {
+        keyboardSwitch.setImageResource(
+            if (isKeyboardIcon) R.drawable.ic_keyboard else R.drawable.ic_grid
+        )
+        keyboardSwitch.contentDescription = context.getString(
+            if (isKeyboardIcon) R.string.command_bar_keyboard_switch else R.string.command_bar_extra
+        )
+    }
+
+    /** 切换深浅色后重新上色：背景、分隔线、切换面板/设置图标 */
     fun refreshTheme() {
         setBackgroundColor(ContextCompat.getColor(context, R.color.app_background))
         divider.setBackgroundColor(ContextCompat.getColor(context, R.color.app_divider))
         val tint = ContextCompat.getColor(context, R.color.app_text)
         keyboardSwitch.imageTintList = ColorStateList.valueOf(tint)
-        extraCommandSwitch.imageTintList = ColorStateList.valueOf(tint)
+        settingsSwitch.imageTintList = ColorStateList.valueOf(tint)
     }
+
+
+    /** 写回配置：字段固定为 label → command */
+    private fun toJson(entries: List<CommandEntry>): String = CommandEntry.gson.toJson(entries)
 
     /** 解析配置：JSON 数组；解析不出来时回落到内置默认值 */
     private fun parseEntries(text: String): List<CommandEntry> =
         runCatching {
-            gson.fromJson(text, Array<CommandEntry>::class.java)
-        }.getOrNull()?.toList() ?: defaultCommands
+            parseEntries(text)
+        }.getOrNull()?.toList() ?: defaultCommands(context)
 
     /** 编辑已有条目；[entry] 为 null 时表示新增（输入框留空） */
     private fun showEditDialog(entry: CommandEntry?) {
@@ -172,7 +172,7 @@ class NHBottomCommandPanel @JvmOverloads constructor(
     /** 删除条目并通知调用方保存 */
     private fun deleteEntry(entry: CommandEntry) {
         entries.remove(entry)
-        val text = gson.toJson(entries)
+        val text = toJson(entries)
         onCommandsChanged?.invoke(text)
         setCommands(text)
     }
@@ -185,7 +185,7 @@ class NHBottomCommandPanel @JvmOverloads constructor(
             val index = entries.indexOf(oldEntry)
             if (index >= 0) entries[index] = newEntry else entries.add(newEntry)
         }
-        val text = gson.toJson(entries)
+        val text = toJson(entries)
         onCommandsChanged?.invoke(text)
         setCommands(text)
     }
@@ -194,21 +194,16 @@ class NHBottomCommandPanel @JvmOverloads constructor(
         const val KEYBOARD_COMMAND = "Keyboard"
         const val SETTING_COMMAND = "Setting"
         /** 固定在右侧、不参与编辑和滚动的条目 */
-        val pinnedCommands = setOf(KEYBOARD_COMMAND)
+        val pinnedCommands = setOf(KEYBOARD_COMMAND, SETTING_COMMAND)
 
-        /**
-         * 内置默认命令：配置为空或解析失败时使用。
-         * 直接写在代码里，省掉 strings.xml 里那一层层转义。
-         */
-        val defaultCommands: List<CommandEntry> = listOf(
-            CommandEntry("Dig", "aM\"pick-axe\""),
-            CommandEntry("Lamp", "aM\"candle|lantern|lamp\""),
-            CommandEntry("Cure", "aM\"unicorn horn\""),
-            CommandEntry("Scare", "aM\"tooled horn|bugle\"y"),
-            CommandEntry("Elber", "#engrave#-nL\"Elbereth\":"),
-            CommandEntry("20s", "20s"),
-            CommandEntry("FRest", "m."),
-            CommandEntry("Setting", "Setting")
-        )
+        /** 默认命令所在的 asset */
+        private const val DEFAULT_FILE = "commands/bottom_command_panel.json"
+
+        /** 默认命令，来自 assets/commands/bottom_command_panel.json */
+        /** 默认命令，来自 assets/commands/bottom_command_panel.json */
+        fun defaultCommands(context: Context): List<CommandEntry> =
+            AssetsUtils.readJson(
+                context, DEFAULT_FILE, Array<CommandEntry>::class.java
+            )?.toList().orEmpty()
     }
 }

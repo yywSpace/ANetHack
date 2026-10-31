@@ -165,14 +165,7 @@ class NetHackActivity : AppCompatActivity() {
     private fun processKeyPress(cmd:String) {
         if (cmd.isEmpty()) return
         when (cmd) {
-            KEYBOARD_COMMAND -> {
-                isKeyboardShow = !isKeyboardShow
-                binding.keyboardView.visibility =
-                    if (isKeyboardShow) View.VISIBLE else View.GONE
-                // 键盘和"更多命令"面板互斥：显示其中一个就收起另一个
-                if (isKeyboardShow)
-                    binding.extraCommandView.visibility = View.GONE
-            }
+            KEYBOARD_COMMAND -> cycleCommandPanel()
             CENTER_COMMAND -> {
                 binding.mapView.centerPlayerInScreen()
             }
@@ -202,24 +195,45 @@ class NetHackActivity : AppCompatActivity() {
             immersiveProvider = { nethack.prefs.immersiveMode }
             onCommand = { processKeyPress(it) }
             onCommandsChanged = { nethack.prefs.commandPanel = it }
-            onExtraCommands = { toggleExtraCommands() }
             setCommands(nethack.prefs.commandPanel)
             refreshTheme()
         }
     }
 
-    /** 展开/收起"更多命令"面板（样式和键盘一样，占在命令栏上方） */
-    private fun toggleExtraCommands() {
-        val view = binding.extraCommandView
-        if (view.visibility == View.VISIBLE) {
-            view.visibility = View.GONE
-            return
+    /** 底部命令栏上的面板状态："更多命令"面板是否由键盘切换而来 */
+    private var extraPanelVisible = false
+
+    /**
+     * 面板按钮：一个图标在键盘与扩展命令面板之间循环切换。
+     *
+     * 图标显示的是"点一下会切到哪个面板"：
+     * - 都没展开 → 显示键盘图标，点了开键盘；
+     * - 键盘展开 → 显示扩展面板图标，点了换面板；
+     * - 面板展开 → 显示键盘图标，点了换回键盘。
+     */
+    private fun cycleCommandPanel() {
+        val bar = binding.bottomCommandPanel
+        when {
+            isKeyboardShow -> {
+                isKeyboardShow = false
+                binding.keyboardView.visibility = View.GONE
+                binding.extraCommandView.visibility = View.VISIBLE
+                extraPanelVisible = true
+                bar.setSwitchIcon(isKeyboardIcon = false)
+            }
+            extraPanelVisible -> {
+                extraPanelVisible = false
+                binding.extraCommandView.visibility = View.GONE
+                isKeyboardShow = true
+                binding.keyboardView.visibility = View.VISIBLE
+                bar.setSwitchIcon(isKeyboardIcon = true)
+            }
+            else -> {
+                isKeyboardShow = true
+                binding.keyboardView.visibility = View.VISIBLE
+                bar.setSwitchIcon(isKeyboardIcon = false)
+            }
         }
-        // 只在需要时重建（启动、改配置、切主题），这里直接显示，保留滑动位置
-        view.visibility = View.VISIBLE
-        // 和键盘互斥
-        isKeyboardShow = false
-        binding.keyboardView.visibility = View.GONE
     }
 
     private fun hideSystemUi() {

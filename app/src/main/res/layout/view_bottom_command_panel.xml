@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- NHBottomCommandPanel 的内容：命令按钮横向滚动 + 分隔线 + 固定的键盘/设置按钮 -->
+<!-- NHBottomCommandPanel 的内容：命令按钮横向滚动 + 分隔线 + 切换面板/设置按钮 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -36,16 +36,16 @@
         android:src="@drawable/ic_keyboard"
         app:tint="@color/app_text" />
 
+
+
     <ImageView
-        android:id="@+id/extra_command_switch"
+        android:id="@+id/settings_switch"
         android:layout_width="@dimen/command_icon_width"
         android:layout_height="@dimen/command_item_height"
         android:background="?android:attr/selectableItemBackground"
-        android:contentDescription="@string/command_bar_extra"
+        android:contentDescription="@string/command_bar_settings_switch"
         android:scaleType="center"
-        android:src="@drawable/ic_grid"
+        android:src="@drawable/ic_settings"
         app:tint="@color/app_text" />
-
-
 
 </merge>
