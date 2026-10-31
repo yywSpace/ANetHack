@@ -1,6 +1,5 @@
 package com.yywspace.anethack.setting
 
-import com.yywspace.anethack.theme.AppTheme
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
@@ -10,17 +9,35 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
 import com.yywspace.anethack.R
 import com.yywspace.anethack.databinding.ActivityOptionEditBinding
+import com.yywspace.anethack.theme.AppTheme
 import java.io.File
-import androidx.core.graphics.toColorInt
 
 
 class OptionEditActivity: AppCompatActivity() {
     private lateinit var binding:ActivityOptionEditBinding
+
+    /** 导出配置文件内容到用户选的文件 */
+    private val createDocument = registerForActivityResult(
+        ActivityResultContracts.CreateDocument("text/plain")
+    ) { uri -> if (uri != null) exportTo(uri) }
+
+    /** 从用户选的文件导入配置内容 */
+    private val openDocument = registerForActivityResult(
+        ActivityResultContracts.OpenDocument()
+    ) { uri -> if (uri != null) importFrom(uri) }
+
+    /** 打开时的内容，用来判断有没有未保存的修改 */
+    private var initialText: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AppTheme.applyTheme(this)
         super.onCreate(savedInstanceState)
@@ -28,19 +45,43 @@ class OptionEditActivity: AppCompatActivity() {
         setContentView(binding.root)
         initView()
         initStatusBar()
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() = confirmExit()
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             android.R.id.home -> {
-                finish()
+                confirmExit()
                 return true
             }
             R.id.option_edit_save -> {
                 saveConfirm()
             }
+            R.id.option_edit_import -> openDocument.launch(
+                arrayOf("text/plain", "application/octet-stream", "*/*")
+            )
+            R.id.option_edit_export -> createDocument.launch(".nethackrc")
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    /** 有未保存的修改时，返回前先问一句 */
+    private fun confirmExit() {
+        if (binding.optionEditText.text.toString() == initialText) {
+            finish()
+            return
+        }
+        AlertDialog.Builder(this)
+            .setTitle(R.string.unsaved_changes)
+            .setPositiveButton(R.string.dialog_confirm) { _, _ ->
+                saveOptionFile(binding.optionEditText.text.toString())
+                finish()
+            }
+            .setNegativeButton(R.string.unsaved_changes_discard) { _, _ -> finish() }
+            .setNeutralButton(R.string.dialog_cancel, null)
+            .show()
     }
 
     private fun saveConfirm() {
@@ -56,6 +97,33 @@ class OptionEditActivity: AppCompatActivity() {
             show()
         }
     }
+    private fun toast(resId: Int) =
+        Toast.makeText(this, resId, Toast.LENGTH_SHORT).show()
+
+    /** 导出：把当前编辑框里的内容原样写到用户选的文件 */
+    private fun exportTo(uri: android.net.Uri) {
+        runCatching {
+            contentResolver.openOutputStream(uri)?.use { out ->
+                out.write(binding.optionEditText.text.toString().toByteArray())
+            }
+        }.onSuccess { toast(R.string.option_exported) }
+            .onFailure { toast(R.string.option_export_failed) }
+    }
+
+    /** 导入：用文件内容替换编辑框，保留撤销前的内容作为"已保存"基准 */
+    private fun importFrom(uri: android.net.Uri) {
+        val text = runCatching {
+            contentResolver.openInputStream(uri)?.bufferedReader()?.use { it.readText() }
+        }.getOrNull()
+        if (text == null) {
+            toast(R.string.option_import_failed)
+            return
+        }
+        binding.optionEditText.setText(text)
+        processText(binding.optionEditText.editableText)
+        toast(R.string.option_imported)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.option_edit_menu, menu)
         return true
@@ -69,7 +137,9 @@ class OptionEditActivity: AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.optionEditText.apply {
-            setText(readOptionText())
+            val text = readOptionText()
+            initialText = text
+            setText(text)
             processText(editableText)
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -122,5 +192,7 @@ class OptionEditActivity: AppCompatActivity() {
 
     private fun saveOptionFile(option:String) {
         File(filesDir,"nethackdir/.nethackrc").writeText(option)
+        // 保存后内容就是新的基准，再返回时不会重复提示
+        initialText = option
     }
 }

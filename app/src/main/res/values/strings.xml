@@ -29,10 +29,16 @@
     <string name="settings_title">Settings</string>
     <string name="activity_settings_title">SettingsActivity</string>
     <string name="activity_option_edit_title">OptionEditActivity</string>
+    <string name="option_menu_save">Save</string>
+    <string name="option_menu_import">Import</string>
+    <string name="option_menu_export">Export</string>
+    <string name="option_imported">Options imported from the selected file</string>
+    <string name="option_exported">Options exported to the selected file</string>
+    <string name="option_import_failed">Import failed: could not read the file</string>
+    <string name="option_export_failed">Export failed: could not write the selected file</string>
     <string name="option_edit_save">Save</string>
     <string name="option_edit_cancel">Cancel</string>
     <string name="option_edit_title">Option</string>
-    <string name="option_menu_save">Option Save</string>
     <string name="option_save_dialog_title">Save option</string>
     <string name="option_save_dialog_msg">Do you want to save the option file?</string>
 
@@ -137,6 +143,8 @@
     <string name="command_edit_label">Label</string>
     <string name="command_edit_value">Command</string>
     <string name="command_edit_invalid">Label and command must not be empty</string>
+    <string name="unsaved_changes">Save changes?</string>
+    <string name="unsaved_changes_discard">Discard</string>
 
     <!-- Permission -->
     <string name="permission_audio">Audio permission</string>
