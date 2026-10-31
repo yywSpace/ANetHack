@@ -436,8 +436,9 @@ class NHMonsterDialog(
         }
     }
 
-    /** dp → px：复用 [Utils.dip2px]，这里只是把调用写短一点 */
-    private fun dp(value: Int): Int = Utils.dip2px(context, value.toFloat())
+    /** dp → px，调用处只写数字 */
+    private fun dp(value: Int): Int =
+        (value * context.resources.displayMetrics.density).toInt()
 
     companion object {
         /** 结果区最多占屏幕高度的比例，超过就滚动 */

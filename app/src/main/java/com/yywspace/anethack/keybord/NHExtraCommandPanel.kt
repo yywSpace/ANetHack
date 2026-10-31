@@ -3,14 +3,13 @@ package com.yywspace.anethack.keybord
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import com.google.gson.Gson
+import com.yywspace.anethack.AssetsUtils
 import com.yywspace.anethack.R
 import com.yywspace.anethack.SharedPreferencesUtils
 import com.yywspace.anethack.extensions.show
@@ -30,8 +29,13 @@ class NHExtraCommandPanel @JvmOverloads constructor(
     /** 弹窗是否需要按沉浸式显示 */
     var immersiveProvider: (() -> Boolean)? = null
 
+
+    private companion object {
+        /** 默认命令所在的 asset */
+        private const val DEFAULT_FILE = "commands/extra_command_panel.json"
+    }
+
     private val rows: LinearLayout
-    private val gson = Gson()
     private lateinit var prefs: SharedPreferencesUtils
 
     init {
@@ -67,7 +71,7 @@ class NHExtraCommandPanel @JvmOverloads constructor(
                 isHorizontalScrollBarEnabled = false
                 overScrollMode = OVER_SCROLL_NEVER
             }
-            val line = LinearLayout(context).apply { orientation = LinearLayout.HORIZONTAL }
+            val line = LinearLayout(context).apply { orientation = HORIZONTAL }
             entries.forEach { entry ->
                 val item = LayoutInflater.from(context)
                     .inflate(R.layout.item_extra_command, line, false) as TextView
@@ -82,8 +86,8 @@ class NHExtraCommandPanel @JvmOverloads constructor(
             scroller.addView(line)
             // 组与组之间留和格子一样的间距
             if (index > 0) {
-                scroller.layoutParams = LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+                scroller.layoutParams = LayoutParams(
+                    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT
                 ).apply {
                     topMargin = resources.getDimensionPixelSize(R.dimen.command_item_spacing)
                 }
@@ -97,16 +101,24 @@ class NHExtraCommandPanel @JvmOverloads constructor(
         val raw = prefs.commandPanelExtra.orEmpty()
         if (raw.isBlank()) {
             val defaults = defaultRows()
-            saveRows(defaults)
+            prefs.commandPanelExtra = toJson(defaults)
             return defaults
         }
-        return runCatching {
-            gson.fromJson(raw, Array<Array<CommandEntry>>::class.java)?.map { it.toList() }
-        }.getOrNull()?.takeIf { it.isNotEmpty() } ?: defaultRows()
+        return parseRows(raw).takeIf { it.isNotEmpty() } ?: defaultRows()
     }
 
+    /** 解析偏好里的分组配置；解析失败返回空列表 */
+    private fun parseRows(json: String): List<List<CommandEntry>> =
+        runCatching {
+            CommandEntry.gson.fromJson(json, Array<Array<CommandEntry>>::class.java)
+                ?.map { it.toList() }
+        }.getOrNull().orEmpty()
+
+    /** 写回分组配置：字段固定为 label → command */
+    private fun toJson(rows: List<List<CommandEntry>>): String = CommandEntry.gson.toJson(rows)
+
     private fun saveRows(newRows: List<List<CommandEntry>>) {
-        prefs.commandPanelExtra = gson.toJson(newRows)
+        prefs.commandPanelExtra = toJson(newRows)
         reload()
     }
 
@@ -144,38 +156,12 @@ class NHExtraCommandPanel @JvmOverloads constructor(
             .show(immersiveProvider?.invoke() ?: false)
     }
 
-    /**
-     * 首次打开时填充的示例：外层是分组，内层是这一组的命令。
-     *
-     * 命令写法与底部命令栏一致（`M"..."` 表示在菜单/背包里按正则挑一项）：
-     * - 第一组：存档、退出、怪物信息、价格鉴定这类功能
-     * - 第二组：使用工具与物品（独角兽角、油灯、号角…）
-     * - 第三组：释放法术
-     */
-    private fun defaultRows(): List<List<CommandEntry>> = listOf(
-        listOf(
-            CommandEntry("Save", "S"),
-            CommandEntry("Quit", "#quit"),
-            CommandEntry("Monster", "Monster"),
-            CommandEntry("Price", "PriceID"),
-            CommandEntry("300s", "300s"),
-            CommandEntry("Setting", "Setting"),
-        ),
-        listOf(
-            CommandEntry("Key", "aM\"key|lock pick\""),
-            CommandEntry("Cure", "aM\"unicorn horn\""),
-            CommandEntry("Lamp", "aM\"candle|lantern|lamp\""),
-            CommandEntry("Scare", "aM\"tooled horn|bugle\"y"),
-            CommandEntry("Dig", "aM\"pick-axe\""),
-            CommandEntry("Bag", "aM\"bag|sack\""),
-        ),
-        listOf(
-            CommandEntry("Identify", "ZM\"identify\""),
-            CommandEntry("Missile", "ZM\"magic missile\""),
-            CommandEntry("Healing", "ZM\"healing\""),
-            CommandEntry("Extra healing", "ZM\"extra healing\""),
-            CommandEntry("Mapping", "ZM\"magic mapping\""),
-            CommandEntry("Treasure", "ZM\"detect treasure\""),
-        ),
-    )
+    /** 默认分组，来自 assets/commands/extra_command_panel.json */
+    private fun readDefaultRows(context: Context): List<List<CommandEntry>> =
+        AssetsUtils.readJson(
+            context, DEFAULT_FILE, Array<Array<CommandEntry>>::class.java
+        )?.map { it.toList() }.orEmpty()
+
+    /** 首次打开时填充的示例：来自 assets/commands/extra_command_panel.json，外层是分组 */
+    private fun defaultRows(): List<List<CommandEntry>> = readDefaultRows(context)
 }

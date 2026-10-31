@@ -13,8 +13,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setMargins
+import com.yywspace.anethack.AssetsUtils
 import com.yywspace.anethack.R
-import com.yywspace.anethack.Utils
 
 
 class KeyboardView @JvmOverloads constructor(
@@ -90,24 +90,18 @@ class KeyboardView @JvmOverloads constructor(
     }
 
     private fun initKeyboardData() {
-        val keyboardLetterJson = Utils.readAssetsFile(
-            context, "keyboard/keyboard_letter.json")
-        keyboardLetter = NHKeyboardUtils.readFromJson(keyboardLetterJson)
-        val keyboardLetterUpperJson = Utils.readAssetsFile(
-            context, "keyboard/keyboard_upper_letter.json")
-        keyboardUpperLetter = NHKeyboardUtils.readFromJson(keyboardLetterUpperJson)
-        val keyboardSymbolJson = Utils.readAssetsFile(
-            context, "keyboard/keyboard_symbol.json")
-        keyboardSymbol = NHKeyboardUtils.readFromJson(keyboardSymbolJson)
-        val keyboardCtrlJson = Utils.readAssetsFile(
-            context, "keyboard/keyboard_ctrl.json")
-        keyboardCtrl = NHKeyboardUtils.readFromJson(keyboardCtrlJson)
-        val keyboardMetaJson = Utils.readAssetsFile(
-            context, "keyboard/keyboard_meta.json")
-        keyboardMeta = NHKeyboardUtils.readFromJson(keyboardMetaJson)
-        val keyboardCustomJson = Utils.readAssetsFile(
-            context, "keyboard/keyboard_custom.json")
-        keyboardCustom = NHKeyboardUtils.readFromJson(keyboardCustomJson)
+        val keyboardLetterJson = AssetsUtils.readText(context, "keyboard/keyboard_letter.json").orEmpty()
+        keyboardLetter = NHKeyboard.fromJson(keyboardLetterJson)
+        val keyboardLetterUpperJson = AssetsUtils.readText(context, "keyboard/keyboard_upper_letter.json").orEmpty()
+        keyboardUpperLetter = NHKeyboard.fromJson(keyboardLetterUpperJson)
+        val keyboardSymbolJson = AssetsUtils.readText(context, "keyboard/keyboard_symbol.json").orEmpty()
+        keyboardSymbol = NHKeyboard.fromJson(keyboardSymbolJson)
+        val keyboardCtrlJson = AssetsUtils.readText(context, "keyboard/keyboard_ctrl.json").orEmpty()
+        keyboardCtrl = NHKeyboard.fromJson(keyboardCtrlJson)
+        val keyboardMetaJson = AssetsUtils.readText(context, "keyboard/keyboard_meta.json").orEmpty()
+        keyboardMeta = NHKeyboard.fromJson(keyboardMetaJson)
+        val keyboardCustomJson = AssetsUtils.readText(context, "keyboard/keyboard_custom.json").orEmpty()
+        keyboardCustom = NHKeyboard.fromJson(keyboardCustomJson)
     }
 
     private fun initNumPanel() {
@@ -190,9 +184,8 @@ class KeyboardView @JvmOverloads constructor(
         return view
     }
     private fun initKeyboardView() {
-        val keyboardTemplateJson = Utils.readAssetsFile(
-            context, "keyboard/keyboard_view_template.json")
-        val keyboardTemplate = NHKeyboardUtils.readFromJson(keyboardTemplateJson)
+        val keyboardTemplateJson = AssetsUtils.readText(context, "keyboard/keyboard_view_template.json").orEmpty()
+        val keyboardTemplate = NHKeyboard.fromJson(keyboardTemplateJson)
         // 占位，使后续排版能够完全按照网格进行
         for (i in 0 until rowCount) {
             val rowView = mutableListOf<View>()

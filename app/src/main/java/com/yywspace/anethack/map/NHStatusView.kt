@@ -52,7 +52,7 @@ class NHStatusView @JvmOverloads constructor(
 
     init {
         orientation = VERTICAL
-        val gap = Utils.dip2px(context, 5f)
+        val gap = (5 * resources.displayMetrics.density).toInt()
         rows.forEach { rowFields ->
             val rowLayout = LinearLayout(context).apply { orientation = HORIZONTAL }
             addView(rowLayout, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))

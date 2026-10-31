@@ -1,0 +1,34 @@
+[
+  {
+    "label": "Dig",
+    "command": "aM\"pick-axe\""
+  },
+  {
+    "label": "Lamp",
+    "command": "aM\"candle|lantern|lamp\""
+  },
+  {
+    "label": "Cure",
+    "command": "aM\"unicorn horn\""
+  },
+  {
+    "label": "Scare",
+    "command": "aM\"tooled horn|bugle\"y"
+  },
+  {
+    "label": "Elber",
+    "command": "#engrave#-nL\"Elbereth\":"
+  },
+  {
+    "label": "20s",
+    "command": "20s"
+  },
+  {
+    "label": "FRest",
+    "command": "m."
+  },
+  {
+    "label": "300s",
+    "command": "300s"
+  }
+]

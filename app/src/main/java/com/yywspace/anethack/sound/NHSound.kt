@@ -6,9 +6,8 @@ import android.media.SoundPool
 import android.util.Log
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
+import com.yywspace.anethack.AssetsUtils
 import com.yywspace.anethack.NetHack
-import com.yywspace.anethack.R
-import com.yywspace.anethack.Utils
 import java.io.File
 
 
@@ -24,7 +23,7 @@ class NHSound(val nh:NetHack) {
         if (!nh.prefs.internalSound)
             return
         val soundPath = "sound/$soundName.wav"
-        if (!Utils.isAssetsFileExists(nh.context, soundPath)) {
+        if (!AssetsUtils.exists(nh.context, soundPath)) {
             Log.d(TAG, "playInnerSound $soundPath not exists.")
             return
         }
@@ -168,7 +167,7 @@ class NHSound(val nh:NetHack) {
 
     private fun getSoundDuration(soundName: String): Long {
         val soundPath = "sound/$soundName.wav"
-        if (!Utils.isAssetsFileExists(nh.context, soundPath)) {
+        if (!AssetsUtils.exists(nh.context, soundPath)) {
             Log.d(TAG, "getSoundDuration $soundPath not exists.")
             return 0
         }

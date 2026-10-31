@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="command_item_height">38dp</dimen>
+    <dimen name="command_item_height">40dp</dimen>
     <!-- 键盘按键四周的边距：相邻按键之间为它的两倍（2dp） -->
     <dimen name="command_item_gap">1dp</dimen>
     <!-- 面板格子之间、面板分组之间的间隙，也用作面板与键盘的上下内边距 -->
