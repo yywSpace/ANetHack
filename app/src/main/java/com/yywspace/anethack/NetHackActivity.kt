@@ -53,7 +53,6 @@ class NetHackActivity : AppCompatActivity() {
         Thread { GameData.ensureLoaded(applicationContext) }.start()
         initKeyboard()
         initControlPanel()
-        initExtraCommands()
         AssetsLoader(this).loadAssets(
             listOf("nethackdir", "logs", "conf"), false
         ) { overwrite ->
@@ -112,8 +111,6 @@ class NetHackActivity : AppCompatActivity() {
         // 键盘和命令栏各自按新主题刷新（背景、键帽、按钮、图标都在各自类里处理）
         binding.keyboardView.applyTheme()
         initControlPanel()
-        // 额外面板的按钮颜色也是 inflate 时解析的，这里一并重建
-        binding.extraCommandView.refreshTheme()
         NHWMenu.clearCache()
         nethack.onThemeChanged()
         // 价格鉴定弹窗的视图是构造时 inflate 的，按新配色重建一份
@@ -122,14 +119,6 @@ class NetHackActivity : AppCompatActivity() {
         // 怪物弹窗的视图每次显示时重建，但主题切换后也换一份新的，保持一致
         monsterDialog = NHMonsterDialog(this, nethack)
         nethack.monsterDialog = monsterDialog
-    }
-
-    private fun initExtraCommands() {
-        binding.extraCommandView.apply {
-            onCommand = { processKeyPress(it) }
-            immersiveProvider = { nethack.prefs.immersiveMode }
-            reload()
-        }
     }
 
     private fun initKeyboard() {
@@ -182,12 +171,16 @@ class NetHackActivity : AppCompatActivity() {
         }
     }
 
+    /** 两条命令面板一起初始化：回调一致，刷新入口也一致 */
     private fun initControlPanel() {
-        binding.bottomCommandPanel.apply {
-            immersiveProvider = { nethack.prefs.immersiveMode }
+        binding.bottomCommandBar.apply {
             onCommand = { processKeyPress(it) }
-            onCommandsChanged = { nethack.prefs.commandPanel = it }
-            setCommands(nethack.prefs.commandPanel)
+            immersiveProvider = { nethack.prefs.immersiveMode }
+            refreshTheme()
+        }
+        binding.extraCommandPanel.apply {
+            onCommand = { processKeyPress(it) }
+            immersiveProvider = { nethack.prefs.immersiveMode }
             refreshTheme()
         }
     }
@@ -208,13 +201,13 @@ class NetHackActivity : AppCompatActivity() {
                 // 键盘 → 扩展面板
                 isKeyboardShow = false
                 binding.keyboardView.visibility = View.GONE
-                binding.extraCommandView.visibility = View.VISIBLE
+                binding.extraCommandPanel.visibility = View.VISIBLE
                 extraPanelVisible = true
             }
             extraPanelVisible -> {
                 // 扩展面板 → 键盘
                 extraPanelVisible = false
-                binding.extraCommandView.visibility = View.GONE
+                binding.extraCommandPanel.visibility = View.GONE
                 isKeyboardShow = true
                 binding.keyboardView.visibility = View.VISIBLE
             }
@@ -224,7 +217,7 @@ class NetHackActivity : AppCompatActivity() {
                 binding.keyboardView.visibility = View.VISIBLE
             }
         }
-        binding.bottomCommandPanel.setSwitchIcon(isKeyboardIcon = !extraPanelVisible)
+        binding.bottomCommandBar.setSwitchIcon(isKeyboardIcon = !extraPanelVisible)
     }
 
     private fun processLogs() {

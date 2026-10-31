@@ -26,9 +26,5 @@
   {
     "label": "FRest",
     "command": "m."
-  },
-  {
-    "label": "300s",
-    "command": "300s"
   }
 ]

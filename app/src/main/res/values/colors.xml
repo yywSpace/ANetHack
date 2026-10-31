@@ -16,6 +16,8 @@
     <color name="app_text_secondary">#FF808080</color>
     <color name="key_background">#FFFFFFFF</color>
     <color name="key_border">#FF808080</color>
+    <!-- 删除等危险操作的文字色 -->
+    <color name="app_danger">#FF5252</color>
     <color name="app_divider">#FFE0E0E0</color>
     <color name="bg_extend_search">#FFF5F5F5</color>
     <!-- 怪物弹窗里的信息卡片底色：比白色背景略深一点才看得出分组 -->

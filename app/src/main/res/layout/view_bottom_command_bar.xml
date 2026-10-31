@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- NHBottomCommandPanel 的内容：命令按钮横向滚动 + 分隔线 + 切换面板/设置按钮 -->
+<!-- NHBottomCommandBar 的内容：命令按钮横向滚动 + 分隔线 + 切换面板/设置按钮 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 

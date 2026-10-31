@@ -3,11 +3,8 @@ package com.yywspace.anethack.setting
 import com.yywspace.anethack.theme.AppTheme
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.text.InputType
-import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -17,13 +14,10 @@ import androidx.preference.CheckBoxPreference
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.google.gson.Gson
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.R
-import com.yywspace.anethack.keybord.CommandEntry
-import com.yywspace.anethack.SharedPreferencesUtils
 import java.io.File
 
 
@@ -45,8 +39,7 @@ class SettingsActivity : AppCompatActivity() {
         initStatusBar()
     }
 
-        (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
-                Configuration.UI_MODE_NIGHT_YES
+
 
     private fun initStatusBar() = AppTheme.applyStatusBar(this)
 
@@ -113,19 +106,11 @@ class SettingsActivity : AppCompatActivity() {
                     true
                 }
             }
-            findPreference<Preference>("commandPanelExtra")?.apply {
-                setOnPreferenceClickListener {
-                    showExtraCommandPanelEditor()
-                    true
-                }
-                summary = extraCommandPanelSummary()
-            }
             findPreference<Preference>("commandPanel")?.apply {
                 setOnPreferenceClickListener {
-                    showCommandPanelEditor()
+                    openCommandEditor()
                     true
                 }
-                updateCommandPanelSummary()
             }
             userSoundPerm = findPreference<CheckBoxPreference>("userSound")?.apply {
                 setOnPreferenceClickListener {
@@ -167,96 +152,13 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        /** 读命令栏配置（与设置框架默认使用同一个 SharedPreferences 文件） */
-        private fun readCommandPanel(): String =
-            context?.let { SharedPreferencesUtils(it).commandPanel }.orEmpty()
-
-        /** 写命令栏配置 */
-        private fun writeCommandPanel(value: String) {
+        /** 打开命令编辑页：底部命令栏与扩展面板在同一个页面里编辑 */
+        private fun openCommandEditor() {
             val ctx = context ?: return
-            SharedPreferencesUtils(ctx).commandPanel = value
+            startActivity(Intent(ctx, CommandEditorActivity::class.java))
         }
 
-        /** 命令栏配置的简略显示：默认命令或"N 个命令：前几个标签" */
-        private fun updateCommandPanelSummary() {
-            val pref = findPreference<Preference>("commandPanel") ?: return
-            val ctx = pref.context
-            val entries = runCatching {
-                Gson().fromJson(readCommandPanel(), Array<CommandEntry>::class.java)
-            }.getOrNull()?.filter { it.command.isNotEmpty() && it.label.isNotEmpty() }
-            pref.summary = if (entries.isNullOrEmpty())
-                ctx.getString(R.string.command_panel_summary_default)
-            else
-                ctx.getString(
-                    R.string.command_panel_summary,
-                    entries.size,
-                    entries.take(3).joinToString(" / ") { it.label }
-                )
-        }
-        /** "更多命令"面板的简略显示 */
-        private fun extraCommandPanelSummary(): String {
-            val ctx = context ?: return ""
-            val raw = SharedPreferencesUtils(ctx).commandPanelExtra
-            val count = runCatching {
-                Gson().fromJson(raw, Array<Array<CommandEntry>>::class.java)?.sumOf { it.size }
-            }.getOrNull() ?: 0
-            return if (count == 0) ctx.getString(R.string.command_panel_summary_default)
-            else ctx.getString(R.string.command_panel_summary, count, ctx.getString(R.string.pref_keyboard_command_panel_extra))
-        }
 
-        /** "更多命令"面板的编辑弹窗：和命令栏那项一致，只是存到另一个偏好 */
-        private fun showExtraCommandPanelEditor() {
-            val ctx = context ?: return
-            val prefs = SharedPreferencesUtils(ctx)
-            val input = EditText(ctx).apply {
-                setText(prefs.commandPanelExtra)
-                setTextIsSelectable(true)
-                inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
-            }
-            val container = FrameLayout(ctx).apply {
-                val pad = (20 * resources.displayMetrics.density).toInt()
-                setPadding(pad, pad / 2, pad, 0)
-                addView(input)
-            }
-            AlertDialog.Builder(ctx)
-                .setTitle(R.string.pref_keyboard_command_panel_extra)
-                .setView(container)
-                .setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                    prefs.commandPanelExtra = input.text.toString().trim()
-                    findPreference<Preference>("commandPanelExtra")?.summary = extraCommandPanelSummary()
-                }
-                .setNegativeButton(R.string.dialog_cancel, null)
-                .show()
-        }
-
-        /**
-         * 命令栏配置的编辑弹窗。
-         *
-         * 用应用自己的 Confirm/Cancel 按钮（而不是 EditTextPreference 的系统按钮），
-         * 避免在中文系统上和其它英文界面混搭。
-         */
-        private fun showCommandPanelEditor() {
-            val ctx = context ?: return
-            val input = EditText(ctx).apply {
-                setText(readCommandPanel())
-                setTextIsSelectable(true)
-                inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
-            }
-            val container = FrameLayout(ctx).apply {
-                val pad = (20 * resources.displayMetrics.density).toInt()
-                setPadding(pad, pad / 2, pad, 0)
-                addView(input)
-            }
-            AlertDialog.Builder(ctx)
-                .setTitle(R.string.pref_keyboard_command_panel)
-                .setView(container)
-                .setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                    writeCommandPanel(input.text.toString().trim())
-                    updateCommandPanelSummary()
-                }
-                .setNegativeButton(R.string.dialog_cancel, null)
-                .show()
-        }
 
         private fun openInternalFile(context: Context?, relativePath:String) {
             context?.apply {

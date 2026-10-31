@@ -64,7 +64,7 @@
 
     <!-- 底部命令栏：命令按钮一行横向滚动，键盘开关固定在最右侧 -->
     <com.yywspace.anethack.keybord.NHExtraCommandPanel
-        android:id="@+id/extra_command_view"
+        android:id="@+id/extra_command_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/command_item_spacing"
@@ -74,8 +74,8 @@
         android:visibility="gone" />
 
 
-    <com.yywspace.anethack.keybord.NHBottomCommandPanel
-        android:id="@+id/bottom_command_panel"
+    <com.yywspace.anethack.keybord.NHBottomCommandBar
+        android:id="@+id/bottom_command_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/app_background" />

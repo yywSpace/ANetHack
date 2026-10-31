@@ -3,22 +3,15 @@ package com.yywspace.anethack.keybord
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.EditText
-import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import com.yywspace.anethack.AssetsUtils
 import com.yywspace.anethack.R
-import com.yywspace.anethack.SharedPreferencesUtils
-import com.yywspace.anethack.extensions.show
 
 /**
- * "更多命令"面板：和命令栏一样横向滚动，但配置完全独立（偏好里的 commandPanelExtra）。
+ * "更多命令"面板：和命令栏一样横向滚动，但配置完全独立（本地文件里的 extra_command_panel.json）。
  *
- * 配置是二维 JSON 数组：外层每个数组就是一组命令，界面上每组一行，组内放不下自动换行，
- * 不按数量自动折行。点击按钮触发 [onCommand]，长按可编辑或删除；新增只能在设置里改配置。
+ * 配置是 JSON 数组，每项是 { enabled, commands }：enabled 为 false 的整行不显示。
+ * 点击按钮触发 [onCommand]，长按可编辑或删除；新增和启用开关在设置里的编辑页。
  */
 class NHExtraCommandPanel @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -29,14 +22,10 @@ class NHExtraCommandPanel @JvmOverloads constructor(
     /** 弹窗是否需要按沉浸式显示 */
     var immersiveProvider: (() -> Boolean)? = null
 
-
-    private companion object {
-        /** 默认命令所在的 asset */
-        private const val DEFAULT_FILE = "commands/extra_command_panel.json"
-    }
+    /** 从配置文件读出来的全部行（含未启用的），编辑时按它整体写回 */
+    private var allRows: List<CommandRow> = emptyList()
 
     private val rows: LinearLayout
-    private lateinit var prefs: SharedPreferencesUtils
 
     init {
         orientation = VERTICAL
@@ -44,13 +33,11 @@ class NHExtraCommandPanel @JvmOverloads constructor(
         rows = findViewById(R.id.extra_command_rows)
     }
 
-
-
     /**
-     * 切换深浅色后重新上色。
+     * 切换深浅色后重新上色，并重建按钮。
      *
-     * 格子里的 `@color/...` 是在 inflate 时解析的，Activity 没有重建就还是旧颜色，
-     * 所以这里重设面板背景并重建一遍按钮。
+     * 格子里的 `@color/...` 是 inflate 时解析的，Activity 没重建就还是旧颜色，
+     * 所以上色和重建放在一起，调用方只调这一个方法。
      */
     fun refreshTheme() {
         setBackgroundColor(ContextCompat.getColor(context, R.color.app_background))
@@ -58,32 +45,28 @@ class NHExtraCommandPanel @JvmOverloads constructor(
     }
 
     /**
-     * 重新读取配置并生成按钮。
+     * 重新读取配置并生成按钮；只渲染启用的行。
      *
-     * 配置的每个内层数组对应一行：一行放进一个横向滚动视图里，
-     * 组与组之间纵向排列 —— 这样既能分组，也不受屏幕宽度限制。
+     * 每一行放进一个横向滚动视图里，组与组之间纵向排列 —— 这样既能分组，也不受屏幕宽度限制。
      */
     fun reload() {
-        prefs = SharedPreferencesUtils(context)
         rows.removeAllViews()
-        extraRows().forEachIndexed { index, entries ->
-            val scroller = HorizontalScrollView(context).apply {
-                isHorizontalScrollBarEnabled = false
-                overScrollMode = OVER_SCROLL_NEVER
-            }
-            val line = LinearLayout(context).apply { orientation = HORIZONTAL }
-            entries.forEach { entry ->
-                val item = LayoutInflater.from(context)
-                    .inflate(R.layout.item_extra_command, line, false) as TextView
-                item.text = entry.label
-                item.setOnClickListener { onCommand?.invoke(entry.command) }
-                item.setOnLongClickListener {
+        allRows = CommandStore.readExtra(context)
+        allRows.filter { it.enabled }.forEachIndexed { index, row ->
+            val line = CommandUi.row(
+                context = context,
+                entries = row.commands,
+                bar = false,
+                onClick = { entry, _ ->
+                    KeyboardVibrate.vibrate()
+                    onCommand?.invoke(entry.command)
+                },
+                onLongClick = { entry, _, _ ->
                     showEditor(entry)
                     true
                 }
-                line.addView(item)
-            }
-            scroller.addView(line)
+            )
+            val scroller = CommandUi.scroller(context, line)
             // 组与组之间留和格子一样的间距
             if (index > 0) {
                 scroller.layoutParams = LayoutParams(
@@ -96,72 +79,34 @@ class NHExtraCommandPanel @JvmOverloads constructor(
         }
     }
 
-    /** 读配置里的分组；为空时用默认分组，并把默认值立即落盘，避免后续编辑只保存一条 */
-    private fun extraRows(): List<List<CommandEntry>> {
-        val raw = prefs.commandPanelExtra.orEmpty()
-        if (raw.isBlank()) {
-            val defaults = defaultRows()
-            prefs.commandPanelExtra = toJson(defaults)
-            return defaults
-        }
-        return parseRows(raw).takeIf { it.isNotEmpty() } ?: defaultRows()
-    }
-
-    /** 解析偏好里的分组配置；解析失败返回空列表 */
-    private fun parseRows(json: String): List<List<CommandEntry>> =
-        runCatching {
-            CommandEntry.gson.fromJson(json, Array<Array<CommandEntry>>::class.java)
-                ?.map { it.toList() }
-        }.getOrNull().orEmpty()
-
-    /** 写回分组配置：字段固定为 label → command */
-    private fun toJson(rows: List<List<CommandEntry>>): String = CommandEntry.gson.toJson(rows)
-
-    private fun saveRows(newRows: List<List<CommandEntry>>) {
-        prefs.commandPanelExtra = toJson(newRows)
+    private fun saveRows(newRows: List<CommandRow>) {
+        CommandStore.writeExtra(context, newRows)
         reload()
     }
 
-    /** 修改：找到所在分组后替换 */
+    /** 修改：在所有行里替换同一条命令 */
     private fun replace(oldEntry: CommandEntry, newEntry: CommandEntry) {
-        val newRows = extraRows().map { row ->
-            row.map { if (it == oldEntry) newEntry else it }
-        }
-        saveRows(newRows)
+        saveRows(allRows.map { row ->
+            row.copy(commands = row.commands.map { if (it == oldEntry) newEntry else it }.toMutableList())
+        })
     }
 
-    /** 删除：从组里移除，空组一并去掉 */
+    /** 删除：从所在行移除，空行一并去掉 */
     private fun delete(entry: CommandEntry) {
-        saveRows(extraRows().map { row -> row.filter { it != entry } }.filter { it.isNotEmpty() })
+        saveRows(
+            allRows.map { row -> row.copy(commands = row.commands.filter { it != entry }.toMutableList()) }
+                .filter { it.commands.isNotEmpty() }
+        )
     }
 
     /** 编辑 / 删除一条命令（只能在设置里新增，所以这里不处理 entry == null） */
     private fun showEditor(entry: CommandEntry) {
-        val view = LayoutInflater.from(context).inflate(R.layout.dialog_command_edit, null)
-        val labelInput = view.findViewById<EditText>(R.id.command_edit_label)
-        val valueInput = view.findViewById<EditText>(R.id.command_edit_value)
-        labelInput.setText(entry.label)
-        valueInput.setText(entry.command)
-        AlertDialog.Builder(context)
-            .setTitle(R.string.command_edit_title)
-            .setView(view)
-            .setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                val label = labelInput.text.toString().trim()
-                val command = valueInput.text.toString().trim()
-                if (label.isNotEmpty() && command.isNotEmpty())
-                    replace(entry, CommandEntry(label, command))
-            }
-            .setNegativeButton(R.string.dialog_cancel, null)
-            .setNeutralButton(R.string.command_delete) { _, _ -> delete(entry) }
-            .show(immersiveProvider?.invoke() ?: false)
+        CommandUi.editDialog(
+            context = context,
+            immersive = immersiveProvider?.invoke() ?: false,
+            entry = entry,
+            onSave = { replace(entry, it) },
+            onDelete = { delete(entry) }
+        )
     }
-
-    /** 默认分组，来自 assets/commands/extra_command_panel.json */
-    private fun readDefaultRows(context: Context): List<List<CommandEntry>> =
-        AssetsUtils.readJson(
-            context, DEFAULT_FILE, Array<Array<CommandEntry>>::class.java
-        )?.map { it.toList() }.orEmpty()
-
-    /** 首次打开时填充的示例：来自 assets/commands/extra_command_panel.json，外层是分组 */
-    private fun defaultRows(): List<List<CommandEntry>> = readDefaultRows(context)
 }

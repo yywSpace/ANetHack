@@ -121,14 +121,11 @@
         app:title="@string/pref_keyboard_header"
         app:iconSpaceReserved="false">
 
-        <Preference
-            app:key="commandPanelExtra"
-            app:title="@string/pref_keyboard_command_panel_extra"
-            app:iconSpaceReserved="false"/>
 
         <Preference
             app:key="commandPanel"
             app:title="@string/pref_keyboard_command_panel"
+            app:summary="@string/pref_keyboard_command_panel_desc"
             app:iconSpaceReserved="false"/>
 
         <CheckBoxPreference
