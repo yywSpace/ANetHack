@@ -38,7 +38,8 @@ class NetHackActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AppTheme.applyTheme(this)
         super.onCreate(savedInstanceState)
-        uiMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        uiMode = if (AppTheme.isDark(this)) Configuration.UI_MODE_NIGHT_YES
+                else Configuration.UI_MODE_NIGHT_NO
         binding = ActivityNethackBinding.inflate(layoutInflater)
         setContentView(binding.root)
         handler = Handler(Looper.getMainLooper())
