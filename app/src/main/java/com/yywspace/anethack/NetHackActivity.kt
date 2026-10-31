@@ -6,12 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
@@ -21,7 +16,6 @@ import com.yywspace.anethack.command.NHCommandParser
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
-import com.yywspace.anethack.extensions.show
 import com.yywspace.anethack.gamedata.GameData
 import com.yywspace.anethack.gamedata.NHMonsterDialog
 import com.yywspace.anethack.gamedata.NHPriceIDialog
@@ -204,36 +198,35 @@ class NetHackActivity : AppCompatActivity() {
     private var extraPanelVisible = false
 
     /**
-     * 面板按钮：一个图标在键盘与扩展命令面板之间循环切换。
+     * 面板按钮：一个按钮在键盘与扩展命令面板之间切换。
      *
-     * 图标显示的是"点一下会切到哪个面板"：
-     * - 都没展开 → 显示键盘图标，点了开键盘；
-     * - 键盘展开 → 显示扩展面板图标，点了换面板；
-     * - 面板展开 → 显示键盘图标，点了换回键盘。
+     * 图标跟着"当前显示的是哪个面板"走：
+     * - 什么都没展开 / 键盘展开 → 显示键盘图标；
+     * - 扩展面板展开 → 显示扩展面板图标。
      */
     private fun cycleCommandPanel() {
-        val bar = binding.bottomCommandPanel
         when {
             isKeyboardShow -> {
+                // 键盘 → 扩展面板
                 isKeyboardShow = false
                 binding.keyboardView.visibility = View.GONE
                 binding.extraCommandView.visibility = View.VISIBLE
                 extraPanelVisible = true
-                bar.setSwitchIcon(isKeyboardIcon = false)
             }
             extraPanelVisible -> {
+                // 扩展面板 → 键盘
                 extraPanelVisible = false
                 binding.extraCommandView.visibility = View.GONE
                 isKeyboardShow = true
                 binding.keyboardView.visibility = View.VISIBLE
-                bar.setSwitchIcon(isKeyboardIcon = true)
             }
             else -> {
+                // 都收起 → 先打开键盘
                 isKeyboardShow = true
                 binding.keyboardView.visibility = View.VISIBLE
-                bar.setSwitchIcon(isKeyboardIcon = false)
             }
         }
+        binding.bottomCommandPanel.setSwitchIcon(isKeyboardIcon = !extraPanelVisible)
     }
 
     private fun hideSystemUi() {
