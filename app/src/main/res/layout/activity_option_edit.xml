@@ -5,16 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/option_edit_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/option_edit_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/app_background"
-            app:title="@string/option_edit_title"/>
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/app_background"
+        app:titleTextColor="@color/app_text"
+        app:title="@string/option_edit_title"/>
 
     <ScrollView
         android:layout_weight="1"
@@ -33,6 +30,6 @@
             android:gravity="top"
             android:textSize="15sp"
             android:focusable="true"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent" />
     </ScrollView>
 </LinearLayout>
