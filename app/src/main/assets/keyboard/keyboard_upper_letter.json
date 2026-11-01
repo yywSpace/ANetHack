@@ -3,61 +3,61 @@
     "key": [
       {
         "label": "1",
-        "value": "1",
+        "command": "1",
         "row": 0,
         "column": 0
       },
       {
         "label": "2",
-        "value": "2",
+        "command": "2",
         "row": 0,
         "column": 1
       },
       {
         "label": "3",
-        "value": "3",
+        "command": "3",
         "row": 0,
         "column": 2
       },
       {
         "label": "4",
-        "value": "4",
+        "command": "4",
         "row": 0,
         "column": 3
       },
       {
         "label": "5",
-        "value": "5",
+        "command": "5",
         "row": 0,
         "column": 4
       },
       {
         "label": "6",
-        "value": "6",
+        "command": "6",
         "row": 0,
         "column": 5
       },
       {
         "label": "7",
-        "value": "7",
+        "command": "7",
         "row": 0,
         "column": 6
       },
       {
         "label": "8",
-        "value": "8",
+        "command": "8",
         "row": 0,
         "column":7
       },
       {
         "label": "9",
-        "value": "9",
+        "command": "9",
         "row": 0,
         "column": 8
       },
       {
         "label": "0",
-        "value": "0",
+        "command": "0",
         "row": 0,
         "column": 9
       }
@@ -68,61 +68,61 @@
     "key": [
       {
         "label": "Q",
-        "value": "Q",
+        "command": "Q",
         "row": 1,
         "column": 0
       },
       {
         "label": "W",
-        "value": "W",
+        "command": "W",
         "row": 1,
         "column":1
       },
       {
         "label": "E",
-        "value": "E",
+        "command": "E",
         "row": 1,
         "column":2
       },
       {
         "label": "R",
-        "value": "R",
+        "command": "R",
         "row": 1,
         "column": 3
       },
       {
         "label": "T",
-        "value": "T",
+        "command": "T",
         "row": 1,
         "column": 4
       },
       {
         "label": "Y",
-        "value": "Y",
+        "command": "Y",
         "row": 1,
         "column": 5
       },
       {
         "label": "U",
-        "value": "U",
+        "command": "U",
         "row": 1,
         "column": 6
       },
       {
         "label": "I",
-        "value": "I",
+        "command": "I",
         "row": 1,
         "column":7
       },
       {
         "label": "O",
-        "value": "O",
+        "command": "O",
         "row": 1,
         "column": 8
       },
       {
         "label": "P",
-        "value": "P",
+        "command": "P",
         "row": 1,
         "column": 9
       }
@@ -133,55 +133,55 @@
     "key": [
       {
         "label": "A",
-        "value": "A",
+        "command": "A",
         "row": 2,
         "column": 0
       },
       {
         "label": "S",
-        "value": "S",
+        "command": "S",
         "row": 2,
         "column": 1
       },
       {
         "label": "D",
-        "value": "D",
+        "command": "D",
         "row": 2,
         "column":2
       },
       {
         "label": "F",
-        "value": "F",
+        "command": "F",
         "row": 2,
         "column":3
       },
       {
         "label": "G",
-        "value": "G",
+        "command": "G",
         "row": 2,
         "column": 4
       },
       {
         "label": "H",
-        "value": "H",
+        "command": "H",
         "row": 2,
         "column": 5
       },
       {
         "label": "J",
-        "value": "J",
+        "command": "J",
         "row": 2,
         "column": 6
       },
       {
         "label": "K",
-        "value": "K",
+        "command": "K",
         "row": 2,
         "column":7
       },
       {
         "label": "L",
-        "value": "L",
+        "command": "L",
         "row": 2,
         "column": 8
       }
@@ -191,55 +191,55 @@
     "key": [
       {
         "label": "Shift",
-        "value": "Shift",
+        "command": "Shift",
         "row": 3,
         "column": 0
       },
       {
         "label": "Z",
-        "value": "Z",
+        "command": "Z",
         "row": 3,
         "column":1
       },
       {
         "label": "X",
-        "value": "X",
+        "command": "X",
         "row": 3,
         "column": 2
       },
       {
         "label": "C",
-        "value": "C",
+        "command": "C",
         "row": 3,
         "column": 3
       },
       {
         "label": "V",
-        "value": "V",
+        "command": "V",
         "row": 3,
         "column": 4
       },
       {
         "label": "B",
-        "value": "B",
+        "command": "B",
         "row": 3,
         "column": 5
       },
       {
         "label": "N",
-        "value": "N",
+        "command": "N",
         "row": 3,
         "column": 6
       },
       {
         "label": "M",
-        "value": "M",
+        "command": "M",
         "row": 3,
         "column":7
       },
       {
         "label": "DEL",
-        "value": "127",
+        "command": "127",
         "row": 3,
         "column":8
       }
@@ -249,31 +249,31 @@
     "key": [
       {
         "label": "Num",
-        "value": "Num",
+        "command": "Num",
         "row": 4,
         "column": 0
       },
       {
         "label": "Meta",
-        "value": "Meta",
+        "command": "Meta",
         "row": 4,
         "column": 1
       },
       {
         "label": "Space",
-        "value": "32",
+        "command": "32",
         "row": 4,
         "column": 2
       },
       {
         "label": "Ctrl",
-        "value": "Ctrl",
+        "command": "Ctrl",
         "row": 4,
         "column": 3
       },
       {
-        "label": "Enter",
-        "value": "13",
+        "label": "Cstm",
+        "command": "Custom",
         "row": 4,
         "column": 4
       }

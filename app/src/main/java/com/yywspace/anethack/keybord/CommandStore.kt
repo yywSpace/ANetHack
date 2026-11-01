@@ -17,10 +17,12 @@ data class CommandRow(
     val commands: MutableList<CommandEntry> = mutableListOf()
 )
 
-/** 导入/导出的整体配置：命令栏 + 扩展面板 */
+/** 导入/导出的整体配置：自定义键盘 + 扩展面板 + 命令栏 */
 data class CommandConfig(
-    val bar: List<CommandEntry>? = null,
-    val extra: List<CommandRow>? = null
+    /** 自定义键盘的中间三行 */
+    val keyboard: List<List<CommandEntry>>? = null,
+    val extra: List<CommandRow>? = null,
+    val bar: List<CommandEntry>? = null
 )
 
 /**
@@ -62,9 +64,12 @@ object CommandStore {
             .getOrNull().orEmpty()
     }
 
-    /** 把两份配置导出成一段格式化（带缩进）的 JSON 文本 */
-    fun exportJson(bar: List<CommandEntry>, extra: List<CommandRow>): String =
-        prettyGson.toJson(CommandConfig(bar, extra)) + "\n"
+    /** 把命令栏、扩展面板、自定义键盘三份配置导出成一段格式化（带缩进）的 JSON 文本 */
+    fun exportJson(
+        bar: List<CommandEntry>,
+        extra: List<CommandRow>,
+        keyboard: List<List<CommandEntry>>
+    ): String = prettyGson.toJson(CommandConfig(keyboard = keyboard, extra = extra, bar = bar)) + "\n"
 
     /** 解析导入的 JSON；格式不对返回 null */
     fun importJson(json: String): CommandConfig? =

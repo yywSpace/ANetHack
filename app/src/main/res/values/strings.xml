@@ -129,12 +129,13 @@
     <!-- Preference Keyboard -->
     <string name="pref_keyboard_header">Keyboard</string>
     <string name="pref_keyboard_vibrate">Keyboard vibration</string>
-    <string name="pref_keyboard_command_panel">Edit command panel</string>
-    <string name="pref_keyboard_command_panel_desc">Edit the commands of the bottom bar and the extra panel</string>
+    <string name="pref_keyboard_command_panel">Edit commands</string>
+    <string name="pref_keyboard_command_panel_desc">Bottom bar, extra panel and the custom keyboard rows</string>
     <string name="command_bar_keyboard_switch">Show or hide the keyboard</string>
     <string name="command_bar_extra">More commands</string>
     <string name="command_bar_settings_switch">Open settings</string>
     <string name="command_bar_add">+</string>
+    <string name="command_editor_keyboard">Custom keyboard</string>
     <string name="command_editor_group">Group %1$d</string>
     <string name="command_editor_enabled">Enable</string>
     <string name="command_editor_delete">Delete</string>
@@ -154,10 +155,10 @@
     <string name="command_editor_save">Save</string>
     <string name="command_editor_import">Import</string>
     <string name="command_editor_export">Export</string>
-    <string name="command_editor_saved">Command panels saved</string>
-    <string name="command_editor_imported">Imported %1$d bar commands and %2$d panel rows</string>
-    <string name="command_editor_exported">Command panels exported to the selected file</string>
-    <string name="command_editor_import_failed">Import failed: the file is not a valid command panel config</string>
+    <string name="command_editor_saved">Commands saved</string>
+    <string name="command_editor_imported">Imported %1$d bar commands, %2$d panel rows and %3$d keyboard rows</string>
+    <string name="command_editor_exported">Commands exported to the selected file</string>
+    <string name="command_editor_import_failed">Import failed: the file is not a valid command config</string>
     <string name="command_editor_export_failed">Export failed: could not write the selected file</string>
     <string name="unsaved_changes">Save changes?</string>
     <string name="unsaved_changes_discard">Discard</string>

@@ -24,6 +24,7 @@ import com.yywspace.anethack.databinding.ActivityCommandEditorBinding
 import com.yywspace.anethack.keybord.CommandEntry
 import com.yywspace.anethack.keybord.CommandRow
 import com.yywspace.anethack.keybord.CommandStore
+import com.yywspace.anethack.keybord.KeyboardStore
 import com.yywspace.anethack.keybord.CommandUi
 import com.yywspace.anethack.theme.AppTheme
 
@@ -49,6 +50,13 @@ class CommandEditorActivity : AppCompatActivity() {
     private val bar = mutableListOf<CommandEntry>()
     private val panel = mutableListOf<CommandRow>()
 
+    /** 自定义键盘的中间三行 */
+    private val keyboardRows = mutableListOf<MutableList<CommandEntry>>()
+
+    /** 自定义键盘只编辑中间三行；第 0/4 行原样保留 */
+    private val keyboardRowCount = 3
+
+
     /** 导出到用户选的文件 */
     private val createDocument = registerForActivityResult(
         ActivityResultContracts.CreateDocument("application/json")
@@ -61,10 +69,13 @@ class CommandEditorActivity : AppCompatActivity() {
 
     /** 正在拖拽的条目 */
     private var dragging: CommandEntry? = null
+    private var dragSource: MutableList<CommandEntry>? = null
+    private var dragIndex: Int = -1
 
     /** 进入页面时的快照，用来判断有没有改动 */
     private var initialBar: List<CommandEntry> = emptyList()
     private var initialPanel: List<Pair<Boolean, List<CommandEntry>>> = emptyList()
+    private var initialKeyboard: List<List<CommandEntry>> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppTheme.applyTheme(this)
@@ -76,8 +87,11 @@ class CommandEditorActivity : AppCompatActivity() {
         bar.addAll(CommandStore.readBar(this))
         panel.addAll(CommandStore.readExtra(this))
         if (panel.isEmpty()) panel.add(CommandRow())
+        KeyboardStore.readCustomRows(this).forEach { keyboardRows.add(it.toMutableList()) }
+        while (keyboardRows.size < keyboardRowCount) keyboardRows.add(mutableListOf())
         initialBar = bar.toList()
         initialPanel = panel.map { it.enabled to it.commands.toList() }
+        initialKeyboard = keyboardRows.map { it.toList() }
 
         setSupportActionBar(binding.editorToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -114,18 +128,24 @@ class CommandEditorActivity : AppCompatActivity() {
     private fun toast(text: CharSequence) =
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 
-    /** 导出：先落盘，再把两份配置写成一段 JSON */
+    /** 导出：先落盘，再把底部命令栏、扩展面板、自定义键盘三份配置写成一段 JSON */
     private fun exportTo(uri: android.net.Uri) {
         writeFiles()
         runCatching {
             contentResolver.openOutputStream(uri)?.use { out ->
-                out.write(CommandStore.exportJson(bar, panel.filter { it.commands.isNotEmpty() }).toByteArray())
+                out.write(
+                    CommandStore.exportJson(
+                        bar = bar,
+                        extra = panel.filter { it.commands.isNotEmpty() },
+                        keyboard = keyboardRows.map { it.toList() }
+                    ).toByteArray()
+                )
             }
         }.onSuccess { toast(R.string.command_editor_exported) }
             .onFailure { toast(R.string.command_editor_export_failed) }
     }
 
-    /** 导入：解析后替换当前编辑内容 */
+    /** 导入：用文件里的命令栏、扩展面板、自定义键盘配置替换当前编辑内容 */
     private fun importFrom(uri: android.net.Uri) {
         val text = runCatching {
             contentResolver.openInputStream(uri)?.bufferedReader()?.use { it.readText() }
@@ -137,18 +157,30 @@ class CommandEditorActivity : AppCompatActivity() {
         }
         val importedBar = config.bar.orEmpty()
         val importedExtra = config.extra.orEmpty()
+        val importedKeyboard = config.keyboard.orEmpty()
         bar.clear()
         bar.addAll(importedBar)
         panel.clear()
         panel.addAll(importedExtra.ifEmpty { listOf(CommandRow()) })
+        keyboardRows.clear()
+        importedKeyboard.forEach { keyboardRows.add(it.toMutableList()) }
+        while (keyboardRows.size < keyboardRowCount) keyboardRows.add(mutableListOf())
         render()
-        toast(getString(R.string.command_editor_imported, importedBar.size, importedExtra.size))
+        toast(
+            getString(
+                R.string.command_editor_imported,
+                importedBar.size,
+                importedExtra.size,
+                keyboardRows.size
+            )
+        )
     }
 
     /** 有未保存的改动时，返回前先问一句 */
     private fun confirmExit() {
         val changed = bar.toList() != initialBar ||
-                panel.map { it.enabled to it.commands.toList() } != initialPanel
+                panel.map { it.enabled to it.commands.toList() } != initialPanel ||
+                keyboardRows.map { it.toList() } != initialKeyboard
         if (!changed) {
             finish()
             return
@@ -169,7 +201,13 @@ class CommandEditorActivity : AppCompatActivity() {
         val list = binding.editorList
         list.removeAllViews()
 
-        // 扩展面板（在上）
+        // 自定义键盘（最上面）
+        addSectionTitle(getString(R.string.command_editor_keyboard))
+        for (index in 0 until keyboardRowCount) {
+            list.addView(keyboardRow(keyboardRows[index]))
+        }
+
+        // 扩展面板
         addSectionTitle(getString(R.string.command_editor_extra))
         panel.forEachIndexed { index, row ->
             list.addView(groupHeader(index, row))
@@ -177,9 +215,52 @@ class CommandEditorActivity : AppCompatActivity() {
         }
         list.addView(addRowButton())
 
-        // 底部命令栏（在下）
+        // 底部命令栏（最下面）
         addSectionTitle(getString(R.string.command_editor_bar))
         list.addView(commandRow(bar, isBar = true))
+    }
+
+    private fun keyboardRow(row: MutableList<CommandEntry>): View {
+        // 和命令栏共用同一个“一行按钮”构造
+        val line = CommandUi.row(
+            context = this,
+            entries = row,
+            bar = false,
+            onClick = { _, index -> editKeyboardKey(row, index) },
+            onLongClick = { _, index, chip ->
+                startDrag(row, index, chip)
+                true
+            },
+            onAdd = { editKeyboardKey(row, null) }
+        )
+        line.children.forEachIndexed { index, chip ->
+            chip.setOnDragListener { v, event -> handleDrop(v, event, row, index) }
+        }
+        // 行与行之间留出和键盘按键一样的间距
+        return CommandUi.scroller(this, line).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                topMargin = resources.getDimensionPixelSize(R.dimen.command_item_spacing)
+            }
+        }
+    }
+
+    private fun editKeyboardKey(row: MutableList<CommandEntry>, index: Int?) {
+        val pos = index ?: 0
+        val editing = index != null
+        // 和命令栏/面板共用同一个编辑弹窗与删除逻辑
+        CommandUi.editDialog(
+            context = this,
+            immersive = false,
+            entry = if (editing) row[pos] else null,
+            onSave = {
+                if (editing) row[pos] = it else row.add(it)
+                render()
+            },
+            onDelete = if (editing) ({ row.removeAt(pos); render() }) else null
+        )
     }
 
     private fun addSectionTitle(title: String) {
@@ -221,22 +302,16 @@ class CommandEditorActivity : AppCompatActivity() {
             onLongClick = { _, index, chip ->
                 startDrag(entries, index, chip)
                 true
-            }
+            },
+            onAdd = { editEntry(entries, null) }
         )
-        // 拖拽监听只给编辑页用：子 View 顺序就是 entries 的下标
+        // 拖动监听只给编辑页用：包括行尾的 "+"（下标正好是 entries.size）
         line.children.forEachIndexed { index, chip ->
             chip.setOnDragListener { v, event -> handleDrop(v, event, entries, index) }
         }
-        // 行尾的 "+"
-        val add = CommandUi.chip(this, line, isBar)
-        add.text = getString(R.string.command_bar_add)
-        add.setOnClickListener { editEntry(entries, null) }
-        add.setOnDragListener { v, event -> handleDrop(v, event, entries, entries.size) }
-        line.addView(add)
 
         val scroller = CommandUi.scroller(this, line)
         if (isBar) {
-            // 命令栏的按钮本身没有格子背景，给整行加一条底色才看得出是一条栏
             scroller.background = GradientDrawable().apply {
                 cornerRadius = dp(4).toFloat()
                 setColor(getColor(R.color.bg_extend_search))
@@ -246,7 +321,6 @@ class CommandEditorActivity : AppCompatActivity() {
         return scroller
     }
 
-    /** "新增一行"：靠右显示 */
     private fun addRowButton(): View =
         LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
@@ -295,7 +369,9 @@ class CommandEditorActivity : AppCompatActivity() {
     }
 
     private fun startDrag(entries: MutableList<CommandEntry>, index: Int, chip: TextView) {
-        dragging = entries[index]
+        dragging = entries.getOrNull(index)
+        dragSource = entries
+        dragIndex = index
         val data = ClipData.newPlainText("command", chip.text)
         // 拖拽时用带底色的格子样式做阴影，并整体抬到手指上方，避免被手指挡住
         val holder = FrameLayout(this)
@@ -332,19 +408,21 @@ class CommandEditorActivity : AppCompatActivity() {
             DragEvent.ACTION_DRAG_ENDED -> {
                 target.alpha = 1f
                 dragging = null
+                dragSource = null
             }
             DragEvent.ACTION_DROP -> {
                 target.alpha = 1f
                 val moving = dragging
-                if (moving != null) {
-                    // 先把它从原来的位置摘掉，再插到目标位置
-                    val from = entries.indexOf(moving)
-                    bar.remove(moving)
-                    panel.forEach { it.commands.remove(moving) }
-                    // 同一行里往后拖时，摘掉元素后目标下标要减一
-                    val to = if (from in 0 until index) index - 1 else index
+                val source = dragSource
+                if (moving != null && source != null) {
+                    // remove only from the list the item was dragged out of
+                    val from = source.indexOfFirst { it === moving }
+                    if (from >= 0) source.removeAt(from)
+                    val to = if (source === entries && from in 0 until index) index - 1 else index
                     entries.add(to.coerceIn(0, entries.size), moving)
                     dragging = null
+                    dragSource = null
+                    dragIndex = -1
                     render()
                 }
             }
@@ -362,7 +440,12 @@ class CommandEditorActivity : AppCompatActivity() {
     private fun writeFiles() {
         CommandStore.writeBar(this, bar)
         CommandStore.writeExtra(this, panel.filter { it.commands.isNotEmpty() })
+        KeyboardStore.writeCustomRows(
+            this,
+            (0 until keyboardRowCount).map { index -> keyboardRows[index].toList() }
+        )
         initialBar = bar.toList()
         initialPanel = panel.map { it.enabled to it.commands.toList() }
+        initialKeyboard = keyboardRows.map { it.toList() }
     }
 }

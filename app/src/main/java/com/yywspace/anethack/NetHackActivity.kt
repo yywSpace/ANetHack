@@ -73,6 +73,8 @@ class NetHackActivity : AppCompatActivity() {
         AppTheme.applyGameSystemBars(this, nethack.prefs.immersiveMode)
         KeyboardVibrate.bind(this)
         KeyboardVibrate.enabled = nethack.prefs.keyboardVibrate
+        // 设置里可能刚改过自定义键盘布局
+        binding.keyboardView.reloadCustomLayout()
         initControlPanel()
     }
 
@@ -125,7 +127,7 @@ class NetHackActivity : AppCompatActivity() {
         binding.keyboardView.apply {
             onKeyPress = {
                 if (nethack.isRunning && it.label.isNotEmpty())
-                    processKeyPress(it.value)
+                    processKeyPress(it.command)
             }
             onSpecialKeyLongPress = {
                 when(it.label) {
@@ -181,6 +183,7 @@ class NetHackActivity : AppCompatActivity() {
             immersiveProvider = { nethack.prefs.immersiveMode }
             refreshTheme()
         }
+        binding.keyboardView.immersiveProvider = { nethack.prefs.immersiveMode }
     }
 
     /** 底部命令栏上的面板状态："更多命令"面板是否由键盘切换而来 */

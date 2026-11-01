@@ -2,13 +2,12 @@ package com.yywspace.anethack.keybord
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.yywspace.anethack.R
 
 /**
- * "更多命令"面板：和命令栏一样横向滚动，但配置完全独立（本地文件里的 extra_command_panel.json）。
+ * “更多命令”面板：和命令栏一样横向滚动，但配置完全独立（本地文件里的 extra_command_panel.json）。
  *
  * 配置是 JSON 数组，每项是 { enabled, commands }：enabled 为 false 的整行不显示。
  * 点击按钮触发 [onCommand]，长按可编辑或删除；新增和启用开关在设置里的编辑页。
@@ -29,8 +28,9 @@ class NHExtraCommandPanel @JvmOverloads constructor(
 
     init {
         orientation = VERTICAL
-        LayoutInflater.from(context).inflate(R.layout.view_extra_command_panel, this, true)
-        rows = findViewById(R.id.extra_command_rows)
+        // 内容容器只是逐行放按钮，直接代码创建，不必单独写布局文件
+        rows = LinearLayout(context).apply { orientation = VERTICAL }
+        addView(rows, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))
     }
 
     /**
@@ -52,7 +52,7 @@ class NHExtraCommandPanel @JvmOverloads constructor(
     fun reload() {
         rows.removeAllViews()
         allRows = CommandStore.readExtra(context)
-        allRows.filter { it.enabled }.forEachIndexed { index, row ->
+        allRows.filter { it.enabled }.forEachIndexed { _, row ->
             val line = CommandUi.row(
                 context = context,
                 entries = row.commands,
@@ -64,18 +64,19 @@ class NHExtraCommandPanel @JvmOverloads constructor(
                 onLongClick = { entry, _, _ ->
                     showEditor(entry)
                     true
+                },
+                onAdd = {
+                    KeyboardVibrate.vibrate()
+                    showAddEditor(row)
                 }
             )
+            // 和键盘按键一样：每行高 40dp，上下各 1dp 间距
             val scroller = CommandUi.scroller(context, line)
-            // 组与组之间留和格子一样的间距
-            if (index > 0) {
-                scroller.layoutParams = LayoutParams(
-                    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT
-                ).apply {
-                    topMargin = resources.getDimensionPixelSize(R.dimen.command_item_spacing)
-                }
-            }
-            rows.addView(scroller)
+            val gap = resources.getDimensionPixelSize(R.dimen.command_item_gap)
+            val params = LayoutParams(
+                LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT
+            ).apply { setMargins(0, gap, 0, gap) }
+            rows.addView(scroller, params)
         }
     }
 
@@ -96,6 +97,22 @@ class NHExtraCommandPanel @JvmOverloads constructor(
         saveRows(
             allRows.map { row -> row.copy(commands = row.commands.filter { it != entry }.toMutableList()) }
                 .filter { it.commands.isNotEmpty() }
+        )
+    }
+
+    /** 在行尾新增一条命令 */
+    private fun showAddEditor(row: CommandRow) {
+        CommandUi.editDialog(
+            context = context,
+            immersive = immersiveProvider?.invoke() ?: false,
+            entry = null,
+            onSave = { entry ->
+                saveRows(
+                    allRows.map {
+                        if (it === row) it.copy(commands = (it.commands + entry).toMutableList()) else it
+                    }
+                )
+            }
         )
     }
 

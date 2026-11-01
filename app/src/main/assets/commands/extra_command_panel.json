@@ -3,90 +3,147 @@
     "enabled": true,
     "commands": [
       {
+        "label": "Wield",
+        "command": "w"
+      },
+      {
+        "label": "Wear",
+        "command": "W"
+      },
+      {
+        "label": "Take off",
+        "command": "T"
+      },
+      {
+        "label": "Put on",
+        "command": "P"
+      },
+      {
+        "label": "Remove",
+        "command": "R"
+      },
+      {
+        "label": "Etch",
+        "command": "#engrave"
+      },
+      {
+        "label": "Offer",
+        "command": "#offer"
+      },
+      {
+        "label": "Pray",
+        "command": "#pray"
+      }
+    ]
+  },
+  {
+    "enabled": true,
+    "commands": [
+      {
+        "label": "Apply",
+        "command": "a"
+      },
+      {
+        "label": "Quaff",
+        "command": "q"
+      },
+      {
+        "label": "Eat",
+        "command": "e"
+      },
+      {
+        "label": "Read",
+        "command": "r"
+      },
+      {
+        "label": "Pay",
+        "command": "p"
+      },
+      {
+        "label": "Drop",
+        "command": "d"
+      },
+      {
+        "label": "Map",
+        "command": "#overview"
+      },
+      {
+        "label": "Loot",
+        "command": "#loot"
+      }
+    ]
+  },
+  {
+    "enabled": true,
+    "commands": [
+      {
+        "label": "Cast",
+        "command": "Z"
+      },
+      {
+        "label": "Ready",
+        "command": "#ready"
+      },
+      {
+        "label": "Fire",
+        "command": "f"
+      },
+      {
+        "label": "Throw",
+        "command": "t"
+      },
+      {
+        "label": "Zap",
+        "command": "z"
+      },
+      {
+        "label": "Again",
+        "command": "#repeat"
+      },
+      {
+        "label": "Kick",
+        "command": "#kick"
+      }
+    ]
+  },
+  {
+    "enabled": true,
+    "commands": [
+      {
+        "label": "Esc",
+        "command": "27"
+      },
+      {
+        "label": "Up",
+        "command": "<"
+      },
+      {
+        "label": "Down",
+        "command": ">"
+      },
+      {
+        "label": "Elber",
+        "command": "#engrave#-L\"Elbereth\""
+      },
+      {
+        "label": "20s",
+        "command": "20s"
+      },
+      {
+        "label": "Wait",
+        "command": "."
+      },
+      {
+        "label": "Pick",
+        "command": ","
+      },
+      {
         "label": "Save",
         "command": "S"
       },
       {
         "label": "Quit",
         "command": "#quit"
-      },
-      {
-        "label": "Monster",
-        "command": "Monster"
-      },
-      {
-        "label": "Price",
-        "command": "PriceID"
-      },
-      {
-        "label": "300s",
-        "command": "300s"
-      },
-      {
-        "label": "ESC",
-        "command": "27"
-      }
-    ]
-  },
-  {
-    "enabled": true,
-    "commands": [
-      {
-        "label": "Key",
-        "command": "aM\"key|lock pick\""
-      },
-      {
-        "label": "Cure",
-        "command": "aM\"unicorn horn\""
-      },
-      {
-        "label": "Lamp",
-        "command": "aM\"candle|lantern|lamp\""
-      },
-      {
-        "label": "Scare",
-        "command": "aM\"tooled horn|bugle\"y"
-      },
-      {
-        "label": "Dig",
-        "command": "aM\"pick-axe\""
-      },
-      {
-        "label": "Bag",
-        "command": "aM\"bag|sack\""
-      },
-      {
-        "label": "Stash$",
-        "command": "aM\"bag|sack\"s$"
-      }
-    ]
-  },
-  {
-    "enabled": true,
-    "commands": [
-      {
-        "label": "Missile",
-        "command": "ZM\"magic missile\""
-      },
-      {
-        "label": "Identify",
-        "command": "ZM\"identify\""
-      },
-      {
-        "label": "Healing",
-        "command": "ZM\"healing\""
-      },
-      {
-        "label": "Extra heal",
-        "command": "ZM\"extra healing\""
-      },
-      {
-        "label": "Mapping",
-        "command": "ZM\"magic mapping\""
-      },
-      {
-        "label": "Treasure",
-        "command": "ZM\"detect treasure\""
       }
     ]
   }

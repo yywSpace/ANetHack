@@ -1,0 +1,84 @@
+[
+  [
+    {
+      "label": "Save",
+      "command": "S"
+    },
+    {
+      "label": "Quit",
+      "command": "#quit"
+    },
+    {
+      "label": "Monster",
+      "command": "Monster"
+    },
+    {
+      "label": "Price",
+      "command": "PriceID"
+    },
+    {
+      "label": "300s",
+      "command": "300s"
+    },
+    {
+      "label": "ESC",
+      "command": "27"
+    }
+  ],
+  [
+    {
+      "label": "Key",
+      "command": "aM\"key|lock pick\""
+    },
+    {
+      "label": "Cure",
+      "command": "aM\"unicorn horn\""
+    },
+    {
+      "label": "Lamp",
+      "command": "aM\"candle|lantern|lamp\""
+    },
+    {
+      "label": "Scare",
+      "command": "aM\"tooled horn|bugle\"y"
+    },
+    {
+      "label": "Dig",
+      "command": "aM\"pick-axe\""
+    },
+    {
+      "label": "Bag",
+      "command": "aM\"bag|sack\""
+    },
+    {
+      "label": "Stash$",
+      "command": "aM\"bag|sack\"s$"
+    }
+  ],
+  [
+    {
+      "label": "Missile",
+      "command": "ZM\"magic missile\""
+    },
+    {
+      "label": "Identify",
+      "command": "ZM\"identify\""
+    },
+    {
+      "label": "Healing",
+      "command": "ZM\"healing\""
+    },
+    {
+      "label": "Extra heal",
+      "command": "ZM\"extra healing\""
+    },
+    {
+      "label": "Mapping",
+      "command": "ZM\"magic mapping\""
+    },
+    {
+      "label": "Treasure",
+      "command": "ZM\"detect treasure\""
+    }
+  ]
+]

@@ -12,7 +12,7 @@ class KeyboardLayout {
         var columnSpan = 1
         var columnWeight = 1.0
         var label = ""
-        var value = ""
+        var command = ""
 
         constructor(row: Int, column: Int, label: String) : this(row, column) {
             this.label = label
@@ -34,13 +34,13 @@ class KeyboardLayout {
 
         constructor(
             row: Int, column: Int,
-            rowSpan: Int, columnSpan: Int, columnWeight: Double, label: String, value: String
+            rowSpan: Int, columnSpan: Int, columnWeight: Double, label: String, command: String
         ) : this(row, column) {
             this.rowSpan = rowSpan
             this.columnSpan = columnSpan
             this.columnWeight = columnWeight
             this.label = label
-            this.value = value
+            this.command = command
         }
 
         override fun toString(): String = label
@@ -58,8 +58,7 @@ class KeyboardLayout {
         SYMBOL,
         META,
         CTRL,
-        CUSTOM,
-        NONE
+        CUSTOM
     }
 
     companion object {
@@ -81,9 +80,9 @@ class KeyboardLayout {
                         val columnWeight =
                             if (key.has("columnWeight")) key.getDouble("columnWeight") else 1.0
                         val label = if (key.has("label")) key.getString("label") else ""
-                        val value = if (key.has("value")) key.getString("value") else ""
+                        val command = if (key.has("command")) key.getString("command") else ""
                         kbRow.keys.add(
-                            Key(rowIdx, columnIdx, rowSpan, columnSpan, columnWeight, label, value)
+                            Key(rowIdx, columnIdx, rowSpan, columnSpan, columnWeight, label, command)
                         )
                     }
                     Log.d("KeyboardLayout", kbRow.toString())

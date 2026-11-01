@@ -4,61 +4,61 @@
     "key": [
       {
         "label": "1",
-        "value": "1",
+        "command": "1",
         "row": 0,
         "column": 0
       },
       {
         "label": "2",
-        "value": "2",
+        "command": "2",
         "row": 0,
         "column": 1
       },
       {
         "label": "3",
-        "value": "3",
+        "command": "3",
         "row": 0,
         "column": 2
       },
       {
         "label": "4",
-        "value": "4",
+        "command": "4",
         "row": 0,
         "column": 3
       },
       {
         "label": "5",
-        "value": "5",
+        "command": "5",
         "row": 0,
         "column": 4
       },
       {
         "label": "6",
-        "value": "6",
+        "command": "6",
         "row": 0,
         "column": 5
       },
       {
         "label": "7",
-        "value": "7",
+        "command": "7",
         "row": 0,
         "column": 6
       },
       {
         "label": "8",
-        "value": "8",
+        "command": "8",
         "row": 0,
         "column": 7
       },
       {
         "label": "9",
-        "value": "9",
+        "command": "9",
         "row": 0,
         "column": 8
       },
       {
         "label": "0",
-        "value": "0",
+        "command": "0",
         "row": 0,
         "column": 9
       }
@@ -68,61 +68,61 @@
     "key": [
       {
         "label": "M-q",
-        "value": "241",
+        "command": "241",
         "row": 1,
         "column": 0
       },
       {
         "label": "M-w",
-        "value": "247",
+        "command": "247",
         "row": 1,
         "column": 1
       },
       {
         "label": "M-e",
-        "value": "229",
+        "command": "229",
         "row": 1,
         "column": 2
       },
       {
         "label": "M-r",
-        "value": "242",
+        "command": "242",
         "row": 1,
         "column": 3
       },
       {
         "label": "M-t",
-        "value": "244",
+        "command": "244",
         "row": 1,
         "column": 4
       },
       {
         "label": "M-2",
-        "value": "178",
+        "command": "178",
         "row": 1,
         "column": 5
       },
       {
         "label": "M-u",
-        "value": "245",
+        "command": "245",
         "row": 1,
         "column": 6
       },
       {
         "label": "M-i",
-        "value": "233",
+        "command": "233",
         "row": 1,
         "column": 7
       },
       {
         "label": "M-o",
-        "value": "239",
+        "command": "239",
         "row": 1,
         "column": 8
       },
       {
         "label": "M-p",
-        "value": "240",
+        "command": "240",
         "row": 1,
         "column": 9
       }
@@ -133,55 +133,55 @@
     "key": [
       {
         "label": "M-a",
-        "value": "225",
+        "command": "225",
         "row": 2,
         "column": 0
       },
       {
         "label": "M-s",
-        "value": "243",
+        "command": "243",
         "row": 2,
         "column": 1
       },
       {
         "label": "M-d",
-        "value": "228",
+        "command": "228",
         "row": 2,
         "column": 2
       },
       {
         "label": "M-f",
-        "value": "230",
+        "command": "230",
         "row": 2,
         "column": 3
       },
       {
         "label": "M-R",
-        "value": "210",
+        "command": "210",
         "row": 2,
         "column": 4
       },
       {
         "label": "M-T",
-        "value": "212",
+        "command": "212",
         "row": 2,
         "column": 5
       },
       {
         "label": "M-j",
-        "value": "234",
+        "command": "234",
         "row": 2,
         "column": 6
       },
       {
         "label": "",
-        "value": "k",
+        "command": "k",
         "row": 2,
         "column": 7
       },
       {
         "label": "M-l",
-        "value": "236",
+        "command": "236",
         "row": 2,
         "column": 8
       }
@@ -192,55 +192,55 @@
     "key": [
       {
         "label": "Letter",
-        "value": "Letter",
+        "command": "Letter",
         "row": 3,
         "column": 0
       },
       {
         "label": "M-A",
-        "value": "193",
+        "command": "193",
         "row": 3,
         "column": 1
       },
       {
         "label": "M-C",
-        "value": "195",
+        "command": "195",
         "row": 3,
         "column": 2
       },
       {
         "label": "M-c",
-        "value": "227",
+        "command": "227",
         "row": 3,
         "column": 3
       },
       {
         "label": "M-v",
-        "value": "246",
+        "command": "246",
         "row": 3,
         "column": 4
       },
       {
         "label": "M-?",
-        "value": "191",
+        "command": "191",
         "row": 3,
         "column": 5
       },
       {
         "label": "M-n",
-        "value": "238",
+        "command": "238",
         "row": 3,
         "column": 6
       },
       {
         "label": "M-m",
-        "value": "237",
+        "command": "237",
         "row": 3,
         "column": 7
       },
       {
         "label": "DEL",
-        "value": "127",
+        "command": "127",
         "row": 3,
         "column": 8
       }
@@ -250,31 +250,31 @@
     "key": [
       {
         "label": "Num",
-        "value": "Num",
+        "command": "Num",
         "row": 4,
         "column": 0
       },
       {
         "label": "Letter",
-        "value": "Letter",
+        "command": "Letter",
         "row": 4,
         "column": 1
       },
       {
         "label": "Space",
-        "value": "32",
+        "command": "32",
         "row": 4,
         "column": 2
       },
       {
         "label": "Ctrl",
-        "value": "Ctrl",
+        "command": "Ctrl",
         "row": 4,
         "column": 3
       },
       {
-        "label": "Enter",
-        "value": "13",
+        "label": "Cstm",
+        "command": "Custom",
         "row": 4,
         "column": 4
       }

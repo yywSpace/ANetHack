@@ -98,6 +98,26 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:title="@string/pref_keyboard_header"
+        app:iconSpaceReserved="false">
+
+
+
+        <Preference
+            app:key="commandPanel"
+            app:title="@string/pref_keyboard_command_panel"
+            app:summary="@string/pref_keyboard_command_panel_desc"
+            app:iconSpaceReserved="false"/>
+
+        <CheckBoxPreference
+            app:key="keyboardVibrate"
+            app:title="@string/pref_keyboard_vibrate"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="@string/pref_sound_header"
         app:iconSpaceReserved="false">
 
@@ -114,25 +134,6 @@
             app:iconSpaceReserved="false"
             app:defaultValue="true"
             app:summary="@string/pref_sound_internal_summery"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        app:title="@string/pref_keyboard_header"
-        app:iconSpaceReserved="false">
-
-
-        <Preference
-            app:key="commandPanel"
-            app:title="@string/pref_keyboard_command_panel"
-            app:summary="@string/pref_keyboard_command_panel_desc"
-            app:iconSpaceReserved="false"/>
-
-        <CheckBoxPreference
-            app:key="keyboardVibrate"
-            app:title="@string/pref_keyboard_vibrate"
-            app:iconSpaceReserved="false"
-            app:defaultValue="true"/>
 
     </PreferenceCategory>
 

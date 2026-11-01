@@ -36,7 +36,9 @@ object CommandUi {
         entries: List<CommandEntry>,
         bar: Boolean,
         onClick: (CommandEntry, Int) -> Unit = { _, _ -> },
-        onLongClick: (CommandEntry, Int, TextView) -> Boolean = { _, _, _ -> false }
+        onLongClick: (CommandEntry, Int, TextView) -> Boolean = { _, _, _ -> false },
+        /** 不为 null 时，在行尾自动追加一个 "+" */
+        onAdd: (() -> Unit)? = null
     ): LinearLayout {
         val line = LinearLayout(context).apply { orientation = LinearLayout.HORIZONTAL }
         entries.forEachIndexed { index, entry ->
@@ -46,7 +48,18 @@ object CommandUi {
             chip.setOnLongClickListener { onLongClick(entry, index, chip) }
             line.addView(chip)
         }
+        if (onAdd != null) {
+            line.addView(addChip(context, line, bar, onAdd))
+        }
         return line
+    }
+
+    /** 行尾的 "+"：点击新增一条命令 */
+    private fun addChip(context: Context, parent: ViewGroup, bar: Boolean, onClick: () -> Unit): TextView {
+        val chip = chip(context, parent, bar)
+        chip.text = "+"
+        chip.setOnClickListener { onClick() }
+        return chip
     }
 
     /** 把一行按钮包进横向滚动容器 */
