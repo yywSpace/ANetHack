@@ -151,7 +151,7 @@ class NHKeyboardView @JvmOverloads constructor(
             }
             setOnLongClickListener {
                 val k = this@NHKeyboardView.keyboard.rows[x].keys[y]
-                if (k.label in listOf( "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Space", "ESC", "DEL")) {
+                if (k.label in listOf( "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Space", "Enter", "ESC", "DEL")) {
                     onSpecialKeyLongPress?.invoke(k)
                     return@setOnLongClickListener true
                 }
@@ -243,7 +243,12 @@ class NHKeyboardView @JvmOverloads constructor(
                     }
                     findViewById<TextView>(R.id.key_sub).apply {
                         when(key.label) {
-                            "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Space", "ESC", "DEL"->
+                            // 空格键也显示副标签："/Esc" 表示长按发送 ESC
+                            "Space" -> {
+                                visibility = VISIBLE
+                                text = "/Esc"
+                            }
+                            "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Enter", "ESC", "DEL" ->
                                 visibility = GONE
                             else -> {
                                 visibility = VISIBLE

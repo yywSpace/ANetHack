@@ -272,8 +272,8 @@
         "column": 3
       },
       {
-        "label": "ESC",
-        "value": "27",
+        "label": "Enter",
+        "value": "13",
         "row": 4,
         "column": 4
       }

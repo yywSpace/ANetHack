@@ -129,10 +129,8 @@ class NetHackActivity : AppCompatActivity() {
             }
             onSpecialKeyLongPress = {
                 when(it.label) {
-                    // 长按空格条：等同于长按地图上的角色自己（弹出"你想做什么"菜单）
-                    "Space" -> {
-                        binding.mapView.longPressPlayer()
-                    }
+                    // 长按空格：发送 ESC，当作"取消"
+                    "Space" -> processKeyPress("27")
                     "Meta", "Ctrl" ->
                         processKeyPress("#")
                 }
