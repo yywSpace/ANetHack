@@ -75,6 +75,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var lastCurse:Point = Point()
     /** 上次跟随的玩家位置（clipAround 每回合更新；curs 仅在 cursor_on_u 时更新，不可靠） */
     private var lastFollowPlayer:Point = Point(-1, -1)
+    /** 上次跟随的光标位置：选怪/查看时光标移动也要让视口跟上 */
+    private var lastFollowCursor:Point = Point(-1, -1)
     private var baseBorderWidth:Float = .5F
     private var borderWidth:Float = 0F
     /** 光标半透明填充的 alpha（0-255），贴图模式下光标为半透明方块 */
@@ -525,9 +527,12 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun transformMapWithMove(walkRange:Int) {
-        // 玩家位置：clipAround 的 player 优先（curs 不一定更新）
-        val followX = if (map.player.x >= 0) map.player.x else map.curse.x
-        val followY = if (map.player.y >= 0) map.player.y else map.curse.y
+        // 光标和玩家不一致时（查看/选怪），跟随光标；否则跟玩家
+        val cursorHasMoved = map.curse.x >= 0 && map.curse != map.player
+        val followX = if (cursorHasMoved) map.curse.x
+                      else if (map.player.x >= 0) map.player.x else map.curse.x
+        val followY = if (cursorHasMoved) map.curse.y
+                      else if (map.player.y >= 0) map.player.y else map.curse.y
         val tb = getTileBorder(followX, followY)
         var dx = 0f
         var dy = 0f
@@ -746,10 +751,13 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         if (op is NHMapScale)
                             scaleMap(op.scale, op.cx, op.cy)
                     }
-                    // 玩家移动 → 视口跟随（用 clipAround 的 player 位置，curs 不一定更新）
-                    if (lastFollowPlayer != map.player) {
+                    // 玩家移动或光标移动 → 视口跟随（选怪时光标会跳过去，但 player 不变）
+                    val followChanged = lastFollowPlayer != map.player ||
+                            (map.curse.x >= 0 && lastFollowCursor != map.curse)
+                    if (followChanged) {
                         transformMapWithMove(nh.prefs.walkRange)
                         lastFollowPlayer = Point(map.player)
+                        lastFollowCursor = Point(map.curse)
                     }
                     updateRunMode()
 
