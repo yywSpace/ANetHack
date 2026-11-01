@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
@@ -60,7 +61,8 @@ class NHMonsterDialog(
         val view = buildView(name)
         if (!name.isNullOrEmpty())
             renderMatches()
-        showDialog(view)
+        // 带名字进来（点怪物名字查看）时不抢焦点，否则光标会在搜索框里闪
+        showDialog(view, focusInput = name.isNullOrEmpty())
     }
 
     /** 构建弹窗的内容视图：搜索行 + 结果区；[initialText] 不为空时预填到输入框 */
@@ -137,8 +139,8 @@ class NHMonsterDialog(
         return root
     }
 
-    /** 真正把弹窗显示出来 */
-    private fun showDialog(view: View) {
+    /** 真正把弹窗显示出来；[focusInput] 为 false 时不拉焦点、不弹输入法 */
+    private fun showDialog(view: View, focusInput: Boolean) {
         dialog = AlertDialog.Builder(context)
             .setTitle(R.string.monster_lookup_title)
             .setView(view)
@@ -146,7 +148,14 @@ class NHMonsterDialog(
             .create()
         // 和价格鉴定弹窗一样：沉浸式时不带出系统导航栏
         dialog?.show(nh.prefs.immersiveMode)
-        input.requestFocus()
+        if (focusInput) {
+            input.requestFocus()
+        } else {
+            dialog?.window?.setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+            )
+            input.clearFocus()
+        }
     }
 
     /** 查询后收起输入法：结果列表就在下方，键盘会挡住它们 */
