@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 
 /**
- * 自定义布局（Cstm）。
+ * 自定义布局（Cust）。
  *
  * 视图结构和标准布局一样先建好：
  * - 固定行（第 0/4 行）按 keyboard_custom_template.json 建格子，文字来自 assets；

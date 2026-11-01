@@ -22,7 +22,7 @@ class NHStandardKeyboardView(context: Context) : KeyboardGridBase(context) {
 
     /** 布局切换类按键：这些键长按不发送字符，交给外层处理 */
     private val layoutKeyLabels = setOf(
-        "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Cstm", "Enter", "ESC", "DEL"
+        "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Cust", "Enter", "ESC", "DEL"
     )
 
     /** 每个格子的视图，和模板一一对应 */
@@ -32,7 +32,7 @@ class NHStandardKeyboardView(context: Context) : KeyboardGridBase(context) {
     var isUpper: Boolean = false
         private set
 
-    /** 点 Cstm 时通知容器切到自定义布局 */
+    /** 点 Cust 时通知容器切到自定义布局 */
     var onSwitchLayout: ((KeyboardLayout.Type) -> Unit)? = null
 
     init {
