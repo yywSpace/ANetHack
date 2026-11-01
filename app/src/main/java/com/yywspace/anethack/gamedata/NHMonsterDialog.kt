@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -94,6 +95,7 @@ class NHMonsterDialog(
             setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     renderMatches()
+                    hideKeyboard()
                     true
                 } else false
             }
@@ -116,7 +118,10 @@ class NHMonsterDialog(
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            setOnClickListener { renderMatches() }
+            setOnClickListener {
+                renderMatches()
+                hideKeyboard()
+            }
         }
         bar.addView(input)
         bar.addView(button)
@@ -142,6 +147,13 @@ class NHMonsterDialog(
         // 和价格鉴定弹窗一样：沉浸式时不带出系统导航栏
         dialog?.show(nh.prefs.immersiveMode)
         input.requestFocus()
+    }
+
+    /** 查询后收起输入法：结果列表就在下方，键盘会挡住它们 */
+    private fun hideKeyboard() {
+        input.clearFocus()
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(input.windowToken, 0)
     }
 
     /** 按输入框内容查找怪物，并把结果渲染到 content 里 */
