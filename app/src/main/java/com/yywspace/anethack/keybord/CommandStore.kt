@@ -2,6 +2,7 @@ package com.yywspace.anethack.keybord
 
 import android.content.Context
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.yywspace.anethack.AssetsUtils
 import java.io.File
@@ -35,6 +36,8 @@ object CommandStore {
     private const val EXTRA_FILE = "extra_command_panel.json"
 
     private val gson = Gson()
+    /** 导出用：带缩进、易读的格式 */
+    private val prettyGson = GsonBuilder().setPrettyPrinting().create()
 
     private val barType: Type = object : TypeToken<List<CommandEntry>>() {}.type
     private val extraType: Type = object : TypeToken<List<CommandRow>>() {}.type
@@ -59,9 +62,9 @@ object CommandStore {
             .getOrNull().orEmpty()
     }
 
-    /** 把两份配置导出成一段 JSON 文本 */
+    /** 把两份配置导出成一段格式化（带缩进）的 JSON 文本 */
     fun exportJson(bar: List<CommandEntry>, extra: List<CommandRow>): String =
-        gson.toJson(CommandConfig(bar, extra))
+        prettyGson.toJson(CommandConfig(bar, extra)) + "\n"
 
     /** 解析导入的 JSON；格式不对返回 null */
     fun importJson(json: String): CommandConfig? =
