@@ -598,6 +598,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     /** 播放当前还没结束的动画（箭头等） */
     private fun drawAnimations(canvas: Canvas?) {
+        if (!nh.prefs.playAnimations) {
+            animations.clear()
+            return
+        }
         if (!animations.isActive) return
         val frame = NHMapFrame(
             tileWidth, tileHeight,
@@ -607,6 +611,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun showArrow(dx: Float, dy: Float) {
+        if (!nh.prefs.playAnimations) return
         val length = hypot(dx.toDouble(), dy.toDouble()).toFloat()
         if (length <= 0f) return
         animations.clear()   // 每次点击只保留最新箭头

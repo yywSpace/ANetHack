@@ -101,7 +101,6 @@
     <string name="pref_monster_info_enable_desc">Highlight monster names in the message list, tap one to see its details.</string>
 
     <!-- Preference Menu -->
-    <string name="pref_menu_header">Menu</string>
     <string name="pref_menu_type">Menu type</string>
     <string name="pref_menu_type_dialog">Dialog</string>
     <string name="pref_menu_type_operate">Operation</string>
@@ -117,6 +116,8 @@
     <string name="pref_map_tile_nevanda">Nevanda</string>
     <string name="pref_map_tile_pixelhack">PixelHack</string>
     <string name="pref_map_tile_ascii">Ascii</string>
+    <string name="pref_map_animations">Play animations</string>
+    <string name="pref_map_animations_desc">Show small effects such as the step arrow when tapping the map</string>
     <string name="pref_map_indicator">Show indicator</string>
     <string name="pref_map_last_travel_indicator">Show last travel indicator</string>
     <string name="pref_map_indicator_desc">Show map symbol indicator.</string>

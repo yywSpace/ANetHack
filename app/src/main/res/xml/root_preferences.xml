@@ -27,6 +27,15 @@
             app:defaultValue="true"
             app:summary="@string/pref_ui_text_reflow_desc"/>
 
+        <ListPreference
+            app:key="menuType"
+            app:title="@string/pref_menu_type"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="1"
+            app:entries="@array/menu_type_array"
+            app:entryValues="@array/menu_type_value"/>
+
         <CheckBoxPreference
             app:key="priceId"
             app:title="@string/pref_price_id_enable"
@@ -54,6 +63,13 @@
             app:defaultValue="1"
             app:entries="@array/map_tile_array"
             app:entryValues="@array/map_tile_value"/>
+
+        <CheckBoxPreference
+            app:key="playAnimations"
+            app:title="@string/pref_map_animations"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"
+            app:summary="@string/pref_map_animations_desc"/>
 
         <CheckBoxPreference
             app:key="showIndicator"
@@ -118,6 +134,19 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:title="@string/pref_message_header"
+        app:iconSpaceReserved="false">
+
+        <EditTextPreference
+            app:key="messageHistorySize"
+            app:title="@string/pref_message_history_size"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="500"
+            app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="@string/pref_sound_header"
         app:iconSpaceReserved="false">
 
@@ -173,36 +202,4 @@
             app:iconSpaceReserved="false"/>
 
     </PreferenceCategory>
-
-
-    <PreferenceCategory
-        app:title="@string/pref_menu_header"
-        app:iconSpaceReserved="false">
-
-        <ListPreference
-            app:key="menuType"
-            app:title="@string/pref_menu_type"
-            app:iconSpaceReserved="false"
-            app:useSimpleSummaryProvider="true"
-            app:defaultValue="1"
-            app:entries="@array/menu_type_array"
-            app:entryValues="@array/menu_type_value"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        app:title="@string/pref_message_header"
-        app:iconSpaceReserved="false">
-
-        <EditTextPreference
-            app:key="messageHistorySize"
-            app:title="@string/pref_message_history_size"
-            app:useSimpleSummaryProvider="true"
-            app:defaultValue="500"
-            app:iconSpaceReserved="false"/>
-
-    </PreferenceCategory>
-
-
-
 </PreferenceScreen>
