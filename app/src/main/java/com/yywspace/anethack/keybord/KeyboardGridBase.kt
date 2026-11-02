@@ -35,6 +35,12 @@ abstract class KeyboardGridBase(
     var numberShown: Boolean = false
         private set
 
+    /** 特殊键：没有副标签，长按交给外层处理 */
+    protected val specialKeyLabels = setOf(
+        "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Cust",
+        "Enter", "ESC", "DEL", "Space"
+    )
+
     var onKeyPress:((key:KeyboardLayout.Key)->Unit)? = null
     var onSpecialKeyLongPress:((key:KeyboardLayout.Key)->Unit)? = null
     var immersiveProvider:(() -> Boolean)? = null

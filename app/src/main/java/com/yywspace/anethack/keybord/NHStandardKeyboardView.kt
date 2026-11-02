@@ -14,10 +14,6 @@ class NHStandardKeyboardView(context: Context) : KeyboardGridBase(context) {
 
     private var keyboardType: KeyboardLayout.Type = KeyboardLayout.Type.LETTER
 
-    /** 布局切换类按键：这些键长按不发送字符，交给外层处理 */
-    private val layoutKeyLabels = setOf(
-        "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Cust", "Enter", "ESC", "DEL"
-    )
     private lateinit var keyboard: KeyboardLayout
     private lateinit var letterLayout: KeyboardLayout
     private lateinit var upperLetterLayout: KeyboardLayout
@@ -123,7 +119,7 @@ class NHStandardKeyboardView(context: Context) : KeyboardGridBase(context) {
     }
 
     private fun handleKeyLongClick(key: KeyboardLayout.Key, x: Int, y: Int) {
-        if (key.label == "Space" || key.label in layoutKeyLabels) {
+        if (key.label in specialKeyLabels) {
             onSpecialKeyLongPress?.invoke(key)
             return
         }
@@ -140,7 +136,7 @@ class NHStandardKeyboardView(context: Context) : KeyboardGridBase(context) {
     /** 副标签：空格显示 /Esc，布局切换键没有副标签，其余按当前布局取备用字符 */
     private fun subLabel(key: KeyboardLayout.Key, i: Int, j: Int): String? {
         if (key.label == "Space") return "/Esc"
-        if (key.label in layoutKeyLabels)
+        if (key.label in specialKeyLabels)
             return null
         return when (keyboardType) {
             KeyboardLayout.Type.UPPER_LETTER, KeyboardLayout.Type.LETTER ->

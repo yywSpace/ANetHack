@@ -47,7 +47,12 @@ class NHCustomKeyboardView(context: Context) : KeyboardGridBase(context) {
         for (rowIndex in listOf(0, 4)) {
             template.rows[rowIndex].keys.forEachIndexed { j, cell ->
                 val key = fixedLayout.rows[rowIndex].keys[j]
-                val view = createKeyView({ fixedLayout.rows[rowIndex].keys[j] })
+                val view = createKeyView({ fixedLayout.rows[rowIndex].keys[j] },
+                    { key ->
+                        if (key.label in specialKeyLabels)
+                            onSpecialKeyLongPress?.invoke(key)
+                    }
+                )
                 bindKeyView(view, key.label, key.command, if (key.label == "Space") "/Esc" else null)
                 grid.addView(view, gridParams(cell, keyHeight))
                 fixedKeyViews.add(view)
