@@ -53,7 +53,7 @@ class NHExtraCommandPanel @JvmOverloads constructor(
         rows.removeAllViews()
         allRows = CommandStore.readExtra(context)
         allRows.filter { it.enabled }.forEachIndexed { _, row ->
-            val line = CommandUi.row(
+            val scroller = CommandUi.scrolledRow(
                 context = context,
                 entries = row.commands,
                 bar = false,
@@ -70,8 +70,6 @@ class NHExtraCommandPanel @JvmOverloads constructor(
                     showAddEditor(row)
                 }
             )
-            // 和键盘按键一样：每行高 40dp，上下各 1dp 间距
-            val scroller = CommandUi.scroller(context, line)
             val gap = resources.getDimensionPixelSize(R.dimen.command_item_gap)
             val params = LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT

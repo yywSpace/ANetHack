@@ -17,7 +17,7 @@ class NHBottomCommandBar @JvmOverloads constructor(
     /** 弹窗是否需要按沉浸式显示 */
     var immersiveProvider: (() -> Boolean)? = null
 
-    private val commandList: LinearLayout
+    private var commandScroller: View? = null
     private val divider: View
     private val keyboardSwitch: ImageView
     private val settingsSwitch: ImageView
@@ -31,7 +31,6 @@ class NHBottomCommandBar @JvmOverloads constructor(
         val edge = resources.getDimensionPixelSize(R.dimen.command_bar_panel_padding)
         setPaddingRelative(edge, 0, edge, 0)
         LayoutInflater.from(context).inflate(R.layout.view_bottom_command_bar, this, true)
-        commandList = findViewById(R.id.command_list)
         divider = findViewById(R.id.command_divider)
         keyboardSwitch = findViewById(R.id.keyboard_switch)
         settingsSwitch = findViewById(R.id.settings_switch)
@@ -42,8 +41,8 @@ class NHBottomCommandBar @JvmOverloads constructor(
     /** 重新从本地配置文件读命令并渲染（默认值由 CommandStore 负责从 assets 复制） */
     fun reloadCommands() {
         entries = CommandStore.readBar(context).toMutableList()
-        commandList.removeAllViews()
-        val line = CommandUi.row(
+        commandScroller?.let { removeView(it) }
+        val scroller = CommandUi.scrolledRow(
             context = context,
             entries = entries,
             bar = true,
@@ -51,14 +50,11 @@ class NHBottomCommandBar @JvmOverloads constructor(
             onLongClick = { entry, _, _ ->
                 showEditDialog(entry)
                 true
-            }
+            },
+            onAdd = { showEditDialog(null) }
         )
-        // 末尾固定一个"+"按钮，用来新增命令
-        val addItem = CommandUi.chip(context, line, bar = true)
-        addItem.text = context.getString(R.string.command_bar_add)
-        addItem.setOnClickListener { showEditDialog(null) }
-        line.addView(addItem)
-        commandList.addView(line)
+        addView(scroller, 0, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
+        commandScroller = scroller
     }
 
     /** 切换面板按钮当前显示的图标：键盘图标或"更多命令"图标 */

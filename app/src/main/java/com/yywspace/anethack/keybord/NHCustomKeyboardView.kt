@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.ImageView
-import android.widget.LinearLayout
 
 /**
  * 自定义布局（Cust）。
@@ -57,12 +56,6 @@ class NHCustomKeyboardView(context: Context) : KeyboardGridBase(context) {
         }
         numberViews.addAll(placeholderRows[0])
 
-        for (rowIndex in 1..3) {
-            val cell = template.rows[rowIndex].keys.first()
-            val scroller = CommandUi.scroller(context, LinearLayout(context))
-            grid.addView(scroller, gridParams(cell, keyHeight))
-            middleScrollers.add(scroller)
-        }
     }
 
     fun loadLayout() {
@@ -72,30 +65,32 @@ class NHCustomKeyboardView(context: Context) : KeyboardGridBase(context) {
             return
         }
 
-        middleScrollers.forEachIndexed { index, scroller ->
+        for (index in 0 until 3) {
             val rowIndex = index + 1
             val entries = localRows.getOrNull(index).orEmpty()
                 .filter { it.label.isNotEmpty() || it.command.isNotEmpty() }
-            scroller.removeAllViews()
-            scroller.addView(
-                CommandUi.row(
-                    context = context,
-                    entries = entries,
-                    bar = false,
-                    onClick = { entry, _ ->
-                        KeyboardVibrate.vibrate()
-                        handleKeyClick(entry.asLayoutKey(), null)
-                    },
-                    onLongClick = { entry, _, _ ->
-                        editKey(rowIndex, entry)
-                        true
-                    },
-                    onAdd = {
-                        KeyboardVibrate.vibrate()
-                        editKey(rowIndex, null)
-                    }
-                )
+            val scroller = CommandUi.scrolledRow(
+                context = context,
+                entries = entries,
+                bar = false,
+                onClick = { entry, _ ->
+                    KeyboardVibrate.vibrate()
+                    handleKeyClick(entry.asLayoutKey(), null)
+                },
+                onLongClick = { entry, _, _ ->
+                    editKey(rowIndex, entry)
+                    true
+                },
+                onAdd = {
+                    KeyboardVibrate.vibrate()
+                    editKey(rowIndex, null)
+                }
             )
+            middleScrollers.getOrNull(index)?.let { grid.removeView(it) }
+            val cell = template.rows[rowIndex].keys.first()
+            grid.addView(scroller, gridParams(cell, keyHeight))
+            if (index < middleScrollers.size) middleScrollers[index] = scroller
+            else middleScrollers.add(scroller)
         }
         loadedRows = localRows
         setNumberPanelVisible(numberShown)

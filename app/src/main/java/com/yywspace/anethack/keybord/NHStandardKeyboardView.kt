@@ -13,17 +13,17 @@ import com.yywspace.anethack.R
 class NHStandardKeyboardView(context: Context) : KeyboardGridBase(context) {
 
     private var keyboardType: KeyboardLayout.Type = KeyboardLayout.Type.LETTER
+
+    /** 布局切换类按键：这些键长按不发送字符，交给外层处理 */
+    private val layoutKeyLabels = setOf(
+        "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Cust", "Enter", "ESC", "DEL"
+    )
     private lateinit var keyboard: KeyboardLayout
     private lateinit var letterLayout: KeyboardLayout
     private lateinit var upperLetterLayout: KeyboardLayout
     private lateinit var symbolLayout: KeyboardLayout
     private lateinit var ctrlLayout: KeyboardLayout
     private lateinit var metaLayout: KeyboardLayout
-
-    /** 布局切换类按键：这些键长按不发送字符，交给外层处理 */
-    private val layoutKeyLabels = setOf(
-        "Letter", "Shift", "Ctrl", "Meta", "Symbol", "Num", "Cust", "Enter", "ESC", "DEL"
-    )
 
     /** 每个格子的视图，和模板一一对应 */
     private val keyViews: MutableList<MutableList<View>> = mutableListOf()

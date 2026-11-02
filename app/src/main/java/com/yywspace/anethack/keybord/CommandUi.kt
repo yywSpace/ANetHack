@@ -27,11 +27,11 @@ object CommandUi {
                 as TextView
 
     /**
-     * 生成一行命令按钮（不含行尾的 "+"）。
+     * 一行命令按钮 + 横向滚动容器。
      *
      * 点击/长按的行为由调用方决定；编辑页可以在这之后给每个按钮挂拖拽监听。
      */
-    fun row(
+    fun scrolledRow(
         context: Context,
         entries: List<CommandEntry>,
         bar: Boolean,
@@ -39,7 +39,7 @@ object CommandUi {
         onLongClick: (CommandEntry, Int, TextView) -> Boolean = { _, _, _ -> false },
         /** 不为 null 时，在行尾自动追加一个 "+" */
         onAdd: (() -> Unit)? = null
-    ): LinearLayout {
+    ): HorizontalScrollView {
         val line = LinearLayout(context).apply { orientation = LinearLayout.HORIZONTAL }
         entries.forEachIndexed { index, entry ->
             val chip = chip(context, line, bar)
@@ -49,26 +49,17 @@ object CommandUi {
             line.addView(chip)
         }
         if (onAdd != null) {
-            line.addView(addChip(context, line, bar, onAdd))
+            val add = chip(context, line, bar)
+            add.text = context.getString(R.string.command_bar_add)
+            add.setOnClickListener { onAdd() }
+            line.addView(add)
         }
-        return line
-    }
-
-    /** 行尾的 "+"：点击新增一条命令 */
-    private fun addChip(context: Context, parent: ViewGroup, bar: Boolean, onClick: () -> Unit): TextView {
-        val chip = chip(context, parent, bar)
-        chip.text = "+"
-        chip.setOnClickListener { onClick() }
-        return chip
-    }
-
-    /** 把一行按钮包进横向滚动容器 */
-    fun scroller(context: Context, content: View): HorizontalScrollView =
-        HorizontalScrollView(context).apply {
+        return HorizontalScrollView(context).apply {
             isHorizontalScrollBarEnabled = false
             overScrollMode = View.OVER_SCROLL_NEVER
-            addView(content)
+            addView(line)
         }
+    }
 
     /**
      * 新增或编辑一条命令。

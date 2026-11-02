@@ -221,8 +221,7 @@ class CommandEditorActivity : AppCompatActivity() {
     }
 
     private fun keyboardRow(row: MutableList<CommandEntry>): View {
-        // 和命令栏共用同一个“一行按钮”构造
-        val line = CommandUi.row(
+        val scroller = CommandUi.scrolledRow(
             context = this,
             entries = row,
             bar = false,
@@ -233,18 +232,18 @@ class CommandEditorActivity : AppCompatActivity() {
             },
             onAdd = { editKeyboardKey(row, null) }
         )
+        val line = scroller.getChildAt(0) as LinearLayout
         line.children.forEachIndexed { index, chip ->
             chip.setOnDragListener { v, event -> handleDrop(v, event, row, index) }
         }
         // 行与行之间留出和键盘按键一样的间距
-        return CommandUi.scroller(this, line).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                topMargin = resources.getDimensionPixelSize(R.dimen.command_item_spacing)
-            }
+        scroller.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply {
+            topMargin = resources.getDimensionPixelSize(R.dimen.command_item_spacing)
         }
+        return scroller
     }
 
     private fun editKeyboardKey(row: MutableList<CommandEntry>, index: Int?) {
@@ -294,7 +293,7 @@ class CommandEditorActivity : AppCompatActivity() {
 
     /** 一行按钮：复用实际面板的按钮布局，末尾再加一个 "+" */
     private fun commandRow(entries: MutableList<CommandEntry>, isBar: Boolean): View {
-        val line = CommandUi.row(
+        val scroller = CommandUi.scrolledRow(
             context = this,
             entries = entries,
             bar = isBar,
@@ -306,11 +305,10 @@ class CommandEditorActivity : AppCompatActivity() {
             onAdd = { editEntry(entries, null) }
         )
         // 拖动监听只给编辑页用：包括行尾的 "+"（下标正好是 entries.size）
+        val line = scroller.getChildAt(0) as LinearLayout
         line.children.forEachIndexed { index, chip ->
             chip.setOnDragListener { v, event -> handleDrop(v, event, entries, index) }
         }
-
-        val scroller = CommandUi.scroller(this, line)
         if (isBar) {
             scroller.background = GradientDrawable().apply {
                 cornerRadius = dp(4).toFloat()
