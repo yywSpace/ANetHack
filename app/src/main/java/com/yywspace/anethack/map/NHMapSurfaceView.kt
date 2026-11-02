@@ -44,6 +44,7 @@ import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.ceil
 import kotlin.math.floor
+import kotlin.math.hypot
 import androidx.core.graphics.createBitmap
 
 
@@ -71,6 +72,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var mapBorder:RectF = RectF()
     private var lastMapBorder:RectF = RectF()
     private var lastTouchTile:Point? = null
+
+    /** 地图上的动画（箭头等），自己管理播放和结束 */
+    private val animations = NHMapAnimationPlayer()
     var lastTravelTile:Pair<String,Point>? = null
     private var lastCurse:Point = Point()
     /** 上次跟随的玩家位置（clipAround 每回合更新；curs 仅在 cursor_on_u 时更新，不可靠） */
@@ -121,6 +125,12 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 if(indicatorController.onIndicatorClick(e))
                     return
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
+                    val origin = getTileBorder(map.player.x, map.player.y)
+                    val direction = getMoveDirection(
+                        PointF(origin.centerX(), origin.centerY()),
+                        PointF(e.x, e.y)
+                    )
+                    showArrow(direction.dx, direction.dy)
                     if (nh.status.runMode == NHStatus.RunMode.TRAVEL) {
                         travelTo(point)
                     }else {
@@ -488,16 +498,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             centerView(map.curse.x, map.curse.y)
     }
 
-    /**
-     * 等同于"长按地图上的角色自己"：给游戏发一个落在角色位置上的 travel 命令，
-     * NetHack 会弹出 "What do you want to do?" 菜单。
-     */
-    fun longPressPlayer() {
-        if (!mapInit)
-            return
-        nh.command.sendCommand(NHPosCommand(map.curse.x, map.curse.y, PosMod.TRAVEL))
-    }
-
     /** 人物是否已经显示在屏幕里（用于 travel 前决定要不要居中） */
     private fun playerOnScreen(width:Int = measuredWidth, height:Int = measuredHeight): Boolean {
         if (!mapInit || map.curse.x < 0 || map.curse.y < 0)
@@ -596,6 +596,24 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         }
     }
 
+    /** 播放当前还没结束的动画（箭头等） */
+    private fun drawAnimations(canvas: Canvas?) {
+        if (!animations.isActive) return
+        val frame = NHMapFrame(
+            tileWidth, tileHeight,
+            mapBorder.left, mapBorder.top
+        )
+        animations.draw(canvas ?: return, frame, paint, System.currentTimeMillis())
+    }
+
+    private fun showArrow(dx: Float, dy: Float) {
+        val length = hypot(dx.toDouble(), dy.toDouble()).toFloat()
+        if (length <= 0f) return
+        animations.clear()   // 每次点击只保留最新箭头
+        animations.add(NHMoveArrow({ map.player }, dx / length, dy / length))
+        requestRedraw()
+    }
+
     private fun drawIndicator(canvas: Canvas?) {
         indicatorController.drawIndicators(canvas)
     }
@@ -608,19 +626,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             val border = RectF(mapBorder).apply { left+=tileWidth }
             canvas?.drawRect(border, paint)
         }
-    }
-
-    private fun drawWalkRange(canvas: Canvas?) {
-        val walkRangeP = nh.prefs.walkRange / 100f
-        val width = measuredWidth.toFloat()
-        val height = measuredHeight.toFloat()
-        val rangeX = (width - walkRangeP * width) / 2
-        val rangeY = (height - walkRangeP * height) / 2
-        val border = RectF(rangeX, rangeY,rangeX + walkRangeP * width,rangeY  + walkRangeP * height)
-        paint.color = Color.GRAY
-        paint.style = Paint.Style.STROKE
-        paint.strokeWidth = borderWidth
-        canvas?.drawRect(border, paint)
     }
 
     private fun getBaseTileWidth(): Float {
@@ -659,23 +664,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         return Point(tx.toInt(), ty.toInt())
     }
 
-    // 获取地图内TileLocation
-    private fun getInnerTileLocation(vx:Float, vy:Float):Point? {
-        val tx = floor((vx - mapBorder.left) / tileWidth)
-        val ty = floor((vy - mapBorder.top) / tileHeight)
-        for (x in 0 until map.width) {
-            for (y in 0 until map.height) {
-                val tb = getTileBorder(x,y)
-                if (tb.contains(vx, vy)) {
-                    Log.d("getTileLocation", "inner: $x, $y")
-                    Log.d("getTileLocation", "outer: $tx, $ty")
-                    return Point(x, y)
-                }
-            }
-        }
-        return null
-    }
-
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if(mapInit)
@@ -683,8 +671,17 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         return true
     }
 
-    enum class Direction{
-        UP, DOWN, LEFT, RIGHT, LEFT_UP, LEFT_DOWN, RIGHT_UP, RIGHT_DOWN, CENTER, UNDEFINE;
+    enum class Direction(val dx: Float, val dy: Float) {
+        UP(0f, -1f),
+        DOWN(0f, 1f),
+        LEFT(-1f, 0f),
+        RIGHT(1f, 0f),
+        LEFT_UP(-1f, -1f),
+        LEFT_DOWN(-1f, 1f),
+        RIGHT_UP(1f, -1f),
+        RIGHT_DOWN(1f, 1f),
+        CENTER(0f, 0f),
+        UNDEFINE(0f, 0f);
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -723,6 +720,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             || operationQueue.isNotEmpty()
             || lastCurse != map.curse
             || mapTransformDirty
+            || animations.isActive
             || nh.tileSet.hasTileSetChange()
     }
 
@@ -790,6 +788,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         drawTileCurse(canvas)
                     }
                     drawLastTouchTile(canvas)
+                    drawAnimations(canvas)
                     drawBorder(canvas)
                     // drawWalkRange(canvas)
                     drawIndicator(canvas)
@@ -818,6 +817,13 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 redrawLock.unlock()
             }
             draw()
+            // 有动画时按约 60fps 出帧，别让动画播放期间把 CPU 跑满
+            if (animations.isActive) {
+                try {
+                    Thread.sleep(16)
+                } catch (_: InterruptedException) {
+                }
+            }
         }
     }
 }
