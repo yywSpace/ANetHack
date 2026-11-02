@@ -28,6 +28,9 @@ class NHCustomKeyboardView(context: Context) : KeyboardGridBase(context) {
     /** 中间三行的滚动容器 */
     private val middleScrollers: MutableList<HorizontalScrollView> = mutableListOf()
 
+    /** 上一次装进中间三行的数据；相同时不再重建按钮 */
+    private var loadedRows: List<List<CommandEntry>>? = null
+
     /** 点固定行的布局键时通知容器 */
     var onSwitchLayout: ((KeyboardLayout.Type) -> Unit)? = null
 
@@ -44,7 +47,9 @@ class NHCustomKeyboardView(context: Context) : KeyboardGridBase(context) {
 
         for (rowIndex in listOf(0, 4)) {
             template.rows[rowIndex].keys.forEachIndexed { j, cell ->
+                val key = fixedLayout.rows[rowIndex].keys[j]
                 val view = createKeyView({ fixedLayout.rows[rowIndex].keys[j] })
+                bindKeyView(view, key.label, key.command, if (key.label == "Space") "/Esc" else null)
                 grid.addView(view, gridParams(cell, keyHeight))
                 fixedKeyViews.add(view)
                 if (rowIndex == 0) numberViews.add(view)
@@ -61,21 +66,12 @@ class NHCustomKeyboardView(context: Context) : KeyboardGridBase(context) {
     }
 
     fun loadLayout() {
-        var viewIndex = 0
-        for (rowIndex in listOf(0, 4)) {
-            template.rows[rowIndex].keys.indices.forEach { j ->
-                val key = fixedLayout.rows[rowIndex].keys[j]
-                bindKeyView(
-                    fixedKeyViews[viewIndex++],
-                    key.label,
-                    key.command,
-                    if (key.label == "Space") "/Esc" else null
-                )
-            }
+        val localRows = KeyboardStore.readCustomRows(context)
+        if (localRows == loadedRows) {
+            setNumberPanelVisible(numberShown)
+            return
         }
 
-        // 中间三行：本地 commands/custom_keyboard_rows.json
-        val localRows = KeyboardStore.readCustomRows(context)
         middleScrollers.forEachIndexed { index, scroller ->
             val rowIndex = index + 1
             val entries = localRows.getOrNull(index).orEmpty()
@@ -101,12 +97,14 @@ class NHCustomKeyboardView(context: Context) : KeyboardGridBase(context) {
                 )
             )
         }
+        loadedRows = localRows
         setNumberPanelVisible(numberShown)
     }
 
     override fun applyTheme() {
         fixedKeyViews.clear()
         middleScrollers.clear()
+        loadedRows = null
         buildStructure()
         loadLayout()
     }

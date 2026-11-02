@@ -59,6 +59,8 @@ class NHKeyboardView @JvmOverloads constructor(
     fun switchKeyboardLayout(type: KeyboardLayout.Type) {
         if (type == KeyboardLayout.Type.CUSTOM) {
             keyboardType = type
+            // 把标准键盘的数字行状态带给自定义布局
+            customView.setNumberShown(standardView.numberShown)
             customView.loadLayout()
             showCustomKeyboard(true)
             return
@@ -66,6 +68,8 @@ class NHKeyboardView @JvmOverloads constructor(
         // 从自定义布局点 Letter 回来时，保持之前的大写状态
         keyboardType = if (type == KeyboardLayout.Type.LETTER && standardView.isUpper)
             KeyboardLayout.Type.UPPER_LETTER else type
+        // 把自定义布局的数字行状态带回标准键盘
+        standardView.setNumberShown(customView.numberShown)
         standardView.switchLayout(keyboardType)
         showCustomKeyboard(false)
     }

@@ -32,7 +32,7 @@ abstract class KeyboardGridBase(
     protected val numberViews: MutableList<View> = mutableListOf()
 
     /** 数字行是否显示 */
-    protected var numberShown: Boolean = false
+    var numberShown: Boolean = false
         private set
 
     var onKeyPress:((key:KeyboardLayout.Key)->Unit)? = null
@@ -47,6 +47,12 @@ abstract class KeyboardGridBase(
     /** 数字行显示/隐藏 */
     protected fun setNumberPanelVisible(visible: Boolean) {
         numberViews.forEach { it.visibility = if (visible) VISIBLE else GONE }
+    }
+
+    /** 切换布局时把数字行状态传进来（不涉及点击） */
+    fun setNumberShown(visible: Boolean) {
+        numberShown = visible
+        setNumberPanelVisible(visible)
     }
 
     /** Num 键：切换数字行并刷新状态点 */
@@ -84,8 +90,14 @@ abstract class KeyboardGridBase(
 
     /** 一个键的公共外观：状态点、主标签、副标签 */
     protected fun bindKeyView(view: View, label: String, command: String, subLabel: String?) {
-        view.findViewById<ImageView>(R.id.key_status).visibility =
-            if (label in listOf("Num", "Shift")) VISIBLE else INVISIBLE
+        val statusImage = view.findViewById<ImageView>(R.id.key_status)
+        statusImage.visibility = if (label in listOf("Num", "Shift")) VISIBLE else INVISIBLE
+        // Num 键的状态点跟随数字行状态，切换布局重新绑定时自动刷新
+        if (label == "Num") {
+            statusImage.setImageResource(
+                if (numberShown) R.drawable.dot_selected else R.drawable.dot_unselected
+            )
+        }
         view.findViewById<TextView>(R.id.key_main).apply {
             text = label
             tag = command
