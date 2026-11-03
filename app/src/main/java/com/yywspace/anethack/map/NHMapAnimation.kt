@@ -80,6 +80,7 @@ abstract class NHProgressAnimation(
 /** 朝移动方向跳一下的小箭头，位置每帧跟着角色 */
 class NHMoveArrow(
     private val player: () -> Point,
+    private val color: () -> Int,
     private val dx: Float,
     private val dy: Float
 ) : NHProgressAnimation() {
@@ -88,7 +89,7 @@ class NHMoveArrow(
 
     override fun drawProgress(canvas: Canvas, frame: NHMapFrame, paint: Paint, progress: Float) {
         val eased = sin(Math.PI * progress).toFloat()
-        val distance = 0.55f + 0.5f * eased
+        val distance = 0.55f + 0.25f * eased
         val tile = player()
         val cx = frame.cellCenterX(tile.x) + frame.cellsToWidth(dx * distance)
         val cy = frame.cellCenterY(tile.y) + frame.cellsToHeight(dy * distance)
@@ -104,7 +105,8 @@ class NHMoveArrow(
         canvas.translate(cx, cy)
         canvas.rotate(Math.toDegrees(kotlin.math.atan2(dy.toDouble(), dx.toDouble())).toFloat())
         paint.style = Paint.Style.FILL
-        paint.color = Color.argb((255 * (1f - progress)).toInt(), 255, 220, 90)
+        val alpha = (255 * (1f - progress)).toInt()
+        paint.color = (color() and 0x00FFFFFF) or (alpha shl 24)
         canvas.drawPath(path, paint)
         canvas.restore()
     }

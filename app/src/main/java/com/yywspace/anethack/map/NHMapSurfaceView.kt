@@ -615,7 +615,11 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         val length = hypot(dx.toDouble(), dy.toDouble()).toFloat()
         if (length <= 0f) return
         animations.clear()   // 每次点击只保留最新箭头
-        animations.add(NHMoveArrow({ map.player }, dx / length, dy / length))
+        animations.add(NHMoveArrow(
+            { map.player },
+            { nh.status.hitPoints.color },
+            dx / length, dy / length
+        ))
         requestRedraw()
     }
 
