@@ -61,6 +61,17 @@ class NHCustomKeyboardView(context: Context) : KeyboardGridBase(context) {
         }
         numberViews.addAll(placeholderRows[0])
 
+        // 第三行最左边固定一个 Letter 键，和标准键盘返回字母的位置一致
+        val letterKey = KeyboardLayout.Key(3, 0).apply {
+            label = "Letter"
+            command = "Letter"
+        }
+        val letterView = createKeyView(
+            { letterKey },
+            { key -> if (key.label in specialKeyLabels) onSpecialKeyLongPress?.invoke(key) }
+        )
+        bindKeyView(letterView, letterKey.label, letterKey.command, null)
+        grid.addView(letterView, gridParams(template.rows[3].keys.first(), keyHeight))
     }
 
     fun loadLayout() {
@@ -92,7 +103,7 @@ class NHCustomKeyboardView(context: Context) : KeyboardGridBase(context) {
                 }
             )
             middleScrollers.getOrNull(index)?.let { grid.removeView(it) }
-            val cell = template.rows[rowIndex].keys.first()
+            val cell = template.rows[rowIndex].keys.last()
             grid.addView(scroller, gridParams(cell, keyHeight))
             if (index < middleScrollers.size) middleScrollers[index] = scroller
             else middleScrollers.add(scroller)

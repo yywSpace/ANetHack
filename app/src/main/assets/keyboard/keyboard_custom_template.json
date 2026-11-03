@@ -127,7 +127,16 @@
         "row": 3,
         "column": 0,
         "rowSpan": 1,
-        "columnSpan": 20,
+        "columnSpan": 3,
+        "columnWeight": 1
+      },
+      {
+        "label": "",
+        "command": "",
+        "row": 3,
+        "column": 3,
+        "rowSpan": 1,
+        "columnSpan": 17,
         "columnWeight": 1
       }
     ]
