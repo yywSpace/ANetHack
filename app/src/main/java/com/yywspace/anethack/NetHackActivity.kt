@@ -53,6 +53,7 @@ class NetHackActivity : AppCompatActivity() {
         Thread { GameData.ensureLoaded(applicationContext) }.start()
         initKeyboard()
         initControlPanel()
+        initMapSafeArea()
         AssetsLoader(this).loadAssets(
             listOf("nethackdir", "logs", "conf"), false
         ) { overwrite ->
@@ -60,6 +61,13 @@ class NetHackActivity : AppCompatActivity() {
             processConf(overwrite)
             nethack.run()
         }
+    }
+
+    /** 地图的安全区由顶部/底部覆盖层的高度决定，布局变化时更新 */
+    private fun initMapSafeArea() {
+        val update = { binding.mapView.setSafeInsets(0, binding.topOverlay.height, 0, 0) }
+        binding.topOverlay.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> update() }
+        binding.mapView.post { update() }
     }
 
     override fun onDestroy() {

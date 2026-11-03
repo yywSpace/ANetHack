@@ -9,9 +9,7 @@
     android:clickable="true"
     tools:context=".NetHackActivity">
 
-    <!-- 地图、键盘、命令面板从上到下排列：键盘弹出时地图被顶上去（缩小），
-         而不是被键盘盖住，这样地图的可见高度就是它真实的 measuredHeight -->
-
+    <!-- 地图区域：状态栏和消息栏盖在地图上面；键盘和命令栏在它下面并列 -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -20,14 +18,13 @@
         <com.yywspace.anethack.map.NHMapSurfaceView
             android:id="@+id/map_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" />
 
-        </com.yywspace.anethack.map.NHMapSurfaceView>
-
-        <!-- 状态栏与消息栏是透明的，允许叠在地图上 -->
         <LinearLayout
+            android:id="@+id/top_overlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="top"
             android:orientation="vertical"
             android:focusable="true"
             android:clickable="true">
@@ -43,7 +40,6 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <!-- 菜单叠加在地图上（键盘上方），不覆盖键盘与命令面板 -->
         <FrameLayout
             android:id="@+id/dialog_container"
             android:layout_width="match_parent"
@@ -60,7 +56,6 @@
         android:paddingTop="@dimen/command_item_spacing"
         android:paddingBottom="@dimen/command_item_spacing" />
 
-    <!-- 底部命令栏：命令按钮一行横向滚动，键盘开关固定在最右侧 -->
     <com.yywspace.anethack.keybord.NHExtraCommandPanel
         android:id="@+id/extra_command_panel"
         android:layout_width="match_parent"
@@ -70,7 +65,6 @@
         android:paddingEnd="@dimen/command_item_spacing"
         android:paddingBottom="@dimen/command_item_spacing"
         android:visibility="gone" />
-
 
     <com.yywspace.anethack.keybord.NHBottomCommandBar
         android:id="@+id/bottom_command_bar"

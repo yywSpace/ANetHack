@@ -71,6 +71,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private lateinit var map: NHWMap
     private var mapBorder:RectF = RectF()
     private var lastMapBorder:RectF = RectF()
+    /** 地图四周被覆盖的像素（状态、消息、键盘等），由 Activity 计算后传入 */
+    private val safeInsets = Rect()
+
     private var lastTouchTile:Point? = null
 
     /** 地图上的动画（箭头等），自己管理播放和结束 */
@@ -275,16 +278,23 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     /** 角色是否还在 walkRange 矩形里（跟随模式下就不该把点击当成 travel） */
     private fun playerInWalkRange(walkRange: Int):Boolean {
+        val left = safeInsets.left.toFloat()
+        val top = safeInsets.top.toFloat()
+        val right = measuredWidth.toFloat() - safeInsets.right
+        val bottom = measuredHeight.toFloat() - safeInsets.bottom
+        if (right <= left || bottom <= top)
+            return true
+        val width = right - left
+        val height = bottom - top
         val offsetX = (1 - walkRange / 100f) * width / 2f
         val offsetY = (1 - walkRange / 100f) * height / 2f
         val playerBorder = getTileBorder(map.curse.x, map.curse.y)
         val cx = playerBorder.centerX()
         val cy = playerBorder.centerY()
-        val width = measuredWidth.toFloat()
-        val height = measuredHeight.toFloat()
-        val px = if (cx > width/2) playerBorder.left else playerBorder.right
-        val py = if (cy > height/2) playerBorder.top else playerBorder.bottom
-        return px > offsetX && py > offsetY && px < width-offsetX && py < height-offsetY
+        val px = if (cx > left + width/2) playerBorder.left else playerBorder.right
+        val py = if (cy > top + height/2) playerBorder.top else playerBorder.bottom
+        return px > left + offsetX && py > top + offsetY &&
+                px < right - offsetX && py < bottom - offsetY
     }
 
     /**
@@ -493,6 +503,15 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             canvas?.drawBitmap(bmp, Rect(0, 0, bmp.width, bmp.height), mapBorder, paint)
         }
     }
+    /** 设置地图四周被遮挡的区域，镜头跟随会避开这些区域 */
+    fun setSafeInsets(left: Int, top: Int, right: Int, bottom: Int) {
+        safeInsets.set(left, top, right, bottom)
+        if (mapInit) {
+            transformMapWithMove(nh.prefs.walkRange)
+            requestRedraw()
+        }
+    }
+
     fun centerPlayerInScreen() {
         if (mapInit)
             centerView(map.curse.x, map.curse.y)
@@ -538,18 +557,24 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         var dy = 0f
         val px = tb.centerX()
         val py = tb.centerY()
-        val width = measuredWidth.toFloat()
-        val height = measuredHeight.toFloat()
+        val left = safeInsets.left.toFloat()
+        val top = safeInsets.top.toFloat()
+        val right = measuredWidth.toFloat() - safeInsets.right
+        val bottom = measuredHeight.toFloat() - safeInsets.bottom
+        if (right <= left || bottom <= top)
+            return
+        val width = right - left
+        val height = bottom - top
         val offsetX = (1 - walkRange / 100f) * width / 2f
         val offsetY = (1 - walkRange / 100f) * height / 2f
-        if (px < offsetX)
-            dx = offsetX - px
-        if (px > width - offsetX)
-            dx = width - offsetX - px
-        if (py < offsetY)
-            dy = offsetY - py
-        if (py > height - offsetY)
-            dy = height - offsetY - py
+        if (px < left + offsetX)
+            dx = left + offsetX - px
+        if (px > right - offsetX)
+            dx = right - offsetX - px
+        if (py < top + offsetY)
+            dy = top + offsetY - py
+        if (py > bottom - offsetY)
+            dy = bottom - offsetY - py
         // 视口没动（玩家在安全区内）时不触发 transformMap，保持增量绘制
         if (dx != 0f || dy != 0f)
             transformMap(dx, dy)
