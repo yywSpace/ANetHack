@@ -1,15 +1,19 @@
 [
   {
-    "label": "Dig",
-    "command": "aM\"pick-axe\""
+    "label": "Save",
+    "command": "S"
+  },
+  {
+    "label": "Cure",
+    "command": "aM\"unicorn horn\""
   },
   {
     "label": "Lamp",
     "command": "aM\"candle|lantern|lamp\""
   },
   {
-    "label": "Cure",
-    "command": "aM\"unicorn horn\""
+    "label": "Dig",
+    "command": "aM\"pick-axe\""
   },
   {
     "label": "Scare",

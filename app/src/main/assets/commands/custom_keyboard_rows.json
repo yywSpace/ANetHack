@@ -5,11 +5,7 @@
       "command": "S"
     },
     {
-      "label": "Quit",
-      "command": "#quit"
-    },
-    {
-      "label": "Monster",
+      "label": "Monster Info",
       "command": "Monster"
     },
     {
@@ -21,56 +17,22 @@
       "command": "300s"
     },
     {
-      "label": "ESC",
-      "command": "27"
-    }
-  ],
-  [
-    {
-      "label": "Key",
-      "command": "aM\"key|lock pick\""
-    },
-    {
-      "label": "Cure",
-      "command": "aM\"unicorn horn\""
-    },
-    {
-      "label": "Lamp",
-      "command": "aM\"candle|lantern|lamp\""
-    },
-    {
-      "label": "Scare",
-      "command": "aM\"tooled horn|bugle\"y"
-    },
-    {
-      "label": "Dig",
-      "command": "aM\"pick-axe\""
-    },
-    {
-      "label": "Bag",
-      "command": "aM\"bag|sack\""
-    },
-    {
       "label": "Stash$",
       "command": "aM\"bag|sack\"s$"
+    },
+    {
+      "label": "Quit",
+      "command": "#quit"
     }
   ],
   [
-    {
-      "label": "Missile",
-      "command": "ZM\"magic missile\""
-    },
     {
       "label": "Identify",
       "command": "ZM\"identify\""
     },
     {
-      "label": "Healing",
-      "command": "ZM\"healing\""
-    },
-    {
-      "label": "Extra heal",
-      "command": "ZM\"extra healing\""
+      "label": "Monsters",
+      "command": "ZM\"detect monsters\""
     },
     {
       "label": "Mapping",
@@ -79,6 +41,28 @@
     {
       "label": "Treasure",
       "command": "ZM\"detect treasure\""
+    },
+    {
+      "label": "Remove curse",
+      "command": "aM\"remove curse\""
+    }
+  ],
+  [
+    {
+      "label": "Missile",
+      "command": "ZM\"magic missile\""
+    },
+    {
+      "label": "Sleep",
+      "command": "ZM\"sleep\""
+    },
+    {
+      "label": "Healing",
+      "command": "ZM\"extra healing"
+    },
+    {
+      "label": "Extra heal",
+      "command": "ZM\"extra healing\""
     }
   ]
 ]
