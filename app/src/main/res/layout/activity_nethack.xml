@@ -1,75 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/panel_container"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
     android:clickable="true"
     tools:context=".NetHackActivity">
 
-    <!-- 地图区域：状态栏和消息栏盖在地图上面；键盘和命令栏在它下面并列 -->
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.yywspace.anethack.map.NHMapSurfaceView
-            android:id="@+id/map_view"
+        <!-- 地图区域：状态栏和消息栏盖在地图上面 -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-        <LinearLayout
-            android:id="@+id/top_overlay"
+            <com.yywspace.anethack.map.NHMapSurfaceView
+                android:id="@+id/map_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/top_overlay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:orientation="vertical"
+                android:focusable="true"
+                android:clickable="true">
+
+                <com.yywspace.anethack.map.NHStatusView
+                    android:id="@+id/status_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.yywspace.anethack.map.NHMessageView
+                    android:id="@+id/message_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <com.yywspace.anethack.keybord.NHKeyboardView
+            android:id="@+id/keyboard_view"
+            android:background="@color/app_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:orientation="vertical"
-            android:focusable="true"
-            android:clickable="true">
+            android:paddingTop="@dimen/command_item_spacing"
+            android:paddingBottom="@dimen/command_item_spacing" />
 
-            <com.yywspace.anethack.map.NHStatusView
-                android:id="@+id/status_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <com.yywspace.anethack.map.NHMessageView
-                android:id="@+id/message_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/dialog_container"
+        <com.yywspace.anethack.keybord.NHExtraCommandPanel
+            android:id="@+id/extra_command_panel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="15dp"
-            android:visibility="invisible" />
-    </FrameLayout>
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/command_item_spacing"
+            android:paddingTop="@dimen/command_item_spacing"
+            android:paddingEnd="@dimen/command_item_spacing"
+            android:paddingBottom="@dimen/command_item_spacing"
+            android:visibility="gone" />
 
-    <com.yywspace.anethack.keybord.NHKeyboardView
-        android:id="@+id/keyboard_view"
-        android:background="@color/app_background"
+        <com.yywspace.anethack.keybord.NHBottomCommandBar
+            android:id="@+id/bottom_command_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_background" />
+    </LinearLayout>
+
+    <!-- 菜单容器：全屏覆盖地图和键盘，透明边缘也拦截点击 -->
+    <FrameLayout
+        android:id="@+id/dialog_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/command_item_spacing"
-        android:paddingBottom="@dimen/command_item_spacing" />
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="32dp"
+        android:paddingBottom="32dp"
+        android:background="@color/dialog_scrim"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible" />
 
-    <com.yywspace.anethack.keybord.NHExtraCommandPanel
-        android:id="@+id/extra_command_panel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/command_item_spacing"
-        android:paddingTop="@dimen/command_item_spacing"
-        android:paddingEnd="@dimen/command_item_spacing"
-        android:paddingBottom="@dimen/command_item_spacing"
-        android:visibility="gone" />
-
-    <com.yywspace.anethack.keybord.NHBottomCommandBar
-        android:id="@+id/bottom_command_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/app_background" />
-
-</LinearLayout>
+</FrameLayout>

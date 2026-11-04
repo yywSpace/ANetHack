@@ -63,7 +63,7 @@ class NetHackActivity : AppCompatActivity() {
         }
     }
 
-    /** 地图的安全区由顶部/底部覆盖层的高度决定，布局变化时更新 */
+    /** 地图的安全区由顶部覆盖层的高度决定，布局变化时更新 */
     private fun initMapSafeArea() {
         val update = { binding.mapView.setSafeInsets(0, binding.topOverlay.height, 0, 0) }
         binding.topOverlay.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> update() }
@@ -117,7 +117,6 @@ class NetHackActivity : AppCompatActivity() {
         val background = ContextCompat.getColor(this, R.color.app_background)
         binding.root.setBackgroundColor(background)
         binding.panelContainer.setBackgroundColor(Color.TRANSPARENT)
-        binding.dialogContainer.setBackgroundColor(Color.TRANSPARENT)
         // 键盘和命令栏各自按新主题刷新（背景、键帽、按钮、图标都在各自类里处理）
         binding.keyboardView.applyTheme()
         initControlPanel()

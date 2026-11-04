@@ -1,12 +1,4 @@
 <resources>
-    <string-array name="menu_type_array">
-        <item>@string/pref_menu_type_dialog</item>
-        <item>@string/pref_menu_type_operate</item>
-    </string-array>
-    <string-array name="menu_type_value">
-        <item>1</item>
-        <item>2</item>
-    </string-array>
 
     <string-array name="map_tile_array">
         <item>@string/pref_map_tile_ascii</item>

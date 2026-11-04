@@ -27,15 +27,6 @@
             app:defaultValue="true"
             app:summary="@string/pref_ui_text_reflow_desc"/>
 
-        <ListPreference
-            app:key="menuType"
-            app:title="@string/pref_menu_type"
-            app:iconSpaceReserved="false"
-            app:useSimpleSummaryProvider="true"
-            app:defaultValue="1"
-            app:entries="@array/menu_type_array"
-            app:entryValues="@array/menu_type_value"/>
-
         <CheckBoxPreference
             app:key="priceId"
             app:title="@string/pref_price_id_enable"

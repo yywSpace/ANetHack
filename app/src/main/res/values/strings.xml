@@ -101,9 +101,6 @@
     <string name="pref_monster_info_enable_desc">Highlight monster names in the message list, tap one to see its details.</string>
 
     <!-- Preference Menu -->
-    <string name="pref_menu_type">Menu type</string>
-    <string name="pref_menu_type_dialog">Dialog</string>
-    <string name="pref_menu_type_operate">Operation</string>
 
     <!-- Preference Message -->
     <string name="pref_message_header">Message</string>

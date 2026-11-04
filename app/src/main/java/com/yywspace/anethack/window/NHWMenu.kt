@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
-import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.command.NHMenuCommand
 import com.yywspace.anethack.entity.NHMenuItem
@@ -30,7 +29,6 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
     var behavior: Long = -1
     val nhMenuItems = ArrayList<NHMenuItem>()
     var selectMode: SelectMode = SelectMode.PickNone
-    private var numPrefix = -1
     private var menuAdapter:NHWMenuAdapter? = null
     private var menuList:RecyclerView? = null
     private val textList = mutableListOf<NHString>()
@@ -80,8 +78,8 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         when (val selection = nh.command.findMenuCommand()) {
             is NHKeyCommand -> {
                 val selectList = mutableListOf<Long>()
-                nhMenuItems.filter {
-                    item -> (item.accelerator == selection.key) and !item.isHeader() and !item.isHint()
+                nhMenuItems.filter { item ->
+                    item.accelerator == selection.key && !item.isHeader() && !item.isHint()
                 }.forEach { item ->
                     selectList.add(item.identifier)
                     selectList.add(
@@ -90,7 +88,6 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                     )
                 }
                 if (selectList.isNotEmpty()) {
-                    // 清空列表
                     textList.clear()
                     nhMenuItems.clear()
                     return selectList.toLongArray()
@@ -122,16 +119,12 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         }
         selectMode = SelectMode.fromInt(how)
         showMenu()
-        var menuCommand = nh.command.waitForAnyCommand<NHMenuCommand> { other ->
-            processMenuOperate(other)
-        }
+        var menuCommand = nh.command.waitForAnyCommand<NHMenuCommand>()
         // 只接受属于本菜单(wid)的命令。上一个菜单的异步残留命令（dismissMenu
         // 回调里发送）即使 identifier 与本菜单条目巧合相同（如连续两个动作菜单
         // 都用小整数动作码），也会因为 wid 不匹配被丢弃。
         while (menuCommand.wid != wid) {
-            menuCommand = nh.command.waitForAnyCommand<NHMenuCommand> { other ->
-                processMenuOperate(other)
-            }
+            menuCommand = nh.command.waitForAnyCommand<NHMenuCommand>()
         }
         Log.d("selectMenu", menuCommand.selectedItems.toString())
         return menuCommand.selectedItems.toLongArray()
@@ -148,13 +141,6 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
     }
 
     private fun showMenu() {
-        if(nh.prefs.menuType == "1") // dialog
-            showDialogMenu()
-        else // operation
-            showOperateMenu()
-    }
-
-    private fun showOperateMenu() {
         nh.runOnUi { binding, context ->
             val menuView = initMenuView(context)
             binding.panelContainer.apply {
@@ -164,39 +150,16 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).apply {
                 gravity = Gravity.CENTER
             }
-            // 若视图还在缓存的对话框里，先摘除再放进面板
+            // 菜单视图可能在旧的对话框里，先摘下来再放进容器
             (menuView.parent as? ViewGroup)?.removeView(menuView)
-            dialogViewAttached = false
             binding.dialogContainer.addView(menuView, params)
             binding.dialogContainer.visibility = View.VISIBLE
-        }
-    }
-
-    private fun showDialogMenu() {
-        nh.runOnUi { _, context ->
-            ensureCachedDialog(context)
-            menuDialog?.show(nh.prefs.immersiveMode)
-        }
-    }
-
-    /** 确保缓存的对话框存在且视图已挂载；首次或视图被面板摘走时（重）创建 */
-    private fun ensureCachedDialog(context: Context) {
-        val menuView = initMenuView(context)
-        if (menuDialog == null || !dialogViewAttached) {
-            menuDialog = AlertDialog.Builder(context).apply {
-                setView(menuView)
-                setCancelable(false)
-            }.create()
-            dialogViewAttached = true
         }
     }
 
     private fun dismissMenu(onDismiss:(()->Unit) ?= null) {
         // 同时关闭，防止打开窗口后切换窗口模式导致旧窗口无法关闭
         nh.runOnUi { binding, _ ->
-            // Dialog
-            menuDialog?.dismiss()
-            // Operation
             if(binding.dialogContainer.isNotEmpty()) {
                 binding.panelContainer.apply {
                     isFocusable = false
@@ -357,80 +320,6 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             }
         }
     }
-    private fun processMenuOperate(operate:NHCommand) {
-        when {
-            // ESC
-            operate.key.code == 27 -> {
-                numPrefix = -1
-                dismissMenu {
-                    nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(-1), wid))
-                }
-            }
-            // ENTER
-            operate.key.code == 13 -> {
-                if (selectMode == SelectMode.PickMany) {
-                    val count = nhMenuItems.count { item -> item.isSelected }
-                    if (count != 0) {
-                        val selectList = mutableListOf<Long>()
-                        nhMenuItems.filter { item -> item.isSelected }.forEach { item ->
-                            selectList.add(item.identifier)
-                            selectList.add(item.selectedCount)
-                        }
-                        // 13:Key Enter
-                        dismissMenu {
-                            nh.command.sendCommand(NHMenuCommand(operate.key, selectList, wid))
-                        }
-                    }
-                }
-            }
-            // 翻页
-            operate.key == '>' -> {
-                nh.runOnUi { _, _ ->
-                    menuList?.apply {
-                        val lastPosition = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                        smoothScrollToPosition(lastPosition+childCount)
-                    }
-                }
-            }
-            // 翻页
-            operate.key == '<' -> {
-                nh.runOnUi { _, _ ->
-                    menuList?.apply {
-                        val firstPosition = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                        smoothScrollToPosition(firstPosition-childCount)
-                    }
-                }
-            }
-            // 数字前缀
-            operate.key.isDigit() -> {
-                val digit = operate.key.toString().toInt()
-                numPrefix = if (numPrefix == -1) digit else numPrefix * 10 + digit
-            }
-            else -> {
-                nhMenuItems.firstOrNull { it.accelerator == operate.key }?.apply {
-                    nh.runOnUi { _, _ ->
-                        // 异步回调可能晚于 dismissMenu 执行，此时列表已清空、
-                        // indexOf 为 -1，直接滚动会抛 Invalid target position
-                        val idx = nhMenuItems.indexOf(this)
-                        if (idx >= 0)
-                            menuList?.smoothScrollToPosition(idx)
-                        if (selectMode == SelectMode.PickOne) {
-                            dismissMenu {
-                                nh.command.sendCommand(NHMenuCommand(operate.key, mutableListOf(identifier, numPrefix.toLong()), wid))
-                            }
-                        } else if (selectMode == SelectMode.PickMany) {
-                            selectedCount = if (numPrefix != -1) numPrefix.toLong() else selectedCount
-                            isSelected = !isSelected
-                            if (idx >= 0)
-                                menuAdapter?.notifyItemChanged(idx)
-                        }
-                        numPrefix = -1
-                    }
-                }
-            }
-        }
-    }
-
     private fun showAmountPickerDialog(
         context: Context, parentItem: NHMenuItem,
         parentPosition: Int, parentAdapter: NHWMenuAdapter
@@ -523,14 +412,6 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                 binding.dialogContainer.addView(menuView, params)
                 binding.dialogContainer.visibility = View.VISIBLE
             }
-            // Dialog：重新创建对话框并按新配色显示
-            if (menuDialog?.isShowing == true) {
-                menuDialog?.dismiss()
-                menuDialog = null
-                dialogViewAttached = false
-                ensureCachedDialog(context)
-                menuDialog?.show(nh.prefs.immersiveMode)
-            }
         }
     }
 
@@ -540,15 +421,10 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         // 且 NetHackActivity.onDestroy 会 clearCache()，缓存随进程结束释放，无泄漏
         @SuppressLint("StaticFieldLeak")
         private var cachedMenuView: View? = null
-        @SuppressLint("StaticFieldLeak")
-        private var menuDialog: AlertDialog? = null
-        private var dialogViewAttached = false
 
         /** 清空静态缓存（Activity 重建等场景兜底） */
         fun clearCache() {
             cachedMenuView = null
-            menuDialog = null
-            dialogViewAttached = false
         }
     }
 }

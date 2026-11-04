@@ -16,7 +16,6 @@ class SharedPreferencesUtils(val context: Context) {
 
     var dumpLogMaxSize by SharedPreferenceDelegates.string2int(10)
     var messageHistorySize by SharedPreferenceDelegates.string2int(500)
-    var menuType by SharedPreferenceDelegates.string("1")
     var immersiveMode by SharedPreferenceDelegates.boolean(true)
     var textReflow by SharedPreferenceDelegates.boolean(true)
     var keyboardVibrate by SharedPreferenceDelegates.boolean(true)
