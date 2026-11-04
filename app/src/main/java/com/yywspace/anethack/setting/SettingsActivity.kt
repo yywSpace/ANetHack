@@ -87,11 +87,6 @@ class SettingsActivity : AppCompatActivity() {
                     it.inputType = InputType.TYPE_CLASS_NUMBER
                 }
             }
-            findPreference<EditTextPreference>("messageHistorySize")?.apply {
-                setOnBindEditTextListener {
-                    it.inputType = InputType.TYPE_CLASS_NUMBER
-                }
-            }
             findPreference<Preference>("themeMode")?.apply {
                 setOnPreferenceChangeListener { _, newValue ->
                     // 先把新值写进内存再切换主题，然后重建本页让配色立刻生效

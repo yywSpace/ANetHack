@@ -103,8 +103,6 @@
     <!-- Preference Menu -->
 
     <!-- Preference Message -->
-    <string name="pref_message_header">Message</string>
-    <string name="pref_message_history_size">Size of message history</string>
 
     <!-- Preference Map -->
     <string name="pref_map_header">Map</string>

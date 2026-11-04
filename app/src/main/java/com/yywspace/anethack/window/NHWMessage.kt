@@ -26,6 +26,12 @@ import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.math.ceil
 
 class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {
+
+    private companion object {
+        /** 消息最多保留多少条 */
+        const val MESSAGE_HISTORY_SIZE = 500
+    }
+
     val messageList = CopyOnWriteArrayList<NHMessage>()
     private var messageView: NHMessageView = nh.binding.messageView
     private var lastClickTime = 0L
@@ -104,7 +110,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
     override fun putString(attr: Int, msg: String, color: Int) {
         if(msg.isEmpty()) return
         Log.d("NHWMessage","NHWMessage: putString $msg")
-        if (messageList.size > nh.prefs.messageHistorySize)
+        if (messageList.size > MESSAGE_HISTORY_SIZE)
             messageList.removeAt(0)
         // 消息来源：游戏当前正在处理的指令（行走、look、命令栏指令等都会记下来）
         messageList.add(
