@@ -4,14 +4,12 @@ import com.yywspace.anethack.theme.AppTheme
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
 import androidx.preference.CheckBoxPreference
-import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.hjq.permissions.OnPermissionCallback
@@ -57,35 +55,22 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             findPreference<Preference>("dumpLog")?.setOnPreferenceClickListener {
-                context?.apply {
-                    val fileNames = mutableListOf<String>()
-                    File(filesDir,"logs/dump")
-                        .walk()
-                        .maxDepth(1)
-                        .filter { it.extension == "log"  }
-                        .forEach { fileNames.add(it.name) }
-                    fileNames.sortByDescending { it.split(".")[0] }
-                    AlertDialog.Builder(this).apply {
-                        setTitle(R.string.pref_log_dump)
-                        setItems(fileNames.toTypedArray()) { _, which ->
-                            openInternalFile(context, "logs/dump/${fileNames[which]}")
-                        }
-                        setNegativeButton(R.string.dialog_confirm, null)
-                        create()
-                        show()
+                context?.let { ctx ->
+                    DumpLogDialog.show(ctx, File(ctx.filesDir, "logs/dump")) { name ->
+                        openInternalFile(ctx, "logs/dump/$name")
                     }
                 }
 
                 true
             }
+            findPreference<Preference>("clearDumpLog")?.setOnPreferenceClickListener {
+                val ctx = requireContext()
+                DumpLogDialog.clear(ctx, File(ctx.filesDir, "logs/dump"))
+                true
+            }
             findPreference<Preference>("errorLog")?.setOnPreferenceClickListener {
                 openInternalFile(context, "logs/error/nethack.log")
                 true
-            }
-            findPreference<EditTextPreference>("dumpLogMaxSize")?.apply {
-                setOnBindEditTextListener {
-                    it.inputType = InputType.TYPE_CLASS_NUMBER
-                }
             }
             findPreference<Preference>("themeMode")?.apply {
                 setOnPreferenceChangeListener { _, newValue ->

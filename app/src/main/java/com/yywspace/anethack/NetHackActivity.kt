@@ -229,7 +229,6 @@ class NetHackActivity : AppCompatActivity() {
     }
 
     private fun processLogs() {
-        val dumpLogMaxSize = nethack.prefs.dumpLogMaxSize
         object : Thread() {
             override fun run() {
                 // save error log
@@ -237,18 +236,6 @@ class NetHackActivity : AppCompatActivity() {
                 val errorLog = File(filesDir,"logs/error/nethack.log")
                 FileOutputStream(errorLog).use { fileOut ->
                     logcatProcess.inputStream.copyTo(fileOut)
-                }
-                // delete dump logs that exceed the size
-                val dumpDir = File(filesDir,"logs/dump")
-                dumpDir.listFiles { it.extension == "log" }
-                    ?.apply {
-                    if (size > dumpLogMaxSize) {
-                        toList()
-                            .sortedBy { it.name.split(".")[0] }
-                            .stream().limit((size - dumpLogMaxSize).toLong()).forEach {
-                                it.delete()
-                            }
-                    }
                 }
             }
         }.start()

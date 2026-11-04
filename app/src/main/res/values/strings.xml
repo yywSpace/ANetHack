@@ -75,9 +75,13 @@
 
     <!-- Preference Log -->
     <string name="pref_log_header">Logs</string>
+    <string name="pref_log_clear">Clear dump log</string>
+    <string name="pref_log_clear_desc">Delete all saved dump logs</string>
+    <string name="pref_log_clear_confirm">Delete all %1$d dump logs?</string>
+    <string name="pref_log_cleared">Dump logs cleared</string>
+    <string name="pref_log_dump_empty">No dump logs</string>
     <string name="pref_log_dump">Dump log</string>
     <string name="pref_log_dump_summery">The log that records game state at the end of a game.</string>
-    <string name="pref_log_dump_max_size">Dump log size</string>
     <string name="pref_log_error">Error log</string>
     <string name="pref_log_error_summery">Android crash log.</string>
 

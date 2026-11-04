@@ -165,12 +165,11 @@
             app:summary="@string/pref_log_dump_summery"
             app:iconSpaceReserved="false"/>
 
-        <EditTextPreference
-            app:key="dumpLogMaxSize"
-            app:title="@string/pref_log_dump_max_size"
-            app:useSimpleSummaryProvider="true"
-            app:defaultValue="10"
-            app:iconSpaceReserved="false"/>
+        <Preference
+            app:key="clearDumpLog"
+            app:title="@string/pref_log_clear"
+            app:iconSpaceReserved="false"
+            app:summary="@string/pref_log_clear_desc"/>
 
         <Preference
             app:key="errorLog"
