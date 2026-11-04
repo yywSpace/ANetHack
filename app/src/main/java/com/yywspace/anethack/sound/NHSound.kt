@@ -1,9 +1,9 @@
 package com.yywspace.anethack.sound
 
+import com.yywspace.anethack.log.AppLog
 import android.media.AudioAttributes
 import android.media.MediaMetadataRetriever
 import android.media.SoundPool
-import android.util.Log
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.AssetsUtils
@@ -24,7 +24,6 @@ class NHSound(val nh:NetHack) {
             return
         val soundPath = "sound/$soundName.wav"
         if (!AssetsUtils.exists(nh.context, soundPath)) {
-            Log.d(TAG, "playInnerSound $soundPath not exists.")
             return
         }
         nh.context.assets.openFd(soundPath).use {
@@ -45,12 +44,11 @@ class NHSound(val nh:NetHack) {
         // the files of the player live in shared storage, so reading them needs
         // READ_MEDIA_AUDIO (Android 13+) or READ_EXTERNAL_STORAGE before that
         if (!XXPermissions.isGranted(nh.context, Permission.READ_MEDIA_AUDIO)) {
-            Log.w(TAG, "playUserSound skipped, no permission to read $soundPath")
+            AppLog.w(TAG, "playUserSound skipped, no permission to read $soundPath")
             return
         }
         val soundFile = File(soundPath)
         if (!soundFile.exists()) {
-            Log.d(TAG, "playUserSound $soundPath not exists.")
             return
         }
         if (!soundCache.containsKey(soundPath)) {
@@ -63,7 +61,6 @@ class NHSound(val nh:NetHack) {
         }
     }
     fun initNHSound() {
-        Log.d(TAG, "initNHSound")
         val attr = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_GAME)
             .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
@@ -91,12 +88,10 @@ class NHSound(val nh:NetHack) {
     }
 
     fun exitNHSound(reason: String) {
-        Log.d(TAG, "exitNHSound(reason=$reason)")
         soundPool.release()
     }
 
     fun soundAchievement(ach1: Int, ach2: AchievementsS2, repeat: Int) {
-        Log.d(TAG, "soundAchievement(ach1=$ach1, ach2=$ach2, repeat=$repeat)")
         val ach2SoundMap = mapOf(
             AchievementsS2.SA2_SPLASHSCREEN to "sa2_splashscreen",
             AchievementsS2.SA2_NEWGAME_NOSPLASH to "sa2_newgame_nosplash",
@@ -111,12 +106,10 @@ class NHSound(val nh:NetHack) {
     }
 
     fun soundEffect(soundName:String, desc: String, seid: Int, volume: Int) {
-        Log.d(TAG, "soundEffect(soundName=$soundName,desc=$desc, seid=$seid, volume=$volume)")
         playInnerSound(soundName, volume)
     }
 
     fun heroPlayNotes(instrument: Instruments, notes: String, volume: Int) {
-        Log.d(TAG, "heroPlayNotes(instrument=$instrument, notes=$notes, volume=$volume)")
         val insSoundMap = mapOf(
             Instruments.INS_FLUTE to "sound_Wooden_Flute",
             Instruments.INS_PAN_FLUTE to "sound_Magic_Flute",
@@ -153,22 +146,18 @@ class NHSound(val nh:NetHack) {
     }
 
     fun playUserSound(filename: String, volume: Int, idx: Int) {
-        Log.d(TAG, "playUserSound(filename=$filename, volume=$volume, idx=$idx)")
         playUserSound(filename, volume)
     }
 
     fun soundAmbience(ambience: Ambiences, ambienceAction: AmbienceActions, heroProximity: Int) {
-        Log.d(TAG, "soundAmbience(ambience=$ambience, ambienceAction=$ambienceAction, heroProximity=$heroProximity)")
     }
 
     fun soundVerbal(text: String, gender: Int, tone: Int, vol: Int, moreInfo: Int) {
-        Log.d(TAG, "soundVerbal(text=$text, gender=$gender, tone=$tone, vol=$vol, moreInfo=$moreInfo)")
     }
 
     private fun getSoundDuration(soundName: String): Long {
         val soundPath = "sound/$soundName.wav"
         if (!AssetsUtils.exists(nh.context, soundPath)) {
-            Log.d(TAG, "getSoundDuration $soundPath not exists.")
             return 0
         }
         nh.context.assets.openFd(soundPath).use {

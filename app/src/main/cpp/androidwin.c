@@ -11,7 +11,12 @@
 #include <android/log.h>
 #define TAG "NativeNetHackWin"
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__)
+#ifndef NDEBUG
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
+#else
+#define LOGD(...) ((void) 0)
+#endif
+
 
 static void and_init_nhwindows(int *, char **);
 static void and_player_selection();
@@ -23,7 +28,6 @@ static void and_resume_nhwindows();
 static winid and_create_nhwindow(int);
 static void and_clear_nhwindow(winid);
 static void and_display_nhwindow(winid, boolean);
-static void and_dismiss_nhwindow(winid);
 static void and_destroy_nhwindow(winid);
 static void and_curs(winid,int,int);
 static void and_putstr(winid, int, const char *);
@@ -59,10 +63,7 @@ static void and_delay_output();
 static void and_change_color(int color,long rgb,int reverse);
 static char * and_get_color_string();
 #endif
-static void and_start_screen();
-static void and_end_screen();
 win_request_info *and_ctrl_nhwindow(winid, int, win_request_info *);
-color_attr and_menu_promptstyle = { NO_COLOR, ATR_NONE };
 /* 菜单选择字母：窗口端口负责给"可选中但没给 accelerator"的条目分配 a..z / A..Z，
    tty/curses 端口也是这么做的；不分配的话界面上就没有 "a - " 这样的前缀 */
 static char next_menu_selector = 'a';
@@ -171,7 +172,7 @@ void more(void){
 //		** windows?  Or at least all but WIN_INFO?	-dean
 void and_init_nhwindows(int* argcp, char** argv)
 {
-    LOGD("and_init_nhwindows");
+    LOGD("init_nhwindows");
     iflags.window_inited = TRUE;
     /* force toptenwin to be true.  toptenwin is the option that decides
      * whether to
@@ -332,7 +333,6 @@ void and_player_selection()
 //		   A noop for the tty and X window-ports.
 void and_get_nh_event()
 {
-    LOGD("and_get_nh_event()");
 }
 
 //____________________________________________________________________________________
@@ -342,7 +342,7 @@ void and_get_nh_event()
 //		   if possible.
 void and_exit_nhwindows(const char *str)
 {
-    LOGD("and_exit_nhwindows(str:%s)", str);
+    LOGD("exit_nhwindows(%s)", str);
     iflags.window_inited = FALSE;
 }
 
@@ -351,7 +351,6 @@ void and_exit_nhwindows(const char *str)
 //		-- Prepare the window to be suspended.
 void and_suspend_nhwindows(const char *str)
 {
-    LOGD("and_suspend_nhwindows(str:%s)", str);
 }
 
 //____________________________________________________________________________________
@@ -359,7 +358,6 @@ void and_suspend_nhwindows(const char *str)
 //		-- Restore the windows after being suspended.
 void and_resume_nhwindows()
 {
-    LOGD("and_resume_nhwindows()");
 }
 
 //____________________________________________________________________________________
@@ -367,7 +365,7 @@ void and_resume_nhwindows()
 //		-- Create a window of type "type."
 winid and_create_nhwindow(int type)
 {
-    LOGD("and_create_nhwindow: %d", type);
+    LOGD("create_nhwindow(type:%d)", type);
     return JNICallI(jCreateWindow, type)
 }
 
@@ -376,7 +374,6 @@ winid and_create_nhwindow(int type)
 //		-- Clear the given window, when appropriate.
 void and_clear_nhwindow(winid wid)
 {
-    LOGD("and_clear_nhwindow(wid: %d)", wid);
     JNICallV(jClearWindow, wid, Is_rogue_level(&u.uz))
 }
 
@@ -392,7 +389,6 @@ void and_clear_nhwindow(winid wid)
 //		   --more--, if necessary, in the tty window-port.
 void and_display_nhwindow(winid wid, boolean blocking)
 {
-    LOGD("display_nhwindow(wid:%d, blocking:%d)", wid, blocking);
     if(wid != WIN_MESSAGE && wid != WIN_STATUS && wid != WIN_MAP)
         blocking = TRUE;
     JNICallV(jDisplayWindow, wid, blocking)
@@ -406,7 +402,6 @@ void and_display_nhwindow(winid wid, boolean blocking)
 //		   already been dismissed.
 void and_destroy_nhwindow(winid wid)
 {
-    LOGD("and_destroy_nhwindow(%d)", wid);
     JNICallV(jDestroyWindow, wid)
 }
 
@@ -426,34 +421,7 @@ void and_destroy_nhwindow(winid wid)
 //		   currently support curs in the tty window-port.
 void and_curs(winid wid, int x, int y)
 {
-    LOGD("and_curs(wid:%d, x:%d, y:%d)", wid, x, y);
     JNICallV(jCurs, wid, x, y)
-}
-
-static int text_color = CLR_WHITE;
-
-const char* colname(int color)
-{
-    switch(color)
-    {
-        case CLR_BLACK: return "black";
-        case CLR_RED: return "red";
-        case CLR_GREEN: return "green";
-        case CLR_BROWN: return "brown";
-        case CLR_BLUE: return "blue";
-        case CLR_MAGENTA: return "magenta";
-        case CLR_CYAN: return "cyan";
-        case CLR_GRAY: return "gray";
-        case NO_COLOR: return "no color";
-        case CLR_ORANGE: return "orange";
-        case CLR_BRIGHT_GREEN: return "bright green";
-        case CLR_YELLOW: return "yellow";
-        case CLR_BRIGHT_BLUE: return "bright blue";
-        case CLR_BRIGHT_MAGENTA: return "bright magenta";
-        case CLR_BRIGHT_CYAN: return "bright cyan";
-        case CLR_WHITE: return "white";
-        default: return "black";
-    }
 }
 
 /*
@@ -632,7 +600,6 @@ static void render_status(void) {
                         attrmask = cond_attr(mask, and_colormasks);
                         coloridx = cond_color(mask, and_colormasks);
                     }
-                    LOGD("conditions:%s", condtext);
                     and_status_field_render(
                             idx, "conditions", condtext, condtext,
                             attrmask, coloridx, percent);
@@ -667,13 +634,10 @@ void and_status_update(int fldidx, genericptr_t ptr, int chg UNUSED, int percent
         return;
     switch(fldidx) {
         case BL_RESET:
-            LOGD("BL_RESET");
         case BL_FLUSH:
-            LOGD("BL_FLUSH");
             render_status();
             return;
         case BL_CONDITION:
-            LOGD("BL_CONDITION");
             and_condition_bits = *condptr;
             and_colormasks = colormasks;
             break;
@@ -685,8 +649,6 @@ void and_status_update(int fldidx, genericptr_t ptr, int chg UNUSED, int percent
             status_percent[fldidx] = percent;
             status_real_values[fldidx] = text;
             Sprintf(status_vals[fldidx], status_fieldfmt[fldidx] ? status_fieldfmt[fldidx] : "%s", text ? text : "");
-            LOGD("STATUS[name:%s, attr:%d, color:%s, format:%s, text:%s, %s]",
-                 status_fieldnm[fldidx], status_attrmasks[fldidx], colname(status_colors[fldidx]), status_fieldfmt[fldidx], text, status_vals[fldidx]);
     }
 }
 
@@ -718,7 +680,6 @@ static int cond_attr(long bm, const unsigned long *bmarray)
 //____________________________________________________________________________________
 void and_putmixed(winid wid, int attr, const char *str)
 {
-    LOGD("and_putmixed(wid:%d, attr:%d, str:%s)", wid, attr, str);
     genl_putmixed(wid, attr, str);
 }
 
@@ -728,7 +689,6 @@ void and_putmixed(winid wid, int attr, const char *str)
 //		   iff complain is TRUE.
 void and_display_file(const char *name, boolean complain)
 {
-    LOGD("and_display_file(name:%s, complain:%d)", name, complain);
     dlb* fd;
     char buf[BUFSZ], *cr;
     fd = dlb_fopen(name, "r");
@@ -799,23 +759,20 @@ void and_start_menu(winid wid,unsigned long mbehavior)
 void and_add_menu(winid window, const glyph_info * glyph, const union any * identifier, char accelerator,
         char groupacc, int attr, int clr, const char *str, unsigned int itemflags)
 {
-    boolean preselected = (itemflags & MENU_ITEMFLAGS_SELECTED) != 0;
+    boolean preselected = (boolean) ((itemflags & MENU_ITEMFLAGS_SELECTED) != 0);
     int tile = glyph->gm.tileidx;
     int menu_color = clr, menu_attr = attr;
     /* 可选中但调用方没给 accelerator 的条目，由窗口端口分配一个选择字母，
        界面上显示成 "a - " 这样的前缀（tty/curses 端口也是这么做的） */
     if (identifier->a_lptr && !accelerator) {
         accelerator = next_menu_selector;
-        if (next_menu_selector >= 'a' && next_menu_selector < 'z')
-            next_menu_selector++;
-        else if (next_menu_selector == 'z')
+        if (next_menu_selector == 'z')
             next_menu_selector = 'A';
-        else if (next_menu_selector >= 'A' && next_menu_selector < 'Z')
-            next_menu_selector++;
-        else
+        else if (next_menu_selector == 'Z')
             next_menu_selector = 'a';
+        else
+            next_menu_selector++;
     }
-    LOGD("and_add_menu attr=%d, tile=%d, color=%d, groupacc=%d, accelerator:%c address:%ld",menu_attr, tile, menu_color,groupacc, accelerator, (long )identifier->a_lptr);
     if(menu_attr)
         menu_attr = 1<<menu_attr;
     jstring jstr = char2Jstring(jEnv, str);
@@ -868,14 +825,12 @@ int and_select_menu(winid wid, int how, MENU_ITEM_P **selected)
     jlongArray selectedItems = (jlongArray)JNICallO(jSelectMenu, wid, how)
     *selected = 0;
     int itemCnt = (*jEnv)->GetArrayLength(jEnv, selectedItems);
-    LOGD("and_select_menu itemCnt:%d", itemCnt);
     if(itemCnt > 1)  { // n should always be 2k (id, count) pairs
         itemCnt >>= 1;
         q = p = (*jEnv)->GetLongArrayElements(jEnv, selectedItems, NULL);
         *selected = (MENU_ITEM_P*)malloc(sizeof(MENU_ITEM_P) * itemCnt);
         for(int i = 0; i < itemCnt; i++)
         {
-            LOGD("and_select_menu address:%ld count:%d", (long)(*p), (int)*(p+1));
             // convert identifier address to anything
             (*selected)[i].item.a_lptr = (long *)(*p++);
             (*selected)[i].count = (int)*p++;
@@ -902,7 +857,6 @@ int and_select_menu(winid wid, int how, MENU_ITEM_P **selected)
 //		   leave the window up, otherwise empty.
 void and_update_inventory()
 {
-    LOGD("and_update_inventory()");
 }
 
 //____________________________________________________________________________________
@@ -911,7 +865,6 @@ void and_update_inventory()
 //		   for the moment
 void and_mark_synch()
 {
-    LOGD("and_mark_synch");
 }
 
 //____________________________________________________________________________________
@@ -921,7 +874,6 @@ void and_mark_synch()
 //		   display is OK when return from wait_synch().
 void and_wait_synch()
 {
-    LOGD("and_wait_synch");
 }
 
 //____________________________________________________________________________________
@@ -931,7 +883,6 @@ void and_wait_synch()
 //		-- This function is only defined if CLIPPING is defined.
 void and_cliparound(int x, int y)
 {
-	LOGD("and_cliparound %dx%d (%dx%d)", x, y, u.ux, u.uy);
 	JNICallV(jClipAround, x, y, u.ux, u.uy)
 }
 
@@ -951,7 +902,6 @@ void and_cliparound(int x, int y)
 //		   location. A zero char marks the end of the list.
 void and_update_positionbar(char *features)
 {
-	LOGD("and_update_positionbar(features:%s)", features);
 }
 
 #endif
@@ -974,10 +924,8 @@ void and_print_glyph(winid wid, coordxy x, coordxy y, const glyph_info * glyphin
     int ch = glyphinfo->ttychar;
     int color = glyphinfo->gm.sym.color;
     int tile = glyphinfo->gm.tileidx;
-    int glyph = glyphinfo->glyph;
 
     unsigned int special = glyphinfo->gm.glyphflags;
-    LOGD("and_print_glyph wid=%d x=%d y=%d gryph=%d tile:%d color=%d chd=%d ch=%c special=%d", wid, x, y, glyph, tile, color, ch, ch, special);
 
     special &= ~(MG_CORPSE|MG_RIDDEN|MG_STATUE|MG_UNEXPL|MG_MALE|MG_FEMALE); // TODO support
     if(!iflags.hilite_pet)
@@ -999,7 +947,6 @@ void and_print_glyph(winid wid, coordxy x, coordxy y, const glyph_info * glyphin
 // 		   updating status for micros (i.e, "saving").
 void and_raw_print(const char* str)
 {
-    LOGD("and_raw_print %s", str);
     jstring jstr = char2Jstring(jEnv,str);
     JNICallV(jRawPrint, 1<<ATR_BOLD, jstr)
     if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
@@ -1010,7 +957,6 @@ void and_raw_print(const char* str)
 // 		-- Like raw_print(), but prints in bold/standout (if possible).
 void and_raw_print_bold(const char* str)
 {
-    LOGD("and_raw_print_bold %s", str);
     jstring jstr = char2Jstring(jEnv,str);
     JNICallV(jRawPrint, 1<<ATR_BOLD, jstr)
     if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
@@ -1025,7 +971,6 @@ void and_raw_print_bold(const char* str)
 int and_nhgetch()
 {
     int c = JNICallI(jRequireKeyCommand)
-    LOGD("and_nhgetch: %c", c);
     return c;
 }
 
@@ -1054,7 +999,6 @@ int and_nh_poskey(coordxy *x, coordxy *y, int *mod)
         *mod = event[2];
         (*jEnv)->ReleaseIntArrayElements(jEnv, jEvent, event, 0);
     }
-    LOGD("and_nh_poskey x:%d y:%d mod:%d", *x, *y, *mod);
     return ch;
 }
 
@@ -1063,7 +1007,6 @@ int and_nh_poskey(coordxy *x, coordxy *y, int *mod)
 //		   redone, since sounds aren't attributable to windows anyway.]
 void and_nhbell()
 {
-    LOGD("and_nhbell");
 }
 
 //____________________________________________________________________________________
@@ -1072,7 +1015,6 @@ void and_nhbell()
 //		-- On the tty-port this scrolls WIN_MESSAGE back one line.
 int and_doprev_message()
 {
-    LOGD("and_doprev_message");
     display_nhwindow(WIN_MESSAGE, TRUE);
     return ECMD_OK;
 }
@@ -1101,7 +1043,6 @@ int and_doprev_message()
 //		   user input correctness itself.
 char and_yn_function(const char *question, const char *choices, char def)
 {
-    LOGD("and_yn_function(question:%s,choices:%s, def:%d)", question, choices, def);
     char ch = 0;
     int allow_num = choices != NULL && (strchr(choices, '#') != 0);
     int has_esc = choices != NULL && (strchr(choices, '\033') != 0);
@@ -1151,7 +1092,6 @@ char and_yn_function(const char *question, const char *choices, char def)
 //		   the nul character.
 void and_getlin(const char *question, char *input)
 {
-	LOGD("and_getlin %s, %s", question, input);
     JNIEnv *e = jEnv;
     jstring jquestion = char2Jstring(e, question);
     jstring jinput = char2Jstring(e, input);
@@ -1166,7 +1106,6 @@ void and_getlin(const char *question, char *input)
     if (jquestion) (*e)->DeleteLocalRef(e, jquestion);
     if (jinput) (*e)->DeleteLocalRef(e, jinput);
     if (result) (*e)->DeleteLocalRef(e, result);
-    LOGD("and_getlin %s", input);
 }
 
 
@@ -1223,7 +1162,6 @@ void and_askname()
     (*jEnv)->DeleteLocalRef(jEnv, jPlaymode);
     (*jEnv)->DeleteLocalRef(jEnv, jSavedList);
     (*jEnv)->DeleteLocalRef(jEnv, jPlayerInfo);
-    LOGD("and_askname");
 }
 
 //int get_ext_cmd(void)
@@ -1267,7 +1205,6 @@ int and_get_ext_cmd()
 //		-- Initialize the number pad to the given state.
 void and_number_pad(int state)
 {
-    LOGD("and_number_pad(%d)", state);
     /* Kotlin has no setNumPadOption() counterpart; the previous code called
        an uninitialized (NULL) jSetNumPadOption method id, which crashed.
        Kept as a no-op until a Kotlin-side handler is added. */
@@ -1278,14 +1215,12 @@ void and_number_pad(int state)
 //		   by a nap(50ms), but allows asynchronous operation.
 void and_delay_output()
 {
-    LOGD("and_delay_output()");
     JNICallV(jDelayOutput)
 }
 
 #ifdef CHANGE_COLOR
 void and_change_color(int color_number, long rgb, int reverse)
 {
-	LOGD("and_change_color %d == 0x%lX %s", color_number, rgb, reverse?" reverse":"");
 }
 char* and_get_color_string()
 {
@@ -1308,7 +1243,6 @@ char* and_getmsghistory(boolean init)
     if (init) {
         nxtidx = 0;
     }
-    LOGD("and_getmsghistory(nxtidx:%d)", nxtidx);
     JNIEnv *e = jEnv;
     jstring result = (jstring)JNICallO(jGetMessageHistory, nxtidx++)
     if (!result)
@@ -1349,27 +1283,20 @@ void and_putmsghistory(const char *msg, boolean restoring)
         JNICallV(jPutMessageHistory, jmsg, restoring)
         if (jmsg) (*jEnv)->DeleteLocalRef(jEnv, jmsg);
     }
-    // LOGD("and_putmsghistory(msg: %s, restoring:%d)", msg, restoring);
 }
 
+/*
+ * NetHack 核心可能通过这个接口调整菜单模式、提示颜色等。
+ * Android 菜单完全由 Kotlin 侧绘制，这些设置对界面没有作用，
+ * 因此这里直接接受请求并原样返回 wri。
+ */
 win_request_info *
 and_ctrl_nhwindow(
         winid window,
         int request,
         win_request_info *wri)
 {
-    if (!wri)
-        return (win_request_info *) 0;
-
-    switch(request) {
-        case set_mode:
-        case request_settings:
-            break;
-        case set_menu_promptstyle:
-            and_menu_promptstyle = wri->fromcore.menu_promptstyle;
-            break;
-        default:
-            break;
-    }
+    (void) window;
+    (void) request;
     return wri;
 }

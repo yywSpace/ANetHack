@@ -74,6 +74,18 @@
     <string name="pref_ui_text_reflow_desc">Join lines that were wrapped for a terminal so paragraphs flow with the screen width.</string>
 
     <!-- Preference Log -->
+    <string name="pref_log_app">App log</string>
+    <string name="pref_log_app_summary">Recent application messages</string>
+    <string name="pref_log_crash">Last crash</string>
+    <string name="pref_log_crash_summary">The most recent crash report</string>
+    <string name="pref_log_export">Export logs</string>
+    <string name="pref_log_export_summary">Share the app log and crash reports</string>
+    <string name="pref_log_clear_logs">Clear logs</string>
+    <string name="pref_log_clear_logs_summary">Delete the app log and crash reports</string>
+    <string name="pref_log_clear_logs_confirm">Delete the app log and all crash reports?</string>
+    <string name="pref_log_no_crash">No crash report</string>
+    <string name="pref_log_no_app">No app log yet</string>
+    <string name="pref_dump_header">Dump logs</string>
     <string name="pref_log_header">Logs</string>
     <string name="pref_log_clear">Clear dump log</string>
     <string name="pref_log_clear_desc">Delete all saved dump logs</string>
@@ -82,8 +94,6 @@
     <string name="pref_log_dump_empty">No dump logs</string>
     <string name="pref_log_dump">Dump log</string>
     <string name="pref_log_dump_summery">The log that records game state at the end of a game.</string>
-    <string name="pref_log_error">Error log</string>
-    <string name="pref_log_error_summery">Android crash log.</string>
 
     <!-- Preference Sound -->
     <string name="pref_sound_header">Sound</string>

@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/dump_log_toolbar"
+        android:id="@+id/viewer_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/app_background"
@@ -14,7 +14,7 @@
         app:titleTextColor="@color/app_text" />
 
     <WebView
-        android:id="@+id/dump_log_web"
+        android:id="@+id/viewer_web"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

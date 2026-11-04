@@ -8,8 +8,8 @@ import com.yywspace.anethack.R
 import com.yywspace.anethack.theme.AppTheme
 import java.io.File
 
-/** 在应用内查看 dump 日志，支持双指缩放 */
-class DumpLogViewerActivity : AppCompatActivity() {
+/** 在应用内查看文本文件（dump 日志、app 日志、崩溃报告），支持双指缩放 */
+class TextViewerActivity : AppCompatActivity() {
 
     private lateinit var web: WebView
 
@@ -22,12 +22,12 @@ class DumpLogViewerActivity : AppCompatActivity() {
             return
         }
         val file = File(path)
-        setContentView(R.layout.activity_dump_log_viewer)
-        val toolbar = findViewById<Toolbar>(R.id.dump_log_toolbar)
+        setContentView(R.layout.activity_text_viewer)
+        val toolbar = findViewById<Toolbar>(R.id.viewer_toolbar)
         toolbar.title = file.name
         toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
         toolbar.setNavigationOnClickListener { finish() }
-        web = findViewById(R.id.dump_log_web)
+        web = findViewById(R.id.viewer_web)
 
         web.settings.apply {
             javaScriptEnabled = false

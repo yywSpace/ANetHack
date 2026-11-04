@@ -16,6 +16,7 @@ import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.R
+import com.yywspace.anethack.log.LogFiles
 import java.io.File
 
 
@@ -58,8 +59,8 @@ class SettingsActivity : AppCompatActivity() {
                 context?.let { ctx ->
                     DumpLogDialog.show(ctx, File(ctx.filesDir, "logs/dump")) { name ->
                         startActivity(
-                            Intent(ctx, DumpLogViewerActivity::class.java)
-                                .putExtra(DumpLogViewerActivity.EXTRA_PATH, File(ctx.filesDir, "logs/dump/$name").absolutePath)
+                            Intent(ctx, TextViewerActivity::class.java)
+                                .putExtra(TextViewerActivity.EXTRA_PATH, File(ctx.filesDir, "logs/dump/$name").absolutePath)
                         )
                     }
                 }
@@ -71,8 +72,32 @@ class SettingsActivity : AppCompatActivity() {
                 DumpLogDialog.clear(ctx, File(ctx.filesDir, "logs/dump"))
                 true
             }
-            findPreference<Preference>("errorLog")?.setOnPreferenceClickListener {
-                openInternalFile(context, "logs/error/nethack.log")
+            findPreference<Preference>("appLog")?.setOnPreferenceClickListener {
+                val ctx = requireContext()
+                val file = LogFiles.appLog(ctx)
+                if (file.exists()) openTextViewer(ctx, file)
+                else Toast.makeText(ctx, R.string.pref_log_no_app, Toast.LENGTH_SHORT).show()
+                true
+            }
+            findPreference<Preference>("lastCrash")?.setOnPreferenceClickListener {
+                val ctx = requireContext()
+                val file = LogFiles.latestCrash(ctx)
+                if (file != null) openTextViewer(ctx, file)
+                else Toast.makeText(ctx, R.string.pref_log_no_crash, Toast.LENGTH_SHORT).show()
+                true
+            }
+            findPreference<Preference>("exportLogs")?.setOnPreferenceClickListener {
+                shareLogs(requireContext())
+                true
+            }
+            findPreference<Preference>("clearLogs")?.setOnPreferenceClickListener {
+                val ctx = requireContext()
+                AlertDialog.Builder(ctx)
+                    .setTitle(R.string.pref_log_clear_logs)
+                    .setMessage(R.string.pref_log_clear_logs_confirm)
+                    .setPositiveButton(R.string.dialog_confirm) { _, _ -> LogFiles.clear(ctx) }
+                    .setNegativeButton(R.string.dialog_cancel, null)
+                    .show()
                 true
             }
             findPreference<Preference>("themeMode")?.apply {
@@ -141,21 +166,26 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(Intent(ctx, CommandEditorActivity::class.java))
         }
 
+        private fun openTextViewer(context: Context, file: File) {
+            startActivity(
+                Intent(context, TextViewerActivity::class.java)
+                    .putExtra(TextViewerActivity.EXTRA_PATH, file.absolutePath)
+            )
+        }
 
-
-        private fun openInternalFile(context: Context?, relativePath:String) {
-            context?.apply {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                val contentUri = FileProvider.getUriForFile(
-                    this,
-                    "com.yywspace.anethack.provider",
-                    File(filesDir,relativePath)
-                )
-                intent.setDataAndType(contentUri, "text/plain")
-                startActivity(intent)
+        private fun shareLogs(context: Context) {
+            val zip = LogFiles.export(context)
+            if (zip == null) {
+                Toast.makeText(context, R.string.pref_log_no_app, Toast.LENGTH_SHORT).show()
+                return
             }
+            val uri = FileProvider.getUriForFile(context, "com.yywspace.anethack.provider", zip)
+            val send = Intent(Intent.ACTION_SEND).apply {
+                type = "application/zip"
+                putExtra(Intent.EXTRA_STREAM, uri)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            startActivity(Intent.createChooser(send, getString(R.string.pref_log_export)))
         }
     }
 }

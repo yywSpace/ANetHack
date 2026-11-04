@@ -1,7 +1,6 @@
 package com.yywspace.anethack.window
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -151,7 +150,6 @@ class NHQuestion(val nh: NetHack) {
     }
 
     private fun showSelectQuestion(question: String, choices: String, ynNumber:LongArray, def: Char) {
-        Log.d("NHQuestion", "question:$question choices:$choices def:$def")
         if (choices.isNotEmpty())
             ynQuestion(question, choices, ynNumber, def)
         else
@@ -162,7 +160,6 @@ class NHQuestion(val nh: NetHack) {
     private fun selectQuestion(question: String, def: Char) {
         val regex = Regex("(.*)\\[(.*)](.*)")
         regex.find(question)?.apply {
-            Log.d("NHQuestion", groupValues.toString())
             val ques = "${groupValues[1]}${groupValues[3]}"
             val select = mutableListOf<Pair<Char, Int>>()
             groupValues[2].split(" ").forEachIndexed { j, it->

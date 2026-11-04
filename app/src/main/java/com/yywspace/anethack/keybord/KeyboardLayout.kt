@@ -1,6 +1,5 @@
 package com.yywspace.anethack.keybord
 
-import android.util.Log
 import org.json.JSONArray
 import org.json.JSONException
 
@@ -85,7 +84,6 @@ class KeyboardLayout {
                             Key(rowIdx, columnIdx, rowSpan, columnSpan, columnWeight, label, command)
                         )
                     }
-                    Log.d("KeyboardLayout", kbRow.toString())
                     keyboard.rows.add(kbRow)
                 }
             } catch (e: JSONException) {

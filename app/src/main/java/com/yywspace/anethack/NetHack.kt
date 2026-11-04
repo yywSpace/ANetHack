@@ -1,8 +1,8 @@
 package com.yywspace.anethack
 
+import com.yywspace.anethack.log.AppLog
 import android.app.Activity
 import android.os.Handler
-import android.util.Log
 import android.widget.Toast
 import com.yywspace.anethack.command.NHBlockingCommandController
 import com.yywspace.anethack.command.NHPosCommand
@@ -84,22 +84,19 @@ class NetHack(
     fun run() {
         // 线程不能重复 start；已经在跑就直接返回
         if (gameThread?.isAlive == true) return
-        isRunning = true
         gameThread = Thread({
-            Log.d(TAG, "start native process")
+            AppLog.i(TAG, "start native process")
             try {
                 runNetHack(netHackDir)
             } catch (t: Throwable) {
-                Log.e(TAG, "native process failed", t)
-            } finally {
-                isRunning = false
-                Log.d(TAG, "native process finished")
+                AppLog.e(TAG, "native process failed", t)
             }
         }, "NetHackMain").also { it.start() }
     }
 
     /** 结束游戏：目前是直接终止 native 主循环，会连带结束进程 */
     fun stop() {
+        AppLog.d(TAG, "stop requested")
         stopNetHack()
     }
 
@@ -107,7 +104,7 @@ class NetHack(
     private external fun stopNetHack()
 
     private fun createWindow(type: Int): Int {
-        Log.d(TAG, "createWindow(type:$type)")
+        AppLog.d(TAG, "createWindow(type:$type)")
         val winType = NHWindowType.fromInt(type)
         val wid: Int = nextWinId++
 
@@ -135,23 +132,21 @@ class NetHack(
     }
     private fun displayWindow(wid: Int, blocking: Boolean) {
         getWindow(wid).displayWindow(blocking)
-        Log.d(TAG, "displayWindow(wid:$wid,blocking:$blocking)")
     }
 
     private fun clearWindow(wid: Int, isRogueLevel: Int) {
+        AppLog.d(TAG, "clearWindow(wid:$wid, rogue:$isRogueLevel)")
         getWindow(wid).clearWindow(isRogueLevel)
-        Log.d(TAG, "clearWindow(wid:$wid,isRogueLevel:$isRogueLevel)")
     }
 
     private fun destroyWindow(wid: Int) {
+        AppLog.d(TAG, "destroyWindow(wid:$wid)")
         val window = getWindow(wid)
         window.destroyWindow()
         windows.remove(window)
-        Log.d(TAG, "destroyWindow(wid:$wid)")
     }
     fun curs(wid:Int, x:Int, y:Int) {
         getWindow(wid).curs(x, y)
-        Log.d(TAG, "curs(wid:$wid, x:$x, y:$y)")
     }
 
     fun clipAround(cx:Int, cy:Int, ux:Int, uy:Int) {
@@ -165,7 +160,6 @@ class NetHack(
                 Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
             }
         }
-        Log.d(TAG, "putString(wid:$wid, attr:$attr, msg:$msg, color:$color)")
     }
 
     private fun renderStatus(fldIdx:Int, fldName:String, fmtVal:String, realVal:String, attr:Int, color:Int, percent:Int) {
@@ -174,7 +168,6 @@ class NetHack(
 
     private fun printTile(wid: Int, x: Int, y: Int, tile: Int, ch: Int, col: Int, special: Int) {
         (getWindow(wid) as NHWMap).printTile(x, y, tile, ch, col, special)
-        // Log.d(TAG, "printTile(wid: $wid, x: $x, y: $y, tile: $tile, ch: $ch, col: $col, special: $special)")
     }
     private fun rawPrint(attr: Int, msg: String) {
         try {
@@ -184,7 +177,6 @@ class NetHack(
                 Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
             }
         }
-        Log.d(TAG, "rawPrint(attr:$attr,msg:$msg)")
     }
 
     fun getMessageHistory(idx:Int):String {
@@ -207,12 +199,11 @@ class NetHack(
     }
 
     fun askName(nameSize: Int, saves: Array<String>):Array<String> {
-        Log.d(TAG, "askName(playerNSize:$nameSize,saves:${saves.contentToString()})")
+        AppLog.d(TAG, "askName(nameSize:$nameSize, saves:${saves.contentToString()})")
         playerChoose.askName(nameSize, saves)
         return playerChoose.waitForPlayerChoose()
     }
     fun showExtCmdMenu(extCmdList: Array<String>):Int {
-        Log.d(TAG, "showExtCmdMenu(extCmdList:${extCmdList.toList()})")
         return extCmdChoose.waitForExtCmdChoose(extCmdList)
     }
 
@@ -231,8 +222,8 @@ class NetHack(
     }
 
     private fun startMenu(wid: Int, behavior:Long) {
+        AppLog.d(TAG, "startMenu(wid:$wid, behavior:$behavior)")
         getWMenu(wid).startMenu(behavior)
-        Log.d(TAG, "startMenu(wid:$wid,behavior:$behavior)")
     }
 
     private fun addMenu(
@@ -248,19 +239,18 @@ class NetHack(
     ) {
         getWMenu(window).addMenu(glyph, identifier, accelerator, groupAcc, attr, clr, text, preselected)
         // winid window,  const glyph_info * glyph, const union any * identifier, char accelerator, char groupacc, int attr, int clr, const char *str, unsigned int itemflags
-        Log.d(TAG, "addMenu(window:$window, glyph:$glyph, identifier: $identifier, accelerator: ${accelerator}, groupAcc: $groupAcc, attr: $attr, clr: $clr, text: $text, preselected: $preselected)")
     }
 
     private fun endMenu(wid: Int, prompt: String) {
+        AppLog.d(TAG, "endMenu(wid:$wid, title:$prompt)")
         getWMenu(wid).endMenu(prompt)
-        Log.d(TAG, "endMenu(wid: $wid, prompt: $prompt)")
     }
 
     private fun selectMenu(wid: Int, how: Int): LongArray {
         val nhMenu = getWMenu(wid)
-        Log.d(TAG, "selectMenu(wid: $wid, how: $how)")
-        Log.d(TAG, "itemList:${nhMenu.nhMenuItems}")
-        return nhMenu.selectMenu(how)
+        val result = nhMenu.selectMenu(how)
+        AppLog.d(TAG, "selectMenu(wid:$wid, how:$how) -> ${result.joinToString()}")
+        return result
     }
 
     fun ynFunction(question: String, choices: String, ynNumber:LongArray, def: Char):Char {

@@ -24,7 +24,7 @@
             android:name="ScopedStorage"
             android:value="true" />
         <activity
-            android:name=".setting.DumpLogViewerActivity"
+            android:name=".setting.TextViewerActivity"
             android:exported="false" />
 
         <activity

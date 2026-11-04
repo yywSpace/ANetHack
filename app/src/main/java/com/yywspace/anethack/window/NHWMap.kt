@@ -1,7 +1,6 @@
 package com.yywspace.anethack.window
 
 import android.graphics.Point
-import android.util.Log
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.map.NHMapSurfaceView
@@ -79,13 +78,11 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
     }
 
     override fun displayWindow(blocking: Boolean) {
-        Log.d("NHWMap", "displayWindow")
         // 格子数据在 printTile 时已入队，这里只需唤醒绘制线程
         mapView.requestRedraw()
     }
 
     override fun clearWindow(isRogueLevel: Int) {
-        Log.d("NHWMap", "clearWindow")
         synchronized(pendingLock) {
             pendingTiles.clear()
         }
@@ -112,7 +109,6 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
     }
 
     fun printTile(x: Int, y: Int, tile: Int, ch: Int, col: Int, special: Int) {
-        Log.d("NHWMap", "printTile(wid: $wid, x: $x, y: $y, tile: $tile, ch: ${CP437_UNICODE[ch and 0xff]}, col: $col, special: ${Integer.toBinaryString(special)})")
         val mapTile = Tile()
         mapTile.x = x
         mapTile.y = y

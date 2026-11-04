@@ -1,6 +1,5 @@
 package com.yywspace.anethack.window
 
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +18,7 @@ import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHPlayerChooseCommand
+import com.yywspace.anethack.log.AppLog
 import com.yywspace.anethack.entity.NHPlayer
 import com.yywspace.anethack.extensions.show
 
@@ -56,7 +56,7 @@ class NHPlayerChoose(val nh: NetHack) {
 
     fun waitForPlayerChoose():Array<String> {
         val cmd = nh.command.waitForAnyCommand<NHPlayerChooseCommand>()
-        Log.d("waitForPlayerChoose", "${cmd.player} ${cmd.toInfoArray()}")
+        AppLog.d("NHPlayerChoose", "player=${cmd.player}")
         return cmd.toInfoArray()
     }
 
@@ -90,7 +90,6 @@ class NHPlayerChoose(val nh: NetHack) {
                                 finishPlayerChoose(first)
                                 popupWindow.dismiss()
                             }
-                            Log.d("showPlayerChooseDialog", first.toString())
                         }
                     }
                     findViewById<MaterialButton>(R.id.player_choose_cancel).apply {

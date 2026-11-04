@@ -1,6 +1,8 @@
 package com.yywspace.anethack
 
 import android.app.Application
+import com.yywspace.anethack.log.AppLog
+import com.yywspace.anethack.log.CrashHandler
 import com.yywspace.anethack.theme.AppTheme
 
 /**
@@ -14,5 +16,7 @@ class NHApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         AppTheme.applyTheme(this)
+        AppLog.init(this)
+        CrashHandler.install(this)
     }
 }

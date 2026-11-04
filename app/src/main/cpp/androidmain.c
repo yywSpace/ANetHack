@@ -19,8 +19,13 @@
 #include <android/log.h>
 #include <dirent.h>
 
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, "Tag", __VA_ARGS__)
-#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, "Tag", __VA_ARGS__)
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, "NativeNetHack", __VA_ARGS__)
+#ifndef NDEBUG
+#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, "NativeNetHack", __VA_ARGS__)
+#else
+#define LOGD(...) ((void) 0)
+#endif
+
 
 #ifdef SND_LIB_INTEGRATED
 uint32_t soundlibchoice = soundlib_nosound;
@@ -33,6 +38,7 @@ static boolean wiz_error_flag = FALSE;
 
 int NetHackMain(int argc, char** argv)
 {
+    LOGD("NetHackMain start");
     char *dir = argv[1];
     NHFILE *nhfp;
     boolean resuming = FALSE; /* assume new game */
@@ -185,7 +191,7 @@ int NetHackMain(int argc, char** argv)
     }
 
     if (!resuming) {
-        boolean neednewlock = (!*svp.plname);
+        boolean neednewlock = (boolean) (!*svp.plname);
         /* new game:  start by choosing role, race, etc;
            player might change the hero's name while doing that,
            in which case we try to restore under the new name

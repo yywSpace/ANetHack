@@ -1,7 +1,7 @@
 package com.yywspace.anethack.gamedata
 
+import com.yywspace.anethack.log.AppLog
 import android.content.Context
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -55,7 +55,7 @@ object GameData {
                 loadFromAssets(context)
                 loaded = true
             } catch (e: Exception) {
-                Log.e("GameData", "load assets failed", e)
+                AppLog.e("GameData", "load assets failed", e)
             }
         }
     }

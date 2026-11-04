@@ -157,7 +157,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:title="@string/pref_log_header"
+        app:title="@string/pref_dump_header"
         app:iconSpaceReserved="false">
         <Preference
             app:key="dumpLog"
@@ -171,11 +171,33 @@
             app:iconSpaceReserved="false"
             app:summary="@string/pref_log_clear_desc"/>
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/pref_log_header"
+        app:iconSpaceReserved="false">
         <Preference
-            app:key="errorLog"
-            app:title="@string/pref_log_error"
-            app:useSimpleSummaryProvider="false"
-            app:summary="@string/pref_log_error_summery"
+            app:key="appLog"
+            app:title="@string/pref_log_app"
+            app:summary="@string/pref_log_app_summary"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
+            app:key="lastCrash"
+            app:title="@string/pref_log_crash"
+            app:summary="@string/pref_log_crash_summary"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
+            app:key="exportLogs"
+            app:title="@string/pref_log_export"
+            app:summary="@string/pref_log_export_summary"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
+            app:key="clearLogs"
+            app:title="@string/pref_log_clear_logs"
+            app:summary="@string/pref_log_clear_logs_summary"
             app:iconSpaceReserved="false"/>
 
     </PreferenceCategory>

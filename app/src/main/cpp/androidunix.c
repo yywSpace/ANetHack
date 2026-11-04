@@ -16,8 +16,6 @@
 
 static int eraseoldlocks(void);
 
-static struct stat buf;
-
 static int
 eraseoldlocks(void)
 {

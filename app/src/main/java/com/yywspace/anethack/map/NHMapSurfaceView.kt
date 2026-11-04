@@ -14,7 +14,6 @@ import android.graphics.RectF
 import android.graphics.Typeface
 import android.text.TextPaint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -142,7 +141,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                             PointF(curseBorder.centerX(), curseBorder.centerY()),
                             PointF(e.x, e.y)
                         )
-                        Log.d("direction", "$direction")
                         playerMove(direction, false)
                     }
                 }
@@ -440,7 +438,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             direction = Direction.RIGHT
         if ((angle > 292.5) and (angle < 337.5))
             direction = Direction.RIGHT_UP
-        Log.d("getMoveDirection", angle.toString())
         return direction
     }
 

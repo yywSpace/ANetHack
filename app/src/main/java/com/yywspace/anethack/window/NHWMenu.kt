@@ -2,7 +2,6 @@ package com.yywspace.anethack.window
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -126,7 +125,6 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         while (menuCommand.wid != wid) {
             menuCommand = nh.command.waitForAnyCommand<NHMenuCommand>()
         }
-        Log.d("selectMenu", menuCommand.selectedItems.toString())
         return menuCommand.selectedItems.toLongArray()
     }
 

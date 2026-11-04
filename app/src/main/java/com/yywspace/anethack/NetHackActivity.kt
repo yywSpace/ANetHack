@@ -17,6 +17,7 @@ import com.yywspace.anethack.gamedata.GameData
 import com.yywspace.anethack.gamedata.NHMonsterDialog
 import com.yywspace.anethack.gamedata.NHPriceIDialog
 import com.yywspace.anethack.keybord.KeyboardVibrate
+import com.yywspace.anethack.log.AppLog
 import com.yywspace.anethack.setting.SettingsActivity
 import com.yywspace.anethack.theme.AppTheme
 import com.yywspace.anethack.window.NHWMenu
@@ -57,7 +58,6 @@ class NetHackActivity : AppCompatActivity() {
         AssetsLoader(this).loadAssets(
             listOf("nethackdir", "logs", "conf"), false
         ) { overwrite ->
-            processLogs()
             processConf(overwrite)
             nethack.run()
         }
@@ -91,6 +91,7 @@ class NetHackActivity : AppCompatActivity() {
         val newUiMode = newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK
         if (newUiMode != uiMode) {
             uiMode = newUiMode
+            AppLog.d("NetHackActivity", "theme changed: $newUiMode")
             // 换主题：applyThemeColors() 里键盘、命令栏、对话框各自刷新
             applyThemeColors()
         } else if (isKeyboardShow) {
@@ -226,19 +227,6 @@ class NetHackActivity : AppCompatActivity() {
             }
         }
         binding.bottomCommandBar.setSwitchIcon(isKeyboardIcon = !extraPanelVisible)
-    }
-
-    private fun processLogs() {
-        object : Thread() {
-            override fun run() {
-                // save error log
-                val logcatProcess = Runtime.getRuntime().exec("logcat -d *:W")
-                val errorLog = File(filesDir,"logs/error/nethack.log")
-                FileOutputStream(errorLog).use { fileOut ->
-                    logcatProcess.inputStream.copyTo(fileOut)
-                }
-            }
-        }.start()
     }
 
     private fun processConf(overwrite:Boolean) {

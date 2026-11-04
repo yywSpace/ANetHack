@@ -2,7 +2,6 @@ package com.yywspace.anethack.window
 
 import android.annotation.SuppressLint
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -69,7 +68,6 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
     }
 
     override fun displayWindow(blocking: Boolean) {
-        Log.d("NHWMessage","NHWMessage: displayWindow")
         if(blocking) {
             nh.runOnUi { _, context ->
                 val dialogTextView = View.inflate(context, R.layout.dialog_message, null)
@@ -100,7 +98,6 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
     }
 
     override fun clearWindow(isRogueLevel: Int) {
-        Log.d("NHWMessage","NHWMessage: clearWindow")
     }
 
     override fun destroyWindow() {
@@ -109,7 +106,6 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
 
     override fun putString(attr: Int, msg: String, color: Int) {
         if(msg.isEmpty()) return
-        Log.d("NHWMessage","NHWMessage: putString $msg")
         if (messageList.size > MESSAGE_HISTORY_SIZE)
             messageList.removeAt(0)
         // 消息来源：游戏当前正在处理的指令（行走、look、命令栏指令等都会记下来）

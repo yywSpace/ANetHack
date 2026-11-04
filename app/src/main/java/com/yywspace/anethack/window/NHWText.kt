@@ -1,6 +1,5 @@
 package com.yywspace.anethack.window
 
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -17,7 +16,6 @@ class NHWText(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
     }
 
     override fun displayWindow(blocking: Boolean) {
-        Log.d("NHWText","NHWText: displayWindow")
         nh.handler.post {
             val dialogTextView = View.inflate( nh.context, R.layout.dialog_text, null)
                 .apply {
