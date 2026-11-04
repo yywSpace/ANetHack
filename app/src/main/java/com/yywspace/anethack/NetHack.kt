@@ -75,23 +75,25 @@ class NetHack(
     }
 
     /** 主循环是否在运行 */
-    @Volatile
-    var isRunning = false
-        private set
+    val isRunning: Boolean
+        get() = gameThread?.isAlive == true
 
+    @Volatile
     private var gameThread: Thread? = null
 
     fun run() {
         // 线程不能重复 start；已经在跑就直接返回
         if (gameThread?.isAlive == true) return
-        gameThread = Thread({
+        val thread = Thread({
             AppLog.i(TAG, "start native process")
             try {
                 runNetHack(netHackDir)
             } catch (t: Throwable) {
                 AppLog.e(TAG, "native process failed", t)
             }
-        }, "NetHackMain").also { it.start() }
+        }, "NetHackMain")
+        gameThread = thread
+        thread.start()
     }
 
     /** 结束游戏：目前是直接终止 native 主循环，会连带结束进程 */
