@@ -57,7 +57,10 @@ class SettingsActivity : AppCompatActivity() {
             findPreference<Preference>("dumpLog")?.setOnPreferenceClickListener {
                 context?.let { ctx ->
                     DumpLogDialog.show(ctx, File(ctx.filesDir, "logs/dump")) { name ->
-                        openInternalFile(ctx, "logs/dump/$name")
+                        startActivity(
+                            Intent(ctx, DumpLogViewerActivity::class.java)
+                                .putExtra(DumpLogViewerActivity.EXTRA_PATH, File(ctx.filesDir, "logs/dump/$name").absolutePath)
+                        )
                     }
                 }
 

@@ -24,6 +24,10 @@
             android:name="ScopedStorage"
             android:value="true" />
         <activity
+            android:name=".setting.DumpLogViewerActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".setting.CommandEditorActivity"
             android:label="@string/pref_keyboard_command_panel" />
 
