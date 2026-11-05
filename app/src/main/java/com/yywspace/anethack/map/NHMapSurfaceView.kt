@@ -32,6 +32,7 @@ import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.command.NHPosCommand.PosMod
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.map.indicator.NHMapIndicatorController
+import com.yywspace.anethack.map.operation.NHMapCenter
 import com.yywspace.anethack.map.operation.NHMapOperation
 import com.yywspace.anethack.map.operation.NHMapScale
 import com.yywspace.anethack.map.operation.NHMapTransform
@@ -68,6 +69,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     private lateinit var nh: NetHack
     private lateinit var map: NHWMap
+    @Volatile
     private var mapBorder:RectF = RectF()
     private var lastMapBorder:RectF = RectF()
     /** 地图四周被覆盖的像素（状态、消息、键盘等），由 Activity 计算后传入 */
@@ -124,6 +126,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             }
 
             override fun onClick(e: PointF) {
+                // 居中操作还没被渲染线程处理时，坐标还是旧的，先忽略这次点击
+                if (operationQueue.any { it is NHMapCenter }) return
                 if(indicatorController.onIndicatorClick(e))
                     return
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
@@ -262,7 +266,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 travelArmed = true
                 // 视口被移动到别处，这也是"地图平移过"
                 mapTranslated = true
-                centerView(tile.x, tile.y)
+                operationQueue.push(NHMapCenter(tile.x, tile.y))
+                // 清除上一次点击留下的灰色定位框，避免居中后它出现在错误位置
+                lastTouchTile = null
+                requestRedraw()
                 // 立即把状态栏切到 TRAVEL，不等绘制线程下一帧
                 updateRunMode()
             }
@@ -360,14 +367,16 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun transformMapWithGesture(dx:Float, dy:Float) {
-        mapBorder.left = floor(lastMapBorder.left  + dx)
-        mapBorder.right = floor(lastMapBorder.right + dx)
-        mapBorder.top = floor(lastMapBorder.top + dy)
-        mapBorder.bottom = floor(lastMapBorder.bottom + dy)
+        mapBorder = RectF(
+            floor(lastMapBorder.left + dx),
+            floor(lastMapBorder.top + dy),
+            floor(lastMapBorder.right + dx),
+            floor(lastMapBorder.bottom + dy)
+        )
     }
 
     private fun transformMap(dx:Float, dy:Float) {
-        mapBorder.offset(dx, dy)
+        mapBorder = RectF(mapBorder).apply { offset(dx, dy) }
         mapTransformDirty = true
         requestRedraw()
     }
@@ -381,10 +390,14 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         tileWidth = getBaseTileWidth() * this.scaleFactor
         tileHeight = getBaseTileHeight() * this.scaleFactor
         borderWidth = ceil(baseBorderWidth * this.scaleFactor)
-        mapBorder.left += (mapBorder.left - centerX) * (scaleFactor - 1)
-        mapBorder.top += (mapBorder.top - centerY) * (scaleFactor - 1)
-        mapBorder.right = mapBorder.left + map.width * tileWidth
-        mapBorder.bottom = mapBorder.top + map.height * tileHeight
+        val newLeft = mapBorder.left + (mapBorder.left - centerX) * (scaleFactor - 1)
+        val newTop = mapBorder.top + (mapBorder.top - centerY) * (scaleFactor - 1)
+        mapBorder = RectF(
+            newLeft,
+            newTop,
+            newLeft + map.width * tileWidth,
+            newTop + map.height * tileHeight
+        )
         mapTransformDirty = true
         requestRedraw()
     }
@@ -502,9 +515,13 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
     /** 设置地图四周被遮挡的区域，镜头跟随会避开这些区域 */
     fun setSafeInsets(left: Int, top: Int, right: Int, bottom: Int) {
+        val changed = left != safeInsets.left || top != safeInsets.top
+                || right != safeInsets.right || bottom != safeInsets.bottom
         safeInsets.set(left, top, right, bottom)
-        if (mapInit) {
-            transformMapWithMove(nh.prefs.walkRange)
+        // 布局回调会重复传相同边距；只有真正变化时才重新跟随居中
+        if (mapInit && changed) {
+            if (!mapTranslated)
+                transformMapWithMove(nh.prefs.walkRange)
             requestRedraw()
         }
     }
@@ -537,9 +554,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     fun centerView(x:Int, y:Int) {
         val tb = getTileBorder(x,y)
-        // 上下按整个屏幕范围居中，只按地图区域算会偏上
-        val screenHeight = nh.binding.root.height.takeIf { it > 0 } ?: measuredHeight
-        transformMap(-(tb.centerX() - measuredWidth / 2F), -(tb.centerY() - screenHeight / 2F))
+        // 只按地图 View 自身尺寸居中；根布局还包含键盘/面板，不能拿来算中心
+        val viewHeight = measuredHeight.takeIf { it > 0 }
+            ?: nh.binding.root.height
+        transformMap(-(tb.centerX() - measuredWidth / 2F), -(tb.centerY() - viewHeight / 2F))
     }
 
     private fun transformMapWithMove(walkRange:Int) {
@@ -779,6 +797,11 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                             transformMapWithGesture(op.dx, op.dy)
                         if (op is NHMapScale)
                             scaleMap(op.scale, op.cx, op.cy)
+                        if (op is NHMapCenter) {
+                            centerView(op.x, op.y)
+                            lastFollowPlayer = Point(map.player)
+                            lastFollowCursor = Point(map.curse)
+                        }
                     }
                     // 玩家移动或光标移动 → 视口跟随（选怪时光标会跳过去，但 player 不变）
                     val followChanged = lastFollowPlayer != map.player ||

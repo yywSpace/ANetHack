@@ -65,9 +65,12 @@ class NetHackActivity : AppCompatActivity() {
 
     /** 地图的安全区由顶部覆盖层的高度决定，布局变化时更新 */
     private fun initMapSafeArea() {
-        val update = { binding.mapView.setSafeInsets(0, binding.topOverlay.height, 0, 0) }
-        binding.topOverlay.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> update() }
-        binding.mapView.post { update() }
+        // 布局回调可能因消息/状态刷新反复触发；只有高度真的变化才更新安全区
+        binding.topOverlay.addOnLayoutChangeListener {
+            _, _, top, _, bottom, _, oldTop, _, oldBottom ->
+            if (bottom - top != oldBottom - oldTop)
+                binding.mapView.setSafeInsets(0, binding.topOverlay.height, 0, 0)
+        }
     }
 
     override fun onDestroy() {
