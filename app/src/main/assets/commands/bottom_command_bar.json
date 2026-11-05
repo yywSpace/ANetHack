@@ -4,16 +4,16 @@
     "command": "S"
   },
   {
-    "label": "Cure",
-    "command": "aM\"unicorn horn\""
-  },
-  {
     "label": "Lamp",
     "command": "aM\"candle|lantern|lamp\""
   },
   {
     "label": "Dig",
     "command": "aM\"pick-axe\""
+  },
+  {
+    "label": "Cure",
+    "command": "aM\"unicorn horn\""
   },
   {
     "label": "Scare",

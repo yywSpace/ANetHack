@@ -31,10 +31,6 @@
       "command": "ZM\"identify\""
     },
     {
-      "label": "Monsters",
-      "command": "ZM\"detect monsters\""
-    },
-    {
       "label": "Mapping",
       "command": "ZM\"magic mapping\""
     },
@@ -43,8 +39,12 @@
       "command": "ZM\"detect treasure\""
     },
     {
+      "label": "Monsters",
+      "command": "ZM\"detect monsters\""
+    },
+    {
       "label": "Remove curse",
-      "command": "aM\"remove curse\""
+      "command": "ZM\"remove curse\""
     }
   ],
   [
