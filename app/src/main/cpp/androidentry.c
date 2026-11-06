@@ -82,7 +82,7 @@ void initNetHackWin() {
     jRequireKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requireKeyCommand", "()I");
     jRequirePosKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requirePosKeyCommand", "([I)C");
     jRenderStatus = (*jEnv)->GetMethodID(jEnv, jApp, "renderStatus",
-                                         "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;III)V");
+                                         "(ILjava/lang/String;Ljava/lang/String;III)V");
     jDelayOutput = (*jEnv)->GetMethodID(jEnv, jApp, "delayOutput", "()V");
     jClipAround = (*jEnv)->GetMethodID(jEnv, jApp, "clipAround", "(IIII)V");
     jYNFunction = (*jEnv)->GetMethodID(jEnv, jApp, "ynFunction",

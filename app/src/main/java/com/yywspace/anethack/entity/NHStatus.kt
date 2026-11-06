@@ -31,32 +31,8 @@ class NHStatus(val context: Context) {
         get() = getField(StatusField.BL_EXP)
     val hitDice:NHAttr
         get() = getField(StatusField.BL_HD)
-    val armorClass:NHAttr
-        get() = getField(StatusField.BL_AC)
-    val strength:NHAttr
-        get() = getField(StatusField.BL_STR)
-    val dexterity:NHAttr
-        get() = getField(StatusField.BL_DX)
-    val constitution:NHAttr
-        get() = getField(StatusField.BL_CO)
-    val intelligence:NHAttr
-        get() = getField(StatusField.BL_IN)
-    val wisdom:NHAttr
-        get() = getField(StatusField.BL_WI)
     val charisma:NHAttr
         get() = getField(StatusField.BL_CH)
-    val alignment:NHAttr
-        get() = getField(StatusField.BL_ALIGN)
-    val score:NHAttr
-        get() = getField(StatusField.BL_SCORE)
-    val gold:NHAttr
-        get() = getField(StatusField.BL_GOLD)
-    val time:NHAttr
-        get() = getField(StatusField.BL_TIME)
-    val hunger:NHAttr
-        get() = getField(StatusField.BL_HUNGER)
-    val encumbrance:NHAttr
-        get() = getField(StatusField.BL_TITLE)
     val dungeonLevel:NHAttr
         get() = getField(StatusField.BL_LEVELDESC)
 

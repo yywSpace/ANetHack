@@ -1,6 +1,5 @@
 package com.yywspace.anethack.window
 
-import android.util.Log
 import com.yywspace.anethack.map.NHStatusView
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.NetHack
@@ -31,7 +30,7 @@ class NHWStatus(wid: Int, type:NHWindowType, nh: NetHack) : NHWindow(wid, type) 
 
     }
 
-    fun renderField(fldIdx: Int, fldName: String, fmtVal: String, realVal:String, attr: Int, color: Int, percent:Int) {
+    fun renderField(fldIdx: Int, fmtVal: String, realVal:String, attr: Int, color: Int, percent:Int) {
         // 只更新数据；绘制由 displayWindow（渲染完成，全量提交后）统一触发
         status.addStatusAttr(fldIdx, color, attr, percent, fmtVal, realVal)
     }

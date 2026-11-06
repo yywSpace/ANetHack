@@ -464,12 +464,10 @@ void and_putstr(winid wid, int attr, const char *str)
     if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
 }
 
-void and_status_field_render(int idx, const char *filed_name, const char *fmt_val, const char *real_val, int attr, int color, int percent) {
-    jstring jFiledName =char2Jstring(jEnv, filed_name);
+void and_status_field_render(int idx, const char *fmt_val, const char *real_val, int attr, int color, int percent) {
     jstring fmtVal = char2Jstring(jEnv, fmt_val);
     jstring realVal = char2Jstring(jEnv, real_val);
-    JNICallV(jRenderStatus, idx, jFiledName, fmtVal, realVal, attr, color, percent)
-    if (jFiledName) (*jEnv)->DeleteLocalRef(jEnv, jFiledName);
+    JNICallV(jRenderStatus, idx, fmtVal, realVal, attr, color, percent)
     if (fmtVal) (*jEnv)->DeleteLocalRef(jEnv, fmtVal);
     if (realVal) (*jEnv)->DeleteLocalRef(jEnv, realVal);
 }
@@ -549,7 +547,8 @@ void and_status_field_render(int idx, const char *filed_name, const char *fmt_va
  *         offsets (because more than one attribute can co-exist).
  *         See doc/window.txt for more details.
  */
-int hl_attridx2atr(int idx)
+/* HL_ATTCLR_* 属性索引 -> Android ATR_* 属性位 */
+static int hl_attr_index_to_atr(int idx)
 {
     switch(idx)
     {
@@ -563,7 +562,8 @@ int hl_attridx2atr(int idx)
     }
 }
 
-int hl_attrmask2atr(int mask)
+/* NetHack HL_* 高亮掩码 -> Android ATR_* 属性位 */
+static int hl_attr_mask_to_atr(int mask)
 {
     int attr = 0;
     if(mask & HL_DIM) attr |= (1<<ATR_DIM);
@@ -595,8 +595,7 @@ static void render_status(void) {
             bits = and_condition_bits;
             if(bits == 0L) {
                 and_status_field_render(
-                        idx, "conditions", "", "",
-                        attrmask, coloridx, percent);
+                        idx, "", "", attrmask, coloridx, percent);
                 continue;
             }
             for (c = 0; c < SIZE(conditions) && bits != 0L; ++c) {
@@ -609,8 +608,7 @@ static void render_status(void) {
                         coloridx = cond_color(mask, and_colormasks);
                     }
                     and_status_field_render(
-                            idx, "conditions", condtext, condtext,
-                            attrmask, coloridx, percent);
+                            idx, condtext, condtext, attrmask, coloridx, percent);
                     bits &= ~mask;
                 }
             }
@@ -619,12 +617,11 @@ static void render_status(void) {
             attrmask = status_attrmasks[idx];
             coloridx = status_colors[idx];
 
-            const char *field_nm = status_fieldnm[idx];
             char *fmt_val = status_vals[idx];
             char *real_val = status_real_values[idx];
             and_status_field_render(
-                    idx, field_nm, fmt_val, real_val,
-                    hl_attrmask2atr(attrmask), coloridx, percent);
+                    idx, fmt_val, real_val,
+                    hl_attr_mask_to_atr(attrmask), coloridx, percent);
         }
     }
     display_nhwindow(WIN_STATUS, FALSE);
@@ -679,7 +676,7 @@ static int cond_attr(long bm, const unsigned long *bmarray)
     if (bm && bmarray) {
         for (i = HL_ATTCLR_DIM; i < BL_ATTCLR_MAX; ++i) {
             if ((bm & bmarray[i]) != 0)
-                attr |= hl_attridx2atr(i);
+                attr |= hl_attr_index_to_atr(i);
         }
     }
     return attr;
