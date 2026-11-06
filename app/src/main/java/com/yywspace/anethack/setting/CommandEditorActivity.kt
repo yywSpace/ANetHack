@@ -187,6 +187,7 @@ class CommandEditorActivity : AppCompatActivity() {
         }
         AlertDialog.Builder(this)
             .setTitle(R.string.unsaved_changes)
+            .setMessage(R.string.unsaved_changes_message)
             .setPositiveButton(R.string.dialog_confirm) { _, _ -> save() }
             .setNegativeButton(R.string.unsaved_changes_discard) { _, _ -> finish() }
             .setNeutralButton(R.string.dialog_cancel, null)

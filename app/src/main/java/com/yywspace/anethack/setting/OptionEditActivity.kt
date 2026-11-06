@@ -75,6 +75,7 @@ class OptionEditActivity: AppCompatActivity() {
         }
         AlertDialog.Builder(this)
             .setTitle(R.string.unsaved_changes)
+            .setMessage(R.string.unsaved_changes_message)
             .setPositiveButton(R.string.dialog_confirm) { _, _ ->
                 saveOptionFile(binding.optionEditText.text.toString())
                 finish()

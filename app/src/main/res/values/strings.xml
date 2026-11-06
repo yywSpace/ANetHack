@@ -158,7 +158,7 @@
     <string name="command_add_title">Add command</string>
     <string name="command_delete">Delete</string>
     <string name="command_delete_confirm">Delete this command?</string>
-    <string name="command_delete_confirm_msg">%1$s (%2$s)</string>
+    <string name="command_delete_confirm_msg">Label: %1$s\nCommand: %2$s</string>
     <string name="command_edit_label">Label</string>
     <string name="command_edit_value">Command</string>
     <string name="command_edit_invalid">Label and command must not be empty</string>
@@ -171,6 +171,7 @@
     <string name="command_editor_import_failed">Import failed: the file is not a valid command config</string>
     <string name="command_editor_export_failed">Export failed: could not write the selected file</string>
     <string name="unsaved_changes">Save changes?</string>
+    <string name="unsaved_changes_message">Unsaved changes will be lost.</string>
     <string name="unsaved_changes_discard">Discard</string>
 
     <!-- Permission -->
