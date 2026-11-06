@@ -94,8 +94,9 @@ class NHPlayerChoose(val nh: NetHack) {
                     }
                     findViewById<MaterialButton>(R.id.player_choose_cancel).apply {
                         setOnClickListener {
-                            nh.stop()
-                            nh.context.finish()
+                            // 交给游戏线程退出，避免 UI 线程直接 nh_terminate
+                            nh.command.sendCommand(NHPlayerChooseCommand(NHPlayer("", "")))
+                            popupWindow.dismiss()
                         }
                     }
                 }

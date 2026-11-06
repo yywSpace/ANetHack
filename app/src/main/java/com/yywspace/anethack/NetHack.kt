@@ -96,14 +96,7 @@ class NetHack(
         thread.start()
     }
 
-    /** 结束游戏：目前是直接终止 native 主循环，会连带结束进程 */
-    fun stop() {
-        AppLog.d(TAG, "stop requested")
-        stopNetHack()
-    }
-
     private external fun runNetHack(path: String)
-    private external fun stopNetHack()
 
     private fun createWindow(type: Int): Int {
         AppLog.d(TAG, "createWindow(type:$type)")
@@ -203,7 +196,8 @@ class NetHack(
     fun askName(nameSize: Int, saves: Array<String>):Array<String> {
         AppLog.d(TAG, "askName(nameSize:$nameSize, saves:${saves.contentToString()})")
         playerChoose.askName(nameSize, saves)
-        return playerChoose.waitForPlayerChoose()
+        val result = playerChoose.waitForPlayerChoose()
+        return if (result.isEmpty() || result[0].isEmpty()) emptyArray() else result
     }
     fun showExtCmdMenu(extCmdList: Array<String>):Int {
         return extCmdChoose.waitForExtCmdChoose(extCmdList)

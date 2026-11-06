@@ -229,7 +229,7 @@ int NetHackMain(int argc, char** argv)
 static void
 process_options(int argc, char *argv[])
 {
-    LOGE("process_options");
+    /* Android 不处理命令行选项 */
 }
 
 

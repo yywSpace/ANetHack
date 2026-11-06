@@ -23,6 +23,7 @@ static void and_player_selection();
 static void and_askname();
 static void and_get_nh_event() ;
 static void and_exit_nhwindows (const char *);
+static void and_bail(const char *);
 static void and_suspend_nhwindows(const char *);
 static void and_resume_nhwindows();
 static winid and_create_nhwindow(int);
@@ -238,9 +239,7 @@ void and_player_selection()
             picked_state[RS_ROLE] = 1;
         } else {
             // if cancel first menu select, exit game
-            clearlocks();
-            exit_nhwindows("bye");
-            nh_terminate(EXIT_SUCCESS);
+            and_bail("bye");
         }
         if (selected)
             free((genericptr_t) selected), selected = 0;
@@ -344,6 +343,15 @@ void and_exit_nhwindows(const char *str)
 {
     LOGD("exit_nhwindows(%s)", str);
     iflags.window_inited = FALSE;
+}
+
+/* 清理并退出：和 TTY 的 bail() 对应 */
+static void and_bail(const char *mesg)
+{
+    clearlocks();
+    exit_nhwindows(mesg);
+    nh_terminate(EXIT_SUCCESS);
+    /*NOTREACHED*/
 }
 
 //____________________________________________________________________________________
@@ -1145,7 +1153,11 @@ void and_askname()
     free_saved_games(saved);
     free_saved_games(aborted);
     jobjectArray jPlayerInfo = (jobjectArray)JNICallO(jAskName, PL_NSIZ, jSavedList)
-    // int itemCnt = (*jEnv)->GetArrayLength(jEnv, jPlayerInfo);
+    int infoLen = jPlayerInfo ? (*jEnv)->GetArrayLength(jEnv, jPlayerInfo) : 0;
+    if (infoLen < 2) {
+        /* 玩家在选人界面取消：和 and_player_selection 一样，在游戏线程退出 */
+        and_bail("bye");
+    }
     jstring jPlayer = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 0);
     jstring jPlaymode = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 1);
     char *player = jstring2Char(jEnv, jPlayer);

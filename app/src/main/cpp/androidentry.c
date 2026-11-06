@@ -66,11 +66,6 @@ Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring
     free(path_c);
 }
 
-JNIEXPORT void JNICALL
-Java_com_yywspace_anethack_NetHack_stopNetHack(JNIEnv *env, jobject thiz) {
-    nh_terminate(EXIT_SUCCESS);
-}
-
 void initNetHackWin() {
     jCreateWindow = (*jEnv)->GetMethodID(jEnv,jApp, "createWindow", "(I)I");
     jStartMenu = (*jEnv)->GetMethodID(jEnv, jApp, "startMenu", "(IJ)V");
