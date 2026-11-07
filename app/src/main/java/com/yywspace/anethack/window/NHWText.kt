@@ -87,9 +87,38 @@ class NHWText(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             lines.any { isPreformatted(it) }
 
         private fun formatBlock(lines: List<String>): String {
-            if (!isPreformattedBlock(lines))
-                return lines.joinToString(" ") { it.trim() }
-            return lines.joinToString("\n")
+            val titleAt = lines.indexOfFirst { isTitle(it) }
+            if (titleAt in 0 until lines.lastIndex) {
+                val out = mutableListOf<String>()
+                val before = lines.take(titleAt)
+                if (before.isNotEmpty())
+                    out.add(formatPlain(before))
+                out.add(lines[titleAt].trimEnd())
+                lines.drop(titleAt + 1).forEach { out.add(it.trimEnd()) }
+                return out.joinToString("\n")
+            }
+            return formatPlain(lines)
+        }
+
+        private fun formatPlain(lines: List<String>): String =
+            if (isPreformattedBlock(lines) || lines.all { looksLikeListEntry(it) })
+                lines.joinToString("\n")
+            else
+                lines.joinToString(" ") { it.trim() }
+
+        private fun looksLikeListEntry(line: String): Boolean {
+            val t = line.trim()
+            if (t.startsWith("a ") || t.startsWith("an ") ||
+                t.startsWith("the "))
+                return true
+            if (t[0].isDigit())
+                return true
+            return isListItem(t)
+        }
+
+        private fun isTitle(line: String): Boolean {
+            val t = line.trim()
+            return t.endsWith(":") && t.firstOrNull()?.isUpperCase() == true
         }
 
         private fun isPreformatted(line: String): Boolean {

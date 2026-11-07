@@ -8,7 +8,6 @@
     <string name="player_name_too_long">Player %s name too long.</string>
     <string name="player_name_exists">Player %s already exists.</string>
     <string name="ext_cmd_select">Please select extended command.</string>
-    <string name="look_here_header">Things that are here:</string>
     <string name="message_history">Message history.</string>
     <string name="item_amount_select">Select the amount of %s</string>
     <string name="number_select">Please input the quantity.</string>
