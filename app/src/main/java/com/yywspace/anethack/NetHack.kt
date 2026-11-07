@@ -174,12 +174,8 @@ class NetHack(
         }
     }
 
-    fun getMessageHistory(idx:Int):String {
-        getWMessage().apply {
-            if (idx >= messageList.size)
-                return "message_end"
-            return messageList[idx].toString()
-        }
+    fun getMessageHistory(idx:Int):String? {
+        return getWMessage().messageList.getOrNull(idx)?.toString()
     }
 
     fun putMessageHistory(msg:String, restoring:Boolean) {

@@ -1230,10 +1230,6 @@ char* and_getmsghistory(boolean init)
     (*e)->DeleteLocalRef(e, result);
     if (!msg)
         return NULL;
-    if (strncmp(msg, "message_end", strlen(msg)) == 0) {
-        free(msg);
-        return NULL;
-    }
     /* the core does not free the returned buffer; hand back a static copy */
     static char msg_buf[BUFSZ];
     strncpy(msg_buf, msg, sizeof(msg_buf) - 1);

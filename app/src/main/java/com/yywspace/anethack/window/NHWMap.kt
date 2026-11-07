@@ -64,10 +64,16 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
         return changed
     }
 
-    fun clipAround(cx: Int, cy: Int,ux: Int, uy: Int) {
+    fun clipAround(cx: Int, cy: Int, ux: Int, uy: Int) {
+        // allmain 用玩家坐标调用；getpos 用光标坐标调用。只有前者才同步光标。
+        val followsHero = cx == ux && cy == uy
         player.x = ux
         player.y = uy
-        // 居中由绘制线程首帧处理（此时 view 已测量，measuredWidth 有效；
+        if (followsHero) {
+            curse.x = ux
+            curse.y = uy
+        }
+        // 首帧由绘制线程以玩家为中心；后续移动由绘制线程的跟随逻辑处理
         mapView.requestRedraw()
     }
 
