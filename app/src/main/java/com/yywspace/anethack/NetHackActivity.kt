@@ -56,7 +56,7 @@ class NetHackActivity : AppCompatActivity() {
         initControlPanel()
         initMapSafeArea()
         AssetsLoader(this).loadAssets(
-            listOf("nethackdir", "logs", "conf"), false
+            listOf("nethackdir", "conf"), false
         ) { overwrite ->
             processConf(overwrite)
             nethack.run()

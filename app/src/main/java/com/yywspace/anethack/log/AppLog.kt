@@ -31,10 +31,7 @@ object AppLog {
 
     fun init(context: Context) {
         debug = (context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
-        dir = File(context.filesDir, "logs/app").apply {
-            mkdirs()
-            setExecutable(true, true)
-        }
+        folder(context)
         val version = runCatching {
             context.packageManager.getPackageInfo(context.packageName, 0).versionName
         }.getOrNull()
@@ -50,6 +47,20 @@ object AppLog {
     fun w(tag: String, msg: String, tr: Throwable? = null) = write("W", tag, msg, tr)
 
     fun e(tag: String, msg: String, tr: Throwable? = null) = write("E", tag, msg, tr)
+
+    fun file(context: Context): File = File(folder(context), "app.log")
+
+    fun files(context: Context): List<File> =
+        folder(context).listFiles { it.name.startsWith("app.log") }?.toList().orEmpty()
+
+    fun clear(context: Context): Int = files(context).count { it.delete() }
+
+    private fun folder(context: Context): File =
+        dir ?: File(context.filesDir, "logs/app").apply {
+            mkdirs()
+            setExecutable(true, true)
+            dir = this
+        }
 
     /** 等待已排队的日志写入完成 */
     fun flush(timeoutMs: Long = 300) {

@@ -16,6 +16,10 @@ import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.R
+import com.yywspace.anethack.log.AppLog
+import com.yywspace.anethack.log.CrashHandler
+import com.yywspace.anethack.log.CrashLog
+import com.yywspace.anethack.log.DumpLog
 import com.yywspace.anethack.log.LogFiles
 import java.io.File
 
@@ -57,10 +61,10 @@ class SettingsActivity : AppCompatActivity() {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             findPreference<Preference>("dumpLog")?.setOnPreferenceClickListener {
                 context?.let { ctx ->
-                    DumpLogDialog.show(ctx, File(ctx.filesDir, "logs/dump")) { name ->
+                    DumpLogDialog.show(ctx) { name ->
                         startActivity(
                             Intent(ctx, TextViewerActivity::class.java)
-                                .putExtra(TextViewerActivity.EXTRA_PATH, File(ctx.filesDir, "logs/dump/$name").absolutePath)
+                                .putExtra(TextViewerActivity.EXTRA_PATH, DumpLog.file(ctx, name).absolutePath)
                         )
                     }
                 }
@@ -69,19 +73,19 @@ class SettingsActivity : AppCompatActivity() {
             }
             findPreference<Preference>("clearDumpLog")?.setOnPreferenceClickListener {
                 val ctx = requireContext()
-                DumpLogDialog.clear(ctx, File(ctx.filesDir, "logs/dump"))
+                DumpLogDialog.clear(ctx)
                 true
             }
             findPreference<Preference>("appLog")?.setOnPreferenceClickListener {
                 val ctx = requireContext()
-                val file = LogFiles.appLog(ctx)
+                val file = AppLog.file(ctx)
                 if (file.exists()) openTextViewer(ctx, file)
                 else Toast.makeText(ctx, R.string.pref_log_no_app, Toast.LENGTH_SHORT).show()
                 true
             }
             findPreference<Preference>("lastCrash")?.setOnPreferenceClickListener {
                 val ctx = requireContext()
-                val file = LogFiles.latestCrash(ctx)
+                val file = CrashLog.latest(ctx)
                 if (file != null) openTextViewer(ctx, file)
                 else Toast.makeText(ctx, R.string.pref_log_no_crash, Toast.LENGTH_SHORT).show()
                 true
