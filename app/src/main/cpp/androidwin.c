@@ -158,37 +158,31 @@ void more(void){
 
 }
 
-//____________________________________________________________________________________
-//init_nhwindows(int* argcp, char** argv)
-//		-- Initialize the windows used by NetHack.  This can also
-//		   create the standard windows listed at the top, but does
-//		   not display them.
-//		-- Any commandline arguments relevant to the windowport
-//		   should be interpreted, and *argcp and *argv should
-//		   be changed to remove those arguments.
-//		-- When the message window is created, the variable
-//		   iflags.window_inited needs to be set to TRUE.  Otherwise
-//		   all plines() will be done via raw_print().
-//		** Why not have init_nhwindows() create all of the "standard"
-//		** windows?  Or at least all but WIN_INFO?	-dean
+/*
+ * and_init_nhwindows() - initialize the Android window port.
+ *
+ * Called once before the standard windows are created. Marks the window
+ * system as initialized so pline() goes through the window port.
+ *
+ * window.txt: init_nhwindows()
+ */
+
 void and_init_nhwindows(int* argcp, char** argv)
 {
     LOGD("init_nhwindows");
     iflags.window_inited = TRUE;
-    /* force toptenwin to be true.  toptenwin is the option that decides
-     * whether to
-     * write output to a window or stdout.  stdout doesn't make sense on
-     * Windows
-     * non-console applications
-     */
-    iflags.toptenwin = 1;
 }
 
-//player_selection()
-//		-- Do a window-port specific player type selection.  If
-//		   player_selection() offers a Quit option, it is its
-//		   responsibility to clean up and terminate the process.
-//		   You need to fill in pl_character[0].
+/*
+ * and_player_selection() - let the player choose role, race, gender and
+ * alignment through native menus.
+ *
+ * Cancelling the first role menu exits the game; cancelling a later menu
+ * returns to the previous choice. pl_character[0] is filled in by the core.
+ *
+ * window.txt: player_selection()
+ */
+
 void and_player_selection()
 {
     int i, result, picked_state[RS_ALGNMNT+1] = {0};
@@ -327,25 +321,39 @@ void and_player_selection()
     }
 }
 
-//____________________________________________________________________________________
-//get_nh_event()	-- Does window event processing (e.g. exposure events).
-//		   A noop for the tty and X window-ports.
+/*
+ * and_get_nh_event() - process pending window-system events.
+ *
+ * Android input is event driven, so there is nothing to poll here.
+ *
+ * window.txt: get_nh_event()
+ */
+
 void and_get_nh_event()
 {
 }
 
-//____________________________________________________________________________________
-//exit_nhwindows(str)
-//		-- Exits the window system.  This should dismiss all windows,
-//		   except the "window" used for raw_print().  str is printed
-//		   if possible.
+/*
+ * and_exit_nhwindows() - shut down the window system.
+ *
+ * Dismisses the NetHack windows and marks the port as no longer initialized.
+ * str is a final message from the core and is not displayed here.
+ *
+ * window.txt: exit_nhwindows(str)
+ */
+
 void and_exit_nhwindows(const char *str)
 {
     LOGD("exit_nhwindows(%s)", str);
     iflags.window_inited = FALSE;
 }
 
-/* 清理并退出：和 TTY 的 bail() 对应 */
+/*
+ * and_bail() - release locks and terminate after a startup cancellation.
+ *
+ * Android counterpart of the tty bail() path; never returns.
+ */
+
 static void and_bail(const char *mesg)
 {
     clearlocks();
@@ -354,47 +362,67 @@ static void and_bail(const char *mesg)
     /*NOTREACHED*/
 }
 
-//____________________________________________________________________________________
-//suspend_nhwindows(str)
-//		-- Prepare the window to be suspended.
+/*
+ * and_suspend_nhwindows() - prepare the port for suspension.
+ *
+ * The Android activity owns suspension, so the port has no state to save.
+ *
+ * window.txt: suspend_nhwindows(str)
+ */
+
 void and_suspend_nhwindows(const char *str)
 {
 }
 
-//____________________________________________________________________________________
-//resume_nhwindows()
-//		-- Restore the windows after being suspended.
+/*
+ * and_resume_nhwindows() - restore the port after suspension.
+ *
+ * The activity redraws its views on resume, so no port-level work is needed.
+ *
+ * window.txt: resume_nhwindows()
+ */
+
 void and_resume_nhwindows()
 {
 }
 
-//____________________________________________________________________________________
-//window = create_nhwindow(type)
-//		-- Create a window of type "type."
+/*
+ * and_create_nhwindow() - create a NetHack window of the requested type.
+ *
+ * The type is forwarded to the Kotlin window factory, which owns the actual
+ * NHW_MESSAGE, NHW_MAP, NHW_MENU and NHW_TEXT implementations.
+ *
+ * window.txt: create_nhwindow(type)
+ */
+
 winid and_create_nhwindow(int type)
 {
     LOGD("create_nhwindow(type:%d)", type);
     return JNICallI(jCreateWindow, type)
 }
 
-//____________________________________________________________________________________
-//clear_nhwindow(window)
-//		-- Clear the given window, when appropriate.
+/*
+ * and_clear_nhwindow() - clear a window before it is reused.
+ *
+ * The rogue-level flag lets the map view reset its tile cache correctly.
+ *
+ * window.txt: clear_nhwindow(window)
+ */
+
 void and_clear_nhwindow(winid wid)
 {
     JNICallV(jClearWindow, wid, Is_rogue_level(&u.uz))
 }
 
-//____________________________________________________________________________________
-//display_nhwindow(window, boolean blocking)
-//		-- Display the window on the screen.  If there is data
-//		   pending for output in that window, it should be sent.
-//		   If blocking is TRUE, display_nhwindow() will not
-//		   return until the data has been displayed on the screen,
-//		   and acknowledged by the user where appropriate.
-//		-- All calls are blocking in the tty window-port.
-//		-- Calling display_nhwindow(WIN_MESSAGE,???) will do a
-//		   --more--, if necessary, in the tty window-port.
+/*
+ * and_display_nhwindow() - flush and show a window.
+ *
+ * Message, status and map windows are non-blocking. All other windows are
+ * forced to blocking here and wait for a key after the Kotlin dialog closes.
+ *
+ * window.txt: display_nhwindow(window, blocking)
+ */
+
 void and_display_nhwindow(winid wid, boolean blocking)
 {
     if(wid != WIN_MESSAGE && wid != WIN_STATUS && wid != WIN_MAP)
@@ -404,56 +432,40 @@ void and_display_nhwindow(winid wid, boolean blocking)
         and_nhgetch();
 }
 
-//____________________________________________________________________________________
-//destroy_nhwindow(window)
-//		-- Destroy will dismiss the window if the window has not
-//		   already been dismissed.
+/*
+ * and_destroy_nhwindow() - destroy a window and release its Kotlin state.
+ *
+ * window.txt: destroy_nhwindow(window)
+ */
+
 void and_destroy_nhwindow(winid wid)
 {
     JNICallV(jDestroyWindow, wid)
 }
 
-//____________________________________________________________________________________
-//curs(window, x, y)
-//		-- Next output to window will start at (x,y), also moves
-//		   displayable cursor to (x,y).  For backward compatibility,
-//		   1 <= x < cols, 0 <= y < rows, where cols and rows are
-//		   the size of window.
-//		-- For variable sized windows, like the status window, the
-//		   behavior when curs() is called outside the window's limits
-//		   is unspecified. The mac port wraps to 0, with the status
-//		   window being 2 lines high and 80 columns wide.
-//		-- Still used by curs_on_u(), status updates, screen locating
-//		   (identify, teleport).
-//		-- NHW_MESSAGE, NHW_MENU and NHW_TEXT windows do not
-//		   currently support curs in the tty window-port.
+/*
+ * and_curs() - position the next output cursor at (x, y).
+ *
+ * Coordinates use the NetHack map convention: 1 <= x < COLNO, 0 <= y < ROWNO.
+ * Menu and text windows may ignore the position.
+ *
+ * window.txt: curs(window, x, y)
+ */
+
 void and_curs(winid wid, int x, int y)
 {
     JNICallV(jCurs, wid, x, y)
 }
 
 /*
-putstr(window, attr, str)
-    -- Print str on the window with the given attribute.  Only
-       printable ASCII characters (040-0126) must be supported.
-       Multiple putstr()s are output on separate lines.  Attributes
-       can be one of
-        ATR_NONE (or 0)
-        ATR_ULINE
-        ATR_BOLD
-        ATR_BLINK
-        ATR_INVERSE
-       If a window-port does not support all of these, it may map
-       unsupported attributes to a supported one (e.g. map them
-       all to ATR_INVERSE).  putstr() may compress spaces out of
-       str, break str, or truncate str, if necessary for the
-       display.  Where putstr() breaks a line, it has to clear
-       to end-of-line.
-    -- putstr should be implemented such that if two putstr()s
-       are done consecutively the user will see the first and
-       then the second.  In the tty port, pline() achieves this
-       by calling more() or displaying both on the same line.
+ * and_putstr() - append one attributed line to a text or menu window.
+ *
+ * Consecutive calls form consecutive lines. Empty strings are forwarded so
+ * the Kotlin side can preserve paragraph breaks; null is ignored.
+ *
+ * window.txt: putstr(window, attr, str)
  */
+
 void and_putstr(winid wid, int attr, const char *str)
 {
 
@@ -473,80 +485,6 @@ void and_status_field_render(int idx, const char *fmt_val, const char *real_val,
 }
 
 
-/*
- *  *_status_update()
- *      -- update the value of a status field.
- *      -- the fldindex identifies which field is changing and
- *         is an integer index value from botl.h
- *      -- fldindex could be any one of the following from botl.h:
- *         BL_TITLE, BL_STR, BL_DX, BL_CO, BL_IN, BL_WI, BL_CH,
- *         BL_ALIGN, BL_SCORE, BL_CAP, BL_GOLD, BL_ENE, BL_ENEMAX,
- *         BL_XP, BL_AC, BL_HD, BL_TIME, BL_HUNGER, BL_HP, BL_HPMAX,
- *         BL_LEVELDESC, BL_EXP, BL_CONDITION
- *      -- fldindex could also be BL_FLUSH (-1), which is not really
- *         a field index, but is a special trigger to tell the
- *         windowport that it should output all changes received
- *         to this point. It marks the end of a bot() cycle.
- *      -- fldindex could also be BL_RESET (-3), which is not really
- *         a field index, but is a special advisory to to tell the
- *         windowport that it should redisplay all its status fields,
- *         even if no changes have been presented to it.
- *      -- ptr is usually a "char *", unless fldindex is BL_CONDITION.
- *         If fldindex is BL_CONDITION, then ptr is a long value with
- *         any or none of the following bits set (from botl.h):
- *               BL_MASK_BAREH        0x00000001L
- *               BL_MASK_BLIND        0x00000002L
- *               BL_MASK_BUSY         0x00000004L
- *               BL_MASK_CONF         0x00000008L
- *               BL_MASK_DEAF         0x00000010L
- *               BL_MASK_ELF_IRON     0x00000020L
- *               BL_MASK_FLY          0x00000040L
- *               BL_MASK_FOODPOIS     0x00000080L
- *               BL_MASK_GLOWHANDS    0x00000100L
- *               BL_MASK_GRAB         0x00000200L
- *               BL_MASK_HALLU        0x00000400L
- *               BL_MASK_HELD         0x00000800L
- *               BL_MASK_ICY          0x00001000L
- *               BL_MASK_INLAVA       0x00002000L
- *               BL_MASK_LEV          0x00004000L
- *               BL_MASK_PARLYZ       0x00008000L
- *               BL_MASK_RIDE         0x00010000L
- *               BL_MASK_SLEEPING     0x00020000L
- *               BL_MASK_SLIME        0x00040000L
- *               BL_MASK_SLIPPERY     0x00080000L
- *               BL_MASK_STONE        0x00100000L
- *               BL_MASK_STRNGL       0x00200000L
- *               BL_MASK_STUN         0x00400000L
- *               BL_MASK_SUBMERGED    0x00800000L
- *               BL_MASK_TERMILL      0x01000000L
- *               BL_MASK_TETHERED     0x02000000L
- *               BL_MASK_TRAPPED      0x04000000L
- *               BL_MASK_UNCONSC      0x08000000L
- *               BL_MASK_WOUNDEDL     0x10000000L
- *               BL_MASK_HOLDING      0x20000000L
- *
- *      -- The value passed for BL_GOLD usually includes an encoded leading
- *         symbol for GOLD "\GXXXXNNNN:nnn". If the window port needs to use
- *         the textual gold amount without the leading "$:" the port will
- *         have to skip past ':' in the passed "ptr" for the BL_GOLD case.
- *      -- color is an unsigned int.
- *               color_index = color & 0x00FF;         CLR_* value
- *               attribute   = (color >> 8) & 0x00FF;  HL_ATTCLR_* mask
- *         This holds the color and attribute that the field should
- *         be displayed in.
- *         This is relevant for everything except BL_CONDITION fldindex.
- *         If fldindex is BL_CONDITION, this parameter should be ignored,
- *         as condition highlighting is done via the next colormasks
- *         parameter instead.
- *
- *      -- colormasks - pointer to cond_hilites[] array of colormasks.
- *         Only relevant for BL_CONDITION fldindex. The window port
- *         should ignore this parameter for other fldindex values.
- *         Each condition bit must only ever appear in one of the
- *         CLR_ array members, but can appear in multiple HL_ATTCLR_
- *         offsets (because more than one attribute can co-exist).
- *         See doc/window.txt for more details.
- */
 /* HL_ATTCLR_* 属性索引 -> Android ATR_* 属性位 */
 static int hl_attr_index_to_atr(int idx)
 {
@@ -627,6 +565,16 @@ static void render_status(void) {
     display_nhwindow(WIN_STATUS, FALSE);
 }
 
+/*
+ * and_status_update() - receive one status field update.
+ *
+ * fldindex selects the field, BL_FLUSH/BL_RESET trigger a redraw, and
+ * BL_CONDITION carries condition bits and highlight masks. Other fields are
+ * formatted into status_vals for the Kotlin status view.
+ *
+ * window.txt: status_update(...)
+ */
+
 void and_status_update(int fldidx, genericptr_t ptr, int chg UNUSED, int percent, int color, unsigned long *colormasks)
 {
     long *condptr = (long *) ptr;
@@ -682,16 +630,29 @@ static int cond_attr(long bm, const unsigned long *bmarray)
     return attr;
 }
 
-//____________________________________________________________________________________
+/*
+ * and_putmixed() - append a line that may contain encoded glyphs.
+ *
+ * Delegates to genl_putmixed(), which decodes \GXXXXNNNN sequences into
+ * characters before the line reaches the Kotlin window.
+ *
+ * window.txt: putmixed(window, attr, str)
+ */
+
 void and_putmixed(winid wid, int attr, const char *str)
 {
     genl_putmixed(wid, attr, str);
 }
 
-//____________________________________________________________________________________
-//display_file(str, boolean complain)
-//		-- Display the file named str.  Complain about missing files
-//		   iff complain is TRUE.
+/*
+ * and_display_file() - read a DLB file into a blocking NHW_TEXT window.
+ *
+ * Tabs are expanded to spaces, then the file is shown with putstr() and
+ * display_nhwindow(TRUE). Missing files are ignored unless complain is TRUE.
+ *
+ * window.txt: display_file(str, complain)
+ */
+
 void and_display_file(const char *name, boolean complain)
 {
     dlb* fd;
@@ -716,12 +677,15 @@ void and_display_file(const char *name, boolean complain)
     }
 }
 
-//____________________________________________________________________________________
-//start_menu(window)
-//		-- Start using window as a menu.  You must call start_menu()
-//		   before add_menu().  After calling start_menu() you may not
-//		   putstr() to the window.  Only windows of type NHW_MENU may
-//		   be used for menus.
+/*
+ * and_start_menu() - switch a menu window into menu-building mode.
+ *
+ * Resets the automatic selector to 'a'; the behavior flags are forwarded to
+ * the Kotlin menu implementation.
+ *
+ * window.txt: start_menu(window, mbehavior)
+ */
+
 void and_start_menu(winid wid,unsigned long mbehavior)
 {
     /* 每个菜单从 a 开始分配选择字母 */
@@ -729,38 +693,16 @@ void and_start_menu(winid wid,unsigned long mbehavior)
     JNICallV(jStartMenu, wid, mbehavior)
 }
 
-//____________________________________________________________________________________
-//add_menu(windid window, int glyph, const anything identifier,
-//				char accelerator, char groupacc,
-//				int attr, char *str, boolean preselected)
-//		-- Add a text line str to the given menu window.  If identifier
-//		   is 0, then the line cannot be selected (e.g. a title).
-//		   Otherwise, identifier is the value returned if the line is
-//		   selected.  Accelerator is a keyboard key that can be used
-//		   to select the line.  If the accelerator of a selectable
-//		   item is 0, the window system is free to select its own
-//		   accelerator.  It is up to the window-port to make the
-//		   accelerator visible to the user (e.g. put "a - " in front
-//		   of str).  The value attr is the same as in putstr().
-//		   Glyph is an optional glyph to accompany the line.  If
-//		   window port cannot or does not want to display it, this
-//		   is OK.  If there is no glyph applicable, then this
-//		   value will be NO_GLYPH.
-//		-- All accelerators should be in the range [A-Za-z],
-//		   but there are a few exceptions such as the tty player
-//		   selection code which uses '*'.
-//	        -- It is expected that callers do not mix accelerator
-//		   choices.  Either all selectable items have an accelerator
-//		   or let the window system pick them.  Don't do both.
-//		-- Groupacc is a group accelerator.  It may be any character
-//		   outside of the standard accelerator (see above) or a
-//		   number.  If 0, the item is unaffected by any group
-//		   accelerator.  If this accelerator conflicts with
-//		   the menu command (or their user defined alises), it loses.
-//		   The menu commands and aliases take care not to interfere
-//		   with the default object class symbols.
-//		-- If you want this choice to be preselected when the
-//		   menu is displayed, set preselected to TRUE.
+/*
+ * and_add_menu() - append one entry to a menu window.
+ *
+ * Selectable entries without an accelerator get the next automatic letter
+ * (a-z, A-Z). identifier, glyph, attributes, color and preselection are
+ * forwarded to the Kotlin menu.
+ *
+ * window.txt: add_menu(window, ...)
+ */
+
 void and_add_menu(winid window, const glyph_info * glyph, const union any * identifier, char accelerator,
         char groupacc, int attr, int clr, const char *str, unsigned int itemflags)
 {
@@ -785,14 +727,14 @@ void and_add_menu(winid window, const glyph_info * glyph, const union any * iden
     if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
 }
 
-//____________________________________________________________________________________
-//end_menu(window, prompt)
-//		-- Stop adding entries to the menu and flushes the window
-//		   to the screen (brings to front?).  Prompt is a prompt
-//		   to give the user.  If prompt is NULL, no prompt will
-//		   be printed.
-//		** This probably shouldn't flush the window any more (if
-//		** it ever did).  That should be select_menu's job.  -dean
+/*
+ * and_end_menu() - finish a menu and set its prompt.
+ *
+ * A null prompt means no prompt text.
+ *
+ * window.txt: end_menu(window, prompt)
+ */
+
 void and_end_menu(winid wid, const char *prompt)
 {
     jstring jstr = char2Jstring(jEnv, prompt);
@@ -800,30 +742,16 @@ void and_end_menu(winid wid, const char *prompt)
     if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
 }
 
-//____________________________________________________________________________________
-//int select_menu(windid window, int how, menu_item **selected)
-//		-- Return the number of items selected; 0 if none were chosen,
-//		   -1 when explicitly cancelled.  If items were selected, then
-//		   selected is filled in with an allocated array of menu_item
-//		   structures, one for each selected line.  The caller must
-//		   free this array when done with it.  The "count" field
-//		   of selected is a user supplied count.  If the user did
-//		   not supply a count, then the count field is filled with
-//		   -1 (meaning all).  A count of zero is equivalent to not
-//		   being selected and should not be in the list.  If no items
-//		   were selected, then selected is NULL'ed out.  How is the
-//		   mode of the menu.  Three valid values are PICK_NONE,
-//		   PICK_ONE, and PICK_ANY, meaning: nothing is selectable,
-//		   only one thing is selectable, and any number valid items
-//		   may selected.  If how is PICK_NONE, this function should
-//		   never return anything but 0 or -1.
-//		-- You may call select_menu() on a window multiple times --
-//		   the menu is saved until start_menu() or destroy_nhwindow()
-//		   is called on the window.
-//		-- Note that NHW_MENU windows need not have select_menu()
-//		   called for them. There is no way of knowing whether
-//		   select_menu() will be called for the window at
-//		   create_nhwindow() time.
+/*
+ * and_select_menu() - display a menu and collect the player's selection.
+ *
+ * Returns the number of selected entries, 0 for none, or -1 for cancel.
+ * The Kotlin side returns (identifier, count) pairs; this function converts
+ * them into the MENU_ITEM_P array owned by the caller.
+ *
+ * window.txt: select_menu(window, how, selected)
+ */
+
 int and_select_menu(winid wid, int how, MENU_ITEM_P **selected)
 {
     jlong *p, *q;
@@ -854,38 +782,52 @@ int and_select_menu(winid wid, int how, MENU_ITEM_P **selected)
 }
 
 
-//____________________________________________________________________________________
-//update_inventory()
-//		-- Indicate to the window port that the inventory has been
-//		   changed.
-//		-- Merely calls display_inventory() for window-ports that
-//		   leave the window up, otherwise empty.
+/*
+ * and_update_inventory() - notify the port that inventory changed.
+ *
+ * The permanent inventory window is maintained by the Kotlin side, so there
+ * is nothing to repaint here.
+ *
+ * window.txt: update_inventory()
+ */
+
 void and_update_inventory()
 {
 }
 
-//____________________________________________________________________________________
-//mark_synch()	-- Don't go beyond this point in I/O on any channel until
-//		   all channels are caught up to here.  Can be an empty call
-//		   for the moment
+/*
+ * and_mark_synch() - mark a synchronization point for output.
+ *
+ * The Android port has no separate output streams, so this is a no-op.
+ *
+ * window.txt: mark_synch()
+ */
+
 void and_mark_synch()
 {
 }
 
-//____________________________________________________________________________________
-//wait_synch()	-- Wait until all pending output is complete (*flush*() for
-//		   streams goes here).
-//		-- May also deal with exposure events etc. so that the
-//		   display is OK when return from wait_synch().
+/*
+ * and_wait_synch() - wait for pending output to become visible.
+ *
+ * Rendering is posted to the Kotlin map thread; no extra flush is required.
+ *
+ * window.txt: wait_synch()
+ */
+
 void and_wait_synch()
 {
 }
 
-//____________________________________________________________________________________
 #ifdef CLIPPING
-//cliparound(x, y)-- Make sure that the user is more-or-less centered on the
-//		   screen if the playing area is larger than the screen.
-//		-- This function is only defined if CLIPPING is defined.
+/*
+ * and_cliparound() - keep the hero near the centre of a clipped map.
+ *
+ * Only built when CLIPPING is defined.
+ *
+ * window.txt: cliparound(x, y)
+ */
+
 void and_cliparound(int x, int y)
 {
 	JNICallV(jClipAround, x, y, u.ux, u.uy)
@@ -893,18 +835,15 @@ void and_cliparound(int x, int y)
 
 #endif
 
-//____________________________________________________________________________________
 #ifdef POSITIONBAR
-//update_positionbar(char *features)
-//		-- Optional, POSITIONBAR must be defined. Provide some
-//		   additional information for use in a horizontal
-//		   position bar (most useful on clipped displays).
-//		   Features is a series of char pairs.  The first char
-//		   in the pair is a symbol and the second char is the
-//		   column where it is currently located.
-//		   A '<' is used to mark an upstairs, a '>'
-//		   for a downstairs, and an '@' for the current player
-//		   location. A zero char marks the end of the list.
+/*
+ * and_update_positionbar() - update the optional position bar.
+ *
+ * Only built when POSITIONBAR is defined; Android has no position bar.
+ *
+ * window.txt: update_positionbar(features)
+ */
+
 void and_update_positionbar(char *features)
 {
 }
@@ -912,18 +851,14 @@ void and_update_positionbar(char *features)
 #endif
 
 /*
- *print_glyph(window, x, y, glyphinfo, bkglyphinfo)
- *		-- Print a glyph found within the glyphinfo at (x,y) on the
- *                 given window. The glyphs within the glyph_info struct are
- *                 integers and can be mapped to whatever the window-
- *		   port wants (symbol, font, color, attributes, ...there's
- *		   a 1-1 map between glyphs and distinct things on the map).
- *		-- bkglyphinfo contains a background glyph for potential use
- *		   by some graphical or tiled environments to allow the
- *		   depiction to fall against a background consistent with the
- *		   grid around x,y.  If bkglyphinfo->glyph is NO_GLYPH, then
- *		   the parameter should be ignored (do nothing with it).
+ * and_print_glyph() - draw one map cell.
+ *
+ * Converts the glyph into a tile or tty character plus color and special
+ * flags, dropping flags the current display options do not support.
+ *
+ * window.txt: print_glyph(window, x, y, glyphinfo, bkglyphinfo)
  */
+
 void and_print_glyph(winid wid, coordxy x, coordxy y, const glyph_info * glyphinfo, const glyph_info * bkglyphinfo)
 {
     int ch = glyphinfo->ttychar;
@@ -942,14 +877,14 @@ void and_print_glyph(winid wid, coordxy x, coordxy y, const glyph_info * glyphin
     JNICallV(jPrintTile, wid, x, y, tile, ch, color, special)
 }
 
-//____________________________________________________________________________________
-// raw_print(str)	-- Print directly to a screen, or otherwise guarantee that
-// 		   the user sees str.  raw_print() appends a newline to str.
-// 		   It need not recognize ASCII control characters.  This is
-// 		   used during startup (before windowing system initialization
-// 		   -- maybe this means only error startup messages are raw),
-// 		   for error messages, and maybe other "msg" uses.  E.g.
-// 		   updating status for micros (i.e, "saving").
+/*
+ * and_raw_print() - print a message directly to the user.
+ *
+ * Used for startup and fatal messages, before or outside the window system.
+ *
+ * window.txt: raw_print(str)
+ */
+
 void and_raw_print(const char* str)
 {
     jstring jstr = char2Jstring(jEnv,str);
@@ -957,9 +892,14 @@ void and_raw_print(const char* str)
     if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
 }
 
-//____________________________________________________________________________________
-// raw_print_bold(str)
-// 		-- Like raw_print(), but prints in bold/standout (if possible).
+/*
+ * and_raw_print_bold() - print a highlighted raw message.
+ *
+ * Android currently uses the same bold presentation as raw_print().
+ *
+ * window.txt: raw_print_bold(str)
+ */
+
 void and_raw_print_bold(const char* str)
 {
     jstring jstr = char2Jstring(jEnv,str);
@@ -967,32 +907,29 @@ void and_raw_print_bold(const char* str)
     if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
 }
 
-//____________________________________________________________________________________
-//int nhgetch()	-- Returns a single character input from the user.
-//		-- In the tty window-port, nhgetch() assumes that tgetch()
-//		   will be the routine the OS provides to read a character.
-//		   Returned character _must_ be non-zero and it must be
-//                   non meta-zero too (zero with the meta-bit set).
+/*
+ * and_nhgetch() - wait for and return one command key.
+ *
+ * The returned character is non-zero and must not be meta-zero.
+ *
+ * window.txt: nhgetch()
+ */
+
 int and_nhgetch()
 {
     int c = JNICallI(jRequireKeyCommand)
     return c;
 }
 
-//____________________________________________________________________________________
-//int nh_poskey(int *x, int *y, int *mod)
-//		-- Returns a single character input from the user or a
-//		   a positioning event (perhaps from a mouse).  If the
-//		   return value is non-zero, a character was typed, else,
-//		   a position in the MAP window is returned in x, y and mod.
-//		   mod may be one of
-//
-//			CLICK_1		/* mouse click type 1 */
-//			CLICK_2		/* mouse click type 2 */
-//
-//		   The different click types can map to whatever the
-//		   hardware supports.  If no mouse is supported, this
-//		   routine always returns a non-zero character.
+/*
+ * and_nh_poskey() - read a command key or a map position event.
+ *
+ * A non-zero return is a typed character. A zero return fills x, y and mod
+ * from the Kotlin position event (CLICK_1/CLICK_2).
+ *
+ * window.txt: nh_poskey(x, y, mod)
+ */
+
 int and_nh_poskey(coordxy *x, coordxy *y, int *mod)
 {
     jintArray jEvent = (*jEnv)->NewIntArray(jEnv, 3);
@@ -1007,45 +944,42 @@ int and_nh_poskey(coordxy *x, coordxy *y, int *mod)
     return ch;
 }
 
-//____________________________________________________________________________________
-//nhbell()	-- Beep at user.  [This will exist at least until sounds are
-//		   redone, since sounds aren't attributable to windows anyway.]
+/*
+ * and_nhbell() - ring the terminal bell.
+ *
+ * Sound output is handled by the Kotlin sound system, so this is a no-op.
+ *
+ * window.txt: nhbell()
+ */
+
 void and_nhbell()
 {
 }
 
-//____________________________________________________________________________________
-//doprev_message()
-//		-- Display previous messages.  Used by the ^P command.
-//		-- On the tty-port this scrolls WIN_MESSAGE back one line.
+/*
+ * and_doprev_message() - display previous messages for the ^P command.
+ *
+ * Android shows the message history in a dedicated window.
+ *
+ * window.txt: doprev_message()
+ */
+
 int and_doprev_message()
 {
     display_nhwindow(WIN_MESSAGE, TRUE);
     return ECMD_OK;
 }
 
-//____________________________________________________________________________________
-// char yn_function(const char *ques, const char *choices, char default)
-//		-- Print a prompt made up of ques, choices and default.
-//		   Read a single character response that is contained in
-//		   choices or default.  If choices is NULL, all possible
-//		   inputs are accepted and returned.  This overrides
-//		   everything else.  The choices are expected to be in
-//		   lower case.  Entering ESC always maps to 'q', or 'n',
-//		   in that order, if present in choices, otherwise it maps
-//		   to default.  Entering any other quit character (SPACE,
-//		   RETURN, NEWLINE) maps to default.
-//		-- If the choices string contains ESC, then anything after
-//		   it is an acceptable response, but the ESC and whatever
-//		   follows is not included in the prompt.
-//		-- If the choices string contains a '#' then accept a count.
-//		   Place this value in the global "yn_number" and return '#'.
-//		-- This uses the top line in the tty window-port, other
-//		   ports might use a popup.
-//		-- If choices is NULL, all possible inputs are accepted and
-//		   returned, preserving case (upper or lower.) This means that
-//		   if the calling function needs an exact match, it must handle
-//		   user input correctness itself.
+/*
+ * and_yn_function() - ask a yes/no or single-choice question.
+ *
+ * choices may contain ESC to hide the remaining prompt text, and '#' to ask
+ * for a numeric count (returned in yn_number). A null choices string accepts
+ * any key, and bracket prompts are treated as messages.
+ *
+ * window.txt: win_yn_function(ques, choices, default)
+ */
+
 char and_yn_function(const char *question, const char *choices, char def)
 {
     char ch = 0;
@@ -1083,18 +1017,15 @@ char and_yn_function(const char *question, const char *choices, char def)
     return ch;
 }
 
-//____________________________________________________________________________________
-// getlin(const char *ques, char *input)
-//		-- Prints ques as a prompt and reads a single line of text,
-//		   up to a newline.  The string entered is returned without the
-//		   newline.  ESC is used to cancel, in which case the string
-//		   "\033\000" is returned.
-//		-- getlin() must call flush_screen(1) before doing anything.
-//		-- This uses the top line in the tty window-port, other
-//		   ports might use a popup.
-//		-- getlin() can assume the input buffer is at least BUFSZ
-//		   bytes in size and must truncate inputs to fit, including
-//		   the nul character.
+/*
+ * and_getlin() - prompt for one line of text.
+ *
+ * The Kotlin input dialog returns at most BUFSZ bytes; ESC returns an empty
+ * string. The buffer is assumed to be at least BUFSZ bytes.
+ *
+ * window.txt: getlin(ques, input)
+ */
+
 void and_getlin(const char *question, char *input)
 {
     JNIEnv *e = jEnv;
@@ -1114,9 +1045,6 @@ void and_getlin(const char *question, char *input)
 }
 
 
-//____________________________________________________________________________________
-//askname()	-- Ask the user for a player name.
-
 /* A saved game name carries its playmode in the final byte (see
    store_plname_in_file()), which char2Jstring() stops short of; pass it along
    so that the chooser doesn't need to remember the mode. */
@@ -1130,6 +1058,15 @@ savedName2Jstring(const char *name)
              (playmode == 'D' || playmode == 'X') ? playmode : '-');
     return char2Jstring(jEnv, buf);
 }
+
+/*
+ * and_askname() - choose a player name and play mode.
+ *
+ * Presents saved and aborted games plus a new-game option. The returned
+ * playmode selects normal, wizard or discover mode and fills plname.
+ *
+ * window.txt: askname()
+ */
 
 void and_askname()
 {
@@ -1173,10 +1110,14 @@ void and_askname()
     (*jEnv)->DeleteLocalRef(jEnv, jPlayerInfo);
 }
 
-//int get_ext_cmd(void)
-//		-- Get an extended command in a window-port specific way.
-//		   An index into extcmdlist[] is returned on a successful
-//		   selection, -1 otherwise.
+/*
+ * and_get_ext_cmd() - choose an extended command from the command list.
+ *
+ * Sends name/description pairs to Kotlin and returns the selected index,
+ * or -1 when the menu is cancelled.
+ *
+ * window.txt: get_ext_cmd()
+ */
 
 int and_get_ext_cmd()
 {
@@ -1210,8 +1151,14 @@ int and_get_ext_cmd()
     return idx;
 }
 
-//number_pad(state)
-//		-- Initialize the number pad to the given state.
+/*
+ * and_number_pad() - initialize the number-pad mode.
+ *
+ * Kotlin currently has no number-pad option hook, so this is a no-op.
+ *
+ * window.txt: number_pad(state)
+ */
+
 void and_number_pad(int state)
 {
     /* Kotlin has no setNumPadOption() counterpart; the previous code called
@@ -1219,18 +1166,40 @@ void and_number_pad(int state)
        Kept as a no-op until a Kotlin-side handler is added. */
 }
 
-//delay_output()	-- Causes a visible delay of 50ms in the output.
-//		   Conceptually, this is similar to wait_synch() followed
-//		   by a nap(50ms), but allows asynchronous operation.
+/*
+ * and_delay_output() - pause briefly so animations remain visible.
+ *
+ * Kotlin sleeps on the game thread; see window.txt for the intended
+ * "wait_synch followed by a short nap" behavior.
+ *
+ * window.txt: delay_output()
+ */
+
 void and_delay_output()
 {
     JNICallV(jDelayOutput)
 }
 
 #ifdef CHANGE_COLOR
+/*
+ * and_change_color() - change a terminal color.
+ *
+ * Built only with CHANGE_COLOR; Android colors are managed by Kotlin.
+ *
+ * window.txt: change_color(color, rgb, reverse)
+ */
+
 void and_change_color(int color_number, long rgb, int reverse)
 {
 }
+/*
+ * and_get_color_string() - return a terminal color as a string.
+ *
+ * Built only with CHANGE_COLOR; Android has no terminal color map.
+ *
+ * window.txt: get_color_string()
+ */
+
 char* and_get_color_string()
 {
     LOGE("and_get_color_string");
@@ -1238,13 +1207,14 @@ char* and_get_color_string()
 }
 #endif
 
-// and_getmsghistory(init)
-// 		window ports can provide their own getmsghistory() routine to
-// 		preserve message history between games. The routine is called
-// 		repeatedly from the core save routine, and the window port is
-// 		expected to successively return each message that it wants
-// 		saved, starting with the oldest message first, finishing with
-// 		the most recent. Return null pointer when finished.
+/*
+ * and_getmsghistory() - return saved messages oldest first.
+ *
+ * Called repeatedly by the save code; init restarts the cursor and null means
+ * there are no more messages.
+ *
+ * window.txt: getmsghistory(init)
+ */
 
 char* and_getmsghistory(boolean init)
 {
@@ -1272,18 +1242,15 @@ char* and_getmsghistory(boolean init)
     return msg_buf;
 }
 
-// and_putmsghistory(msg, restoring)
-//		window ports can provide their own putmsghistory() routine
-//		to load message history from a saved game. The routine is
-//		called repeatedly from the core restore routine, starting
-//		with the oldest saved message first, and finishing with
-//		the latest. The window port routine is expected to load
-//		the message recall buffers in such a way that the ordering
-//		is preserved. The window port routine should make no
-// 		assumptions about how many messages are forthcoming, nor
-//		should it assume that another message will follow this
-//		one, so it should keep all pointers/indexes intact at the
-//		end of each call.
+/*
+ * and_putmsghistory() - restore one saved message.
+ *
+ * Called oldest first during restore; Kotlin rebuilds the recall buffer in
+ * the same order.
+ *
+ * window.txt: putmsghistory(msg, restoring)
+ */
+
 void and_putmsghistory(const char *msg, boolean restoring)
 {
     if(!msg) return;
@@ -1295,10 +1262,14 @@ void and_putmsghistory(const char *msg, boolean restoring)
 }
 
 /*
- * NetHack 核心可能通过这个接口调整菜单模式、提示颜色等。
- * Android 菜单完全由 Kotlin 侧绘制，这些设置对界面没有作用，
- * 因此这里直接接受请求并原样返回 wri。
+ * and_ctrl_nhwindow() - handle window-control requests.
+ *
+ * The Kotlin menu already owns these settings, so the request is accepted
+ * and the request descriptor is returned unchanged.
+ *
+ * window.txt: ctrl_nhwindow(...)
  */
+
 win_request_info *
 and_ctrl_nhwindow(
         winid window,
