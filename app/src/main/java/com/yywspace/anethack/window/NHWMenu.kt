@@ -365,25 +365,14 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
     }
 
     override fun displayWindow(blocking: Boolean) {
-        nh.runOnUi { _, context ->
-            val dialogTextView = View.inflate(context, R.layout.dialog_text, null)
-                .apply {
-                    findViewById<TextView>(R.id.text_view).apply {
-                        // movementMethod = ScrollingMovementMethod.getInstance()
-                        text = NHWText.buildContent(textList.map { it.toString() }, nh.prefs.textReflow)
-                    }
-                }
-            val dialog = AlertDialog.Builder(context).apply {
-                setView(dialogTextView)
-                setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                    if (blocking) {
-                        nh.command.sendCommand(NHKeyCommand(27.toChar()))
-                    }
-                }
-            }.create()
-            dialog.setCancelable(false)
-            dialog.show(nh.prefs.immersiveMode)
-        }
+        val raw = textList.joinToString("\n")
+        val lookHere = nh.context.getString(R.string.look_here_header)
+        // look here 是物品列表，必须保留逐行格式；其他菜单文本按段落 reflow
+        val content = if (raw.contains(lookHere, ignoreCase = true))
+            raw
+        else
+            NHWText.buildContent(textList.map { it.toString() }, nh.prefs.textReflow)
+        NHWText.showDialog(nh, content, blocking)
     }
 
     override fun clearWindow(isRogueLevel: Int) {

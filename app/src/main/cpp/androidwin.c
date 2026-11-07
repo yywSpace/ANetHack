@@ -457,7 +457,7 @@ putstr(window, attr, str)
 void and_putstr(winid wid, int attr, const char *str)
 {
 
-    if(!str || !*str) return;
+    if (!str) return;
     if(attr) attr = 1<<attr;
     jstring jstr = char2Jstring(jEnv, str);
     JNICallV(jPutString, wid, attr, jstr, NO_COLOR)

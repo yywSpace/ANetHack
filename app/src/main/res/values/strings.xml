@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ANetHack</string>
-    <string name="button_esc">ESC</string>
     <string name="play_mod_normal">normal</string>
     <string name="play_mod_discover">discover</string>
     <string name="player_select">Select save data to load</string>
@@ -9,6 +8,7 @@
     <string name="player_name_too_long">Player %s name too long.</string>
     <string name="player_name_exists">Player %s already exists.</string>
     <string name="ext_cmd_select">Please select extended command.</string>
+    <string name="look_here_header">Things that are here:</string>
     <string name="message_history">Message history.</string>
     <string name="item_amount_select">Select the amount of %s</string>
     <string name="number_select">Please input the quantity.</string>
@@ -16,10 +16,6 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_select_all">Select all</string>
     <string name="dialog_clear_all">Clear all</string>
-    <string name="pos_key_question">What do you want to do?</string>
-    <string name="pos_key_travel">Travel</string>
-    <string name="pos_key_run">Run</string>
-    <string name="pos_key_look">Look</string>
     <string name="key_dot_status_desc">key dot status image view</string>
     <string name="menu_item_tile_desc">menu tile image</string>
     <string name="run_mode_run">Run</string>
@@ -36,8 +32,6 @@
     <string name="option_exported">Options exported to the selected file</string>
     <string name="option_import_failed">Import failed: could not read the file</string>
     <string name="option_export_failed">Export failed: could not write the selected file</string>
-    <string name="option_edit_save">Save</string>
-    <string name="option_edit_cancel">Cancel</string>
     <string name="option_edit_title">Option</string>
     <string name="option_save_dialog_title">Save option</string>
     <string name="option_save_dialog_msg">Do you want to save the option file?</string>
@@ -57,7 +51,6 @@
     <string name="price_id_mode_sell">Sell</string>
     <string name="price_id_mode_buy">Buy</string>
     <string name="price_id_mode_base">Base</string>
-    <string name="price_id_invalid_json">Invalid json format.</string>
     <!-- 价格段关键词：匹配游戏端文本（{buy 267 sell 67}），本地化时与游戏端保持一致 -->
     <string name="price_quote_buy">buy</string>
     <string name="price_quote_sell">sell</string>
