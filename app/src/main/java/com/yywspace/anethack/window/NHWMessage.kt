@@ -51,16 +51,18 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
     }
 
     fun getRecentMessageList(size: Int):List<NHMessage> {
-        // 避免列表为空时maxBy报NoSuchElementException异常
-        if (messageList.isEmpty())
+        // CopyOnWriteArrayList 的 size 和 subList 不是原子操作；
+        // 游戏线程可能同时追加/裁剪消息，先取稳定快照再计算。
+        val snapshot = messageList.toList()
+        if (snapshot.isEmpty())
             return emptyList()
-        val lastMsg = messageList.lastOrNull { !it.history }
+        val lastMsg = snapshot.lastOrNull { !it.history }
         // 最多取最新 size 条：同一回合的多条消息共享时间戳，若按同批全部取出会
         // 超过消息栏行数，最新消息被底部裁剪看不见
-        val msgSize = messageList.size.coerceAtMost(size)
-        return messageList.reversed().subList(0, msgSize).map { nhMessage ->
+        val msgSize = snapshot.size.coerceAtMost(size)
+        return snapshot.asReversed().take(msgSize).map { nhMessage ->
             nhMessage.attach(lastMsg?.source)
-        }.toList()
+        }
     }
 
     override fun curs(x: Int, y: Int) {
@@ -73,7 +75,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                 val dialogTextView = View.inflate(context, R.layout.dialog_message, null)
                     .apply {
                         findViewById<RecyclerView>(R.id.dialog_message_list).apply {
-                            val messageAdapter = NHWMessageAdapter(messageList, 20, nh)
+                            val messageAdapter = NHWMessageAdapter(messageList.toList(), 20, nh)
                             adapter = messageAdapter
                             layoutManager = LinearLayoutManager(
                                 context,
@@ -106,7 +108,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
 
     override fun putString(attr: Int, msg: String, color: Int) {
         if(msg.isEmpty()) return
-        if (messageList.size > MESSAGE_HISTORY_SIZE)
+        while (messageList.size >= MESSAGE_HISTORY_SIZE)
             messageList.removeAt(0)
         // 消息来源：游戏当前正在处理的指令（行走、look、命令栏指令等都会记下来）
         messageList.add(
