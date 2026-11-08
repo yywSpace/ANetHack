@@ -5,6 +5,11 @@ import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.map.NHMapSurfaceView
 
+data class MapFrame(
+    val tiles: List<NHWMap.Tile>,
+    val curse: Point
+)
+
 class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type) {
     private var mapView: NHMapSurfaceView = nh.binding.mapView
 
@@ -15,12 +20,15 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
     // 玩家位置
     val player = Point(-1,-1)
 
-    /** 格子数据唯一来源：绘制线程读，applyPendingTiles 写 */
+    /** 已提交的格子数据：绘制线程读，applyFrame 写 */
     private val tiles = Array(height){Array(width) { Tile() } }
 
-    /** printTile 待应用队列：native 线程写，绘制线程消费（applyPendingTiles） */
+    /** printTile 收集中的格子，displayWindow 时封成 MapFrame */
     private val pendingTiles = mutableListOf<Tile>()
-    private val pendingLock = Any()
+    private val stateLock = Any()
+
+    /** 下一次 displayWindow 要提交的光标位置 */
+    private val pendingCurse = Point(-1, -1)
 
     init {
         mapView.initMap(nh,this)
@@ -42,72 +50,62 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
         return tiles[y][x]
     }
 
-    /** 是否有待应用的格子更新（绘制线程变化检测用） */
-    fun hasPendingTiles(): Boolean = synchronized(pendingLock) { pendingTiles.isNotEmpty() }
-
-    /** 应用待应用队列到 tiles 数组，返回实际变化的格子坐标（增量绘制用） */
-    fun applyPendingTiles(): List<Pair<Int, Int>> {
-        val changed = ArrayList<Pair<Int, Int>>()
-        synchronized(pendingLock) {
-            pendingTiles.forEach { t ->
-                val dst = tiles[t.y][t.x]
-                dst.x = t.x
-                dst.y = t.y
-                dst.glyph = t.glyph
-                dst.ch = t.ch
-                dst.color = t.color
-                dst.overlay = t.overlay
-                changed.add(Pair(t.x, t.y))
-            }
-            pendingTiles.clear()
+    fun applyFrame(frame: MapFrame) {
+        frame.tiles.forEach { t ->
+            val dst = tiles[t.y][t.x]
+            dst.x = t.x
+            dst.y = t.y
+            dst.glyph = t.glyph
+            dst.ch = t.ch
+            dst.color = t.color
+            dst.overlay = t.overlay
         }
-        return changed
     }
 
-    fun clipAround(cx: Int, cy: Int, ux: Int, uy: Int) {
-        // allmain 用玩家坐标调用；getpos 用光标坐标调用。只有前者才同步光标。
-        val followsHero = cx == ux && cy == uy
+    @Suppress("UNUSED_PARAMETER") // cx/cy 是 native cliparound 坐标；Android 只取玩家 ux/uy
+    fun clipAround(cx: Int, cy: Int,ux: Int, uy: Int) {
         player.x = ux
         player.y = uy
-        if (followsHero) {
-            curse.x = ux
-            curse.y = uy
-        }
-        // 首帧由绘制线程以玩家为中心；后续移动由绘制线程的跟随逻辑处理
-        mapView.requestRedraw()
     }
 
     override fun curs(x: Int, y: Int) {
-        curse.x = x
-        curse.y = y
-        mapView.requestRedraw()
+        synchronized(stateLock) {
+            pendingCurse.x = x
+            pendingCurse.y = y
+        }
     }
 
     override fun displayWindow(blocking: Boolean) {
-        // 格子数据在 printTile 时已入队，这里只需唤醒绘制线程
-        mapView.requestRedraw()
+        val frame = buildFrame()
+        if (frame != null)
+            mapView.enqueueFrame(frame)
+    }
+
+    private fun buildFrame(): MapFrame? = synchronized(stateLock) {
+        val cursorChanged = pendingCurse != curse
+        if (cursorChanged) {
+            curse.x = pendingCurse.x
+            curse.y = pendingCurse.y
+        }
+        if (pendingTiles.isEmpty() && !cursorChanged)
+            return null
+        val frame = MapFrame(
+            tiles = pendingTiles.toList(),
+            curse = Point(curse.x, curse.y)
+        )
+        pendingTiles.clear()
+        frame
     }
 
     override fun clearWindow(isRogueLevel: Int) {
-        synchronized(pendingLock) {
+        synchronized(stateLock) {
             pendingTiles.clear()
         }
-        for (row in tiles)
-            for (col in row) {
-                col.glyph = -1
-            }
-        // 换楼层等清屏后：下一帧以玩家为中心重新居中 + 全量重绘离屏
         mapView.onMapCleared()
     }
 
     override fun destroyWindow() {
-        curse.set(-1, -1)
-        player.set(-1, -1)
-        tiles.forEach {
-            it.forEach { tile ->
-                tile.glyph = -1
-            }
-        }
+        // WIN_MAP is only destroyed at game end; no map redraw follows.
     }
 
     override fun putString(attr: Int, msg: String, color: Int) {
@@ -124,7 +122,7 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
         mapTile.overlay = special
         // 只入队数据：printTile 是一批更新的中间过程（4-5 个格子逐格到达），
         // 全部更新完后才调用 displayWindow，由 displayWindow 统一触发界面更新
-        synchronized(pendingLock) {
+        synchronized(stateLock) {
             pendingTiles.add(mapTile)
         }
     }

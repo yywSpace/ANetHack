@@ -36,10 +36,11 @@ import com.yywspace.anethack.map.operation.NHMapCenter
 import com.yywspace.anethack.map.operation.NHMapOperation
 import com.yywspace.anethack.map.operation.NHMapScale
 import com.yywspace.anethack.map.operation.NHMapTransform
+import com.yywspace.anethack.window.MapFrame
 import com.yywspace.anethack.window.NHWMap
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.LinkedBlockingDeque
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.locks.ReentrantLock
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.ceil
@@ -60,12 +61,11 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
      * 否则一直是 walk；发过一次 travel 后复位，回到"正常走"的状态。
      */
     private var mapTranslated = false
-    private var mapInit = false
-    /** 视口被外部改动（指示符点击/居中/缩放）后置位，hasChange 据此触发重绘 */
-    private var mapTransformDirty = false
+    private val mapReady = CountDownLatch(1)
+    private val mapInit: Boolean
+        get() = mapReady.count == 0L
     private val paint = Paint()
     private val asciiPaint = TextPaint()
-    private var operationQueue = LinkedBlockingDeque<NHMapOperation>()
 
     private lateinit var nh: NetHack
     private lateinit var map: NHWMap
@@ -81,8 +81,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private val animations = NHMapAnimationPlayer()
     var lastTravelTile:Pair<String,Point>? = null
     private var lastCurse:Point = Point()
-    /** 上次跟随的玩家位置（clipAround 每回合更新；curs 仅在 cursor_on_u 时更新，不可靠） */
-    private var lastFollowPlayer:Point = Point(-1, -1)
     /** 上次跟随的光标位置：选怪/查看时光标移动也要让视口跟上 */
     private var lastFollowCursor:Point = Point(-1, -1)
     private var baseBorderWidth:Float = .5F
@@ -98,24 +96,39 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private var mapCanvas: Canvas? = null
     /** 需要全量重绘离屏缓冲（surface 重建/首帧） */
     private var mapContentDirty = false
-    /** 首次以玩家位置居中是否已做（绘制线程首帧执行，保证 view 已测量） */
+    /** 首次居中是否已做（绘制线程首帧执行，保证 view 已测量） */
     private var playerCentered = false
     /** 尺寸变化前玩家是否在屏幕内（键盘弹出/收起时据此决定要不要跟随） */
     private var playerWasOnScreen = true
     private var isDrawing = false
     private lateinit var indicatorController:NHMapIndicatorController
 
-    /** 变化通知锁：绘制线程挂起，内容/手势变化时 signalAll 唤醒 */
-    private val redrawLock = ReentrantLock()
-    private val redrawCondition = redrawLock.newCondition()
+    /** 绘制线程的唯一工作来源：帧就绪、手势操作、失效重绘。 */
+    private sealed interface MapWork {
+        data class Operation(val op: NHMapOperation) : MapWork
+        data class Frame(val frame: MapFrame) : MapWork
+        object Invalidate : MapWork
+    }
 
-    /** 有内容/手势/光标变化时唤醒绘制线程（NHWMap 与手势回调调用） */
+    private val workQueue = LinkedBlockingDeque<MapWork>()
+
     fun requestRedraw() {
-        redrawLock.lock()
-        try {
-            redrawCondition.signalAll()
-        } finally {
-            redrawLock.unlock()
+        workQueue.offer(MapWork.Invalidate)
+    }
+
+    fun enqueueFrame(frame: MapFrame) {
+        synchronized(workQueue) {
+            val frames = workQueue.filterIsInstance<MapWork.Frame>()
+            if (frames.size >= 4) {
+                // 队列过长：合并最旧帧的 tile，保留最新镜头位置
+                val old = frames.first()
+                workQueue.remove(old)
+                workQueue.offer(MapWork.Frame(
+                    MapFrame(old.frame.tiles + frame.tiles, frame.curse)
+                ))
+            } else {
+                workQueue.offer(MapWork.Frame(frame))
+            }
         }
     }
 
@@ -127,11 +140,11 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
             override fun onClick(e: PointF) {
                 // 居中操作还没被渲染线程处理时，坐标还是旧的，先忽略这次点击
-                if (operationQueue.any { it is NHMapCenter }) return
+                if (workQueue.any { it is MapWork.Operation && it.op is NHMapCenter }) return
                 if(indicatorController.onIndicatorClick(e))
                     return
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
-                    val origin = getTileBorder(map.player.x, map.player.y)
+                    val origin = getTileBorder(map.curse.x, map.curse.y)
                     val direction = getMoveDirection(
                         PointF(origin.centerX(), origin.centerY()),
                         PointF(e.x, e.y)
@@ -149,7 +162,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     }
                 }
                 // 点击框（lastTouchTile）变化：触发一次绘制刷新覆盖层
-                mapTransformDirty = true
                 requestRedraw()
             }
 
@@ -174,20 +186,17 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         showPopupWindow(border.centerX(), border.centerY())
                     }
                 }
-                mapTransformDirty = true
                 requestRedraw()
             }
             override fun onMove(e1: PointF, e2: PointF) {
-                operationQueue.push(NHMapTransform(e2.x - e1.x, e2.y - e1.y))
+                workQueue.offer(MapWork.Operation(NHMapTransform(e2.x - e1.x, e2.y - e1.y)))
                 // 用户平移了地图
                 mapTranslated = true
                 updateRunMode()
-                requestRedraw()
             }
 
             override fun onScale(scaleFactor: Float, cx: Float, cy: Float) {
-                operationQueue.push(NHMapScale(scaleFactor, cx, cy))
-                requestRedraw()
+                workQueue.offer(MapWork.Operation(NHMapScale(scaleFactor, cx, cy)))
             }
         }
     }
@@ -218,19 +227,16 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         this.map = map
         initMapParam()
         initIndicators()
-        this.mapInit = true
+        mapReady.countDown()
         // 首帧强制全量重绘离屏 + 唤醒
         mapContentDirty = true
-        mapTransformDirty = true
         playerCentered = false
     }
 
-    /** 地图清空（换楼层等）：下一帧以玩家为中心重新居中 + 全量重绘离屏。
-     *  不主动唤醒：换楼层后 clipAround 会更新玩家位置并唤醒，避免按旧位置居中 */
+    /** 地图清空（换楼层等）：下一帧以光标为中心重新居中 + 全量重绘离屏。 */
     fun onMapCleared() {
         playerCentered = false
         mapContentDirty = true
-        mapTransformDirty = true
         // 换楼层后旧地图上置的 travel 意图作废
         travelArmed = false
         mapTranslated = false
@@ -266,10 +272,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 travelArmed = true
                 // 视口被移动到别处，这也是"地图平移过"
                 mapTranslated = true
-                operationQueue.push(NHMapCenter(tile.x, tile.y))
+                workQueue.offer(MapWork.Operation(NHMapCenter(tile.x, tile.y)))
                 // 清除上一次点击留下的灰色定位框，避免居中后它出现在错误位置
                 lastTouchTile = null
-                requestRedraw()
                 // 立即把状态栏切到 TRAVEL，不等绘制线程下一帧
                 updateRunMode()
             }
@@ -377,8 +382,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     private fun transformMap(dx:Float, dy:Float) {
         mapBorder = RectF(mapBorder).apply { offset(dx, dy) }
-        mapTransformDirty = true
-        requestRedraw()
     }
 
     private fun scaleMap(scaleFactor:Float, centerX:Float, centerY:Float) {
@@ -398,8 +401,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             newLeft + map.width * tileWidth,
             newTop + map.height * tileHeight
         )
-        mapTransformDirty = true
-        requestRedraw()
     }
 
     private fun playerMove(direction: Direction, straight:Boolean) {
@@ -528,7 +529,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     fun centerPlayerInScreen() {
         if (mapInit)
-            centerView(map.curse.x, map.curse.y)
+            workQueue.offer(MapWork.Operation(NHMapCenter(map.curse.x, map.curse.y)))
     }
 
     /** 人物是否已经显示在屏幕里（用于 travel 前决定要不要居中） */
@@ -560,14 +561,11 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         transformMap(-(tb.centerX() - measuredWidth / 2F), -(tb.centerY() - viewHeight / 2F))
     }
 
-    private fun transformMapWithMove(walkRange:Int) {
-        // 光标和玩家不一致时（查看/选怪），跟随光标；否则跟玩家
-        val cursorHasMoved = map.curse.x >= 0 && map.curse != map.player
-        val followX = if (cursorHasMoved) map.curse.x
-                      else if (map.player.x >= 0) map.player.x else map.curse.x
-        val followY = if (cursorHasMoved) map.curse.y
-                      else if (map.player.y >= 0) map.player.y else map.curse.y
-        val tb = getTileBorder(followX, followY)
+    private fun transformMapWithMove(
+        walkRange: Int,
+        curse: Point = map.curse
+    ) {
+        val tb = getTileBorder(curse.x, curse.y)
         var dx = 0f
         var dy = 0f
         val px = tb.centerX()
@@ -590,17 +588,18 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             dy = top + offsetY - py
         if (py > bottom - offsetY)
             dy = bottom - offsetY - py
-        // 视口没动（玩家在安全区内）时不触发 transformMap，保持增量绘制
-        if (dx != 0f || dy != 0f)
+        // 视口没动（光标在安全区内）时不触发 transformMap，保持增量绘制
+        if (dx != 0f || dy != 0f) {
             transformMap(dx, dy)
+        }
     }
 
-    private fun drawAsciiCurse(canvas: Canvas?) {
+    private fun drawAsciiCurse(canvas: Canvas?, drawCurse: Point) {
         map.apply {
-            if(curse.x < 0 || curse.y < 0)
+            if(drawCurse.x < 0 || drawCurse.y < 0)
                 return
-            val tile = getTile(curse.x, curse.y)
-            val tb = getTileBorder(curse.x, curse.y)
+            val tile = getTile(drawCurse.x, drawCurse.y)
+            val tb = getTileBorder(drawCurse.x, drawCurse.y)
             paint.color = nh.status.hitPoints.color
             paint.style = Paint.Style.FILL
             canvas?.drawRect(tb, paint)
@@ -615,11 +614,11 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         }
     }
 
-    private fun drawTileCurse(canvas: Canvas?) {
+    private fun drawTileCurse(canvas: Canvas?, drawCurse: Point) {
         map.apply {
-            if(curse.x < 0 || curse.y < 0)
+            if(drawCurse.x < 0 || drawCurse.y < 0)
                 return
-            val tb = getTileBorder(curse.x, curse.y)
+            val tb = getTileBorder(drawCurse.x, drawCurse.y)
             // 半透明填充
             paint.style = Paint.Style.FILL
             paint.color = (nh.status.hitPoints.color and 0x00FFFFFF) or (curseFillAlpha shl 24)
@@ -643,7 +642,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             return
         }
         if (!animations.isActive) return
-        val frame = NHMapFrame(
+        val frame = NHMapAnimationFrame(
             tileWidth, tileHeight,
             mapBorder.left, mapBorder.top
         )
@@ -656,11 +655,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         if (length <= 0f) return
         animations.clear()   // 每次点击只保留最新箭头
         animations.add(NHMoveArrow(
-            { map.player },
+            { map.curse },
             { nh.status.hitPoints.color },
             dx / length, dy / length
         ))
-        requestRedraw()
     }
 
     private fun drawIndicator(canvas: Canvas?) {
@@ -745,14 +743,12 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         // surface 重建（切后台返回/设置返回）后画布清空，必须无条件重绘一帧，
         // 否则事件驱动下没有变化源通知绘制线程 → 黑屏
         mapContentDirty = true
-        mapTransformDirty = true
         Thread(this).start()
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
         // 键盘顶起/收起、旋转都会改变地图尺寸：先重绘一帧，
         // 尺寸变化前玩家在屏幕里才跟随一次，否则会把玩家手动拖走的视口拽回来
-        mapTransformDirty = true
         requestRedraw()
         if (mapInit && playerWasOnScreen)
             transformMapWithMove(nh.prefs.walkRange)
@@ -763,91 +759,46 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     /** 是否有需要重绘的变化（格子更新/手势/光标/贴图切换/视口移动） */
-    private fun hasChange(): Boolean {
-        if (!mapInit) return false // 绘制线程可能先于 initMap 启动
-        return map.hasPendingTiles()
-            || operationQueue.isNotEmpty()
-            || lastCurse != map.curse
-            || mapTransformDirty
-            || animations.isActive
-            || nh.tileSet.hasTileSetChange()
+    private fun processOperation(op: NHMapOperation) {
+        when (op) {
+            is NHMapTransform -> transformMapWithGesture(op.dx, op.dy)
+            is NHMapScale -> scaleMap(op.scale, op.cx, op.cy)
+            is NHMapCenter -> {
+                centerView(op.x, op.y)
+                lastFollowCursor = Point(map.curse)
+            }
+        }
     }
 
-    private fun draw(): Boolean {
+    private fun draw(frame: MapFrame?): Boolean {
         holder?.apply {
             if (mapInit) {
-                // 变化检测：没有更新内容/手势/光标/贴图变化 → 跳过本帧（不 lockCanvas）
-                if (!hasChange()) {
-                    return false
-                }
                 val canvas = lockCanvas()
                 try {
                     val tileSetChanged = nh.tileSet.isTileSetChange()
+                    val renderCurse = frame?.curse ?: map.curse
 
                     if (tileSetChanged) {
                         initMapParam() // 重建离屏并全量重绘
                         // 切换贴图后视野重新居中到角色（贴图尺寸变化会让原视口偏移）
-                        if (map.player.x >= 0 && map.player.y >= 0)
-                            centerView(map.player.x, map.player.y)
+                        if (renderCurse.x >= 0 && renderCurse.y >= 0)
+                            centerView(renderCurse.x, renderCurse.y)
                     }
-                    // 处理手势操作（拖动/缩放 → 只改视口，离屏不变）
-                    while (operationQueue.isNotEmpty()) {
-                        val op = operationQueue.pop()
-                        if (op is NHMapTransform)
-                            transformMapWithGesture(op.dx, op.dy)
-                        if (op is NHMapScale)
-                            scaleMap(op.scale, op.cx, op.cy)
-                        if (op is NHMapCenter) {
-                            centerView(op.x, op.y)
-                            lastFollowPlayer = Point(map.player)
-                            lastFollowCursor = Point(map.curse)
-                        }
+                    // 镜头始终跟随光标
+                    if (renderCurse.x >= 0 && lastFollowCursor != renderCurse) {
+                        transformMapWithMove(nh.prefs.walkRange, renderCurse)
+                        lastFollowCursor = Point(renderCurse)
                     }
-                    // 玩家移动或光标移动 → 视口跟随（选怪时光标会跳过去，但 player 不变）
-                    val followChanged = lastFollowPlayer != map.player ||
-                            (map.curse.x >= 0 && lastFollowCursor != map.curse)
-                    if (followChanged) {
-                        transformMapWithMove(nh.prefs.walkRange)
-                        lastFollowPlayer = Point(map.player)
-                        lastFollowCursor = Point(map.curse)
-                    }
-                    updateRunMode()
-
-                    // 离屏更新：贴图切换/强制全量 → 重绘全部；否则只重绘变化的格子+光标新旧格
-                    if (tileSetChanged || mapContentDirty) {
-                        drawAllToOffscreen()
-                        mapContentDirty = false
-                    } else {
-                        val changed = map.applyPendingTiles()
-                        (changed + listOf(
-                            Pair(lastCurse.x, lastCurse.y),
-                            Pair(map.curse.x, map.curse.y)
-                        ))
-                            .filter { it.first in 0 until map.width && it.second in 0 until map.height }
-                            .distinct()
-                            .forEach { (x, y) -> drawOneToOffscreen(x, y) }
-                    }
-                    // 首次以玩家位置为中心（绘制时 view 已测量，measuredWidth 有效；
-                    // 且 clipAround 已把玩家位置写入 map.player）
-                    if (!playerCentered && map.player.x >= 0 && map.player.y >= 0) {
-                        centerView(map.player.x, map.player.y)
+                    // 首次以玩家位置为中心
+                    if (!playerCentered && renderCurse.x >= 0 && renderCurse.y >= 0) {
+                        centerView(renderCurse.x, renderCurse.y)
                         playerCentered = true
                     }
-                    // 屏幕输出：清背景 + 整图 blit（永远完整画面，无残影）+ 覆盖层
-                    canvas?.drawColor(Color.BLACK)
-                    blitMap(canvas)
-                    if (nh.tileSet.isTTY()) {
-                        drawAsciiCurse(canvas)
-                    } else {
-                        drawTileCurse(canvas)
-                    }
-                    drawLastTouchTile(canvas)
-                    drawAnimations(canvas)
-                    drawBorder(canvas)
-                    // drawWalkRange(canvas)
-                    drawIndicator(canvas)
-                    lastCurse = Point(map.curse)
-                    mapTransformDirty = false
+                    updateRunMode()
+                    // 地图层和覆盖层分开绘制
+                    drawMapLayer(canvas, frame, tileSetChanged)
+                    drawOverlays(canvas, renderCurse)
+                    lastCurse = Point(renderCurse)
                 } finally {
                     if (canvas != null)
                         unlockCanvasAndPost(canvas)
@@ -857,28 +808,82 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         }
         return false
     }
-    override fun run() {
-        while (isDrawing) {
-            // 无变化时挂起（最多 500ms 兜底，防通知丢失）；变化来源：displayWindow/curs/手势 signalAll
-            redrawLock.lock()
+
+    /** 绘制地图层：有 MapFrame 时应用它，再更新并贴上离屏地图。 */
+    private fun drawMapLayer(canvas: Canvas?, frame: MapFrame?, tileSetChanged: Boolean) {
+        if (frame != null)
+            map.applyFrame(frame)
+
+        if (tileSetChanged || mapContentDirty) {
+            drawAllToOffscreen()
+            mapContentDirty = false
+        } else frame?.tiles?.map { Pair(it.x, it.y) }?.filter { it.first in 0 until map.width && it.second in 0 until map.height }
+            ?.distinct()?.forEach { (x, y) -> drawOneToOffscreen(x, y) }
+
+        canvas?.drawColor(Color.BLACK)
+        blitMap(canvas)
+    }
+
+    /** 只绘制屏幕覆盖层：光标、点击框、动画、边框、指示符。 */
+    private fun drawOverlays(canvas: Canvas?, drawCurse: Point) {
+        if (canvas == null) return
+        if (nh.tileSet.isTTY()) {
+            drawAsciiCurse(canvas, drawCurse)
+        } else {
+            drawTileCurse(canvas, drawCurse)
+        }
+        drawLastTouchTile(canvas)
+        drawAnimations(canvas)
+        drawBorder(canvas)
+        drawIndicator(canvas)
+    }
+
+    /** 只重画当前离屏地图和覆盖层 */
+    private fun drawAnimationFrame() {
+        holder?.apply {
+            if (mapContentDirty)
+                return
+            val canvas = lockCanvas() ?: return
             try {
-                while (!hasChange() && isDrawing) {
-                    redrawCondition.await(500, TimeUnit.MILLISECONDS)
-                }
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
+                canvas.drawColor(Color.BLACK)
+                blitMap(canvas)
+                drawOverlays(canvas, lastCurse)
             } finally {
-                redrawLock.unlock()
-            }
-            draw()
-            // 有动画时按约 60fps 出帧，别让动画播放期间把 CPU 跑满
-            if (animations.isActive) {
-                try {
-                    Thread.sleep(16)
-                } catch (_: InterruptedException) {
-                }
+                unlockCanvasAndPost(canvas)
             }
         }
     }
-}
 
+    override fun run() {
+        while (isDrawing) {
+            if (!mapInit) {
+                // 地图尚未初始化：不要消费 workQueue，等待 initMap 完成
+                mapReady.await(500, TimeUnit.MILLISECONDS)
+                continue
+            }
+
+            // 动画期间用短超时，空闲时等队列事件
+            val timeout = if (animations.isActive) 16L else 500L
+            val first = workQueue.poll(timeout, TimeUnit.MILLISECONDS)
+            // 队列空闲时活跃动画补一帧；下一轮 poll 的 16ms 超时负责限速
+            if (first == null) {
+                if (animations.isActive)
+                    drawAnimationFrame()
+                continue
+            }
+
+            var work: MapWork? = first
+            while (work != null) {
+                when (work) {
+                    is MapWork.Operation -> processOperation(work.op)
+                    is MapWork.Invalidate -> Unit
+                    is MapWork.Frame -> break // 一帧只消费一个 MapFrame
+                }
+                work = workQueue.poll()
+            }
+
+            // break 时 work 仍指向刚取到的 Frame；没有 Frame 则循环正常结束为 null
+            draw((work as? MapWork.Frame)?.frame)
+        }
+    }
+}

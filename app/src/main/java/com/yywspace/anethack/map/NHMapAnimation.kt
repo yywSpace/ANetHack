@@ -1,11 +1,11 @@
 package com.yywspace.anethack.map
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Point
 import kotlin.math.sin
+import androidx.core.graphics.withTranslation
 
 /**
  * 地图上播放的一次性动画（箭头、滑步等）。
@@ -13,11 +13,11 @@ import kotlin.math.sin
  * [draw] 返回 false 表示动画已结束，由 [NHMapAnimationPlayer] 移除。
  */
 interface NHMapAnimation {
-    fun draw(canvas: Canvas, frame: NHMapFrame, paint: Paint, now: Long): Boolean
+    fun draw(canvas: Canvas, frame: NHMapAnimationFrame, paint: Paint, now: Long): Boolean
 }
 
 /** 一帧里动画需要的几何信息 */
-class NHMapFrame(
+class NHMapAnimationFrame(
     /** 一格多少像素 */
     val cellWidth: Float,
     val cellHeight: Float,
@@ -51,7 +51,7 @@ class NHMapAnimationPlayer {
         synchronized(animations) { animations.clear() }
     }
 
-    fun draw(canvas: Canvas, frame: NHMapFrame, paint: Paint, now: Long) {
+    fun draw(canvas: Canvas, frame: NHMapAnimationFrame, paint: Paint, now: Long) {
         synchronized(animations) {
             animations.removeAll { !it.draw(canvas, frame, paint, now) }
         }
@@ -66,7 +66,7 @@ abstract class NHProgressAnimation(
     private val duration: Long = 350L
 ) : NHMapAnimation {
 
-    final override fun draw(canvas: Canvas, frame: NHMapFrame, paint: Paint, now: Long): Boolean {
+    final override fun draw(canvas: Canvas, frame: NHMapAnimationFrame, paint: Paint, now: Long): Boolean {
         val progress = (now - start) / duration.toFloat()
         if (progress >= 1f) return false
         drawProgress(canvas, frame, paint, progress)
@@ -74,7 +74,7 @@ abstract class NHProgressAnimation(
     }
 
     /** [progress] 从 0 到 1，等于 1 时动画结束 */
-    abstract fun drawProgress(canvas: Canvas, frame: NHMapFrame, paint: Paint, progress: Float)
+    abstract fun drawProgress(canvas: Canvas, frame: NHMapAnimationFrame, paint: Paint, progress: Float)
 }
 
 /** 朝移动方向跳一下的小箭头，位置每帧跟着角色 */
@@ -87,7 +87,7 @@ class NHMoveArrow(
 
     private val path = Path()
 
-    override fun drawProgress(canvas: Canvas, frame: NHMapFrame, paint: Paint, progress: Float) {
+    override fun drawProgress(canvas: Canvas, frame: NHMapAnimationFrame, paint: Paint, progress: Float) {
         val eased = sin(Math.PI * progress).toFloat()
         val distance = 0.55f + 0.25f * eased
         val tile = player()
@@ -101,13 +101,12 @@ class NHMoveArrow(
         path.lineTo(0f, -half)
         path.lineTo(0f, half)
         path.close()
-        canvas.save()
-        canvas.translate(cx, cy)
-        canvas.rotate(Math.toDegrees(kotlin.math.atan2(dy.toDouble(), dx.toDouble())).toFloat())
-        paint.style = Paint.Style.FILL
-        val alpha = (255 * (1f - progress)).toInt()
-        paint.color = (color() and 0x00FFFFFF) or (alpha shl 24)
-        canvas.drawPath(path, paint)
-        canvas.restore()
+        canvas.withTranslation(cx, cy) {
+            rotate(Math.toDegrees(kotlin.math.atan2(dy.toDouble(), dx.toDouble())).toFloat())
+            paint.style = Paint.Style.FILL
+            val alpha = (255 * (1f - progress)).toInt()
+            paint.color = (color() and 0x00FFFFFF) or (alpha shl 24)
+            drawPath(path, paint)
+        }
     }
 }
