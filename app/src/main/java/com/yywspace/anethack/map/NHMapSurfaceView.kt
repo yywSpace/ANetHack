@@ -81,6 +81,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private val animations = NHMapAnimationPlayer()
     var lastTravelTile:Pair<String,Point>? = null
     private var lastCurse:Point = Point()
+    /** 上次跟随的玩家位置，用于判断玩家是否移动 */
+    private var lastFollowPlayer:Point = Point(-1, -1)
     /** 上次跟随的光标位置：选怪/查看时光标移动也要让视口跟上 */
     private var lastFollowCursor:Point = Point(-1, -1)
     private var baseBorderWidth:Float = .5F
@@ -784,9 +786,14 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                         if (renderCurse.x >= 0 && renderCurse.y >= 0)
                             centerView(renderCurse.x, renderCurse.y)
                     }
-                    // 镜头始终跟随光标
-                    if (renderCurse.x >= 0 && lastFollowCursor != renderCurse) {
+                    // 玩家移动跟随玩家；只有光标离开玩家（look）时才跟随光标。
+                    // look 退出时光标回到玩家，不触发镜头移动，视口保持在查看位置。
+                    val followPlayer = map.player
+                    val followChanged = lastFollowPlayer != followPlayer ||
+                            (renderCurse != followPlayer && lastFollowCursor != renderCurse)
+                    if (followChanged) {
                         transformMapWithMove(nh.prefs.walkRange, renderCurse)
+                        lastFollowPlayer = Point(followPlayer)
                         lastFollowCursor = Point(renderCurse)
                     }
                     // 首次以玩家位置为中心

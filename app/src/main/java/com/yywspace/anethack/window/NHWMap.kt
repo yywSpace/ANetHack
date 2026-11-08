@@ -100,6 +100,13 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
     override fun clearWindow(isRogueLevel: Int) {
         synchronized(stateLock) {
             pendingTiles.clear()
+            tiles.forEach { row ->
+                row.forEach { tile ->
+                    tile.glyph = -1
+                    tile.overlay = 0
+                    tile.ch = '0'
+                }
+            }
         }
         mapView.onMapCleared()
     }
