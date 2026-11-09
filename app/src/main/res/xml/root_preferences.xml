@@ -97,7 +97,6 @@
         <CheckBoxPreference
             app:key="travelAfterPanned"
             app:title="@string/pref_map_travel_after_panned"
-            app:dependency="showIndicator"
             app:iconSpaceReserved="false"
             app:defaultValue="true"
             app:summary="@string/pref_map_travel_after_panned_desc"/>
