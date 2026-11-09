@@ -113,18 +113,13 @@ class NHTileSet(val nh: NetHack) {
 
     companion object {
         const val MG_INVIS = 0x00004
+        const val MG_UNEXPL = 0x00800
         const val MG_DETECT = 0x00008
         const val MG_PET = 0x00010
         const val MG_OBJPILE = 0x00080
 
-        /**
-         * Tile index used for glyph-less entries (menus, empty map cells).
-         * Equals NetHack's TILE_UNEXPLORED in the generated tile.c
-         * (other.txt:197 "unexplored").  The native side sends this tile
-         * index for items that have no real glyph, so the UI treats it as
-         * "no tile to show".  Keep in sync with tile.c if the tileset is
-         * regenerated.
-         */
-        const val TILE_UNEXPLORED = 1469
+        /** 只用于绘制 overlay 的标志位；MG_UNEXPL 等变体标记不算 overlay。 */
+        const val SUPPORTED_OVERLAY_MASK = MG_INVIS or MG_DETECT or MG_PET or MG_OBJPILE
+
     }
 }

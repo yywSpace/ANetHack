@@ -42,7 +42,7 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
 
         @SuppressLint("ClickableViewAccessibility")
         fun bind(position: Int, menuItem: NHMenuItem) {
-            if (!tileSet.isTTY() && menuItem.glyph != NHTileSet.TILE_UNEXPLORED) {
+            if (!tileSet.isTTY() && (menuItem.flags and NHTileSet.MG_UNEXPL) == 0) {
                 val bitmap = tileSet.getTile(menuItem.glyph)
                 itemTile.setImageBitmap(bitmap)
                 itemTile.visibility = View.VISIBLE

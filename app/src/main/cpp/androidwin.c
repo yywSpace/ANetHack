@@ -708,6 +708,7 @@ void and_add_menu(winid window, const glyph_info * glyph, const union any * iden
 {
     boolean preselected = (boolean) ((itemflags & MENU_ITEMFLAGS_SELECTED) != 0);
     int tile = glyph->gm.tileidx;
+    int flags = glyph->gm.glyphflags;
     int menu_color = clr, menu_attr = attr;
     /* 可选中但调用方没给 accelerator 的条目，由窗口端口分配一个选择字母，
        界面上显示成 "a - " 这样的前缀（tty/curses 端口也是这么做的） */
@@ -723,7 +724,7 @@ void and_add_menu(winid window, const glyph_info * glyph, const union any * iden
     if(menu_attr)
         menu_attr = 1<<menu_attr;
     jstring jstr = char2Jstring(jEnv, str);
-    JNICallV(jAddMenu, window, tile, (long long )identifier->a_lptr, accelerator, groupacc, menu_attr, menu_color, jstr, preselected)
+    JNICallV(jAddMenu, window, tile, flags, (long long )identifier->a_lptr, accelerator, groupacc, menu_attr, menu_color, jstr, preselected)
     if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
 }
 
@@ -867,7 +868,7 @@ void and_print_glyph(winid wid, coordxy x, coordxy y, const glyph_info * glyphin
 
     unsigned int special = glyphinfo->gm.glyphflags;
 
-    special &= ~(MG_CORPSE|MG_RIDDEN|MG_STATUE|MG_UNEXPL|MG_MALE|MG_FEMALE); // TODO support
+    special &= ~(MG_CORPSE|MG_RIDDEN|MG_STATUE|MG_MALE|MG_FEMALE);
     if(!iflags.hilite_pet)
         special &= ~MG_PET;
     if(!iflags.hilite_pile)

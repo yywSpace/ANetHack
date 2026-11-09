@@ -25,6 +25,7 @@ import android.widget.PopupWindow
 import androidx.core.graphics.minus
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.yywspace.anethack.NHTileSet
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHKeyCommand
@@ -465,12 +466,20 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             x * baseTileWidth, y * baseTileHeight,
             (x + 1) * baseTileWidth, (y + 1) * baseTileHeight
         )
+        if (tile.overlay and NHTileSet.MG_UNEXPL != 0) {
+            // 未探索：直接画黑格，不再依赖 tile 索引是否为 TILE_UNEXPLORED
+            paint.color = Color.BLACK
+            paint.style = Paint.Style.FILL
+            canvas.drawRect(tb, paint)
+            return
+        }
+        val overlay = tile.overlay and NHTileSet.SUPPORTED_OVERLAY_MASK
         if (nh.tileSet.isTTY()) {
             paint.style = Paint.Style.FILL
             var bgColor = Color.BLACK
             var fgColor = tile.color.toColor()
             // reverse special object color
-            if (tile.overlay != 0 && tile.glyph >= 0) {
+            if (overlay != 0 && tile.glyph >= 0) {
                 fgColor = Color.BLACK
                 bgColor = tile.color.toColor()
             }
@@ -492,10 +501,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 paint.style = Paint.Style.FILL
                 canvas.drawRect(tb, paint)
             }
-            if (tile.overlay != 0 && tile.glyph >= 0) {
-                val overlay = nh.tileSet.getTileOverlay(tile.overlay)
-                if (overlay != null) {
-                    canvas.drawBitmap(overlay, nh.tileSet.getOverlayRect(tile.overlay), tb, paint)
+            if (overlay != 0 && tile.glyph >= 0) {
+                val overlayBitmap = nh.tileSet.getTileOverlay(overlay)
+                if (overlayBitmap != null) {
+                    canvas.drawBitmap(overlayBitmap, nh.tileSet.getOverlayRect(overlay), tb, paint)
                 }
             }
         }

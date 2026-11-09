@@ -221,6 +221,7 @@ class NetHack(
     private fun addMenu(
         window: Int,
         glyph: Int,
+        flags: Int,
         identifier: Long,
         accelerator: Char,
         groupAcc: Char,
@@ -229,7 +230,7 @@ class NetHack(
         text: String,
         preselected: Boolean
     ) {
-        getWMenu(window).addMenu(glyph, identifier, accelerator, groupAcc, attr, clr, text, preselected)
+        getWMenu(window).addMenu(glyph, flags, identifier, accelerator, groupAcc, attr, clr, text, preselected)
         // winid window,  const glyph_info * glyph, const union any * identifier, char accelerator, char groupacc, int attr, int clr, const char *str, unsigned int itemflags
     }
 

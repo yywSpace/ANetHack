@@ -43,6 +43,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
 
     fun addMenu(
         glyph: Int,
+        flags: Int,
         identifier: Long,
         accelerator: Char,
         groupAcc: Char,
@@ -55,7 +56,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             return
         nhMenuItems.add(
             NHMenuItem(
-                glyph, identifier,
+                glyph, flags, identifier,
                 accelerator, groupAcc, NHString(text, attr, clr), preselected
             )
         )

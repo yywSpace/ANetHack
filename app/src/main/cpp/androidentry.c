@@ -69,7 +69,7 @@ Java_com_yywspace_anethack_NetHack_runNetHack(JNIEnv *env, jobject thiz, jstring
 void initNetHackWin() {
     jCreateWindow = (*jEnv)->GetMethodID(jEnv,jApp, "createWindow", "(I)I");
     jStartMenu = (*jEnv)->GetMethodID(jEnv, jApp, "startMenu", "(IJ)V");
-    jAddMenu = (*jEnv)->GetMethodID(jEnv, jApp, "addMenu", "(IIJCCIILjava/lang/String;Z)V");
+    jAddMenu = (*jEnv)->GetMethodID(jEnv, jApp, "addMenu", "(IIIJCCIILjava/lang/String;Z)V");
     jEndMenu = (*jEnv)->GetMethodID(jEnv, jApp, "endMenu", "(ILjava/lang/String;)V");
     jSelectMenu = (*jEnv)->GetMethodID(jEnv, jApp, "selectMenu", "(II)[J");
     jDestroyWindow = (*jEnv)->GetMethodID(jEnv, jApp, "destroyWindow", "(I)V");

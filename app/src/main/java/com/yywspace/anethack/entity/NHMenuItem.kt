@@ -4,6 +4,7 @@ import androidx.core.text.isDigitsOnly
 
 data class NHMenuItem(
     val glyph: Int,
+    val flags: Int,
     val identifier: Long,
     val accelerator: Char,
     val groupAcc: Char,
