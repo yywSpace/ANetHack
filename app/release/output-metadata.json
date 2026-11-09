@@ -11,9 +11,9 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 5,
-      "versionName": "5.0.0.a2.0",
-      "outputFile": "ANetHack-5.0.0.a2.0.apk"
+      "versionCode": 6,
+      "versionName": "5.0.0.a2.1",
+      "outputFile": "ANetHack-5.0.0.a2.1.apk"
     }
   ],
   "elementType": "File",
@@ -22,14 +22,14 @@
       "minApi": 28,
       "maxApi": 30,
       "baselineProfiles": [
-        "baselineProfiles/1/ANetHack-5.0.0.a2.0.dm"
+        "baselineProfiles/1/ANetHack-5.0.0.a2.1.dm"
       ]
     },
     {
       "minApi": 31,
       "maxApi": 2147483647,
       "baselineProfiles": [
-        "baselineProfiles/0/ANetHack-5.0.0.a2.0.dm"
+        "baselineProfiles/0/ANetHack-5.0.0.a2.1.dm"
       ]
     }
   ],
