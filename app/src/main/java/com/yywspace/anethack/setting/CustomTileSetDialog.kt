@@ -56,6 +56,9 @@ class CustomTileSetDialog : DialogFragment() {
         view.findViewById<View>(R.id.custom_tileset_picker).setOnClickListener {
             pickImage.launch("image/*")
         }
+        preview?.setOnClickListener {
+            pickImage.launch("image/*")
+        }
 
         val current = NHTileSet.customTileFile(requireContext())
         if (selectedUri == null && current.isFile) {
