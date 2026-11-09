@@ -122,16 +122,17 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     fun enqueueFrame(frame: MapFrame) {
         synchronized(workQueue) {
             val frames = workQueue.filterIsInstance<MapWork.Frame>()
-            if (frames.size >= 4) {
-                // 队列过长：合并最旧帧的 tile，保留最新镜头位置
-                val old = frames.first()
-                workQueue.remove(old)
-                workQueue.offer(MapWork.Frame(
-                    MapFrame(old.frame.tiles + frame.tiles, frame.curse)
+            if (frames.size >= 8) {
+                // 按时间顺序合并最旧的两帧，放回队列前部
+                val first = frames[0]
+                val second = frames[1]
+                workQueue.remove(first)
+                workQueue.remove(second)
+                workQueue.offerFirst(MapWork.Frame(
+                    MapFrame(first.frame.tiles + second.frame.tiles, second.frame.curse)
                 ))
-            } else {
-                workQueue.offer(MapWork.Frame(frame))
             }
+            workQueue.offer(MapWork.Frame(frame))
         }
     }
 
@@ -491,15 +492,15 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                 canvas.drawText(tile.ch.toString(), 0, 1, tb.left, tb.bottom - asciiPaint.descent(), asciiPaint)
             }
         } else {
+            // 先清黑底：tile PNG 可能是透明/半透明的，直接覆盖会留下上一帧的 overlay
+            paint.color = Color.BLACK
+            paint.style = Paint.Style.FILL
+            canvas.drawRect(tb, paint)
+
             if (tile.glyph >= 0) {
                 nh.tileSet.getTile(tile.glyph)?.apply {
                     canvas.drawBitmap(this, Rect(0, 0, this.width, this.height), tb, paint)
                 }
-            } else {
-                // 无 tile：画背景覆盖旧内容（离屏也是覆盖式，杜绝残影）
-                paint.color = Color.BLACK
-                paint.style = Paint.Style.FILL
-                canvas.drawRect(tb, paint)
             }
             if (overlay != 0 && tile.glyph >= 0) {
                 val overlayBitmap = nh.tileSet.getTileOverlay(overlay)
