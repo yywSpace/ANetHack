@@ -116,7 +116,16 @@
     <string name="pref_map_tile_default">Default</string>
     <string name="pref_map_tile_nevanda">Nevanda</string>
     <string name="pref_map_tile_pixelhack">PixelHack</string>
+    <string name="pref_map_tile_custom">Custom</string>
     <string name="pref_map_tile_ascii">Ascii</string>
+    <string name="custom_tileset_title">Custom tileset</string>
+    <string name="custom_tileset_choose_image">Choose image</string>
+    <string name="custom_tileset_tile_width">Tile width</string>
+    <string name="custom_tileset_tile_height">Tile height</string>
+    <string name="custom_tileset_no_image">Choose a sprite sheet first</string>
+    <string name="custom_tileset_invalid_size">Invalid tile size for this image</string>
+    <string name="custom_tileset_saved">Custom tileset saved</string>
+    <string name="custom_tileset_invalid_image">Custom tileset cannot be loaded, using default.</string>
     <string name="pref_map_animations">Play animations</string>
     <string name="pref_map_animations_desc">Show small effects such as the step arrow when tapping the map</string>
     <string name="pref_map_indicator">Show indicator</string>

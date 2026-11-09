@@ -51,7 +51,7 @@
             app:title="@string/pref_map_tileset"
             app:iconSpaceReserved="false"
             app:useSimpleSummaryProvider="true"
-            app:defaultValue="1"
+            app:defaultValue="ascii"
             app:entries="@array/map_tile_array"
             app:entryValues="@array/map_tile_value"/>
 

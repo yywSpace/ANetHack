@@ -46,7 +46,8 @@ int NetHackMain(int argc, char** argv)
     early_init(argc, argv);
     gh.hname = argv[0];
     svh.hackpid = getpid();
-    (void) umask(0777 & ~FCMASK);
+    /* Android app sandbox is private, use default */
+    // (void) umask(0777 & ~FCMASK);
     choose_windows(DEFAULT_WINDOW_SYS);
 
 #ifdef SND_LIB_INTEGRATED

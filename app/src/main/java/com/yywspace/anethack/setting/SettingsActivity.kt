@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
 import androidx.preference.CheckBoxPreference
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.hjq.permissions.OnPermissionCallback
@@ -17,7 +18,6 @@ import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.yywspace.anethack.R
 import com.yywspace.anethack.log.AppLog
-import com.yywspace.anethack.log.CrashHandler
 import com.yywspace.anethack.log.CrashLog
 import com.yywspace.anethack.log.DumpLog
 import com.yywspace.anethack.log.LogFiles
@@ -112,6 +112,15 @@ class SettingsActivity : AppCompatActivity() {
                     true
                 }
             }
+            findPreference<ListPreference>("tileSet")?.apply {
+                setOnPreferenceChangeListener { _, newValue ->
+                    if (newValue != CustomTileSetDialog.TILE_SET_CUSTOM)
+                        return@setOnPreferenceChangeListener true
+                    // 选择 Custom 就进入上传/替换流程；保存后再把值设为 custom
+                    showCustomTileSetDialog()
+                    false
+                }
+            }
             findPreference<Preference>("optionEdit")?.apply {
                 setOnPreferenceClickListener { _ ->
                     startActivity(Intent(context, OptionEditActivity::class.java))
@@ -162,6 +171,13 @@ class SettingsActivity : AppCompatActivity() {
                     true
                 }
             }
+        }
+
+        private fun showCustomTileSetDialog() {
+            CustomTileSetDialog.newInstance {
+                findPreference<ListPreference>("tileSet")?.value =
+                    CustomTileSetDialog.TILE_SET_CUSTOM
+            }.show(parentFragmentManager, CustomTileSetDialog.TAG)
         }
 
         /** 打开命令编辑页：底部命令栏与扩展面板在同一个页面里编辑 */

@@ -17,7 +17,10 @@ class SharedPreferencesUtils(val context: Context) {
     var immersiveMode by SharedPreferenceDelegates.boolean(true)
     var textReflow by SharedPreferenceDelegates.boolean(true)
     var keyboardVibrate by SharedPreferenceDelegates.boolean(true)
-    var tileSet by SharedPreferenceDelegates.string("1")
+    var tileSet by SharedPreferenceDelegates.string("ascii")
+    var customTileWidth by SharedPreferenceDelegates.int(32)
+    var customTileHeight by SharedPreferenceDelegates.int(32)
+    var customTileSetVersion by SharedPreferenceDelegates.int(0)
     var showIndicator by SharedPreferenceDelegates.boolean(true)
     var playAnimations by SharedPreferenceDelegates.boolean(true)
     var showLastTravelIndicator by SharedPreferenceDelegates.boolean(true)
@@ -89,16 +92,6 @@ class SharedPreferencesUtils(val context: Context) {
 
             override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: String?) {
                 thisRef.preferences.edit { putString(property.name, value) }
-            }
-        }
-
-        fun string2int(defaultValue: Int = 0) = object : ReadWriteProperty<SharedPreferencesUtils, Int> {
-            override fun getValue(thisRef: SharedPreferencesUtils, property: KProperty<*>): Int {
-                return thisRef.preferences.getString(property.name, defaultValue.toString())?.toInt()?:defaultValue
-            }
-
-            override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Int) {
-                thisRef.preferences.edit { putString(property.name, value.toString()) }
             }
         }
 

@@ -5,12 +5,14 @@
         <item>@string/pref_map_tile_default</item>
         <item>@string/pref_map_tile_nevanda</item>
         <item>@string/pref_map_tile_pixelhack</item>
+        <item>@string/pref_map_tile_custom</item>
     </string-array>
     <string-array name="map_tile_value">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
+        <item>ascii</item>
+        <item>default</item>
+        <item>nevanda</item>
+        <item>pixelhack</item>
+        <item>custom</item>
     </string-array>
     <string-array name="theme_mode_array">
         <item>@string/pref_ui_theme_system</item>
