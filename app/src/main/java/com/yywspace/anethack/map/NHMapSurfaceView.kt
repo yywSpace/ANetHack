@@ -110,6 +110,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     private sealed interface MapWork {
         data class Operation(val op: NHMapOperation) : MapWork
         data class Frame(val frame: MapFrame) : MapWork
+        object Clear : MapWork
         object Invalidate : MapWork
     }
 
@@ -117,6 +118,10 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     fun requestRedraw() {
         workQueue.offer(MapWork.Invalidate)
+    }
+
+    fun enqueueClear() {
+        workQueue.offer(MapWork.Clear)
     }
 
     fun enqueueFrame(frame: MapFrame) {
@@ -893,6 +898,9 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             while (work != null) {
                 when (work) {
                     is MapWork.Operation -> processOperation(work.op)
+                    is MapWork.Clear -> {
+                        map.clearTiles()
+                    }
                     is MapWork.Invalidate -> Unit
                     is MapWork.Frame -> break // 一帧只消费一个 MapFrame
                 }
