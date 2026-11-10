@@ -1,12 +1,10 @@
 package com.yywspace.anethack.window
 
-import android.content.Context
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.PopupWindow
@@ -20,10 +18,10 @@ import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHPlayerChooseCommand
-import com.yywspace.anethack.log.AppLog
 import com.yywspace.anethack.entity.NHPlayer
 import com.yywspace.anethack.extensions.show
 import com.yywspace.anethack.extensions.showAtLocation
+import com.yywspace.anethack.log.AppLog
 
 
 class NHPlayerChoose(val nh: NetHack) {
@@ -118,10 +116,12 @@ class NHPlayerChoose(val nh: NetHack) {
 
     /** 明暗主题切换：按新配色重建仍在显示的选人弹窗 */
     fun onThemeChanged() {
-        val showing = popup?.takeIf { it.isShowing } ?: return
-        showing.dismiss()
+        popup?.takeIf { it.isShowing }?.dismiss()
         popup = null
-        showPlayerChooseDialog(players)
+        if (players.isEmpty())
+            showNewPlayerDialog(false)
+        else
+            showPlayerChooseDialog(players)
     }
 
     private fun showNewPlayerDialog(fromPlayerList: Boolean) {
@@ -130,7 +130,6 @@ class NHPlayerChoose(val nh: NetHack) {
             val view = View.inflate(context, R.layout.dialog_player_choose_input, null)
             val input = view.findViewById<EditText>(R.id.player_input)
             val playModG = view.findViewById<RadioGroup>(R.id.play_mod_radio_group)
-            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
             playModG.setOnCheckedChangeListener { _, checkedId ->
                 if (checkedId == R.id.play_mod_wizard) {
