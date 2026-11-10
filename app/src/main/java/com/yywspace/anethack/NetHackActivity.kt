@@ -88,6 +88,8 @@ class NetHackActivity : AppCompatActivity() {
         // 设置里可能刚改过自定义键盘布局
         binding.keyboardView.reloadCustomLayout()
         initControlPanel()
+        // 从设置返回：贴图/视口可能已变化，主动重绘一次
+        binding.mapView.requestRedraw()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

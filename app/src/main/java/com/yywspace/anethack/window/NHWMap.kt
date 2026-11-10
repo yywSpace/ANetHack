@@ -102,6 +102,7 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
             pendingTiles.clear()
         }
         mapView.enqueueClear()
+        mapView.requestRedraw()
     }
 
     /** 由绘制线程调用：清空已提交的格子数据。 */
