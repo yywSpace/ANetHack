@@ -7,12 +7,12 @@ import android.graphics.PointF
 import android.graphics.Rect
 import android.graphics.RectF
 import com.yywspace.anethack.NetHack
-import com.yywspace.anethack.map.NHMapSurfaceView
+import com.yywspace.anethack.map.NHMapView
 import com.yywspace.anethack.window.NHWMap
 import kotlin.math.abs
 
 
-class NHMapIndicator(private val mapView: NHMapSurfaceView,
+class NHMapIndicator(private val mapView: NHMapView,
                      private val nh:NetHack,
                      private val tile:NHWMap.Tile){
     var canIndicatorDraw = false

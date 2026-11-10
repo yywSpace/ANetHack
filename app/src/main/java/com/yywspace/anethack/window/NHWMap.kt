@@ -3,7 +3,7 @@ package com.yywspace.anethack.window
 import android.graphics.Point
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
-import com.yywspace.anethack.map.NHMapSurfaceView
+import com.yywspace.anethack.map.NHMapView
 
 data class MapFrame(
     val tiles: List<NHWMap.Tile>,
@@ -11,7 +11,7 @@ data class MapFrame(
 )
 
 class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type) {
-    private var mapView: NHMapSurfaceView = nh.binding.mapView
+    private var mapView: NHMapView = nh.binding.mapView
 
     val width = 80
     val height = 21

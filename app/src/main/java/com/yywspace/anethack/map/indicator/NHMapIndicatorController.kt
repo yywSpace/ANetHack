@@ -3,11 +3,11 @@ package com.yywspace.anethack.map.indicator
 import android.graphics.Canvas
 import android.graphics.PointF
 import com.yywspace.anethack.NetHack
-import com.yywspace.anethack.map.NHMapSurfaceView
+import com.yywspace.anethack.map.NHMapView
 import com.yywspace.anethack.window.NHWMap
 import kotlin.math.sqrt
 
-class NHMapIndicatorController(private val mapView: NHMapSurfaceView, val nh:NetHack, val map: NHWMap) {
+class NHMapIndicatorController(private val mapView: NHMapView, val nh:NetHack, val map: NHWMap) {
     private var indicatorList = mutableListOf<NHMapIndicator>()
     private var onIndicatorClickListener: OnIndicatorClickListener? = null
     fun drawIndicators(canvas:Canvas?) {

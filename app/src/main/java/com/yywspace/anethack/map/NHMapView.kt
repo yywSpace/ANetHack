@@ -17,8 +17,8 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.SurfaceHolder
-import android.view.SurfaceView
+import android.graphics.SurfaceTexture
+import android.view.TextureView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.PopupWindow
@@ -50,7 +50,7 @@ import kotlin.math.hypot
 import androidx.core.graphics.createBitmap
 
 
-class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
+class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     private var textSize = 64f
     private var scaleFactor = 1f
     /** 点击指示符后，下一次点地图直接 travel（不受 walkRange 影响） */
@@ -225,7 +225,8 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun initView() {
-        holder?.addCallback(this)
+        surfaceTextureListener = this
+        isOpaque = true
         isFocusable = true
         // isFocusableInTouchMode = true
         this.keepScreenOn = true
@@ -366,7 +367,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         popupWindow.apply {
             contentView = recyclerView
             isOutsideTouchable = true
-            showAtLocation(this@NHMapSurfaceView, Gravity.NO_GRAVITY,
+            showAtLocation(this@NHMapView, Gravity.NO_GRAVITY,
                 (x-contentView.measuredWidth /2 ).toInt(), (y-contentView.measuredHeight-tileHeight/2).toInt())
         }
     }
@@ -746,25 +747,24 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
             playerWasOnScreen = playerOnScreen(oldw, oldh)
     }
 
-    override fun surfaceCreated(holder: SurfaceHolder) {
+    override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
         isDrawing = true
-        // surface 重建（切后台返回/设置返回）后画布清空，必须无条件重绘一帧，
-        // 否则事件驱动下没有变化源通知绘制线程 → 黑屏
         mapContentDirty = true
         Thread(this).start()
     }
 
-    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
-        // 键盘顶起/收起、旋转都会改变地图尺寸：先重绘一帧，
-        // 尺寸变化前玩家在屏幕里才跟随一次，否则会把玩家手动拖走的视口拽回来
+    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
         requestRedraw()
         if (mapInit && playerWasOnScreen)
             transformMapWithMove(nh.prefs.walkRange)
     }
 
-    override fun surfaceDestroyed(holder: SurfaceHolder) {
+    override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
         isDrawing = false
+        return true
     }
+
+    override fun onSurfaceTextureUpdated(surface: SurfaceTexture) = Unit
 
     /** 是否有需要重绘的变化（格子更新/手势/光标/贴图切换/视口移动） */
     private fun processOperation(op: NHMapOperation) {
@@ -779,7 +779,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
     }
 
     private fun draw(frame: MapFrame?): Boolean {
-        holder?.apply {
+        if (isAvailable) {
             if (mapInit) {
                 val canvas = lockCanvas()
                 try {
@@ -853,7 +853,7 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
 
     /** 只重画当前离屏地图和覆盖层 */
     private fun drawAnimationFrame() {
-        holder?.apply {
+        if (isAvailable) {
             if (mapContentDirty)
                 return
             val canvas = lockCanvas() ?: return

@@ -11,10 +11,7 @@ class NHPosKeyAdapter(private val keyList: List<String>):
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onItemClickListener: OnItemClickListener?= null
     inner class PostKeyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val itemKey: TextView
-        init {
-            itemKey = view.findViewById(R.id.pos_key_item)
-        }
+        val itemKey: TextView = view.findViewById(R.id.pos_key_item)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
