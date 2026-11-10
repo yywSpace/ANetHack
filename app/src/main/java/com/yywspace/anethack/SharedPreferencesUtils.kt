@@ -29,6 +29,7 @@ class SharedPreferencesUtils(val context: Context) {
     var walkRange by SharedPreferenceDelegates.int(70)
     var priceId by SharedPreferenceDelegates.boolean(true)
     var monsterInfo by SharedPreferenceDelegates.boolean(true)
+    var messageNewColor by SharedPreferenceDelegates.string2int(2)
     var userSound by SharedPreferenceDelegates.boolean(false)
     var internalSound by SharedPreferenceDelegates.boolean(true)
 
@@ -72,6 +73,21 @@ class SharedPreferencesUtils(val context: Context) {
 
             override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Int) {
                 thisRef.preferences.edit { putInt(property.name, value) }
+            }
+        }
+
+        fun string2int(defaultValue: Int = 0) = object : ReadWriteProperty<SharedPreferencesUtils, Int> {
+            override fun getValue(thisRef: SharedPreferencesUtils, property: KProperty<*>): Int {
+                return try {
+                    thisRef.preferences.getString(property.name, defaultValue.toString())
+                        ?.toIntOrNull() ?: defaultValue
+                } catch (_: ClassCastException) {
+                    thisRef.preferences.getInt(property.name, defaultValue)
+                }
+            }
+
+            override fun setValue(thisRef: SharedPreferencesUtils, property: KProperty<*>, value: Int) {
+                thisRef.preferences.edit { putString(property.name, value.toString()) }
             }
         }
 

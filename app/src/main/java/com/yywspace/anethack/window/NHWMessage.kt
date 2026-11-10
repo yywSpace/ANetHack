@@ -61,7 +61,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         // 超过消息栏行数，最新消息被底部裁剪看不见
         val msgSize = snapshot.size.coerceAtMost(size)
         return snapshot.asReversed().take(msgSize).map { nhMessage ->
-            nhMessage.attach(lastMsg?.source)
+            nhMessage.attach(lastMsg?.source, newColor = NHColor.fromInt(nh.prefs.messageNewColor))
         }
     }
 
@@ -152,7 +152,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                     messageText.append("\n")
                 val lineStart = messageText.length
                 messageText.append(
-                    message.attach(lastCmdMsg?.source, oldMsgColor).toSpannableString()
+                    message.attach(lastCmdMsg?.source, oldMsgColor, NHColor.fromInt(nh.prefs.messageNewColor)).toSpannableString()
                 )
                 // 只解析 look 指令产生的消息（格式可预期），其它消息保持原样
                 if (message.fromLook) {

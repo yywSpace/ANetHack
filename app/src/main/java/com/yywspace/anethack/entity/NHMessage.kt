@@ -21,10 +21,10 @@ data class NHMessage(
         return value.toString()
     }
 
-    fun attach(lastSource: NHCommand?, color: NHColor?=null):NHMessage {
+    fun attach(lastSource: NHCommand?, color: NHColor?=null, newColor: NHColor=NHColor.CLR_GREEN):NHMessage {
         val message = clone().apply {
             if (!history && source === lastSource)
-                value.nhColor = NHColor.CLR_GREEN
+                value.nhColor = newColor
             else {
                 value.nhColor = _color
                 if (color != null)

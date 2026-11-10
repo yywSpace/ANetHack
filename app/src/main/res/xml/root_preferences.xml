@@ -20,6 +20,15 @@
             app:defaultValue="true"
             app:summary="@string/pref_ui_immersive_mode_desc"/>
 
+        <com.yywspace.anethack.setting.ColorListPreference
+            app:key="messageNewColor"
+            app:title="@string/pref_ui_message_color"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="2"
+            app:entries="@array/message_color_array"
+            app:entryValues="@array/message_color_value"/>
+
         <CheckBoxPreference
             app:key="textReflow"
             app:title="@string/pref_ui_text_reflow"
