@@ -46,6 +46,7 @@ class NetHackActivity : AppCompatActivity() {
         setContentView(binding.root)
         handler = Handler(Looper.getMainLooper())
         nethack = NetHack(handler, this, binding,"${filesDir.path}/nethackdir")
+        AppTheme.applyGameBars(this, nethack.prefs.immersiveMode)
         priceIDialog = NHPriceIDialog(this, nethack)
         nethack.priceIDialog = priceIDialog
         monsterDialog = NHMonsterDialog(this,nethack)
@@ -81,7 +82,7 @@ class NetHackActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        AppTheme.applyGameSystemBars(this, nethack.prefs.immersiveMode)
+        AppTheme.applyGameBars(this, nethack.prefs.immersiveMode)
         KeyboardVibrate.bind(this)
         KeyboardVibrate.enabled = nethack.prefs.keyboardVibrate
         // 设置里可能刚改过自定义键盘布局

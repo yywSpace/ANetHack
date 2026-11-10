@@ -194,7 +194,7 @@ class CommandEditorActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun initStatusBar() = AppTheme.applyStatusBar(this)
+    private fun initStatusBar() = AppTheme.applyNormalSystemBars(this)
 
     private fun dp(value: Int): Int = (value * resources.displayMetrics.density).toInt()
 

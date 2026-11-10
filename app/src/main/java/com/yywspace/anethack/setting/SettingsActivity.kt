@@ -44,7 +44,7 @@ class SettingsActivity : AppCompatActivity() {
 
 
 
-    private fun initStatusBar() = AppTheme.applyStatusBar(this)
+    private fun initStatusBar() = AppTheme.applyNormalSystemBars(this)
 
     class SettingsFragment : PreferenceFragmentCompat(){
         private var userSoundPerm:CheckBoxPreference? = null

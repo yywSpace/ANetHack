@@ -38,7 +38,7 @@ class TextViewerActivity : AppCompatActivity() {
             loadWithOverviewMode = true
         }
 
-        AppTheme.applyStatusBar(this)
+        AppTheme.applyNormalSystemBars(this)
 
         val background = String.format("#%06X", 0xFFFFFF and getColor(R.color.app_background))
         val color = String.format("#%06X", 0xFFFFFF and getColor(R.color.app_text))

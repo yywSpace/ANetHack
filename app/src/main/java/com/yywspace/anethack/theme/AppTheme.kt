@@ -5,11 +5,13 @@ import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.preference.PreferenceManager
+import com.yywspace.anethack.R
 import com.yywspace.anethack.entity.NHColor
 
 /**
@@ -17,8 +19,8 @@ import com.yywspace.anethack.entity.NHColor
  *
  * 新加 Activity 时只需要：
  * - onCreate 里先调 [applyTheme]；
- * - 普通页面（设置、编辑页）调 [applyStatusBar]；
- * - 游戏页调 [applyGameSystemBars]，按是否沉浸模式切换。
+ * - 普通页面（设置、编辑页）调 [applyNormalSystemBars]；
+ * - 游戏页调 [applyGameBars]，按沉浸式变量切换状态栏/导航栏。
  */
 object AppTheme {
 
@@ -61,7 +63,7 @@ object AppTheme {
     }
 
     /** 普通页面（设置、编辑页）：状态栏透明，图标颜色跟随深浅色 */
-    fun applyStatusBar(activity: Activity) {
+    fun applyNormalSystemBars(activity: Activity) {
         activity.window.statusBarColor = Color.TRANSPARENT
         val controller =
             WindowCompat.getInsetsController(activity.window, activity.window.decorView)
@@ -69,23 +71,39 @@ object AppTheme {
         controller.show(WindowInsetsCompat.Type.systemBars())
     }
 
-    /**
-     * 游戏页的系统栏。
-     *
-     * - [immersive] = true：隐藏系统栏，下滑可临时唤出；
-     * - [immersive] = false：黑底 + 亮色图标（深浅色主题下都清晰）。
-     */
-    fun applyGameSystemBars(activity: Activity, immersive: Boolean) {
-        val controller =
-            WindowCompat.getInsetsController(activity.window, activity.window.decorView)
-        if (immersive) {
-            controller.systemBarsBehavior =
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            controller.hide(WindowInsetsCompat.Type.systemBars())
-        } else {
-            activity.window.statusBarColor = Color.BLACK
-            controller.isAppearanceLightStatusBars = false
+
+    fun applyGameBars(activity: Activity, immersive: Boolean) {
+        WindowCompat.setDecorFitsSystemWindows(activity.window, !immersive)
+        activity.window.statusBarColor = Color.BLACK
+        activity.window.navigationBarColor = ContextCompat.getColor(activity, R.color.app_background)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q)
+            activity.window.isNavigationBarContrastEnforced = false
+        val controller = controller(activity)
+        controller.isAppearanceLightStatusBars = false
+        controller.isAppearanceLightNavigationBars = false
+
+        if (!immersive) {
             controller.show(WindowInsetsCompat.Type.systemBars())
+            return
+        }
+
+        // 状态栏在第一次布局前隐藏
+        controller.apply {
+            systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            hide(WindowInsetsCompat.Type.statusBars())
+        }
+        // 导航栏等第一次布局完成后再隐藏
+        activity.window.decorView.post {
+            controller.apply {
+                systemBarsBehavior =
+                    WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                hide(WindowInsetsCompat.Type.navigationBars())
+            }
         }
     }
+
+    private fun controller(activity: Activity) =
+        WindowCompat.getInsetsController(activity.window, activity.window.decorView)
+
 }

@@ -130,7 +130,7 @@ class OptionEditActivity: AppCompatActivity() {
         return true
     }
 
-    private fun initStatusBar() = AppTheme.applyStatusBar(this)
+    private fun initStatusBar() = AppTheme.applyNormalSystemBars(this)
 
     private fun initView() {
         val toolbar = findViewById<Toolbar>(R.id.option_edit_toolbar)
