@@ -1,10 +1,12 @@
 package com.yywspace.anethack.window
 
+import android.content.Context
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.PopupWindow
@@ -21,6 +23,7 @@ import com.yywspace.anethack.command.NHPlayerChooseCommand
 import com.yywspace.anethack.log.AppLog
 import com.yywspace.anethack.entity.NHPlayer
 import com.yywspace.anethack.extensions.show
+import com.yywspace.anethack.extensions.showAtLocation
 
 
 class NHPlayerChoose(val nh: NetHack) {
@@ -122,52 +125,88 @@ class NHPlayerChoose(val nh: NetHack) {
     }
 
     private fun showNewPlayerDialog(fromPlayerList: Boolean) {
-        nh.runOnUi { _, context ->
+        nh.runOnUi { binding, context ->
+            val parentPopup = if (fromPlayerList) popup else null
             val view = View.inflate(context, R.layout.dialog_player_choose_input, null)
             val input = view.findViewById<EditText>(R.id.player_input)
             val playModG = view.findViewById<RadioGroup>(R.id.play_mod_radio_group)
-            val dialog = AlertDialog.Builder(context).run {
-                setTitle(R.string.player_input)
-                setPositiveButton(R.string.dialog_confirm) { _,_ ->
-                    val playMod = when (playModG.checkedRadioButtonId) {
-                        R.id.play_mod_normal -> PLAY_MOD_NORMAL
-                        R.id.play_mod_discover -> PLAY_MOD_DISCOVER
-                        R.id.play_mod_wizard -> PLAY_MOD_WIZARD
-                        else -> PLAY_MOD_NORMAL
-                    }
-                    val player = input.text.toString()
-                    if (player.isEmpty())
-                        return@setPositiveButton
-                    if(player.length >= nameSize) {
-                        Toast.makeText(context, context.getString(R.string.player_name_too_long, player), Toast.LENGTH_SHORT).show()
-                        return@setPositiveButton
-                    }
-                    players.forEach {
-                        if(player == it.player) {
-                            Toast.makeText(context, context.getString(R.string.player_name_exists, player), Toast.LENGTH_SHORT).show()
-                            return@setPositiveButton
-                        }
-                    }
-                    popup?.dismiss()
-                    finishPlayerChoose(NHPlayer(player, playMod))
+            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+            playModG.setOnCheckedChangeListener { _, checkedId ->
+                if (checkedId == R.id.play_mod_wizard) {
+                    // wizard 模式默认填入 wizard，但仍允许用户修改
+                    input.setText(PLAY_MOD_WIZARD)
+                } else if (input.text.toString() == PLAY_MOD_WIZARD) {
+                    input.setText("")
                 }
-                setNegativeButton(R.string.dialog_cancel) { _,_ ->
-                    if (!fromPlayerList) {
-                        // 没有选人列表可返回时，取消等同于退出选人流程
-                        nh.command.sendCommand(NHPlayerChooseCommand(NHPlayer("", "")))
-                    }
-                }
-                create()
             }
 
-            dialog.apply {
-                setView(view)
-                setCancelable(false)
-                show(nh.prefs.immersiveMode)
+            var dismissContainer: (() -> Unit)? = null
+            view.findViewById<MaterialButton>(R.id.player_input_confirm).setOnClickListener {
+                val playMod = when (playModG.checkedRadioButtonId) {
+                    R.id.play_mod_normal -> PLAY_MOD_NORMAL
+                    R.id.play_mod_discover -> PLAY_MOD_DISCOVER
+                    R.id.play_mod_wizard -> PLAY_MOD_WIZARD
+                    else -> PLAY_MOD_NORMAL
+                }
+                val player = input.text.toString()
+                if (player.isEmpty())
+                    return@setOnClickListener
+                if (player.length >= nameSize) {
+                    Toast.makeText(context, context.getString(R.string.player_name_too_long, player), Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                if (players.any { it.player == player }) {
+                    Toast.makeText(context, context.getString(R.string.player_name_exists, player), Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                dismissContainer?.invoke()
+                parentPopup?.dismiss()
+                finishPlayerChoose(NHPlayer(player, playMod))
+            }
+            view.findViewById<MaterialButton>(R.id.player_input_cancel).setOnClickListener {
+                dismissContainer?.invoke()
+                if (!fromPlayerList) {
+                    popup = null
+                    // 没有选人列表可返回时，取消等同于退出选人流程
+                    nh.command.sendCommand(NHPlayerChooseCommand(NHPlayer("", "")))
+                }
+            }
+
+            if (fromPlayerList) {
+                // 有存档列表时用 Dialog：能完整覆盖列表，不会与列表窗口叠在一起
+                val dialog = AlertDialog.Builder(context)
+                    .setView(view)
+                    .setCancelable(false)
+                    .create()
+                dismissContainer = { dialog.dismiss() }
+                dialog.show(nh.prefs.immersiveMode)
+            } else {
+                // 没有存档时用 PopupWindow，保持非模态，底部命令栏仍可操作
+                val popupWindow = PopupWindow(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT
+                )
+                dismissContainer = { popupWindow.dismiss() }
+                popupWindow.apply {
+                    contentView = view
+                    // 不抢焦点：点击外部不会让系统把它当成失焦窗口关闭
+                    isFocusable = false
+                    isOutsideTouchable = false
+                    binding.root.post {
+                        if (binding.root.isAttachedToWindow) {
+                            showAtLocation(
+                                binding.root, Gravity.CENTER, 0, 0,
+                                nh.prefs.immersiveMode
+                            )
+                            input.requestFocus()
+                        }
+                    }
+                }
+                popup = popupWindow
             }
         }
     }
-
 
     private class NHPlayerChooseAdapter(val players:List<NHPlayer>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var onItemClick:((view: View, index:Int, item:NHPlayer)->Unit)? = null
