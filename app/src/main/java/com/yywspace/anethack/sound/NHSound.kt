@@ -12,7 +12,7 @@ import java.io.File
 
 
 class NHSound(val nh:NetHack) {
-    private lateinit var soundPool:SoundPool
+    private var soundPool: SoundPool? = null
     private val soundCache = mutableMapOf<String, Sound>()
 
     companion object {
@@ -26,14 +26,15 @@ class NHSound(val nh:NetHack) {
         if (!AssetsUtils.exists(nh.context, soundPath)) {
             return
         }
+        val pool = ensureSoundPool()
         nh.context.assets.openFd(soundPath).use {
             if (!soundCache.containsKey(soundName)) {
                 // 首次加载在onLoadComplete里处理播放，此处把必要的参数保存下来
-                soundCache[soundName] = Sound(soundName, soundPool.load(it, 1), volume)
+                soundCache[soundName] = Sound(soundName, pool.load(it, 1), volume)
                 return
             } else {
                 val sound = soundCache[soundName]?:return
-                soundPool.play(sound.soundId,volume / 100f,volume / 100f,0,0,1f)
+                pool.play(sound.soundId,volume / 100f,volume / 100f,0,0,1f)
             }
         }
     }
@@ -51,33 +52,45 @@ class NHSound(val nh:NetHack) {
         if (!soundFile.exists()) {
             return
         }
+        val pool = ensureSoundPool()
         if (!soundCache.containsKey(soundPath)) {
             // 首次加载在onLoadComplete里处理播放，此处把必要的参数保存下来
-            soundCache[soundPath] = Sound(soundPath,soundPool.load(soundPath, 1), volume)
+            soundCache[soundPath] = Sound(soundPath,pool.load(soundPath, 1), volume)
             return
         } else {
             val sound = soundCache[soundPath]?:return
-            soundPool.play(sound.soundId,volume / 100f,volume / 100f,0,0,1f)
+            pool.play(sound.soundId,volume / 100f,volume / 100f,0,0,1f)
         }
     }
+    private fun ensureSoundPool(): SoundPool {
+        soundPool?.let { return it }
+        val pool = createSoundPool()
+        soundPool = pool
+        return pool
+    }
+
     fun initNHSound() {
+        ensureSoundPool()
+    }
+
+    private fun createSoundPool(): SoundPool {
         val attr = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_GAME)
             .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
             .build()
 
-        soundPool = SoundPool.Builder()
+        val pool = SoundPool.Builder()
             .setAudioAttributes(attr)
             .setMaxStreams(5)
             .build()
 
-        soundPool.setOnLoadCompleteListener { soundPool, sampleId, status ->
+        pool.setOnLoadCompleteListener { _, sampleId, status ->
             // 首次加载时必须在加载完成后播放，否则无声音，此处反向查找soundCache获取首次播放音量
             if(status == 0) {
                 soundCache.entries.forEach {
                     val sound = it.value
                     if (sound.soundId == sampleId) {
-                        soundPool.play(
+                        pool.play(
                             sound.soundId,sound.firstVolume/ 100f,sound.firstVolume/ 100f,
                             0,0,1f
                         )
@@ -85,10 +98,13 @@ class NHSound(val nh:NetHack) {
                 }
             }
         }
+        return pool
     }
 
     fun exitNHSound(reason: String) {
-        soundPool.release()
+        soundPool?.release()
+        soundPool = null
+        soundCache.clear()
     }
 
     fun soundAchievement(ach1: Int, ach2: AchievementsS2, repeat: Int) {
