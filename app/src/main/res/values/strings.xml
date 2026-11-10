@@ -2,6 +2,7 @@
     <string name="app_name">ANetHack</string>
     <string name="play_mod_normal">normal</string>
     <string name="play_mod_discover">discover</string>
+    <string name="play_mod_wizard">wizard</string>
     <string name="player_select">Select save data to load</string>
     <string name="player_input">Input you player name</string>
     <string name="player_add">Click to start new game</string>

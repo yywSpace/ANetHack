@@ -33,7 +33,6 @@ class NHPlayerChoose(val nh: NetHack) {
     fun askName(nameSize: Int, saves: Array<String>) {
         this.nameSize = nameSize
         this.saves = saves
-        var hasWizardSave = false
         saves.distinct().forEach {
             // 名字后面跟的是存档里记录的 playmode（'\t' 分隔，见 and_askname()）
             val name = it.substringBefore('\t')
@@ -43,15 +42,16 @@ class NHPlayerChoose(val nh: NetHack) {
                 else -> PLAY_MOD_NORMAL
             }
             if(name.startsWith("$PLAY_MOD_WIZARD-")) {
-                hasWizardSave = true
                 players.add(0, NHPlayer(name, playMod))
             }else {
                 players.add(NHPlayer(name, playMod))
             }
         }
-        if(!hasWizardSave)
-            players.add(0, NHPlayer(PLAY_MOD_WIZARD, PLAY_MOD_WIZARD))
-        showPlayerChooseDialog(players)
+        if (players.isEmpty()) {
+            showNewPlayerDialog(false)
+        } else {
+            showPlayerChooseDialog(players)
+        }
     }
 
     fun waitForPlayerChoose():Array<String> {
@@ -77,7 +77,7 @@ class NHPlayerChoose(val nh: NetHack) {
                         layoutManager = LinearLayoutManager(context)
                         adapter = NHPlayerChooseAdapter(players).apply {
                             onPlayerAddClick = {
-                                showNewPlayerDialog(popupWindow)
+                                showNewPlayerDialog(true)
                             }
                         }
                     }
@@ -121,7 +121,7 @@ class NHPlayerChoose(val nh: NetHack) {
         showPlayerChooseDialog(players)
     }
 
-    private fun showNewPlayerDialog(popupWindow: PopupWindow) {
+    private fun showNewPlayerDialog(fromPlayerList: Boolean) {
         nh.runOnUi { _, context ->
             val view = View.inflate(context, R.layout.dialog_player_choose_input, null)
             val input = view.findViewById<EditText>(R.id.player_input)
@@ -132,7 +132,8 @@ class NHPlayerChoose(val nh: NetHack) {
                     val playMod = when (playModG.checkedRadioButtonId) {
                         R.id.play_mod_normal -> PLAY_MOD_NORMAL
                         R.id.play_mod_discover -> PLAY_MOD_DISCOVER
-                        else -> PLAY_MOD_WIZARD
+                        R.id.play_mod_wizard -> PLAY_MOD_WIZARD
+                        else -> PLAY_MOD_NORMAL
                     }
                     val player = input.text.toString()
                     if (player.isEmpty())
@@ -147,10 +148,15 @@ class NHPlayerChoose(val nh: NetHack) {
                             return@setPositiveButton
                         }
                     }
-                    popupWindow.dismiss()
+                    popup?.dismiss()
                     finishPlayerChoose(NHPlayer(player, playMod))
                 }
-                setNegativeButton(R.string.dialog_cancel, null)
+                setNegativeButton(R.string.dialog_cancel) { _,_ ->
+                    if (!fromPlayerList) {
+                        // 没有选人列表可返回时，取消等同于退出选人流程
+                        nh.command.sendCommand(NHPlayerChooseCommand(NHPlayer("", "")))
+                    }
+                }
                 create()
             }
 
