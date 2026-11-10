@@ -242,15 +242,6 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
         playerCentered = false
     }
 
-    /** 地图清空（换楼层等）：下一帧以光标为中心重新居中 + 全量重绘离屏。 */
-    fun onMapCleared() {
-        playerCentered = false
-        mapContentDirty = true
-        // 换楼层后旧地图上置的 travel 意图作废
-        travelArmed = false
-        mapTranslated = false
-    }
-
     private fun initMapParam() {
         nh.tileSet.updateTileSet()
         scaleFactor = 1f
@@ -900,6 +891,12 @@ class NHMapSurfaceView: SurfaceView, SurfaceHolder.Callback,Runnable {
                     is MapWork.Operation -> processOperation(work.op)
                     is MapWork.Clear -> {
                         map.clearTiles()
+                        // 清屏后重新以光标为中心，并全量重绘离屏
+                        playerCentered = false
+                        mapContentDirty = true
+                        // 换楼层/清屏后旧地图上置的 travel 意图作废
+                        travelArmed = false
+                        mapTranslated = false
                     }
                     is MapWork.Invalidate -> Unit
                     is MapWork.Frame -> break // 一帧只消费一个 MapFrame
