@@ -20,7 +20,6 @@ import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHPlayerChooseCommand
 import com.yywspace.anethack.entity.NHPlayer
 import com.yywspace.anethack.extensions.show
-import com.yywspace.anethack.extensions.showAtLocation
 import com.yywspace.anethack.log.AppLog
 
 
@@ -48,11 +47,8 @@ class NHPlayerChoose(val nh: NetHack) {
                 players.add(NHPlayer(name, playMod))
             }
         }
-        if (players.isEmpty()) {
-            showNewPlayerDialog(false)
-        } else {
-            showPlayerChooseDialog(players)
-        }
+        // 列表为空也先显示列表，用户从列表里的“新建”入口输入名字
+        showPlayerChooseDialog(players)
     }
 
     fun waitForPlayerChoose():Array<String> {
@@ -78,7 +74,7 @@ class NHPlayerChoose(val nh: NetHack) {
                         layoutManager = LinearLayoutManager(context)
                         adapter = NHPlayerChooseAdapter(players).apply {
                             onPlayerAddClick = {
-                                showNewPlayerDialog(true)
+                                showNewPlayerDialog()
                             }
                         }
                     }
@@ -118,15 +114,12 @@ class NHPlayerChoose(val nh: NetHack) {
     fun onThemeChanged() {
         popup?.takeIf { it.isShowing }?.dismiss()
         popup = null
-        if (players.isEmpty())
-            showNewPlayerDialog(false)
-        else
-            showPlayerChooseDialog(players)
+        showPlayerChooseDialog(players)
     }
 
-    private fun showNewPlayerDialog(fromPlayerList: Boolean) {
-        nh.runOnUi { binding, context ->
-            val parentPopup = if (fromPlayerList) popup else null
+    private fun showNewPlayerDialog() {
+        nh.runOnUi { _, context ->
+            val parentPopup = popup
             val view = View.inflate(context, R.layout.dialog_player_choose_input, null)
             val input = view.findViewById<EditText>(R.id.player_input)
             val playModG = view.findViewById<RadioGroup>(R.id.play_mod_radio_group)
@@ -165,45 +158,14 @@ class NHPlayerChoose(val nh: NetHack) {
             }
             view.findViewById<MaterialButton>(R.id.player_input_cancel).setOnClickListener {
                 dismissContainer?.invoke()
-                if (!fromPlayerList) {
-                    popup = null
-                    // 没有选人列表可返回时，取消等同于退出选人流程
-                    nh.command.sendCommand(NHPlayerChooseCommand(NHPlayer("", "")))
-                }
             }
 
-            if (fromPlayerList) {
-                // 有存档列表时用 Dialog：能完整覆盖列表，不会与列表窗口叠在一起
-                val dialog = AlertDialog.Builder(context)
-                    .setView(view)
-                    .setCancelable(false)
-                    .create()
-                dismissContainer = { dialog.dismiss() }
-                dialog.show(nh.prefs.immersiveMode)
-            } else {
-                // 没有存档时用 PopupWindow，保持非模态，底部命令栏仍可操作
-                val popupWindow = PopupWindow(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT
-                )
-                dismissContainer = { popupWindow.dismiss() }
-                popupWindow.apply {
-                    contentView = view
-                    // 不抢焦点：点击外部不会让系统把它当成失焦窗口关闭
-                    isFocusable = false
-                    isOutsideTouchable = false
-                    binding.root.post {
-                        if (binding.root.isAttachedToWindow) {
-                            showAtLocation(
-                                binding.root, Gravity.CENTER, 0, 0,
-                                nh.prefs.immersiveMode
-                            )
-                            input.requestFocus()
-                        }
-                    }
-                }
-                popup = popupWindow
-            }
+            val dialog = AlertDialog.Builder(context)
+                .setView(view)
+                .setCancelable(false)
+                .create()
+            dismissContainer = { dialog.dismiss() }
+            dialog.show(nh.prefs.immersiveMode)
         }
     }
 
