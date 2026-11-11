@@ -134,7 +134,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
                 workQueue.remove(first)
                 workQueue.remove(second)
                 workQueue.offerFirst(MapWork.Frame(
-                    MapFrame(first.frame.tiles + second.frame.tiles, second.frame.curse)
+                    MapFrame(first.frame.tiles + second.frame.tiles, second.frame.curse, second.frame.player)
                 ))
             }
             workQueue.offer(MapWork.Frame(frame))
@@ -793,7 +793,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
                 val canvas = lockCanvas()
                 try {
                     val tileSetChanged = nh.tileSet.isTileSetChange()
-                    val renderCurse = frame?.curse ?: map.curse
+                    val renderCurse = frame?.curse ?: lastCurse
 
                     if (tileSetChanged) {
                         initMapParam() // 重建离屏并全量重绘
@@ -803,7 +803,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
                     }
                     // 玩家移动跟随玩家；只有光标离开玩家（look）时才跟随光标。
                     // look 退出时光标回到玩家，不触发镜头移动，视口保持在查看位置。
-                    val followPlayer = map.player
+                    val followPlayer = frame?.player ?: lastFollowPlayer
                     val followChanged = lastFollowPlayer != followPlayer ||
                             (renderCurse != followPlayer && lastFollowCursor != renderCurse)
                     if (followChanged) {

@@ -7,7 +7,8 @@ import com.yywspace.anethack.map.NHMapView
 
 data class MapFrame(
     val tiles: List<NHWMap.Tile>,
-    val curse: Point
+    val curse: Point,
+    val player: Point
 )
 
 class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type) {
@@ -91,7 +92,8 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
             return null
         val frame = MapFrame(
             tiles = pendingTiles.toList(),
-            curse = Point(curse.x, curse.y)
+            curse = Point(curse.x, curse.y),
+            player = Point(player.x, player.y)
         )
         pendingTiles.clear()
         frame
