@@ -2,15 +2,11 @@ package com.yywspace.anethack.window
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout.LayoutParams
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
@@ -140,33 +136,16 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
     }
 
     private fun showMenu() {
-        nh.runOnUi { binding, context ->
+        nh.runOnUi { _, context ->
             val menuView = initMenuView(context)
-            binding.panelContainer.apply {
-                isFocusable = true
-                isClickable = true
-            }
-            val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).apply {
-                gravity = Gravity.CENTER
-            }
-            // 菜单视图可能在旧的对话框里，先摘下来再放进容器
-            (menuView.parent as? ViewGroup)?.removeView(menuView)
-            binding.dialogContainer.addView(menuView, params)
-            binding.dialogContainer.visibility = View.VISIBLE
+            nh.dialogs.show(TAG_MENU, menuView)
         }
     }
 
     private fun dismissMenu(onDismiss:(()->Unit) ?= null) {
         // 同时关闭，防止打开窗口后切换窗口模式导致旧窗口无法关闭
-        nh.runOnUi { binding, _ ->
-            if(binding.dialogContainer.isNotEmpty()) {
-                binding.panelContainer.apply {
-                    isFocusable = false
-                    isClickable = false
-                }
-                binding.dialogContainer.removeAllViews()
-                binding.dialogContainer.visibility = View.INVISIBLE
-            }
+        nh.runOnUi { _, _ ->
+            nh.dialogs.dismiss(TAG_MENU)
             textList.clear()
             nhMenuItems.clear()
             onDismiss?.invoke()
@@ -175,8 +154,7 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
 
     @SuppressLint("NotifyDataSetChanged")
     private fun initMenuView(context: Context): View {
-        // 复用静态缓存的弹窗视图（跨窗口实例）；第一次创建，之后只刷新数据
-        val menuView = cachedMenuView ?: createMenuView(context)
+        val menuView = createMenuView(context)
         if (menuAdapter == null) {
             // 视图可能是其他窗口实例创建的，本实例首次使用补挂自己的 adapter（数据/回调绑定本实例）
             menuAdapter = NHWMenuAdapter(this, nh.tileSet).apply {
@@ -217,15 +195,8 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         return menuView
     }
 
-    /** 首次创建弹窗视图（布局+RecyclerView 配置；adapter 由 initMenuView 首次使用时挂载） */
+    /** 创建弹窗视图（含 RecyclerView 配置） */
     private fun createMenuView(context: Context): View {
-        val menuView = createCachedMenuView(context)
-        cachedMenuView = menuView
-        return menuView
-    }
-
-    /** 创建弹窗视图（含 RecyclerView 配置），供首次打开使用 */
-    private fun createCachedMenuView(context: Context): View {
         return View.inflate(context, R.layout.dialog_menu, null).apply {
             findViewById<RecyclerView>(R.id.menu_item_list)?.layoutManager =
                 object : LinearLayoutManager(context) {
@@ -385,31 +356,13 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
 
     /** 明暗主题切换，打开的菜单是按旧配色 inflate 的，按当前数据重建一次 */
     fun onThemeChanged() {
-        nh.runOnUi { binding, context ->
-            // Operation：内联在面板里
-            if (binding.dialogContainer.isNotEmpty()) {
-                cachedMenuView = null
-                val menuView = initMenuView(context)
-                binding.dialogContainer.removeAllViews()
-                val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).apply {
-                    gravity = Gravity.CENTER
-                }
-                binding.dialogContainer.addView(menuView, params)
-                binding.dialogContainer.visibility = View.VISIBLE
-            }
+        nh.runOnUi { _, _ ->
+            if (nh.dialogs.isShowing(TAG_MENU))
+                showMenu()
         }
     }
 
     companion object {
-        // 静态缓存：窗口实例会被 createWindow 反复重建，缓存放静态才能跨实例复用
-        // 安全：单 Activity + manifest 声明 configChanges（Activity 不重建），
-        // 且 NetHackActivity.onDestroy 会 clearCache()，缓存随进程结束释放，无泄漏
-        @SuppressLint("StaticFieldLeak")
-        private var cachedMenuView: View? = null
-
-        /** 清空静态缓存（Activity 重建等场景兜底） */
-        fun clearCache() {
-            cachedMenuView = null
-        }
+        private const val TAG_MENU = "menu"
     }
 }

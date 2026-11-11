@@ -20,7 +20,6 @@ import com.yywspace.anethack.keybord.KeyboardVibrate
 import com.yywspace.anethack.log.AppLog
 import com.yywspace.anethack.setting.SettingsActivity
 import com.yywspace.anethack.theme.AppTheme
-import com.yywspace.anethack.window.NHWMenu
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -75,8 +74,6 @@ class NetHackActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        // 静态缓存持有 Activity context，Activity 重建时清空兜底
-        NHWMenu.clearCache()
         nethack.dialogs.clear()
         super.onDestroy()
     }
@@ -128,7 +125,6 @@ class NetHackActivity : AppCompatActivity() {
         // 键盘和命令栏各自按新主题刷新（背景、键帽、按钮、图标都在各自类里处理）
         binding.keyboardView.applyTheme()
         initControlPanel()
-        NHWMenu.clearCache()
         nethack.onThemeChanged()
         // 价格鉴定弹窗的视图是构造时 inflate 的，按新配色重建一份
         priceIDialog = NHPriceIDialog(this, nethack)

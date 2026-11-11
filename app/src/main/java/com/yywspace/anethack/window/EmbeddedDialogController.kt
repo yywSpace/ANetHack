@@ -33,6 +33,8 @@ class EmbeddedDialogController(
 
     private val stack = ArrayDeque<Entry>()
 
+    fun isShowing(tag: String): Boolean = stack.any { it.tag == tag }
+
     fun show(
         tag: String,
         view: View,
