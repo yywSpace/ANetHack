@@ -523,6 +523,14 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
             canvas?.drawBitmap(bmp, Rect(0, 0, bmp.width, bmp.height), mapBorder, paint)
         }
     }
+    /** 当前未被覆盖的安全区域（View 坐标系） */
+    fun safeBounds(): RectF = RectF(
+        safeInsets.left.toFloat(),
+        safeInsets.top.toFloat(),
+        measuredWidth.toFloat() - safeInsets.right,
+        measuredHeight.toFloat() - safeInsets.bottom
+    )
+
     /** 设置地图四周被遮挡的区域，镜头跟随会避开这些区域 */
     fun setSafeInsets(left: Int, top: Int, right: Int, bottom: Int) {
         val changed = left != safeInsets.left || top != safeInsets.top
@@ -754,6 +762,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     }
 
     override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
+        mapContentDirty = true
         requestRedraw()
         if (mapInit && playerWasOnScreen)
             transformMapWithMove(nh.prefs.walkRange)

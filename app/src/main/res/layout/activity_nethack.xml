@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/panel_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
     android:clickable="true"
     tools:context=".NetHackActivity">
 
-    <LinearLayout
+    <!-- 地图固定铺满，键盘等底部控件覆盖在上面，避免地图尺寸变化 -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@android:color/black">
 
-        <!-- 地图区域：状态栏和消息栏盖在地图上面 -->
-        <FrameLayout
+        <com.yywspace.anethack.map.NHMapView
+            android:id="@+id/map_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@android:color/black">
+            android:layout_height="match_parent" />
 
-            <com.yywspace.anethack.map.NHMapView
-                android:id="@+id/map_view"
+        <LinearLayout
+            android:id="@+id/status_message_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:clickable="true">
+
+            <com.yywspace.anethack.map.NHStatusView
+                android:id="@+id/status_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:id="@+id/top_overlay"
+            <com.yywspace.anethack.map.NHMessageView
+                android:id="@+id/message_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:orientation="vertical"
-                android:focusable="true"
-                android:clickable="true">
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </FrameLayout>
 
-                <com.yywspace.anethack.map.NHStatusView
-                    android:id="@+id/status_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <com.yywspace.anethack.map.NHMessageView
-                    android:id="@+id/message_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </FrameLayout>
+    <!-- 底部操作区覆盖在地图上，不参与地图测量 -->
+    <LinearLayout
+        android:id="@+id/bottom_controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/app_background"
+        android:orientation="vertical">
 
         <com.yywspace.anethack.keybord.NHKeyboardView
             android:id="@+id/keyboard_view"

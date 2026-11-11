@@ -49,31 +49,47 @@ class NHMapIndicator(private val mapView: NHMapView,
     }
 
     fun updateLocation() {
-        // 屏幕中心到人物与屏幕边界的交点
-        val width = mapView.measuredWidth.toFloat()
-        val height = mapView.measuredHeight.toFloat()
+        val bounds = mapView.safeBounds()
         val border = mapView.getTileBorder(tile.x, tile.y)
         val target = PointF(border.centerX(), border.centerY())
         canIndicatorDraw = false
-        if (target.x !in 0.0f..width) {
-            // 目标超出左右屏幕: 指示符贴在左右边界内侧
-            val cross = IndicatorUtils.getHorizontalBorderCrossPoint(width, height, target)
-            val cx = cross.x + inset * if (cross.x > width / 2) -1 else 1
-            alongY = true
-            tangentMin = inset
-            tangentMax = height - inset
-            location.set(cx, clampTangent(cross.y))
-            canIndicatorDraw = true
-        } else if (target.y > height) {
-            // 目标超出屏幕下方(例如被键盘顶出可见区域): 指示符贴在下边界内侧
-            val cross = IndicatorUtils.getVerticalBorderCrossPoint(width, height, target)
-            val cy = cross.y + inset * if (cross.y > height / 2) -1 else 1
-            alongY = false
-            tangentMin = inset
-            tangentMax = width - inset
-            location.set(clampTangent(cross.x), cy)
-            canIndicatorDraw = true
+
+        // 目标已经落在安全区域内，不需要显示指示符
+        if (bounds.contains(target.x, target.y))
+            return
+
+        val cross = IndicatorUtils.getBorderCrossPoint(bounds, target)
+        when {
+            target.x < bounds.left -> {
+                // 目标在左侧外面：贴左边，沿 y 排开
+                alongY = true
+                tangentMin = bounds.top + inset
+                tangentMax = bounds.bottom - inset
+                location.set(bounds.left + inset, clampTangent(cross.y))
+            }
+            target.x > bounds.right -> {
+                // 目标在右侧外面：贴右边，沿 y 排开
+                alongY = true
+                tangentMin = bounds.top + inset
+                tangentMax = bounds.bottom - inset
+                location.set(bounds.right - inset, clampTangent(cross.y))
+            }
+            target.y < bounds.top -> {
+                // 目标在上方外面：贴顶边，沿 x 排开
+                alongY = false
+                tangentMin = bounds.left + inset
+                tangentMax = bounds.right - inset
+                location.set(clampTangent(cross.x), bounds.top + inset)
+            }
+            else -> {
+                // 目标在下方外面（例如被键盘挡住）：贴底边，沿 x 排开
+                alongY = false
+                tangentMin = bounds.left + inset
+                tangentMax = bounds.right - inset
+                location.set(clampTangent(cross.x), bounds.bottom - inset)
+            }
         }
+        canIndicatorDraw = true
     }
 
     fun draw(canvas: Canvas?, offsetX:Float = 0f, offsetY:Float = 0f) {

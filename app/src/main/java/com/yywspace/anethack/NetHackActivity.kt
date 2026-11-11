@@ -2,7 +2,6 @@ package com.yywspace.anethack
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -60,14 +59,27 @@ class NetHackActivity : AppCompatActivity() {
         }.start()
     }
 
-    /** 地图的安全区由顶部覆盖层的高度决定，布局变化时更新 */
+    /** 地图固定铺满，顶部/底部覆盖层的高度决定镜头和指示符的安全区 */
     private fun initMapSafeArea() {
-        // 布局回调可能因消息/状态刷新反复触发；只有高度真的变化才更新安全区
-        binding.topOverlay.addOnLayoutChangeListener {
+        binding.statusMessageBar.addOnLayoutChangeListener {
             _, _, top, _, bottom, _, oldTop, _, oldBottom ->
             if (bottom - top != oldBottom - oldTop)
-                binding.mapView.setSafeInsets(0, binding.topOverlay.height, 0, 0)
+                updateMapSafeArea()
         }
+        binding.bottomControls.addOnLayoutChangeListener {
+            _, _, top, _, bottom, _, oldTop, _, oldBottom ->
+            if (bottom - top != oldBottom - oldTop)
+                updateMapSafeArea()
+        }
+    }
+
+    private fun updateMapSafeArea() {
+        binding.mapView.setSafeInsets(
+            0,
+            binding.statusMessageBar.height,
+            0,
+            binding.bottomControls.height
+        )
     }
 
     override fun onDestroy() {
@@ -118,7 +130,6 @@ class NetHackActivity : AppCompatActivity() {
         // 否则根布局/容器可能还留着旧（浅色）背景，看起来像"命令栏变白了"
         val background = ContextCompat.getColor(this, R.color.app_background)
         binding.root.setBackgroundColor(background)
-        binding.panelContainer.setBackgroundColor(Color.TRANSPARENT)
         // 键盘和命令栏各自按新主题刷新（背景、键帽、按钮、图标都在各自类里处理）
         binding.keyboardView.applyTheme()
         initControlPanel()
