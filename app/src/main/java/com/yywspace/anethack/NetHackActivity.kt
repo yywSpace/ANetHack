@@ -77,6 +77,7 @@ class NetHackActivity : AppCompatActivity() {
     override fun onDestroy() {
         // 静态缓存持有 Activity context，Activity 重建时清空兜底
         NHWMenu.clearCache()
+        nethack.dialogs.clear()
         super.onDestroy()
     }
 

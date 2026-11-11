@@ -14,6 +14,7 @@ import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.gamedata.NHMonsterDialog
 import com.yywspace.anethack.gamedata.NHPriceIDialog
 import com.yywspace.anethack.sound.NHSound
+import com.yywspace.anethack.window.EmbeddedDialogController
 import com.yywspace.anethack.window.NHExtendChoose
 import com.yywspace.anethack.window.NHPlayerChoose
 import com.yywspace.anethack.window.NHQuestion
@@ -46,6 +47,8 @@ class NetHack(
     /** 怪物信息弹窗（NetHackActivity 初始化后设置），消息里点怪物名时打开 */
     var monsterDialog: NHMonsterDialog? = null
     val prefs by lazy { SharedPreferencesUtils(context) }
+    /** Activity 内嵌对话框统一入口 */
+    val dialogs = EmbeddedDialogController(binding.dialogContainer)
 
     /** 明暗主题切换，丢弃按旧配色创建并缓存的对话框 */
     fun onThemeChanged() {

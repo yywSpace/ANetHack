@@ -1,13 +1,10 @@
 package com.yywspace.anethack.window
 
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.PopupWindow
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
@@ -27,8 +24,6 @@ class NHPlayerChoose(val nh: NetHack) {
     private var nameSize = 0
     lateinit var saves: Array<String>
     var players: MutableList<NHPlayer> = mutableListOf()
-    /** 当前显示的选人弹窗，主题切换时重建 */
-    private var popup: PopupWindow? = null
 
     fun askName(nameSize: Int, saves: Array<String>) {
         this.nameSize = nameSize
@@ -47,8 +42,10 @@ class NHPlayerChoose(val nh: NetHack) {
                 players.add(NHPlayer(name, playMod))
             }
         }
-        // 列表为空也先显示列表，用户从列表里的“新建”入口输入名字
-        showPlayerChooseDialog(players)
+        if (players.isEmpty())
+            showNameInput()
+        else
+            showPlayerList(players)
     }
 
     fun waitForPlayerChoose():Array<String> {
@@ -62,111 +59,142 @@ class NHPlayerChoose(val nh: NetHack) {
     }
 
 
-    private fun showPlayerChooseDialog(players: List<NHPlayer>) {
-        nh.runOnUi { binding, context ->
-            val popupWindow = PopupWindow(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT
+    private fun showPlayerList(players: List<NHPlayer>) {
+        nh.runOnUi { _, context ->
+            nh.dialogs.show(
+                TAG_PLAYER_LIST,
+                createPlayerListView(context, players),
+                EmbeddedDialogController.Options(outsideTouchable = true, dim = false)
             )
-            val view = View.inflate(context, R.layout.dialog_player_choose,null)
-                .apply {
-                    findViewById<RecyclerView>(R.id.player_choose_list).apply {
-                        layoutManager = LinearLayoutManager(context)
-                        adapter = NHPlayerChooseAdapter(players).apply {
-                            onPlayerAddClick = {
-                                showNewPlayerDialog()
-                            }
-                        }
-                    }
-                    findViewById<MaterialButton>(R.id.player_choose_confirm).apply {
-                        setOnClickListener {
-                            val first = players.firstOrNull { item -> item.isSelected }
-                            if(first == null) {
-                                return@setOnClickListener
-                            }else {
-                                finishPlayerChoose(first)
-                                popupWindow.dismiss()
-                            }
-                        }
-                    }
-                    findViewById<MaterialButton>(R.id.player_choose_cancel).apply {
-                        setOnClickListener {
-                            // 交给游戏线程退出，避免 UI 线程直接 nh_terminate
-                            nh.command.sendCommand(NHPlayerChooseCommand(NHPlayer("", "")))
-                            popupWindow.dismiss()
-                        }
-                    }
-                }
-
-            popupWindow.apply {
-                contentView = view
-                // 等根视图 attach 到窗口后再显示：native 线程可能在 Activity 窗口就绪前触发弹窗，直接 showAtLocation 会抛 BadTokenException
-                binding.root.post {
-                    if (binding.root.isAttachedToWindow)
-                        showAtLocation(binding.root, Gravity.CENTER, 0, 0)
-                }
-            }
-            popup = popupWindow
         }
     }
 
-    /** 明暗主题切换：按新配色重建仍在显示的选人弹窗 */
+    private fun createPlayerListView(context: android.content.Context, players: List<NHPlayer>): View =
+        View.inflate(context, R.layout.dialog_player_choose, null).apply {
+            findViewById<RecyclerView>(R.id.player_choose_list).apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = NHPlayerChooseAdapter(players).apply {
+                    onPlayerAddClick = {
+                        showNewPlayerDialog()
+                    }
+                }
+            }
+            findViewById<MaterialButton>(R.id.player_choose_confirm).setOnClickListener {
+                val first = players.firstOrNull { item -> item.isSelected }
+                    ?: return@setOnClickListener
+                nh.dialogs.dismiss(TAG_PLAYER_LIST)
+                finishPlayerChoose(first)
+            }
+            findViewById<MaterialButton>(R.id.player_choose_cancel).setOnClickListener {
+                // 交给游戏线程退出，避免 UI 线程直接 nh_terminate
+                nh.dialogs.dismiss(TAG_PLAYER_LIST)
+                nh.command.sendCommand(NHPlayerChooseCommand(NHPlayer("", "")))
+            }
+        }
+
+    /** 明暗主题切换：由本类按当前状态重建 */
     fun onThemeChanged() {
-        popup?.takeIf { it.isShowing }?.dismiss()
-        popup = null
-        showPlayerChooseDialog(players)
+        nh.dialogs.dismiss(TAG_PLAYER_LIST)
+        nh.dialogs.dismiss(TAG_NAME_INPUT)
+        if (players.isEmpty())
+            showNameInput()
+        else
+            showPlayerList(players)
     }
 
+    /** 列表里的“新建游戏”入口：保持系统 Dialog 实现 */
     private fun showNewPlayerDialog() {
         nh.runOnUi { _, context ->
-            val parentPopup = popup
-            val view = View.inflate(context, R.layout.dialog_player_choose_input, null)
-            val input = view.findViewById<EditText>(R.id.player_input)
-            val playModG = view.findViewById<RadioGroup>(R.id.play_mod_radio_group)
-
-            playModG.setOnCheckedChangeListener { _, checkedId ->
-                if (checkedId == R.id.play_mod_wizard) {
-                    // wizard 模式默认填入 wizard，但仍允许用户修改
-                    input.setText(PLAY_MOD_WIZARD)
-                } else if (input.text.toString() == PLAY_MOD_WIZARD) {
-                    input.setText("")
-                }
-            }
-
-            var dismissContainer: (() -> Unit)? = null
-            view.findViewById<MaterialButton>(R.id.player_input_confirm).setOnClickListener {
-                val playMod = when (playModG.checkedRadioButtonId) {
-                    R.id.play_mod_normal -> PLAY_MOD_NORMAL
-                    R.id.play_mod_discover -> PLAY_MOD_DISCOVER
-                    R.id.play_mod_wizard -> PLAY_MOD_WIZARD
-                    else -> PLAY_MOD_NORMAL
-                }
-                val player = input.text.toString()
-                if (player.isEmpty())
-                    return@setOnClickListener
-                if (player.length >= nameSize) {
-                    Toast.makeText(context, context.getString(R.string.player_name_too_long, player), Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-                if (players.any { it.player == player }) {
-                    Toast.makeText(context, context.getString(R.string.player_name_exists, player), Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-                dismissContainer?.invoke()
-                parentPopup?.dismiss()
-                finishPlayerChoose(NHPlayer(player, playMod))
-            }
-            view.findViewById<MaterialButton>(R.id.player_input_cancel).setOnClickListener {
-                dismissContainer?.invoke()
-            }
-
-            val dialog = AlertDialog.Builder(context)
+            var dialog: AlertDialog? = null
+            val view = createNameInputView(
+                context,
+                onConfirm = { player ->
+                    dialog?.dismiss()
+                    nh.dialogs.dismiss(TAG_PLAYER_LIST)
+                    finishPlayerChoose(player)
+                },
+                onCancel = { dialog?.dismiss() }
+            )
+            dialog = AlertDialog.Builder(context)
                 .setView(view)
                 .setCancelable(false)
                 .create()
-            dismissContainer = { dialog.dismiss() }
             dialog.show(nh.prefs.immersiveMode)
         }
+    }
+
+    /** 列表为空时的内嵌名字输入界面 */
+    private fun showNameInput() {
+        nh.runOnUi { _, context ->
+            val view = createNameInputView(
+                context,
+                onConfirm = { player ->
+                    nh.dialogs.dismiss(TAG_NAME_INPUT)
+                    finishPlayerChoose(player)
+                },
+                onCancel = {
+                    nh.dialogs.dismiss(TAG_NAME_INPUT)
+                    nh.command.sendCommand(NHPlayerChooseCommand(NHPlayer("", "")))
+                }
+            )
+            nh.dialogs.show(
+                TAG_NAME_INPUT,
+                view,
+                EmbeddedDialogController.Options(outsideTouchable = true, dim = false)
+            )
+        }
+    }
+
+    private fun createNameInputView(
+        context: android.content.Context,
+        onConfirm: (NHPlayer) -> Unit,
+        onCancel: () -> Unit
+    ): View {
+        val view = View.inflate(context, R.layout.dialog_player_choose_input, null)
+        val input = view.findViewById<EditText>(R.id.player_input)
+        val playModG = view.findViewById<RadioGroup>(R.id.play_mod_radio_group)
+
+        playModG.setOnCheckedChangeListener { _, checkedId ->
+            if (checkedId == R.id.play_mod_wizard) {
+                // wizard 模式默认填入 wizard，但仍允许用户修改
+                input.setText(PLAY_MOD_WIZARD)
+            } else if (input.text.toString() == PLAY_MOD_WIZARD) {
+                input.setText("")
+            }
+        }
+
+        view.findViewById<MaterialButton>(R.id.player_input_confirm).setOnClickListener {
+            val playMod = when (playModG.checkedRadioButtonId) {
+                R.id.play_mod_normal -> PLAY_MOD_NORMAL
+                R.id.play_mod_discover -> PLAY_MOD_DISCOVER
+                R.id.play_mod_wizard -> PLAY_MOD_WIZARD
+                else -> PLAY_MOD_NORMAL
+            }
+            val player = input.text.toString()
+            if (player.isEmpty())
+                return@setOnClickListener
+            if (player.length >= nameSize) {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.player_name_too_long, player),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+            if (players.any { it.player == player }) {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.player_name_exists, player),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+            onConfirm(NHPlayer(player, playMod))
+        }
+        view.findViewById<MaterialButton>(R.id.player_input_cancel).setOnClickListener {
+            onCancel()
+        }
+        return view
     }
 
     private class NHPlayerChooseAdapter(val players:List<NHPlayer>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -246,6 +274,9 @@ class NHPlayerChoose(val nh: NetHack) {
     }
 
     companion object {
+        private const val TAG_PLAYER_LIST = "player_list"
+        private const val TAG_NAME_INPUT = "name_input"
+
         const val PLAY_MOD_WIZARD = "wizard"
         const val PLAY_MOD_DISCOVER = "discover"
         const val PLAY_MOD_NORMAL = "normal"
