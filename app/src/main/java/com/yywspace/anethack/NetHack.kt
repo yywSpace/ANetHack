@@ -52,11 +52,11 @@ class NetHack(
 
     /** 明暗主题切换，丢弃按旧配色创建并缓存的对话框 */
     fun onThemeChanged() {
-        question.clearCache()
         playerChoose.onThemeChanged()
-        // 仍打开的菜单（operation 内联 / dialog）按新配色重建
+        // 仍打开的菜单按新配色重建
         windows.forEach { (it as? NHWMenu)?.onThemeChanged() }
     }
+
     val status:NHStatus
         get() =
             if (hasWindow(NHWindowType.NHW_STATUS))

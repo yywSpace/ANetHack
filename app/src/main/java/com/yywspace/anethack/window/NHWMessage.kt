@@ -92,7 +92,6 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                     setOnDismissListener {
                         nh.command.sendCommand(NHKeyCommand(27.toChar()))
                     }
-                    create()
                     show(nh.prefs.immersiveMode)
                 }
             }

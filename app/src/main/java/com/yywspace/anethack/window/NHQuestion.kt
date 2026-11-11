@@ -19,28 +19,15 @@ import com.yywspace.anethack.extensions.show
 
 
 class NHQuestion(val nh: NetHack) {
+    private companion object {
+        const val TAG_INPUT = "question_input"
+        const val TAG_QUESTION = "question"
+    }
+
     // 防连点：一次输入/回答只发一条命令，避免残留命令被下一次同类型窗口消费。
     // 每次 answerInputQuestion / answerSelectQuestion 开始时重置。
     private var finished = false
-    // 对话框/视图缓存：复用避免每次 inflate + create 的开销（与菜单对话框同一模式）
-    private var inputView: View? = null
-    private var inputDialog: AlertDialog? = null
-    private var questionView: View? = null
-    private var questionDialog: AlertDialog? = null
     private var currentBufSize = 0
-
-    init {
-        // NHQuestion 随 NetHack 在 Activity onCreate（主线程）时创建，
-        // 提前建好两个对话框，第一次打开不再付 inflate + create 的开销
-        ensureInputDialog(nh.context)
-        ensureQuestionDialog(nh.context)
-        // 预演：show 一次立即 dismiss（同一消息内不会渲染出来，无闪烁），
-        // 把第一次 show() 的窗口初始化（~100ms+）挪到启动阶段
-        nh.handler.post {
-            inputDialog?.apply { show(); dismiss() }
-            questionDialog?.apply { show(); dismiss() }
-        }
-    }
 
     private fun finishLine(line:String) {
         if (finished) return
@@ -62,36 +49,51 @@ class NHQuestion(val nh: NetHack) {
         return waitForLine()
     }
 
-    /** 首次创建输入对话框（inflate + create + 一次性按钮配置）；构造时和运行时兜底调用 */
-    private fun ensureInputDialog(context: Context) {
-        if (inputDialog != null) return
-        val view = View.inflate(context, R.layout.dialog_question_input, null)
-        inputView = view
-        inputDialog = AlertDialog.Builder(context).apply {
-            setView(inputView)
-            setCancelable(false)
-        }.create()
-        // 按钮回调一次性配置（引用缓存的对话框；bufSize 用字段，每次打开更新）
-        view.apply {
-            findViewById<Button>(R.id.input_btn_1).apply {
+    private fun showInputQuestion(question: String, input:String, bufSize: Int) {
+        currentBufSize = bufSize
+        nh.runOnUi { _, context ->
+            val view = View.inflate(context, R.layout.dialog_question_input, null)
+
+            var ques = question
+            var hintStr = ""
+            Regex("(.*)\\[(.*)]").find(question)?.apply {
+                if (groupValues.size >= 3 && groupValues[1].isNotEmpty()) {
+                    ques = groupValues[1]
+                    hintStr = groupValues[2]
+                }
+            }
+            view.findViewById<TextView>(R.id.dialog_question_title).apply {
+                text = ques
+            }
+            view.findViewById<AppCompatAutoCompleteTextView>(R.id.dialog_question_input).apply {
+                hint = hintStr
+                setText(input)
+                val adapter = ArrayAdapter(
+                    nh.context, android.R.layout.simple_dropdown_item_1line,
+                    nh.prefs.getInputPrompts()
+                )
+                threshold = 1
+                setAdapter(adapter)
+            }
+
+            view.findViewById<Button>(R.id.input_btn_1).apply {
                 setText(R.string.dialog_cancel)
                 setOnClickListener {
                     // cancel naming attempt
                     finishLine(27.toChar().toString())
-                    inputDialog?.dismiss()
+                    nh.dialogs.dismiss(TAG_INPUT)
                 }
             }
-            findViewById<Button>(R.id.input_btn_2).visibility = View.GONE
-            findViewById<Button>(R.id.input_btn_3).apply {
+            view.findViewById<Button>(R.id.input_btn_2).visibility = View.GONE
+            view.findViewById<Button>(R.id.input_btn_3).apply {
                 setText(R.string.dialog_confirm)
                 setOnClickListener {
-                    // 注意：此处 this 是按钮，findViewById 必须显式用 view（输入框在 view 上）
                     val inputText =
                         view.findViewById<AppCompatAutoCompleteTextView>(R.id.dialog_question_input)
                     // cancel name
                     if (inputText.text.isEmpty()) {
                         finishLine(" ")
-                        inputDialog?.dismiss()
+                        nh.dialogs.dismiss(TAG_INPUT)
                         return@setOnClickListener
                     }
                     nh.prefs.addInputPrompts(inputText.text.toString())
@@ -99,43 +101,11 @@ class NHQuestion(val nh: NetHack) {
                         finishLine(inputText.text.substring(0, currentBufSize))
                     else
                         finishLine(inputText.text.toString())
-                    inputDialog?.dismiss()
+                    nh.dialogs.dismiss(TAG_INPUT)
                 }
             }
-        }
-    }
 
-    private fun showInputQuestion(question: String, input:String, bufSize: Int) {
-        currentBufSize = bufSize
-        nh.runOnUi { _, context ->
-            if (inputDialog == null) {
-                ensureInputDialog(context)
-            }
-            // 每次打开刷新内容（复用视图必须重置输入文本/hint/提示词）
-            inputView?.apply {
-                var ques = question
-                var hintStr = ""
-                Regex("(.*)\\[(.*)]").find(question)?.apply {
-                    if (groupValues.size >= 3 && groupValues[1].isNotEmpty()) {
-                        ques = groupValues[1]
-                        hintStr = groupValues[2]
-                    }
-                }
-                findViewById<TextView>(R.id.dialog_question_title).apply {
-                    text = ques
-                }
-                findViewById<AppCompatAutoCompleteTextView>(R.id.dialog_question_input).apply {
-                    hint = hintStr
-                    setText(input)
-                    val adapter = ArrayAdapter(
-                        nh.context, android.R.layout.simple_dropdown_item_1line,
-                        nh.prefs.getInputPrompts()
-                    )
-                    threshold = 1
-                    setAdapter(adapter)
-                }
-            }
-            inputDialog?.show(nh.prefs.immersiveMode)
+            nh.dialogs.show(TAG_INPUT, view)
         }
     }
 
@@ -203,50 +173,35 @@ class NHQuestion(val nh: NetHack) {
         buildDialog(question, select, ynNumber, def)
     }
 
-    /** 首次创建问题对话框（inflate + create）；构造时和运行时兜底调用 */
-    private fun ensureQuestionDialog(context: Context) {
-        if (questionDialog != null) return
-        questionView = View.inflate(context, R.layout.dialog_question, null)
-        questionDialog = AlertDialog.Builder(context).apply {
-            setView(questionView)
-            setCancelable(false)
-        }.create()
-    }
-
     private fun buildDialog(question: String, choices:MutableList<Pair<Char, Int>>, ynNumber: LongArray?, def: Char) {
         nh.runOnUi { _, context ->
-            if (questionDialog == null) {
-                ensureQuestionDialog(context)
-            }
-            // 每次打开刷新内容（问题文本 + 答案格子，choices 每次不同）
-            questionView?.apply {
-                findViewById<TextView>(R.id.dialog_question).text = question
-                findViewById<ScrollView>(R.id.dialog_question_scroll).scrollTo(0, 0)
-                findViewById<MaterialButton>(R.id.dialog_question_cancel).apply {
-                    setOnClickListener {
-                        // 取消时使用用默认答案
-                        finishAnswer(def, -1)
-                        questionDialog?.dismiss()
-                    }
+            val view = View.inflate(context, R.layout.dialog_question, null)
+            view.findViewById<TextView>(R.id.dialog_question).text = question
+            view.findViewById<ScrollView>(R.id.dialog_question_scroll).scrollTo(0, 0)
+            view.findViewById<MaterialButton>(R.id.dialog_question_cancel).apply {
+                setOnClickListener {
+                    // 取消时使用用默认答案
+                    finishAnswer(def, -1)
+                    nh.dialogs.dismiss(TAG_QUESTION)
                 }
-                findViewById<NHAnswerGrid>(R.id.dialog_question_answer).apply {
-                    onPick = { _, answer ->
-                        when {
-                            answer.first == '#' -> {
-                                ynNumber?.set(0, answer.second.toLong())
-                                finishAnswer('#', -1)
-                            }
-                            else -> finishAnswer(answer.first, answer.second)
+            }
+            view.findViewById<NHAnswerGrid>(R.id.dialog_question_answer).apply {
+                onPick = { _, answer ->
+                    when {
+                        answer.first == '#' -> {
+                            ynNumber?.set(0, answer.second.toLong())
+                            finishAnswer('#', -1)
                         }
-                        questionDialog?.dismiss()
+                        else -> finishAnswer(answer.first, answer.second)
                     }
-                    onLongPress = { index ->
-                        showNumberInputDialog(context, choices, index, this)
-                    }
-                    submit(choices)
+                    nh.dialogs.dismiss(TAG_QUESTION)
                 }
+                onLongPress = { index ->
+                    showNumberInputDialog(context, choices, index, this)
+                }
+                submit(choices)
             }
-            questionDialog?.show(nh.prefs.immersiveMode)
+            nh.dialogs.show(TAG_QUESTION, view)
         }
     }
 
@@ -286,16 +241,6 @@ class NHQuestion(val nh: NetHack) {
     private fun waitForAnswer():Char {
         val cmd = nh.command.waitForAnyCommand<NHAnswerCommand>()
         return cmd.key
-    }
-
-    /** 主题切换后丢弃缓存的对话框，下次提问按新配色重建 */
-    fun clearCache() {
-        inputDialog?.dismiss()
-        inputDialog = null
-        inputView = null
-        questionDialog?.dismiss()
-        questionDialog = null
-        questionView = null
     }
 
 }
