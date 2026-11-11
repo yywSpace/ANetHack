@@ -32,6 +32,8 @@ class SharedPreferencesUtils(val context: Context) {
     var messageNewColor by SharedPreferenceDelegates.string2int(2)
     var userSound by SharedPreferenceDelegates.boolean(false)
     var internalSound by SharedPreferenceDelegates.boolean(true)
+    /** 已安装资源对应的 app versionCode，用于资源更新 */
+    var installedAssetVersionCode by SharedPreferenceDelegates.int(-1)
 
 
     /** 解析存储条目 "prompt-时间戳"：用最后一个 '-' 分隔，prompt 内含 '-' 也不受影响 */

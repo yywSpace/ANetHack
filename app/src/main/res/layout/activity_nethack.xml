@@ -85,4 +85,11 @@
         android:focusable="true"
         android:visibility="invisible" />
 
+    <!-- 仅资源更新时 inflate 的透明加载层 -->
+    <ViewStub
+        android:id="@+id/asset_loading_stub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/view_asset_loading" />
+
 </FrameLayout>

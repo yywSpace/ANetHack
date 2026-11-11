@@ -20,9 +20,6 @@ import com.yywspace.anethack.keybord.KeyboardVibrate
 import com.yywspace.anethack.log.AppLog
 import com.yywspace.anethack.setting.SettingsActivity
 import com.yywspace.anethack.theme.AppTheme
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 
 
 class NetHackActivity : AppCompatActivity() {
@@ -55,12 +52,12 @@ class NetHackActivity : AppCompatActivity() {
         initKeyboard()
         initControlPanel()
         initMapSafeArea()
-        AssetsLoader(this).loadAssets(
-            listOf("nethackdir", "conf"), false
-        ) { overwrite ->
-            processConf(overwrite)
+        AssetStartupController(
+            this,
+            binding.assetLoadingStub
+        ) {
             nethack.run()
-        }
+        }.start()
     }
 
     /** 地图的安全区由顶部覆盖层的高度决定，布局变化时更新 */
@@ -230,21 +227,6 @@ class NetHackActivity : AppCompatActivity() {
             }
         }
         binding.bottomCommandBar.setSwitchIcon(isKeyboardIcon = !extraPanelVisible)
-    }
-
-    private fun processConf(overwrite:Boolean) {
-        val sysconf = File(filesDir,"conf/sysconf")
-        val userConf = File(filesDir,"conf/nethackrc")
-        val sysconfTarget = File(filesDir,"nethackdir/sysconf")
-        val userConfTarget = File(filesDir,"nethackdir/.nethackrc")
-        if (!sysconfTarget.exists() || overwrite)
-            FileOutputStream(sysconfTarget).use { fileOut ->
-                FileInputStream(sysconf).copyTo(fileOut)
-            }
-        if (!userConfTarget.exists() || overwrite)
-            FileOutputStream(userConfTarget).use { fileOut ->
-                FileInputStream(userConf).copyTo(fileOut)
-            }
     }
 
     companion object {
