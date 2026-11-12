@@ -13,18 +13,18 @@
             app:entries="@array/theme_mode_array"
             app:entryValues="@array/theme_mode_value"/>
 
+        <com.yywspace.anethack.setting.NewMessageColorPreference
+            app:key="messageNewColor"
+            app:title="@string/pref_ui_message_color"
+            app:iconSpaceReserved="false"
+            app:defaultValue="2" />
+
         <CheckBoxPreference
             app:key="immersiveMode"
             app:title="@string/pref_ui_immersive_mode"
             app:iconSpaceReserved="false"
             app:defaultValue="true"
             app:summary="@string/pref_ui_immersive_mode_desc"/>
-
-        <com.yywspace.anethack.setting.NewMessageColorPreference
-            app:key="messageNewColor"
-            app:title="@string/pref_ui_message_color"
-            app:iconSpaceReserved="false"
-            app:defaultValue="2" />
 
         <CheckBoxPreference
             app:key="textReflow"
