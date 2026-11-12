@@ -36,38 +36,4 @@
         <item>@string/price_id_mode_buy</item>
         <item>@string/price_id_mode_sell</item>
     </string-array>
-    <string-array name="message_color_array">
-        <item>black</item>
-        <item>red</item>
-        <item>green</item>
-        <item>brown</item>
-        <item>blue</item>
-        <item>magenta</item>
-        <item>cyan</item>
-        <item>gray</item>
-        <item>orange</item>
-        <item>bright green</item>
-        <item>yellow</item>
-        <item>bright blue</item>
-        <item>bright magenta</item>
-        <item>bright cyan</item>
-        <item>white</item>
-    </string-array>
-    <string-array name="message_color_value">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-    </string-array>
 </resources>
