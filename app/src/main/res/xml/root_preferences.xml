@@ -162,6 +162,12 @@
             app:useSimpleSummaryProvider="false"
             app:iconSpaceReserved="false"/>
 
+        <Preference
+            app:key="wizardKit"
+            app:title="@string/pref_option_wizard_kit"
+            app:useSimpleSummaryProvider="false"
+            app:iconSpaceReserved="false"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

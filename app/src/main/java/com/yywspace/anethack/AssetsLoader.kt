@@ -61,6 +61,14 @@ class AssetsLoader(
             AppLog.i(TAG, "initialize user config from template")
             template.copyTo(userConf)
         }
+
+        val kitTemplate = File(baseDir, "nethackdir/wizkit.default")
+        val wizkit = File(baseDir, "nethackdir/wizkit")
+        if (!wizkit.exists() && kitTemplate.exists()) {
+            AppLog.i(TAG, "initialize wizard kit from template")
+            kitTemplate.copyTo(wizkit)
+        }
+
     }
 
     private fun currentVersionCode(): Int {

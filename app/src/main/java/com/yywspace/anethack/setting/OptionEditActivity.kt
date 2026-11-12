@@ -1,7 +1,6 @@
 package com.yywspace.anethack.setting
 
 import android.app.AlertDialog
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.Spanned
@@ -25,6 +24,11 @@ import java.io.File
 class OptionEditActivity: AppCompatActivity() {
     private lateinit var binding:ActivityOptionEditBinding
 
+    /** 当前编辑的文件；调用方必须通过 EXTRA_PATH 传入 */
+    private val editFile: File by lazy {
+        File(requireNotNull(intent.getStringExtra(EXTRA_PATH)))
+    }
+
     /** 导出配置文件内容到用户选的文件 */
     private val createDocument = registerForActivityResult(
         ActivityResultContracts.CreateDocument("text/plain")
@@ -41,6 +45,10 @@ class OptionEditActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AppTheme.applyTheme(this)
         super.onCreate(savedInstanceState)
+        if (intent.getStringExtra(EXTRA_PATH).isNullOrBlank()) {
+            finish()
+            return
+        }
         binding = ActivityOptionEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initView()
@@ -62,7 +70,7 @@ class OptionEditActivity: AppCompatActivity() {
             R.id.option_edit_import -> openDocument.launch(
                 arrayOf("text/plain", "application/octet-stream", "*/*")
             )
-            R.id.option_edit_export -> createDocument.launch(".nethackrc")
+            R.id.option_edit_export -> createDocument.launch(editFile.name)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -136,6 +144,7 @@ class OptionEditActivity: AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.option_edit_toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = editFile.name
 
         binding.optionEditText.apply {
             val text = readOptionText()
@@ -188,12 +197,17 @@ class OptionEditActivity: AppCompatActivity() {
     }
 
     private fun readOptionText():String {
-        return File(filesDir,"nethackdir/.nethackrc").readText()
+        return if (editFile.exists()) editFile.readText() else ""
     }
 
     private fun saveOptionFile(option:String) {
-        File(filesDir,"nethackdir/.nethackrc").writeText(option)
+        editFile.parentFile?.mkdirs()
+        editFile.writeText(option)
         // 保存后内容就是新的基准，再返回时不会重复提示
         initialText = option
+    }
+
+    companion object {
+        const val EXTRA_PATH = "path"
     }
 }

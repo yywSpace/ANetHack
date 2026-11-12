@@ -2,7 +2,10 @@
 WIZARDS=*
 EXPLORERS=*
 
-# Not needed: the save file name already contains the save/ prefix, so the
+# Wizard-mode starting inventory, one wish per line.
+WIZKIT=wizkit
+
+# SAVEDIR id not needed, the save file name already contains the save/ prefix, so the
 # game would look for save/save/... and saving would fail.
 #SAVEDIR=save
 # In-progress level files (kept out of save/ so it only holds save files).
