@@ -33,8 +33,8 @@
     <string name="option_import_failed">Import failed: could not read the file</string>
     <string name="option_export_failed">Export failed: could not write the selected file</string>
     <string name="option_edit_title">Option</string>
-    <string name="option_save_dialog_title">Save option</string>
-    <string name="option_save_dialog_msg">Do you want to save the option file?</string>
+    <string name="option_save_dialog_title">Save option?</string>
+    <string name="option_save_dialog_msg">Do you want to save the option file? Changes will take effect in the next game.</string>
 
     <!-- Price identification -->
     <string name="pride_id_title">Price Identification</string>
@@ -173,7 +173,7 @@
     <string name="command_editor_import_failed">Import failed: the file is not a valid command config</string>
     <string name="command_editor_export_failed">Export failed: could not write the selected file</string>
     <string name="unsaved_changes">Save changes?</string>
-    <string name="unsaved_changes_message">Unsaved changes will be lost.</string>
+    <string name="unsaved_changes_message">Unsaved changes will be lost. Saved changes will take effect in the next game.</string>
     <string name="unsaved_changes_discard">Discard</string>
 
     <!-- Permission -->
