@@ -11,8 +11,8 @@ android {
         applicationId = "com.yywspace.anethack"
         minSdk = 29
         targetSdk = 34
-        versionCode = 6
-        versionName = "5.0.0.a2.1"
+        versionCode = 7
+        versionName = "3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
