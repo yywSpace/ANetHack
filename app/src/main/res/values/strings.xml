@@ -107,7 +107,7 @@
     <string name="item_label_to_hit">To hit</string>
     <string name="item_label_handed">Handed</string>
 
-    <string name="item_label_armor_type">Armor type</string>
+    <string name="item_label_armor_type">Type</string>
     <string name="item_label_ac">AC</string>
     <string name="item_label_mc">MC</string>
     <string name="item_label_spell_level">Spell level</string>

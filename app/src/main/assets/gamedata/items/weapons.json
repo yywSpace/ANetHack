@@ -1,7 +1,7 @@
 [
   {
     "name": "arrow",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 55,
@@ -28,7 +28,7 @@
   },
   {
     "name": "elven arrow",
-    "description": "runed arrow",
+    "appearance": "runed arrow",
     "class": "weapon",
     "symbol": ")",
     "probability": 20,
@@ -54,7 +54,7 @@
   },
   {
     "name": "orcish arrow",
-    "description": "crude arrow",
+    "appearance": "crude arrow",
     "class": "weapon",
     "symbol": ")",
     "probability": 20,
@@ -80,7 +80,7 @@
   },
   {
     "name": "silver arrow",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 12,
@@ -107,7 +107,7 @@
   },
   {
     "name": "ya",
-    "description": "bamboo arrow",
+    "appearance": "bamboo arrow",
     "class": "weapon",
     "symbol": ")",
     "probability": 15,
@@ -133,7 +133,7 @@
   },
   {
     "name": "crossbow bolt",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 55,
@@ -160,7 +160,7 @@
   },
   {
     "name": "dart",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 60,
@@ -187,7 +187,7 @@
   },
   {
     "name": "shuriken",
-    "description": "throwing star",
+    "appearance": "throwing star",
     "class": "weapon",
     "symbol": ")",
     "probability": 35,
@@ -213,7 +213,7 @@
   },
   {
     "name": "boomerang",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 15,
@@ -240,7 +240,7 @@
   },
   {
     "name": "spear",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 50,
@@ -267,7 +267,7 @@
   },
   {
     "name": "elven spear",
-    "description": "runed spear",
+    "appearance": "runed spear",
     "class": "weapon",
     "symbol": ")",
     "probability": 10,
@@ -293,7 +293,7 @@
   },
   {
     "name": "orcish spear",
-    "description": "crude spear",
+    "appearance": "crude spear",
     "class": "weapon",
     "symbol": ")",
     "probability": 13,
@@ -319,7 +319,7 @@
   },
   {
     "name": "dwarvish spear",
-    "description": "stout spear",
+    "appearance": "stout spear",
     "class": "weapon",
     "symbol": ")",
     "probability": 12,
@@ -345,7 +345,7 @@
   },
   {
     "name": "silver spear",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 2,
@@ -372,7 +372,7 @@
   },
   {
     "name": "javelin",
-    "description": "throwing spear",
+    "appearance": "throwing spear",
     "class": "weapon",
     "symbol": ")",
     "probability": 10,
@@ -398,7 +398,7 @@
   },
   {
     "name": "trident",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 8,
@@ -424,7 +424,7 @@
   },
   {
     "name": "dagger",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 30,
@@ -451,7 +451,7 @@
   },
   {
     "name": "elven dagger",
-    "description": "runed dagger",
+    "appearance": "runed dagger",
     "class": "weapon",
     "symbol": ")",
     "probability": 10,
@@ -477,7 +477,7 @@
   },
   {
     "name": "orcish dagger",
-    "description": "crude dagger",
+    "appearance": "crude dagger",
     "class": "weapon",
     "symbol": ")",
     "probability": 12,
@@ -503,7 +503,7 @@
   },
   {
     "name": "silver dagger",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 3,
@@ -530,7 +530,7 @@
   },
   {
     "name": "athame",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 0,
@@ -557,7 +557,7 @@
   },
   {
     "name": "scalpel",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 0,
@@ -584,7 +584,7 @@
   },
   {
     "name": "knife",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 20,
@@ -611,7 +611,7 @@
   },
   {
     "name": "stiletto",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 5,
@@ -638,7 +638,7 @@
   },
   {
     "name": "worm tooth",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 0,
@@ -665,7 +665,7 @@
   },
   {
     "name": "crysknife",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 0,
@@ -692,7 +692,7 @@
   },
   {
     "name": "axe",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 40,
@@ -718,7 +718,7 @@
   },
   {
     "name": "battle-axe",
-    "description": "double-headed axe",
+    "appearance": "double-headed axe",
     "class": "weapon",
     "symbol": ")",
     "probability": 10,
@@ -743,7 +743,7 @@
   },
   {
     "name": "short sword",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 8,
@@ -769,7 +769,7 @@
   },
   {
     "name": "elven short sword",
-    "description": "runed short sword",
+    "appearance": "runed short sword",
     "class": "weapon",
     "symbol": ")",
     "probability": 2,
@@ -794,7 +794,7 @@
   },
   {
     "name": "orcish short sword",
-    "description": "crude short sword",
+    "appearance": "crude short sword",
     "class": "weapon",
     "symbol": ")",
     "probability": 3,
@@ -819,7 +819,7 @@
   },
   {
     "name": "dwarvish short sword",
-    "description": "broad short sword",
+    "appearance": "broad short sword",
     "class": "weapon",
     "symbol": ")",
     "probability": 2,
@@ -844,7 +844,7 @@
   },
   {
     "name": "scimitar",
-    "description": "curved sword",
+    "appearance": "curved sword",
     "class": "weapon",
     "symbol": ")",
     "probability": 15,
@@ -869,7 +869,7 @@
   },
   {
     "name": "silver saber",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 6,
@@ -895,7 +895,7 @@
   },
   {
     "name": "broadsword",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 8,
@@ -921,7 +921,7 @@
   },
   {
     "name": "elven broadsword",
-    "description": "runed broadsword",
+    "appearance": "runed broadsword",
     "class": "weapon",
     "symbol": ")",
     "probability": 4,
@@ -946,7 +946,7 @@
   },
   {
     "name": "long sword",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 50,
@@ -972,7 +972,7 @@
   },
   {
     "name": "two-handed sword",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 22,
@@ -998,7 +998,7 @@
   },
   {
     "name": "katana",
-    "description": "samurai sword",
+    "appearance": "samurai sword",
     "class": "weapon",
     "symbol": ")",
     "probability": 4,
@@ -1023,7 +1023,7 @@
   },
   {
     "name": "tsurugi",
-    "description": "long samurai sword",
+    "appearance": "long samurai sword",
     "class": "weapon",
     "symbol": ")",
     "probability": 0,
@@ -1048,7 +1048,7 @@
   },
   {
     "name": "runesword",
-    "description": "runed broadsword",
+    "appearance": "runed broadsword",
     "class": "weapon",
     "symbol": ")",
     "probability": 0,
@@ -1073,7 +1073,7 @@
   },
   {
     "name": "partisan",
-    "description": "vulgar polearm",
+    "appearance": "vulgar polearm",
     "class": "weapon",
     "symbol": ")",
     "probability": 5,
@@ -1098,7 +1098,7 @@
   },
   {
     "name": "ranseur",
-    "description": "hilted polearm",
+    "appearance": "hilted polearm",
     "class": "weapon",
     "symbol": ")",
     "probability": 5,
@@ -1123,7 +1123,7 @@
   },
   {
     "name": "spetum",
-    "description": "forked polearm",
+    "appearance": "forked polearm",
     "class": "weapon",
     "symbol": ")",
     "probability": 5,
@@ -1148,7 +1148,7 @@
   },
   {
     "name": "glaive",
-    "description": "single-edged polearm",
+    "appearance": "single-edged polearm",
     "class": "weapon",
     "symbol": ")",
     "probability": 8,
@@ -1173,7 +1173,7 @@
   },
   {
     "name": "halberd",
-    "description": "angled poleaxe",
+    "appearance": "angled poleaxe",
     "class": "weapon",
     "symbol": ")",
     "probability": 8,
@@ -1198,7 +1198,7 @@
   },
   {
     "name": "bardiche",
-    "description": "long poleaxe",
+    "appearance": "long poleaxe",
     "class": "weapon",
     "symbol": ")",
     "probability": 4,
@@ -1223,7 +1223,7 @@
   },
   {
     "name": "voulge",
-    "description": "pole cleaver",
+    "appearance": "pole cleaver",
     "class": "weapon",
     "symbol": ")",
     "probability": 4,
@@ -1248,7 +1248,7 @@
   },
   {
     "name": "fauchard",
-    "description": "pole sickle",
+    "appearance": "pole sickle",
     "class": "weapon",
     "symbol": ")",
     "probability": 6,
@@ -1273,7 +1273,7 @@
   },
   {
     "name": "guisarme",
-    "description": "pruning hook",
+    "appearance": "pruning hook",
     "class": "weapon",
     "symbol": ")",
     "probability": 6,
@@ -1298,7 +1298,7 @@
   },
   {
     "name": "bill-guisarme",
-    "description": "hooked polearm",
+    "appearance": "hooked polearm",
     "class": "weapon",
     "symbol": ")",
     "probability": 4,
@@ -1323,7 +1323,7 @@
   },
   {
     "name": "lucern hammer",
-    "description": "pronged polearm",
+    "appearance": "pronged polearm",
     "class": "weapon",
     "symbol": ")",
     "probability": 5,
@@ -1348,7 +1348,7 @@
   },
   {
     "name": "bec de corbin",
-    "description": "beaked polearm",
+    "appearance": "beaked polearm",
     "class": "weapon",
     "symbol": ")",
     "probability": 4,
@@ -1373,7 +1373,7 @@
   },
   {
     "name": "dwarvish mattock",
-    "description": "broad pick",
+    "appearance": "broad pick",
     "class": "weapon",
     "symbol": ")",
     "probability": 13,
@@ -1398,7 +1398,7 @@
   },
   {
     "name": "lance",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 4,
@@ -1424,7 +1424,7 @@
   },
   {
     "name": "mace",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 40,
@@ -1450,7 +1450,7 @@
   },
   {
     "name": "silver mace",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 2,
@@ -1476,7 +1476,7 @@
   },
   {
     "name": "morning star",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 12,
@@ -1502,7 +1502,7 @@
   },
   {
     "name": "war hammer",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 15,
@@ -1528,7 +1528,7 @@
   },
   {
     "name": "club",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 12,
@@ -1554,7 +1554,7 @@
   },
   {
     "name": "rubber hose",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 0,
@@ -1580,7 +1580,7 @@
   },
   {
     "name": "quarterstaff",
-    "description": "staff",
+    "appearance": "staff",
     "class": "weapon",
     "symbol": ")",
     "probability": 11,
@@ -1605,7 +1605,7 @@
   },
   {
     "name": "aklys",
-    "description": "thonged club",
+    "appearance": "thonged club",
     "class": "weapon",
     "symbol": ")",
     "probability": 8,
@@ -1630,7 +1630,7 @@
   },
   {
     "name": "flail",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 40,
@@ -1656,7 +1656,7 @@
   },
   {
     "name": "bullwhip",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 2,
@@ -1682,7 +1682,7 @@
   },
   {
     "name": "bow",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 24,
@@ -1708,7 +1708,7 @@
   },
   {
     "name": "elven bow",
-    "description": "runed bow",
+    "appearance": "runed bow",
     "class": "weapon",
     "symbol": ")",
     "probability": 12,
@@ -1733,7 +1733,7 @@
   },
   {
     "name": "orcish bow",
-    "description": "crude bow",
+    "appearance": "crude bow",
     "class": "weapon",
     "symbol": ")",
     "probability": 12,
@@ -1758,7 +1758,7 @@
   },
   {
     "name": "yumi",
-    "description": "long bow",
+    "appearance": "long bow",
     "class": "weapon",
     "symbol": ")",
     "probability": 0,
@@ -1783,7 +1783,7 @@
   },
   {
     "name": "sling",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 40,
@@ -1809,7 +1809,7 @@
   },
   {
     "name": "crossbow",
-    "description": null,
+    "appearance": null,
     "class": "weapon",
     "symbol": ")",
     "probability": 45,

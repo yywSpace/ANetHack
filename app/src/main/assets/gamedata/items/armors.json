@@ -1,7 +1,7 @@
 [
   {
     "name": "elven leather helm",
-    "description": "leather hat",
+    "appearance": "leather hat",
     "class": "armor",
     "symbol": "[",
     "probability": 6,
@@ -23,7 +23,7 @@
   },
   {
     "name": "orcish helm",
-    "description": "iron skull cap",
+    "appearance": "iron skull cap",
     "class": "armor",
     "symbol": "[",
     "probability": 6,
@@ -45,7 +45,7 @@
   },
   {
     "name": "dwarvish iron helm",
-    "description": "hard hat",
+    "appearance": "hard hat",
     "class": "armor",
     "symbol": "[",
     "probability": 6,
@@ -67,7 +67,7 @@
   },
   {
     "name": "fedora",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -89,7 +89,7 @@
   },
   {
     "name": "cornuthaum",
-    "description": "conical hat",
+    "appearance": "conical hat",
     "class": "armor",
     "symbol": "[",
     "probability": 5,
@@ -115,7 +115,7 @@
   },
   {
     "name": "dunce cap",
-    "description": "conical hat",
+    "appearance": "conical hat",
     "class": "armor",
     "symbol": "[",
     "probability": 5,
@@ -142,7 +142,7 @@
   },
   {
     "name": "dented pot",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 2,
@@ -164,7 +164,7 @@
   },
   {
     "name": "helm of brilliance",
-    "description": "crystal helmet",
+    "appearance": "crystal helmet",
     "class": "armor",
     "symbol": "[",
     "probability": 6,
@@ -190,7 +190,7 @@
   },
   {
     "name": "helmet",
-    "description": "plumed helmet",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 10,
@@ -212,7 +212,7 @@
   },
   {
     "name": "helm of caution",
-    "description": "etched helmet",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 6,
@@ -238,7 +238,7 @@
   },
   {
     "name": "helm of opposite alignment",
-    "description": "crested helmet",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 10,
@@ -264,7 +264,7 @@
   },
   {
     "name": "helm of telepathy",
-    "description": "visored helmet",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 4,
@@ -290,7 +290,7 @@
   },
   {
     "name": "gray dragon scale mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -318,7 +318,7 @@
   },
   {
     "name": "gold dragon scale mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -343,7 +343,7 @@
   },
   {
     "name": "silver dragon scale mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -371,7 +371,7 @@
   },
   {
     "name": "red dragon scale mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -399,7 +399,7 @@
   },
   {
     "name": "white dragon scale mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -427,7 +427,7 @@
   },
   {
     "name": "orange dragon scale mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -455,7 +455,7 @@
   },
   {
     "name": "black dragon scale mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -483,7 +483,7 @@
   },
   {
     "name": "blue dragon scale mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -511,7 +511,7 @@
   },
   {
     "name": "green dragon scale mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -539,7 +539,7 @@
   },
   {
     "name": "yellow dragon scale mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -567,7 +567,7 @@
   },
   {
     "name": "gray dragon scales",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -594,7 +594,7 @@
   },
   {
     "name": "gold dragon scales",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -618,7 +618,7 @@
   },
   {
     "name": "silver dragon scales",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -645,7 +645,7 @@
   },
   {
     "name": "red dragon scales",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -672,7 +672,7 @@
   },
   {
     "name": "white dragon scales",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -699,7 +699,7 @@
   },
   {
     "name": "orange dragon scales",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -726,7 +726,7 @@
   },
   {
     "name": "black dragon scales",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -753,7 +753,7 @@
   },
   {
     "name": "blue dragon scales",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -780,7 +780,7 @@
   },
   {
     "name": "green dragon scales",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -807,7 +807,7 @@
   },
   {
     "name": "yellow dragon scales",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -834,7 +834,7 @@
   },
   {
     "name": "plate mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 40,
@@ -858,7 +858,7 @@
   },
   {
     "name": "crystal plate mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 10,
@@ -882,7 +882,7 @@
   },
   {
     "name": "bronze plate mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 23,
@@ -906,7 +906,7 @@
   },
   {
     "name": "splint mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 57,
@@ -930,7 +930,7 @@
   },
   {
     "name": "banded mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 66,
@@ -954,7 +954,7 @@
   },
   {
     "name": "dwarvish mithril-coat",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 10,
@@ -977,7 +977,7 @@
   },
   {
     "name": "elven mithril-coat",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 15,
@@ -1000,7 +1000,7 @@
   },
   {
     "name": "chain mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 66,
@@ -1023,7 +1023,7 @@
   },
   {
     "name": "orcish chain mail",
-    "description": "crude chain mail",
+    "appearance": "crude chain mail",
     "class": "armor",
     "symbol": "[",
     "probability": 19,
@@ -1045,7 +1045,7 @@
   },
   {
     "name": "scale mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 66,
@@ -1068,7 +1068,7 @@
   },
   {
     "name": "studded leather armor",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 66,
@@ -1091,7 +1091,7 @@
   },
   {
     "name": "ring mail",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 66,
@@ -1114,7 +1114,7 @@
   },
   {
     "name": "orcish ring mail",
-    "description": "crude ring mail",
+    "appearance": "crude ring mail",
     "class": "armor",
     "symbol": "[",
     "probability": 19,
@@ -1136,7 +1136,7 @@
   },
   {
     "name": "leather armor",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 75,
@@ -1159,7 +1159,7 @@
   },
   {
     "name": "leather jacket",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 11,
@@ -1181,7 +1181,7 @@
   },
   {
     "name": "Hawaiian shirt",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 8,
@@ -1206,7 +1206,7 @@
   },
   {
     "name": "T-shirt",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 2,
@@ -1231,7 +1231,7 @@
   },
   {
     "name": "mummy wrapping",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 0,
@@ -1256,7 +1256,7 @@
   },
   {
     "name": "elven cloak",
-    "description": "faded pall",
+    "appearance": "faded pall",
     "class": "armor",
     "symbol": "[",
     "probability": 8,
@@ -1281,7 +1281,7 @@
   },
   {
     "name": "orcish cloak",
-    "description": "coarse mantelet",
+    "appearance": "coarse mantelet",
     "class": "armor",
     "symbol": "[",
     "probability": 8,
@@ -1302,7 +1302,7 @@
   },
   {
     "name": "dwarvish cloak",
-    "description": "hooded cloak",
+    "appearance": "hooded cloak",
     "class": "armor",
     "symbol": "[",
     "probability": 8,
@@ -1323,7 +1323,7 @@
   },
   {
     "name": "oilskin cloak",
-    "description": "slippery cloak",
+    "appearance": "slippery cloak",
     "class": "armor",
     "symbol": "[",
     "probability": 8,
@@ -1347,7 +1347,7 @@
   },
   {
     "name": "robe",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 6,
@@ -1373,7 +1373,7 @@
   },
   {
     "name": "alchemy smock",
-    "description": "apron",
+    "appearance": "apron",
     "class": "armor",
     "symbol": "[",
     "probability": 11,
@@ -1399,7 +1399,7 @@
   },
   {
     "name": "leather cloak",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 8,
@@ -1421,7 +1421,7 @@
   },
   {
     "name": "cloak of protection",
-    "description": "tattered cape",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 11,
@@ -1446,7 +1446,7 @@
   },
   {
     "name": "cloak of invisibility",
-    "description": "opera cloak",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 12,
@@ -1471,7 +1471,7 @@
   },
   {
     "name": "cloak of magic resistance",
-    "description": "ornamental cope",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 6,
@@ -1496,7 +1496,7 @@
   },
   {
     "name": "cloak of displacement",
-    "description": "piece of cloth",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 12,
@@ -1521,7 +1521,7 @@
   },
   {
     "name": "small shield",
-    "description": "wooden shield",
+    "appearance": "wooden shield",
     "class": "armor",
     "symbol": "[",
     "probability": 6,
@@ -1545,7 +1545,7 @@
   },
   {
     "name": "shield of drain resistance",
-    "description": "wooden shield",
+    "appearance": "wooden shield",
     "class": "armor",
     "symbol": "[",
     "probability": 12,
@@ -1571,7 +1571,7 @@
   },
   {
     "name": "shield of shock resistance",
-    "description": "wooden shield",
+    "appearance": "wooden shield",
     "class": "armor",
     "symbol": "[",
     "probability": 12,
@@ -1597,7 +1597,7 @@
   },
   {
     "name": "elven shield",
-    "description": "blue and green shield",
+    "appearance": "blue and green shield",
     "class": "armor",
     "symbol": "[",
     "probability": 2,
@@ -1618,7 +1618,7 @@
   },
   {
     "name": "Uruk-hai shield",
-    "description": "white-handed shield",
+    "appearance": "white-handed shield",
     "class": "armor",
     "symbol": "[",
     "probability": 2,
@@ -1639,7 +1639,7 @@
   },
   {
     "name": "orcish shield",
-    "description": "red-eyed shield",
+    "appearance": "red-eyed shield",
     "class": "armor",
     "symbol": "[",
     "probability": 2,
@@ -1660,7 +1660,7 @@
   },
   {
     "name": "large shield",
-    "description": null,
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 4,
@@ -1683,7 +1683,7 @@
   },
   {
     "name": "dwarvish roundshield",
-    "description": "large round shield",
+    "appearance": "large round shield",
     "class": "armor",
     "symbol": "[",
     "probability": 3,
@@ -1704,7 +1704,7 @@
   },
   {
     "name": "shield of reflection",
-    "description": "polished silver shield",
+    "appearance": "polished silver shield",
     "class": "armor",
     "symbol": "[",
     "probability": 7,
@@ -1729,7 +1729,7 @@
   },
   {
     "name": "leather gloves",
-    "description": "old gloves",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 15,
@@ -1751,7 +1751,7 @@
   },
   {
     "name": "gauntlets of fumbling",
-    "description": "padded gloves",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 8,
@@ -1777,7 +1777,7 @@
   },
   {
     "name": "gauntlets of power",
-    "description": "riding gloves",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 8,
@@ -1803,7 +1803,7 @@
   },
   {
     "name": "gauntlets of dexterity",
-    "description": "fencing gloves",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 8,
@@ -1829,7 +1829,7 @@
   },
   {
     "name": "low boots",
-    "description": "walking shoes",
+    "appearance": "walking shoes",
     "class": "armor",
     "symbol": "[",
     "probability": 23,
@@ -1851,7 +1851,7 @@
   },
   {
     "name": "iron shoes",
-    "description": "hard shoes",
+    "appearance": "hard shoes",
     "class": "armor",
     "symbol": "[",
     "probability": 7,
@@ -1873,7 +1873,7 @@
   },
   {
     "name": "high boots",
-    "description": "jackboots",
+    "appearance": "jackboots",
     "class": "armor",
     "symbol": "[",
     "probability": 14,
@@ -1895,7 +1895,7 @@
   },
   {
     "name": "speed boots",
-    "description": "combat boots",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 12,
@@ -1921,7 +1921,7 @@
   },
   {
     "name": "water walking boots",
-    "description": "jungle boots",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 12,
@@ -1947,7 +1947,7 @@
   },
   {
     "name": "jumping boots",
-    "description": "hiking boots",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 12,
@@ -1973,7 +1973,7 @@
   },
   {
     "name": "elven boots",
-    "description": "mud boots",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 12,
@@ -1999,7 +1999,7 @@
   },
   {
     "name": "kicking boots",
-    "description": "buckled boots",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 12,
@@ -2025,7 +2025,7 @@
   },
   {
     "name": "fumble boots",
-    "description": "riding boots",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 12,
@@ -2051,7 +2051,7 @@
   },
   {
     "name": "levitation boots",
-    "description": "snow boots",
+    "appearance": null,
     "class": "armor",
     "symbol": "[",
     "probability": 12,

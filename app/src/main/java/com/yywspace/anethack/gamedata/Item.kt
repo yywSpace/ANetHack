@@ -11,7 +11,8 @@ import com.yywspace.anethack.entity.NHColor
  */
 data class Item(
     val name: String,
-    val description: String? = null,
+    /** 固定的完整外观名称；随机外观或没有外观时为 null */
+    val appearance: String? = null,
 
     /** JSON 字段名是 class，Kotlin 里避开关键字 */
     @SerializedName("class")

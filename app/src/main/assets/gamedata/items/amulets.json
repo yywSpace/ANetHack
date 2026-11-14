@@ -1,7 +1,7 @@
 [
   {
     "name": "amulet of ESP",
-    "description": "circular",
+    "appearance": null,
     "class": "amulet",
     "symbol": "\"",
     "probability": 120,
@@ -15,7 +15,7 @@
   },
   {
     "name": "amulet of life saving",
-    "description": "spherical",
+    "appearance": null,
     "class": "amulet",
     "symbol": "\"",
     "probability": 75,
@@ -29,7 +29,7 @@
   },
   {
     "name": "amulet of strangulation",
-    "description": "oval",
+    "appearance": null,
     "class": "amulet",
     "symbol": "\"",
     "probability": 115,
@@ -43,7 +43,7 @@
   },
   {
     "name": "amulet of restful sleep",
-    "description": "triangular",
+    "appearance": null,
     "class": "amulet",
     "symbol": "\"",
     "probability": 115,
@@ -57,7 +57,7 @@
   },
   {
     "name": "amulet versus poison",
-    "description": "pyramidal",
+    "appearance": null,
     "class": "amulet",
     "symbol": "\"",
     "probability": 115,
@@ -71,7 +71,7 @@
   },
   {
     "name": "amulet of change",
-    "description": "square",
+    "appearance": null,
     "class": "amulet",
     "symbol": "\"",
     "probability": 115,
@@ -85,7 +85,7 @@
   },
   {
     "name": "amulet of unchanging",
-    "description": "concave",
+    "appearance": null,
     "class": "amulet",
     "symbol": "\"",
     "probability": 60,
@@ -99,7 +99,7 @@
   },
   {
     "name": "amulet of reflection",
-    "description": "hexagonal",
+    "appearance": null,
     "class": "amulet",
     "symbol": "\"",
     "probability": 75,
@@ -113,7 +113,7 @@
   },
   {
     "name": "amulet of magical breathing",
-    "description": "octagonal",
+    "appearance": null,
     "class": "amulet",
     "symbol": "\"",
     "probability": 75,
@@ -127,7 +127,7 @@
   },
   {
     "name": "amulet of guarding",
-    "description": "perforated",
+    "appearance": null,
     "class": "amulet",
     "symbol": "\"",
     "probability": 75,
@@ -141,7 +141,7 @@
   },
   {
     "name": "amulet of flying",
-    "description": "cubical",
+    "appearance": null,
     "class": "amulet",
     "symbol": "\"",
     "probability": 60,
@@ -155,7 +155,7 @@
   },
   {
     "name": "cheap plastic imitation of the Amulet of Yendor",
-    "description": "Amulet of Yendor",
+    "appearance": "Amulet of Yendor",
     "class": "amulet",
     "symbol": "\"",
     "probability": 0,
@@ -169,7 +169,7 @@
   },
   {
     "name": "Amulet of Yendor",
-    "description": "Amulet of Yendor",
+    "appearance": "Amulet of Yendor",
     "class": "amulet",
     "symbol": "\"",
     "probability": 0,

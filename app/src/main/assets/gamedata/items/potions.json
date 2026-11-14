@@ -1,7 +1,7 @@
 [
   {
     "name": "potion of gain ability",
-    "description": "ruby",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -16,7 +16,7 @@
   },
   {
     "name": "potion of restore ability",
-    "description": "pink",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -31,7 +31,7 @@
   },
   {
     "name": "potion of confusion",
-    "description": "orange",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -46,7 +46,7 @@
   },
   {
     "name": "potion of blindness",
-    "description": "yellow",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 30,
@@ -61,7 +61,7 @@
   },
   {
     "name": "potion of paralysis",
-    "description": "emerald",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -76,7 +76,7 @@
   },
   {
     "name": "potion of speed",
-    "description": "dark green",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -91,7 +91,7 @@
   },
   {
     "name": "potion of levitation",
-    "description": "cyan",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -106,7 +106,7 @@
   },
   {
     "name": "potion of hallucination",
-    "description": "sky blue",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 30,
@@ -121,7 +121,7 @@
   },
   {
     "name": "potion of invisibility",
-    "description": "brilliant blue",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -136,7 +136,7 @@
   },
   {
     "name": "potion of see invisible",
-    "description": "magenta",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -151,7 +151,7 @@
   },
   {
     "name": "potion of healing",
-    "description": "purple-red",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 115,
@@ -166,7 +166,7 @@
   },
   {
     "name": "potion of extra healing",
-    "description": "puce",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 45,
@@ -181,7 +181,7 @@
   },
   {
     "name": "potion of gain level",
-    "description": "milky",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 20,
@@ -196,7 +196,7 @@
   },
   {
     "name": "potion of enlightenment",
-    "description": "swirly",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 20,
@@ -211,7 +211,7 @@
   },
   {
     "name": "potion of monster detection",
-    "description": "bubbly",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -226,7 +226,7 @@
   },
   {
     "name": "potion of object detection",
-    "description": "smoky",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -241,7 +241,7 @@
   },
   {
     "name": "potion of gain energy",
-    "description": "cloudy",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -256,7 +256,7 @@
   },
   {
     "name": "potion of sleeping",
-    "description": "effervescent",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -271,7 +271,7 @@
   },
   {
     "name": "potion of full healing",
-    "description": "black",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 10,
@@ -286,7 +286,7 @@
   },
   {
     "name": "potion of polymorph",
-    "description": "golden",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 10,
@@ -301,7 +301,7 @@
   },
   {
     "name": "potion of booze",
-    "description": "brown",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -315,7 +315,7 @@
   },
   {
     "name": "potion of sickness",
-    "description": "fizzy",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -329,7 +329,7 @@
   },
   {
     "name": "potion of fruit juice",
-    "description": "dark",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 40,
@@ -343,7 +343,7 @@
   },
   {
     "name": "potion of acid",
-    "description": "white",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 10,
@@ -357,7 +357,7 @@
   },
   {
     "name": "potion of oil",
-    "description": "murky",
+    "appearance": null,
     "class": "potion",
     "symbol": "!",
     "probability": 30,
@@ -371,7 +371,7 @@
   },
   {
     "name": "potion of water",
-    "description": "clear",
+    "appearance": "clear",
     "class": "potion",
     "symbol": "!",
     "probability": 80,

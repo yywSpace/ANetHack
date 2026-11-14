@@ -51,7 +51,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         }
         // 消息里的物品名：点击后打开对应物品详情
         messageView.onItemClick = { item ->
-            nh.itemDialog?.showItem(item.name, item.itemClass)
+            nh.itemDialog?.showItems(item.items)
         }
     }
 
@@ -159,12 +159,12 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                     message.attach(lastCmdMsg?.source, oldMsgColor, NHColor.fromInt(nh.prefs.messageNewColor)).toSpannableString()
                 )
                 // 只解析 look 指令产生的消息（格式可预期），其它消息保持原样
-                if (message.fromLook) {
+                if (message.fromInspect) {
                     MonsterLink.highlight(itemContext, messageText, lineStart, messageText.length) { monster ->
                         nh.monsterDialog?.showMonster(monster)
                     }
                     ItemLink.highlight(itemContext, messageText, lineStart, messageText.length) { item ->
-                        nh.itemDialog?.showItem(item.name, item.itemClass)
+                        nh.itemDialog?.showItems(item.items)
                     }
                 }
             }

@@ -1,7 +1,7 @@
 [
   {
     "name": "spellbook of dig",
-    "description": "parchment",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 20,
@@ -26,7 +26,7 @@
   },
   {
     "name": "spellbook of magic missile",
-    "description": "vellum",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 45,
@@ -51,7 +51,7 @@
   },
   {
     "name": "spellbook of fireball",
-    "description": "ragged",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 20,
@@ -76,7 +76,7 @@
   },
   {
     "name": "spellbook of cone of cold",
-    "description": "dog eared",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 10,
@@ -101,7 +101,7 @@
   },
   {
     "name": "spellbook of sleep",
-    "description": "mottled",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 30,
@@ -126,7 +126,7 @@
   },
   {
     "name": "spellbook of finger of death",
-    "description": "stained",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 5,
@@ -151,7 +151,7 @@
   },
   {
     "name": "spellbook of light",
-    "description": "cloth",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 45,
@@ -176,7 +176,7 @@
   },
   {
     "name": "spellbook of detect monsters",
-    "description": "leathery",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 43,
@@ -201,7 +201,7 @@
   },
   {
     "name": "spellbook of healing",
-    "description": "white",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 40,
@@ -226,7 +226,7 @@
   },
   {
     "name": "spellbook of knock",
-    "description": "pink",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 25,
@@ -251,7 +251,7 @@
   },
   {
     "name": "spellbook of force bolt",
-    "description": "red",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 30,
@@ -276,7 +276,7 @@
   },
   {
     "name": "spellbook of confuse monster",
-    "description": "orange",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 49,
@@ -301,7 +301,7 @@
   },
   {
     "name": "spellbook of cure blindness",
-    "description": "yellow",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 25,
@@ -326,7 +326,7 @@
   },
   {
     "name": "spellbook of drain life",
-    "description": "velvet",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 10,
@@ -351,7 +351,7 @@
   },
   {
     "name": "spellbook of slow monster",
-    "description": "light green",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 30,
@@ -376,7 +376,7 @@
   },
   {
     "name": "spellbook of wizard lock",
-    "description": "dark green",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 25,
@@ -401,7 +401,7 @@
   },
   {
     "name": "spellbook of create monster",
-    "description": "turquoise",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 35,
@@ -426,7 +426,7 @@
   },
   {
     "name": "spellbook of detect food",
-    "description": "cyan",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 30,
@@ -451,7 +451,7 @@
   },
   {
     "name": "spellbook of cause fear",
-    "description": "light blue",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 25,
@@ -476,7 +476,7 @@
   },
   {
     "name": "spellbook of clairvoyance",
-    "description": "dark blue",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 15,
@@ -501,7 +501,7 @@
   },
   {
     "name": "spellbook of cure sickness",
-    "description": "indigo",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 32,
@@ -526,7 +526,7 @@
   },
   {
     "name": "spellbook of charm monster",
-    "description": "magenta",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 20,
@@ -551,7 +551,7 @@
   },
   {
     "name": "spellbook of haste self",
-    "description": "purple",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 33,
@@ -576,7 +576,7 @@
   },
   {
     "name": "spellbook of detect unseen",
-    "description": "violet",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 20,
@@ -601,7 +601,7 @@
   },
   {
     "name": "spellbook of levitation",
-    "description": "tan",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 20,
@@ -626,7 +626,7 @@
   },
   {
     "name": "spellbook of extra healing",
-    "description": "plaid",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 27,
@@ -651,7 +651,7 @@
   },
   {
     "name": "spellbook of restore ability",
-    "description": "light brown",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 25,
@@ -676,7 +676,7 @@
   },
   {
     "name": "spellbook of invisibility",
-    "description": "dark brown",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 20,
@@ -701,7 +701,7 @@
   },
   {
     "name": "spellbook of detect treasure",
-    "description": "gray",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 20,
@@ -726,7 +726,7 @@
   },
   {
     "name": "spellbook of remove curse",
-    "description": "wrinkled",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 25,
@@ -751,7 +751,7 @@
   },
   {
     "name": "spellbook of magic mapping",
-    "description": "dusty",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 18,
@@ -776,7 +776,7 @@
   },
   {
     "name": "spellbook of identify",
-    "description": "bronze",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 20,
@@ -801,7 +801,7 @@
   },
   {
     "name": "spellbook of turn undead",
-    "description": "copper",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 16,
@@ -826,7 +826,7 @@
   },
   {
     "name": "spellbook of polymorph",
-    "description": "silver",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 10,
@@ -851,7 +851,7 @@
   },
   {
     "name": "spellbook of teleport away",
-    "description": "gold",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 15,
@@ -876,7 +876,7 @@
   },
   {
     "name": "spellbook of create familiar",
-    "description": "glittering",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 10,
@@ -901,7 +901,7 @@
   },
   {
     "name": "spellbook of cancellation",
-    "description": "shining",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 15,
@@ -926,7 +926,7 @@
   },
   {
     "name": "spellbook of protection",
-    "description": "dull",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 18,
@@ -951,7 +951,7 @@
   },
   {
     "name": "spellbook of jumping",
-    "description": "thin",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 20,
@@ -976,7 +976,7 @@
   },
   {
     "name": "spellbook of stone to flesh",
-    "description": "thick",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 15,
@@ -1001,7 +1001,7 @@
   },
   {
     "name": "spellbook of chain lightning",
-    "description": "checkered",
+    "appearance": null,
     "class": "spellbook",
     "symbol": "+",
     "probability": 25,
@@ -1026,7 +1026,7 @@
   },
   {
     "name": "spellbook of blank paper",
-    "description": "plain",
+    "appearance": "plain",
     "class": "spellbook",
     "symbol": "+",
     "probability": 18,
@@ -1042,7 +1042,7 @@
   },
   {
     "name": "novel",
-    "description": "paperback",
+    "appearance": "paperback",
     "class": "spellbook",
     "symbol": "+",
     "probability": 1,
@@ -1060,7 +1060,7 @@
   },
   {
     "name": "Book of the Dead",
-    "description": "papyrus",
+    "appearance": "papyrus",
     "class": "spellbook",
     "symbol": "+",
     "probability": 0,

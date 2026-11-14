@@ -1,7 +1,7 @@
 [
   {
     "name": "tripe ration",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 140,
@@ -18,7 +18,7 @@
   },
   {
     "name": "egg",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 85,
@@ -36,7 +36,7 @@
   },
   {
     "name": "meatball",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 0,
@@ -53,7 +53,7 @@
   },
   {
     "name": "meat stick",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 0,
@@ -70,7 +70,7 @@
   },
   {
     "name": "enormous meatball",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 0,
@@ -87,7 +87,7 @@
   },
   {
     "name": "meat ring",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 0,
@@ -103,7 +103,7 @@
   },
   {
     "name": "kelp frond",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 0,
@@ -120,7 +120,7 @@
   },
   {
     "name": "eucalyptus leaf",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 3,
@@ -137,7 +137,7 @@
   },
   {
     "name": "apple",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 15,
@@ -154,7 +154,7 @@
   },
   {
     "name": "orange",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 10,
@@ -171,7 +171,7 @@
   },
   {
     "name": "pear",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 10,
@@ -188,7 +188,7 @@
   },
   {
     "name": "melon",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 10,
@@ -205,7 +205,7 @@
   },
   {
     "name": "banana",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 10,
@@ -222,7 +222,7 @@
   },
   {
     "name": "carrot",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 15,
@@ -239,7 +239,7 @@
   },
   {
     "name": "sprig of wolfsbane",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 7,
@@ -256,7 +256,7 @@
   },
   {
     "name": "clove of garlic",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 7,
@@ -273,7 +273,7 @@
   },
   {
     "name": "slime mold",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 75,
@@ -290,7 +290,7 @@
   },
   {
     "name": "lump of royal jelly",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 0,
@@ -307,7 +307,7 @@
   },
   {
     "name": "cream pie",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 25,
@@ -324,7 +324,7 @@
   },
   {
     "name": "candy bar",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 13,
@@ -341,7 +341,7 @@
   },
   {
     "name": "fortune cookie",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 55,
@@ -358,7 +358,7 @@
   },
   {
     "name": "pancake",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 25,
@@ -375,7 +375,7 @@
   },
   {
     "name": "lembas wafer",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 20,
@@ -392,7 +392,7 @@
   },
   {
     "name": "cram ration",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 20,
@@ -409,7 +409,7 @@
   },
   {
     "name": "food ration",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 380,
@@ -426,7 +426,7 @@
   },
   {
     "name": "K-ration",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 0,
@@ -443,7 +443,7 @@
   },
   {
     "name": "C-ration",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 0,
@@ -460,7 +460,7 @@
   },
   {
     "name": "tin",
-    "description": null,
+    "appearance": null,
     "class": "food",
     "symbol": "%",
     "probability": 75,

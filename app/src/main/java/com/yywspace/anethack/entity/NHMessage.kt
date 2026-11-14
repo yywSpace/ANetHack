@@ -13,8 +13,8 @@ data class NHMessage(
 ) : Cloneable {
     private val _color: NHColor = value.nhColor
 
-    /** 这条消息是否由 look 指令产生：只有这类消息才去解析怪物名 */
-    val fromLook: Boolean
+    /** 只有 look 指令产生的消息才解析怪物/物品名。 */
+    val fromInspect: Boolean
         get() = (source as? NHPosCommand)?.mod == NHPosCommand.PosMod.LOOK.ordinal
 
     override fun toString(): String {

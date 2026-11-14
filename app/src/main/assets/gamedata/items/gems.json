@@ -1,7 +1,7 @@
 [
   {
     "name": "dilithium crystal",
-    "description": "white",
+    "appearance": "white gem",
     "class": "gem",
     "symbol": "*",
     "probability": 2,
@@ -16,7 +16,7 @@
   },
   {
     "name": "diamond",
-    "description": "white",
+    "appearance": "white gem",
     "class": "gem",
     "symbol": "*",
     "probability": 3,
@@ -32,7 +32,7 @@
   },
   {
     "name": "ruby",
-    "description": "red",
+    "appearance": "red gem",
     "class": "gem",
     "symbol": "*",
     "probability": 4,
@@ -48,7 +48,7 @@
   },
   {
     "name": "jacinth",
-    "description": "orange",
+    "appearance": "orange gem",
     "class": "gem",
     "symbol": "*",
     "probability": 3,
@@ -64,7 +64,7 @@
   },
   {
     "name": "sapphire",
-    "description": "blue",
+    "appearance": "blue gem",
     "class": "gem",
     "symbol": "*",
     "probability": 4,
@@ -80,7 +80,7 @@
   },
   {
     "name": "black opal",
-    "description": "black",
+    "appearance": "black gem",
     "class": "gem",
     "symbol": "*",
     "probability": 3,
@@ -96,7 +96,7 @@
   },
   {
     "name": "emerald",
-    "description": "green",
+    "appearance": "green gem",
     "class": "gem",
     "symbol": "*",
     "probability": 5,
@@ -112,7 +112,7 @@
   },
   {
     "name": "turquoise",
-    "description": "green",
+    "appearance": "green gem",
     "class": "gem",
     "symbol": "*",
     "probability": 6,
@@ -127,7 +127,7 @@
   },
   {
     "name": "citrine",
-    "description": "yellow",
+    "appearance": "yellow gem",
     "class": "gem",
     "symbol": "*",
     "probability": 4,
@@ -142,7 +142,7 @@
   },
   {
     "name": "aquamarine",
-    "description": "green",
+    "appearance": "green gem",
     "class": "gem",
     "symbol": "*",
     "probability": 6,
@@ -158,7 +158,7 @@
   },
   {
     "name": "amber",
-    "description": "yellowish brown",
+    "appearance": "yellowish brown gem",
     "class": "gem",
     "symbol": "*",
     "probability": 8,
@@ -173,7 +173,7 @@
   },
   {
     "name": "topaz",
-    "description": "yellowish brown",
+    "appearance": "yellowish brown gem",
     "class": "gem",
     "symbol": "*",
     "probability": 10,
@@ -189,7 +189,7 @@
   },
   {
     "name": "jet",
-    "description": "black",
+    "appearance": "black gem",
     "class": "gem",
     "symbol": "*",
     "probability": 6,
@@ -204,7 +204,7 @@
   },
   {
     "name": "opal",
-    "description": "white",
+    "appearance": "white gem",
     "class": "gem",
     "symbol": "*",
     "probability": 12,
@@ -219,7 +219,7 @@
   },
   {
     "name": "chrysoberyl",
-    "description": "yellow",
+    "appearance": "yellow gem",
     "class": "gem",
     "symbol": "*",
     "probability": 8,
@@ -234,7 +234,7 @@
   },
   {
     "name": "garnet",
-    "description": "red",
+    "appearance": "red gem",
     "class": "gem",
     "symbol": "*",
     "probability": 12,
@@ -249,7 +249,7 @@
   },
   {
     "name": "amethyst",
-    "description": "violet",
+    "appearance": "violet gem",
     "class": "gem",
     "symbol": "*",
     "probability": 14,
@@ -264,7 +264,7 @@
   },
   {
     "name": "jasper",
-    "description": "red",
+    "appearance": "red gem",
     "class": "gem",
     "symbol": "*",
     "probability": 15,
@@ -279,7 +279,7 @@
   },
   {
     "name": "fluorite",
-    "description": "violet",
+    "appearance": "violet gem",
     "class": "gem",
     "symbol": "*",
     "probability": 15,
@@ -294,7 +294,7 @@
   },
   {
     "name": "obsidian",
-    "description": "black",
+    "appearance": "black gem",
     "class": "gem",
     "symbol": "*",
     "probability": 9,
@@ -309,7 +309,7 @@
   },
   {
     "name": "agate",
-    "description": "orange",
+    "appearance": "orange gem",
     "class": "gem",
     "symbol": "*",
     "probability": 12,
@@ -324,7 +324,7 @@
   },
   {
     "name": "jade",
-    "description": "green",
+    "appearance": "green gem",
     "class": "gem",
     "symbol": "*",
     "probability": 10,
@@ -339,7 +339,7 @@
   },
   {
     "name": "worthless piece of white glass",
-    "description": "white",
+    "appearance": "white gem",
     "class": "gem",
     "symbol": "*",
     "probability": 77,
@@ -354,7 +354,7 @@
   },
   {
     "name": "worthless piece of blue glass",
-    "description": "blue",
+    "appearance": "blue gem",
     "class": "gem",
     "symbol": "*",
     "probability": 77,
@@ -369,7 +369,7 @@
   },
   {
     "name": "worthless piece of red glass",
-    "description": "red",
+    "appearance": "red gem",
     "class": "gem",
     "symbol": "*",
     "probability": 77,
@@ -384,7 +384,7 @@
   },
   {
     "name": "worthless piece of yellowish brown glass",
-    "description": "yellowish brown",
+    "appearance": "yellowish brown gem",
     "class": "gem",
     "symbol": "*",
     "probability": 77,
@@ -399,7 +399,7 @@
   },
   {
     "name": "worthless piece of orange glass",
-    "description": "orange",
+    "appearance": "orange gem",
     "class": "gem",
     "symbol": "*",
     "probability": 76,
@@ -414,7 +414,7 @@
   },
   {
     "name": "worthless piece of yellow glass",
-    "description": "yellow",
+    "appearance": "yellow gem",
     "class": "gem",
     "symbol": "*",
     "probability": 77,
@@ -429,7 +429,7 @@
   },
   {
     "name": "worthless piece of black glass",
-    "description": "black",
+    "appearance": "black gem",
     "class": "gem",
     "symbol": "*",
     "probability": 76,
@@ -444,7 +444,7 @@
   },
   {
     "name": "worthless piece of green glass",
-    "description": "green",
+    "appearance": "green gem",
     "class": "gem",
     "symbol": "*",
     "probability": 77,
@@ -459,7 +459,7 @@
   },
   {
     "name": "worthless piece of violet glass",
-    "description": "violet",
+    "appearance": "violet gem",
     "class": "gem",
     "symbol": "*",
     "probability": 77,
@@ -474,7 +474,7 @@
   },
   {
     "name": "luckstone",
-    "description": "gray",
+    "appearance": "gray stone",
     "class": "gem",
     "symbol": "*",
     "probability": 10,
@@ -490,7 +490,7 @@
   },
   {
     "name": "loadstone",
-    "description": "gray",
+    "appearance": "gray stone",
     "class": "gem",
     "symbol": "*",
     "probability": 10,
@@ -506,7 +506,7 @@
   },
   {
     "name": "touchstone",
-    "description": "gray",
+    "appearance": "gray stone",
     "class": "gem",
     "symbol": "*",
     "probability": 8,
@@ -522,7 +522,7 @@
   },
   {
     "name": "flint",
-    "description": "gray",
+    "appearance": "gray stone",
     "class": "gem",
     "symbol": "*",
     "probability": 10,
@@ -537,7 +537,7 @@
   },
   {
     "name": "rock",
-    "description": null,
+    "appearance": null,
     "class": "gem",
     "symbol": "*",
     "probability": 100,

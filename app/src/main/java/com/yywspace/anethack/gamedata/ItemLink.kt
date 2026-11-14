@@ -10,13 +10,19 @@ import android.widget.TextView
  *
  * 物品数据已经保存完整名称，例如 spellbook of healing。
  */
+/** 一条消息里的物品名匹配结果；同一外观可能对应多个物品。 */
+data class ItemMatch(
+    val label: String,
+    val items: List<Item>
+)
+
 object ItemLink {
 
     private val link = MessageLink(
         MessageLinkKind.ITEM,
-        { GameData.items },
-        { listOf(it.name) },
-        { it.colorValue }
+        { matches() },
+        { listOf(it.label) },
+        { it.items.first().colorValue }
     )
 
     fun highlight(
@@ -24,15 +30,29 @@ object ItemLink {
         text: Spannable,
         from: Int,
         to: Int,
-        onClick: (Item) -> Unit
+        onClick: (ItemMatch) -> Unit
     ) {
         GameData.ensureLoaded(context)
         link.highlight(text, from, to, onClick)
     }
 
-    fun spanAtTouch(widget: TextView, event: MotionEvent): MessageNameSpan<Item>? =
+    fun spanAtTouch(widget: TextView, event: MotionEvent): MessageNameSpan<ItemMatch>? =
         link.spanAtTouch(widget, event)
 
-    fun spanAtLine(widget: TextView, event: MotionEvent): MessageNameSpan<Item>? =
+    fun spanAtLine(widget: TextView, event: MotionEvent): MessageNameSpan<ItemMatch>? =
         link.spanAtLine(widget, event)
+
+    private fun matches(): List<ItemMatch> {
+        val groups = LinkedHashMap<String, MutableList<Item>>()
+        fun add(label: String, item: Item) {
+            groups.getOrPut(label) { mutableListOf() }.add(item)
+        }
+        GameData.items.forEach { item ->
+            add(item.name, item)
+            item.appearance
+                ?.takeIf { it != item.name }
+                ?.let { add(it, item) }
+        }
+        return groups.map { (label, items) -> ItemMatch(label, items) }
+    }
 }

@@ -41,6 +41,21 @@ class NHItemDialog(
         renderMatches()
     }
 
+    /** 一组同外观物品：没有搜索栏，把整组都展示出来。 */
+    fun showItems(items: List<Item>) {
+        if (dialog?.isShowing == true || items.isEmpty())
+            return
+        GameData.ensureLoaded(context)
+        val scaffold = ui.singleScaffold()
+        content = scaffold.content
+        scroll = scaffold.scroll
+        content.removeAllViews()
+        items.sortedWith(compareBy<Item> { it.itemClass }.thenBy { it.name })
+            .forEach { content.addView(card(it)) }
+        dialog = ui.createDialog(R.string.item_lookup_title, scaffold.root)
+        dialog?.show(nh.prefs.immersiveMode)
+    }
+
     /** 指定物品详情：没有搜索栏。 */
     fun showItem(name: String, itemClass: String? = null) {
         if (dialog?.isShowing == true)
@@ -87,7 +102,7 @@ class NHItemDialog(
             GameData.items.filter {
                 it.name.contains(query, ignoreCase = true) ||
                     it.itemClass.contains(query, ignoreCase = true) ||
-                    (it.description?.contains(query, ignoreCase = true) == true)
+                    (it.appearance?.contains(query, ignoreCase = true) == true)
             }
         }.sortedWith(compareBy<Item> { it.itemClass }.thenBy { it.name })
         content.removeAllViews()
@@ -128,9 +143,9 @@ class NHItemDialog(
             ).apply { bottomMargin = ui.dp(8) }
         }
 
-        // 标题下面显示默认外观和材质，不再显示类别
+        // 有外观显示外观，没有外观显示类别；两者都不影响材质
         val subtitle = listOfNotNull(
-            item.description,
+            item.appearance?.takeIf { it.isNotBlank() } ?: item.itemClass,
             item.material
         ).filter { it.isNotBlank() }.joinToString(" · ")
         card.addView(ui.header(

@@ -1,7 +1,7 @@
 [
   {
     "name": "large box",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 40,
@@ -15,7 +15,7 @@
   },
   {
     "name": "chest",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 35,
@@ -29,7 +29,7 @@
   },
   {
     "name": "ice box",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 5,
@@ -43,7 +43,7 @@
   },
   {
     "name": "sack",
-    "description": "bag",
+    "appearance": "bag",
     "class": "tool",
     "symbol": "(",
     "probability": 35,
@@ -55,7 +55,7 @@
   },
   {
     "name": "oilskin sack",
-    "description": "bag",
+    "appearance": "bag",
     "class": "tool",
     "symbol": "(",
     "probability": 5,
@@ -67,7 +67,7 @@
   },
   {
     "name": "bag of holding",
-    "description": "bag",
+    "appearance": "bag",
     "class": "tool",
     "symbol": "(",
     "probability": 20,
@@ -81,7 +81,7 @@
   },
   {
     "name": "bag of tricks",
-    "description": "bag",
+    "appearance": "bag",
     "class": "tool",
     "symbol": "(",
     "probability": 20,
@@ -97,7 +97,7 @@
   },
   {
     "name": "skeleton key",
-    "description": "key",
+    "appearance": "key",
     "class": "tool",
     "symbol": "(",
     "probability": 80,
@@ -109,7 +109,7 @@
   },
   {
     "name": "lock pick",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 60,
@@ -123,7 +123,7 @@
   },
   {
     "name": "credit card",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 15,
@@ -137,7 +137,7 @@
   },
   {
     "name": "tallow candle",
-    "description": "candle",
+    "appearance": "candle",
     "class": "tool",
     "symbol": "(",
     "probability": 20,
@@ -151,7 +151,7 @@
   },
   {
     "name": "wax candle",
-    "description": "candle",
+    "appearance": "candle",
     "class": "tool",
     "symbol": "(",
     "probability": 5,
@@ -165,7 +165,7 @@
   },
   {
     "name": "brass lantern",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 30,
@@ -179,7 +179,7 @@
   },
   {
     "name": "oil lamp",
-    "description": "lamp",
+    "appearance": "lamp",
     "class": "tool",
     "symbol": "(",
     "probability": 45,
@@ -191,7 +191,7 @@
   },
   {
     "name": "magic lamp",
-    "description": "lamp",
+    "appearance": "lamp",
     "class": "tool",
     "symbol": "(",
     "probability": 15,
@@ -205,7 +205,7 @@
   },
   {
     "name": "expensive camera",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 15,
@@ -221,7 +221,7 @@
   },
   {
     "name": "mirror",
-    "description": "looking glass",
+    "appearance": "looking glass",
     "class": "tool",
     "symbol": "(",
     "probability": 45,
@@ -233,7 +233,7 @@
   },
   {
     "name": "crystal ball",
-    "description": "glass orb",
+    "appearance": "glass orb",
     "class": "tool",
     "symbol": "(",
     "probability": 15,
@@ -249,7 +249,7 @@
   },
   {
     "name": "lenses",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 5,
@@ -263,7 +263,7 @@
   },
   {
     "name": "blindfold",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 50,
@@ -280,7 +280,7 @@
   },
   {
     "name": "towel",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 50,
@@ -297,7 +297,7 @@
   },
   {
     "name": "saddle",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 5,
@@ -311,7 +311,7 @@
   },
   {
     "name": "leash",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 65,
@@ -325,7 +325,7 @@
   },
   {
     "name": "stethoscope",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 25,
@@ -339,7 +339,7 @@
   },
   {
     "name": "tinning kit",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 15,
@@ -355,7 +355,7 @@
   },
   {
     "name": "tin opener",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 35,
@@ -369,7 +369,7 @@
   },
   {
     "name": "can of grease",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 15,
@@ -385,7 +385,7 @@
   },
   {
     "name": "figurine",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 25,
@@ -400,7 +400,7 @@
   },
   {
     "name": "magic marker",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 15,
@@ -417,7 +417,7 @@
   },
   {
     "name": "land mine",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 0,
@@ -431,7 +431,7 @@
   },
   {
     "name": "beartrap",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 0,
@@ -445,7 +445,7 @@
   },
   {
     "name": "tin whistle",
-    "description": "whistle",
+    "appearance": "whistle",
     "class": "tool",
     "symbol": "(",
     "probability": 100,
@@ -457,7 +457,7 @@
   },
   {
     "name": "magic whistle",
-    "description": "whistle",
+    "appearance": "whistle",
     "class": "tool",
     "symbol": "(",
     "probability": 30,
@@ -471,7 +471,7 @@
   },
   {
     "name": "wooden flute",
-    "description": "flute",
+    "appearance": "flute",
     "class": "tool",
     "symbol": "(",
     "probability": 4,
@@ -483,7 +483,7 @@
   },
   {
     "name": "magic flute",
-    "description": "flute",
+    "appearance": "flute",
     "class": "tool",
     "symbol": "(",
     "probability": 2,
@@ -499,7 +499,7 @@
   },
   {
     "name": "tooled horn",
-    "description": "horn",
+    "appearance": "horn",
     "class": "tool",
     "symbol": "(",
     "probability": 5,
@@ -511,7 +511,7 @@
   },
   {
     "name": "frost horn",
-    "description": "horn",
+    "appearance": "horn",
     "class": "tool",
     "symbol": "(",
     "probability": 2,
@@ -527,7 +527,7 @@
   },
   {
     "name": "fire horn",
-    "description": "horn",
+    "appearance": "horn",
     "class": "tool",
     "symbol": "(",
     "probability": 2,
@@ -543,7 +543,7 @@
   },
   {
     "name": "horn of plenty",
-    "description": "horn",
+    "appearance": "horn",
     "class": "tool",
     "symbol": "(",
     "probability": 2,
@@ -559,7 +559,7 @@
   },
   {
     "name": "wooden harp",
-    "description": "harp",
+    "appearance": "harp",
     "class": "tool",
     "symbol": "(",
     "probability": 4,
@@ -571,7 +571,7 @@
   },
   {
     "name": "magic harp",
-    "description": "harp",
+    "appearance": "harp",
     "class": "tool",
     "symbol": "(",
     "probability": 2,
@@ -587,7 +587,7 @@
   },
   {
     "name": "bell",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 2,
@@ -601,7 +601,7 @@
   },
   {
     "name": "bugle",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 4,
@@ -615,7 +615,7 @@
   },
   {
     "name": "leather drum",
-    "description": "drum",
+    "appearance": "drum",
     "class": "tool",
     "symbol": "(",
     "probability": 4,
@@ -627,7 +627,7 @@
   },
   {
     "name": "drum of earthquake",
-    "description": "drum",
+    "appearance": "drum",
     "class": "tool",
     "symbol": "(",
     "probability": 2,
@@ -643,7 +643,7 @@
   },
   {
     "name": "pick-axe",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 20,
@@ -669,7 +669,7 @@
   },
   {
     "name": "grappling hook",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 5,
@@ -695,7 +695,7 @@
   },
   {
     "name": "unicorn horn",
-    "description": null,
+    "appearance": null,
     "class": "tool",
     "symbol": "(",
     "probability": 0,
@@ -722,7 +722,7 @@
   },
   {
     "name": "Candelabrum of Invocation",
-    "description": "candelabrum",
+    "appearance": "candelabrum",
     "class": "tool",
     "symbol": "(",
     "probability": 0,
@@ -739,7 +739,7 @@
   },
   {
     "name": "Bell of Opening",
-    "description": "silver bell",
+    "appearance": "silver bell",
     "class": "tool",
     "symbol": "(",
     "probability": 0,

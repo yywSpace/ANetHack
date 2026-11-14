@@ -8,7 +8,7 @@ import android.util.TypedValue
 import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatTextView
 import com.yywspace.anethack.R
-import com.yywspace.anethack.gamedata.Item
+import com.yywspace.anethack.gamedata.ItemMatch
 import com.yywspace.anethack.gamedata.ItemLink
 import com.yywspace.anethack.gamedata.Monster
 import com.yywspace.anethack.gamedata.MonsterLink
@@ -37,7 +37,7 @@ class NHMessageView @JvmOverloads constructor(
     var onMonsterClick: ((Monster) -> Unit)? = null
 
     /** 点击消息里物品名的回调 */
-    var onItemClick: ((Item) -> Unit)? = null
+    var onItemClick: ((ItemMatch) -> Unit)? = null
 
     init {
         // 字号来自 dimens（px，与原来 TextPaint 的 42px 一致）
@@ -67,7 +67,7 @@ class NHMessageView @JvmOverloads constructor(
             val start = builder.length
             builder.append(message.toSpannableString())
             // 只解析 look 指令产生的消息（格式可预期），其它消息保持原样
-            if (message.fromLook) {
+            if (message.fromInspect) {
                 MonsterLink.highlight(context, builder, start, builder.length) { monster ->
                     onMonsterClick?.invoke(monster)
                 }
