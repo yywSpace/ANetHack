@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.R
 
-class NHPriceObjListAdapter(private val objList: List<PriceItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NHPriceObjListAdapter(private val objList: List<Item>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class ObjListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val objName : TextView = view.findViewById(R.id.obj_name)
         val objCost : TextView = view.findViewById(R.id.obj_cost)
@@ -27,7 +27,7 @@ class NHPriceObjListAdapter(private val objList: List<PriceItem>) : RecyclerView
         (holder as ObjListViewHolder).apply {
             val obj = objList[position]
             objName.text = obj.name
-            objCost.text = obj.cost.toString()
+            objCost.text = obj.price.toString()
         }
     }
 }

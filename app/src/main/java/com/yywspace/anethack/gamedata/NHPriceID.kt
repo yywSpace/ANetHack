@@ -9,71 +9,87 @@ import java.util.regex.Pattern
 class NHPriceID(context: Context) {
 
     /** 本次鉴定使用的物品数据（构造时从 GameData 取一次） */
-    private val items: List<PriceItem>
+    private val items: List<Item>
 
     init {
         GameData.ensureLoaded(context)
-        items = GameData.priceItems
+        items = GameData.items
     }
 
     /** 所有物品类型（按名称排序） */
-    fun getObjTypes(): List<String> = items.map { it.type }.distinct().sorted()
+    fun getObjTypes(): List<String> = items.map { typeOf(it) }.distinct().sorted()
 
     /** 某类型的物品，按基础价格、名称排序 */
-    private fun itemsOf(type: String): List<PriceItem> =
-        items.filter { it.type == type }.sortedWith(objComparator)
+    private fun itemsOf(type: String): List<Item> =
+        items.filter { typeOf(it) == type }.sortedWith(objComparator)
 
-    fun getObjBySellPrice(type: String, price: String, sucker: Boolean): List<PriceItem> {
+    fun getObjBySellPrice(type: String, price: String, sucker: Boolean): List<Item> {
         if (price.isEmpty())
             return emptyList()
         val skpPrice = price.toIntOrNull() ?: return emptyList()
         return itemsOf(type).filter { obj ->
-            calcSellPrice(obj.cost, false, sucker) == skpPrice ||
-                    calcSellPrice(obj.cost, true, sucker) == skpPrice
+            calcSellPrice(obj.price, false, sucker) == skpPrice ||
+                    calcSellPrice(obj.price, true, sucker) == skpPrice
         }
     }
 
     /** 价格区间（"2-5"），逐个价格查询后合并，按名称+基础价格去重，按基础价格排序 */
-    fun getObjBySellPrice(type: String, prices: List<String>, sucker: Boolean): List<PriceItem> =
+    fun getObjBySellPrice(type: String, prices: List<String>, sucker: Boolean): List<Item> =
         prices.flatMap { getObjBySellPrice(type, it, sucker) }
-            .distinctBy { it.name to it.cost }
+            .distinctBy { it.name to it.price }
             .sortedWith(objComparator)
 
     fun getObjByBuyPrice(
         type: String, price: String, charisma: String, sucker: Boolean
-    ): List<PriceItem> {
+    ): List<Item> {
         if (charisma.isEmpty() || price.isEmpty())
             return emptyList()
         val ch = charisma.toIntOrNull() ?: return emptyList()
         val skpPrice = price.toIntOrNull() ?: return emptyList()
         return itemsOf(type).filter { obj ->
-            calcBuyPrice(obj.cost, ch, false, sucker) == skpPrice ||
-                    calcBuyPrice(obj.cost, ch, true, sucker) == skpPrice
+            calcBuyPrice(obj.price, ch, false, sucker) == skpPrice ||
+                    calcBuyPrice(obj.price, ch, true, sucker) == skpPrice
         }
     }
 
     /** 价格区间（"2-5"），逐个价格查询后合并，按名称+基础价格去重，按基础价格排序 */
     fun getObjByBuyPrice(
         type: String, prices: List<String>, charisma: String, sucker: Boolean
-    ): List<PriceItem> =
+    ): List<Item> =
         prices.flatMap { getObjByBuyPrice(type, it, charisma, sucker) }
-            .distinctBy { it.name to it.cost }
+            .distinctBy { it.name to it.price }
             .sortedWith(objComparator)
 
-    fun getObjByBasePrice(type: String, basePrice: String): List<PriceItem> =
+    fun getObjByBasePrice(type: String, basePrice: String): List<Item> =
         if (basePrice.isEmpty())
             itemsOf(type)
         else
-            itemsOf(type).filter { it.cost.toString() == basePrice }
+            itemsOf(type).filter { it.price.toString() == basePrice }
 
     /** 从物品描述（如 "a smoky potion"）解析所属类型，解析不出返回空串 */
     fun parseObjType(objDesc: String): String {
+        val lower = objDesc.lowercase()
+        // 新物品数据里名称/固定外观都是完整文本，优先按名称匹配，
+        // 这样武器、工具、食物、宝石等旧价格表没有的类别也能识别。
+        items.filter { item ->
+            lower.contains(item.name.lowercase()) ||
+                (item.appearance?.takeIf { it.isNotBlank() }?.let {
+                    lower.contains(it.lowercase())
+                } == true)
+        }.maxByOrNull { it.name.length }?.let { return typeOf(it) }
+
         GameData.priceRules.objectTypesRegex.forEach { (type, regex) ->
             if (Pattern.compile(regex).matcher(objDesc).find())
                 return type
         }
         return ""
     }
+
+    /** 物品类型；护甲使用数据里的具体部件类别，其余直接使用 itemClass。 */
+    private fun typeOf(item: Item): String =
+        (item.armor?.categoryName?.takeIf { it.isNotBlank() }?.lowercase()
+            ?: item.itemClass)
+            .replaceFirstChar { it.uppercaseChar() }
 
     /**
      * 解析交易信息，返回 tradePrice / tradeMode / objType。
@@ -148,6 +164,6 @@ class NHPriceID(context: Context) {
 
     companion object {
         /** 物品列表顺序：先基础价格，再名称 */
-        private val objComparator = compareBy<PriceItem>({ it.cost }, { it.name })
+        private val objComparator = compareBy<Item>({ it.price }, { it.name })
     }
 }

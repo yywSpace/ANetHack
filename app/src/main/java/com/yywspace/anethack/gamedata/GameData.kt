@@ -9,8 +9,7 @@ import com.google.gson.reflect.TypeToken
  * 只负责读取游戏资料，不做业务判断。
  *
  * 数据来自 assets/gamedata：
- * - price_items.json：价格鉴定用的扁平物品数组；
- * - price_rules.json：价格鉴定规则；
+ * - price_rules.json：价格鉴定规则；价格搜查直接使用 items 目录里的物品；
  * - monsters.json / monster_attributes.json：怪物资料；
  * - items 目录下的 JSON 文件：分类物品资料；
  * - item_flags.json / item_effects.json / item_delays.json：物品展示映射。
@@ -20,7 +19,6 @@ import com.google.gson.reflect.TypeToken
 object GameData {
 
     private const val ASSET_DIR = "gamedata"
-    private const val ITEMS_FILE = "price_items.json"
     private const val RULES_FILE = "price_rules.json"
     private const val MONSTERS_FILE = "monsters.json"
     private const val MONSTER_ATTRIBUTES_FILE = "monster_attributes.json"
@@ -28,10 +26,6 @@ object GameData {
     private const val ITEM_EFFECTS_FILE = "item_effects.json"
     private const val ITEM_DELAYS_FILE = "item_delays.json"
     private const val ITEMS_DIR = "items"
-
-    /** 全部物品条目 */
-    val priceItems: List<PriceItem>
-        field = mutableListOf<PriceItem>()
 
     /** 全部怪物条目 */
     val monsters: List<Monster>
@@ -99,25 +93,12 @@ object GameData {
     fun delayLabel(itemClass: String): String =
         delayLabels[itemClass] ?: itemClass
 
-    fun monsterOfLine(line: String): Monster? {
-        val key = line.trim().lowercase()
-        if (key.isEmpty())
-            return null
-        return monsterIndex[key]
-    }
-
     /** 去掉多形态怪物的括号后缀："wererat (animal)" → "wererat" */
     private fun baseName(name: String): String =
         name.replace(Regex("\\s*\\((?:human|animal)\\)\\s*$"), "").trim()
 
     private fun loadFromAssets(context: Context) {
         val gson = Gson()
-
-        val itemsType = object : TypeToken<List<PriceItem>>() {}.type
-        val loadedPriceItems: List<PriceItem> =
-            gson.fromJson(readAsset(context, ITEMS_FILE), itemsType) ?: emptyList()
-        priceItems.clear()
-        priceItems.addAll(loadedPriceItems)
 
         val monstersType = object : TypeToken<List<Monster>>() {}.type
         val loadedMonsters: List<Monster> =

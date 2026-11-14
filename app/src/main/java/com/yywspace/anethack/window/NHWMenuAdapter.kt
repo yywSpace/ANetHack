@@ -3,11 +3,8 @@ package com.yywspace.anethack.window
 import android.annotation.SuppressLint
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import android.text.TextPaint
-import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
@@ -36,9 +33,6 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
         private val itemSubtitle : TextView = view.findViewById(R.id.item_subtitle)
         private val itemCheckBox:CheckBox = view.findViewById(R.id.item_checkbox)
         private val itemTile:ImageView = view.findViewById(R.id.item_tile)
-        /** 本次触摸按下时是否落在价格文本上，以及对应的价格段 */
-        private var downOnQuote = false
-        private var downQuote: String? = null
 
         @SuppressLint("ClickableViewAccessibility")
         fun bind(position: Int, menuItem: NHMenuItem) {
@@ -68,27 +62,8 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
                     notifyItemChanged(getHeaderPosition(position))
                 }
             }
-            downOnQuote = false
-            downQuote = null
-            // 价格文本紧跟标题（同一 TextView 内，折行跟随）：
-            // 按下在价格上 → 消费本次触摸（up 触发回调）；否则冒泡给 itemView 正常点击
-            itemTitle.setOnTouchListener { v, event ->
-                when (event.actionMasked) {
-                    MotionEvent.ACTION_DOWN -> {
-                        downQuote = quoteAt(v, event)
-                        downOnQuote = downQuote != null
-                        downOnQuote
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        if (downOnQuote) {
-                            downOnQuote = false
-                            downQuote?.let { onPriceQuoteClick?.invoke(menuItem, it) }
-                            downQuote = null
-                            true
-                        } else false
-                    }
-                    else -> downOnQuote
-                }
+            MenuLink.attach(itemTitle) { quote ->
+                onPriceQuoteClick?.invoke(menuItem, quote)
             }
 
             if (menuItem.hasSubtitle()) {
@@ -108,18 +83,6 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
             itemCheckBox.isChecked = menuItem.isSelected
         }
 
-        /** 点击坐标落在的价格段文本（如 "sell 67"），不在价格上返回 null */
-        private fun quoteAt(v: View, event: MotionEvent): String? {
-            val off = (v as TextView).getOffsetForPosition(event.x, event.y)
-            val text = v.text
-            if (text is Spanned) {
-                text.getSpans(off, off, ClickableSpan::class.java).firstOrNull()?.let { span ->
-                    return text.subSequence(text.getSpanStart(span), text.getSpanEnd(span)).toString()
-                }
-            }
-            return null
-        }
-
         /** 标题文本：保留颜色，大括号内每个价格段（buy/sell）设为可点击链接 */
         private fun buildTitle(menuItem: NHMenuItem): CharSequence {
             val spannable = SpannableStringBuilder(menuItem.title.toSpannableString())
@@ -134,29 +97,10 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
             }
 
             if (menuItem.priceQuote.isNotEmpty()) {
-                val quoteStart = spannable.length
                 spannable.append(" ${menuItem.priceQuote}") // priceQuote 已带大括号（如 "{buy 267 sell 67}"）
                 // 价格鉴定关掉时只显示原文，不加链接样式（避免出现下划线却点不动）
-                if (nhwMenu.priceIdEnabled) {
-                    // 大括号内的每个价格段（如 "buy 267" / "sell 67"）分别可点击
-                    val content = menuItem.priceQuote.removeSurrounding("{", "}")
-                    val contentStart = quoteStart + 2 // 跳过 " {"
-                    val buy = Regex.escape(itemView.context.getString(R.string.price_quote_buy))
-                    val sell = Regex.escape(itemView.context.getString(R.string.price_quote_sell))
-                    Regex("$buy\\s*[0-9]+(?:-[0-9]+)?|$sell\\s*[0-9]+(?:-[0-9]+)?").findAll(content).forEach { match ->
-                        val absStart = contentStart + match.range.first
-                        val absEnd = contentStart + match.range.last + 1
-                        spannable.setSpan(object : ClickableSpan() {
-                            override fun onClick(widget: View) {
-                                // 点击由 OnTouchListener 处理，这里无需动作
-                            }
-
-                            override fun updateDrawState(ds: TextPaint) {
-                                super.updateDrawState(ds) // 标准链接样式：下划线 + 链接色
-                            }
-                        }, absStart, absEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    }
-                }
+                if (nhwMenu.priceIdEnabled)
+                    MenuLink.highlight(itemView.context, spannable, menuItem.priceQuote)
             }
             return spannable
         }

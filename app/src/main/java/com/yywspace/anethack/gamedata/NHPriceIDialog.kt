@@ -26,7 +26,7 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
     private lateinit var currentType: String
     private lateinit var currentSurcharge :String
     private lateinit var currentIdMode :String
-    private val objList :MutableList<PriceItem> = mutableListOf()
+    private val objList :MutableList<Item> = mutableListOf()
     private lateinit var objListAdapter:NHPriceObjListAdapter
     private lateinit var binding: DialogPriceIdentifyBinding
     private val priceID: NHPriceID = NHPriceID(context)
