@@ -235,12 +235,11 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     fun initMap(nh: NetHack, map: NHWMap) {
         this.nh = nh
         this.map = map
-        initMapParam()
+        // View 已经布局完成时立即初始化；否则等 onSizeChanged 第一次拿到尺寸
+        if (isLaidOut && measuredWidth > 0 && measuredHeight > 0)
+            initMapParam()
         initIndicators()
         mapReady.countDown()
-        // 首帧强制全量重绘离屏 + 唤醒
-        mapContentDirty = true
-        playerCentered = false
     }
 
     private fun initMapParam() {
@@ -254,7 +253,6 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         mapBitmap =
             createBitmap((map.width * baseTileWidth).toInt(), (map.height * baseTileHeight).toInt()).also { mapCanvas = Canvas(it) }
         mapBitmap?.eraseColor(Color.BLACK)
-        drawAllToOffscreen()
         mapBorder = RectF(
             mapBorder.left, mapBorder.top,
             mapBorder.left + map.width * tileWidth,
@@ -263,6 +261,9 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         val scale = measuredWidth.toFloat() / mapBorder.height()
         val tb = getTileBorder(map.curse.x, map.curse.y)
         scaleMap(scale, tb.centerX(), tb.centerY())
+        // 重建 bitmap 后必须全量绘制，并在首帧重新居中
+        mapContentDirty = true
+        playerCentered = false
     }
 
     private fun initIndicators() {
@@ -753,6 +754,11 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         // 尺寸变化前的玩家可见性，键盘顶起/收起时据此决定要不要跟随
         if (mapInit && oldw > 0 && oldh > 0)
             playerWasOnScreen = playerOnScreen(oldw, oldh)
+        // 首次布局：mapBitmap 为空说明 initMapParam 还没有真正初始化过
+        if (mapInit && mapBitmap == null && w > 0 && h > 0) {
+            initMapParam()
+            requestRedraw()
+        }
     }
 
     override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
@@ -796,10 +802,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
                     val renderCurse = frame?.curse ?: lastCurse
 
                     if (tileSetChanged) {
-                        initMapParam() // 重建离屏并全量重绘
-                        // 切换贴图后视野重新居中到角色（贴图尺寸变化会让原视口偏移）
-                        if (renderCurse.x >= 0 && renderCurse.y >= 0)
-                            centerView(renderCurse.x, renderCurse.y)
+                        initMapParam() // 全量绘制及居中由后续处理
                     }
                     // 玩家移动跟随玩家；只有光标离开玩家（look）时才跟随光标。
                     // look 退出时光标回到玩家，不触发镜头移动，视口保持在查看位置。
@@ -811,8 +814,8 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
                         lastFollowPlayer = Point(followPlayer)
                         lastFollowCursor = Point(renderCurse)
                     }
-                    // 首次以玩家位置为中心
-                    if (frame != null && !playerCentered && renderCurse.x >= 0 && renderCurse.y >= 0) {
+                    // 首次或重建地图后以玩家位置为中心
+                    if (!playerCentered && renderCurse.x > 0 && renderCurse.y > 0) {
                         centerView(renderCurse.x, renderCurse.y)
                         playerCentered = true
                     }
@@ -839,8 +842,10 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         if (tileSetChanged || mapContentDirty) {
             drawAllToOffscreen()
             mapContentDirty = false
-        } else frame?.tiles?.map { Pair(it.x, it.y) }?.filter { it.first in 0 until map.width && it.second in 0 until map.height }
-            ?.distinct()?.forEach { (x, y) -> drawOneToOffscreen(x, y) }
+        } else frame?.apply {
+            tiles.map { Pair(it.x, it.y) }.filter { it.first in 0 until map.width && it.second in 0 until map.height }
+                .distinct().forEach { (x, y) -> drawOneToOffscreen(x, y) }
+        }
 
         canvas?.drawColor(Color.BLACK)
         blitMap(canvas)

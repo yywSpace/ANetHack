@@ -187,23 +187,25 @@ void and_player_selection()
 {
     int i, result, picked_state[RS_ALGNMNT+1] = {0};
     char thisch, lastch = 0;
+    boolean first_entry = TRUE;
     winid win;
     anything any;
     menu_item *selected = 0;
 
-    flags.initrole = flags.initrace = flags.initgend = flags.initalign
-            = ROLE_NONE;
-    previous:
-    // 返回时，取消直至最后一个手动选择属性
-    for (i = RS_ALGNMNT; i >= RS_ROLE; --i) {
-        if(i == RS_ROLE) flags.initrole = ROLE_NONE;
-        if(i == RS_RACE) flags.initrace = ROLE_NONE;
-        if(i == RS_GENDER) flags.initgend = ROLE_NONE;
-        if(picked_state[i] == 1) {
-            picked_state[i] = 0;
-            break;
+ previous:
+    // 仅取消菜单返回上一步时回退选择；首次进入保留 nethackrc 的配置
+    if (!first_entry) {
+        for (i = RS_ALGNMNT; i >= RS_ROLE; --i) {
+            if(i == RS_ROLE) flags.initrole = ROLE_NONE;
+            if(i == RS_RACE) flags.initrace = ROLE_NONE;
+            if(i == RS_GENDER) flags.initgend = ROLE_NONE;
+            if(picked_state[i] == 1) {
+                picked_state[i] = 0;
+                break;
+            }
         }
     }
+    first_entry = FALSE;
 
     /* Select a role */
     if(flags.initrole == ROLE_NONE) {

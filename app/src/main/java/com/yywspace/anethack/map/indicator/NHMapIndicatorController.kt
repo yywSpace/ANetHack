@@ -84,7 +84,9 @@ class NHMapIndicatorController(private val mapView: NHMapView, val nh:NetHack, v
         }
         if (map.player.x > 0 && map.player.y > 0) {
             val tile = map.getTile(map.player.x, map.player.y)
-            tmpIndicators.add(NHMapIndicator(mapView, nh, tile))
+            // 地图帧还没应用时 Tile 可能还是空的 (-1,-1,-1)
+            if (tile.glyph >= 0)
+                tmpIndicators.add(NHMapIndicator(mapView, nh, tile))
         }
         indicatorList.clear()
         indicatorList.addAll(tmpIndicators.distinctBy { it.getTile() })
