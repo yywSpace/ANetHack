@@ -40,7 +40,7 @@ class NHMonsterDialog(
 
     /** 图鉴入口：搜索栏 + 全部怪物。 */
     fun showMonsterList() {
-        if (!nh.prefs.monsterInfo || dialog?.isShowing == true)
+        if (!nh.prefs.infoLinks || dialog?.isShowing == true)
             return
         val view = buildView()
         renderMatches()
@@ -49,7 +49,7 @@ class NHMonsterDialog(
 
     /** 消息里点击怪物名：直接使用已经解析出的怪物对象。 */
     fun showMonster(monster: Monster) {
-        if (!nh.prefs.monsterInfo || dialog?.isShowing == true)
+        if (!nh.prefs.infoLinks || dialog?.isShowing == true)
             return
         GameData.ensureLoaded(context)
         val view = buildSingleView()

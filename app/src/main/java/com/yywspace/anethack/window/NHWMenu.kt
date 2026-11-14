@@ -32,6 +32,9 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
     /** 价格鉴定开关：关掉后菜单里的价格段不再加链接样式（无下划线、不可点击） */
     val priceIdEnabled: Boolean get() = nh.prefs.priceId
 
+    /** 菜单/消息信息链接总开关 */
+    val itemLinkEnabled: Boolean get() = nh.prefs.infoLinks
+
 
     fun startMenu(behavior: Long) {
         this.behavior = behavior
@@ -171,6 +174,9 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                 // 点击大括号价格文本（如 "sell 67"）→ 打开价格鉴定弹窗并预填
                 onPriceQuoteClick = { menuItem, quote ->
                     nh.priceIDialog?.showFromQuote(menuItem, quote)
+                }
+                onItemNameClick = { item ->
+                    nh.itemDialog?.showItem(item.name, item.itemClass)
                 }
             }
         }

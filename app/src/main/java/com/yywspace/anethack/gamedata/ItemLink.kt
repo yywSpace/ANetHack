@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.Spannable
 import android.view.MotionEvent
 import android.widget.TextView
+import com.yywspace.anethack.SharedPreferencesUtils
 
 /**
  * 消息里出现的物品名，做成高亮可点击的文本段。
@@ -32,6 +33,8 @@ object ItemLink {
         to: Int,
         onClick: (ItemMatch) -> Unit
     ) {
+        if (!SharedPreferencesUtils(context).infoLinks)
+            return
         GameData.ensureLoaded(context)
         link.highlight(text, from, to, onClick)
     }

@@ -3,13 +3,17 @@ package com.yywspace.anethack.window
 import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Spannable
+import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextPaint
+import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import com.yywspace.anethack.R
+import com.yywspace.anethack.gamedata.GameData
+import com.yywspace.anethack.gamedata.Item
 
 /**
  * 菜单标题里的价格段链接：给 "buy 267" / "sell 67" 加下划线，并处理点击。
@@ -19,7 +23,7 @@ import com.yywspace.anethack.R
 object MenuLink {
 
     /** 给标题末尾的 [priceQuote]（如 "{buy 267 sell 67}"）里的价格段加链接。 */
-    fun highlight(context: Context, text: Spannable, priceQuote: String) {
+    fun highlightPriceQuote(context: Context, text: Spannable, priceQuote: String) {
         if (priceQuote.isEmpty())
             return
         val quoteStart = text.length - priceQuote.length
@@ -40,40 +44,91 @@ object MenuLink {
         }
     }
 
-    /** 接管标题 TextView 的价格点击；按在普通文字上时返回 false，让菜单项正常点击。 */
+    /**
+     * 标题里匹配到物品名/外观时，在名字后面追加一个信息图标。
+     * 只给图标加 MenuItemSpan，避免长物品名覆盖整行、挡住菜单项点击。
+     */
+    fun highlightItems(context: Context, text: SpannableStringBuilder) {
+        GameData.ensureLoaded(context)
+        val title = text.toString()
+        val match = GameData.items
+            .flatMap { item ->
+                listOfNotNull(item.name, item.appearance).map { alias -> alias to item }
+            }
+            .filter { (alias, _) -> alias.isNotBlank() && title.contains(alias, ignoreCase = true) }
+            .maxByOrNull { (alias, _) -> alias.length }
+            ?: return
+
+        val iconStart = text.length + 1 // " " 后面是信息图标
+        text.append(" \u24D8")
+        text.setSpan(
+            MenuItemSpan(match.second),
+            iconStart,
+            text.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
+
+    /** 接管标题 TextView 的链接点击；按在普通文字上时返回 false，让菜单项正常点击。 */
     @SuppressLint("ClickableViewAccessibility")
-    fun attach(view: TextView, onClick: (String) -> Unit) {
-        var downQuote: MenuQuoteSpan? = null
+    fun attach(
+        view: TextView,
+        onQuoteClick: (String) -> Unit,
+        onItemClick: (Item) -> Unit
+    ) {
+        var downSpan: CharacterStyle? = null
         view.setOnTouchListener { v, event ->
             when (event.actionMasked) {
                 MotionEvent.ACTION_DOWN -> {
-                    downQuote = spanAt(v, event)
-                    downQuote != null
+                    downSpan = spanAt(v, event)
+                    downSpan != null
                 }
                 MotionEvent.ACTION_UP -> {
-                    val quote = downQuote
-                    downQuote = null
-                    if (quote != null) {
-                        onClick(quote.quote)
-                        true
-                    } else false
+                    val span = downSpan
+                    downSpan = null
+                    when (span) {
+                        is MenuQuoteSpan -> {
+                            onQuoteClick(span.quote)
+                            true
+                        }
+                        is MenuItemSpan -> {
+                            onItemClick(span.item)
+                            true
+                        }
+                        else -> false
+                    }
                 }
-                else -> downQuote != null
+                else -> downSpan != null
             }
         }
     }
 
-    private fun spanAt(view: View, event: MotionEvent): MenuQuoteSpan? {
+    private fun spanAt(view: View, event: MotionEvent): CharacterStyle? {
         val textView = view as? TextView ?: return null
         val offset = textView.getOffsetForPosition(event.x, event.y)
         val text = textView.text as? Spanned ?: return null
-        return text.getSpans(offset, offset, MenuQuoteSpan::class.java).firstOrNull()
+        return text.getSpans(offset, offset, CharacterStyle::class.java).firstOrNull {
+            it is MenuQuoteSpan || it is MenuItemSpan
+        }
     }
 
     private fun priceRegex(context: Context): Regex {
         val buy = Regex.escape(context.getString(R.string.price_quote_buy))
         val sell = Regex.escape(context.getString(R.string.price_quote_sell))
         return Regex("$buy\\s*[0-9]+(?:-[0-9]+)?|$sell\\s*[0-9]+(?:-[0-9]+)?")
+    }
+}
+
+/**
+ * 菜单标题里的物品名 span。
+ *
+ * 和 [MenuQuoteSpan] 一样，onClick 本身不执行动作；点击由 [MenuLink.attach] 统一处理，
+ * 这样菜单项外层的整行点击/长按不会被物品名链接破坏。
+ */
+class MenuItemSpan(val item: Item) : CharacterStyle() {
+    override fun updateDrawState(ds: TextPaint) {
+        // 信息图标只作为点击入口，保留原色且不加下划线
+        ds.isUnderlineText = false
     }
 }
 
@@ -100,6 +155,7 @@ class MenuQuoteSpan(val quote: String) : ClickableSpan() {
     }
 
     override fun updateDrawState(ds: TextPaint) {
-        super.updateDrawState(ds) // 标准链接样式：链接色 + 下划线
+        // 不调用 super：保留标题原本颜色，只加下划线
+        ds.isUnderlineText = true
     }
 }

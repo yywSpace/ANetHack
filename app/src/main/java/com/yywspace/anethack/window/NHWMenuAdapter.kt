@@ -16,6 +16,7 @@ import com.yywspace.anethack.NHTileSet
 import com.yywspace.anethack.R
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMenuItem
+import com.yywspace.anethack.gamedata.Item
 
 
 class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet) :
@@ -25,6 +26,8 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
     var onItemLongClick:((view:View, index:Int, menuItem: NHMenuItem)->Unit)? = null
     /** 点击菜单项的大括号价格文本（如 "sell 67"）回调，传入菜单项和点击的价格段 */
     var onPriceQuoteClick:((menuItem: NHMenuItem, quote: String)->Unit)? = null
+    /** 点击菜单标题里的物品名，打开物品弹窗 */
+    var onItemNameClick:((item: Item)->Unit)? = null
 
     inner class OptionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val itemAcc: TextView = view.findViewById(R.id.item_accelerator)
@@ -62,9 +65,11 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
                     notifyItemChanged(getHeaderPosition(position))
                 }
             }
-            MenuLink.attach(itemTitle) { quote ->
-                onPriceQuoteClick?.invoke(menuItem, quote)
-            }
+            MenuLink.attach(
+                itemTitle,
+                onQuoteClick = { quote -> onPriceQuoteClick?.invoke(menuItem, quote) },
+                onItemClick = { item -> onItemNameClick?.invoke(item) }
+            )
 
             if (menuItem.hasSubtitle()) {
                 itemSubtitle.visibility = View.VISIBLE
@@ -96,11 +101,15 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
                 )
             }
 
+            // 先给标题里的物品名加链接，再追加价格段；两者互不重叠
+            if (nhwMenu.itemLinkEnabled)
+                MenuLink.highlightItems(itemView.context, spannable)
+
             if (menuItem.priceQuote.isNotEmpty()) {
                 spannable.append(" ${menuItem.priceQuote}") // priceQuote 已带大括号（如 "{buy 267 sell 67}"）
                 // 价格鉴定关掉时只显示原文，不加链接样式（避免出现下划线却点不动）
                 if (nhwMenu.priceIdEnabled)
-                    MenuLink.highlight(itemView.context, spannable, menuItem.priceQuote)
+                    MenuLink.highlightPriceQuote(itemView.context, spannable, menuItem.priceQuote)
             }
             return spannable
         }
