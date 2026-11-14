@@ -155,7 +155,6 @@ class MenuQuoteSpan(val quote: String) : ClickableSpan() {
     }
 
     override fun updateDrawState(ds: TextPaint) {
-        // 不调用 super：保留标题原本颜色，只加下划线
-        ds.isUnderlineText = true
+        super.updateDrawState(ds) // 价格链接：链接色 + 下划线
     }
 }

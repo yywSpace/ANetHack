@@ -33,7 +33,7 @@ object ItemLink {
         to: Int,
         onClick: (ItemMatch) -> Unit
     ) {
-        if (!SharedPreferencesUtils(context).infoLinks)
+        if (!SharedPreferencesUtils(context).itemInfo)
             return
         GameData.ensureLoaded(context)
         link.highlight(text, from, to, onClick)

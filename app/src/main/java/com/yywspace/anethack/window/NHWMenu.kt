@@ -32,8 +32,8 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
     /** 价格鉴定开关：关掉后菜单里的价格段不再加链接样式（无下划线、不可点击） */
     val priceIdEnabled: Boolean get() = nh.prefs.priceId
 
-    /** 菜单/消息信息链接总开关 */
-    val itemLinkEnabled: Boolean get() = nh.prefs.infoLinks
+    /** 菜单物品名链接开关 */
+    val itemLinkEnabled: Boolean get() = nh.prefs.itemInfo
 
 
     fun startMenu(behavior: Long) {

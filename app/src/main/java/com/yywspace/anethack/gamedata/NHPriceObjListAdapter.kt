@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.R
 
 class NHPriceObjListAdapter(private val objList: List<Item>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    /** 点击某一行，打开对应物品详情 */
+    var onItemClick: ((Item) -> Unit)? = null
     class ObjListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val objName : TextView = view.findViewById(R.id.obj_name)
         val objCost : TextView = view.findViewById(R.id.obj_cost)
@@ -28,6 +31,7 @@ class NHPriceObjListAdapter(private val objList: List<Item>) : RecyclerView.Adap
             val obj = objList[position]
             objName.text = obj.name
             objCost.text = obj.price.toString()
+            itemView.setOnClickListener { onItemClick?.invoke(obj) }
         }
     }
 }

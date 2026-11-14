@@ -75,7 +75,11 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
         currentType = if (typeAdapter.isEmpty) "" else typeAdapter.getItem(0) ?: ""
         currentSurcharge = if (surchargeAdapter.isEmpty) "" else surchargeAdapter.getItem(0) ?: ""
         currentIdMode = if (idModeAdapter.isEmpty) "" else idModeAdapter.getItem(0) ?: ""
-        objListAdapter = NHPriceObjListAdapter(objList)
+        objListAdapter = NHPriceObjListAdapter(objList).apply {
+            onItemClick = { item ->
+                nh.itemDialog?.showItem(item.name, item.itemClass)
+            }
+        }
     }
     private fun initView(){
         val view = View.inflate(context, R.layout.dialog_price_identify,null)
@@ -238,9 +242,8 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
     }
 
     fun showFromMessages() {
-        if (!nh.prefs.priceId)
-            return // 受设置开关 priceId 控制
-        // 正常打开：从最近消息解析交易信息预填
+        // 手动命令始终可用；设置只控制菜单里的价格链接是否显示
+        // 从最近消息解析交易信息预填
         val messageList = nh.messages.getRecentMessageList(5)
         for (i in messageList.indices) {
             if (parseTradeInfo(messageList[i].toString())) break

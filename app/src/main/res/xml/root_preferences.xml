@@ -41,11 +41,18 @@
             app:summary="@string/pref_price_id_enable_desc"/>
 
         <CheckBoxPreference
-            app:key="infoLinks"
-            app:title="@string/pref_info_links_enable"
+            app:key="monsterInfo"
+            app:title="@string/pref_monster_info_enable"
             app:iconSpaceReserved="false"
             app:defaultValue="true"
-            app:summary="@string/pref_info_links_enable_desc"/>
+            app:summary="@string/pref_monster_info_enable_desc"/>
+
+        <CheckBoxPreference
+            app:key="itemInfo"
+            app:title="@string/pref_item_info_enable"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"
+            app:summary="@string/pref_item_info_enable_desc"/>
     </PreferenceCategory>
 
     <PreferenceCategory
