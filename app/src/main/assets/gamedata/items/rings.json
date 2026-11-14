@@ -1,0 +1,412 @@
+[
+  {
+    "name": "adornment",
+    "description": "wooden",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 100,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "gain strength",
+    "description": "granite",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 150,
+    "material": "mineral",
+    "color": "CLR_GRAY",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "gain constitution",
+    "description": "opal",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 150,
+    "material": "mineral",
+    "color": "CLR_GRAY",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "increase accuracy",
+    "description": "clay",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 150,
+    "material": "mineral",
+    "color": "CLR_RED",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "increase damage",
+    "description": "coral",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 150,
+    "material": "mineral",
+    "color": "CLR_ORANGE",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "protection",
+    "description": "black onyx",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 100,
+    "material": "mineral",
+    "color": "CLR_BLACK",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "regeneration",
+    "description": "moonstone",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 200,
+    "material": "mineral",
+    "color": "CLR_GRAY",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "searching",
+    "description": "tiger eye",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 200,
+    "material": "gemstone",
+    "color": "CLR_BROWN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "stealth",
+    "description": "jade",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 100,
+    "material": "gemstone",
+    "color": "CLR_GREEN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "sustain ability",
+    "description": "bronze",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 100,
+    "material": "copper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "levitation",
+    "description": "agate",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 200,
+    "material": "gemstone",
+    "color": "CLR_RED",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "hunger",
+    "description": "topaz",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 100,
+    "material": "gemstone",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic",
+      "tough"
+    ]
+  },
+  {
+    "name": "aggravate monster",
+    "description": "sapphire",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 150,
+    "material": "gemstone",
+    "color": "CLR_BLUE",
+    "flags": [
+      "magic",
+      "tough"
+    ]
+  },
+  {
+    "name": "conflict",
+    "description": "ruby",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 300,
+    "material": "gemstone",
+    "color": "CLR_RED",
+    "flags": [
+      "magic",
+      "tough"
+    ]
+  },
+  {
+    "name": "warning",
+    "description": "diamond",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 100,
+    "material": "gemstone",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic",
+      "tough"
+    ]
+  },
+  {
+    "name": "poison resistance",
+    "description": "pearl",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 150,
+    "material": "bone",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "fire resistance",
+    "description": "iron",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 200,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "cold resistance",
+    "description": "brass",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 150,
+    "material": "copper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "shock resistance",
+    "description": "copper",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 150,
+    "material": "copper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "free action",
+    "description": "twisted",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 200,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "slow digestion",
+    "description": "steel",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 200,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic",
+      "tough"
+    ]
+  },
+  {
+    "name": "teleportation",
+    "description": "silver",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 200,
+    "material": "silver",
+    "color": "CLR_GRAY",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "teleport control",
+    "description": "gold",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 300,
+    "material": "gold",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "polymorph",
+    "description": "ivory",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 300,
+    "material": "bone",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "polymorph control",
+    "description": "emerald",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 300,
+    "material": "gemstone",
+    "color": "CLR_BRIGHT_GREEN",
+    "flags": [
+      "magic",
+      "tough"
+    ]
+  },
+  {
+    "name": "invisibility",
+    "description": "wire",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "see invisible",
+    "description": "engagement",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "protection from shape changers",
+    "description": "shiny",
+    "class": "ring",
+    "symbol": "=",
+    "probability": 1,
+    "weight": 3,
+    "price": 100,
+    "material": "iron",
+    "color": "CLR_BRIGHT_CYAN",
+    "flags": [
+      "magic"
+    ]
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "nameKnown": "Name known",
+  "merge": "Stackable",
+  "usesKnown": "Uses known",
+  "magic": "Magical",
+  "charged": "Can be enchanted",
+  "unique": "Unique",
+  "nowish": "Unwishable",
+  "big": "Large",
+  "tough": "Hard"
+}

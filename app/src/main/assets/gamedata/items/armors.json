@@ -1,0 +1,2078 @@
+[
+  {
+    "name": "elven leather helm",
+    "description": "leather hat",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 6,
+    "weight": 3,
+    "price": 8,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 2,
+      "categoryName": "Helm",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 1
+  },
+  {
+    "name": "orcish helm",
+    "description": "iron skull cap",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 6,
+    "weight": 30,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_BLACK",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 2,
+      "categoryName": "Helm",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 1
+  },
+  {
+    "name": "dwarvish iron helm",
+    "description": "hard hat",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 6,
+    "weight": 40,
+    "price": 20,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 2,
+      "categoryName": "Helm",
+      "ac": 2,
+      "can": 0
+    },
+    "delay": 1
+  },
+  {
+    "name": "fedora",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 3,
+    "price": 1,
+    "material": "cloth",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 2,
+      "categoryName": "Helm",
+      "ac": 0,
+      "can": 0
+    }
+  },
+  {
+    "name": "cornuthaum",
+    "description": "conical hat",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 5,
+    "weight": 4,
+    "price": 80,
+    "material": "cloth",
+    "color": "CLR_BLUE",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 2,
+      "categoryName": "Helm",
+      "ac": 0,
+      "can": 1
+    },
+    "delay": 1,
+    "effect": [
+      "CLAIRVOYANT"
+    ]
+  },
+  {
+    "name": "dunce cap",
+    "description": "conical hat",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 5,
+    "weight": 4,
+    "price": 1,
+    "material": "cloth",
+    "color": "CLR_BLUE",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 2,
+      "categoryName": "Helm",
+      "ac": 0,
+      "can": 0
+    },
+    "delay": 1,
+    "effect": [
+      "FIXED_INT_WIS",
+      "SHOP_SURCHARGE"
+    ]
+  },
+  {
+    "name": "dented pot",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 2,
+    "weight": 10,
+    "price": 8,
+    "material": "iron",
+    "color": "CLR_BLACK",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 2,
+      "categoryName": "Helm",
+      "ac": 1,
+      "can": 0
+    }
+  },
+  {
+    "name": "helm of brilliance",
+    "description": "crystal helmet",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 6,
+    "weight": 40,
+    "price": 50,
+    "material": "glass",
+    "color": "CLR_WHITE",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 2,
+      "categoryName": "Helm",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 1,
+    "effect": [
+      "INT_WIS_BONUS"
+    ]
+  },
+  {
+    "name": "helmet",
+    "description": "plumed helmet",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 10,
+    "weight": 30,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 2,
+      "categoryName": "Helm",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 1
+  },
+  {
+    "name": "helm of caution",
+    "description": "etched helmet",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 6,
+    "weight": 50,
+    "price": 50,
+    "material": "iron",
+    "color": "CLR_GREEN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 2,
+      "categoryName": "Helm",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 1,
+    "effect": [
+      "WARNING"
+    ]
+  },
+  {
+    "name": "helm of opposite alignment",
+    "description": "crested helmet",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 10,
+    "weight": 50,
+    "price": 50,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 2,
+      "categoryName": "Helm",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 1,
+    "effect": [
+      "ALIGNMENT_CHANGE"
+    ]
+  },
+  {
+    "name": "helm of telepathy",
+    "description": "visored helmet",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 4,
+    "weight": 50,
+    "price": 50,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 2,
+      "categoryName": "Helm",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 1,
+    "effect": [
+      "TELEPAT"
+    ]
+  },
+  {
+    "name": "gray dragon scale mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 1200,
+    "material": "dragon hide",
+    "color": "CLR_GRAY",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 9,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "ANTIMAGIC"
+    ]
+  },
+  {
+    "name": "gold dragon scale mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 900,
+    "material": "dragon hide",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 9,
+      "can": 0
+    },
+    "delay": 5
+  },
+  {
+    "name": "silver dragon scale mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 1200,
+    "material": "dragon hide",
+    "color": "CLR_BRIGHT_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 9,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "REFLECTING"
+    ]
+  },
+  {
+    "name": "red dragon scale mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 900,
+    "material": "dragon hide",
+    "color": "CLR_RED",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 9,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "FIRE_RES"
+    ]
+  },
+  {
+    "name": "white dragon scale mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 900,
+    "material": "dragon hide",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 9,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "COLD_RES"
+    ]
+  },
+  {
+    "name": "orange dragon scale mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 900,
+    "material": "dragon hide",
+    "color": "CLR_ORANGE",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 9,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "SLEEP_RES"
+    ]
+  },
+  {
+    "name": "black dragon scale mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 1200,
+    "material": "dragon hide",
+    "color": "CLR_BLACK",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 9,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "DISINT_RES"
+    ]
+  },
+  {
+    "name": "blue dragon scale mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 900,
+    "material": "dragon hide",
+    "color": "CLR_BLUE",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 9,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "SHOCK_RES"
+    ]
+  },
+  {
+    "name": "green dragon scale mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 900,
+    "material": "dragon hide",
+    "color": "CLR_GREEN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 9,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "POISON_RES"
+    ]
+  },
+  {
+    "name": "yellow dragon scale mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 900,
+    "material": "dragon hide",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 9,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "ACID_RES"
+    ]
+  },
+  {
+    "name": "gray dragon scales",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 700,
+    "material": "dragon hide",
+    "color": "CLR_GRAY",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 3,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "ANTIMAGIC"
+    ]
+  },
+  {
+    "name": "gold dragon scales",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 500,
+    "material": "dragon hide",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 3,
+      "can": 0
+    },
+    "delay": 5
+  },
+  {
+    "name": "silver dragon scales",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 700,
+    "material": "dragon hide",
+    "color": "CLR_BRIGHT_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 3,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "REFLECTING"
+    ]
+  },
+  {
+    "name": "red dragon scales",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 500,
+    "material": "dragon hide",
+    "color": "CLR_RED",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 3,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "FIRE_RES"
+    ]
+  },
+  {
+    "name": "white dragon scales",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 500,
+    "material": "dragon hide",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 3,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "COLD_RES"
+    ]
+  },
+  {
+    "name": "orange dragon scales",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 500,
+    "material": "dragon hide",
+    "color": "CLR_ORANGE",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 3,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "SLEEP_RES"
+    ]
+  },
+  {
+    "name": "black dragon scales",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 700,
+    "material": "dragon hide",
+    "color": "CLR_BLACK",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 3,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "DISINT_RES"
+    ]
+  },
+  {
+    "name": "blue dragon scales",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 500,
+    "material": "dragon hide",
+    "color": "CLR_BLUE",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 3,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "SHOCK_RES"
+    ]
+  },
+  {
+    "name": "green dragon scales",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 500,
+    "material": "dragon hide",
+    "color": "CLR_GREEN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 3,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "POISON_RES"
+    ]
+  },
+  {
+    "name": "yellow dragon scales",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 40,
+    "price": 500,
+    "material": "dragon hide",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 3,
+      "can": 0
+    },
+    "delay": 5,
+    "effect": [
+      "ACID_RES"
+    ]
+  },
+  {
+    "name": "plate mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 40,
+    "weight": 450,
+    "price": 600,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 7,
+      "can": 2
+    },
+    "delay": 5
+  },
+  {
+    "name": "crystal plate mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 10,
+    "weight": 415,
+    "price": 820,
+    "material": "glass",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 7,
+      "can": 2
+    },
+    "delay": 5
+  },
+  {
+    "name": "bronze plate mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 23,
+    "weight": 450,
+    "price": 400,
+    "material": "copper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 6,
+      "can": 1
+    },
+    "delay": 5
+  },
+  {
+    "name": "splint mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 57,
+    "weight": 400,
+    "price": 80,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 6,
+      "can": 1
+    },
+    "delay": 5
+  },
+  {
+    "name": "banded mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 66,
+    "weight": 350,
+    "price": 90,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 6,
+      "can": 1
+    },
+    "delay": 5
+  },
+  {
+    "name": "dwarvish mithril-coat",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 10,
+    "weight": 150,
+    "price": 240,
+    "material": "mithril",
+    "color": "CLR_GRAY",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 6,
+      "can": 2
+    },
+    "delay": 1
+  },
+  {
+    "name": "elven mithril-coat",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 15,
+    "weight": 150,
+    "price": 240,
+    "material": "mithril",
+    "color": "CLR_GRAY",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 5,
+      "can": 2
+    },
+    "delay": 1
+  },
+  {
+    "name": "chain mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 66,
+    "weight": 300,
+    "price": 75,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 5,
+      "can": 1
+    },
+    "delay": 5
+  },
+  {
+    "name": "orcish chain mail",
+    "description": "crude chain mail",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 19,
+    "weight": 300,
+    "price": 75,
+    "material": "iron",
+    "color": "CLR_BLACK",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 4,
+      "can": 1
+    },
+    "delay": 5
+  },
+  {
+    "name": "scale mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 66,
+    "weight": 250,
+    "price": 45,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 4,
+      "can": 1
+    },
+    "delay": 5
+  },
+  {
+    "name": "studded leather armor",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 66,
+    "weight": 200,
+    "price": 15,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 3,
+      "can": 1
+    },
+    "delay": 3
+  },
+  {
+    "name": "ring mail",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 66,
+    "weight": 250,
+    "price": 100,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 3,
+      "can": 1
+    },
+    "delay": 5
+  },
+  {
+    "name": "orcish ring mail",
+    "description": "crude ring mail",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 19,
+    "weight": 250,
+    "price": 80,
+    "material": "iron",
+    "color": "CLR_BLACK",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 2,
+      "can": 1
+    },
+    "delay": 5
+  },
+  {
+    "name": "leather armor",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 75,
+    "weight": 150,
+    "price": 5,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 2,
+      "can": 1
+    },
+    "delay": 3
+  },
+  {
+    "name": "leather jacket",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 11,
+    "weight": 30,
+    "price": 10,
+    "material": "leather",
+    "color": "CLR_BLACK",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 0,
+      "categoryName": "Suit",
+      "ac": 1,
+      "can": 0
+    }
+  },
+  {
+    "name": "Hawaiian shirt",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 8,
+    "weight": 5,
+    "price": 3,
+    "material": "cloth",
+    "color": "CLR_MAGENTA",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 6,
+      "categoryName": "Shirt",
+      "ac": 0,
+      "can": 0
+    },
+    "effect": [
+      "SHOP_SURCHARGE"
+    ]
+  },
+  {
+    "name": "T-shirt",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 2,
+    "weight": 5,
+    "price": 2,
+    "material": "cloth",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 6,
+      "categoryName": "Shirt",
+      "ac": 0,
+      "can": 0
+    },
+    "effect": [
+      "SHOP_SURCHARGE"
+    ]
+  },
+  {
+    "name": "mummy wrapping",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 0,
+    "weight": 3,
+    "price": 2,
+    "material": "cloth",
+    "color": "CLR_GRAY",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 5,
+      "categoryName": "Cloak",
+      "ac": 0,
+      "can": 1
+    },
+    "effect": [
+      "BLOCKS_INVISIBILITY"
+    ]
+  },
+  {
+    "name": "elven cloak",
+    "description": "faded pall",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 8,
+    "weight": 10,
+    "price": 60,
+    "material": "cloth",
+    "color": "CLR_BLACK",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 5,
+      "categoryName": "Cloak",
+      "ac": 1,
+      "can": 1
+    },
+    "effect": [
+      "STEALTH"
+    ]
+  },
+  {
+    "name": "orcish cloak",
+    "description": "coarse mantelet",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 8,
+    "weight": 10,
+    "price": 40,
+    "material": "cloth",
+    "color": "CLR_BLACK",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 5,
+      "categoryName": "Cloak",
+      "ac": 0,
+      "can": 1
+    }
+  },
+  {
+    "name": "dwarvish cloak",
+    "description": "hooded cloak",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 8,
+    "weight": 10,
+    "price": 50,
+    "material": "cloth",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 5,
+      "categoryName": "Cloak",
+      "ac": 0,
+      "can": 1
+    }
+  },
+  {
+    "name": "oilskin cloak",
+    "description": "slippery cloak",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 8,
+    "weight": 10,
+    "price": 50,
+    "material": "cloth",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 5,
+      "categoryName": "Cloak",
+      "ac": 1,
+      "can": 2
+    },
+    "effect": [
+      "SLIPPERY"
+    ]
+  },
+  {
+    "name": "robe",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 6,
+    "weight": 15,
+    "price": 50,
+    "material": "cloth",
+    "color": "CLR_RED",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 5,
+      "categoryName": "Cloak",
+      "ac": 2,
+      "can": 2
+    },
+    "effect": [
+      "SPELL_CASTING_BONUS"
+    ]
+  },
+  {
+    "name": "alchemy smock",
+    "description": "apron",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 11,
+    "weight": 10,
+    "price": 50,
+    "material": "cloth",
+    "color": "CLR_WHITE",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 5,
+      "categoryName": "Cloak",
+      "ac": 1,
+      "can": 1
+    },
+    "effect": [
+      "POISON_RES",
+      "ACID_RES"
+    ]
+  },
+  {
+    "name": "leather cloak",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 8,
+    "weight": 15,
+    "price": 40,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 5,
+      "categoryName": "Cloak",
+      "ac": 1,
+      "can": 1
+    }
+  },
+  {
+    "name": "cloak of protection",
+    "description": "tattered cape",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 11,
+    "weight": 10,
+    "price": 50,
+    "material": "cloth",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 5,
+      "categoryName": "Cloak",
+      "ac": 3,
+      "can": 3
+    },
+    "effect": [
+      "PROTECTION"
+    ]
+  },
+  {
+    "name": "cloak of invisibility",
+    "description": "opera cloak",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 12,
+    "weight": 10,
+    "price": 60,
+    "material": "cloth",
+    "color": "CLR_BRIGHT_MAGENTA",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 5,
+      "categoryName": "Cloak",
+      "ac": 1,
+      "can": 1
+    },
+    "effect": [
+      "INVIS"
+    ]
+  },
+  {
+    "name": "cloak of magic resistance",
+    "description": "ornamental cope",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 6,
+    "weight": 10,
+    "price": 60,
+    "material": "cloth",
+    "color": "CLR_WHITE",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 5,
+      "categoryName": "Cloak",
+      "ac": 1,
+      "can": 1
+    },
+    "effect": [
+      "ANTIMAGIC"
+    ]
+  },
+  {
+    "name": "cloak of displacement",
+    "description": "piece of cloth",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 12,
+    "weight": 10,
+    "price": 50,
+    "material": "cloth",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 5,
+      "categoryName": "Cloak",
+      "ac": 1,
+      "can": 1
+    },
+    "effect": [
+      "DISPLACED"
+    ]
+  },
+  {
+    "name": "small shield",
+    "description": "wooden shield",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 6,
+    "weight": 30,
+    "price": 3,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 1,
+      "categoryName": "Shield",
+      "ac": 1,
+      "can": 0
+    },
+    "effect": [
+      "LOWER_SPELL_PENALTY"
+    ]
+  },
+  {
+    "name": "shield of drain resistance",
+    "description": "wooden shield",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 12,
+    "weight": 30,
+    "price": 50,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 1,
+      "categoryName": "Shield",
+      "ac": 1,
+      "can": 0
+    },
+    "effect": [
+      "DRAIN_RES",
+      "LOWER_SPELL_PENALTY"
+    ]
+  },
+  {
+    "name": "shield of shock resistance",
+    "description": "wooden shield",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 12,
+    "weight": 30,
+    "price": 50,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 1,
+      "categoryName": "Shield",
+      "ac": 1,
+      "can": 0
+    },
+    "effect": [
+      "SHOCK_RES",
+      "LOWER_SPELL_PENALTY"
+    ]
+  },
+  {
+    "name": "elven shield",
+    "description": "blue and green shield",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 2,
+    "weight": 40,
+    "price": 7,
+    "material": "wood",
+    "color": "CLR_GREEN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 1,
+      "categoryName": "Shield",
+      "ac": 2,
+      "can": 0
+    }
+  },
+  {
+    "name": "Uruk-hai shield",
+    "description": "white-handed shield",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 2,
+    "weight": 50,
+    "price": 7,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 1,
+      "categoryName": "Shield",
+      "ac": 1,
+      "can": 0
+    }
+  },
+  {
+    "name": "orcish shield",
+    "description": "red-eyed shield",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 2,
+    "weight": 50,
+    "price": 7,
+    "material": "iron",
+    "color": "CLR_RED",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 1,
+      "categoryName": "Shield",
+      "ac": 1,
+      "can": 0
+    }
+  },
+  {
+    "name": "large shield",
+    "description": null,
+    "class": "armor",
+    "symbol": "[",
+    "probability": 4,
+    "weight": 100,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged",
+      "big"
+    ],
+    "armor": {
+      "category": 1,
+      "categoryName": "Shield",
+      "ac": 2,
+      "can": 0
+    }
+  },
+  {
+    "name": "dwarvish roundshield",
+    "description": "large round shield",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 3,
+    "weight": 100,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 1,
+      "categoryName": "Shield",
+      "ac": 2,
+      "can": 0
+    }
+  },
+  {
+    "name": "shield of reflection",
+    "description": "polished silver shield",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 7,
+    "weight": 50,
+    "price": 50,
+    "material": "silver",
+    "color": "CLR_GRAY",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 1,
+      "categoryName": "Shield",
+      "ac": 2,
+      "can": 0
+    },
+    "effect": [
+      "REFLECTING"
+    ]
+  },
+  {
+    "name": "leather gloves",
+    "description": "old gloves",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 15,
+    "weight": 10,
+    "price": 8,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 3,
+      "categoryName": "Gloves",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 1
+  },
+  {
+    "name": "gauntlets of fumbling",
+    "description": "padded gloves",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 8,
+    "weight": 10,
+    "price": 50,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 3,
+      "categoryName": "Gloves",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 1,
+    "effect": [
+      "FUMBLING"
+    ]
+  },
+  {
+    "name": "gauntlets of power",
+    "description": "riding gloves",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 8,
+    "weight": 30,
+    "price": 50,
+    "material": "iron",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 3,
+      "categoryName": "Gloves",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 1,
+    "effect": [
+      "STRENGTH_25"
+    ]
+  },
+  {
+    "name": "gauntlets of dexterity",
+    "description": "fencing gloves",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 8,
+    "weight": 10,
+    "price": 50,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 3,
+      "categoryName": "Gloves",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 1,
+    "effect": [
+      "DEX_BONUS"
+    ]
+  },
+  {
+    "name": "low boots",
+    "description": "walking shoes",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 23,
+    "weight": 10,
+    "price": 8,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 4,
+      "categoryName": "Boots",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 2
+  },
+  {
+    "name": "iron shoes",
+    "description": "hard shoes",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 7,
+    "weight": 50,
+    "price": 16,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 4,
+      "categoryName": "Boots",
+      "ac": 2,
+      "can": 0
+    },
+    "delay": 2
+  },
+  {
+    "name": "high boots",
+    "description": "jackboots",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 14,
+    "weight": 20,
+    "price": 12,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "armor": {
+      "category": 4,
+      "categoryName": "Boots",
+      "ac": 2,
+      "can": 0
+    },
+    "delay": 2
+  },
+  {
+    "name": "speed boots",
+    "description": "combat boots",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 12,
+    "weight": 20,
+    "price": 50,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 4,
+      "categoryName": "Boots",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 2,
+    "effect": [
+      "FAST"
+    ]
+  },
+  {
+    "name": "water walking boots",
+    "description": "jungle boots",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 12,
+    "weight": 15,
+    "price": 50,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 4,
+      "categoryName": "Boots",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 2,
+    "effect": [
+      "WWALKING"
+    ]
+  },
+  {
+    "name": "jumping boots",
+    "description": "hiking boots",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 12,
+    "weight": 20,
+    "price": 50,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 4,
+      "categoryName": "Boots",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 2,
+    "effect": [
+      "JUMPING"
+    ]
+  },
+  {
+    "name": "elven boots",
+    "description": "mud boots",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 12,
+    "weight": 15,
+    "price": 8,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 4,
+      "categoryName": "Boots",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 2,
+    "effect": [
+      "STEALTH"
+    ]
+  },
+  {
+    "name": "kicking boots",
+    "description": "buckled boots",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 12,
+    "weight": 50,
+    "price": 8,
+    "material": "iron",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 4,
+      "categoryName": "Boots",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 2,
+    "effect": [
+      "KICK_DAMAGE"
+    ]
+  },
+  {
+    "name": "fumble boots",
+    "description": "riding boots",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 12,
+    "weight": 20,
+    "price": 30,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 4,
+      "categoryName": "Boots",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 2,
+    "effect": [
+      "FUMBLING"
+    ]
+  },
+  {
+    "name": "levitation boots",
+    "description": "snow boots",
+    "class": "armor",
+    "symbol": "[",
+    "probability": 12,
+    "weight": 15,
+    "price": 30,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "armor": {
+      "category": 4,
+      "categoryName": "Boots",
+      "ac": 1,
+      "can": 0
+    },
+    "delay": 2,
+    "effect": [
+      "LEVITATION"
+    ]
+  }
+]

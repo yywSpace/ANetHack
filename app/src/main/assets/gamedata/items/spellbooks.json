@@ -1,0 +1,1082 @@
+[
+  {
+    "name": "dig",
+    "description": "parchment",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 20,
+    "weight": 50,
+    "price": 500,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 5,
+      "skill": "Matter",
+      "castingCost": 25
+    },
+    "delay": 6,
+    "direction": "Ray",
+    "writing": {
+      "inkCostMin": 25,
+      "inkCostMax": 49
+    }
+  },
+  {
+    "name": "magic missile",
+    "description": "vellum",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 45,
+    "weight": 50,
+    "price": 200,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 2,
+      "skill": "Attack",
+      "castingCost": 10
+    },
+    "delay": 2,
+    "direction": "Ray",
+    "writing": {
+      "inkCostMin": 10,
+      "inkCostMax": 19
+    }
+  },
+  {
+    "name": "fireball",
+    "description": "ragged",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 20,
+    "weight": 50,
+    "price": 400,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 4,
+      "skill": "Attack",
+      "castingCost": 20
+    },
+    "delay": 4,
+    "direction": "Ray",
+    "writing": {
+      "inkCostMin": 20,
+      "inkCostMax": 39
+    }
+  },
+  {
+    "name": "cone of cold",
+    "description": "dog eared",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 10,
+    "weight": 50,
+    "price": 400,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 4,
+      "skill": "Attack",
+      "castingCost": 20
+    },
+    "delay": 7,
+    "direction": "Ray",
+    "writing": {
+      "inkCostMin": 20,
+      "inkCostMax": 39
+    }
+  },
+  {
+    "name": "sleep",
+    "description": "mottled",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 30,
+    "weight": 50,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 3,
+      "skill": "Enchantment",
+      "castingCost": 15
+    },
+    "delay": 1,
+    "direction": "Ray",
+    "writing": {
+      "inkCostMin": 15,
+      "inkCostMax": 29
+    }
+  },
+  {
+    "name": "finger of death",
+    "description": "stained",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 5,
+    "weight": 50,
+    "price": 700,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 7,
+      "skill": "Attack",
+      "castingCost": 35
+    },
+    "delay": 10,
+    "direction": "Ray",
+    "writing": {
+      "inkCostMin": 35,
+      "inkCostMax": 69
+    }
+  },
+  {
+    "name": "light",
+    "description": "cloth",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 45,
+    "weight": 50,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_BROWN",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 1,
+      "skill": "Divination",
+      "castingCost": 5
+    },
+    "delay": 1,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 5,
+      "inkCostMax": 9
+    }
+  },
+  {
+    "name": "detect monsters",
+    "description": "leathery",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 43,
+    "weight": 50,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_BROWN",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 1,
+      "skill": "Divination",
+      "castingCost": 5
+    },
+    "delay": 1,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 5,
+      "inkCostMax": 9
+    }
+  },
+  {
+    "name": "healing",
+    "description": "white",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 40,
+    "weight": 50,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 1,
+      "skill": "Healing",
+      "castingCost": 5
+    },
+    "delay": 2,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 5,
+      "inkCostMax": 9
+    }
+  },
+  {
+    "name": "knock",
+    "description": "pink",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 25,
+    "weight": 50,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_BRIGHT_MAGENTA",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 1,
+      "skill": "Matter",
+      "castingCost": 5
+    },
+    "delay": 1,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 5,
+      "inkCostMax": 9
+    }
+  },
+  {
+    "name": "force bolt",
+    "description": "red",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 30,
+    "weight": 50,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_RED",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 1,
+      "skill": "Attack",
+      "castingCost": 5
+    },
+    "delay": 2,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 5,
+      "inkCostMax": 9
+    }
+  },
+  {
+    "name": "confuse monster",
+    "description": "orange",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 49,
+    "weight": 50,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_ORANGE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 1,
+      "skill": "Enchantment",
+      "castingCost": 5
+    },
+    "delay": 2,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 5,
+      "inkCostMax": 9
+    }
+  },
+  {
+    "name": "cure blindness",
+    "description": "yellow",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 25,
+    "weight": 50,
+    "price": 200,
+    "material": "paper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 2,
+      "skill": "Healing",
+      "castingCost": 10
+    },
+    "delay": 2,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 10,
+      "inkCostMax": 19
+    }
+  },
+  {
+    "name": "drain life",
+    "description": "velvet",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 10,
+    "weight": 50,
+    "price": 200,
+    "material": "paper",
+    "color": "CLR_MAGENTA",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 2,
+      "skill": "Attack",
+      "castingCost": 10
+    },
+    "delay": 2,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 10,
+      "inkCostMax": 19
+    }
+  },
+  {
+    "name": "slow monster",
+    "description": "light green",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 30,
+    "weight": 50,
+    "price": 200,
+    "material": "paper",
+    "color": "CLR_BRIGHT_GREEN",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 2,
+      "skill": "Enchantment",
+      "castingCost": 10
+    },
+    "delay": 2,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 10,
+      "inkCostMax": 19
+    }
+  },
+  {
+    "name": "wizard lock",
+    "description": "dark green",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 25,
+    "weight": 50,
+    "price": 200,
+    "material": "paper",
+    "color": "CLR_GREEN",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 2,
+      "skill": "Matter",
+      "castingCost": 10
+    },
+    "delay": 3,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 10,
+      "inkCostMax": 19
+    }
+  },
+  {
+    "name": "create monster",
+    "description": "turquoise",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 35,
+    "weight": 50,
+    "price": 200,
+    "material": "paper",
+    "color": "CLR_BRIGHT_CYAN",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 2,
+      "skill": "Cleric",
+      "castingCost": 10
+    },
+    "delay": 3,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 10,
+      "inkCostMax": 19
+    }
+  },
+  {
+    "name": "detect food",
+    "description": "cyan",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 30,
+    "weight": 50,
+    "price": 200,
+    "material": "paper",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 2,
+      "skill": "Divination",
+      "castingCost": 10
+    },
+    "delay": 3,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 10,
+      "inkCostMax": 19
+    }
+  },
+  {
+    "name": "cause fear",
+    "description": "light blue",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 25,
+    "weight": 50,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_BRIGHT_BLUE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 3,
+      "skill": "Enchantment",
+      "castingCost": 15
+    },
+    "delay": 3,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 15,
+      "inkCostMax": 29
+    }
+  },
+  {
+    "name": "clairvoyance",
+    "description": "dark blue",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 15,
+    "weight": 50,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_BLUE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 3,
+      "skill": "Divination",
+      "castingCost": 15
+    },
+    "delay": 3,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 15,
+      "inkCostMax": 29
+    }
+  },
+  {
+    "name": "cure sickness",
+    "description": "indigo",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 32,
+    "weight": 50,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_BLUE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 3,
+      "skill": "Healing",
+      "castingCost": 15
+    },
+    "delay": 3,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 15,
+      "inkCostMax": 29
+    }
+  },
+  {
+    "name": "charm monster",
+    "description": "magenta",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 20,
+    "weight": 50,
+    "price": 500,
+    "material": "paper",
+    "color": "CLR_MAGENTA",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 5,
+      "skill": "Enchantment",
+      "castingCost": 25
+    },
+    "delay": 3,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 25,
+      "inkCostMax": 49
+    }
+  },
+  {
+    "name": "haste self",
+    "description": "purple",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 33,
+    "weight": 50,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_MAGENTA",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 3,
+      "skill": "Escape",
+      "castingCost": 15
+    },
+    "delay": 4,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 15,
+      "inkCostMax": 29
+    }
+  },
+  {
+    "name": "detect unseen",
+    "description": "violet",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 20,
+    "weight": 50,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_MAGENTA",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 3,
+      "skill": "Divination",
+      "castingCost": 15
+    },
+    "delay": 4,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 15,
+      "inkCostMax": 29
+    }
+  },
+  {
+    "name": "levitation",
+    "description": "tan",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 20,
+    "weight": 50,
+    "price": 400,
+    "material": "paper",
+    "color": "CLR_BROWN",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 4,
+      "skill": "Escape",
+      "castingCost": 20
+    },
+    "delay": 4,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 20,
+      "inkCostMax": 39
+    }
+  },
+  {
+    "name": "extra healing",
+    "description": "plaid",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 27,
+    "weight": 50,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_GREEN",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 3,
+      "skill": "Healing",
+      "castingCost": 15
+    },
+    "delay": 5,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 15,
+      "inkCostMax": 29
+    }
+  },
+  {
+    "name": "restore ability",
+    "description": "light brown",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 25,
+    "weight": 50,
+    "price": 400,
+    "material": "paper",
+    "color": "CLR_BROWN",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 4,
+      "skill": "Healing",
+      "castingCost": 20
+    },
+    "delay": 5,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 20,
+      "inkCostMax": 39
+    }
+  },
+  {
+    "name": "invisibility",
+    "description": "dark brown",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 20,
+    "weight": 50,
+    "price": 400,
+    "material": "paper",
+    "color": "CLR_BROWN",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 4,
+      "skill": "Escape",
+      "castingCost": 20
+    },
+    "delay": 5,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 20,
+      "inkCostMax": 39
+    }
+  },
+  {
+    "name": "detect treasure",
+    "description": "gray",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 20,
+    "weight": 50,
+    "price": 400,
+    "material": "paper",
+    "color": "CLR_GRAY",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 4,
+      "skill": "Divination",
+      "castingCost": 20
+    },
+    "delay": 5,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 20,
+      "inkCostMax": 39
+    }
+  },
+  {
+    "name": "remove curse",
+    "description": "wrinkled",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 25,
+    "weight": 50,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 3,
+      "skill": "Cleric",
+      "castingCost": 15
+    },
+    "delay": 5,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 15,
+      "inkCostMax": 29
+    }
+  },
+  {
+    "name": "magic mapping",
+    "description": "dusty",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 18,
+    "weight": 50,
+    "price": 500,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 5,
+      "skill": "Divination",
+      "castingCost": 25
+    },
+    "delay": 7,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 25,
+      "inkCostMax": 49
+    }
+  },
+  {
+    "name": "identify",
+    "description": "bronze",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 20,
+    "weight": 50,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 3,
+      "skill": "Divination",
+      "castingCost": 15
+    },
+    "delay": 6,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 15,
+      "inkCostMax": 29
+    }
+  },
+  {
+    "name": "turn undead",
+    "description": "copper",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 16,
+    "weight": 50,
+    "price": 600,
+    "material": "paper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 6,
+      "skill": "Cleric",
+      "castingCost": 30
+    },
+    "delay": 8,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 30,
+      "inkCostMax": 59
+    }
+  },
+  {
+    "name": "polymorph",
+    "description": "silver",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 10,
+    "weight": 50,
+    "price": 600,
+    "material": "paper",
+    "color": "CLR_GRAY",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 6,
+      "skill": "Matter",
+      "castingCost": 30
+    },
+    "delay": 8,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 30,
+      "inkCostMax": 59
+    }
+  },
+  {
+    "name": "teleport away",
+    "description": "gold",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 15,
+    "weight": 50,
+    "price": 600,
+    "material": "paper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 6,
+      "skill": "Escape",
+      "castingCost": 30
+    },
+    "delay": 6,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 30,
+      "inkCostMax": 59
+    }
+  },
+  {
+    "name": "create familiar",
+    "description": "glittering",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 10,
+    "weight": 50,
+    "price": 600,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 6,
+      "skill": "Cleric",
+      "castingCost": 30
+    },
+    "delay": 7,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 30,
+      "inkCostMax": 59
+    }
+  },
+  {
+    "name": "cancellation",
+    "description": "shining",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 15,
+    "weight": 50,
+    "price": 700,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 7,
+      "skill": "Matter",
+      "castingCost": 35
+    },
+    "delay": 8,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 35,
+      "inkCostMax": 69
+    }
+  },
+  {
+    "name": "protection",
+    "description": "dull",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 18,
+    "weight": 50,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 1,
+      "skill": "Cleric",
+      "castingCost": 5
+    },
+    "delay": 3,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 5,
+      "inkCostMax": 9
+    }
+  },
+  {
+    "name": "jumping",
+    "description": "thin",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 20,
+    "weight": 50,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 1,
+      "skill": "Escape",
+      "castingCost": 5
+    },
+    "delay": 3,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 5,
+      "inkCostMax": 9
+    }
+  },
+  {
+    "name": "stone to flesh",
+    "description": "thick",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 15,
+    "weight": 50,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 3,
+      "skill": "Healing",
+      "castingCost": 15
+    },
+    "delay": 1,
+    "direction": "Immediate",
+    "writing": {
+      "inkCostMin": 15,
+      "inkCostMax": 29
+    }
+  },
+  {
+    "name": "chain lightning",
+    "description": "checkered",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 25,
+    "weight": 50,
+    "price": 200,
+    "material": "paper",
+    "color": "CLR_GRAY",
+    "flags": [
+      "magic"
+    ],
+    "spellbook": {
+      "level": 2,
+      "skill": "Attack",
+      "castingCost": 10
+    },
+    "delay": 4,
+    "direction": "Non-directional",
+    "writing": {
+      "inkCostMin": 10,
+      "inkCostMax": 19
+    }
+  },
+  {
+    "name": "blank paper",
+    "description": "plain",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 18,
+    "weight": 50,
+    "price": 0,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "spellbook": {
+      "level": 0,
+      "skill": "Restricted"
+    },
+    "flags": []
+  },
+  {
+    "name": "novel",
+    "description": "paperback",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 1,
+    "weight": 10,
+    "price": 20,
+    "material": "paper",
+    "color": "CLR_BRIGHT_BLUE",
+    "flags": [
+      "usesKnown"
+    ],
+    "spellbook": {
+      "level": 1,
+      "skill": "Restricted"
+    }
+  },
+  {
+    "name": "Book of the Dead",
+    "description": "papyrus",
+    "class": "spellbook",
+    "symbol": "+",
+    "probability": 0,
+    "weight": 50,
+    "price": 10000,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "unique",
+      "nowish"
+    ],
+    "spellbook": {
+      "level": 7,
+      "skill": "Restricted"
+    }
+  }
+]

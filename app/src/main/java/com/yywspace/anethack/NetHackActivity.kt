@@ -14,6 +14,7 @@ import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
 import com.yywspace.anethack.gamedata.GameData
 import com.yywspace.anethack.gamedata.NHMonsterDialog
+import com.yywspace.anethack.gamedata.NHItemDialog
 import com.yywspace.anethack.gamedata.NHPriceIDialog
 import com.yywspace.anethack.keybord.KeyboardVibrate
 import com.yywspace.anethack.log.AppLog
@@ -28,6 +29,7 @@ class NetHackActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNethackBinding
     private lateinit var priceIDialog: NHPriceIDialog
     private lateinit var monsterDialog: NHMonsterDialog
+    private lateinit var itemDialog: NHItemDialog
     private var isKeyboardShow = false
     /** 当前明暗模式（uiMode），用来判断配置变化是否来自主题切换 */
     private var uiMode = Configuration.UI_MODE_NIGHT_NO
@@ -46,6 +48,7 @@ class NetHackActivity : AppCompatActivity() {
         nethack.priceIDialog = priceIDialog
         monsterDialog = NHMonsterDialog(this,nethack)
         nethack.monsterDialog = monsterDialog
+        itemDialog = NHItemDialog(this, nethack)
         // 后台预热资料（monsters.json 约 400KB），避免第一次弹窗/消息列表卡在主线程
         Thread { GameData.ensureLoaded(applicationContext) }.start()
         initKeyboard()
@@ -140,6 +143,7 @@ class NetHackActivity : AppCompatActivity() {
         // 怪物弹窗的视图每次显示时重建，但主题切换后也换一份新的，保持一致
         monsterDialog = NHMonsterDialog(this, nethack)
         nethack.monsterDialog = monsterDialog
+        itemDialog = NHItemDialog(this, nethack)
     }
 
     private fun initKeyboard() {
@@ -177,6 +181,9 @@ class NetHackActivity : AppCompatActivity() {
             }
             MONSTER_LOOKUP_COMMAND -> {
                 monsterDialog.showForMonster()
+            }
+            ITEM_LOOKUP_COMMAND -> {
+                itemDialog.showItems()
             }
             else -> {
                 if(nethack.isRunning) {
@@ -250,6 +257,8 @@ class NetHackActivity : AppCompatActivity() {
         private const val PRICE_ID_COMMAND = "PriceID"
         /** 怪物信息弹窗 */
         private const val MONSTER_LOOKUP_COMMAND = "Monster"
+        /** 物品资料弹窗 */
+        private const val ITEM_LOOKUP_COMMAND = "Item"
     }
 
 }

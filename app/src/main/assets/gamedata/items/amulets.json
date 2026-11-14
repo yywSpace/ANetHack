@@ -1,0 +1,187 @@
+[
+  {
+    "name": "amulet of ESP",
+    "description": "circular",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 120,
+    "weight": 20,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "amulet of life saving",
+    "description": "spherical",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 75,
+    "weight": 20,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "amulet of strangulation",
+    "description": "oval",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 115,
+    "weight": 20,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "amulet of restful sleep",
+    "description": "triangular",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 115,
+    "weight": 20,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "amulet versus poison",
+    "description": "pyramidal",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 115,
+    "weight": 20,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "amulet of change",
+    "description": "square",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 115,
+    "weight": 20,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "amulet of unchanging",
+    "description": "concave",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 60,
+    "weight": 20,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "amulet of reflection",
+    "description": "hexagonal",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 75,
+    "weight": 20,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "amulet of magical breathing",
+    "description": "octagonal",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 75,
+    "weight": 20,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "amulet of guarding",
+    "description": "perforated",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 75,
+    "weight": 20,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "amulet of flying",
+    "description": "cubical",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 60,
+    "weight": 20,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "cheap plastic imitation of the Amulet of Yendor",
+    "description": "Amulet of Yendor",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 0,
+    "weight": 20,
+    "price": 0,
+    "material": "plastic",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown"
+    ]
+  },
+  {
+    "name": "Amulet of Yendor",
+    "description": "Amulet of Yendor",
+    "class": "amulet",
+    "symbol": "\"",
+    "probability": 0,
+    "weight": 20,
+    "price": 30000,
+    "material": "mithril",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "unique",
+      "nowish"
+    ]
+  }
+]

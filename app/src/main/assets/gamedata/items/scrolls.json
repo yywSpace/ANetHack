@@ -1,0 +1,433 @@
+[
+  {
+    "name": "enchant armor",
+    "description": "ZELGO MER",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 63,
+    "weight": 5,
+    "price": 80,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 8,
+      "inkCostMax": 15
+    }
+  },
+  {
+    "name": "destroy armor",
+    "description": "JUYED AWK YACC",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 45,
+    "weight": 5,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 5,
+      "inkCostMax": 9
+    }
+  },
+  {
+    "name": "confuse monster",
+    "description": "NR 9",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 53,
+    "weight": 5,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 6,
+      "inkCostMax": 11
+    }
+  },
+  {
+    "name": "scare monster",
+    "description": "XIXAXA XOXAXA XUXAXA",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 35,
+    "weight": 5,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 10,
+      "inkCostMax": 19
+    }
+  },
+  {
+    "name": "remove curse",
+    "description": "PRATYAVAYAH",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 65,
+    "weight": 5,
+    "price": 80,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 8,
+      "inkCostMax": 15
+    }
+  },
+  {
+    "name": "enchant weapon",
+    "description": "DAIYEN FOOELS",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 80,
+    "weight": 5,
+    "price": 60,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 8,
+      "inkCostMax": 15
+    }
+  },
+  {
+    "name": "create monster",
+    "description": "LEP GEX VEN ZEA",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 45,
+    "weight": 5,
+    "price": 200,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 5,
+      "inkCostMax": 9
+    }
+  },
+  {
+    "name": "taming",
+    "description": "PRIRUTSENIE",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 15,
+    "weight": 5,
+    "price": 200,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 10,
+      "inkCostMax": 19
+    }
+  },
+  {
+    "name": "genocide",
+    "description": "ELBIB YLOH",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 15,
+    "weight": 5,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 15,
+      "inkCostMax": 29
+    }
+  },
+  {
+    "name": "light",
+    "description": "VERR YED HORRE",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 90,
+    "weight": 5,
+    "price": 50,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 4,
+      "inkCostMax": 7
+    }
+  },
+  {
+    "name": "teleportation",
+    "description": "VENZAR BORGAVVE",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 55,
+    "weight": 5,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 10,
+      "inkCostMax": 19
+    }
+  },
+  {
+    "name": "gold detection",
+    "description": "THARR",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 33,
+    "weight": 5,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 4,
+      "inkCostMax": 7
+    }
+  },
+  {
+    "name": "food detection",
+    "description": "YUM YUM",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 25,
+    "weight": 5,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 4,
+      "inkCostMax": 7
+    }
+  },
+  {
+    "name": "identify",
+    "description": "KERNOD WEL",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 180,
+    "weight": 5,
+    "price": 20,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 7,
+      "inkCostMax": 13
+    }
+  },
+  {
+    "name": "magic mapping",
+    "description": "ELAM EBOW",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 45,
+    "weight": 5,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 4,
+      "inkCostMax": 7
+    }
+  },
+  {
+    "name": "amnesia",
+    "description": "DUAM XNAHT",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 35,
+    "weight": 5,
+    "price": 200,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 4,
+      "inkCostMax": 7
+    }
+  },
+  {
+    "name": "fire",
+    "description": "ANDOVA BEGARIN",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 30,
+    "weight": 5,
+    "price": 100,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 4,
+      "inkCostMax": 7
+    }
+  },
+  {
+    "name": "earth",
+    "description": "KIRJE",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 18,
+    "weight": 5,
+    "price": 200,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 4,
+      "inkCostMax": 7
+    }
+  },
+  {
+    "name": "punishment",
+    "description": "VE FORBRYDERNE",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 15,
+    "weight": 5,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 5,
+      "inkCostMax": 9
+    }
+  },
+  {
+    "name": "charging",
+    "description": "HACKEM MUCHE",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 15,
+    "weight": 5,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 8,
+      "inkCostMax": 15
+    }
+  },
+  {
+    "name": "stinking cloud",
+    "description": "VELOX NEB",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 15,
+    "weight": 5,
+    "price": 300,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "writing": {
+      "inkCostMin": 10,
+      "inkCostMax": 19
+    }
+  },
+  {
+    "name": "mail",
+    "description": "stamped",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 0,
+    "weight": 5,
+    "price": 0,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge"
+    ],
+    "writing": {
+      "inkCostMin": 1,
+      "inkCostMax": 1
+    }
+  },
+  {
+    "name": "blank paper",
+    "description": "unlabeled",
+    "class": "scroll",
+    "symbol": "?",
+    "probability": 28,
+    "weight": 5,
+    "price": 60,
+    "material": "paper",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge"
+    ]
+  }
+]

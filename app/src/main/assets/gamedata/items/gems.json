@@ -1,0 +1,554 @@
+[
+  {
+    "name": "dilithium crystal",
+    "description": "white",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 2,
+    "weight": 1,
+    "price": 4500,
+    "material": "gemstone",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "diamond",
+    "description": "white",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 3,
+    "weight": 1,
+    "price": 4000,
+    "material": "gemstone",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "tough"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "ruby",
+    "description": "red",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 4,
+    "weight": 1,
+    "price": 3500,
+    "material": "gemstone",
+    "color": "CLR_RED",
+    "flags": [
+      "merge",
+      "tough"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "jacinth",
+    "description": "orange",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 3,
+    "weight": 1,
+    "price": 3250,
+    "material": "gemstone",
+    "color": "CLR_ORANGE",
+    "flags": [
+      "merge",
+      "tough"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "sapphire",
+    "description": "blue",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 4,
+    "weight": 1,
+    "price": 3000,
+    "material": "gemstone",
+    "color": "CLR_BLUE",
+    "flags": [
+      "merge",
+      "tough"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "black opal",
+    "description": "black",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 3,
+    "weight": 1,
+    "price": 2500,
+    "material": "gemstone",
+    "color": "CLR_BLACK",
+    "flags": [
+      "merge",
+      "tough"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "emerald",
+    "description": "green",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 5,
+    "weight": 1,
+    "price": 2500,
+    "material": "gemstone",
+    "color": "CLR_GREEN",
+    "flags": [
+      "merge",
+      "tough"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "turquoise",
+    "description": "green",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 6,
+    "weight": 1,
+    "price": 2000,
+    "material": "gemstone",
+    "color": "CLR_GREEN",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "citrine",
+    "description": "yellow",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 4,
+    "weight": 1,
+    "price": 1500,
+    "material": "gemstone",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "aquamarine",
+    "description": "green",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 6,
+    "weight": 1,
+    "price": 1500,
+    "material": "gemstone",
+    "color": "CLR_GREEN",
+    "flags": [
+      "merge",
+      "tough"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "amber",
+    "description": "yellowish brown",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 8,
+    "weight": 1,
+    "price": 1000,
+    "material": "gemstone",
+    "color": "CLR_BROWN",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "topaz",
+    "description": "yellowish brown",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 10,
+    "weight": 1,
+    "price": 900,
+    "material": "gemstone",
+    "color": "CLR_BROWN",
+    "flags": [
+      "merge",
+      "tough"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "jet",
+    "description": "black",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 6,
+    "weight": 1,
+    "price": 850,
+    "material": "gemstone",
+    "color": "CLR_BLACK",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "opal",
+    "description": "white",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 12,
+    "weight": 1,
+    "price": 800,
+    "material": "gemstone",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "chrysoberyl",
+    "description": "yellow",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 8,
+    "weight": 1,
+    "price": 700,
+    "material": "gemstone",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "garnet",
+    "description": "red",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 12,
+    "weight": 1,
+    "price": 700,
+    "material": "gemstone",
+    "color": "CLR_RED",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "amethyst",
+    "description": "violet",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 14,
+    "weight": 1,
+    "price": 600,
+    "material": "gemstone",
+    "color": "CLR_MAGENTA",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "jasper",
+    "description": "red",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 15,
+    "weight": 1,
+    "price": 500,
+    "material": "gemstone",
+    "color": "CLR_RED",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "fluorite",
+    "description": "violet",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 15,
+    "weight": 1,
+    "price": 400,
+    "material": "gemstone",
+    "color": "CLR_MAGENTA",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "obsidian",
+    "description": "black",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 9,
+    "weight": 1,
+    "price": 200,
+    "material": "gemstone",
+    "color": "CLR_BLACK",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "agate",
+    "description": "orange",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 12,
+    "weight": 1,
+    "price": 200,
+    "material": "gemstone",
+    "color": "CLR_ORANGE",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "jade",
+    "description": "green",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 10,
+    "weight": 1,
+    "price": 300,
+    "material": "gemstone",
+    "color": "CLR_GREEN",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 15
+  },
+  {
+    "name": "worthless piece of white glass",
+    "description": "white",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 77,
+    "weight": 1,
+    "price": 0,
+    "material": "glass",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 6
+  },
+  {
+    "name": "worthless piece of blue glass",
+    "description": "blue",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 77,
+    "weight": 1,
+    "price": 0,
+    "material": "glass",
+    "color": "CLR_BLUE",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 6
+  },
+  {
+    "name": "worthless piece of red glass",
+    "description": "red",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 77,
+    "weight": 1,
+    "price": 0,
+    "material": "glass",
+    "color": "CLR_RED",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 6
+  },
+  {
+    "name": "worthless piece of yellowish brown glass",
+    "description": "yellowish brown",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 77,
+    "weight": 1,
+    "price": 0,
+    "material": "glass",
+    "color": "CLR_BROWN",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 6
+  },
+  {
+    "name": "worthless piece of orange glass",
+    "description": "orange",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 76,
+    "weight": 1,
+    "price": 0,
+    "material": "glass",
+    "color": "CLR_ORANGE",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 6
+  },
+  {
+    "name": "worthless piece of yellow glass",
+    "description": "yellow",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 77,
+    "weight": 1,
+    "price": 0,
+    "material": "glass",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 6
+  },
+  {
+    "name": "worthless piece of black glass",
+    "description": "black",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 76,
+    "weight": 1,
+    "price": 0,
+    "material": "glass",
+    "color": "CLR_BLACK",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 6
+  },
+  {
+    "name": "worthless piece of green glass",
+    "description": "green",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 77,
+    "weight": 1,
+    "price": 0,
+    "material": "glass",
+    "color": "CLR_GREEN",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 6
+  },
+  {
+    "name": "worthless piece of violet glass",
+    "description": "violet",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 77,
+    "weight": 1,
+    "price": 0,
+    "material": "glass",
+    "color": "CLR_MAGENTA",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 6
+  },
+  {
+    "name": "luckstone",
+    "description": "gray",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 10,
+    "weight": 10,
+    "price": 60,
+    "material": "mineral",
+    "color": "CLR_GRAY",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "nutrition": 10
+  },
+  {
+    "name": "loadstone",
+    "description": "gray",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 10,
+    "weight": 500,
+    "price": 1,
+    "material": "mineral",
+    "color": "CLR_GRAY",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "nutrition": 10
+  },
+  {
+    "name": "touchstone",
+    "description": "gray",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 8,
+    "weight": 10,
+    "price": 45,
+    "material": "mineral",
+    "color": "CLR_GRAY",
+    "flags": [
+      "merge",
+      "magic"
+    ],
+    "nutrition": 10
+  },
+  {
+    "name": "flint",
+    "description": "gray",
+    "class": "gem",
+    "symbol": "*",
+    "probability": 10,
+    "weight": 10,
+    "price": 1,
+    "material": "mineral",
+    "color": "CLR_GRAY",
+    "flags": [
+      "merge"
+    ],
+    "nutrition": 10
+  },
+  {
+    "name": "rock",
+    "description": null,
+    "class": "gem",
+    "symbol": "*",
+    "probability": 100,
+    "weight": 10,
+    "price": 0,
+    "material": "mineral",
+    "color": "CLR_GRAY",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "nutrition": 10
+  }
+]

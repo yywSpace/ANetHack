@@ -1,0 +1,1836 @@
+[
+  {
+    "name": "arrow",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 55,
+    "weight": 1,
+    "price": 2,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d6",
+      "skill": -20,
+      "skillType": "Bow",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "elven arrow",
+    "description": "runed arrow",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 20,
+    "weight": 1,
+    "price": 2,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d7",
+      "damageLarge": "1d6",
+      "skill": -20,
+      "skillType": "Bow",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "orcish arrow",
+    "description": "crude arrow",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 20,
+    "weight": 1,
+    "price": 2,
+    "material": "iron",
+    "color": "CLR_BLACK",
+    "flags": [
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d5",
+      "damageLarge": "1d6",
+      "skill": -20,
+      "skillType": "Bow",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "silver arrow",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 12,
+    "weight": 1,
+    "price": 5,
+    "material": "silver",
+    "color": "CLR_GRAY",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d6",
+      "skill": -20,
+      "skillType": "Bow",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "ya",
+    "description": "bamboo arrow",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 15,
+    "weight": 1,
+    "price": 4,
+    "material": "metal",
+    "color": "CLR_CYAN",
+    "flags": [
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d7",
+      "damageLarge": "1d7",
+      "skill": -20,
+      "skillType": "Bow",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 1,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "crossbow bolt",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 55,
+    "weight": 1,
+    "price": 2,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d4 + 1",
+      "damageLarge": "1d6 + 1",
+      "skill": -22,
+      "skillType": "Crossbow",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "dart",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 60,
+    "weight": 1,
+    "price": 2,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d3",
+      "damageLarge": "1d2",
+      "skill": -23,
+      "skillType": "Dart",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "shuriken",
+    "description": "throwing star",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 35,
+    "weight": 1,
+    "price": 5,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d8",
+      "damageLarge": "1d6",
+      "skill": -24,
+      "skillType": "Shuriken",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 2,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "boomerang",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 15,
+    "weight": 5,
+    "price": 20,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d9",
+      "damageLarge": "1d9",
+      "skill": -25,
+      "skillType": "Boomerang",
+      "strike": 0,
+      "strikeName": "None",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "spear",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 50,
+    "weight": 30,
+    "price": 3,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d8",
+      "skill": 17,
+      "skillType": "Spear",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "elven spear",
+    "description": "runed spear",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 10,
+    "weight": 30,
+    "price": 3,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d7",
+      "damageLarge": "1d8",
+      "skill": 17,
+      "skillType": "Spear",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "orcish spear",
+    "description": "crude spear",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 13,
+    "weight": 30,
+    "price": 3,
+    "material": "iron",
+    "color": "CLR_BLACK",
+    "flags": [
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d5",
+      "damageLarge": "1d8",
+      "skill": 17,
+      "skillType": "Spear",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "dwarvish spear",
+    "description": "stout spear",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 12,
+    "weight": 35,
+    "price": 3,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d8",
+      "damageLarge": "1d8",
+      "skill": 17,
+      "skillType": "Spear",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "silver spear",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 2,
+    "weight": 36,
+    "price": 40,
+    "material": "silver",
+    "color": "CLR_GRAY",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d8",
+      "skill": 17,
+      "skillType": "Spear",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "javelin",
+    "description": "throwing spear",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 10,
+    "weight": 20,
+    "price": 3,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d6",
+      "skill": 17,
+      "skillType": "Spear",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "trident",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 8,
+    "weight": 25,
+    "price": 5,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6 + 1",
+      "damageLarge": "3d4",
+      "skill": 18,
+      "skillType": "Trident",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "dagger",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 30,
+    "weight": 10,
+    "price": 4,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d4",
+      "damageLarge": "1d3",
+      "skill": 1,
+      "skillType": "Dagger",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 2,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "elven dagger",
+    "description": "runed dagger",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 10,
+    "weight": 10,
+    "price": 4,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d5",
+      "damageLarge": "1d3",
+      "skill": 1,
+      "skillType": "Dagger",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 2,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "orcish dagger",
+    "description": "crude dagger",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 12,
+    "weight": 10,
+    "price": 4,
+    "material": "iron",
+    "color": "CLR_BLACK",
+    "flags": [
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d3",
+      "damageLarge": "1d3",
+      "skill": 1,
+      "skillType": "Dagger",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 2,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "silver dagger",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 3,
+    "weight": 12,
+    "price": 40,
+    "material": "silver",
+    "color": "CLR_GRAY",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d4",
+      "damageLarge": "1d3",
+      "skill": 1,
+      "skillType": "Dagger",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 2,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "athame",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 0,
+    "weight": 10,
+    "price": 4,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d4",
+      "damageLarge": "1d3",
+      "skill": 1,
+      "skillType": "Dagger",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 2,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "scalpel",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 0,
+    "weight": 5,
+    "price": 6,
+    "material": "metal",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d3",
+      "damageLarge": "1d3",
+      "skill": 2,
+      "skillType": "Knife",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 2,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "knife",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 20,
+    "weight": 5,
+    "price": 4,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d3",
+      "damageLarge": "1d2",
+      "skill": 2,
+      "skillType": "Knife",
+      "strike": 3,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "stiletto",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 5,
+    "weight": 5,
+    "price": 4,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d3",
+      "damageLarge": "1d2",
+      "skill": 2,
+      "skillType": "Knife",
+      "strike": 3,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "worm tooth",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 0,
+    "weight": 20,
+    "price": 2,
+    "material": "bone",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d2",
+      "damageLarge": "1d2",
+      "skill": 2,
+      "skillType": "Knife",
+      "strike": 0,
+      "strikeName": "None",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "crysknife",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 0,
+    "weight": 20,
+    "price": 100,
+    "material": "bone",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d10",
+      "damageLarge": "1d10",
+      "skill": 2,
+      "skillType": "Knife",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 3,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "axe",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 40,
+    "weight": 60,
+    "price": 8,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d4",
+      "skill": 3,
+      "skillType": "Axe",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "battle-axe",
+    "description": "double-headed axe",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 10,
+    "weight": 120,
+    "price": 40,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d8 + 1d4",
+      "damageLarge": "1d6 + 2d4",
+      "skill": 3,
+      "skillType": "Axe",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "short sword",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 8,
+    "weight": 30,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d8",
+      "skill": 5,
+      "skillType": "Short sword",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "elven short sword",
+    "description": "runed short sword",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 2,
+    "weight": 30,
+    "price": 10,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d8",
+      "damageLarge": "1d8",
+      "skill": 5,
+      "skillType": "Short sword",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "orcish short sword",
+    "description": "crude short sword",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 3,
+    "weight": 30,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_BLACK",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d5",
+      "damageLarge": "1d8",
+      "skill": 5,
+      "skillType": "Short sword",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "dwarvish short sword",
+    "description": "broad short sword",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 2,
+    "weight": 30,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d7",
+      "damageLarge": "1d8",
+      "skill": 5,
+      "skillType": "Short sword",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "scimitar",
+    "description": "curved sword",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 15,
+    "weight": 40,
+    "price": 15,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d8",
+      "damageLarge": "1d8",
+      "skill": 9,
+      "skillType": "Saber",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "silver saber",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 6,
+    "weight": 40,
+    "price": 75,
+    "material": "silver",
+    "color": "CLR_GRAY",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d8",
+      "damageLarge": "1d8",
+      "skill": 9,
+      "skillType": "Saber",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "broadsword",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 8,
+    "weight": 70,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "2d4",
+      "damageLarge": "1d6 + 1",
+      "skill": 6,
+      "skillType": "Broadsword",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "elven broadsword",
+    "description": "runed broadsword",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 4,
+    "weight": 70,
+    "price": 10,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6 + 1d4",
+      "damageLarge": "1d6 + 1",
+      "skill": 6,
+      "skillType": "Broadsword",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "long sword",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 50,
+    "weight": 40,
+    "price": 15,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d8",
+      "damageLarge": "1d12",
+      "skill": 7,
+      "skillType": "Long sword",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "two-handed sword",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 22,
+    "weight": 150,
+    "price": 50,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d12",
+      "damageLarge": "3d6",
+      "skill": 8,
+      "skillType": "Two-handed sword",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "katana",
+    "description": "samurai sword",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 4,
+    "weight": 40,
+    "price": 80,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d10",
+      "damageLarge": "1d12",
+      "skill": 7,
+      "skillType": "Long sword",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 1,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "tsurugi",
+    "description": "long samurai sword",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 0,
+    "weight": 60,
+    "price": 500,
+    "material": "metal",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d16",
+      "damageLarge": "1d8 + 2d6",
+      "skill": 8,
+      "skillType": "Two-handed sword",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 2,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "runesword",
+    "description": "runed broadsword",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 0,
+    "weight": 40,
+    "price": 300,
+    "material": "iron",
+    "color": "CLR_BLACK",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "2d4",
+      "damageLarge": "1d6 + 1",
+      "skill": 6,
+      "skillType": "Broadsword",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "partisan",
+    "description": "vulgar polearm",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 5,
+    "weight": 80,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d6 + 1",
+      "skill": 16,
+      "skillType": "Polearms",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "ranseur",
+    "description": "hilted polearm",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 5,
+    "weight": 50,
+    "price": 6,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "2d4",
+      "damageLarge": "2d4",
+      "skill": 16,
+      "skillType": "Polearms",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "spetum",
+    "description": "forked polearm",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 5,
+    "weight": 50,
+    "price": 5,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6 + 1",
+      "damageLarge": "2d6",
+      "skill": 16,
+      "skillType": "Polearms",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "glaive",
+    "description": "single-edged polearm",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 8,
+    "weight": 75,
+    "price": 6,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d10",
+      "skill": 16,
+      "skillType": "Polearms",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "halberd",
+    "description": "angled poleaxe",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 8,
+    "weight": 150,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d10",
+      "damageLarge": "2d6",
+      "skill": 16,
+      "skillType": "Polearms",
+      "strike": 3,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "bardiche",
+    "description": "long poleaxe",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 4,
+    "weight": 120,
+    "price": 7,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "2d4",
+      "damageLarge": "3d4",
+      "skill": 16,
+      "skillType": "Polearms",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "voulge",
+    "description": "pole cleaver",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 4,
+    "weight": 125,
+    "price": 5,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "2d4",
+      "damageLarge": "2d4",
+      "skill": 16,
+      "skillType": "Polearms",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "fauchard",
+    "description": "pole sickle",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 6,
+    "weight": 60,
+    "price": 5,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d8",
+      "skill": 16,
+      "skillType": "Polearms",
+      "strike": 3,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "guisarme",
+    "description": "pruning hook",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 6,
+    "weight": 80,
+    "price": 5,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "2d4",
+      "damageLarge": "1d8",
+      "skill": 16,
+      "skillType": "Polearms",
+      "strike": 2,
+      "strikeName": "Slash",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "bill-guisarme",
+    "description": "hooked polearm",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 4,
+    "weight": 120,
+    "price": 7,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "2d4",
+      "damageLarge": "1d10",
+      "skill": 16,
+      "skillType": "Polearms",
+      "strike": 3,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "lucern hammer",
+    "description": "pronged polearm",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 5,
+    "weight": 150,
+    "price": 7,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "2d4",
+      "damageLarge": "1d6",
+      "skill": 16,
+      "skillType": "Polearms",
+      "strike": 5,
+      "strikeName": "Pierce + Whack",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "bec de corbin",
+    "description": "beaked polearm",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 4,
+    "weight": 100,
+    "price": 8,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d8",
+      "damageLarge": "1d6",
+      "skill": 16,
+      "skillType": "Polearms",
+      "strike": 5,
+      "strikeName": "Pierce + Whack",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "dwarvish mattock",
+    "description": "broad pick",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 13,
+    "weight": 120,
+    "price": 50,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d12",
+      "damageLarge": "1d8 + 2d6",
+      "skill": 4,
+      "skillType": "Pick axe",
+      "strike": 4,
+      "strikeName": "Whack",
+      "toHit": -1,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "lance",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 4,
+    "weight": 180,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d8",
+      "skill": 19,
+      "skillType": "Lance",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "mace",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 40,
+    "weight": 30,
+    "price": 5,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6 + 1",
+      "damageLarge": "1d6",
+      "skill": 11,
+      "skillType": "Mace",
+      "strike": 4,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "silver mace",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 2,
+    "weight": 36,
+    "price": 60,
+    "material": "silver",
+    "color": "CLR_GRAY",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6 + 1",
+      "damageLarge": "1d6",
+      "skill": 11,
+      "skillType": "Mace",
+      "strike": 4,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "morning star",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 12,
+    "weight": 120,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "2d4",
+      "damageLarge": "1d6 + 1",
+      "skill": 12,
+      "skillType": "Morning star",
+      "strike": 4,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "war hammer",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 15,
+    "weight": 50,
+    "price": 5,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d4 + 1",
+      "damageLarge": "1d4",
+      "skill": 14,
+      "skillType": "Hammer",
+      "strike": 4,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "club",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 12,
+    "weight": 30,
+    "price": 3,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d3",
+      "skill": 10,
+      "skillType": "Club",
+      "strike": 4,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "rubber hose",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 0,
+    "weight": 20,
+    "price": 3,
+    "material": "plastic",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d4",
+      "damageLarge": "1d3",
+      "skill": 26,
+      "skillType": "Whip",
+      "strike": 4,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "quarterstaff",
+    "description": "staff",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 11,
+    "weight": 40,
+    "price": 5,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d6",
+      "skill": 15,
+      "skillType": "Quarterstaff",
+      "strike": 4,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "aklys",
+    "description": "thonged club",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 8,
+    "weight": 15,
+    "price": 4,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d3",
+      "skill": 10,
+      "skillType": "Club",
+      "strike": 4,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "flail",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 40,
+    "weight": 15,
+    "price": 4,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6 + 1",
+      "damageLarge": "2d4",
+      "skill": 13,
+      "skillType": "Flail",
+      "strike": 4,
+      "strikeName": "Whack",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "bullwhip",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 2,
+    "weight": 20,
+    "price": 4,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d2",
+      "damageLarge": "1d1",
+      "skill": 26,
+      "skillType": "Whip",
+      "strike": 0,
+      "strikeName": "None",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "bow",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 24,
+    "weight": 30,
+    "price": 60,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d2",
+      "damageLarge": "1d2",
+      "skill": 20,
+      "skillType": "Bow",
+      "strike": 0,
+      "strikeName": "None",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "elven bow",
+    "description": "runed bow",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 12,
+    "weight": 30,
+    "price": 60,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d2",
+      "damageLarge": "1d2",
+      "skill": 20,
+      "skillType": "Bow",
+      "strike": 0,
+      "strikeName": "None",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "orcish bow",
+    "description": "crude bow",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 12,
+    "weight": 30,
+    "price": 60,
+    "material": "wood",
+    "color": "CLR_BLACK",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d2",
+      "damageLarge": "1d2",
+      "skill": 20,
+      "skillType": "Bow",
+      "strike": 0,
+      "strikeName": "None",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "yumi",
+    "description": "long bow",
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 0,
+    "weight": 30,
+    "price": 60,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d2",
+      "damageLarge": "1d2",
+      "skill": 20,
+      "skillType": "Bow",
+      "strike": 0,
+      "strikeName": "None",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "sling",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 40,
+    "weight": 3,
+    "price": 20,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d2",
+      "damageLarge": "1d2",
+      "skill": 21,
+      "skillType": "Sling",
+      "strike": 0,
+      "strikeName": "None",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "crossbow",
+    "description": null,
+    "class": "weapon",
+    "symbol": ")",
+    "probability": 45,
+    "weight": 50,
+    "price": 40,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d2",
+      "damageLarge": "1d2",
+      "skill": 22,
+      "skillType": "Crossbow",
+      "strike": 0,
+      "strikeName": "None",
+      "toHit": 0,
+      "handedness": "One-handed"
+    }
+  }
+]

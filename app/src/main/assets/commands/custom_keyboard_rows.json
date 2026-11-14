@@ -5,8 +5,16 @@
       "command": "S"
     },
     {
+      "label": "Quit",
+      "command": "#quit"
+    },
+    {
       "label": "Monster Info",
       "command": "Monster"
+    },
+    {
+      "label": "Items",
+      "command": "Item"
     },
     {
       "label": "Price",
@@ -19,10 +27,6 @@
     {
       "label": "Stash$",
       "command": "aM\"bag|sack\"s$"
-    },
-    {
-      "label": "Quit",
-      "command": "#quit"
     }
   ],
   [

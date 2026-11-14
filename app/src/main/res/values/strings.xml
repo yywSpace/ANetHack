@@ -99,6 +99,39 @@
     <string name="pref_sound_internal">Internal sound</string>
     <string name="pref_sound_internal_summery">Play internal sound that NetHack provided.</string>
 
+    <string name="item_label_damage_small">Damage (S)</string>
+    <string name="item_label_damage_large">Damage (L)</string>
+
+    <string name="item_label_skill">Skill</string>
+    <string name="item_label_strike">Strike</string>
+    <string name="item_label_to_hit">To hit</string>
+    <string name="item_label_handed">Handed</string>
+
+    <string name="item_label_armor_type">Armor type</string>
+    <string name="item_label_ac">AC</string>
+    <string name="item_label_mc">MC</string>
+    <string name="item_label_spell_level">Spell level</string>
+    <string name="item_label_school">School</string>
+    <string name="item_label_pw_cost">Pw cost</string>
+    <string name="item_label_direction">Direction</string>
+    <string name="item_label_nutrition">Nutrition</string>
+    <string name="item_label_price">Price</string>
+    <string name="item_label_weight">Weight</string>
+    <string name="item_label_probability">Probability</string>
+    <string name="item_section_weapon">Weapon</string>
+    <string name="item_section_armor">Armor</string>
+    <string name="item_section_effect">Effect</string>
+    <string name="item_section_spellbook">Spell</string>
+    <string name="item_section_writing">Writing</string>
+    <string name="item_writing_ink">Magic marker ink: %1$d–%2$d charges</string>
+    <string name="item_section_flags">Flags</string>
+    <string name="item_lookup_title">Items</string>
+    <string name="item_lookup_hint">Search items</string>
+    <string name="item_lookup_search">Search</string>
+    <string name="item_lookup_empty">No items found</string>
+    <string name="item_lookup_more">More</string>
+    <string name="item_value_na">—</string>
+
     <!-- Preference Config -->
     <string name="pref_config_header">Config</string>
     <string name="pref_config_edit">Edit config file</string>

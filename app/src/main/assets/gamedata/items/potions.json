@@ -1,0 +1,386 @@
+[
+  {
+    "name": "gain ability",
+    "description": "ruby",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 300,
+    "material": "glass",
+    "color": "CLR_RED",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "restore ability",
+    "description": "pink",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 100,
+    "material": "glass",
+    "color": "CLR_BRIGHT_MAGENTA",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "confusion",
+    "description": "orange",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 100,
+    "material": "glass",
+    "color": "CLR_ORANGE",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "blindness",
+    "description": "yellow",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 30,
+    "weight": 20,
+    "price": 150,
+    "material": "glass",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "paralysis",
+    "description": "emerald",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 300,
+    "material": "glass",
+    "color": "CLR_BRIGHT_GREEN",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "speed",
+    "description": "dark green",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 200,
+    "material": "glass",
+    "color": "CLR_GREEN",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "levitation",
+    "description": "cyan",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 200,
+    "material": "glass",
+    "color": "CLR_CYAN",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "hallucination",
+    "description": "sky blue",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 30,
+    "weight": 20,
+    "price": 100,
+    "material": "glass",
+    "color": "CLR_CYAN",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "invisibility",
+    "description": "brilliant blue",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 150,
+    "material": "glass",
+    "color": "CLR_BRIGHT_BLUE",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "see invisible",
+    "description": "magenta",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 50,
+    "material": "glass",
+    "color": "CLR_MAGENTA",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "healing",
+    "description": "purple-red",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 115,
+    "weight": 20,
+    "price": 20,
+    "material": "glass",
+    "color": "CLR_MAGENTA",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "extra healing",
+    "description": "puce",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 45,
+    "weight": 20,
+    "price": 100,
+    "material": "glass",
+    "color": "CLR_RED",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "gain level",
+    "description": "milky",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 20,
+    "weight": 20,
+    "price": 300,
+    "material": "glass",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "enlightenment",
+    "description": "swirly",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 20,
+    "weight": 20,
+    "price": 200,
+    "material": "glass",
+    "color": "CLR_BROWN",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "monster detection",
+    "description": "bubbly",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 150,
+    "material": "glass",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "object detection",
+    "description": "smoky",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 150,
+    "material": "glass",
+    "color": "CLR_GRAY",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "gain energy",
+    "description": "cloudy",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 150,
+    "material": "glass",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "sleeping",
+    "description": "effervescent",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 100,
+    "material": "glass",
+    "color": "CLR_GRAY",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "full healing",
+    "description": "black",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 10,
+    "weight": 20,
+    "price": 200,
+    "material": "glass",
+    "color": "CLR_BLACK",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "polymorph",
+    "description": "golden",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 10,
+    "weight": 20,
+    "price": 200,
+    "material": "glass",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "merge",
+      "magic"
+    ]
+  },
+  {
+    "name": "booze",
+    "description": "brown",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 50,
+    "material": "glass",
+    "color": "CLR_BROWN",
+    "flags": [
+      "merge"
+    ]
+  },
+  {
+    "name": "sickness",
+    "description": "fizzy",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 50,
+    "material": "glass",
+    "color": "CLR_CYAN",
+    "flags": [
+      "merge"
+    ]
+  },
+  {
+    "name": "fruit juice",
+    "description": "dark",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 40,
+    "weight": 20,
+    "price": 50,
+    "material": "glass",
+    "color": "CLR_BLACK",
+    "flags": [
+      "merge"
+    ]
+  },
+  {
+    "name": "acid",
+    "description": "white",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 10,
+    "weight": 20,
+    "price": 250,
+    "material": "glass",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge"
+    ]
+  },
+  {
+    "name": "oil",
+    "description": "murky",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 30,
+    "weight": 20,
+    "price": 250,
+    "material": "glass",
+    "color": "CLR_BROWN",
+    "flags": [
+      "merge"
+    ]
+  },
+  {
+    "name": "water",
+    "description": "clear",
+    "class": "potion",
+    "symbol": "!",
+    "probability": 80,
+    "weight": 20,
+    "price": 100,
+    "material": "glass",
+    "color": "CLR_CYAN",
+    "flags": [
+      "merge"
+    ]
+  }
+]

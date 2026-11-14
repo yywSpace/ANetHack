@@ -1,30 +1,21 @@
 package com.yywspace.anethack.gamedata
 
 import android.content.Context
-import android.graphics.drawable.GradientDrawable
-import android.text.InputType
-import android.util.TypedValue
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
-import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.extensions.show
 
 /**
- * 怪物信息弹窗：输入名字查询（不区分大小写，找不到精确名字时按包含匹配），
+ * 怪物信息弹窗：默认展示全部怪物；输入名字后按名字过滤。
  * 结果按 "基本信息网格 + 攻击 / 抗性 / 特性卡片" 分块展示。
  *
  * 显示方式和价格鉴定弹窗一致：[AlertDialog.show] 带沉浸式参数，
@@ -47,11 +38,12 @@ class NHMonsterDialog(
     private lateinit var scroll: ScrollView
     private lateinit var input: TextInputEditText
     private var dialog: AlertDialog? = null
+    private val ui = GameInfoUi(context)
 
     /**
      * 打开弹窗。
      *
-     * [name] 为空时是空白搜索框；不为空时预填该名字并直接查出结果
+     * [name] 为空时展示全部怪物；不为空时预填该名字并过滤
      * （消息里点到怪物名就是这条路径）。
      */
     fun showForMonster(name: String? = null) {
@@ -59,8 +51,7 @@ class NHMonsterDialog(
         if (!nh.prefs.monsterInfo || dialog?.isShowing == true)
             return
         val view = buildView(name)
-        if (!name.isNullOrEmpty())
-            renderMatches()
+        renderMatches()
         // 带名字进来（点怪物名字查看）时不抢焦点，否则光标会在搜索框里闪
         showDialog(view, focusInput = name.isNullOrEmpty())
     }
@@ -68,75 +59,17 @@ class NHMonsterDialog(
     /** 构建弹窗的内容视图：搜索行 + 结果区；[initialText] 不为空时预填到输入框 */
     private fun buildView(initialText: String? = null): View {
         GameData.ensureLoaded(context)
-        content = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
-        val root = LinearLayout(context).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(dp(16), dp(8), dp(16), 0)
+        val scaffold = ui.contentScaffold(
+            R.string.monster_lookup_hint,
+            R.string.monster_lookup_search,
+            initialText
+        ) {
+            renderMatches()
         }
-
-        // 搜索栏：整条是一个圆角底，里面放无边框输入框 + 紧凑按钮，读起来是一个整体
-        val bar = LinearLayout(context).apply {
-            orientation = LinearLayout.HORIZONTAL
-            gravity = Gravity.CENTER_VERTICAL
-            background = GradientDrawable().apply {
-                cornerRadius = dp(12).toFloat()
-                setColor(ContextCompat.getColor(context, R.color.monster_card))
-            }
-            setPadding(dp(14), dp(2), dp(4), dp(2))
-            layoutParams = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-            ).apply { bottomMargin = dp(12) }
-        }
-        input = TextInputEditText(context).apply {
-            hint = context.getString(R.string.monster_lookup_hint)
-            inputType = InputType.TYPE_CLASS_TEXT
-            setSingleLine()
-            setBackgroundColor(android.graphics.Color.TRANSPARENT)
-            setPadding(0, 0, 0, 0)
-            imeOptions = EditorInfo.IME_ACTION_SEARCH
-            setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    renderMatches()
-                    hideKeyboard()
-                    true
-                } else false
-            }
-            layoutParams = LinearLayout.LayoutParams(0, dp(44), 1f)
-            if (!initialText.isNullOrEmpty())
-                setText(initialText)
-        }
-        // 按钮做成搜索栏内的文字操作区：无底色、无水波纹，避免和圆角输入区打架
-        val button = TextView(context).apply {
-            text = context.getString(R.string.monster_lookup_search)
-            textSize = 14f
-            setTypeface(typeface, android.graphics.Typeface.BOLD)
-            setTextColor(ContextCompat.getColor(context, R.color.monster_action))
-            gravity = Gravity.CENTER
-            setPadding(dp(14), dp(8), dp(14), dp(8))
-            // 水波纹背景：结果多时卡片是逐帧插入的，点击回调本身很快，波纹不会被卡住
-            val out = TypedValue()
-            context.theme.resolveAttribute(android.R.attr.selectableItemBackground, out, true)
-            setBackgroundResource(out.resourceId)
-            layoutParams = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            setOnClickListener {
-                renderMatches()
-                hideKeyboard()
-            }
-        }
-        bar.addView(input)
-        bar.addView(button)
-        root.addView(bar)
-
-        scroll = ScrollView(context).apply {
-            addView(content)
-            layoutParams = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        }
-        root.addView(scroll)
-        return root
+        content = scaffold.content
+        scroll = scaffold.scroll
+        input = scaffold.search.input
+        return scaffold.root
     }
 
     /** 真正把弹窗显示出来；[focusInput] 为 false 时不拉焦点、不弹输入法 */
@@ -159,20 +92,15 @@ class NHMonsterDialog(
     }
 
     /** 查询后收起输入法：结果列表就在下方，键盘会挡住它们 */
-    private fun hideKeyboard() {
-        input.clearFocus()
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        imm?.hideSoftInputFromWindow(input.windowToken, 0)
-    }
-
     /** 按输入框内容查找怪物，并把结果渲染到 content 里 */
     private fun renderMatches() {
         val key = input.text.toString().trim()
-        if (key.isEmpty())
-            return
-        // 一个名字可能对应多条（比如 wererat 有人形/兽形两条），全部展示
-        var matched = GameData.findMonsters(key)
-        if (matched.isEmpty())
+        // 查询为空时展示全部怪物；有输入时再按名字过滤
+        var matched = if (key.isEmpty())
+            GameData.monsters
+        else
+            GameData.findMonsters(key)
+        if (key.isNotEmpty() && matched.isEmpty())
             matched = GameData.monsters.filter { it.name.contains(key, ignoreCase = true) }
         // 结果按名字排序，加载顺序稳定
         matched = matched.sortedBy { it.name }
@@ -180,6 +108,7 @@ class NHMonsterDialog(
         // 查不到就保持空列表，不显示额外提示
         if (matched.isEmpty()) {
             fitScrollHeight()
+            ui.scrollToTop(scroll)
             return
         }
         val shown = matched
@@ -199,61 +128,37 @@ class NHMonsterDialog(
             reserveMaxHeight()
             renderNextBatch()
         }
+        ui.scrollToTop(scroll)
     }
 
     /** 多条结果之间的分隔线 */
-    private fun divider() = View(context).apply {
-        setBackgroundColor(ContextCompat.getColor(context, R.color.app_divider))
-        layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT, dp(1)
-        ).apply { topMargin = dp(8); bottomMargin = dp(8) }
-    }
+    private fun divider() = ui.divider()
 
     private fun render(monster: Monster) {
         // 标题区：符号（怪物颜色）+ 名字 + 副标题（体型 · 阵营 · 能否被灭绝）
-        val header = LinearLayout(context).apply {
-            orientation = LinearLayout.HORIZONTAL
-            gravity = Gravity.CENTER_VERTICAL
-            setPadding(0, dp(8), 0, dp(10))
-        }
-        header.addView(TextView(context).apply {
-            text = monster.symbol
-            textSize = 30f
-            setTextColor(monster.colorValue)
-            setPadding(0, 0, dp(12), 0)
-        })
-        val titles = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
-        titles.addView(TextView(context).apply {
-            text = monster.name
-            textSize = 20f
-            setTextColor(ContextCompat.getColor(context, R.color.app_text))
-        })
         val subtitleParts = mutableListOf(monster.size, monster.alignmentName)
-        // 可灭绝才加这个单词，不可灭绝就不显示
         if (monster.genocidable)
             subtitleParts.add(context.getString(R.string.monster_genocidable_yes))
-        val subtitle = subtitleParts.filter { it.isNotBlank() }.joinToString(" · ")
-        titles.addView(TextView(context).apply {
-            text = subtitle
-            textSize = 13f
-            setTextColor(ContextCompat.getColor(context, R.color.app_text_secondary))
-        })
-        header.addView(titles)
-        content.addView(header)
+        content.addView(ui.header(
+            symbol = monster.symbol,
+            color = monster.colorValue,
+            name = monster.name,
+            subtitle = subtitleParts.filter { it.isNotBlank() }.joinToString(" · ")
+        ))
 
         // 数值属性：3 行 × 3 列，居中，外面套一层浅色圆角背景
-        content.addView(panel(statsGrid(monster)))
+        content.addView(ui.panel(infoGrid(monster)))
 
         // 攻击：重复的攻击合并成 "2× …"，保留攻击次数
         if (monster.attacks.isNotEmpty())
-            section(R.string.monster_field_attacks, chips(groupAttacks(monster.attacks)))
+            section(R.string.monster_field_attacks, ui.chips(groupAttacks(monster.attacks)))
         // 抗性：chip 是自身抗性，下面一行文字说明吃尸体能获得什么
         val resistances = monster.resistances
         val conveyed = monster.resistancesConveyed
         if (resistances.isNotEmpty() || conveyed.isNotEmpty()) {
             val body = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
             if (resistances.isNotEmpty())
-                body.addView(chips(resistances))
+                body.addView(ui.chips(resistances))
             if (conveyed.isNotEmpty())
                 body.addView(TextView(context).apply {
                     // 更小的字号，作为上面这组抗性下面的补充说明
@@ -262,7 +167,7 @@ class NHMonsterDialog(
                     )
                     textSize = 12f
                     setTextColor(ContextCompat.getColor(context, R.color.app_text_secondary))
-                    setPadding(0, dp(2), 0, 0)
+                    setPadding(0, ui.dp(2), 0, 0)
                 })
             section(R.string.monster_field_resistances, body)
         }
@@ -270,7 +175,7 @@ class NHMonsterDialog(
         if (monster.attributes.isNotEmpty())
             section(
                 R.string.monster_field_attributes,
-                chips(monster.attributes.map { GameData.attributeLabel(it) })
+                ui.chips(monster.attributes.map { GameData.attributeLabel(it) })
             )
     }
 
@@ -280,86 +185,30 @@ class NHMonsterDialog(
      *   第二行 防御与移动：AC / MR / Speed
      *   第三行 其余：XP / Weight / Nutrition
      */
-    private fun statsGrid(monster: Monster): View {
+    private fun infoGrid(monster: Monster): View {
         val rows = listOf(
             listOf(
                 R.string.monster_field_level to monster.baseLevel.toString(),
                 R.string.monster_field_difficulty to monster.difficulty.toString(),
-                R.string.monster_field_frequency to monster.frequency.toString(),
+                R.string.monster_field_frequency to monster.frequency.toString()
             ),
             listOf(
                 R.string.monster_field_ac to monster.baseAC.toString(),
                 R.string.monster_field_mr to monster.baseMR.toString(),
-                R.string.monster_field_speed to monster.speed.toString(),
+                R.string.monster_field_speed to monster.speed.toString()
             ),
             listOf(
                 R.string.monster_field_nutrition to monster.nutrition.toString(),
                 R.string.monster_field_weight to monster.weight.toString(),
-                R.string.monster_field_experience to (monster.experience?.toString() ?: "—"),
-            ),
-        )
-        val grid = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
-        rows.forEach { row ->
-            val rowView = LinearLayout(context).apply {
-                orientation = LinearLayout.HORIZONTAL
-                setPadding(0, dp(3), 0, dp(3))
-            }
-            row.forEach { (labelRes, value) -> rowView.addView(statCell(labelRes, value)) }
-            grid.addView(rowView)
-        }
-        return grid
-    }
-
-    /** 一个数值格子：小号标签在上、大号数值在下，整体居中 */
-    private fun statCell(labelRes: Int, value: String): View =
-        LinearLayout(context).apply {
-            orientation = LinearLayout.VERTICAL
-            gravity = Gravity.CENTER_HORIZONTAL
-            layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
-            addView(TextView(context).apply {
-                text = context.getString(labelRes)
-                textSize = 11f
-                gravity = Gravity.CENTER
-                setTextColor(ContextCompat.getColor(context, R.color.app_text_secondary))
-            })
-            addView(TextView(context).apply {
-                text = value
-                textSize = 16f
-                gravity = Gravity.CENTER
-                setTextColor(ContextCompat.getColor(context, R.color.app_text))
-            })
-        }
-
-    /** 给网格套一层浅色圆角背景，居中后两侧的留白就不会显得突兀 */
-    private fun panel(view: View): View =
-        FrameLayout(context).apply {
-            background = GradientDrawable().apply {
-                cornerRadius = dp(12).toFloat()
-                setColor(ContextCompat.getColor(context, R.color.monster_card))
-            }
-            setPadding(dp(12), dp(8), dp(12), dp(8))
-            layoutParams = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-            ).apply { bottomMargin = dp(10) }
-            addView(
-                view,
-                FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-                )
+                R.string.monster_field_experience to (monster.experience?.toString() ?: "—")
             )
-        }
+        )
+        return ui.infoGridRes(rows, 3)
+    }
 
     /** 小节标题 + 内容，整体放进和基本信息一样的圆角背景里，用来分组 */
     private fun section(labelRes: Int, body: View) {
-        val card = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
-        card.addView(TextView(context).apply {
-            text = context.getString(labelRes)
-            textSize = 12f
-            setTextColor(ContextCompat.getColor(context, R.color.app_text_secondary))
-            setPadding(0, 0, 0, dp(4))
-        })
-        card.addView(body)
-        content.addView(panel(card))
+        ui.section(content, context.getString(labelRes), body)
     }
 
     /**
@@ -374,41 +223,6 @@ class NHMonsterDialog(
         return counts.map { (attack, times) -> if (times > 1) "${times}× $attack" else attack }
     }
 
-    /**
-     * 一组可换行的 chip。
-     *
-     * 用普通 TextView + 圆角背景代替 Material 的 Chip：一次查询可能要建上百个 chip，
-     * Material Chip 每个都带一堆内部状态，会把主线程卡住（水波纹都动不了）。
-     */
-    private fun chips(items: List<String>): View =
-        ChipGroup(context).apply {
-            isSingleLine = false
-            // 上下、左右间距保持一致
-            chipSpacingHorizontal = dp(6)
-            chipSpacingVertical = dp(6)
-            setPadding(0, 0, 0, dp(4))
-            val chipBackground = GradientDrawable().apply {
-                cornerRadius = dp(12).toFloat()
-                setColor(ContextCompat.getColor(context, R.color.monster_chip))
-            }
-            items.filter { it.isNotBlank() }.forEach { value ->
-                addView(TextView(context).apply {
-                    text = value
-                    textSize = 13f
-                    gravity = Gravity.CENTER
-                    setPadding(dp(10), dp(3), dp(10), dp(3))
-                    background = chipBackground.constantState?.newDrawable()?.mutate()
-                    setTextColor(ContextCompat.getColor(context, R.color.app_text))
-                })
-            }
-        }
-
-
-
-    /**
-     * 让结果区高度跟随内容：内容少就矮，内容多则停在屏幕可用高度的一定比例上，
-     * 超出的部分交给 ScrollView 滚动（不给上限的话结果区会和内容一样高，反而滚不动）。
-     */
     /** 追加下一批结果卡片，并在末尾放一个 More 按钮继续加载 */
     private fun renderNextBatch() {
         moreButton?.let { content.removeView(it) }
@@ -421,15 +235,7 @@ class NHMonsterDialog(
         lazyRendered = end
         val remaining = lazyMonsters.size - lazyRendered
         if (remaining > 0) {
-            val button = TextView(context).apply {
-                text = context.getString(R.string.monster_lookup_more_button)
-                textSize = 14f
-                setTypeface(typeface, android.graphics.Typeface.BOLD)
-                setTextColor(ContextCompat.getColor(context, R.color.monster_action))
-                gravity = Gravity.CENTER
-                setPadding(0, dp(12), 0, dp(12))
-                setOnClickListener { renderNextBatch() }
-            }
+            val button = ui.moreButton(R.string.monster_lookup_more_button) { renderNextBatch() }
             moreButton = button
             content.addView(button)
         } else {
@@ -456,10 +262,6 @@ class NHMonsterDialog(
         }
     }
 
-    /** dp → px，调用处只写数字 */
-    private fun dp(value: Int): Int =
-        (value * context.resources.displayMetrics.density).toInt()
-
     companion object {
         /** 结果区最多占屏幕高度的比例，超过就滚动 */
         private const val MAX_HEIGHT_FRACTION = 0.60f
@@ -467,3 +269,4 @@ class NHMonsterDialog(
         private const val BATCH_SIZE = 2
     }
 }
+

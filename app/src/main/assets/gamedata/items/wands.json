@@ -1,0 +1,426 @@
+[
+  {
+    "name": "light",
+    "description": "glass",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 95,
+    "weight": 7,
+    "price": 100,
+    "material": "glass",
+    "color": "CLR_BRIGHT_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Non-directional"
+  },
+  {
+    "name": "secret door detection",
+    "description": "balsa",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 50,
+    "weight": 7,
+    "price": 150,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Non-directional"
+  },
+  {
+    "name": "enlightenment",
+    "description": "crystal",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 15,
+    "weight": 7,
+    "price": 150,
+    "material": "glass",
+    "color": "CLR_BRIGHT_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Non-directional"
+  },
+  {
+    "name": "create monster",
+    "description": "maple",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 50,
+    "weight": 7,
+    "price": 200,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Non-directional"
+  },
+  {
+    "name": "wishing",
+    "description": "pine",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 5,
+    "weight": 7,
+    "price": 500,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Non-directional"
+  },
+  {
+    "name": "stasis",
+    "description": "redwood",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 45,
+    "weight": 7,
+    "price": 150,
+    "material": "wood",
+    "color": "CLR_RED",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Non-directional"
+  },
+  {
+    "name": "nothing",
+    "description": "oak",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 25,
+    "weight": 7,
+    "price": 100,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "charged"
+    ],
+    "direction": "Immediate"
+  },
+  {
+    "name": "striking",
+    "description": "ebony",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 30,
+    "weight": 7,
+    "price": 150,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Immediate"
+  },
+  {
+    "name": "make invisible",
+    "description": "marble",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 45,
+    "weight": 7,
+    "price": 150,
+    "material": "mineral",
+    "color": "CLR_GRAY",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Immediate"
+  },
+  {
+    "name": "slow monster",
+    "description": "tin",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 50,
+    "weight": 7,
+    "price": 150,
+    "material": "metal",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Immediate"
+  },
+  {
+    "name": "speed monster",
+    "description": "brass",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 50,
+    "weight": 7,
+    "price": 150,
+    "material": "copper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Immediate"
+  },
+  {
+    "name": "undead turning",
+    "description": "copper",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 50,
+    "weight": 7,
+    "price": 150,
+    "material": "copper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Immediate"
+  },
+  {
+    "name": "polymorph",
+    "description": "silver",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 45,
+    "weight": 7,
+    "price": 200,
+    "material": "silver",
+    "color": "CLR_GRAY",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Immediate"
+  },
+  {
+    "name": "cancellation",
+    "description": "platinum",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 45,
+    "weight": 7,
+    "price": 200,
+    "material": "platinum",
+    "color": "CLR_WHITE",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Immediate"
+  },
+  {
+    "name": "teleportation",
+    "description": "iridium",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 45,
+    "weight": 7,
+    "price": 200,
+    "material": "metal",
+    "color": "CLR_BRIGHT_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Immediate"
+  },
+  {
+    "name": "opening",
+    "description": "zinc",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 30,
+    "weight": 7,
+    "price": 150,
+    "material": "metal",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Immediate"
+  },
+  {
+    "name": "locking",
+    "description": "aluminum",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 30,
+    "weight": 7,
+    "price": 150,
+    "material": "metal",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Immediate"
+  },
+  {
+    "name": "probing",
+    "description": "uranium",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 30,
+    "weight": 7,
+    "price": 150,
+    "material": "metal",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Immediate"
+  },
+  {
+    "name": "digging",
+    "description": "iron",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 40,
+    "weight": 7,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Ray"
+  },
+  {
+    "name": "magic missile",
+    "description": "steel",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 50,
+    "weight": 7,
+    "price": 150,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Ray"
+  },
+  {
+    "name": "fire",
+    "description": "hexagonal",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 40,
+    "weight": 7,
+    "price": 175,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Ray"
+  },
+  {
+    "name": "cold",
+    "description": "short",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 40,
+    "weight": 7,
+    "price": 175,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Ray"
+  },
+  {
+    "name": "sleep",
+    "description": "runed",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 50,
+    "weight": 7,
+    "price": 175,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Ray"
+  },
+  {
+    "name": "death",
+    "description": "long",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 5,
+    "weight": 7,
+    "price": 500,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Ray"
+  },
+  {
+    "name": "lightning",
+    "description": "curved",
+    "class": "wand",
+    "symbol": "/",
+    "probability": 40,
+    "weight": 7,
+    "price": 175,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "direction": "Ray"
+  }
+]

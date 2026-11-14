@@ -1,0 +1,478 @@
+[
+  {
+    "name": "tripe ration",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 140,
+    "weight": 10,
+    "price": 15,
+    "material": "flesh",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 2,
+    "nutrition": 200
+  },
+  {
+    "name": "egg",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 85,
+    "weight": 1,
+    "price": 9,
+    "material": "flesh",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown"
+    ],
+    "delay": 1,
+    "nutrition": 80
+  },
+  {
+    "name": "meatball",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 0,
+    "weight": 1,
+    "price": 5,
+    "material": "flesh",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 5
+  },
+  {
+    "name": "meat stick",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 0,
+    "weight": 1,
+    "price": 5,
+    "material": "flesh",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 5
+  },
+  {
+    "name": "enormous meatball",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 0,
+    "weight": 400,
+    "price": 105,
+    "material": "flesh",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 20,
+    "nutrition": 2000
+  },
+  {
+    "name": "meat ring",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 0,
+    "weight": 5,
+    "price": 1,
+    "material": "flesh",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown"
+    ],
+    "delay": 1,
+    "nutrition": 5
+  },
+  {
+    "name": "kelp frond",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 0,
+    "weight": 1,
+    "price": 6,
+    "material": "vegetable",
+    "color": "CLR_GREEN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 30
+  },
+  {
+    "name": "eucalyptus leaf",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 3,
+    "weight": 1,
+    "price": 5,
+    "material": "vegetable",
+    "color": "CLR_GREEN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 1
+  },
+  {
+    "name": "apple",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 15,
+    "weight": 2,
+    "price": 7,
+    "material": "vegetable",
+    "color": "CLR_RED",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 50
+  },
+  {
+    "name": "orange",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 10,
+    "weight": 2,
+    "price": 9,
+    "material": "vegetable",
+    "color": "CLR_ORANGE",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 80
+  },
+  {
+    "name": "pear",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 10,
+    "weight": 2,
+    "price": 7,
+    "material": "vegetable",
+    "color": "CLR_BRIGHT_GREEN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 50
+  },
+  {
+    "name": "melon",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 10,
+    "weight": 5,
+    "price": 10,
+    "material": "vegetable",
+    "color": "CLR_BRIGHT_GREEN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 100
+  },
+  {
+    "name": "banana",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 10,
+    "weight": 2,
+    "price": 9,
+    "material": "vegetable",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 80
+  },
+  {
+    "name": "carrot",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 15,
+    "weight": 2,
+    "price": 7,
+    "material": "vegetable",
+    "color": "CLR_ORANGE",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 50
+  },
+  {
+    "name": "sprig of wolfsbane",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 7,
+    "weight": 1,
+    "price": 7,
+    "material": "vegetable",
+    "color": "CLR_GREEN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 40
+  },
+  {
+    "name": "clove of garlic",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 7,
+    "weight": 1,
+    "price": 7,
+    "material": "vegetable",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 40
+  },
+  {
+    "name": "slime mold",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 75,
+    "weight": 5,
+    "price": 17,
+    "material": "vegetable",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 250
+  },
+  {
+    "name": "lump of royal jelly",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 0,
+    "weight": 2,
+    "price": 15,
+    "material": "vegetable",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 200
+  },
+  {
+    "name": "cream pie",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 25,
+    "weight": 10,
+    "price": 10,
+    "material": "vegetable",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 100
+  },
+  {
+    "name": "candy bar",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 13,
+    "weight": 2,
+    "price": 10,
+    "material": "vegetable",
+    "color": "CLR_BRIGHT_BLUE",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 100
+  },
+  {
+    "name": "fortune cookie",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 55,
+    "weight": 1,
+    "price": 7,
+    "material": "vegetable",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 40
+  },
+  {
+    "name": "pancake",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 25,
+    "weight": 2,
+    "price": 15,
+    "material": "vegetable",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 2,
+    "nutrition": 200
+  },
+  {
+    "name": "lembas wafer",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 20,
+    "weight": 5,
+    "price": 45,
+    "material": "vegetable",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 2,
+    "nutrition": 800
+  },
+  {
+    "name": "cram ration",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 20,
+    "weight": 15,
+    "price": 35,
+    "material": "vegetable",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 3,
+    "nutrition": 600
+  },
+  {
+    "name": "food ration",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 380,
+    "weight": 20,
+    "price": 45,
+    "material": "vegetable",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 5,
+    "nutrition": 800
+  },
+  {
+    "name": "K-ration",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 0,
+    "weight": 10,
+    "price": 25,
+    "material": "vegetable",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 400
+  },
+  {
+    "name": "C-ration",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 0,
+    "weight": 10,
+    "price": 20,
+    "material": "vegetable",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown",
+      "merge"
+    ],
+    "delay": 1,
+    "nutrition": 300
+  },
+  {
+    "name": "tin",
+    "description": null,
+    "class": "food",
+    "symbol": "%",
+    "probability": 75,
+    "weight": 10,
+    "price": 5,
+    "material": "metal",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "merge",
+      "usesKnown"
+    ],
+    "nutrition": 0
+  }
+]

@@ -1,0 +1,758 @@
+[
+  {
+    "name": "large box",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 40,
+    "weight": 350,
+    "price": 8,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "chest",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 35,
+    "weight": 600,
+    "price": 16,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "ice box",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 5,
+    "weight": 900,
+    "price": 42,
+    "material": "plastic",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "sack",
+    "description": "bag",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 35,
+    "weight": 15,
+    "price": 2,
+    "material": "cloth",
+    "color": "CLR_BROWN",
+    "flags": []
+  },
+  {
+    "name": "oilskin sack",
+    "description": "bag",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 5,
+    "weight": 15,
+    "price": 100,
+    "material": "cloth",
+    "color": "CLR_BROWN",
+    "flags": []
+  },
+  {
+    "name": "bag of holding",
+    "description": "bag",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 20,
+    "weight": 15,
+    "price": 100,
+    "material": "cloth",
+    "color": "CLR_BROWN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "bag of tricks",
+    "description": "bag",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 20,
+    "weight": 15,
+    "price": 100,
+    "material": "cloth",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "skeleton key",
+    "description": "key",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 80,
+    "weight": 3,
+    "price": 10,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": []
+  },
+  {
+    "name": "lock pick",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 60,
+    "weight": 4,
+    "price": 20,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "credit card",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 15,
+    "weight": 1,
+    "price": 10,
+    "material": "plastic",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "tallow candle",
+    "description": "candle",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 20,
+    "weight": 2,
+    "price": 10,
+    "material": "wax",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge"
+    ]
+  },
+  {
+    "name": "wax candle",
+    "description": "candle",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 5,
+    "weight": 2,
+    "price": 20,
+    "material": "wax",
+    "color": "CLR_WHITE",
+    "flags": [
+      "merge"
+    ]
+  },
+  {
+    "name": "brass lantern",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 30,
+    "weight": 30,
+    "price": 12,
+    "material": "copper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "oil lamp",
+    "description": "lamp",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 45,
+    "weight": 20,
+    "price": 10,
+    "material": "copper",
+    "color": "CLR_YELLOW",
+    "flags": []
+  },
+  {
+    "name": "magic lamp",
+    "description": "lamp",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 15,
+    "weight": 20,
+    "price": 50,
+    "material": "copper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "expensive camera",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 15,
+    "weight": 12,
+    "price": 200,
+    "material": "plastic",
+    "color": "CLR_BLACK",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ]
+  },
+  {
+    "name": "mirror",
+    "description": "looking glass",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 45,
+    "weight": 13,
+    "price": 10,
+    "material": "glass",
+    "color": "CLR_GRAY",
+    "flags": []
+  },
+  {
+    "name": "crystal ball",
+    "description": "glass orb",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 15,
+    "weight": 150,
+    "price": 60,
+    "material": "glass",
+    "color": "CLR_BRIGHT_CYAN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "lenses",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 5,
+    "weight": 3,
+    "price": 80,
+    "material": "glass",
+    "color": "CLR_BRIGHT_CYAN",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "blindfold",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 50,
+    "weight": 2,
+    "price": 20,
+    "material": "cloth",
+    "color": "CLR_BLACK",
+    "flags": [
+      "nameKnown"
+    ],
+    "effect": [
+      "BLINDED"
+    ]
+  },
+  {
+    "name": "towel",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 50,
+    "weight": 5,
+    "price": 50,
+    "material": "cloth",
+    "color": "CLR_MAGENTA",
+    "flags": [
+      "nameKnown"
+    ],
+    "effect": [
+      "BLINDED"
+    ]
+  },
+  {
+    "name": "saddle",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 5,
+    "weight": 200,
+    "price": 150,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "leash",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 65,
+    "weight": 12,
+    "price": 20,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "stethoscope",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 25,
+    "weight": 4,
+    "price": 75,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "tinning kit",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 15,
+    "weight": 100,
+    "price": 30,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ]
+  },
+  {
+    "name": "tin opener",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 35,
+    "weight": 4,
+    "price": 30,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "can of grease",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 15,
+    "weight": 15,
+    "price": 20,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ]
+  },
+  {
+    "name": "figurine",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 25,
+    "weight": 50,
+    "price": 80,
+    "material": "mineral",
+    "color": "CLR_GRAY",
+    "flags": [
+      "nameKnown",
+      "magic"
+    ]
+  },
+  {
+    "name": "magic marker",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 15,
+    "weight": 2,
+    "price": 50,
+    "material": "plastic",
+    "color": "CLR_RED",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "land mine",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 0,
+    "weight": 200,
+    "price": 180,
+    "material": "iron",
+    "color": "CLR_RED",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "beartrap",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 0,
+    "weight": 200,
+    "price": 60,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "tin whistle",
+    "description": "whistle",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 100,
+    "weight": 3,
+    "price": 10,
+    "material": "metal",
+    "color": "CLR_CYAN",
+    "flags": []
+  },
+  {
+    "name": "magic whistle",
+    "description": "whistle",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 30,
+    "weight": 3,
+    "price": 10,
+    "material": "metal",
+    "color": "CLR_CYAN",
+    "flags": [
+      "magic"
+    ]
+  },
+  {
+    "name": "wooden flute",
+    "description": "flute",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 4,
+    "weight": 5,
+    "price": 12,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": []
+  },
+  {
+    "name": "magic flute",
+    "description": "flute",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 2,
+    "weight": 5,
+    "price": 36,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "tooled horn",
+    "description": "horn",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 5,
+    "weight": 18,
+    "price": 15,
+    "material": "bone",
+    "color": "CLR_WHITE",
+    "flags": []
+  },
+  {
+    "name": "frost horn",
+    "description": "horn",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 2,
+    "weight": 18,
+    "price": 50,
+    "material": "bone",
+    "color": "CLR_WHITE",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "fire horn",
+    "description": "horn",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 2,
+    "weight": 18,
+    "price": 50,
+    "material": "bone",
+    "color": "CLR_WHITE",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "horn of plenty",
+    "description": "horn",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 2,
+    "weight": 18,
+    "price": 50,
+    "material": "bone",
+    "color": "CLR_WHITE",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "wooden harp",
+    "description": "harp",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 4,
+    "weight": 30,
+    "price": 50,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": []
+  },
+  {
+    "name": "magic harp",
+    "description": "harp",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 2,
+    "weight": 30,
+    "price": 50,
+    "material": "wood",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "bell",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 2,
+    "weight": 30,
+    "price": 50,
+    "material": "copper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "bugle",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 4,
+    "weight": 10,
+    "price": 15,
+    "material": "copper",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "nameKnown"
+    ]
+  },
+  {
+    "name": "leather drum",
+    "description": "drum",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 4,
+    "weight": 25,
+    "price": 25,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": []
+  },
+  {
+    "name": "drum of earthquake",
+    "description": "drum",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 2,
+    "weight": 25,
+    "price": 25,
+    "material": "leather",
+    "color": "CLR_BROWN",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged"
+    ]
+  },
+  {
+    "name": "pick-axe",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 20,
+    "weight": 100,
+    "price": 50,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d6",
+      "damageLarge": "1d3",
+      "skill": 4,
+      "skillType": "Pick axe",
+      "strike": 4,
+      "strikeName": "Whack",
+      "toHit": 4,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "grappling hook",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 5,
+    "weight": 30,
+    "price": 50,
+    "material": "iron",
+    "color": "CLR_CYAN",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d2",
+      "damageLarge": "1d6",
+      "skill": 13,
+      "skillType": "Flail",
+      "strike": 4,
+      "strikeName": "Whack",
+      "toHit": 4,
+      "handedness": "One-handed"
+    }
+  },
+  {
+    "name": "unicorn horn",
+    "description": null,
+    "class": "tool",
+    "symbol": "(",
+    "probability": 0,
+    "weight": 20,
+    "price": 100,
+    "material": "bone",
+    "color": "CLR_WHITE",
+    "flags": [
+      "nameKnown",
+      "usesKnown",
+      "magic",
+      "charged"
+    ],
+    "weapon": {
+      "damageSmall": "1d12",
+      "damageLarge": "1d12",
+      "skill": 27,
+      "skillType": "Unicorn horn",
+      "strike": 1,
+      "strikeName": "Pierce",
+      "toHit": 1,
+      "handedness": "Two-handed"
+    }
+  },
+  {
+    "name": "Candelabrum of Invocation",
+    "description": "candelabrum",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 0,
+    "weight": 10,
+    "price": 5000,
+    "material": "gold",
+    "color": "CLR_YELLOW",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "unique",
+      "nowish"
+    ]
+  },
+  {
+    "name": "Bell of Opening",
+    "description": "silver bell",
+    "class": "tool",
+    "symbol": "(",
+    "probability": 0,
+    "weight": 10,
+    "price": 5000,
+    "material": "silver",
+    "color": "CLR_GRAY",
+    "flags": [
+      "usesKnown",
+      "magic",
+      "charged",
+      "unique",
+      "nowish"
+    ]
+  }
+]
