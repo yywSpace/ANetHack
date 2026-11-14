@@ -539,8 +539,8 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         safeInsets.set(left, top, right, bottom)
         // 布局回调会重复传相同边距；只有真正变化时才重新跟随居中
         if (mapInit && changed) {
-            if (!mapTranslated)
-                transformMapWithMove(nh.prefs.walkRange)
+            // 键盘/面板高度变化时始终按当前光标重新适配安全区，
+            transformMapWithMove(nh.prefs.walkRange)
             requestRedraw()
         }
     }
