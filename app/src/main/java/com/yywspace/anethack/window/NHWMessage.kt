@@ -19,6 +19,7 @@ import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.show
 import com.yywspace.anethack.map.NHMessageView
+import com.yywspace.anethack.gamedata.ItemLink
 import com.yywspace.anethack.gamedata.MonsterLink
 import java.lang.Integer.min
 import java.util.concurrent.CopyOnWriteArrayList
@@ -45,8 +46,12 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             }
         }
         // 消息里的怪物名：点击后打开怪物详情（弹窗统一从 nh.monsterDialog 取）
-        messageView.onMonsterClick = { name ->
-            nh.monsterDialog?.showMonster(name)
+        messageView.onMonsterClick = { monster ->
+            nh.monsterDialog?.showMonster(monster)
+        }
+        // 消息里的物品名：点击后打开对应物品详情
+        messageView.onItemClick = { item ->
+            nh.itemDialog?.showItem(item.name, item.itemClass)
         }
     }
 
@@ -155,8 +160,11 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                 )
                 // 只解析 look 指令产生的消息（格式可预期），其它消息保持原样
                 if (message.fromLook) {
-                    MonsterLink.highlight(itemContext, messageText, lineStart, messageText.length) { name ->
-                        nh.monsterDialog?.showMonster(name)
+                    MonsterLink.highlight(itemContext, messageText, lineStart, messageText.length) { monster ->
+                        nh.monsterDialog?.showMonster(monster)
+                    }
+                    ItemLink.highlight(itemContext, messageText, lineStart, messageText.length) { item ->
+                        nh.itemDialog?.showItem(item.name, item.itemClass)
                     }
                 }
             }
@@ -168,9 +176,14 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                 // 这一行整行是怪物名时，点这一行的任何位置（含右侧空白）都弹详情
                 itemMessage.setOnTouchListener { view, event ->
                     if (event.actionMasked == MotionEvent.ACTION_UP) {
-                        val span = MonsterLink.spanAtLine(itemMessage, event)
-                        if (span != null) {
-                            span.onClick(view)
+                        val monsterSpan = MonsterLink.spanAtLine(itemMessage, event)
+                        if (monsterSpan != null) {
+                            monsterSpan.onClick(view)
+                            return@setOnTouchListener true
+                        }
+                        val itemSpan = ItemLink.spanAtLine(itemMessage, event)
+                        if (itemSpan != null) {
+                            itemSpan.onClick(view)
                             return@setOnTouchListener true
                         }
                     }

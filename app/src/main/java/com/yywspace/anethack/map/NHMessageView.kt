@@ -8,6 +8,9 @@ import android.util.TypedValue
 import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatTextView
 import com.yywspace.anethack.R
+import com.yywspace.anethack.gamedata.Item
+import com.yywspace.anethack.gamedata.ItemLink
+import com.yywspace.anethack.gamedata.Monster
 import com.yywspace.anethack.gamedata.MonsterLink
 import com.yywspace.anethack.window.NHWMessage
 
@@ -31,7 +34,10 @@ class NHMessageView @JvmOverloads constructor(
     var onMessageClick: (() -> Unit)? = null
 
     /** 点击消息里怪物名的回调（由 NHWMessage 设置，参数是怪物名） */
-    var onMonsterClick: ((String) -> Unit)? = null
+    var onMonsterClick: ((Monster) -> Unit)? = null
+
+    /** 点击消息里物品名的回调 */
+    var onItemClick: ((Item) -> Unit)? = null
 
     init {
         // 字号来自 dimens（px，与原来 TextPaint 的 42px 一致）
@@ -61,10 +67,14 @@ class NHMessageView @JvmOverloads constructor(
             val start = builder.length
             builder.append(message.toSpannableString())
             // 只解析 look 指令产生的消息（格式可预期），其它消息保持原样
-            if (message.fromLook)
-                MonsterLink.highlight(context, builder, start, builder.length) { name ->
-                    onMonsterClick?.invoke(name)
+            if (message.fromLook) {
+                MonsterLink.highlight(context, builder, start, builder.length) { monster ->
+                    onMonsterClick?.invoke(monster)
                 }
+                ItemLink.highlight(context, builder, start, builder.length) { item ->
+                    onItemClick?.invoke(item)
+                }
+            }
         }
         val content = builder.toString()
         // 内容没变就不重新布局
@@ -77,9 +87,14 @@ class NHMessageView @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.actionMasked == MotionEvent.ACTION_UP) {
-            val span = MonsterLink.spanAtTouch(this, event)
-            if (span != null) {
-                span.onClick(this)
+            val monsterSpan = MonsterLink.spanAtTouch(this, event)
+            if (monsterSpan != null) {
+                monsterSpan.onClick(this)
+                return true
+            }
+            val itemSpan = ItemLink.spanAtTouch(this, event)
+            if (itemSpan != null) {
+                itemSpan.onClick(this)
                 return true
             }
         }

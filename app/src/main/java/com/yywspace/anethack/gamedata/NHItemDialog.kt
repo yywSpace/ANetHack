@@ -42,20 +42,23 @@ class NHItemDialog(
     }
 
     /** 指定物品详情：没有搜索栏。 */
-    fun showItem(name: String) {
+    fun showItem(name: String, itemClass: String? = null) {
         if (dialog?.isShowing == true)
             return
         GameData.ensureLoaded(context)
         val scaffold = ui.singleScaffold()
         content = scaffold.content
         scroll = scaffold.scroll
-        renderSingle(name)
+        renderSingle(name, itemClass)
         dialog = ui.createDialog(R.string.item_lookup_title, scaffold.root)
         dialog?.show(nh.prefs.immersiveMode)
     }
 
-    private fun renderSingle(name: String) {
-        val matched = GameData.items.filter { it.name.equals(name, ignoreCase = true) }
+    private fun renderSingle(name: String, itemClass: String?) {
+        val matched = GameData.items.filter {
+            it.name.equals(name, ignoreCase = true) &&
+                (itemClass == null || it.itemClass == itemClass)
+        }
         content.removeAllViews()
         matched.sortedWith(compareBy<Item> { it.itemClass }.thenBy { it.name })
             .forEach { content.addView(card(it)) }

@@ -1,6 +1,6 @@
 [
   {
-    "name": "adornment",
+    "name": "ring of adornment",
     "description": "wooden",
     "class": "ring",
     "symbol": "=",
@@ -16,7 +16,7 @@
     ]
   },
   {
-    "name": "gain strength",
+    "name": "ring of gain strength",
     "description": "granite",
     "class": "ring",
     "symbol": "=",
@@ -32,7 +32,7 @@
     ]
   },
   {
-    "name": "gain constitution",
+    "name": "ring of gain constitution",
     "description": "opal",
     "class": "ring",
     "symbol": "=",
@@ -48,7 +48,7 @@
     ]
   },
   {
-    "name": "increase accuracy",
+    "name": "ring of increase accuracy",
     "description": "clay",
     "class": "ring",
     "symbol": "=",
@@ -64,7 +64,7 @@
     ]
   },
   {
-    "name": "increase damage",
+    "name": "ring of increase damage",
     "description": "coral",
     "class": "ring",
     "symbol": "=",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "name": "protection",
+    "name": "ring of protection",
     "description": "black onyx",
     "class": "ring",
     "symbol": "=",
@@ -96,7 +96,7 @@
     ]
   },
   {
-    "name": "regeneration",
+    "name": "ring of regeneration",
     "description": "moonstone",
     "class": "ring",
     "symbol": "=",
@@ -110,7 +110,7 @@
     ]
   },
   {
-    "name": "searching",
+    "name": "ring of searching",
     "description": "tiger eye",
     "class": "ring",
     "symbol": "=",
@@ -124,7 +124,7 @@
     ]
   },
   {
-    "name": "stealth",
+    "name": "ring of stealth",
     "description": "jade",
     "class": "ring",
     "symbol": "=",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "name": "sustain ability",
+    "name": "ring of sustain ability",
     "description": "bronze",
     "class": "ring",
     "symbol": "=",
@@ -152,7 +152,7 @@
     ]
   },
   {
-    "name": "levitation",
+    "name": "ring of levitation",
     "description": "agate",
     "class": "ring",
     "symbol": "=",
@@ -166,7 +166,7 @@
     ]
   },
   {
-    "name": "hunger",
+    "name": "ring of hunger",
     "description": "topaz",
     "class": "ring",
     "symbol": "=",
@@ -181,7 +181,7 @@
     ]
   },
   {
-    "name": "aggravate monster",
+    "name": "ring of aggravate monster",
     "description": "sapphire",
     "class": "ring",
     "symbol": "=",
@@ -196,7 +196,7 @@
     ]
   },
   {
-    "name": "conflict",
+    "name": "ring of conflict",
     "description": "ruby",
     "class": "ring",
     "symbol": "=",
@@ -211,7 +211,7 @@
     ]
   },
   {
-    "name": "warning",
+    "name": "ring of warning",
     "description": "diamond",
     "class": "ring",
     "symbol": "=",
@@ -226,7 +226,7 @@
     ]
   },
   {
-    "name": "poison resistance",
+    "name": "ring of poison resistance",
     "description": "pearl",
     "class": "ring",
     "symbol": "=",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "name": "fire resistance",
+    "name": "ring of fire resistance",
     "description": "iron",
     "class": "ring",
     "symbol": "=",
@@ -254,7 +254,7 @@
     ]
   },
   {
-    "name": "cold resistance",
+    "name": "ring of cold resistance",
     "description": "brass",
     "class": "ring",
     "symbol": "=",
@@ -268,7 +268,7 @@
     ]
   },
   {
-    "name": "shock resistance",
+    "name": "ring of shock resistance",
     "description": "copper",
     "class": "ring",
     "symbol": "=",
@@ -282,7 +282,7 @@
     ]
   },
   {
-    "name": "free action",
+    "name": "ring of free action",
     "description": "twisted",
     "class": "ring",
     "symbol": "=",
@@ -296,7 +296,7 @@
     ]
   },
   {
-    "name": "slow digestion",
+    "name": "ring of slow digestion",
     "description": "steel",
     "class": "ring",
     "symbol": "=",
@@ -311,7 +311,7 @@
     ]
   },
   {
-    "name": "teleportation",
+    "name": "ring of teleportation",
     "description": "silver",
     "class": "ring",
     "symbol": "=",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "name": "teleport control",
+    "name": "ring of teleport control",
     "description": "gold",
     "class": "ring",
     "symbol": "=",
@@ -339,7 +339,7 @@
     ]
   },
   {
-    "name": "polymorph",
+    "name": "ring of polymorph",
     "description": "ivory",
     "class": "ring",
     "symbol": "=",
@@ -353,7 +353,7 @@
     ]
   },
   {
-    "name": "polymorph control",
+    "name": "ring of polymorph control",
     "description": "emerald",
     "class": "ring",
     "symbol": "=",
@@ -368,7 +368,7 @@
     ]
   },
   {
-    "name": "invisibility",
+    "name": "ring of invisibility",
     "description": "wire",
     "class": "ring",
     "symbol": "=",
@@ -382,7 +382,7 @@
     ]
   },
   {
-    "name": "see invisible",
+    "name": "ring of see invisible",
     "description": "engagement",
     "class": "ring",
     "symbol": "=",
@@ -396,7 +396,7 @@
     ]
   },
   {
-    "name": "protection from shape changers",
+    "name": "ring of protection from shape changers",
     "description": "shiny",
     "class": "ring",
     "symbol": "=",

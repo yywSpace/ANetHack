@@ -1,6 +1,6 @@
 [
   {
-    "name": "gain ability",
+    "name": "potion of gain ability",
     "description": "ruby",
     "class": "potion",
     "symbol": "!",
@@ -15,7 +15,7 @@
     ]
   },
   {
-    "name": "restore ability",
+    "name": "potion of restore ability",
     "description": "pink",
     "class": "potion",
     "symbol": "!",
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "name": "confusion",
+    "name": "potion of confusion",
     "description": "orange",
     "class": "potion",
     "symbol": "!",
@@ -45,7 +45,7 @@
     ]
   },
   {
-    "name": "blindness",
+    "name": "potion of blindness",
     "description": "yellow",
     "class": "potion",
     "symbol": "!",
@@ -60,7 +60,7 @@
     ]
   },
   {
-    "name": "paralysis",
+    "name": "potion of paralysis",
     "description": "emerald",
     "class": "potion",
     "symbol": "!",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "name": "speed",
+    "name": "potion of speed",
     "description": "dark green",
     "class": "potion",
     "symbol": "!",
@@ -90,7 +90,7 @@
     ]
   },
   {
-    "name": "levitation",
+    "name": "potion of levitation",
     "description": "cyan",
     "class": "potion",
     "symbol": "!",
@@ -105,7 +105,7 @@
     ]
   },
   {
-    "name": "hallucination",
+    "name": "potion of hallucination",
     "description": "sky blue",
     "class": "potion",
     "symbol": "!",
@@ -120,7 +120,7 @@
     ]
   },
   {
-    "name": "invisibility",
+    "name": "potion of invisibility",
     "description": "brilliant blue",
     "class": "potion",
     "symbol": "!",
@@ -135,7 +135,7 @@
     ]
   },
   {
-    "name": "see invisible",
+    "name": "potion of see invisible",
     "description": "magenta",
     "class": "potion",
     "symbol": "!",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "name": "healing",
+    "name": "potion of healing",
     "description": "purple-red",
     "class": "potion",
     "symbol": "!",
@@ -165,7 +165,7 @@
     ]
   },
   {
-    "name": "extra healing",
+    "name": "potion of extra healing",
     "description": "puce",
     "class": "potion",
     "symbol": "!",
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "name": "gain level",
+    "name": "potion of gain level",
     "description": "milky",
     "class": "potion",
     "symbol": "!",
@@ -195,7 +195,7 @@
     ]
   },
   {
-    "name": "enlightenment",
+    "name": "potion of enlightenment",
     "description": "swirly",
     "class": "potion",
     "symbol": "!",
@@ -210,7 +210,7 @@
     ]
   },
   {
-    "name": "monster detection",
+    "name": "potion of monster detection",
     "description": "bubbly",
     "class": "potion",
     "symbol": "!",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "name": "object detection",
+    "name": "potion of object detection",
     "description": "smoky",
     "class": "potion",
     "symbol": "!",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "name": "gain energy",
+    "name": "potion of gain energy",
     "description": "cloudy",
     "class": "potion",
     "symbol": "!",
@@ -255,7 +255,7 @@
     ]
   },
   {
-    "name": "sleeping",
+    "name": "potion of sleeping",
     "description": "effervescent",
     "class": "potion",
     "symbol": "!",
@@ -270,7 +270,7 @@
     ]
   },
   {
-    "name": "full healing",
+    "name": "potion of full healing",
     "description": "black",
     "class": "potion",
     "symbol": "!",
@@ -285,7 +285,7 @@
     ]
   },
   {
-    "name": "polymorph",
+    "name": "potion of polymorph",
     "description": "golden",
     "class": "potion",
     "symbol": "!",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "name": "booze",
+    "name": "potion of booze",
     "description": "brown",
     "class": "potion",
     "symbol": "!",
@@ -314,7 +314,7 @@
     ]
   },
   {
-    "name": "sickness",
+    "name": "potion of sickness",
     "description": "fizzy",
     "class": "potion",
     "symbol": "!",
@@ -328,7 +328,7 @@
     ]
   },
   {
-    "name": "fruit juice",
+    "name": "potion of fruit juice",
     "description": "dark",
     "class": "potion",
     "symbol": "!",
@@ -342,7 +342,7 @@
     ]
   },
   {
-    "name": "acid",
+    "name": "potion of acid",
     "description": "white",
     "class": "potion",
     "symbol": "!",
@@ -356,7 +356,7 @@
     ]
   },
   {
-    "name": "oil",
+    "name": "potion of oil",
     "description": "murky",
     "class": "potion",
     "symbol": "!",
@@ -370,7 +370,7 @@
     ]
   },
   {
-    "name": "water",
+    "name": "potion of water",
     "description": "clear",
     "class": "potion",
     "symbol": "!",

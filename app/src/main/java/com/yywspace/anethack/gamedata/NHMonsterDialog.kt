@@ -47,13 +47,13 @@ class NHMonsterDialog(
         showDialog(view)
     }
 
-    /** 消息里点击怪物名：只展示该怪物，不创建搜索栏。 */
-    fun showMonster(name: String) {
+    /** 消息里点击怪物名：直接使用已经解析出的怪物对象。 */
+    fun showMonster(monster: Monster) {
         if (!nh.prefs.monsterInfo || dialog?.isShowing == true)
             return
         GameData.ensureLoaded(context)
         val view = buildSingleView()
-        renderSingle(name)
+        renderSingle(monster)
         showDialog(view)
     }
 
@@ -78,6 +78,12 @@ class NHMonsterDialog(
         content = scaffold.content
         scroll = scaffold.scroll
         return scaffold.root
+    }
+
+    private fun renderSingle(monster: Monster) {
+        content.removeAllViews()
+        render(monster)
+        ui.scrollToTop(scroll)
     }
 
     /** 绑定名字的单条结果，不进入分页流程。 */

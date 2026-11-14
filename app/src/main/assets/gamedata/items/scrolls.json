@@ -1,6 +1,6 @@
 [
   {
-    "name": "enchant armor",
+    "name": "scroll of enchant armor",
     "description": "ZELGO MER",
     "class": "scroll",
     "symbol": "?",
@@ -19,7 +19,7 @@
     }
   },
   {
-    "name": "destroy armor",
+    "name": "scroll of destroy armor",
     "description": "JUYED AWK YACC",
     "class": "scroll",
     "symbol": "?",
@@ -38,7 +38,7 @@
     }
   },
   {
-    "name": "confuse monster",
+    "name": "scroll of confuse monster",
     "description": "NR 9",
     "class": "scroll",
     "symbol": "?",
@@ -57,7 +57,7 @@
     }
   },
   {
-    "name": "scare monster",
+    "name": "scroll of scare monster",
     "description": "XIXAXA XOXAXA XUXAXA",
     "class": "scroll",
     "symbol": "?",
@@ -76,7 +76,7 @@
     }
   },
   {
-    "name": "remove curse",
+    "name": "scroll of remove curse",
     "description": "PRATYAVAYAH",
     "class": "scroll",
     "symbol": "?",
@@ -95,7 +95,7 @@
     }
   },
   {
-    "name": "enchant weapon",
+    "name": "scroll of enchant weapon",
     "description": "DAIYEN FOOELS",
     "class": "scroll",
     "symbol": "?",
@@ -114,7 +114,7 @@
     }
   },
   {
-    "name": "create monster",
+    "name": "scroll of create monster",
     "description": "LEP GEX VEN ZEA",
     "class": "scroll",
     "symbol": "?",
@@ -133,7 +133,7 @@
     }
   },
   {
-    "name": "taming",
+    "name": "scroll of taming",
     "description": "PRIRUTSENIE",
     "class": "scroll",
     "symbol": "?",
@@ -152,7 +152,7 @@
     }
   },
   {
-    "name": "genocide",
+    "name": "scroll of genocide",
     "description": "ELBIB YLOH",
     "class": "scroll",
     "symbol": "?",
@@ -171,7 +171,7 @@
     }
   },
   {
-    "name": "light",
+    "name": "scroll of light",
     "description": "VERR YED HORRE",
     "class": "scroll",
     "symbol": "?",
@@ -190,7 +190,7 @@
     }
   },
   {
-    "name": "teleportation",
+    "name": "scroll of teleportation",
     "description": "VENZAR BORGAVVE",
     "class": "scroll",
     "symbol": "?",
@@ -209,7 +209,7 @@
     }
   },
   {
-    "name": "gold detection",
+    "name": "scroll of gold detection",
     "description": "THARR",
     "class": "scroll",
     "symbol": "?",
@@ -228,7 +228,7 @@
     }
   },
   {
-    "name": "food detection",
+    "name": "scroll of food detection",
     "description": "YUM YUM",
     "class": "scroll",
     "symbol": "?",
@@ -247,7 +247,7 @@
     }
   },
   {
-    "name": "identify",
+    "name": "scroll of identify",
     "description": "KERNOD WEL",
     "class": "scroll",
     "symbol": "?",
@@ -266,7 +266,7 @@
     }
   },
   {
-    "name": "magic mapping",
+    "name": "scroll of magic mapping",
     "description": "ELAM EBOW",
     "class": "scroll",
     "symbol": "?",
@@ -285,7 +285,7 @@
     }
   },
   {
-    "name": "amnesia",
+    "name": "scroll of amnesia",
     "description": "DUAM XNAHT",
     "class": "scroll",
     "symbol": "?",
@@ -304,7 +304,7 @@
     }
   },
   {
-    "name": "fire",
+    "name": "scroll of fire",
     "description": "ANDOVA BEGARIN",
     "class": "scroll",
     "symbol": "?",
@@ -323,7 +323,7 @@
     }
   },
   {
-    "name": "earth",
+    "name": "scroll of earth",
     "description": "KIRJE",
     "class": "scroll",
     "symbol": "?",
@@ -342,7 +342,7 @@
     }
   },
   {
-    "name": "punishment",
+    "name": "scroll of punishment",
     "description": "VE FORBRYDERNE",
     "class": "scroll",
     "symbol": "?",
@@ -361,7 +361,7 @@
     }
   },
   {
-    "name": "charging",
+    "name": "scroll of charging",
     "description": "HACKEM MUCHE",
     "class": "scroll",
     "symbol": "?",
@@ -380,7 +380,7 @@
     }
   },
   {
-    "name": "stinking cloud",
+    "name": "scroll of stinking cloud",
     "description": "VELOX NEB",
     "class": "scroll",
     "symbol": "?",
@@ -399,7 +399,7 @@
     }
   },
   {
-    "name": "mail",
+    "name": "scroll of mail",
     "description": "stamped",
     "class": "scroll",
     "symbol": "?",
@@ -417,7 +417,7 @@
     }
   },
   {
-    "name": "blank paper",
+    "name": "scroll of blank paper",
     "description": "unlabeled",
     "class": "scroll",
     "symbol": "?",

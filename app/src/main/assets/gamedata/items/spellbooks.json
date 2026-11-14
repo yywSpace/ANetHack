@@ -1,6 +1,6 @@
 [
   {
-    "name": "dig",
+    "name": "spellbook of dig",
     "description": "parchment",
     "class": "spellbook",
     "symbol": "+",
@@ -25,7 +25,7 @@
     }
   },
   {
-    "name": "magic missile",
+    "name": "spellbook of magic missile",
     "description": "vellum",
     "class": "spellbook",
     "symbol": "+",
@@ -50,7 +50,7 @@
     }
   },
   {
-    "name": "fireball",
+    "name": "spellbook of fireball",
     "description": "ragged",
     "class": "spellbook",
     "symbol": "+",
@@ -75,7 +75,7 @@
     }
   },
   {
-    "name": "cone of cold",
+    "name": "spellbook of cone of cold",
     "description": "dog eared",
     "class": "spellbook",
     "symbol": "+",
@@ -100,7 +100,7 @@
     }
   },
   {
-    "name": "sleep",
+    "name": "spellbook of sleep",
     "description": "mottled",
     "class": "spellbook",
     "symbol": "+",
@@ -125,7 +125,7 @@
     }
   },
   {
-    "name": "finger of death",
+    "name": "spellbook of finger of death",
     "description": "stained",
     "class": "spellbook",
     "symbol": "+",
@@ -150,7 +150,7 @@
     }
   },
   {
-    "name": "light",
+    "name": "spellbook of light",
     "description": "cloth",
     "class": "spellbook",
     "symbol": "+",
@@ -175,7 +175,7 @@
     }
   },
   {
-    "name": "detect monsters",
+    "name": "spellbook of detect monsters",
     "description": "leathery",
     "class": "spellbook",
     "symbol": "+",
@@ -200,7 +200,7 @@
     }
   },
   {
-    "name": "healing",
+    "name": "spellbook of healing",
     "description": "white",
     "class": "spellbook",
     "symbol": "+",
@@ -225,7 +225,7 @@
     }
   },
   {
-    "name": "knock",
+    "name": "spellbook of knock",
     "description": "pink",
     "class": "spellbook",
     "symbol": "+",
@@ -250,7 +250,7 @@
     }
   },
   {
-    "name": "force bolt",
+    "name": "spellbook of force bolt",
     "description": "red",
     "class": "spellbook",
     "symbol": "+",
@@ -275,7 +275,7 @@
     }
   },
   {
-    "name": "confuse monster",
+    "name": "spellbook of confuse monster",
     "description": "orange",
     "class": "spellbook",
     "symbol": "+",
@@ -300,7 +300,7 @@
     }
   },
   {
-    "name": "cure blindness",
+    "name": "spellbook of cure blindness",
     "description": "yellow",
     "class": "spellbook",
     "symbol": "+",
@@ -325,7 +325,7 @@
     }
   },
   {
-    "name": "drain life",
+    "name": "spellbook of drain life",
     "description": "velvet",
     "class": "spellbook",
     "symbol": "+",
@@ -350,7 +350,7 @@
     }
   },
   {
-    "name": "slow monster",
+    "name": "spellbook of slow monster",
     "description": "light green",
     "class": "spellbook",
     "symbol": "+",
@@ -375,7 +375,7 @@
     }
   },
   {
-    "name": "wizard lock",
+    "name": "spellbook of wizard lock",
     "description": "dark green",
     "class": "spellbook",
     "symbol": "+",
@@ -400,7 +400,7 @@
     }
   },
   {
-    "name": "create monster",
+    "name": "spellbook of create monster",
     "description": "turquoise",
     "class": "spellbook",
     "symbol": "+",
@@ -425,7 +425,7 @@
     }
   },
   {
-    "name": "detect food",
+    "name": "spellbook of detect food",
     "description": "cyan",
     "class": "spellbook",
     "symbol": "+",
@@ -450,7 +450,7 @@
     }
   },
   {
-    "name": "cause fear",
+    "name": "spellbook of cause fear",
     "description": "light blue",
     "class": "spellbook",
     "symbol": "+",
@@ -475,7 +475,7 @@
     }
   },
   {
-    "name": "clairvoyance",
+    "name": "spellbook of clairvoyance",
     "description": "dark blue",
     "class": "spellbook",
     "symbol": "+",
@@ -500,7 +500,7 @@
     }
   },
   {
-    "name": "cure sickness",
+    "name": "spellbook of cure sickness",
     "description": "indigo",
     "class": "spellbook",
     "symbol": "+",
@@ -525,7 +525,7 @@
     }
   },
   {
-    "name": "charm monster",
+    "name": "spellbook of charm monster",
     "description": "magenta",
     "class": "spellbook",
     "symbol": "+",
@@ -550,7 +550,7 @@
     }
   },
   {
-    "name": "haste self",
+    "name": "spellbook of haste self",
     "description": "purple",
     "class": "spellbook",
     "symbol": "+",
@@ -575,7 +575,7 @@
     }
   },
   {
-    "name": "detect unseen",
+    "name": "spellbook of detect unseen",
     "description": "violet",
     "class": "spellbook",
     "symbol": "+",
@@ -600,7 +600,7 @@
     }
   },
   {
-    "name": "levitation",
+    "name": "spellbook of levitation",
     "description": "tan",
     "class": "spellbook",
     "symbol": "+",
@@ -625,7 +625,7 @@
     }
   },
   {
-    "name": "extra healing",
+    "name": "spellbook of extra healing",
     "description": "plaid",
     "class": "spellbook",
     "symbol": "+",
@@ -650,7 +650,7 @@
     }
   },
   {
-    "name": "restore ability",
+    "name": "spellbook of restore ability",
     "description": "light brown",
     "class": "spellbook",
     "symbol": "+",
@@ -675,7 +675,7 @@
     }
   },
   {
-    "name": "invisibility",
+    "name": "spellbook of invisibility",
     "description": "dark brown",
     "class": "spellbook",
     "symbol": "+",
@@ -700,7 +700,7 @@
     }
   },
   {
-    "name": "detect treasure",
+    "name": "spellbook of detect treasure",
     "description": "gray",
     "class": "spellbook",
     "symbol": "+",
@@ -725,7 +725,7 @@
     }
   },
   {
-    "name": "remove curse",
+    "name": "spellbook of remove curse",
     "description": "wrinkled",
     "class": "spellbook",
     "symbol": "+",
@@ -750,7 +750,7 @@
     }
   },
   {
-    "name": "magic mapping",
+    "name": "spellbook of magic mapping",
     "description": "dusty",
     "class": "spellbook",
     "symbol": "+",
@@ -775,7 +775,7 @@
     }
   },
   {
-    "name": "identify",
+    "name": "spellbook of identify",
     "description": "bronze",
     "class": "spellbook",
     "symbol": "+",
@@ -800,7 +800,7 @@
     }
   },
   {
-    "name": "turn undead",
+    "name": "spellbook of turn undead",
     "description": "copper",
     "class": "spellbook",
     "symbol": "+",
@@ -825,7 +825,7 @@
     }
   },
   {
-    "name": "polymorph",
+    "name": "spellbook of polymorph",
     "description": "silver",
     "class": "spellbook",
     "symbol": "+",
@@ -850,7 +850,7 @@
     }
   },
   {
-    "name": "teleport away",
+    "name": "spellbook of teleport away",
     "description": "gold",
     "class": "spellbook",
     "symbol": "+",
@@ -875,7 +875,7 @@
     }
   },
   {
-    "name": "create familiar",
+    "name": "spellbook of create familiar",
     "description": "glittering",
     "class": "spellbook",
     "symbol": "+",
@@ -900,7 +900,7 @@
     }
   },
   {
-    "name": "cancellation",
+    "name": "spellbook of cancellation",
     "description": "shining",
     "class": "spellbook",
     "symbol": "+",
@@ -925,7 +925,7 @@
     }
   },
   {
-    "name": "protection",
+    "name": "spellbook of protection",
     "description": "dull",
     "class": "spellbook",
     "symbol": "+",
@@ -950,7 +950,7 @@
     }
   },
   {
-    "name": "jumping",
+    "name": "spellbook of jumping",
     "description": "thin",
     "class": "spellbook",
     "symbol": "+",
@@ -975,7 +975,7 @@
     }
   },
   {
-    "name": "stone to flesh",
+    "name": "spellbook of stone to flesh",
     "description": "thick",
     "class": "spellbook",
     "symbol": "+",
@@ -1000,7 +1000,7 @@
     }
   },
   {
-    "name": "chain lightning",
+    "name": "spellbook of chain lightning",
     "description": "checkered",
     "class": "spellbook",
     "symbol": "+",
@@ -1025,7 +1025,7 @@
     }
   },
   {
-    "name": "blank paper",
+    "name": "spellbook of blank paper",
     "description": "plain",
     "class": "spellbook",
     "symbol": "+",

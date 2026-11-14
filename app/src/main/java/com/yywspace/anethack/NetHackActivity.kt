@@ -49,6 +49,7 @@ class NetHackActivity : AppCompatActivity() {
         monsterDialog = NHMonsterDialog(this,nethack)
         nethack.monsterDialog = monsterDialog
         itemDialog = NHItemDialog(this, nethack)
+        nethack.itemDialog = itemDialog
         // 后台预热资料（monsters.json 约 400KB），避免第一次弹窗/消息列表卡在主线程
         Thread { GameData.ensureLoaded(applicationContext) }.start()
         initKeyboard()
@@ -144,6 +145,7 @@ class NetHackActivity : AppCompatActivity() {
         monsterDialog = NHMonsterDialog(this, nethack)
         nethack.monsterDialog = monsterDialog
         itemDialog = NHItemDialog(this, nethack)
+        nethack.itemDialog = itemDialog
     }
 
     private fun initKeyboard() {
