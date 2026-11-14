@@ -180,7 +180,7 @@ class NetHackActivity : AppCompatActivity() {
                 priceIDialog.showFromMessages()
             }
             MONSTER_LOOKUP_COMMAND -> {
-                monsterDialog.showForMonster()
+                monsterDialog.showMonsterList()
             }
             ITEM_LOOKUP_COMMAND -> {
                 itemDialog.showItems()

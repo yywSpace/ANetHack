@@ -3,7 +3,6 @@ package com.yywspace.anethack.gamedata
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
@@ -32,33 +31,41 @@ class NHItemDialog(
     private var rendered = 0
     private var moreButton: TextView? = null
 
-    fun showItems(query: String? = null) {
+    fun showItems() {
         if (dialog?.isShowing == true)
             return
         GameData.ensureLoaded(context)
-        val view = buildView(query)
-        dialog = AlertDialog.Builder(context)
-            .setTitle(R.string.item_lookup_title)
-            .setView(view)
-            .setPositiveButton(R.string.dialog_confirm) { _, _ -> }
-            .create()
+        val view = buildView()
+        dialog = ui.createDialog(R.string.item_lookup_title, view)
         dialog?.show(nh.prefs.immersiveMode)
         renderMatches()
-        if (query.isNullOrBlank()) {
-            input.requestFocus()
-        } else {
-            dialog?.window?.setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-            )
-            input.clearFocus()
-        }
     }
 
-    private fun buildView(initial: String?): View {
+    /** 指定物品详情：没有搜索栏。 */
+    fun showItem(name: String) {
+        if (dialog?.isShowing == true)
+            return
+        GameData.ensureLoaded(context)
+        val scaffold = ui.singleScaffold()
+        content = scaffold.content
+        scroll = scaffold.scroll
+        renderSingle(name)
+        dialog = ui.createDialog(R.string.item_lookup_title, scaffold.root)
+        dialog?.show(nh.prefs.immersiveMode)
+    }
+
+    private fun renderSingle(name: String) {
+        val matched = GameData.items.filter { it.name.equals(name, ignoreCase = true) }
+        content.removeAllViews()
+        matched.sortedWith(compareBy<Item> { it.itemClass }.thenBy { it.name })
+            .forEach { content.addView(card(it)) }
+        ui.scrollToTop(scroll)
+    }
+
+    private fun buildView(): View {
         val scaffold = ui.contentScaffold(
             R.string.item_lookup_hint,
-            R.string.item_lookup_search,
-            initial
+            R.string.item_lookup_search
         ) {
             renderMatches()
         }

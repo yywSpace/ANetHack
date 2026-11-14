@@ -15,6 +15,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.chip.ChipGroup
@@ -139,13 +140,15 @@ class GameInfoUi(private val context: Context) {
         parent.addView(panel(card))
     }
 
-    /** 搜索栏 + 内容区 + ScrollView 的统一布局骨架。 */
-    fun contentScaffold(
-        hintRes: Int,
-        actionRes: Int,
-        initialText: String? = null,
-        onSearch: () -> Unit
-    ): ContentScaffold {
+    fun createDialog(titleRes: Int, view: View): AlertDialog =
+        AlertDialog.Builder(context)
+            .setTitle(titleRes)
+            .setView(view)
+            .setPositiveButton(R.string.dialog_confirm) { _, _ -> }
+            .create()
+
+    /** 单条详情布局：没有搜索栏，只有标题内容和 ScrollView。 */
+    fun singleScaffold(): SingleScaffold {
         val content = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
         }
@@ -153,8 +156,6 @@ class GameInfoUi(private val context: Context) {
             orientation = LinearLayout.VERTICAL
             setPadding(dp(16), dp(8), dp(16), 0)
         }
-        val search = searchBar(hintRes, actionRes, initialText, onSearch)
-        root.addView(search.view)
         val scroll = ScrollView(context).apply {
             addView(content)
             layoutParams = LinearLayout.LayoutParams(
@@ -162,11 +163,30 @@ class GameInfoUi(private val context: Context) {
             )
         }
         root.addView(scroll)
-        return ContentScaffold(root, content, scroll, search)
+        return SingleScaffold(root, content, scroll)
+    }
+
+    class SingleScaffold(
+        val root: LinearLayout,
+        val content: LinearLayout,
+        val scroll: ScrollView
+    )
+
+    /** 搜索栏 + 内容区 + ScrollView 的统一布局骨架。 */
+    fun contentScaffold(
+        hintRes: Int,
+        actionRes: Int,
+        initialText: String? = null,
+        onSearch: () -> Unit
+    ): ContentScaffold {
+        val single = singleScaffold()
+        val search = searchBar(hintRes, actionRes, initialText, onSearch)
+        single.root.addView(search.view, 0)
+        return ContentScaffold(single.root, single.content, single.scroll, search)
     }
 
     class ContentScaffold(
-        val root: View,
+        val root: LinearLayout,
         val content: LinearLayout,
         val scroll: ScrollView,
         val search: SearchBar
@@ -279,13 +299,6 @@ class GameInfoUi(private val context: Context) {
                 })
             }
         }
-
-    fun divider(): View = View(context).apply {
-        setBackgroundColor(ContextCompat.getColor(context, R.color.app_divider))
-        layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT, dp(1)
-        ).apply { topMargin = dp(8); bottomMargin = dp(8) }
-    }
 
     fun dp(value: Int): Int =
         (value * context.resources.displayMetrics.density).toInt()

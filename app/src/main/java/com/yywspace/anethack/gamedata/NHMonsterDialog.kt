@@ -2,8 +2,6 @@ package com.yywspace.anethack.gamedata
 
 import android.content.Context
 import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
@@ -40,29 +38,31 @@ class NHMonsterDialog(
     private var dialog: AlertDialog? = null
     private val ui = GameInfoUi(context)
 
-    /**
-     * 打开弹窗。
-     *
-     * [name] 为空时展示全部怪物；不为空时预填该名字并过滤
-     * （消息里点到怪物名就是这条路径）。
-     */
-    fun showForMonster(name: String? = null) {
-        // 设置里关掉了怪物信息，或者已经有一个弹窗在显示
+    /** 图鉴入口：搜索栏 + 全部怪物。 */
+    fun showMonsterList() {
         if (!nh.prefs.monsterInfo || dialog?.isShowing == true)
             return
-        val view = buildView(name)
+        val view = buildView()
         renderMatches()
-        // 带名字进来（点怪物名字查看）时不抢焦点，否则光标会在搜索框里闪
-        showDialog(view, focusInput = name.isNullOrEmpty())
+        showDialog(view)
     }
 
-    /** 构建弹窗的内容视图：搜索行 + 结果区；[initialText] 不为空时预填到输入框 */
-    private fun buildView(initialText: String? = null): View {
+    /** 消息里点击怪物名：只展示该怪物，不创建搜索栏。 */
+    fun showMonster(name: String) {
+        if (!nh.prefs.monsterInfo || dialog?.isShowing == true)
+            return
+        GameData.ensureLoaded(context)
+        val view = buildSingleView()
+        renderSingle(name)
+        showDialog(view)
+    }
+
+    /** 构建弹窗的内容视图 */
+    private fun buildView(): View {
         GameData.ensureLoaded(context)
         val scaffold = ui.contentScaffold(
             R.string.monster_lookup_hint,
-            R.string.monster_lookup_search,
-            initialText
+            R.string.monster_lookup_search
         ) {
             renderMatches()
         }
@@ -72,23 +72,28 @@ class NHMonsterDialog(
         return scaffold.root
     }
 
-    /** 真正把弹窗显示出来；[focusInput] 为 false 时不拉焦点、不弹输入法 */
-    private fun showDialog(view: View, focusInput: Boolean) {
-        dialog = AlertDialog.Builder(context)
-            .setTitle(R.string.monster_lookup_title)
-            .setView(view)
-            .setPositiveButton(R.string.dialog_confirm) { _, _ -> }
-            .create()
+    /** 单怪物详情页：没有搜索栏，只有可滚动的内容区。 */
+    private fun buildSingleView(): View {
+        val scaffold = ui.singleScaffold()
+        content = scaffold.content
+        scroll = scaffold.scroll
+        return scaffold.root
+    }
+
+    /** 绑定名字的单条结果，不进入分页流程。 */
+    private fun renderSingle(name: String) {
+        val matched = GameData.monsters.filter { it.name.equals(name, ignoreCase = true) }
+        content.removeAllViews()
+        matched.forEach { monster ->
+            render(monster)
+        }
+        ui.scrollToTop(scroll)
+    }
+
+    private fun showDialog(view: View) {
+        dialog = ui.createDialog(R.string.monster_lookup_title, view)
         // 和价格鉴定弹窗一样：沉浸式时不带出系统导航栏
         dialog?.show(nh.prefs.immersiveMode)
-        if (focusInput) {
-            input.requestFocus()
-        } else {
-            dialog?.window?.setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-            )
-            input.clearFocus()
-        }
     }
 
     /** 查询后收起输入法：结果列表就在下方，键盘会挡住它们 */
@@ -96,14 +101,7 @@ class NHMonsterDialog(
     private fun renderMatches() {
         val key = input.text.toString().trim()
         // 查询为空时展示全部怪物；有输入时再按名字过滤
-        var matched = if (key.isEmpty())
-            GameData.monsters
-        else
-            GameData.findMonsters(key)
-        if (key.isNotEmpty() && matched.isEmpty())
-            matched = GameData.monsters.filter { it.name.contains(key, ignoreCase = true) }
-        // 结果按名字排序，加载顺序稳定
-        matched = matched.sortedBy { it.name }
+        val matched = findMatches(key)
         content.removeAllViews()
         // 查不到就保持空列表，不显示额外提示
         if (matched.isEmpty()) {
@@ -111,18 +109,15 @@ class NHMonsterDialog(
             ui.scrollToTop(scroll)
             return
         }
-        val shown = matched
-        if (shown.size <= BATCH_SIZE) {
+        if (matched.size <= BATCH_SIZE) {
             // 结果不多：直接一次性渲染
-            shown.forEachIndexed { index, monster ->
-                if (index > 0)
-                    content.addView(divider())
+            matched.forEach { monster ->
                 render(monster)
             }
             fitScrollHeight()
         } else {
             // 结果较多：只渲染第一批，剩下的滑到底部时再追加
-            lazyMonsters = shown
+            lazyMonsters = matched
             lazyRendered = 0
             content.removeAllViews()
             reserveMaxHeight()
@@ -131,8 +126,14 @@ class NHMonsterDialog(
         ui.scrollToTop(scroll)
     }
 
-    /** 多条结果之间的分隔线 */
-    private fun divider() = ui.divider()
+    private fun findMatches(key: String): List<Monster> {
+        if (key.isEmpty())
+            return GameData.monsters.sortedBy { it.name }
+        var matched = GameData.findMonsters(key)
+        if (matched.isEmpty())
+            matched = GameData.monsters.filter { it.name.contains(key, ignoreCase = true) }
+        return matched.sortedBy { it.name }
+    }
 
     private fun render(monster: Monster) {
         // 标题区：符号（怪物颜色）+ 名字 + 副标题（体型 · 阵营 · 能否被灭绝）
@@ -228,8 +229,6 @@ class NHMonsterDialog(
         moreButton?.let { content.removeView(it) }
         val end = minOf(lazyRendered + BATCH_SIZE, lazyMonsters.size)
         for (index in lazyRendered until end) {
-            if (index > 0)
-                content.addView(divider())
             render(lazyMonsters[index])
         }
         lazyRendered = end
