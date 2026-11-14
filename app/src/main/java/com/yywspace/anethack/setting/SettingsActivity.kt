@@ -121,12 +121,12 @@ class SettingsActivity : AppCompatActivity() {
                     false
                 }
             }
-            findPreference<Preference>("optionEdit")?.apply {
+            findPreference<Preference>("configEdit")?.apply {
                 setOnPreferenceClickListener {
                     val file = File(context.filesDir, "nethackdir/.nethackrc")
                     startActivity(
-                        Intent(context, OptionEditActivity::class.java)
-                            .putExtra(OptionEditActivity.EXTRA_PATH, file.absolutePath)
+                        Intent(context, ConfigEditActivity::class.java)
+                            .putExtra(ConfigEditActivity.EXTRA_PATH, file.absolutePath)
                     )
                     true
                 }
@@ -135,8 +135,8 @@ class SettingsActivity : AppCompatActivity() {
                 setOnPreferenceClickListener {
                     val path = "${context.filesDir.path}/nethackdir/wizkit"
                     startActivity(
-                        Intent(context, OptionEditActivity::class.java)
-                            .putExtra(OptionEditActivity.EXTRA_PATH, path)
+                        Intent(context, ConfigEditActivity::class.java)
+                            .putExtra(ConfigEditActivity.EXTRA_PATH, path)
                     )
                     true
                 }

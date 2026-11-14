@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/option_edit_save"
-        android:title="@string/option_menu_save"
+        android:id="@+id/config_edit_save"
+        android:title="@string/config_menu_save"
         app:showAsAction="never" />
     <item
-        android:id="@+id/option_edit_import"
-        android:title="@string/option_menu_import"
+        android:id="@+id/config_edit_import"
+        android:title="@string/config_menu_import"
         app:showAsAction="never" />
     <item
-        android:id="@+id/option_edit_export"
-        android:title="@string/option_menu_export"
+        android:id="@+id/config_edit_export"
+        android:title="@string/config_menu_export"
         app:showAsAction="never" />
 </menu>

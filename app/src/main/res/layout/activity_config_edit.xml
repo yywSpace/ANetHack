@@ -6,12 +6,12 @@
     android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/option_edit_toolbar"
+        android:id="@+id/config_edit_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/app_background"
         app:titleTextColor="@color/app_text"
-        app:title="@string/option_edit_title"/>
+        app:title="@string/config_edit_title"/>
 
     <ScrollView
         android:layout_weight="1"
@@ -23,7 +23,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp">
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/option_edit_text"
+            android:id="@+id/config_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"

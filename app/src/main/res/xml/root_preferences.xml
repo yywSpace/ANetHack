@@ -130,6 +130,41 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:title="@string/pref_dump_header"
+        app:iconSpaceReserved="false">
+        <Preference
+            app:key="dumpLog"
+            app:title="@string/pref_log_dump"
+            app:summary="@string/pref_log_dump_summery"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
+            app:key="clearDumpLog"
+            app:title="@string/pref_log_clear"
+            app:iconSpaceReserved="false"
+            app:summary="@string/pref_log_clear_desc"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/pref_config_header"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            app:key="configEdit"
+            app:title="@string/pref_config_edit"
+            app:useSimpleSummaryProvider="false"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
+            app:key="wizardKit"
+            app:title="@string/pref_config_wizard_kit"
+            app:useSimpleSummaryProvider="false"
+            app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="@string/pref_sound_header"
         app:iconSpaceReserved="false">
 
@@ -146,41 +181,6 @@
             app:iconSpaceReserved="false"
             app:defaultValue="true"
             app:summary="@string/pref_sound_internal_summery"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        app:title="@string/pref_option_header"
-        app:iconSpaceReserved="false">
-
-        <Preference
-            app:key="optionEdit"
-            app:title="@string/pref_option_edit"
-            app:useSimpleSummaryProvider="false"
-            app:iconSpaceReserved="false"/>
-
-        <Preference
-            app:key="wizardKit"
-            app:title="@string/pref_option_wizard_kit"
-            app:useSimpleSummaryProvider="false"
-            app:iconSpaceReserved="false"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        app:title="@string/pref_dump_header"
-        app:iconSpaceReserved="false">
-        <Preference
-            app:key="dumpLog"
-            app:title="@string/pref_log_dump"
-            app:summary="@string/pref_log_dump_summery"
-            app:iconSpaceReserved="false"/>
-
-        <Preference
-            app:key="clearDumpLog"
-            app:title="@string/pref_log_clear"
-            app:iconSpaceReserved="false"
-            app:summary="@string/pref_log_clear_desc"/>
 
     </PreferenceCategory>
 

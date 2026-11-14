@@ -24,17 +24,17 @@
 
     <string name="settings_title">Settings</string>
     <string name="activity_settings_title">SettingsActivity</string>
-    <string name="activity_option_edit_title">OptionEditActivity</string>
-    <string name="option_menu_save">Save</string>
-    <string name="option_menu_import">Import</string>
-    <string name="option_menu_export">Export</string>
-    <string name="option_imported">Options imported from the selected file</string>
-    <string name="option_exported">Options exported to the selected file</string>
-    <string name="option_import_failed">Import failed: could not read the file</string>
-    <string name="option_export_failed">Export failed: could not write the selected file</string>
-    <string name="option_edit_title">Option</string>
-    <string name="option_save_dialog_title">Save option?</string>
-    <string name="option_save_dialog_msg">Do you want to save the option file? Changes will take effect in the next game.</string>
+    <string name="activity_config_edit_title">Config</string>
+    <string name="config_menu_save">Save</string>
+    <string name="config_menu_import">Import</string>
+    <string name="config_menu_export">Export</string>
+    <string name="config_imported">Config imported from the selected file</string>
+    <string name="config_exported">Config exported to the selected file</string>
+    <string name="config_import_failed">Import failed: could not read the file</string>
+    <string name="config_export_failed">Export failed: could not write the selected file</string>
+    <string name="config_edit_title">Config</string>
+    <string name="config_save_dialog_title">Save config?</string>
+    <string name="config_save_dialog_msg">Do you want to save the config file? Changes will take effect in the next game.</string>
 
     <!-- Price identification -->
     <string name="pride_id_title">Price Identification</string>
@@ -100,9 +100,9 @@
     <string name="pref_sound_internal_summery">Play internal sound that NetHack provided.</string>
 
     <!-- Preference Config -->
-    <string name="pref_option_header">Config</string>
-    <string name="pref_option_edit">Edit config file</string>
-    <string name="pref_option_wizard_kit">Edit wizard kit</string>
+    <string name="pref_config_header">Config</string>
+    <string name="pref_config_edit">Edit config file</string>
+    <string name="pref_config_wizard_kit">Edit wizard kit</string>
 
     <!-- Preference PriceID -->
     <string name="pref_price_id_enable">Price identification</string>

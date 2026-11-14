@@ -16,13 +16,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColorInt
 import com.yywspace.anethack.R
-import com.yywspace.anethack.databinding.ActivityOptionEditBinding
+import com.yywspace.anethack.databinding.ActivityConfigEditBinding
 import com.yywspace.anethack.theme.AppTheme
 import java.io.File
 
 
-class OptionEditActivity: AppCompatActivity() {
-    private lateinit var binding:ActivityOptionEditBinding
+class ConfigEditActivity: AppCompatActivity() {
+    private lateinit var binding:ActivityConfigEditBinding
 
     /** 当前编辑的文件；调用方必须通过 EXTRA_PATH 传入 */
     private val editFile: File by lazy {
@@ -49,7 +49,7 @@ class OptionEditActivity: AppCompatActivity() {
             finish()
             return
         }
-        binding = ActivityOptionEditBinding.inflate(layoutInflater)
+        binding = ActivityConfigEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initView()
         initStatusBar()
@@ -64,20 +64,20 @@ class OptionEditActivity: AppCompatActivity() {
                 confirmExit()
                 return true
             }
-            R.id.option_edit_save -> {
+            R.id.config_edit_save -> {
                 saveConfirm()
             }
-            R.id.option_edit_import -> openDocument.launch(
+            R.id.config_edit_import -> openDocument.launch(
                 arrayOf("text/plain", "application/octet-stream", "*/*")
             )
-            R.id.option_edit_export -> createDocument.launch(editFile.name)
+            R.id.config_edit_export -> createDocument.launch(editFile.name)
         }
         return super.onOptionsItemSelected(item)
     }
 
     /** 有未保存的修改时，返回前先问一句 */
     private fun confirmExit() {
-        if (binding.optionEditText.text.toString() == initialText) {
+        if (binding.configEditText.text.toString() == initialText) {
             finish()
             return
         }
@@ -85,7 +85,7 @@ class OptionEditActivity: AppCompatActivity() {
             .setTitle(R.string.unsaved_changes)
             .setMessage(R.string.unsaved_changes_message)
             .setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                saveOptionFile(binding.optionEditText.text.toString())
+                saveOptionFile(binding.configEditText.text.toString())
                 finish()
             }
             .setNegativeButton(R.string.unsaved_changes_discard) { _, _ -> finish() }
@@ -95,10 +95,10 @@ class OptionEditActivity: AppCompatActivity() {
 
     private fun saveConfirm() {
         AlertDialog.Builder(this).apply {
-            setTitle(R.string.option_save_dialog_title)
-            setMessage(R.string.option_save_dialog_msg)
+            setTitle(R.string.config_save_dialog_title)
+            setMessage(R.string.config_save_dialog_msg)
             setPositiveButton(R.string.dialog_confirm) { _,_ ->
-                saveOptionFile(binding.optionEditText.text.toString())
+                saveOptionFile(binding.configEditText.text.toString())
             }
             setNegativeButton(R.string.dialog_cancel) { _,_ ->
 
@@ -113,10 +113,10 @@ class OptionEditActivity: AppCompatActivity() {
     private fun exportTo(uri: android.net.Uri) {
         runCatching {
             contentResolver.openOutputStream(uri)?.use { out ->
-                out.write(binding.optionEditText.text.toString().toByteArray())
+                out.write(binding.configEditText.text.toString().toByteArray())
             }
-        }.onSuccess { toast(R.string.option_exported) }
-            .onFailure { toast(R.string.option_export_failed) }
+        }.onSuccess { toast(R.string.config_exported) }
+            .onFailure { toast(R.string.config_export_failed) }
     }
 
     /** 导入：用文件内容替换编辑框，保留撤销前的内容作为"已保存"基准 */
@@ -125,28 +125,28 @@ class OptionEditActivity: AppCompatActivity() {
             contentResolver.openInputStream(uri)?.bufferedReader()?.use { it.readText() }
         }.getOrNull()
         if (text == null) {
-            toast(R.string.option_import_failed)
+            toast(R.string.config_import_failed)
             return
         }
-        binding.optionEditText.setText(text)
-        processText(binding.optionEditText.editableText)
-        toast(R.string.option_imported)
+        binding.configEditText.setText(text)
+        processText(binding.configEditText.editableText)
+        toast(R.string.config_imported)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.option_edit_menu, menu)
+        menuInflater.inflate(R.menu.config_edit_menu, menu)
         return true
     }
 
     private fun initStatusBar() = AppTheme.applyNormalSystemBars(this)
 
     private fun initView() {
-        val toolbar = findViewById<Toolbar>(R.id.option_edit_toolbar)
+        val toolbar = findViewById<Toolbar>(R.id.config_edit_toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = editFile.name
 
-        binding.optionEditText.apply {
+        binding.configEditText.apply {
             val text = readOptionText()
             initialText = text
             setText(text)
@@ -169,7 +169,7 @@ class OptionEditActivity: AppCompatActivity() {
                             startIdx + 1, endIdx + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE )
                     } else {
                         editableText.setSpan(
-                            ForegroundColorSpan(ContextCompat.getColor(this@OptionEditActivity, R.color.app_text)),
+                            ForegroundColorSpan(ContextCompat.getColor(this@ConfigEditActivity, R.color.app_text)),
                             startIdx + 1, endIdx + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE )
                     }
                 }
