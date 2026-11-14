@@ -11,10 +11,8 @@ import com.yywspace.anethack.entity.NHColor
 data class Monster(
     /** 屏幕符号 */
     val symbol: String = "",
-    /** 显示颜色（仅用于展示，取色请用 [colorCode]） */
+    /** 显示颜色，使用 NetHack 的 CLR_* 名称 */
     val color: String = "",
-    /** 颜色索引，对应 [NHColor] 的 ordinal（同 NetHack color.h 的 CLR_* 编号） */
-    val colorCode: Int = NHColor.NO_COLOR.ordinal,
     /** 怪物名；多形态怪物带后缀，如 "werejackal (human)" / "werejackal (animal)" */
     val name: String,
     val difficulty: Int = 0,
@@ -40,4 +38,9 @@ data class Monster(
     val resistancesConveyed: List<String> = emptyList(),
     /** 属性标识，如 nohands / animal / hostile */
     val attributes: List<String> = emptyList()
-)
+) {
+    /** 把数据里的 CLR_* 名称映射成当前主题下的实际颜色 */
+    val colorValue: Int
+        get() = runCatching { NHColor.valueOf(color).toColor() }
+            .getOrDefault(NHColor.NO_COLOR.toColor())
+}

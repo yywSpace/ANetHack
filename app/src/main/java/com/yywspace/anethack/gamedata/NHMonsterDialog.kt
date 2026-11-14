@@ -219,7 +219,7 @@ class NHMonsterDialog(
         header.addView(TextView(context).apply {
             text = monster.symbol
             textSize = 30f
-            setTextColor(NHColor.fromInt(monster.colorCode).toColor())
+            setTextColor(monster.colorValue)
             setPadding(0, 0, dp(12), 0)
         })
         val titles = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }

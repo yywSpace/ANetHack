@@ -1,8 +1,7 @@
 [
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "abbot",
     "difficulty": 8,
     "attacks": [
@@ -37,8 +36,7 @@
   },
   {
     "symbol": "b",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "acid blob",
     "difficulty": 2,
     "attacks": [
@@ -80,8 +78,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "acolyte",
     "difficulty": 8,
     "attacks": [
@@ -115,8 +112,7 @@
   },
   {
     "symbol": "E",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "air elemental",
     "difficulty": 10,
     "attacks": [
@@ -153,8 +149,7 @@
   },
   {
     "symbol": "A",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "Aleax",
     "difficulty": 12,
     "attacks": [
@@ -193,8 +188,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "aligned cleric",
     "difficulty": 15,
     "attacks": [
@@ -231,8 +225,7 @@
   },
   {
     "symbol": "&",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "amorous demon",
     "difficulty": 8,
     "attacks": [
@@ -271,8 +264,7 @@
   },
   {
     "symbol": "A",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "Angel",
     "difficulty": 19,
     "attacks": [
@@ -315,8 +307,7 @@
   },
   {
     "symbol": "Y",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "ape",
     "difficulty": 6,
     "attacks": [
@@ -348,8 +339,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "apprentice",
     "difficulty": 8,
     "attacks": [
@@ -384,8 +374,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "Arch Priest",
     "difficulty": 30,
     "attacks": [
@@ -429,8 +418,7 @@
   },
   {
     "symbol": "L",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "arch-lich",
     "difficulty": 29,
     "attacks": [
@@ -473,8 +461,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "archeologist",
     "difficulty": 12,
     "attacks": [
@@ -509,8 +496,7 @@
   },
   {
     "symbol": "A",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Archon",
     "difficulty": 26,
     "attacks": [
@@ -558,8 +544,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Ashikaga Takauji",
     "difficulty": 19,
     "attacks": [
@@ -600,8 +585,7 @@
   },
   {
     "symbol": "&",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Asmodeus",
     "difficulty": 53,
     "attacks": [
@@ -645,8 +629,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "attendant",
     "difficulty": 7,
     "attacks": [
@@ -681,8 +664,7 @@
   },
   {
     "symbol": "&",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Baalzebub",
     "difficulty": 45,
     "attacks": [
@@ -723,8 +705,7 @@
   },
   {
     "symbol": "D",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "baby black dragon",
     "difficulty": 13,
     "attacks": [
@@ -759,8 +740,7 @@
   },
   {
     "symbol": "D",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "baby blue dragon",
     "difficulty": 13,
     "attacks": [
@@ -795,8 +775,7 @@
   },
   {
     "symbol": ":",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "baby crocodile",
     "difficulty": 4,
     "attacks": [
@@ -827,8 +806,7 @@
   },
   {
     "symbol": "D",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "baby gold dragon",
     "difficulty": 13,
     "attacks": [
@@ -862,8 +840,7 @@
   },
   {
     "symbol": "D",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "baby gray dragon",
     "difficulty": 13,
     "attacks": [
@@ -896,8 +873,7 @@
   },
   {
     "symbol": "D",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "baby green dragon",
     "difficulty": 13,
     "attacks": [
@@ -933,8 +909,7 @@
   },
   {
     "symbol": "w",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "baby long worm",
     "difficulty": 6,
     "attacks": [
@@ -965,8 +940,7 @@
   },
   {
     "symbol": "D",
-    "color": "orange",
-    "colorCode": 9,
+    "color": "CLR_ORANGE",
     "name": "baby orange dragon",
     "difficulty": 13,
     "attacks": [
@@ -1001,8 +975,7 @@
   },
   {
     "symbol": "w",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "baby purple worm",
     "difficulty": 9,
     "attacks": [
@@ -1032,8 +1005,7 @@
   },
   {
     "symbol": "D",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "baby red dragon",
     "difficulty": 13,
     "attacks": [
@@ -1069,8 +1041,7 @@
   },
   {
     "symbol": "D",
-    "color": "bright cyan",
-    "colorCode": 14,
+    "color": "CLR_BRIGHT_CYAN",
     "name": "baby silver dragon",
     "attacks": [
       "Bite 2d6 physical"
@@ -1102,8 +1073,7 @@
   },
   {
     "symbol": "D",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "baby white dragon",
     "difficulty": 13,
     "attacks": [
@@ -1138,8 +1108,7 @@
   },
   {
     "symbol": "D",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "baby yellow dragon",
     "difficulty": 13,
     "attacks": [
@@ -1176,8 +1145,7 @@
   },
   {
     "symbol": "&",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "balrog",
     "difficulty": 20,
     "attacks": [
@@ -1217,8 +1185,7 @@
   },
   {
     "symbol": "q",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "baluchitherium",
     "difficulty": 15,
     "attacks": [
@@ -1251,8 +1218,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "barbarian",
     "difficulty": 12,
     "attacks": [
@@ -1287,8 +1253,7 @@
   },
   {
     "symbol": "&",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "barbed devil",
     "difficulty": 11,
     "attacks": [
@@ -1326,8 +1291,7 @@
   },
   {
     "symbol": "W",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "barrow wight",
     "difficulty": 8,
     "attacks": [
@@ -1365,8 +1329,7 @@
   },
   {
     "symbol": "B",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "bat",
     "difficulty": 2,
     "attacks": [
@@ -1397,8 +1360,7 @@
   },
   {
     "symbol": "D",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "black dragon",
     "difficulty": 20,
     "attacks": [
@@ -1442,8 +1404,7 @@
   },
   {
     "symbol": "y",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "black light",
     "difficulty": 7,
     "attacks": [
@@ -1489,8 +1450,7 @@
   },
   {
     "symbol": "N",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "black naga",
     "difficulty": 10,
     "attacks": [
@@ -1532,8 +1492,7 @@
   },
   {
     "symbol": "N",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "black naga hatchling",
     "difficulty": 4,
     "attacks": [
@@ -1571,8 +1530,7 @@
   },
   {
     "symbol": "P",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "black pudding",
     "difficulty": 12,
     "attacks": [
@@ -1618,8 +1576,7 @@
   },
   {
     "symbol": "u",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "black unicorn",
     "difficulty": 6,
     "attacks": [
@@ -1655,8 +1612,7 @@
   },
   {
     "symbol": "D",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "blue dragon",
     "difficulty": 20,
     "attacks": [
@@ -1700,8 +1656,7 @@
   },
   {
     "symbol": "j",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "blue jelly",
     "difficulty": 5,
     "attacks": [
@@ -1741,8 +1696,7 @@
   },
   {
     "symbol": "&",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "bone devil",
     "difficulty": 13,
     "attacks": [
@@ -1779,8 +1733,7 @@
   },
   {
     "symbol": "F",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "brown mold",
     "difficulty": 2,
     "attacks": [
@@ -1819,8 +1772,7 @@
   },
   {
     "symbol": "P",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "brown pudding",
     "difficulty": 6,
     "attacks": [
@@ -1865,8 +1817,7 @@
   },
   {
     "symbol": "h",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "bugbear",
     "difficulty": 5,
     "attacks": [
@@ -1897,8 +1848,7 @@
   },
   {
     "symbol": "@",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "captain",
     "difficulty": 14,
     "attacks": [
@@ -1934,8 +1884,7 @@
   },
   {
     "symbol": "Y",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "carnivorous ape",
     "difficulty": 8,
     "attacks": [
@@ -1968,8 +1917,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "cave dweller",
     "difficulty": 12,
     "attacks": [
@@ -2001,8 +1949,7 @@
   },
   {
     "symbol": "s",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "cave spider",
     "difficulty": 3,
     "attacks": [
@@ -2037,8 +1984,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "caveman",
     "difficulty": 12,
     "attacks": [
@@ -2070,8 +2016,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "cavewoman",
     "difficulty": 12,
     "attacks": [
@@ -2103,8 +2048,7 @@
   },
   {
     "symbol": "s",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "centipede",
     "difficulty": 4,
     "attacks": [
@@ -2139,8 +2083,7 @@
   },
   {
     "symbol": "d",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "Cerberus",
     "difficulty": 14,
     "attacks": [
@@ -2179,8 +2122,7 @@
   },
   {
     "symbol": ":",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "chameleon",
     "difficulty": 7,
     "attacks": [
@@ -2210,8 +2152,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "Charon",
     "difficulty": 38,
     "attacks": [
@@ -2252,8 +2193,7 @@
   },
   {
     "symbol": "c",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "chickatrice",
     "difficulty": 7,
     "attacks": [
@@ -2291,8 +2231,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "chieftain",
     "difficulty": 7,
     "attacks": [
@@ -2327,8 +2266,7 @@
   },
   {
     "symbol": "D",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Chromatic Dragon",
     "difficulty": 23,
     "attacks": [
@@ -2392,8 +2330,7 @@
   },
   {
     "symbol": "'",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "clay golem",
     "difficulty": 12,
     "attacks": [
@@ -2427,8 +2364,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "cleric",
     "difficulty": 12,
     "attacks": [
@@ -2461,8 +2397,7 @@
   },
   {
     "symbol": "S",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "cobra",
     "difficulty": 10,
     "attacks": [
@@ -2502,8 +2437,7 @@
   },
   {
     "symbol": "c",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "cockatrice",
     "difficulty": 8,
     "attacks": [
@@ -2542,8 +2476,7 @@
   },
   {
     "symbol": "A",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "couatl",
     "difficulty": 11,
     "attacks": [
@@ -2581,8 +2514,7 @@
   },
   {
     "symbol": "d",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "coyote",
     "difficulty": 2,
     "attacks": [
@@ -2612,8 +2544,7 @@
   },
   {
     "symbol": ":",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "crocodile",
     "difficulty": 7,
     "attacks": [
@@ -2648,8 +2579,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Croesus",
     "difficulty": 22,
     "attacks": [
@@ -2690,8 +2620,7 @@
   },
   {
     "symbol": "H",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "Cyclops",
     "difficulty": 23,
     "attacks": [
@@ -2734,8 +2663,7 @@
   },
   {
     "symbol": "@",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "Dark One",
     "difficulty": 20,
     "attacks": [
@@ -2776,8 +2704,7 @@
   },
   {
     "symbol": "&",
-    "color": "bright magenta",
-    "colorCode": 13,
+    "color": "CLR_BRIGHT_MAGENTA",
     "name": "Death",
     "difficulty": 34,
     "attacks": [
@@ -2822,8 +2749,7 @@
   },
   {
     "symbol": "L",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "demilich",
     "difficulty": 18,
     "attacks": [
@@ -2863,8 +2789,7 @@
   },
   {
     "symbol": "&",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Demogorgon",
     "difficulty": 57,
     "attacks": [
@@ -2908,8 +2833,7 @@
   },
   {
     "symbol": "d",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "dingo",
     "difficulty": 5,
     "attacks": [
@@ -2939,8 +2863,7 @@
   },
   {
     "symbol": "R",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "disenchanter",
     "difficulty": 14,
     "attacks": [
@@ -2970,8 +2893,7 @@
   },
   {
     "symbol": "&",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Dispater",
     "difficulty": 40,
     "attacks": [
@@ -3014,8 +2936,7 @@
   },
   {
     "symbol": "f",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "displacer beast",
     "difficulty": 14,
     "attacks": [
@@ -3049,8 +2970,7 @@
   },
   {
     "symbol": "&",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "djinni",
     "difficulty": 8,
     "attacks": [
@@ -3085,8 +3005,7 @@
   },
   {
     "symbol": "d",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "dog",
     "difficulty": 5,
     "attacks": [
@@ -3116,8 +3035,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "doppelganger",
     "difficulty": 11,
     "attacks": [
@@ -3152,8 +3070,7 @@
   },
   {
     "symbol": "v",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "dust vortex",
     "difficulty": 6,
     "attacks": [
@@ -3190,8 +3107,7 @@
   },
   {
     "symbol": "h",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "dwarf",
     "difficulty": 4,
     "attacks": [
@@ -3227,8 +3143,7 @@
   },
   {
     "symbol": "h",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "dwarf king",
     "difficulty": 8,
     "attacks": [
@@ -3266,8 +3181,7 @@
   },
   {
     "symbol": "h",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "dwarf lady",
     "difficulty": 6,
     "attacks": [
@@ -3305,8 +3219,7 @@
   },
   {
     "symbol": "h",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "dwarf leader",
     "difficulty": 6,
     "attacks": [
@@ -3344,8 +3257,7 @@
   },
   {
     "symbol": "h",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "dwarf lord",
     "difficulty": 6,
     "attacks": [
@@ -3383,8 +3295,7 @@
   },
   {
     "symbol": "M",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "dwarf mummy",
     "difficulty": 6,
     "attacks": [
@@ -3423,8 +3334,7 @@
   },
   {
     "symbol": "h",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "dwarf queen",
     "difficulty": 8,
     "attacks": [
@@ -3462,8 +3372,7 @@
   },
   {
     "symbol": "h",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "dwarf ruler",
     "difficulty": 8,
     "attacks": [
@@ -3501,8 +3410,7 @@
   },
   {
     "symbol": "Z",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "dwarf zombie",
     "difficulty": 3,
     "attacks": [
@@ -3540,8 +3448,7 @@
   },
   {
     "symbol": "E",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "earth elemental",
     "difficulty": 10,
     "attacks": [
@@ -3580,8 +3487,7 @@
   },
   {
     "symbol": ";",
-    "color": "bright blue",
-    "colorCode": 12,
+    "color": "CLR_BRIGHT_BLUE",
     "name": "electric eel",
     "difficulty": 10,
     "attacks": [
@@ -3621,8 +3527,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "elf",
     "difficulty": 1,
     "attacks": [
@@ -3659,8 +3564,7 @@
   },
   {
     "symbol": "M",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "elf mummy",
     "difficulty": 7,
     "attacks": [
@@ -3697,8 +3601,7 @@
   },
   {
     "symbol": "Z",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "elf zombie",
     "difficulty": 4,
     "attacks": [
@@ -3735,8 +3638,7 @@
   },
   {
     "symbol": "@",
-    "color": "bright blue",
-    "colorCode": 12,
+    "color": "CLR_BRIGHT_BLUE",
     "name": "elf-lady",
     "difficulty": 11,
     "attacks": [
@@ -3775,8 +3677,7 @@
   },
   {
     "symbol": "@",
-    "color": "bright blue",
-    "colorCode": 12,
+    "color": "CLR_BRIGHT_BLUE",
     "name": "elf-lord",
     "difficulty": 11,
     "attacks": [
@@ -3815,8 +3716,7 @@
   },
   {
     "symbol": "@",
-    "color": "bright blue",
-    "colorCode": 12,
+    "color": "CLR_BRIGHT_BLUE",
     "name": "elf-noble",
     "difficulty": 11,
     "attacks": [
@@ -3855,8 +3755,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "elven monarch",
     "difficulty": 11,
     "attacks": [
@@ -3895,8 +3794,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Elvenking",
     "difficulty": 11,
     "attacks": [
@@ -3935,8 +3833,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Elvenqueen",
     "difficulty": 11,
     "attacks": [
@@ -3975,8 +3872,7 @@
   },
   {
     "symbol": "v",
-    "color": "bright blue",
-    "colorCode": 12,
+    "color": "CLR_BRIGHT_BLUE",
     "name": "energy vortex",
     "difficulty": 9,
     "attacks": [
@@ -4018,8 +3914,7 @@
   },
   {
     "symbol": "&",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "erinys",
     "difficulty": 10,
     "attacks": [
@@ -4058,8 +3953,7 @@
   },
   {
     "symbol": "H",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "ettin",
     "difficulty": 13,
     "attacks": [
@@ -4094,8 +3988,7 @@
   },
   {
     "symbol": "M",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "ettin mummy",
     "difficulty": 8,
     "attacks": [
@@ -4133,8 +4026,7 @@
   },
   {
     "symbol": "Z",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "ettin zombie",
     "difficulty": 7,
     "attacks": [
@@ -4172,8 +4064,7 @@
   },
   {
     "symbol": "&",
-    "color": "bright magenta",
-    "colorCode": 13,
+    "color": "CLR_BRIGHT_MAGENTA",
     "name": "Famine",
     "difficulty": 34,
     "attacks": [
@@ -4218,8 +4109,7 @@
   },
   {
     "symbol": "a",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "fire ant",
     "difficulty": 6,
     "attacks": [
@@ -4255,8 +4145,7 @@
   },
   {
     "symbol": "E",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "fire elemental",
     "difficulty": 10,
     "attacks": [
@@ -4297,8 +4186,7 @@
   },
   {
     "symbol": "H",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "fire giant",
     "difficulty": 11,
     "attacks": [
@@ -4337,8 +4225,7 @@
   },
   {
     "symbol": "v",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "fire vortex",
     "difficulty": 10,
     "attacks": [
@@ -4379,8 +4266,7 @@
   },
   {
     "symbol": "e",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "flaming sphere",
     "difficulty": 9,
     "attacks": [
@@ -4418,8 +4304,7 @@
   },
   {
     "symbol": "'",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "flesh golem",
     "difficulty": 10,
     "attacks": [
@@ -4462,8 +4347,7 @@
   },
   {
     "symbol": "e",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "floating eye",
     "difficulty": 3,
     "attacks": [
@@ -4496,8 +4380,7 @@
   },
   {
     "symbol": "v",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "fog cloud",
     "difficulty": 4,
     "attacks": [
@@ -4536,8 +4419,7 @@
   },
   {
     "symbol": "C",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "forest centaur",
     "difficulty": 8,
     "attacks": [
@@ -4569,8 +4451,7 @@
   },
   {
     "symbol": "d",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "fox",
     "difficulty": 1,
     "attacks": [
@@ -4600,8 +4481,7 @@
   },
   {
     "symbol": "e",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "freezing sphere",
     "difficulty": 9,
     "attacks": [
@@ -4639,8 +4519,7 @@
   },
   {
     "symbol": "H",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "frost giant",
     "difficulty": 13,
     "attacks": [
@@ -4679,8 +4558,7 @@
   },
   {
     "symbol": "g",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "gargoyle",
     "difficulty": 8,
     "attacks": [
@@ -4716,8 +4594,7 @@
   },
   {
     "symbol": "S",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "garter snake",
     "difficulty": 3,
     "attacks": [
@@ -4750,8 +4627,7 @@
   },
   {
     "symbol": "e",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "gas spore",
     "difficulty": 2,
     "attacks": [
@@ -4783,8 +4659,7 @@
   },
   {
     "symbol": ":",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "gecko",
     "difficulty": 2,
     "attacks": [
@@ -4813,8 +4688,7 @@
   },
   {
     "symbol": "b",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "gelatinous cube",
     "difficulty": 8,
     "attacks": [
@@ -4862,8 +4736,7 @@
   },
   {
     "symbol": "Q",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "genetic engineer",
     "difficulty": 14,
     "attacks": [
@@ -4897,8 +4770,7 @@
   },
   {
     "symbol": "&",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Geryon",
     "difficulty": 36,
     "attacks": [
@@ -4941,8 +4813,7 @@
   },
   {
     "symbol": " ",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "ghost",
     "difficulty": 12,
     "attacks": [
@@ -4983,8 +4854,7 @@
   },
   {
     "symbol": "Z",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "ghoul",
     "difficulty": 5,
     "attacks": [
@@ -5023,8 +4893,7 @@
   },
   {
     "symbol": "H",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "giant",
     "difficulty": 8,
     "attacks": [
@@ -5059,8 +4928,7 @@
   },
   {
     "symbol": "a",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "giant ant",
     "difficulty": 4,
     "attacks": [
@@ -5090,8 +4958,7 @@
   },
   {
     "symbol": "B",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "giant bat",
     "difficulty": 3,
     "attacks": [
@@ -5123,8 +4990,7 @@
   },
   {
     "symbol": "a",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "giant beetle",
     "difficulty": 6,
     "attacks": [
@@ -5158,8 +5024,7 @@
   },
   {
     "symbol": ";",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "giant eel",
     "difficulty": 7,
     "attacks": [
@@ -5195,8 +5060,7 @@
   },
   {
     "symbol": "m",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "giant mimic",
     "difficulty": 11,
     "attacks": [
@@ -5235,8 +5099,7 @@
   },
   {
     "symbol": "M",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "giant mummy",
     "difficulty": 10,
     "attacks": [
@@ -5276,8 +5139,7 @@
   },
   {
     "symbol": "r",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "giant rat",
     "difficulty": 2,
     "attacks": [
@@ -5307,8 +5169,7 @@
   },
   {
     "symbol": "s",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "giant spider",
     "difficulty": 7,
     "attacks": [
@@ -5344,8 +5205,7 @@
   },
   {
     "symbol": "Z",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "giant zombie",
     "difficulty": 9,
     "attacks": [
@@ -5384,8 +5244,7 @@
   },
   {
     "symbol": "'",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "glass golem",
     "difficulty": 18,
     "attacks": [
@@ -5421,8 +5280,7 @@
   },
   {
     "symbol": "p",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "glass piercer",
     "difficulty": 9,
     "attacks": [
@@ -5456,8 +5314,7 @@
   },
   {
     "symbol": "G",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "gnome",
     "difficulty": 3,
     "attacks": [
@@ -5488,8 +5345,7 @@
   },
   {
     "symbol": "G",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "gnome king",
     "difficulty": 6,
     "attacks": [
@@ -5521,8 +5377,7 @@
   },
   {
     "symbol": "G",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "gnome lady",
     "difficulty": 4,
     "attacks": [
@@ -5554,8 +5409,7 @@
   },
   {
     "symbol": "G",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "gnome leader",
     "difficulty": 4,
     "attacks": [
@@ -5587,8 +5441,7 @@
   },
   {
     "symbol": "G",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "gnome lord",
     "difficulty": 4,
     "attacks": [
@@ -5620,8 +5473,7 @@
   },
   {
     "symbol": "M",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "gnome mummy",
     "difficulty": 5,
     "attacks": [
@@ -5658,8 +5510,7 @@
   },
   {
     "symbol": "G",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "gnome queen",
     "difficulty": 6,
     "attacks": [
@@ -5691,8 +5542,7 @@
   },
   {
     "symbol": "G",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "gnome ruler",
     "difficulty": 6,
     "attacks": [
@@ -5724,8 +5574,7 @@
   },
   {
     "symbol": "Z",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "gnome zombie",
     "difficulty": 2,
     "attacks": [
@@ -5763,8 +5612,7 @@
   },
   {
     "symbol": "G",
-    "color": "bright blue",
-    "colorCode": 12,
+    "color": "CLR_BRIGHT_BLUE",
     "name": "gnomish wizard",
     "difficulty": 5,
     "attacks": [
@@ -5795,8 +5643,7 @@
   },
   {
     "symbol": "o",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "goblin",
     "difficulty": 1,
     "attacks": [
@@ -5827,8 +5674,7 @@
   },
   {
     "symbol": "D",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "gold dragon",
     "difficulty": 20,
     "attacks": [
@@ -5871,8 +5717,7 @@
   },
   {
     "symbol": "'",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "gold golem",
     "difficulty": 6,
     "attacks": [
@@ -5908,8 +5753,7 @@
   },
   {
     "symbol": "N",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "golden naga",
     "difficulty": 13,
     "attacks": [
@@ -5946,8 +5790,7 @@
   },
   {
     "symbol": "N",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "golden naga hatchling",
     "difficulty": 4,
     "attacks": [
@@ -5982,8 +5825,7 @@
   },
   {
     "symbol": "@",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "Grand Master",
     "difficulty": 30,
     "attacks": [
@@ -6027,8 +5869,7 @@
   },
   {
     "symbol": "D",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "gray dragon",
     "difficulty": 20,
     "attacks": [
@@ -6068,8 +5909,7 @@
   },
   {
     "symbol": "P",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "gray ooze",
     "difficulty": 4,
     "attacks": [
@@ -6114,8 +5954,7 @@
   },
   {
     "symbol": "u",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "gray unicorn",
     "difficulty": 6,
     "attacks": [
@@ -6151,8 +5990,7 @@
   },
   {
     "symbol": "D",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "green dragon",
     "difficulty": 20,
     "attacks": [
@@ -6197,8 +6035,7 @@
   },
   {
     "symbol": "F",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "green mold",
     "difficulty": 2,
     "attacks": [
@@ -6238,8 +6075,7 @@
   },
   {
     "symbol": "P",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "green slime",
     "difficulty": 8,
     "attacks": [
@@ -6285,8 +6121,7 @@
   },
   {
     "symbol": "@",
-    "color": "bright green",
-    "colorCode": 10,
+    "color": "CLR_BRIGHT_GREEN",
     "name": "Green-elf",
     "difficulty": 7,
     "attacks": [
@@ -6322,8 +6157,7 @@
   },
   {
     "symbol": "g",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "gremlin",
     "difficulty": 8,
     "attacks": [
@@ -6360,8 +6194,7 @@
   },
   {
     "symbol": "@",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "Grey-elf",
     "difficulty": 8,
     "attacks": [
@@ -6397,8 +6230,7 @@
   },
   {
     "symbol": "x",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "grid bug",
     "difficulty": 1,
     "attacks": [
@@ -6430,8 +6262,7 @@
   },
   {
     "symbol": "@",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "guard",
     "difficulty": 14,
     "attacks": [
@@ -6465,8 +6296,7 @@
   },
   {
     "symbol": "N",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "guardian naga",
     "difficulty": 17,
     "attacks": [
@@ -6506,8 +6336,7 @@
   },
   {
     "symbol": "N",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "guardian naga hatchling",
     "difficulty": 4,
     "attacks": [
@@ -6542,8 +6371,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "guide",
     "difficulty": 8,
     "attacks": [
@@ -6578,8 +6406,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "healer",
     "difficulty": 12,
     "attacks": [
@@ -6613,8 +6440,7 @@
   },
   {
     "symbol": "d",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "hell hound",
     "difficulty": 14,
     "attacks": [
@@ -6650,8 +6476,7 @@
   },
   {
     "symbol": "d",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "hell hound pup",
     "difficulty": 9,
     "attacks": [
@@ -6686,8 +6511,7 @@
   },
   {
     "symbol": "&",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "hezrou",
     "difficulty": 12,
     "attacks": [
@@ -6725,8 +6549,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "high cleric",
     "difficulty": 30,
     "attacks": [
@@ -6769,8 +6592,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "high priest",
     "difficulty": 30,
     "attacks": [
@@ -6813,8 +6635,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "high priestess",
     "difficulty": 30,
     "attacks": [
@@ -6857,8 +6678,7 @@
   },
   {
     "symbol": "H",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "hill giant",
     "difficulty": 10,
     "attacks": [
@@ -6893,8 +6713,7 @@
   },
   {
     "symbol": "o",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "hill orc",
     "difficulty": 4,
     "attacks": [
@@ -6930,8 +6749,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Hippocrates",
     "difficulty": 26,
     "attacks": [
@@ -6970,8 +6788,7 @@
   },
   {
     "symbol": "h",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "hobbit",
     "difficulty": 2,
     "attacks": [
@@ -7001,8 +6818,7 @@
   },
   {
     "symbol": "o",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "hobgoblin",
     "difficulty": 3,
     "attacks": [
@@ -7034,8 +6850,7 @@
   },
   {
     "symbol": "i",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "homunculus",
     "difficulty": 3,
     "attacks": [
@@ -7071,8 +6886,7 @@
   },
   {
     "symbol": "&",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "horned devil",
     "difficulty": 9,
     "attacks": [
@@ -7111,8 +6925,7 @@
   },
   {
     "symbol": "u",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "horse",
     "difficulty": 7,
     "attacks": [
@@ -7145,8 +6958,7 @@
   },
   {
     "symbol": "f",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "housecat",
     "difficulty": 5,
     "attacks": [
@@ -7177,8 +6989,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "human",
     "difficulty": 2,
     "attacks": [
@@ -7210,8 +7021,7 @@
   },
   {
     "symbol": "M",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "human mummy",
     "difficulty": 7,
     "attacks": [
@@ -7248,8 +7058,7 @@
   },
   {
     "symbol": "Z",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "human zombie",
     "difficulty": 5,
     "attacks": [
@@ -7285,8 +7094,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "hunter",
     "difficulty": 7,
     "attacks": [
@@ -7321,8 +7129,7 @@
   },
   {
     "symbol": "&",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "ice devil",
     "difficulty": 15,
     "attacks": [
@@ -7363,8 +7170,7 @@
   },
   {
     "symbol": "T",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "ice troll",
     "difficulty": 12,
     "attacks": [
@@ -7403,8 +7209,7 @@
   },
   {
     "symbol": "v",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "ice vortex",
     "difficulty": 7,
     "attacks": [
@@ -7443,8 +7248,7 @@
   },
   {
     "symbol": ":",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "iguana",
     "difficulty": 3,
     "attacks": [
@@ -7473,8 +7277,7 @@
   },
   {
     "symbol": "i",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "imp",
     "difficulty": 4,
     "attacks": [
@@ -7504,8 +7307,7 @@
   },
   {
     "symbol": "&",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "incubus",
     "difficulty": 8,
     "attacks": [
@@ -7544,8 +7346,7 @@
   },
   {
     "symbol": "'",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "iron golem",
     "difficulty": 22,
     "attacks": [
@@ -7585,8 +7386,7 @@
   },
   {
     "symbol": "p",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "iron piercer",
     "difficulty": 6,
     "attacks": [
@@ -7618,8 +7418,7 @@
   },
   {
     "symbol": "D",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "Ixoth",
     "difficulty": 22,
     "attacks": [
@@ -7668,8 +7467,7 @@
   },
   {
     "symbol": "J",
-    "color": "orange",
-    "colorCode": 9,
+    "color": "CLR_ORANGE",
     "name": "jabberwock",
     "difficulty": 18,
     "attacks": [
@@ -7705,8 +7503,7 @@
   },
   {
     "symbol": "d",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "jackal",
     "difficulty": 1,
     "attacks": [
@@ -7736,8 +7533,7 @@
   },
   {
     "symbol": "f",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "jaguar",
     "difficulty": 6,
     "attacks": [
@@ -7770,8 +7566,7 @@
   },
   {
     "symbol": ";",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "jellyfish",
     "difficulty": 5,
     "attacks": [
@@ -7807,8 +7602,7 @@
   },
   {
     "symbol": "&",
-    "color": "bright green",
-    "colorCode": 10,
+    "color": "CLR_BRIGHT_GREEN",
     "name": "Juiblex",
     "difficulty": 26,
     "attacks": [
@@ -7854,8 +7648,7 @@
   },
   {
     "symbol": "K",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "Keystone Kop",
     "difficulty": 3,
     "attacks": [
@@ -7887,8 +7680,7 @@
   },
   {
     "symbol": "A",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "ki-rin",
     "difficulty": 21,
     "attacks": [
@@ -7928,8 +7720,7 @@
   },
   {
     "symbol": "a",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "killer bee",
     "difficulty": 6,
     "attacks": [
@@ -7964,8 +7755,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "King Arthur",
     "difficulty": 24,
     "attacks": [
@@ -8001,8 +7791,7 @@
   },
   {
     "symbol": "f",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "kitten",
     "difficulty": 3,
     "attacks": [
@@ -8034,8 +7823,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "knight",
     "difficulty": 12,
     "attacks": [
@@ -8068,8 +7856,7 @@
   },
   {
     "symbol": "k",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "kobold",
     "difficulty": 1,
     "attacks": [
@@ -8103,8 +7890,7 @@
   },
   {
     "symbol": "k",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "kobold lady",
     "difficulty": 3,
     "attacks": [
@@ -8139,8 +7925,7 @@
   },
   {
     "symbol": "k",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "kobold leader",
     "difficulty": 3,
     "attacks": [
@@ -8175,8 +7960,7 @@
   },
   {
     "symbol": "k",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "kobold lord",
     "difficulty": 3,
     "attacks": [
@@ -8211,8 +7995,7 @@
   },
   {
     "symbol": "M",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "kobold mummy",
     "difficulty": 4,
     "attacks": [
@@ -8248,8 +8031,7 @@
   },
   {
     "symbol": "k",
-    "color": "bright blue",
-    "colorCode": 12,
+    "color": "CLR_BRIGHT_BLUE",
     "name": "kobold shaman",
     "difficulty": 4,
     "attacks": [
@@ -8283,8 +8065,7 @@
   },
   {
     "symbol": "Z",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "kobold zombie",
     "difficulty": 1,
     "attacks": [
@@ -8321,8 +8102,7 @@
   },
   {
     "symbol": "K",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Kop Kaptain",
     "difficulty": 6,
     "attacks": [
@@ -8355,8 +8135,7 @@
   },
   {
     "symbol": "K",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "Kop Lieutenant",
     "difficulty": 5,
     "attacks": [
@@ -8389,8 +8168,7 @@
   },
   {
     "symbol": "K",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "Kop Sergeant",
     "difficulty": 4,
     "attacks": [
@@ -8423,8 +8201,7 @@
   },
   {
     "symbol": ";",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "kraken",
     "difficulty": 22,
     "attacks": [
@@ -8461,8 +8238,7 @@
   },
   {
     "symbol": "f",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "large cat",
     "difficulty": 7,
     "attacks": [
@@ -8494,8 +8270,7 @@
   },
   {
     "symbol": "d",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "large dog",
     "difficulty": 7,
     "attacks": [
@@ -8526,8 +8301,7 @@
   },
   {
     "symbol": "k",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "large kobold",
     "difficulty": 2,
     "attacks": [
@@ -8561,8 +8335,7 @@
   },
   {
     "symbol": "m",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "large mimic",
     "difficulty": 9,
     "attacks": [
@@ -8600,8 +8373,7 @@
   },
   {
     "symbol": "'",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "leather golem",
     "difficulty": 7,
     "attacks": [
@@ -8635,8 +8407,7 @@
   },
   {
     "symbol": "i",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "lemure",
     "difficulty": 5,
     "attacks": [
@@ -8674,8 +8445,7 @@
   },
   {
     "symbol": "q",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "leocrotta",
     "difficulty": 8,
     "attacks": [
@@ -8708,8 +8478,7 @@
   },
   {
     "symbol": "l",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "leprechaun",
     "difficulty": 4,
     "attacks": [
@@ -8739,8 +8508,7 @@
   },
   {
     "symbol": "L",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "lich",
     "difficulty": 14,
     "attacks": [
@@ -8780,8 +8548,7 @@
   },
   {
     "symbol": "F",
-    "color": "bright green",
-    "colorCode": 10,
+    "color": "CLR_BRIGHT_GREEN",
     "name": "lichen",
     "difficulty": 1,
     "attacks": [
@@ -8814,8 +8581,7 @@
   },
   {
     "symbol": "@",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "lieutenant",
     "difficulty": 12,
     "attacks": [
@@ -8851,8 +8617,7 @@
   },
   {
     "symbol": "d",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "little dog",
     "difficulty": 3,
     "attacks": [
@@ -8882,8 +8647,7 @@
   },
   {
     "symbol": ":",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "lizard",
     "difficulty": 6,
     "attacks": [
@@ -8916,8 +8680,7 @@
   },
   {
     "symbol": "w",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "long worm",
     "difficulty": 10,
     "attacks": [
@@ -8951,8 +8714,7 @@
   },
   {
     "symbol": "~",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "long worm tail",
     "difficulty": 1,
     "attacks": [],
@@ -8975,8 +8737,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Lord Carnarvon",
     "difficulty": 24,
     "attacks": [
@@ -9014,8 +8775,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Lord Sato",
     "difficulty": 24,
     "attacks": [
@@ -9051,8 +8811,7 @@
   },
   {
     "symbol": "H",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Lord Surtur",
     "difficulty": 19,
     "attacks": [
@@ -9098,8 +8857,7 @@
   },
   {
     "symbol": "t",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "lurker above",
     "difficulty": 12,
     "attacks": [
@@ -9135,8 +8893,7 @@
   },
   {
     "symbol": "f",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "lynx",
     "difficulty": 7,
     "attacks": [
@@ -9169,8 +8926,7 @@
   },
   {
     "symbol": "&",
-    "color": "bright blue",
-    "colorCode": 12,
+    "color": "CLR_BRIGHT_BLUE",
     "name": "mail daemon",
     "difficulty": 26,
     "attacks": [],
@@ -9211,8 +8967,7 @@
   },
   {
     "symbol": "i",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "manes",
     "difficulty": 3,
     "attacks": [
@@ -9247,8 +9002,7 @@
   },
   {
     "symbol": "&",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "marilith",
     "difficulty": 11,
     "attacks": [
@@ -9293,8 +9047,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Master Assassin",
     "difficulty": 20,
     "attacks": [
@@ -9335,8 +9088,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Master Kaen",
     "difficulty": 31,
     "attacks": [
@@ -9382,8 +9134,7 @@
   },
   {
     "symbol": "L",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "master lich",
     "difficulty": 21,
     "attacks": [
@@ -9425,8 +9176,7 @@
   },
   {
     "symbol": "h",
-    "color": "bright magenta",
-    "colorCode": 13,
+    "color": "CLR_BRIGHT_MAGENTA",
     "name": "master mind flayer",
     "difficulty": 19,
     "attacks": [
@@ -9467,8 +9217,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Master of Thieves",
     "difficulty": 24,
     "attacks": [
@@ -9509,8 +9258,7 @@
   },
   {
     "symbol": "q",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "mastodon",
     "difficulty": 22,
     "attacks": [
@@ -9543,8 +9291,7 @@
   },
   {
     "symbol": "@",
-    "color": "bright green",
-    "colorCode": 10,
+    "color": "CLR_BRIGHT_GREEN",
     "name": "Medusa",
     "difficulty": 25,
     "attacks": [
@@ -9589,8 +9336,7 @@
   },
   {
     "symbol": "h",
-    "color": "bright magenta",
-    "colorCode": 13,
+    "color": "CLR_BRIGHT_MAGENTA",
     "name": "mind flayer",
     "difficulty": 13,
     "attacks": [
@@ -9629,8 +9375,7 @@
   },
   {
     "symbol": "&",
-    "color": "orange",
-    "colorCode": 9,
+    "color": "CLR_ORANGE",
     "name": "Minion of Huhetotl",
     "difficulty": 23,
     "attacks": [
@@ -9674,8 +9419,7 @@
   },
   {
     "symbol": "H",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "minotaur",
     "difficulty": 17,
     "attacks": [
@@ -9710,8 +9454,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "monk",
     "difficulty": 11,
     "attacks": [
@@ -9744,8 +9487,7 @@
   },
   {
     "symbol": "Y",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "monkey",
     "difficulty": 4,
     "attacks": [
@@ -9775,8 +9517,7 @@
   },
   {
     "symbol": "o",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "Mordor orc",
     "difficulty": 5,
     "attacks": [
@@ -9812,8 +9553,7 @@
   },
   {
     "symbol": "C",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "mountain centaur",
     "difficulty": 9,
     "attacks": [
@@ -9846,8 +9586,7 @@
   },
   {
     "symbol": "n",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "mountain nymph",
     "difficulty": 5,
     "attacks": [
@@ -9879,8 +9618,7 @@
   },
   {
     "symbol": "q",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "mumak",
     "difficulty": 7,
     "attacks": [
@@ -9913,8 +9651,7 @@
   },
   {
     "symbol": "&",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "nalfeshnee",
     "difficulty": 15,
     "attacks": [
@@ -9953,8 +9690,7 @@
   },
   {
     "symbol": "&",
-    "color": "orange",
-    "colorCode": 9,
+    "color": "CLR_ORANGE",
     "name": "Nalzok",
     "difficulty": 23,
     "attacks": [
@@ -9999,8 +9735,7 @@
   },
   {
     "symbol": "W",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Nazgul",
     "difficulty": 17,
     "attacks": [
@@ -10040,8 +9775,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "neanderthal",
     "difficulty": 7,
     "attacks": [
@@ -10074,8 +9808,7 @@
   },
   {
     "symbol": "@",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "Neferet the Green",
     "difficulty": 25,
     "attacks": [
@@ -10112,8 +9845,7 @@
   },
   {
     "symbol": ":",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "newt",
     "difficulty": 1,
     "attacks": [
@@ -10144,8 +9876,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "ninja",
     "difficulty": 7,
     "attacks": [
@@ -10179,8 +9910,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Norn",
     "difficulty": 24,
     "attacks": [
@@ -10218,8 +9948,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "nurse",
     "difficulty": 13,
     "attacks": [
@@ -10254,8 +9983,7 @@
   },
   {
     "symbol": "j",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "ochre jelly",
     "difficulty": 8,
     "attacks": [
@@ -10297,8 +10025,7 @@
   },
   {
     "symbol": "O",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "ogre",
     "difficulty": 7,
     "attacks": [
@@ -10331,8 +10058,7 @@
   },
   {
     "symbol": "O",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "ogre king",
     "difficulty": 11,
     "attacks": [
@@ -10366,8 +10092,7 @@
   },
   {
     "symbol": "O",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "ogre lady",
     "difficulty": 9,
     "attacks": [
@@ -10401,8 +10126,7 @@
   },
   {
     "symbol": "O",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "ogre leader",
     "difficulty": 9,
     "attacks": [
@@ -10436,8 +10160,7 @@
   },
   {
     "symbol": "O",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "ogre lord",
     "difficulty": 9,
     "attacks": [
@@ -10471,8 +10194,7 @@
   },
   {
     "symbol": "O",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "ogre queen",
     "difficulty": 11,
     "attacks": [
@@ -10506,8 +10228,7 @@
   },
   {
     "symbol": "O",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "ogre tyrant",
     "difficulty": 11,
     "attacks": [
@@ -10541,8 +10262,7 @@
   },
   {
     "symbol": "T",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Olog-hai",
     "difficulty": 16,
     "attacks": [
@@ -10578,8 +10298,7 @@
   },
   {
     "symbol": "@",
-    "color": "bright blue",
-    "colorCode": 12,
+    "color": "CLR_BRIGHT_BLUE",
     "name": "Oracle",
     "difficulty": 13,
     "attacks": [
@@ -10611,8 +10330,7 @@
   },
   {
     "symbol": "D",
-    "color": "orange",
-    "colorCode": 9,
+    "color": "CLR_ORANGE",
     "name": "orange dragon",
     "difficulty": 20,
     "attacks": [
@@ -10656,8 +10374,7 @@
   },
   {
     "symbol": "o",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "orc",
     "difficulty": 3,
     "attacks": [
@@ -10694,8 +10411,7 @@
   },
   {
     "symbol": "M",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "orc mummy",
     "difficulty": 6,
     "attacks": [
@@ -10735,8 +10451,7 @@
   },
   {
     "symbol": "o",
-    "color": "bright blue",
-    "colorCode": 12,
+    "color": "CLR_BRIGHT_BLUE",
     "name": "orc shaman",
     "difficulty": 5,
     "attacks": [
@@ -10771,8 +10486,7 @@
   },
   {
     "symbol": "Z",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "orc zombie",
     "difficulty": 3,
     "attacks": [
@@ -10810,8 +10524,7 @@
   },
   {
     "symbol": "o",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "orc-captain",
     "difficulty": 7,
     "attacks": [
@@ -10848,8 +10561,7 @@
   },
   {
     "symbol": "&",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Orcus",
     "difficulty": 36,
     "attacks": [
@@ -10894,8 +10606,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Orion",
     "difficulty": 24,
     "attacks": [
@@ -10935,8 +10646,7 @@
   },
   {
     "symbol": "Y",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "owlbear",
     "difficulty": 7,
     "attacks": [
@@ -10970,8 +10680,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "page",
     "difficulty": 7,
     "attacks": [
@@ -11005,8 +10714,7 @@
   },
   {
     "symbol": "f",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "panther",
     "difficulty": 7,
     "attacks": [
@@ -11039,8 +10747,7 @@
   },
   {
     "symbol": "'",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "paper golem",
     "difficulty": 4,
     "attacks": [
@@ -11074,8 +10781,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Pelias",
     "difficulty": 24,
     "attacks": [
@@ -11113,8 +10819,7 @@
   },
   {
     "symbol": "&",
-    "color": "bright magenta",
-    "colorCode": 13,
+    "color": "CLR_BRIGHT_MAGENTA",
     "name": "Pestilence",
     "difficulty": 34,
     "attacks": [
@@ -11159,8 +10864,7 @@
   },
   {
     "symbol": ";",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "piranha",
     "difficulty": 7,
     "attacks": [
@@ -11194,8 +10898,7 @@
   },
   {
     "symbol": "&",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "pit fiend",
     "difficulty": 16,
     "attacks": [
@@ -11234,8 +10937,7 @@
   },
   {
     "symbol": "S",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "pit viper",
     "difficulty": 9,
     "attacks": [
@@ -11276,8 +10978,7 @@
   },
   {
     "symbol": "C",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "plains centaur",
     "difficulty": 6,
     "attacks": [
@@ -11309,8 +11010,7 @@
   },
   {
     "symbol": "u",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "pony",
     "difficulty": 4,
     "attacks": [
@@ -11343,8 +11043,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "priest",
     "difficulty": 15,
     "attacks": [
@@ -11381,8 +11080,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "priestess",
     "difficulty": 15,
     "attacks": [
@@ -11419,8 +11117,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "prisoner",
     "difficulty": 14,
     "attacks": [
@@ -11453,8 +11150,7 @@
   },
   {
     "symbol": "w",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "purple worm",
     "difficulty": 17,
     "attacks": [
@@ -11488,8 +11184,7 @@
   },
   {
     "symbol": "c",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "pyrolisk",
     "difficulty": 8,
     "attacks": [
@@ -11527,8 +11222,7 @@
   },
   {
     "symbol": "S",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "python",
     "difficulty": 8,
     "attacks": [
@@ -11566,8 +11260,7 @@
   },
   {
     "symbol": "Q",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "quantum mechanic",
     "difficulty": 9,
     "attacks": [
@@ -11600,8 +11293,7 @@
   },
   {
     "symbol": "i",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "quasit",
     "difficulty": 7,
     "attacks": [
@@ -11636,8 +11328,7 @@
   },
   {
     "symbol": "a",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "queen bee",
     "difficulty": 12,
     "attacks": [
@@ -11674,8 +11365,7 @@
   },
   {
     "symbol": "b",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "quivering blob",
     "difficulty": 6,
     "attacks": [
@@ -11712,8 +11402,7 @@
   },
   {
     "symbol": "r",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "rabid rat",
     "difficulty": 4,
     "attacks": [
@@ -11746,8 +11435,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "ranger",
     "difficulty": 12,
     "attacks": [
@@ -11779,8 +11467,7 @@
   },
   {
     "symbol": "B",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "raven",
     "difficulty": 6,
     "attacks": [
@@ -11814,8 +11501,7 @@
   },
   {
     "symbol": "D",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "red dragon",
     "difficulty": 20,
     "attacks": [
@@ -11861,8 +11547,7 @@
   },
   {
     "symbol": "F",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "red mold",
     "difficulty": 2,
     "attacks": [
@@ -11902,8 +11587,7 @@
   },
   {
     "symbol": "N",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "red naga",
     "difficulty": 8,
     "attacks": [
@@ -11943,8 +11627,7 @@
   },
   {
     "symbol": "N",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "red naga hatchling",
     "difficulty": 4,
     "attacks": [
@@ -11981,8 +11664,7 @@
   },
   {
     "symbol": "r",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "rock mole",
     "difficulty": 4,
     "attacks": [
@@ -12016,8 +11698,7 @@
   },
   {
     "symbol": "p",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "rock piercer",
     "difficulty": 4,
     "attacks": [
@@ -12049,8 +11730,7 @@
   },
   {
     "symbol": "T",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "rock troll",
     "difficulty": 12,
     "attacks": [
@@ -12086,8 +11766,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "rogue",
     "difficulty": 12,
     "attacks": [
@@ -12122,8 +11801,7 @@
   },
   {
     "symbol": "'",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "rope golem",
     "difficulty": 6,
     "attacks": [
@@ -12158,8 +11836,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "roshi",
     "difficulty": 7,
     "attacks": [
@@ -12193,8 +11870,7 @@
   },
   {
     "symbol": "q",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "rothe",
     "difficulty": 4,
     "attacks": [
@@ -12226,8 +11902,7 @@
   },
   {
     "symbol": "R",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "rust monster",
     "difficulty": 8,
     "attacks": [
@@ -12260,8 +11935,7 @@
   },
   {
     "symbol": ":",
-    "color": "orange",
-    "colorCode": 9,
+    "color": "CLR_ORANGE",
     "name": "salamander",
     "difficulty": 12,
     "attacks": [
@@ -12303,8 +11977,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "samurai",
     "difficulty": 12,
     "attacks": [
@@ -12337,8 +12010,7 @@
   },
   {
     "symbol": "&",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "sandestin",
     "difficulty": 15,
     "attacks": [
@@ -12373,8 +12045,7 @@
   },
   {
     "symbol": "Y",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "sasquatch",
     "difficulty": 9,
     "attacks": [
@@ -12407,8 +12078,7 @@
   },
   {
     "symbol": "s",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "scorpion",
     "difficulty": 8,
     "attacks": [
@@ -12446,8 +12116,7 @@
   },
   {
     "symbol": "s",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Scorpius",
     "difficulty": 17,
     "attacks": [
@@ -12492,8 +12161,7 @@
   },
   {
     "symbol": "@",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "sergeant",
     "difficulty": 10,
     "attacks": [
@@ -12528,8 +12196,7 @@
   },
   {
     "symbol": "r",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "sewer rat",
     "difficulty": 1,
     "attacks": [
@@ -12559,8 +12226,7 @@
   },
   {
     "symbol": " ",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "shade",
     "difficulty": 14,
     "attacks": [
@@ -12605,8 +12271,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Shaman Karnov",
     "difficulty": 24,
     "attacks": [
@@ -12642,8 +12307,7 @@
   },
   {
     "symbol": ";",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "shark",
     "difficulty": 9,
     "attacks": [
@@ -12677,8 +12341,7 @@
   },
   {
     "symbol": "e",
-    "color": "bright blue",
-    "colorCode": 12,
+    "color": "CLR_BRIGHT_BLUE",
     "name": "shocking sphere",
     "difficulty": 10,
     "attacks": [
@@ -12716,8 +12379,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "shopkeeper",
     "difficulty": 15,
     "attacks": [
@@ -12752,8 +12414,7 @@
   },
   {
     "symbol": "F",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "shrieker",
     "difficulty": 2,
     "attacks": [],
@@ -12788,8 +12449,7 @@
   },
   {
     "symbol": "D",
-    "color": "bright cyan",
-    "colorCode": 14,
+    "color": "CLR_BRIGHT_CYAN",
     "name": "silver dragon",
     "attacks": [
       "Breath 4d6 cold",
@@ -12830,8 +12490,7 @@
   },
   {
     "symbol": "Z",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "skeleton",
     "difficulty": 14,
     "attacks": [
@@ -12873,8 +12532,7 @@
   },
   {
     "symbol": "m",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "small mimic",
     "difficulty": 8,
     "attacks": [
@@ -12911,8 +12569,7 @@
   },
   {
     "symbol": "S",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "snake",
     "difficulty": 6,
     "attacks": [
@@ -12951,8 +12608,7 @@
   },
   {
     "symbol": "@",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "soldier",
     "difficulty": 8,
     "attacks": [
@@ -12987,8 +12643,7 @@
   },
   {
     "symbol": "a",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "soldier ant",
     "difficulty": 7,
     "attacks": [
@@ -13024,8 +12679,7 @@
   },
   {
     "symbol": "j",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "spotted jelly",
     "difficulty": 6,
     "attacks": [
@@ -13066,8 +12720,7 @@
   },
   {
     "symbol": "E",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "stalker",
     "difficulty": 9,
     "attacks": [
@@ -13100,8 +12753,7 @@
   },
   {
     "symbol": "v",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "steam vortex",
     "difficulty": 9,
     "attacks": [
@@ -13141,8 +12793,7 @@
   },
   {
     "symbol": "H",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "stone giant",
     "difficulty": 8,
     "attacks": [
@@ -13177,8 +12828,7 @@
   },
   {
     "symbol": "'",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "stone golem",
     "difficulty": 15,
     "attacks": [
@@ -13213,8 +12863,7 @@
   },
   {
     "symbol": "H",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "storm giant",
     "difficulty": 19,
     "attacks": [
@@ -13253,8 +12902,7 @@
   },
   {
     "symbol": "'",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "straw golem",
     "difficulty": 4,
     "attacks": [
@@ -13289,8 +12937,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "student",
     "difficulty": 7,
     "attacks": [
@@ -13325,8 +12972,7 @@
   },
   {
     "symbol": "&",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "succubus",
     "difficulty": 8,
     "attacks": [
@@ -13365,8 +13011,7 @@
   },
   {
     "symbol": "i",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "tengu",
     "difficulty": 7,
     "attacks": [
@@ -13400,8 +13045,7 @@
   },
   {
     "symbol": "@",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Thoth Amon",
     "difficulty": 22,
     "attacks": [
@@ -13444,8 +13088,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "thug",
     "difficulty": 7,
     "attacks": [
@@ -13480,8 +13123,7 @@
   },
   {
     "symbol": "f",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "tiger",
     "difficulty": 8,
     "attacks": [
@@ -13514,8 +13156,7 @@
   },
   {
     "symbol": "H",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "titan",
     "difficulty": 20,
     "attacks": [
@@ -13551,8 +13192,7 @@
   },
   {
     "symbol": "q",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "titanothere",
     "difficulty": 13,
     "attacks": [
@@ -13584,8 +13224,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "tourist",
     "difficulty": 12,
     "attacks": [
@@ -13618,8 +13257,7 @@
   },
   {
     "symbol": "t",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "trapper",
     "difficulty": 14,
     "attacks": [
@@ -13654,8 +13292,7 @@
   },
   {
     "symbol": "T",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "troll",
     "difficulty": 9,
     "attacks": [
@@ -13690,8 +13327,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "Twoflower",
     "difficulty": 22,
     "attacks": [
@@ -13726,8 +13362,7 @@
   },
   {
     "symbol": "U",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "umber hulk",
     "difficulty": 12,
     "attacks": [
@@ -13759,8 +13394,7 @@
   },
   {
     "symbol": "o",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "Uruk-hai",
     "difficulty": 5,
     "attacks": [
@@ -13796,8 +13430,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "valkyrie",
     "difficulty": 12,
     "attacks": [
@@ -13833,8 +13466,7 @@
   },
   {
     "symbol": "V",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "vampire",
     "difficulty": 12,
     "attacks": [
@@ -13874,8 +13506,7 @@
   },
   {
     "symbol": "B",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "vampire bat",
     "difficulty": 7,
     "attacks": [
@@ -13912,8 +13543,7 @@
   },
   {
     "symbol": "V",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "vampire lady",
     "difficulty": 14,
     "attacks": [
@@ -13954,8 +13584,7 @@
   },
   {
     "symbol": "V",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "vampire leader",
     "difficulty": 14,
     "attacks": [
@@ -13996,8 +13625,7 @@
   },
   {
     "symbol": "V",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "vampire lord",
     "difficulty": 14,
     "attacks": [
@@ -14038,8 +13666,7 @@
   },
   {
     "symbol": "F",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "violet fungus",
     "difficulty": 5,
     "attacks": [
@@ -14077,8 +13704,7 @@
   },
   {
     "symbol": "V",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Vlad the Impaler",
     "difficulty": 32,
     "attacks": [
@@ -14121,8 +13747,7 @@
   },
   {
     "symbol": "&",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "vrock",
     "difficulty": 11,
     "attacks": [
@@ -14161,8 +13786,7 @@
   },
   {
     "symbol": "d",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "warg",
     "difficulty": 8,
     "attacks": [
@@ -14192,8 +13816,7 @@
   },
   {
     "symbol": "u",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "warhorse",
     "difficulty": 9,
     "attacks": [
@@ -14226,8 +13849,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "warrior",
     "difficulty": 7,
     "attacks": [
@@ -14262,8 +13884,7 @@
   },
   {
     "symbol": "@",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "watch captain",
     "difficulty": 12,
     "attacks": [
@@ -14299,8 +13920,7 @@
   },
   {
     "symbol": "@",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "watchman",
     "difficulty": 8,
     "attacks": [
@@ -14335,8 +13955,7 @@
   },
   {
     "symbol": "&",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "water demon",
     "difficulty": 11,
     "attacks": [
@@ -14377,8 +13996,7 @@
   },
   {
     "symbol": "E",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "water elemental",
     "difficulty": 10,
     "attacks": [
@@ -14416,8 +14034,7 @@
   },
   {
     "symbol": "S",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "water moccasin",
     "difficulty": 7,
     "attacks": [
@@ -14456,8 +14073,7 @@
   },
   {
     "symbol": "n",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "water nymph",
     "difficulty": 5,
     "attacks": [
@@ -14490,8 +14106,7 @@
   },
   {
     "symbol": "T",
-    "color": "blue",
-    "colorCode": 4,
+    "color": "CLR_BLUE",
     "name": "water troll",
     "difficulty": 13,
     "attacks": [
@@ -14527,8 +14142,7 @@
   },
   {
     "symbol": "d",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "werejackal (animal)",
     "difficulty": 4,
     "attacks": [
@@ -14563,8 +14177,7 @@
   },
   {
     "symbol": "@",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "werejackal (human)",
     "difficulty": 3,
     "attacks": [
@@ -14601,8 +14214,7 @@
   },
   {
     "symbol": "r",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "wererat (animal)",
     "difficulty": 4,
     "attacks": [
@@ -14637,8 +14249,7 @@
   },
   {
     "symbol": "@",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "wererat (human)",
     "difficulty": 3,
     "attacks": [
@@ -14675,8 +14286,7 @@
   },
   {
     "symbol": "d",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "werewolf (animal)",
     "difficulty": 7,
     "attacks": [
@@ -14711,8 +14321,7 @@
   },
   {
     "symbol": "@",
-    "color": "orange",
-    "colorCode": 9,
+    "color": "CLR_ORANGE",
     "name": "werewolf (human)",
     "difficulty": 6,
     "attacks": [
@@ -14749,8 +14358,7 @@
   },
   {
     "symbol": "D",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "white dragon",
     "difficulty": 20,
     "attacks": [
@@ -14794,8 +14402,7 @@
   },
   {
     "symbol": "u",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "white unicorn",
     "difficulty": 6,
     "attacks": [
@@ -14831,8 +14438,7 @@
   },
   {
     "symbol": "g",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "winged gargoyle",
     "difficulty": 11,
     "attacks": [
@@ -14872,8 +14478,7 @@
   },
   {
     "symbol": "d",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "winter wolf",
     "difficulty": 9,
     "attacks": [
@@ -14908,8 +14513,7 @@
   },
   {
     "symbol": "d",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "winter wolf cub",
     "difficulty": 7,
     "attacks": [
@@ -14943,8 +14547,7 @@
   },
   {
     "symbol": "@",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "wizard",
     "difficulty": 12,
     "attacks": [
@@ -14978,8 +14581,7 @@
   },
   {
     "symbol": "@",
-    "color": "bright magenta",
-    "colorCode": 13,
+    "color": "CLR_BRIGHT_MAGENTA",
     "name": "Wizard of Yendor",
     "difficulty": 34,
     "attacks": [
@@ -15028,8 +14630,7 @@
   },
   {
     "symbol": "d",
-    "color": "gray",
-    "colorCode": 7,
+    "color": "CLR_GRAY",
     "name": "wolf",
     "difficulty": 6,
     "attacks": [
@@ -15059,8 +14660,7 @@
   },
   {
     "symbol": "'",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "wood golem",
     "difficulty": 8,
     "attacks": [
@@ -15095,8 +14695,7 @@
   },
   {
     "symbol": "n",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "wood nymph",
     "difficulty": 5,
     "attacks": [
@@ -15128,8 +14727,7 @@
   },
   {
     "symbol": "r",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "woodchuck",
     "difficulty": 4,
     "attacks": [
@@ -15162,8 +14760,7 @@
   },
   {
     "symbol": "@",
-    "color": "green",
-    "colorCode": 2,
+    "color": "CLR_GREEN",
     "name": "Woodland-elf",
     "difficulty": 6,
     "attacks": [
@@ -15199,8 +14796,7 @@
   },
   {
     "symbol": "W",
-    "color": "black",
-    "colorCode": 0,
+    "color": "CLR_BLACK",
     "name": "wraith",
     "difficulty": 8,
     "attacks": [
@@ -15237,8 +14833,7 @@
   },
   {
     "symbol": "q",
-    "color": "cyan",
-    "colorCode": 6,
+    "color": "CLR_CYAN",
     "name": "wumpus",
     "difficulty": 9,
     "attacks": [
@@ -15269,8 +14864,7 @@
   },
   {
     "symbol": "x",
-    "color": "red",
-    "colorCode": 1,
+    "color": "CLR_RED",
     "name": "xan",
     "difficulty": 9,
     "attacks": [
@@ -15305,8 +14899,7 @@
   },
   {
     "symbol": "X",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "xorn",
     "difficulty": 11,
     "attacks": [
@@ -15346,8 +14939,7 @@
   },
   {
     "symbol": "&",
-    "color": "magenta",
-    "colorCode": 5,
+    "color": "CLR_MAGENTA",
     "name": "Yeenoghu",
     "difficulty": 31,
     "attacks": [
@@ -15391,8 +14983,7 @@
   },
   {
     "symbol": "D",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "yellow dragon",
     "difficulty": 20,
     "attacks": [
@@ -15439,8 +15030,7 @@
   },
   {
     "symbol": "y",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "yellow light",
     "difficulty": 5,
     "attacks": [
@@ -15486,8 +15076,7 @@
   },
   {
     "symbol": "F",
-    "color": "yellow",
-    "colorCode": 11,
+    "color": "CLR_YELLOW",
     "name": "yellow mold",
     "difficulty": 2,
     "attacks": [
@@ -15525,8 +15114,7 @@
   },
   {
     "symbol": "Y",
-    "color": "white",
-    "colorCode": 15,
+    "color": "CLR_WHITE",
     "name": "yeti",
     "difficulty": 7,
     "attacks": [
@@ -15563,8 +15151,7 @@
   },
   {
     "symbol": "z",
-    "color": "brown",
-    "colorCode": 3,
+    "color": "CLR_BROWN",
     "name": "zruty",
     "difficulty": 11,
     "attacks": [

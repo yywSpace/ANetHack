@@ -60,7 +60,7 @@ object MonsterLink {
                     text.setSpan(
                         MonsterNameSpan(
                             match.value,
-                            NHColor.fromInt(monster.colorCode).toColor(),
+                            monster.colorValue,
                             onClick
                         ),
                         lineStart,
