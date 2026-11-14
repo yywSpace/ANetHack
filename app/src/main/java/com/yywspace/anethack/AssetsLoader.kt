@@ -21,7 +21,7 @@ class AssetsLoader(
         const val TAG = "AssetsLoader"
         const val ASSET_ROOT = "nethackdir"
 
-        val USER_DATA_DIRS = setOf("save", "bones", "score", "levels")
+        val USER_DATA_DIRS = setOf("save", "bones", "score", "levels", "dumplog")
     }
 
     /** 当前 app 版本是否需要更新资源 */

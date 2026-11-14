@@ -64,7 +64,7 @@ class SettingsActivity : AppCompatActivity() {
                     DumpLogDialog.show(ctx) { name ->
                         startActivity(
                             Intent(ctx, TextViewerActivity::class.java)
-                                .putExtra(TextViewerActivity.EXTRA_PATH, DumpLog.file(ctx, name).absolutePath)
+                                .putExtra(TextViewerActivity.EXTRA_PATH, DumpLog.file(name).absolutePath)
                         )
                     }
                 }

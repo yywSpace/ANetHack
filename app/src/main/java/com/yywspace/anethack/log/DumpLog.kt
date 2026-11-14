@@ -7,8 +7,7 @@ import java.time.format.DateTimeFormatter
 
 /** dump 日志目录、列表和清理；展示交互留给 DumpLogDialog。 */
 object DumpLog {
-    @Volatile
-    private var directory: File? = null
+    private lateinit var directory: File
 
     data class Entry(
         val file: File,
@@ -18,27 +17,18 @@ object DumpLog {
     )
 
     fun init(context: Context) {
-        directory = File(context.filesDir, "logs/dump").apply {
-            mkdirs()
-            setExecutable(true, true)
-        }
+        directory = File(context.filesDir, "nethackdir/dumplog")
     }
 
-    fun dir(context: Context): File =
-        directory ?: File(context.filesDir, "logs/dump").apply {
-            mkdirs()
-            directory = this
-        }
+    fun file(name: String): File = File(directory, name)
 
-    fun file(context: Context, name: String): File = File(dir(context), name)
+    fun files(): List<File> =
+        directory.listFiles { it.extension == "log" }?.toList().orEmpty()
 
-    fun files(context: Context): List<File> =
-        dir(context).listFiles { it.extension == "log" }?.toList().orEmpty()
-
-    fun list(context: Context): List<Entry> {
+    fun list(): List<Entry> {
         val parser = DateTimeFormatter.ofPattern("yyyyMMddHHmmss")
         val display = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-        return files(context).mapNotNull { file ->
+        return files().mapNotNull { file ->
             // 用户名_开始时间_结束时间
             val parts = file.nameWithoutExtension.split("_")
             if (parts.size < 3) return@mapNotNull null
@@ -54,7 +44,7 @@ object DumpLog {
     }
 
     /** 删除全部 dump 日志，返回删除数量。 */
-    fun clear(context: Context): Int = files(context).count { it.delete() }
+    fun clear(): Int = files().count { it.delete() }
 
     private fun parse(value: String, parser: DateTimeFormatter): LocalDateTime? =
         runCatching { LocalDateTime.parse(value, parser) }.getOrNull()

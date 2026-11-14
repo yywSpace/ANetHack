@@ -13,7 +13,7 @@ import com.yywspace.anethack.log.DumpLog
 object DumpLogDialog {
 
     fun show(context: Context, onOpen: (String) -> Unit) {
-        val logs = DumpLog.list(context)
+        val logs = DumpLog.list()
         if (logs.isEmpty()) {
             Toast.makeText(context, R.string.pref_log_dump_empty, Toast.LENGTH_SHORT).show()
             return
@@ -47,7 +47,7 @@ object DumpLogDialog {
 
     /** 清空全部 dump 日志（带确认和数量提示） */
     fun clear(context: Context) {
-        val count = DumpLog.files(context).size
+        val count = DumpLog.files().size
         if (count == 0) {
             Toast.makeText(context, R.string.pref_log_dump_empty, Toast.LENGTH_SHORT).show()
             return
@@ -56,7 +56,7 @@ object DumpLogDialog {
             .setTitle(R.string.pref_log_clear)
             .setMessage(context.getString(R.string.pref_log_clear_confirm, count))
             .setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                DumpLog.clear(context)
+                DumpLog.clear()
                 Toast.makeText(context, R.string.pref_log_cleared, Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton(R.string.dialog_cancel, null)

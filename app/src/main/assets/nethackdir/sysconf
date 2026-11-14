@@ -20,4 +20,4 @@ SCOREDIR=score
 # the player's belonging, attributes, etc.
 #
 # %D = ending date+time (YYYYMMDDhhmmss), %n = player name.
-DUMPLOGFILE=/data/user/0/com.yywspace.anethack/files/logs/dump/%n_%d_%D.log
+DUMPLOGFILE=dumplog/%n_%d_%D.log
