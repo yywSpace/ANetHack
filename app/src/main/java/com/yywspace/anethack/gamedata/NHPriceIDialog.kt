@@ -1,13 +1,10 @@
-package com.yywspace.anethack.gamedata
+﻿package com.yywspace.anethack.gamedata
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.ListPopupWindow
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,271 +15,165 @@ import com.yywspace.anethack.databinding.DialogPriceIdentifyBinding
 import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.extensions.show
 
+class NHPriceIDialog(val context: Context, val nh: NetHack) {
 
-class NHPriceIDialog (val context: Context, val nh: NetHack){
     private lateinit var typeAdapter: ArrayAdapter<String>
     private lateinit var surchargeAdapter: ArrayAdapter<String>
     private lateinit var idModeAdapter: ArrayAdapter<String>
-    private lateinit var currentType: String
-    private lateinit var currentSurcharge :String
-    private lateinit var currentIdMode :String
-    private val objList :MutableList<Item> = mutableListOf()
-    private lateinit var objListAdapter:NHPriceObjListAdapter
+
+    private var pending: PricePrefill? = null
+
+    private val objListAdapter = NHPriceObjListAdapter()
     private lateinit var binding: DialogPriceIdentifyBinding
-    private val priceID: NHPriceID = NHPriceID(context)
-    private var tradePrice = ""
+    private val priceID = NHPriceID(context)
     private var isShowing = false
-    private var dropdown: ListPopupWindow? = null
-    private var dropdownDismissTime = 0L
-    private var dropdownDismissField: EditText? = null
 
     init {
         initAdapter()
         initView()
     }
 
-
-    /** 交易方向（buy/sell）转成查询模式；认不出来时保持当前模式 */
-    private fun idModeOf(quote:String?):String = when(quote) {
-        context.getString(R.string.price_quote_buy) -> context.getString(R.string.price_id_mode_buy)
-        context.getString(R.string.price_quote_sell) -> context.getString(R.string.price_id_mode_sell)
-        else -> currentIdMode
-    }
-
-    private fun parseTradeInfo(info:String):Boolean {
-        val result = priceID.tradeInfoOf(info) ?: return false
-        tradePrice = result.price ?: tradePrice
-        currentType = result.itemType ?: currentType
-        currentIdMode = idModeOf(result.mode)
-        return true
-    }
-
-
     private fun initAdapter() {
+        val types = priceID.getObjTypes()
         typeAdapter = ArrayAdapter(
             context,
             android.R.layout.simple_list_item_1,
-            priceID.getObjTypes().toTypedArray()
+            types
         )
-        val surchargeData = context.resources.getStringArray(R.array.surcharge_cond_array)
-        surchargeAdapter =
-            ArrayAdapter(context, android.R.layout.simple_list_item_1, surchargeData)
-        val idModeData = context.resources.getStringArray(R.array.pride_id_mode_array)
-        idModeAdapter =
-            ArrayAdapter(context, android.R.layout.simple_list_item_1, idModeData)
-        currentType = if (typeAdapter.isEmpty) "" else typeAdapter.getItem(0) ?: ""
-        currentSurcharge = if (surchargeAdapter.isEmpty) "" else surchargeAdapter.getItem(0) ?: ""
-        currentIdMode = if (idModeAdapter.isEmpty) "" else idModeAdapter.getItem(0) ?: ""
-        objListAdapter = NHPriceObjListAdapter(objList).apply {
-            onItemClick = { item ->
-                nh.itemDialog?.showItem(item.name, item.itemClass)
-            }
+        surchargeAdapter = ArrayAdapter(
+            context,
+            android.R.layout.simple_list_item_1,
+            Surcharge.entries.map { context.getString(it.labelRes) }
+        )
+        idModeAdapter = ArrayAdapter(
+            context,
+            android.R.layout.simple_list_item_1,
+            PriceMode.entries.map { context.getString(it.labelRes) }
+        )
+        objListAdapter.onItemClick = { item ->
+            nh.itemDialog?.showItem(item.name, item.itemClass)
         }
     }
-    private fun initView(){
-        val view = View.inflate(context, R.layout.dialog_price_identify,null)
+
+    private fun initView() {
+        val view = View.inflate(context, R.layout.dialog_price_identify, null)
         binding = DialogPriceIdentifyBinding.bind(view)
-        binding.objTypeInput.setOnClickListener {
-            toggleDropDown(binding.objTypeInput, typeAdapter) { currentType = it }
-        }
-        binding.objTypeLayout.setEndIconOnClickListener { binding.objTypeInput.performClick() }
-        binding.objSurchargeInput.setOnClickListener {
-            toggleDropDown(binding.objSurchargeInput, surchargeAdapter) { currentSurcharge = it }
-        }
-        binding.objSurchargeLayout.setEndIconOnClickListener { binding.objSurchargeInput.performClick() }
-        binding.objIdModInput.setOnClickListener {
-            toggleDropDown(binding.objIdModInput, idModeAdapter) { currentIdMode = it }
-        }
-        binding.objIdModLayout.setEndIconOnClickListener { binding.objIdModInput.performClick() }
-        // 下拉框聚焦只为触发边框高亮，不弹键盘
-        binding.objTypeInput.setShowSoftInputOnFocus(false)
-        binding.objSurchargeInput.setShowSoftInputOnFocus(false)
-        binding.objIdModInput.setShowSoftInputOnFocus(false)
-        // 获得焦点（含弹窗打开时自动聚焦）即展开下拉
-        binding.objTypeInput.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) binding.objTypeInput.post {
-                showDropdown(binding.objTypeInput, typeAdapter) { currentType = it }
-            }
-        }
-        binding.objSurchargeInput.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) binding.objSurchargeInput.post {
-                showDropdown(binding.objSurchargeInput, surchargeAdapter) { currentSurcharge = it }
-            }
-        }
-        binding.objIdModInput.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) binding.objIdModInput.post {
-                showDropdown(binding.objIdModInput, idModeAdapter) { currentIdMode = it }
-            }
-        }
+
+        binding.objTypeInput.setAdapter(typeAdapter)
+        binding.objSurchargeInput.setAdapter(surchargeAdapter)
+        binding.objIdModInput.setAdapter(idModeAdapter)
+
+        binding.objTypeInput.setText(typeAdapter.getItem(0), false)
+        binding.objSurchargeInput.setText(context.getString(Surcharge.NONE.labelRes), false)
+        binding.objIdModInput.setText(context.getString(PriceMode.BASE.labelRes), false)
+
         binding.priceSubmitBtn.setOnClickListener {
             hideSoftKeyboard()
-            clearFilterFocus()
+            binding.objFilterPanel.clearFocus()
             queryObjList()
         }
         binding.objList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = objListAdapter
-            addItemDecoration(
-                DividerItemDecoration(context,DividerItemDecoration.VERTICAL)
-            )
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
 
-    /** 点击切换：列表显示则收起，否则展开 */
-    private fun toggleDropDown(
-        field: EditText,
-        adapter: ArrayAdapter<String>,
-        onSelect: (String) -> Unit
-    ) {
-        if (dropdown?.isShowing == true) {
-            dropdown?.dismiss()
-            return
+    private fun surchargeOf(value: String?): Surcharge? =
+        Surcharge.entries.firstOrNull {
+            context.getString(it.labelRes).equals(value, ignoreCase = true)
         }
-        showDropdown(field, adapter, onSelect)
-    }
 
-    /** 展开下拉（已显示则忽略）：获得焦点或点击时调用 */
-    private fun showDropdown(
-        field: EditText,
-        adapter: ArrayAdapter<String>,
-        onSelect: (String) -> Unit
-    ) {
-        if (dropdown?.isShowing == true)
-            return
-        // 点击输入框会让弹出层先因外部触摸收起，同一次点击不再展开，否则会"收起又弹出"
-        if (System.currentTimeMillis() - dropdownDismissTime < 300 &&
-            dropdownDismissField === field
-        )
-            return
-        // 激活边框高亮（TextInputLayout 的 focused 描边）
-        field.requestFocus()
-        dropdown = ListPopupWindow(context).apply {
-            anchorView = field
-            width = field.width
-            setAdapter(adapter)
-            setOnItemClickListener { _, _, pos, _ ->
-                val value = adapter.getItem(pos) ?: return@setOnItemClickListener
-                onSelect(value)
-                field.setText(value)
-                dismiss()
-            }
-            setOnDismissListener {
-                if (dropdown === this) dropdown = null
-                dropdownDismissTime = System.currentTimeMillis()
-                dropdownDismissField = field
-                field.clearFocus()
-            }
-            show()
+    /** 兼容价格段的本地化文字、界面标签和内部解析键。 */
+    private fun modeOf(value: String?): PriceMode? =
+        PriceMode.entries.firstOrNull {
+            it.quoteKey == value ||
+                it.quoteRes?.let { res ->
+                    context.getString(res).equals(value, ignoreCase = true)
+                } == true ||
+                context.getString(it.labelRes).equals(value, ignoreCase = true)
         }
-    }
 
     private fun hideSoftKeyboard() {
         val imm = getSystemService(context, InputMethodManager::class.java) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
-    /** 移除过滤面板内所有输入框的焦点（下拉框聚焦时边框会高亮，点搜索后应取消） */
-    private fun clearFilterFocus() {
-        fun clearRecursively(view: View) {
-            if (view is EditText) view.clearFocus()
-            if (view is ViewGroup) {
-                for (i in 0 until view.childCount)
-                    clearRecursively(view.getChildAt(i))
-            }
-        }
-        clearRecursively(binding.objFilterPanel)
-    }
-    @SuppressLint("NotifyDataSetChanged")
-    private fun queryObjList(submit:Boolean = true) {
-        objList.clear()
-        val price = binding.objPriceInput.text.toString()
-        val charisma = binding.roleCharismaInput.text.toString()
-        val sucker = binding.objSurchargeInput.text.toString() != context.getString(R.string.price_id_surcharge_none)
-        // 如果非手动查询，且价格为空则空置
-        if (!submit && price.isEmpty())
-            return
-        when(currentIdMode) {
-            context.getString(R.string.price_id_mode_base) -> {
-                objList.addAll(priceID.getObjByBasePrice(currentType, price))
-            }
-            context.getString(R.string.price_id_mode_buy) -> {
-                // 价格可能是范围（如 "2-5"）：交给 NHPriceID 逐个价格查询并去重
-                objList.addAll(
-                    priceID.getObjByBuyPrice(currentType, price.split('-').map { it.trim() }, charisma, sucker)
-                )
-            }
-            context.getString(R.string.price_id_mode_sell) -> {
-                objList.addAll(
-                    priceID.getObjBySellPrice(currentType, price.split('-').map { it.trim() }, sucker)
-                )
-            }
-        }
-        tradePrice = price
-        objListAdapter.notifyDataSetChanged()
+    private fun queryObjList() {
+        val price = binding.objPriceInput.text?.toString().orEmpty()
+        val query = PriceQuery(
+            type = binding.objTypeInput.text?.toString().orEmpty(),
+            mode = modeOf(binding.objIdModInput.text?.toString()) ?: PriceMode.BASE,
+            surcharge = surchargeOf(binding.objSurchargeInput.text?.toString()) ?: Surcharge.NONE,
+            price = price,
+            charisma = binding.roleCharismaInput.text?.toString()?.toIntOrNull() ?: 0
+        )
+        objListAdapter.submitList(priceID.search(query))
     }
 
-    /** 解析价格段（如 "sell 67" / "buy 2-5"），更新交易信息 */
-    private fun parseQuoteInfo(menuItem: NHMenuItem, quote: String) {
-        val parts = quote.split(" ").filter { it.isNotEmpty() }
-        currentIdMode = idModeOf(parts.firstOrNull())
-        currentType = priceID.parseObjType(menuItem.title.value)
-        // 价格可能是范围（如 "2-5"），原样填进去，查询时逐个价格查
-        tradePrice = parts.getOrNull(1)?: tradePrice
-    }
-
-    /** 从菜单点击的价格段打开弹窗并预填（不解析消息覆盖）：
-     *  价格/模式来自 quote，物品类型由菜单项标题判断 */
+    /** 从菜单价格段打开：价格和方向来自 quote，类型来自菜单标题。 */
     fun showFromQuote(menuItem: NHMenuItem, quote: String) {
         if (!nh.prefs.priceId)
-            return // 受设置开关 priceId 控制
-        parseQuoteInfo(menuItem, quote)
+            return
+        val parts = quote.split(" ").filter { it.isNotEmpty() }
+        pending = PricePrefill(
+            type = priceID.parseObjType(menuItem.title.value),
+            mode = modeOf(parts.firstOrNull()),
+            price = parts.getOrNull(1)
+        )
         showPriceIDialog()
     }
 
     fun showFromMessages() {
-        // 手动命令始终可用；设置只控制菜单里的价格链接是否显示
-        // 从最近消息解析交易信息预填
         val messageList = nh.messages.getRecentMessageList(5)
-        for (i in messageList.indices) {
-            if (parseTradeInfo(messageList[i].toString())) break
+        for (message in messageList) {
+            val info = priceID.tradeInfoOf(message.toString()) ?: continue
+            pending = PricePrefill(
+                type = info.itemType,
+                mode = modeOf(info.mode),
+                price = info.price
+            )
+            break
         }
         showPriceIDialog()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun showPriceIDialog() {
         if (isShowing)
             return
         isShowing = true
-        binding.root.apply {
-            if (parent != null) {
-                (parent as ViewGroup).removeView(this)
+
+        pending?.let { prefill ->
+            prefill.type?.takeIf { it.isNotBlank() }?.let {
+                binding.objTypeInput.setText(it, false)
             }
+            prefill.mode?.let {
+                binding.objIdModInput.setText(context.getString(it.labelRes), false)
+            }
+            prefill.price?.let {
+                binding.objPriceInput.setText(it)
+            }
+        }
+        pending = null
+
+        binding.root.apply {
+            if (parent != null)
+                (parent as ViewGroup).removeView(this)
         }
 
         binding.roleCharismaInput.setText(nh.status.charisma.realVal)
-
-        binding.objPriceInput.setText(tradePrice)
-        binding.objSurchargeInput.setText(currentSurcharge)
-        binding.objIdModInput.setText(currentIdMode)
-        binding.objTypeInput.setText(currentType)
 
         val dialog = AlertDialog.Builder(context).apply {
             setView(binding.root)
             setTitle(R.string.pride_id_title)
             setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                objList.clear()
-                objListAdapter.notifyDataSetChanged()
+                objListAdapter.submitList(emptyList())
             }
             setOnDismissListener {
                 isShowing = false
-                // 收起可能还展开着的下拉：ListPopupWindow 持有锚点 View，别让它挂在那儿
-                dropdown?.dismiss()
-                dropdown = null
-                dropdownDismissField = null
             }
         }.create()
-        queryObjList(false)
+        queryObjList()
         dialog.show(nh.prefs.immersiveMode)
     }
 }

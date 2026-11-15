@@ -22,49 +22,6 @@ class NHPriceID(context: Context) {
     private fun itemsOf(type: String): List<Item> =
         items.filter { GameData.itemType(it) == type }.sortedWith(objComparator)
 
-    fun getObjBySellPrice(type: String, price: String, sucker: Boolean): List<Item> {
-        if (price.isEmpty())
-            return emptyList()
-        val skpPrice = price.toIntOrNull() ?: return emptyList()
-        return itemsOf(type).filter { obj ->
-            calcSellPrice(obj.price, false, sucker) == skpPrice ||
-                    calcSellPrice(obj.price, true, sucker) == skpPrice
-        }
-    }
-
-    /** 价格区间（"2-5"），逐个价格查询后合并，按名称+基础价格去重，按基础价格排序 */
-    fun getObjBySellPrice(type: String, prices: List<String>, sucker: Boolean): List<Item> =
-        prices.flatMap { getObjBySellPrice(type, it, sucker) }
-            .distinctBy { it.name to it.price }
-            .sortedWith(objComparator)
-
-    fun getObjByBuyPrice(
-        type: String, price: String, charisma: String, sucker: Boolean
-    ): List<Item> {
-        if (charisma.isEmpty() || price.isEmpty())
-            return emptyList()
-        val ch = charisma.toIntOrNull() ?: return emptyList()
-        val skpPrice = price.toIntOrNull() ?: return emptyList()
-        return itemsOf(type).filter { obj ->
-            calcBuyPrice(obj.price, ch, false, sucker) == skpPrice ||
-                    calcBuyPrice(obj.price, ch, true, sucker) == skpPrice
-        }
-    }
-
-    /** 价格区间（"2-5"），逐个价格查询后合并，按名称+基础价格去重，按基础价格排序 */
-    fun getObjByBuyPrice(
-        type: String, prices: List<String>, charisma: String, sucker: Boolean
-    ): List<Item> =
-        prices.flatMap { getObjByBuyPrice(type, it, charisma, sucker) }
-            .distinctBy { it.name to it.price }
-            .sortedWith(objComparator)
-
-    fun getObjByBasePrice(type: String, basePrice: String): List<Item> =
-        if (basePrice.isEmpty())
-            itemsOf(type)
-        else
-            itemsOf(type).filter { it.price.toString() == basePrice }
-
     /** 从物品描述（如 "a smoky potion"）解析所属类型，解析不出返回空串。 */
     fun parseObjType(objDesc: String): String =
         GameData.itemTypeOf(objDesc) ?: ""
@@ -120,6 +77,40 @@ class NHPriceID(context: Context) {
         }
         return pri.toInt()
     }
+
+    /** 按完整查询条件筛选物品。 */
+    fun search(query: PriceQuery): List<Item> {
+        val range = PriceRange.parse(query.price)
+        val surcharge = query.surcharge != Surcharge.NONE
+        val source = itemsOf(query.type)
+        return when (query.mode) {
+            PriceMode.BASE -> {
+                if (query.price.isBlank())
+                    source
+                else
+                    range?.let { r -> source.filter { it.price in r.from..r.to } } ?: emptyList()
+            }
+            PriceMode.BUY -> {
+                if (range == null || query.charisma <= 0)
+                    return emptyList()
+                source.filter { item ->
+                    inRange(calcBuyPrice(item.price, query.charisma, false, surcharge), range) ||
+                        inRange(calcBuyPrice(item.price, query.charisma, true, surcharge), range)
+                }
+            }
+            PriceMode.SELL -> {
+                if (range == null)
+                    return emptyList()
+                source.filter { item ->
+                    inRange(calcSellPrice(item.price, false, surcharge), range) ||
+                        inRange(calcSellPrice(item.price, true, surcharge), range)
+                }
+            }
+        }
+    }
+
+    private fun inRange(value: Int, range: PriceRange): Boolean =
+        value in range.from..range.to
 
     companion object {
         /** 物品列表顺序：先基础价格，再名称 */
