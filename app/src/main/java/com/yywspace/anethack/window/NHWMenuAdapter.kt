@@ -102,7 +102,7 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
             }
 
             // 先给标题里的物品名加链接，再追加价格段；两者互不重叠
-            if (nhwMenu.itemLinkEnabled)
+            if (nhwMenu.itemLinkEnabled && menuItem.count >= 0)
                 MenuLink.highlightItems(itemView.context, spannable)
 
             if (menuItem.priceQuote.isNotEmpty()) {
