@@ -30,6 +30,7 @@ class NHItemDialog(
     private lateinit var input: TextInputEditText
     private lateinit var scroll: ScrollView
     private lateinit var recycler: RecyclerView
+    private var sourceItems: List<Item>? = null
     private val listAdapter = InfoCardAdapter(
         cardOf = { buildItemCard(it) },
         diffCallback = object : DiffUtil.ItemCallback<Item>() {
@@ -42,6 +43,7 @@ class NHItemDialog(
     fun showItems() {
         if (dialog?.isShowing == true)
             return
+        sourceItems = null
         GameData.ensureLoaded(context)
         val view = buildView()
         dialog = ui.createDialog(R.string.item_lookup_title, view)
@@ -49,18 +51,21 @@ class NHItemDialog(
         renderMatches()
     }
 
-    /** 一组同外观物品：没有搜索栏，把整组都展示出来。 */
+    /** 一组同外观物品：搜索范围只限这一组。 */
     fun showItems(items: List<Item>) {
         if (dialog?.isShowing == true || items.isEmpty())
             return
         GameData.ensureLoaded(context)
+        sourceItems = items
         val scaffold = ui.recyclerScaffold(
             R.string.item_lookup_hint,
             R.string.item_lookup_search
-        ) { }
-        scaffold.search.view.visibility = View.GONE
+        ) {
+            renderMatches()
+        }
         recycler = scaffold.recycler
         recycler.adapter = listAdapter
+        input = scaffold.search.input
         listAdapter.submitList(
             items.sortedWith(compareBy<Item> { it.itemClass }.thenBy { it.name })
         ) {
@@ -110,10 +115,11 @@ class NHItemDialog(
 
     private fun renderMatches() {
         val query = input.text?.toString()?.trim().orEmpty()
+        val source = sourceItems ?: GameData.items
         val matches = if (query.isEmpty()) {
-            GameData.items
+            source
         } else {
-            GameData.items.filter {
+            source.filter {
                 it.name.contains(query, ignoreCase = true) ||
                     it.itemClass.contains(query, ignoreCase = true) ||
                     (it.appearance?.contains(query, ignoreCase = true) == true)
@@ -225,7 +231,4 @@ class NHItemDialog(
         rows: List<List<Pair<Int, String>>>
     ) {
         ui.section(parent, context.getString(titleRes), ui.infoGridRes(rows, 3))
-    }
-
-}
-
+    }}

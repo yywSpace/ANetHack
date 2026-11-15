@@ -3,22 +3,18 @@ package com.yywspace.anethack.window
 import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Spannable
-import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextPaint
-import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import com.yywspace.anethack.R
-import com.yywspace.anethack.gamedata.GameData
-import com.yywspace.anethack.gamedata.Item
 
 /**
  * 菜单标题里的价格段链接：给 "buy 267" / "sell 67" 加下划线，并处理点击。
  *
- * 只负责价格段的 span 和触摸判定，菜单项本身仍由 NHWMenuAdapter 点击。
+ * 物品信息不再在这里加行内图标，统一由菜单长按操作处理。
  */
 object MenuLink {
 
@@ -31,8 +27,7 @@ object MenuLink {
             return
         val content = priceQuote.removeSurrounding("{", "}")
         val contentStart = quoteStart + 1 // 跳过 "{"
-        val regex = priceRegex(context)
-        regex.findAll(content).forEach { match ->
+        priceRegex(context).findAll(content).forEach { match ->
             val start = contentStart + match.range.first
             val end = contentStart + match.range.last + 1
             text.setSpan(
@@ -44,54 +39,20 @@ object MenuLink {
         }
     }
 
-    /**
-     * 标题里匹配到物品名/外观时，在名字后面追加一个信息图标。
-     * 只给图标加 MenuItemSpan，避免长物品名覆盖整行、挡住菜单项点击。
-     */
-    fun highlightItems(context: Context, text: SpannableStringBuilder) {
-        GameData.ensureLoaded(context)
-        val title = text.toString()
-        val type = GameData.itemTypeOf(title) ?: return
-        val candidates = GameData.itemsOfType(type)
-        if (candidates.isEmpty())
-            return
-
-        val matches = candidates
-            .flatMap { item ->
-                listOfNotNull(item.name, item.appearance).map { alias -> alias to item }
-            }
-            .filter { (alias, _) ->
-                alias.isNotBlank() && title.contains(alias, ignoreCase = true)
-            }
-
-        // 取最长匹配；同一名称对应多个物品时全部返回。
-        val maxLength = matches.maxOfOrNull { (alias, _) -> alias.length }
-        val items = if (maxLength == null) {
-            candidates
-        } else {
-            matches.filter { (alias, _) -> alias.length == maxLength }
-                .map { (_, item) -> item }
-                .distinct()
-        }
-
-        val iconStart = text.length + 1 // " " 后面是信息图标
-        text.append(" \u24D8")
-        text.setSpan(
-            MenuItemSpan(items),
-            iconStart,
-            text.length,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
+    /** 从价格段中取出本地化后的价格文本，如 ["buy 267", "sell 67"]。 */
+    fun priceQuotes(context: Context, priceQuote: String): List<String> {
+        if (priceQuote.isEmpty())
+            return emptyList()
+        return priceRegex(context)
+            .findAll(priceQuote.removeSurrounding("{", "}"))
+            .map { it.value }
+            .toList()
     }
 
-    /** 接管标题 TextView 的链接点击；按在普通文字上时返回 false，让菜单项正常点击。 */
+    /** 接管标题 TextView 的价格段点击；普通文字返回 false。 */
     @SuppressLint("ClickableViewAccessibility")
-    fun attach(
-        view: TextView,
-        onQuoteClick: (String) -> Unit,
-        onItemClick: (List<Item>) -> Unit
-    ) {
-        var downSpan: CharacterStyle? = null
+    fun attach(view: TextView, onQuoteClick: (String) -> Unit) {
+        var downSpan: MenuQuoteSpan? = null
         view.setOnTouchListener { v, event ->
             when (event.actionMasked) {
                 MotionEvent.ACTION_DOWN -> {
@@ -101,30 +62,21 @@ object MenuLink {
                 MotionEvent.ACTION_UP -> {
                     val span = downSpan
                     downSpan = null
-                    when (span) {
-                        is MenuQuoteSpan -> {
-                            onQuoteClick(span.quote)
-                            true
-                        }
-                        is MenuItemSpan -> {
-                            onItemClick(span.items)
-                            true
-                        }
-                        else -> false
-                    }
+                    if (span != null) {
+                        onQuoteClick(span.quote)
+                        true
+                    } else false
                 }
                 else -> downSpan != null
             }
         }
     }
 
-    private fun spanAt(view: View, event: MotionEvent): CharacterStyle? {
+    private fun spanAt(view: View, event: MotionEvent): MenuQuoteSpan? {
         val textView = view as? TextView ?: return null
         val offset = textView.getOffsetForPosition(event.x, event.y)
         val text = textView.text as? Spanned ?: return null
-        return text.getSpans(offset, offset, CharacterStyle::class.java).firstOrNull {
-            it is MenuQuoteSpan || it is MenuItemSpan
-        }
+        return text.getSpans(offset, offset, MenuQuoteSpan::class.java).firstOrNull()
     }
 
     private fun priceRegex(context: Context): Regex {
@@ -135,41 +87,19 @@ object MenuLink {
 }
 
 /**
- * 菜单标题里的物品名 span。
- *
- * 和 [MenuQuoteSpan] 一样，onClick 本身不执行动作；点击由 [MenuLink.attach] 统一处理，
- * 这样菜单项外层的整行点击/长按不会被物品名链接破坏。
- */
-class MenuItemSpan(val items: List<Item>) : CharacterStyle() {
-    override fun updateDrawState(ds: TextPaint) {
-        // 信息图标只作为点击入口，保留原色且不加下划线
-        ds.isUnderlineText = false
-    }
-}
-
-/**
  * 价格段 span。
  *
  * 继承 [ClickableSpan] 主要是为了复用标准链接样式（链接色 + 下划线），
  * 同时让 [MenuLink.spanAt] 能通过具体类型区分“价格段”和菜单里其它普通下划线文字。
- *
- * 注意：真正触发价格鉴定的不是这里的 [onClick]，而是 [MenuLink.attach] 安装的 OnTouchListener。
- * 原因是菜单项外层还有整行点击、长按、多选，必须在 ACTION_DOWN 阶段判断是否按在价格上，
- * 并在按中价格时消费事件，避免菜单项同时被选中。
  */
 class MenuQuoteSpan(val quote: String) : ClickableSpan() {
 
-    /**
-     * 这里故意不执行动作。
-     *
-     * [MenuLink.attach] 的触摸监听会在 ACTION_UP 时读取 [quote] 并回调；
-     * 如果这里也处理，会和菜单项自身点击重复，甚至一次点击打开两次弹窗。
-     */
+    /** 点击由 [MenuLink.attach] 的触摸监听统一处理。 */
     override fun onClick(widget: View) {
-        // no-op：交给 MenuLink.attach
+        // no-op
     }
 
     override fun updateDrawState(ds: TextPaint) {
-        super.updateDrawState(ds) // 价格链接：链接色 + 下划线
+        super.updateDrawState(ds) // 链接色 + 下划线
     }
 }

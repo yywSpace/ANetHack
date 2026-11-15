@@ -16,6 +16,7 @@ import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.command.NHMenuCommand
 import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.entity.NHString
+import com.yywspace.anethack.gamedata.GameData
 import com.yywspace.anethack.extensions.show
 
 
@@ -31,9 +32,6 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
 
     /** 价格鉴定开关：关掉后菜单里的价格段不再加链接样式（无下划线、不可点击） */
     val priceIdEnabled: Boolean get() = nh.prefs.priceId
-
-    /** 菜单物品名链接开关 */
-    val itemLinkEnabled: Boolean get() = nh.prefs.itemInfo
 
 
     fun startMenu(behavior: Long) {
@@ -169,19 +167,11 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                     }
                 }
                 onItemLongClick = { _, position, item ->
-                    showAmountPickerDialog(context, item, position, this)
+                    showItemActions(context, item, position, this)
                 }
                 // 点击大括号价格文本（如 "sell 67"）→ 打开价格鉴定弹窗并预填
                 onPriceQuoteClick = { menuItem, quote ->
                     nh.priceIDialog?.showFromQuote(menuItem, quote)
-                }
-                onItemNameClick = { items ->
-                    when {
-                        items.size == 1 ->
-                            nh.itemDialog?.showItem(items.first().name, items.first().itemClass)
-                        items.size > 1 ->
-                            nh.itemDialog?.showItems(items)
-                    }
                 }
             }
         }
@@ -301,6 +291,75 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             }
         }
     }
+    /** 长按菜单项：数量、具体物品、类别全部或价格鉴定。 */
+    private fun showItemActions(
+        context: Context,
+        menuItem: NHMenuItem,
+        position: Int,
+        adapter: NHWMenuAdapter
+    ) {
+        val labels = mutableListOf<String>()
+        val actions = mutableListOf<() -> Unit>()
+
+        if (menuItem.count >= 0) {
+            labels += context.getString(R.string.menu_long_press_amount)
+            actions += { showAmountPickerDialog(context, menuItem, position, adapter) }
+        }
+
+        val lookup = if (nh.prefs.itemInfo)
+            GameData.lookupItemsForTitle(menuItem.title.value)
+        else
+            null
+        if (lookup != null) {
+            if (lookup.specific.isNotEmpty()) {
+                labels += context.getString(R.string.menu_long_press_info)
+                actions += { showItemGroup(lookup.specific) }
+            }
+            if (lookup.category.isNotEmpty()) {
+                labels += context.getString(
+                    R.string.menu_long_press_category,
+                    lookup.type
+                )
+                actions += { showItemGroup(lookup.category) }
+            }
+        }
+
+        if (nh.prefs.priceId) {
+            MenuLink.priceQuotes(context, menuItem.priceQuote).forEach { quote ->
+                labels += context.getString(R.string.menu_long_press_price, quote)
+                actions += { nh.priceIDialog?.showFromQuote(menuItem, quote) }
+            }
+        }
+
+        if (labels.isEmpty()) {
+            Toast.makeText(
+                context,
+                R.string.menu_item_info_not_found,
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+        if (labels.size == 1) {
+            actions.first().invoke()
+            return
+        }
+
+        AlertDialog.Builder(context)
+            .setTitle(menuItem.title.toString())
+            .setItems(labels.toTypedArray()) { _, which -> actions[which].invoke() }
+            .setNegativeButton(R.string.dialog_cancel, null)
+            .show(nh.prefs.immersiveMode)
+    }
+
+    /** 单个物品直接打开详情，多个物品才打开列表。 */
+    private fun showItemGroup(items: List<com.yywspace.anethack.gamedata.Item>) {
+        if (items.size == 1) {
+            nh.itemDialog?.showItem(items.first().name, items.first().itemClass)
+        } else {
+            nh.itemDialog?.showItems(items)
+        }
+    }
+
     private fun showAmountPickerDialog(
         context: Context, parentItem: NHMenuItem,
         parentPosition: Int, parentAdapter: NHWMenuAdapter

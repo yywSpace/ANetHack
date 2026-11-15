@@ -123,6 +123,38 @@ object GameData {
     /** 怪物显示名 → 基础名，去掉 (human)/(animal) 后缀。 */
     fun monsterBaseName(name: String): String = parsingRules.monsterBaseName(name)
 
+    /**
+     * 解析菜单标题对应的具体物品和所属类别。
+     * [specific] 是匹配到名称/外观的物品；为空时回退到 [category] 全部物品。
+     */
+    data class ItemLookup(
+        val type: String,
+        val specific: List<Item>,
+        val category: List<Item>
+    )
+
+    fun lookupItemsForTitle(title: String): ItemLookup? {
+        val type = itemTypeOf(title) ?: return null
+        val candidates = itemsOfType(type)
+        if (candidates.isEmpty())
+            return null
+
+        val matches = candidates.flatMap { item ->
+            listOfNotNull(item.name, item.appearance).map { alias -> alias to item }
+        }.filter { (alias, _) ->
+            alias.isNotBlank() && title.contains(alias, ignoreCase = true)
+        }
+        val maxLength = matches.maxOfOrNull { (alias, _) -> alias.length }
+        val specific = if (maxLength == null) {
+            emptyList()
+        } else {
+            matches.filter { (alias, _) -> alias.length == maxLength }
+                .map { (_, item) -> item }
+                .distinct()
+        }
+        return ItemLookup(type, specific, candidates)
+    }
+
     /** 标题是否与某个物品的完整名称/固定外观完全相同。 */
     fun exactItemsForTitle(title: String): List<Item> =
         itemExactIndex[title.lowercase()] ?: emptyList()

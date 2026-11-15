@@ -16,7 +16,6 @@ import com.yywspace.anethack.NHTileSet
 import com.yywspace.anethack.R
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMenuItem
-import com.yywspace.anethack.gamedata.Item
 
 
 class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet) :
@@ -26,8 +25,6 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
     var onItemLongClick:((view:View, index:Int, menuItem: NHMenuItem)->Unit)? = null
     /** 点击菜单项的大括号价格文本（如 "sell 67"）回调，传入菜单项和点击的价格段 */
     var onPriceQuoteClick:((menuItem: NHMenuItem, quote: String)->Unit)? = null
-    /** 点击菜单标题里的物品名，打开物品弹窗 */
-    var onItemNameClick:((items: List<Item>)->Unit)? = null
 
     inner class OptionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val itemAcc: TextView = view.findViewById(R.id.item_accelerator)
@@ -50,10 +47,6 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
             }
             itemView.setOnLongClickListener {
                 onItemLongClick?.invoke(it, position, menuItem)
-                if (nhwMenu.selectMode == NHWMenu.SelectMode.PickMany) {
-                    menuItem.isSelected = true
-                    itemCheckBox.isChecked = true
-                }
                 true
             }
             itemView.setOnClickListener {
@@ -65,11 +58,9 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
                     notifyItemChanged(getHeaderPosition(position))
                 }
             }
-            MenuLink.attach(
-                itemTitle,
-                onQuoteClick = { quote -> onPriceQuoteClick?.invoke(menuItem, quote) },
-                onItemClick = { items -> onItemNameClick?.invoke(items) }
-            )
+            MenuLink.attach(itemTitle) { quote ->
+                onPriceQuoteClick?.invoke(menuItem, quote)
+            }
 
             if (menuItem.hasSubtitle()) {
                 itemSubtitle.visibility = View.VISIBLE
@@ -100,10 +91,6 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
             }
-
-            // 先给标题里的物品名加链接，再追加价格段；两者互不重叠
-            if (nhwMenu.itemLinkEnabled && menuItem.count >= 0)
-                MenuLink.highlightItems(itemView.context, spannable)
 
             if (menuItem.priceQuote.isNotEmpty()) {
                 spannable.append(" ${menuItem.priceQuote}") // priceQuote 已带大括号（如 "{buy 267 sell 67}"）
