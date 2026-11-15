@@ -42,6 +42,9 @@ object GameData {
     /** 名字（小写）→ 怪物，供消息高亮做 O(1) 查询，加载完就建好 */
     private var monsterIndex: Map<String, Monster> = emptyMap()
 
+    /** 精确名称/外观（小写）→ 物品，供菜单标题快速查询 */
+    private var itemExactIndex: Map<String, List<Item>> = emptyMap()
+
     /** monster_attributes.json：原始属性标志 → 展示文字 */
     private var attributeLabels: Map<String, String> = emptyMap()
     /** item_flags.json / item_effects.json / item_delays.json：展示映射 */
@@ -93,11 +96,45 @@ object GameData {
     fun delayLabel(itemClass: String): String =
         delayLabels[itemClass] ?: itemClass
 
-    /** 从物品显示名称/外观判断类别。 */
-    fun itemTypeOf(text: String): String? = parsingRules.itemTypeOf(text)
+    /**
+     * 从文本判断物品类别。
+     *
+     * 顺序：
+     * 1. 精确名称/固定外观
+     * 2. 例外正则（未鉴定外观、通用类别词）
+     * 3. 模糊名称/外观
+     */
+    fun itemTypeOf(text: String): String? {
+        val exact = exactItemsForTitle(text)
+        if (exact.size == 1)
+            return itemType(exact.first())
+
+        parsingRules.itemTypeOf(text)?.let { return it }
+
+        val fuzzyTypes = fuzzyItemsForTitle(text).map { itemType(it) }.distinct()
+        return fuzzyTypes.singleOrNull()
+    }
+
+    /** 物品的类别展示名；护甲用 categoryName，其余用 itemClass。 */
+    fun itemType(item: Item): String =
+        (item.armor?.categoryName?.takeIf { it.isNotBlank() } ?: item.itemClass)
+            .replaceFirstChar { it.uppercaseChar() }
 
     /** 怪物显示名 → 基础名，去掉 (human)/(animal) 后缀。 */
     fun monsterBaseName(name: String): String = parsingRules.monsterBaseName(name)
+
+    /** 标题是否与某个物品的完整名称/固定外观完全相同。 */
+    fun exactItemsForTitle(title: String): List<Item> =
+        itemExactIndex[title.lowercase()] ?: emptyList()
+
+    /** 标题中模糊包含的物品名称/固定外观。 */
+    fun fuzzyItemsForTitle(title: String): List<Item> =
+        items.filter { item ->
+            title.contains(item.name, ignoreCase = true) ||
+                (item.appearance?.takeIf { it.isNotBlank() }?.let {
+                    title.contains(it, ignoreCase = true)
+                } == true)
+        }
 
     /** 某类别下的物品；护甲类别使用 categoryName。 */
     fun itemsOfType(type: String): List<Item> {
@@ -106,6 +143,22 @@ object GameData {
             item.armor?.categoryName?.equals(type, ignoreCase = true) == true ||
                 (item.armor == null && item.itemClass == normalized)
         }
+    }
+
+    private fun buildItemExactIndex(list: List<Item>): Map<String, List<Item>> {
+        val index = HashMap<String, MutableList<Item>>(list.size * 2)
+        fun add(key: String?, item: Item) {
+            if (key.isNullOrBlank())
+                return
+            index.getOrPut(key.lowercase()) { mutableListOf() }.add(item)
+        }
+        list.forEach { item ->
+            add(item.name, item)
+            item.appearance
+                ?.takeIf { it != item.name }
+                ?.let { add(it, item) }
+        }
+        return index
     }
 
     private fun loadFromAssets(context: Context) {
@@ -134,6 +187,7 @@ object GameData {
             }
         items.clear()
         items.addAll(loadedGameItems)
+        itemExactIndex = buildItemExactIndex(loadedGameItems)
 
         val labelsType = object : TypeToken<Map<String, String>>() {}.type
         attributeLabels = gson.fromJson(

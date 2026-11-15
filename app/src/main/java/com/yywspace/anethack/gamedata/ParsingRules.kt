@@ -17,14 +17,14 @@ data class TradeInfo(
  * - key 是买卖方向（buy / sell）
  * - 必须带命名组 objDesc（物品描述）和 objPrice（价格）
  *
- * [objectTypesRegex]：物品类别正则。
- * - key 是类别名（Potion / Ring / Weapon / Helm ...）
- * - value 同时覆盖未鉴定外观和已鉴定全称：
+ * [objectTypesRegex]：例外规则，不是完整类别表。
+ * - 精确物品名称/外观由 Item 数据负责，不写进这里
+ * - 这里只保留无法从物品名称命中的通用词/未鉴定外观：
  *   a cloudy potion      → Potion
- *   potion of healing    → Potion
- * scroll of enchant armor → Scroll
- * ring mail            → Suit
- * - Gem 规则额外排除 wand，避免把法杖外观误判成宝石
+ *   a sapphire ring      → Ring
+ *   a crystal wand       → Wand
+ * - Gem 只保留 gem/stone 这类通用词；具体宝石名称由物品名称匹配，
+ *   不把法杖等随机外观写进 Gem 规则
  *
  * [monsterNameSuffixRegex]：怪物名的多形态后缀，如 (human)/(animal)。
  */
@@ -49,47 +49,42 @@ data class ParsingRules(
     /**
      * 从物品显示名称/外观判断类别。
      *
-     * 选择规则：
-     * 1. 优先选择匹配到文本结尾的类别；
-     * 2. 同一位置有多个时，取匹配更长的类别。
+     * 类别正则只保留通用类别词，因此按“最早出现的类别词”选择：
+     * scroll of enchant armor → Scroll（scroll 在 armor 之前）
+     * ring of protection      → Ring
+     * ring mail               → 精确名称由调用方优先处理
      *
-     * 这样不需要为 "scroll of enchant armor" 这类组合写代码特例：
-     * Scroll 规则匹配整段，Suit 只匹配末尾的 armor，前者更长。
-     *
-     * 例子：
-     * a cloudy potion         → Potion
-     * potion of healing       → Potion
-     * scroll of enchant armor → Scroll
-     * ring mail               → Suit
-     * meat ring               → Food
+     * 同一位置有多个命中时，取匹配更长的。
      */
     fun itemTypeOf(text: String): String? {
         val regexes = compiledTypeRegexes ?: objectTypesRegex.map { (type, regex) ->
             type to Regex(regex, RegexOption.IGNORE_CASE)
         }.also { compiledTypeRegexes = it }
 
-        var suffix: Pair<Int, String>? = null
-        var longest: Pair<Int, String>? = null
+        var bestStart = Int.MAX_VALUE
+        var bestLength = 0
+        var bestType: String? = null
         regexes.forEach { (type, regex) ->
-            regex.findAll(text).forEach { match ->
-                val len = match.range.last - match.range.first + 1
-                if (match.range.last + 1 == text.length &&
-                    (suffix == null || len > suffix!!.first)) {
-                    suffix = len to type
-                }
-                if (longest == null || len > longest!!.first) {
-                    longest = len to type
-                }
+            val match = regex.find(text) ?: return@forEach
+            val start = match.range.first
+            val length = match.range.last - match.range.first + 1
+            if (start < bestStart || (start == bestStart && length > bestLength)) {
+                bestStart = start
+                bestLength = length
+                bestType = type
             }
         }
-        return suffix?.second ?: longest?.second
+        return bestType
     }
 
     /**
      * 从交易消息中解析价格、买卖方向和物品类别。
      * 解析不到交易信息时返回 null。
      */
-    fun tradeInfoOf(info: String): TradeInfo? {
+    fun tradeInfoOf(
+        info: String,
+        resolveType: (String) -> String?
+    ): TradeInfo? {
         var parsed: TradeInfo? = null
         tradeTypesRegex.forEach { (tradeType, regex) ->
             val matcher = Pattern.compile(regex).matcher(info)
@@ -98,7 +93,7 @@ data class ParsingRules(
                 parsed = TradeInfo(
                     price = matcher.group("objPrice"),
                     mode = tradeType,
-                    itemType = itemTypeOf(objDesc)
+                    itemType = resolveType(objDesc)
                 )
             }
         }

@@ -16,11 +16,11 @@ class NHPriceID(context: Context) {
     }
 
     /** 所有物品类型（按名称排序） */
-    fun getObjTypes(): List<String> = items.map { typeOf(it) }.distinct().sorted()
+    fun getObjTypes(): List<String> = items.map { GameData.itemType(it) }.distinct().sorted()
 
     /** 某类型的物品，按基础价格、名称排序 */
     private fun itemsOf(type: String): List<Item> =
-        items.filter { typeOf(it) == type }.sortedWith(objComparator)
+        items.filter { GameData.itemType(it) == type }.sortedWith(objComparator)
 
     fun getObjBySellPrice(type: String, price: String, sucker: Boolean): List<Item> {
         if (price.isEmpty())
@@ -69,15 +69,9 @@ class NHPriceID(context: Context) {
     fun parseObjType(objDesc: String): String =
         GameData.itemTypeOf(objDesc) ?: ""
 
-    /** 物品类型；护甲使用数据里的具体部件类别，其余直接使用 itemClass。 */
-    private fun typeOf(item: Item): String =
-        (item.armor?.categoryName?.takeIf { it.isNotBlank() }?.lowercase()
-            ?: item.itemClass)
-            .replaceFirstChar { it.uppercaseChar() }
-
     /** 交易信息解析委托给规则类。 */
     fun tradeInfoOf(info: String): TradeInfo? =
-        GameData.parsingRules.tradeInfoOf(info)
+        GameData.parsingRules.tradeInfoOf(info) { GameData.itemTypeOf(it) }
 
     private fun calcBuyPrice(price: Int, ch: Int, surcharge: Boolean, sucker: Boolean): Int {
         var m = 1
