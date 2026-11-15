@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
@@ -27,9 +29,15 @@ class NHItemDialog(
     private lateinit var content: LinearLayout
     private lateinit var input: TextInputEditText
     private lateinit var scroll: ScrollView
-    private var pending: List<Item> = emptyList()
-    private var rendered = 0
-    private var moreButton: TextView? = null
+    private lateinit var recycler: RecyclerView
+    private val listAdapter = InfoCardAdapter(
+        cardOf = { buildItemCard(it) },
+        diffCallback = object : DiffUtil.ItemCallback<Item>() {
+            override fun areItemsTheSame(oldItem: Item, newItem: Item) =
+                oldItem.name == newItem.name && oldItem.itemClass == newItem.itemClass
+            override fun areContentsTheSame(oldItem: Item, newItem: Item) = oldItem == newItem
+        }
+    )
 
     fun showItems() {
         if (dialog?.isShowing == true)
@@ -46,16 +54,20 @@ class NHItemDialog(
         if (dialog?.isShowing == true || items.isEmpty())
             return
         GameData.ensureLoaded(context)
-        val scaffold = ui.singleScaffold()
-        content = scaffold.content
-        scroll = scaffold.scroll
-        content.removeAllViews()
-        pending = items.sortedWith(compareBy<Item> { it.itemClass }.thenBy { it.name })
-        rendered = 0
-        appendNext()
+        val scaffold = ui.recyclerScaffold(
+            R.string.item_lookup_hint,
+            R.string.item_lookup_search
+        ) { }
+        scaffold.search.view.visibility = View.GONE
+        recycler = scaffold.recycler
+        recycler.adapter = listAdapter
+        listAdapter.submitList(
+            items.sortedWith(compareBy<Item> { it.itemClass }.thenBy { it.name })
+        ) {
+            recycler.post { recycler.scrollToPosition(0) }
+        }
         dialog = ui.createDialog(R.string.item_lookup_title, scaffold.root)
         dialog?.show(nh.prefs.immersiveMode)
-        ui.scrollToTop(scroll)
     }
 
     /** 指定物品详情：没有搜索栏。 */
@@ -78,19 +90,19 @@ class NHItemDialog(
         }
         content.removeAllViews()
         matched.sortedWith(compareBy<Item> { it.itemClass }.thenBy { it.name })
-            .forEach { content.addView(card(it)) }
+            .forEach { content.addView(buildItemCard(it)) }
         ui.scrollToTop(scroll)
     }
 
     private fun buildView(): View {
-        val scaffold = ui.contentScaffold(
+        val scaffold = ui.recyclerScaffold(
             R.string.item_lookup_hint,
             R.string.item_lookup_search
         ) {
             renderMatches()
         }
-        content = scaffold.content
-        scroll = scaffold.scroll
+        recycler = scaffold.recycler
+        recycler.adapter = listAdapter
         input = scaffold.search.input
         return scaffold.root
     }
@@ -98,7 +110,7 @@ class NHItemDialog(
 
     private fun renderMatches() {
         val query = input.text?.toString()?.trim().orEmpty()
-        pending = if (query.isEmpty()) {
+        val matches = if (query.isEmpty()) {
             GameData.items
         } else {
             GameData.items.filter {
@@ -107,36 +119,12 @@ class NHItemDialog(
                     (it.appearance?.contains(query, ignoreCase = true) == true)
             }
         }.sortedWith(compareBy<Item> { it.itemClass }.thenBy { it.name })
-        content.removeAllViews()
-        rendered = 0
-        if (pending.isEmpty()) {
-            content.addView(TextView(context).apply {
-                text = context.getString(R.string.item_lookup_empty)
-                textSize = 14f
-                setTextColor(ContextCompat.getColor(context, R.color.app_text_secondary))
-                setPadding(ui.dp(4), ui.dp(16), ui.dp(4), ui.dp(16))
-            })
-            return
-        }
-        appendNext()
-        ui.scrollToTop(scroll)
-    }
-
-    private fun appendNext() {
-        moreButton?.let { content.removeView(it) }
-        moreButton = null
-        val end = minOf(rendered + BATCH_SIZE, pending.size)
-        while (rendered < end) {
-            content.addView(card(pending[rendered++]))
-        }
-        if (rendered < pending.size) {
-            val more = ui.moreButton(R.string.item_lookup_more) { appendNext() }
-            content.addView(more)
-            moreButton = more
+        listAdapter.submitList(matches) {
+            recycler.post { recycler.scrollToPosition(0) }
         }
     }
 
-    private fun card(item: Item): View {
+    private fun buildItemCard(item: Item): View {
         val card = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
             layoutParams = LinearLayout.LayoutParams(
@@ -239,8 +227,5 @@ class NHItemDialog(
         ui.section(parent, context.getString(titleRes), ui.infoGridRes(rows, 3))
     }
 
-    private companion object {
-        const val BATCH_SIZE = 5
-    }
 }
 

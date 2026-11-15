@@ -5,6 +5,8 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
@@ -26,13 +28,17 @@ class NHMonsterDialog(
 
     /** 每次打开都重建，避免复用时还挂着上一次的父布局 */
     private lateinit var content: LinearLayout
-    /** 待渲染的匹配结果与已渲染数量（滑到底部时继续追加） */
-    private var lazyMonsters: List<Monster> = emptyList()
-    private var lazyRendered = 0
-    /** 列表末尾的 More 按钮（每次追加前先移除） */
-    private var moreButton: TextView? = null
+    private lateinit var recycler: RecyclerView
+    private val listAdapter = InfoCardAdapter(
+        cardOf = { buildMonsterCard(it) },
+        diffCallback = object : DiffUtil.ItemCallback<Monster>() {
+            override fun areItemsTheSame(oldItem: Monster, newItem: Monster) =
+                oldItem.name == newItem.name
+            override fun areContentsTheSame(oldItem: Monster, newItem: Monster) = oldItem == newItem
+        }
+    )
 
-    /** 结果滚动区：高度按内容自适应 */
+    /** 单条详情的滚动区 */
     private lateinit var scroll: ScrollView
     private lateinit var input: TextInputEditText
     private var dialog: AlertDialog? = null
@@ -60,14 +66,14 @@ class NHMonsterDialog(
     /** 构建弹窗的内容视图 */
     private fun buildView(): View {
         GameData.ensureLoaded(context)
-        val scaffold = ui.contentScaffold(
+        val scaffold = ui.recyclerScaffold(
             R.string.monster_lookup_hint,
             R.string.monster_lookup_search
         ) {
             renderMatches()
         }
-        content = scaffold.content
-        scroll = scaffold.scroll
+        recycler = scaffold.recycler
+        recycler.adapter = listAdapter
         input = scaffold.search.input
         return scaffold.root
     }
@@ -82,17 +88,7 @@ class NHMonsterDialog(
 
     private fun renderSingle(monster: Monster) {
         content.removeAllViews()
-        render(monster)
-        ui.scrollToTop(scroll)
-    }
-
-    /** 绑定名字的单条结果，不进入分页流程。 */
-    private fun renderSingle(name: String) {
-        val matched = GameData.monsters.filter { it.name.equals(name, ignoreCase = true) }
-        content.removeAllViews()
-        matched.forEach { monster ->
-            render(monster)
-        }
+        render(monster, content)
         ui.scrollToTop(scroll)
     }
 
@@ -102,34 +98,13 @@ class NHMonsterDialog(
         dialog?.show(nh.prefs.immersiveMode)
     }
 
-    /** 查询后收起输入法：结果列表就在下方，键盘会挡住它们 */
-    /** 按输入框内容查找怪物，并把结果渲染到 content 里 */
+    /** 按输入框内容查找怪物，并把结果交给列表。 */
     private fun renderMatches() {
         val key = input.text.toString().trim()
-        // 查询为空时展示全部怪物；有输入时再按名字过滤
         val matched = findMatches(key)
-        content.removeAllViews()
-        // 查不到就保持空列表，不显示额外提示
-        if (matched.isEmpty()) {
-            fitScrollHeight()
-            ui.scrollToTop(scroll)
-            return
+        listAdapter.submitList(matched) {
+            recycler.post { recycler.scrollToPosition(0) }
         }
-        if (matched.size <= BATCH_SIZE) {
-            // 结果不多：直接一次性渲染
-            matched.forEach { monster ->
-                render(monster)
-            }
-            fitScrollHeight()
-        } else {
-            // 结果较多：只渲染第一批，剩下的滑到底部时再追加
-            lazyMonsters = matched
-            lazyRendered = 0
-            content.removeAllViews()
-            reserveMaxHeight()
-            renderNextBatch()
-        }
-        ui.scrollToTop(scroll)
     }
 
     private fun findMatches(key: String): List<Monster> {
@@ -141,12 +116,24 @@ class NHMonsterDialog(
         return matched.sortedBy { it.name }
     }
 
-    private fun render(monster: Monster) {
+    private fun buildMonsterCard(monster: Monster): View {
+        val card = LinearLayout(context).apply {
+            orientation = LinearLayout.VERTICAL
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+        }
+        render(monster, card)
+        return card
+    }
+
+    private fun render(monster: Monster, target: LinearLayout) {
         // 标题区：符号（怪物颜色）+ 名字 + 副标题（体型 · 阵营 · 能否被灭绝）
         val subtitleParts = mutableListOf(monster.size, monster.alignmentName)
         if (monster.genocidable)
             subtitleParts.add(context.getString(R.string.monster_genocidable_yes))
-        content.addView(ui.header(
+        target.addView(ui.header(
             symbol = monster.symbol,
             color = monster.colorValue,
             name = monster.name,
@@ -154,11 +141,11 @@ class NHMonsterDialog(
         ))
 
         // 数值属性：3 行 × 3 列，居中，外面套一层浅色圆角背景
-        content.addView(ui.panel(infoGrid(monster)))
+        target.addView(ui.panel(infoGrid(monster)))
 
         // 攻击：重复的攻击合并成 "2× …"，保留攻击次数
         if (monster.attacks.isNotEmpty())
-            section(R.string.monster_field_attacks, ui.chips(groupAttacks(monster.attacks)))
+            section(target, R.string.monster_field_attacks, ui.chips(groupAttacks(monster.attacks)))
         // 抗性：chip 是自身抗性，下面一行文字说明吃尸体能获得什么
         val resistances = monster.resistances
         val conveyed = monster.resistancesConveyed
@@ -176,11 +163,12 @@ class NHMonsterDialog(
                     setTextColor(ContextCompat.getColor(context, R.color.app_text_secondary))
                     setPadding(0, ui.dp(2), 0, 0)
                 })
-            section(R.string.monster_field_resistances, body)
+            section(target, R.string.monster_field_resistances, body)
         }
         // 特性：原始标志经过映射表转成展示文字
         if (monster.attributes.isNotEmpty())
             section(
+                target,
                 R.string.monster_field_attributes,
                 ui.chips(monster.attributes.map { GameData.attributeLabel(it) })
             )
@@ -214,8 +202,8 @@ class NHMonsterDialog(
     }
 
     /** 小节标题 + 内容，整体放进和基本信息一样的圆角背景里，用来分组 */
-    private fun section(labelRes: Int, body: View) {
-        ui.section(content, context.getString(labelRes), body)
+    private fun section(parent: LinearLayout, labelRes: Int, body: View) {
+        ui.section(parent, context.getString(labelRes), body)
     }
 
     /**
@@ -230,48 +218,5 @@ class NHMonsterDialog(
         return counts.map { (attack, times) -> if (times > 1) "${times}× $attack" else attack }
     }
 
-    /** 追加下一批结果卡片，并在末尾放一个 More 按钮继续加载 */
-    private fun renderNextBatch() {
-        moreButton?.let { content.removeView(it) }
-        val end = minOf(lazyRendered + BATCH_SIZE, lazyMonsters.size)
-        for (index in lazyRendered until end) {
-            render(lazyMonsters[index])
-        }
-        lazyRendered = end
-        val remaining = lazyMonsters.size - lazyRendered
-        if (remaining > 0) {
-            val button = ui.moreButton(R.string.monster_lookup_more_button) { renderNextBatch() }
-            moreButton = button
-            content.addView(button)
-        } else {
-            moreButton = null
-            fitScrollHeight()
-        }
-    }
-
-    /** 直接把结果区高度设成上限（分帧渲染期间用，避免高度反复变化） */
-    private fun reserveMaxHeight() {
-        val screenHeight = context.resources.displayMetrics.heightPixels
-        val params = scroll.layoutParams
-        params.height = (screenHeight * MAX_HEIGHT_FRACTION).toInt()
-        scroll.layoutParams = params
-    }
-
-    private fun fitScrollHeight() {
-        scroll.post {
-            val screenHeight = context.resources.displayMetrics.heightPixels
-            val max = (screenHeight * MAX_HEIGHT_FRACTION).toInt()
-            val params = scroll.layoutParams
-            params.height = minOf(content.height, max)
-            scroll.layoutParams = params
-        }
-    }
-
-    companion object {
-        /** 结果区最多占屏幕高度的比例，超过就滚动 */
-        private const val MAX_HEIGHT_FRACTION = 0.60f
-        /** 每次渲染多少张卡片（首批也用它） */
-        private const val BATCH_SIZE = 2
-    }
 }
 

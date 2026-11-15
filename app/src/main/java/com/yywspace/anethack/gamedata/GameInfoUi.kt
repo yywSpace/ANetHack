@@ -17,6 +17,8 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.chip.ChipGroup
 import com.yywspace.anethack.R
@@ -172,37 +174,34 @@ class GameInfoUi(private val context: Context) {
         val scroll: ScrollView
     )
 
-    /** 搜索栏 + 内容区 + ScrollView 的统一布局骨架。 */
-    fun contentScaffold(
+    /** 搜索栏 + RecyclerView 的列表骨架；卡片仍由调用方构建。 */
+    fun recyclerScaffold(
         hintRes: Int,
         actionRes: Int,
-        initialText: String? = null,
         onSearch: () -> Unit
-    ): ContentScaffold {
-        val single = singleScaffold()
-        val search = searchBar(hintRes, actionRes, initialText, onSearch)
-        single.root.addView(search.view, 0)
-        return ContentScaffold(single.root, single.content, single.scroll, search)
+    ): RecyclerScaffold {
+        val root = LinearLayout(context).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(16), dp(8), dp(16), 0)
+        }
+        val search = searchBar(hintRes, actionRes, null, onSearch)
+        val recycler = RecyclerView(context).apply {
+            layoutManager = LinearLayoutManager(context)
+            layoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                (context.resources.displayMetrics.heightPixels * 0.60f).toInt()
+            )
+        }
+        root.addView(search.view)
+        root.addView(recycler)
+        return RecyclerScaffold(root, recycler, search)
     }
 
-    class ContentScaffold(
+    class RecyclerScaffold(
         val root: LinearLayout,
-        val content: LinearLayout,
-        val scroll: ScrollView,
+        val recycler: RecyclerView,
         val search: SearchBar
     )
-
-    /** 结果列表末尾的 More 按钮。 */
-    fun moreButton(textRes: Int, onClick: () -> Unit): TextView =
-        TextView(context).apply {
-            text = context.getString(textRes)
-            textSize = 14f
-            setTypeface(typeface, Typeface.BOLD)
-            setTextColor(ContextCompat.getColor(context, R.color.info_action))
-            gravity = Gravity.CENTER
-            setPadding(0, dp(12), 0, dp(12))
-            setOnClickListener { onClick() }
-        }
 
     /** 搜索结果重建后回到顶部；More 追加时不要调用。 */
     fun scrollToTop(scroll: ScrollView) {
