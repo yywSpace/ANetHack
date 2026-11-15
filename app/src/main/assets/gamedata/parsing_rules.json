@@ -21,6 +21,5 @@
     "Tool": "\\btool",
     "Food": "\\bfood",
     "Gem": "\\b(?:gem|stone)"
-  },
-  "monsterNameSuffixRegex": "\\s*\\((?:human|animal)\\)\\s*$"
+  }
 }

@@ -29,11 +29,12 @@ class NHMonsterDialog(
     /** 每次打开都重建，避免复用时还挂着上一次的父布局 */
     private lateinit var content: LinearLayout
     private lateinit var recycler: RecyclerView
+    private var sourceMonsters: List<Monster>? = null
     private val listAdapter = InfoCardAdapter(
         cardOf = { buildMonsterCard(it) },
         diffCallback = object : DiffUtil.ItemCallback<Monster>() {
             override fun areItemsTheSame(oldItem: Monster, newItem: Monster) =
-                oldItem.name == newItem.name
+                oldItem == newItem
             override fun areContentsTheSame(oldItem: Monster, newItem: Monster) = oldItem == newItem
         }
     )
@@ -48,8 +49,20 @@ class NHMonsterDialog(
     fun showMonsterList() {
         if (dialog?.isShowing == true)
             return
+        sourceMonsters = null
         val view = buildView()
         renderMatches()
+        showDialog(view)
+    }
+
+    /** 同名多形态怪物：展示一组结果。 */
+    fun showMonsters(monsters: List<Monster>) {
+        if (dialog?.isShowing == true || monsters.isEmpty())
+            return
+        GameData.ensureLoaded(context)
+        sourceMonsters = monsters
+        val view = buildView()
+        listAdapter.submitList(monsters.sortedBy { it.name })
         showDialog(view)
     }
 
@@ -101,18 +114,20 @@ class NHMonsterDialog(
     /** 按输入框内容查找怪物，并把结果交给列表。 */
     private fun renderMatches() {
         val key = input.text.toString().trim()
-        val matched = findMatches(key)
+        val source = sourceMonsters ?: GameData.monsters
+        val matched = if (key.isEmpty())
+            source.sortedBy { it.name }
+        else
+            findMatches(source, key)
         listAdapter.submitList(matched) {
             recycler.post { recycler.scrollToPosition(0) }
         }
     }
 
-    private fun findMatches(key: String): List<Monster> {
-        if (key.isEmpty())
-            return GameData.monsters.sortedBy { it.name }
-        var matched = GameData.findMonsters(key)
+    private fun findMatches(source: List<Monster>, key: String): List<Monster> {
+        var matched = source.filter { it.name.equals(key, ignoreCase = true) }
         if (matched.isEmpty())
-            matched = GameData.monsters.filter { it.name.contains(key, ignoreCase = true) }
+            matched = source.filter { it.name.contains(key, ignoreCase = true) }
         return matched.sortedBy { it.name }
     }
 

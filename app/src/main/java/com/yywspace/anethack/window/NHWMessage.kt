@@ -20,7 +20,9 @@ import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.extensions.show
 import com.yywspace.anethack.map.NHMessageView
 import com.yywspace.anethack.gamedata.ItemLink
+import com.yywspace.anethack.gamedata.ItemMatch
 import com.yywspace.anethack.gamedata.MonsterLink
+import com.yywspace.anethack.gamedata.MonsterMatch
 import java.lang.Integer.min
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.math.ceil
@@ -46,16 +48,9 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             }
         }
         // 消息里的怪物名：点击后打开怪物详情（弹窗统一从 nh.monsterDialog 取）
-        messageView.onMonsterClick = { monster ->
-            nh.monsterDialog?.showMonster(monster)
-        }
+        messageView.onMonsterClick = { match -> showMonsterMatch(match) }
         // 消息里的物品名：点击后打开对应物品详情
-        messageView.onItemClick = { item ->
-            if (item.items.size == 1)
-                nh.itemDialog?.showItem(item.items.first().name, item.items.first().itemClass)
-            else
-                nh.itemDialog?.showItems(item.items)
-        }
+        messageView.onItemClick = { item -> showItemMatch(item) }
     }
 
     fun getRecentMessageList(size: Int):List<NHMessage> {
@@ -83,7 +78,13 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                 val dialogTextView = View.inflate(context, R.layout.dialog_message, null)
                     .apply {
                         findViewById<RecyclerView>(R.id.dialog_message_list).apply {
-                            val messageAdapter = NHWMessageAdapter(messageList.toList(), 20, nh)
+                            val messageAdapter = NHWMessageAdapter(
+                                messageList.toList(),
+                                20,
+                                nh,
+                                onMonsterClick = { match -> showMonsterMatch(match) },
+                                onItemClick = { item -> showItemMatch(item) }
+                            )
                             adapter = messageAdapter
                             layoutManager = LinearLayoutManager(
                                 context,
@@ -129,9 +130,11 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
     }
 
     class NHWMessageAdapter(
-        private val messageList:List<NHMessage>,
-        private val itemSize:Int,
-        private val nh: NetHack
+        private val messageList: List<NHMessage>,
+        private val itemSize: Int,
+        private val nh: NetHack,
+        private val onMonsterClick: (MonsterMatch) -> Unit,
+        private val onItemClick: (ItemMatch) -> Unit
     ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private var lastCmdMsg: NHMessage? = messageList.lastOrNull { !it.history }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -163,14 +166,11 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                 )
                 // 只解析 look 指令产生的消息（格式可预期），其它消息保持原样
                 if (message.fromInspect) {
-                    MonsterLink.highlight(itemContext, messageText, lineStart, messageText.length) { monster ->
-                        nh.monsterDialog?.showMonster(monster)
+                    MonsterLink.highlight(itemContext, messageText, lineStart, messageText.length) { match ->
+                        onMonsterClick(match)
                     }
                     ItemLink.highlight(itemContext, messageText, lineStart, messageText.length) { item ->
-                        if (item.items.size == 1)
-                            nh.itemDialog?.showItem(item.items.first().name, item.items.first().itemClass)
-                        else
-                            nh.itemDialog?.showItems(item.items)
+                        onItemClick(item)
                     }
                 }
             }
@@ -203,4 +203,17 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         }
     }
 
+    private fun showMonsterMatch(match: MonsterMatch) {
+        if (match.monsters.size == 1)
+            nh.monsterDialog?.showMonster(match.monsters.first())
+        else
+            nh.monsterDialog?.showMonsters(match.monsters)
+    }
+
+    private fun showItemMatch(match: ItemMatch) {
+        if (match.items.size == 1)
+            nh.itemDialog?.showItem(match.items.first().name, match.items.first().itemClass)
+        else
+            nh.itemDialog?.showItems(match.items)
+    }
 }

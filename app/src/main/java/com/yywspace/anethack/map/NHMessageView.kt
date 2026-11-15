@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.yywspace.anethack.R
 import com.yywspace.anethack.gamedata.ItemMatch
 import com.yywspace.anethack.gamedata.ItemLink
-import com.yywspace.anethack.gamedata.Monster
+import com.yywspace.anethack.gamedata.MonsterMatch
 import com.yywspace.anethack.gamedata.MonsterLink
 import com.yywspace.anethack.window.NHWMessage
 
@@ -34,7 +34,7 @@ class NHMessageView @JvmOverloads constructor(
     var onMessageClick: (() -> Unit)? = null
 
     /** 点击消息里怪物名的回调（由 NHWMessage 设置，参数是怪物名） */
-    var onMonsterClick: ((Monster) -> Unit)? = null
+    var onMonsterClick: ((MonsterMatch) -> Unit)? = null
 
     /** 点击消息里物品名的回调 */
     var onItemClick: ((ItemMatch) -> Unit)? = null

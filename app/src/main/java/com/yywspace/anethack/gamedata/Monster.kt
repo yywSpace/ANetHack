@@ -13,7 +13,7 @@ data class Monster(
     val symbol: String = "",
     /** 显示颜色，使用 NetHack 的 CLR_* 名称 */
     val color: String = "",
-    /** 怪物名；多形态怪物带后缀，如 "werejackal (human)" / "werejackal (animal)" */
+    /** 怪物名；多形态怪物共用同名记录，属性/攻击可能不同 */
     val name: String,
     val difficulty: Int = 0,
     /** 攻击列表，按源码里的攻击槽顺序，如 ["Bite 1d4 physical", "Claw 1d8 physical"] */

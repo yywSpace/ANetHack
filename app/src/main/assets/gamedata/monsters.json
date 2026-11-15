@@ -14143,7 +14143,7 @@
   {
     "symbol": "d",
     "color": "CLR_BROWN",
-    "name": "werejackal (animal)",
+    "name": "werejackal",
     "difficulty": 4,
     "attacks": [
       "Bite 1d4 lycanthropy"
@@ -14178,7 +14178,7 @@
   {
     "symbol": "@",
     "color": "CLR_RED",
-    "name": "werejackal (human)",
+    "name": "werejackal",
     "difficulty": 3,
     "attacks": [
       "Weapon 2d4 physical"
@@ -14215,7 +14215,7 @@
   {
     "symbol": "r",
     "color": "CLR_BROWN",
-    "name": "wererat (animal)",
+    "name": "wererat",
     "difficulty": 4,
     "attacks": [
       "Bite 1d4 lycanthropy"
@@ -14250,7 +14250,7 @@
   {
     "symbol": "@",
     "color": "CLR_BROWN",
-    "name": "wererat (human)",
+    "name": "wererat",
     "difficulty": 3,
     "attacks": [
       "Weapon 2d4 physical"
@@ -14287,7 +14287,7 @@
   {
     "symbol": "d",
     "color": "CLR_GRAY",
-    "name": "werewolf (animal)",
+    "name": "werewolf",
     "difficulty": 7,
     "attacks": [
       "Bite 2d6 lycanthropy"
@@ -14322,7 +14322,7 @@
   {
     "symbol": "@",
     "color": "CLR_ORANGE",
-    "name": "werewolf (human)",
+    "name": "werewolf",
     "difficulty": 6,
     "attacks": [
       "Weapon 2d4 physical"

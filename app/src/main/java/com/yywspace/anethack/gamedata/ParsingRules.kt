@@ -25,26 +25,14 @@ data class TradeInfo(
  *   a crystal wand       → Wand
  * - Gem 只保留 gem/stone 这类通用词；具体宝石名称由物品名称匹配，
  *   不把法杖等随机外观写进 Gem 规则
- *
- * [monsterNameSuffixRegex]：怪物名的多形态后缀，如 (human)/(animal)。
+
  */
 data class ParsingRules(
     val tradeTypesRegex: Map<String, String> = emptyMap(),
     val objectTypesRegex: Map<String, String> = emptyMap(),
-    val monsterNameSuffixRegex: String = ""
 ) {
     @Transient
     private var compiledTypeRegexes: List<Pair<String, Regex>>? = null
-
-    /** 去掉怪物名的多形态后缀："werejackal (human)" → "werejackal"。 */
-    fun monsterBaseName(name: String): String {
-        if (monsterNameSuffixRegex.isBlank())
-            return name
-        return name.replace(
-            Regex(monsterNameSuffixRegex, RegexOption.IGNORE_CASE),
-            ""
-        ).trim()
-    }
 
     /**
      * 从物品显示名称/外观判断类别。

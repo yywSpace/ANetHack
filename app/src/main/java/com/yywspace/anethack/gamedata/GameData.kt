@@ -39,9 +39,6 @@ object GameData {
     var parsingRules: ParsingRules = ParsingRules()
         private set
 
-    /** 名字（小写）→ 怪物，供消息高亮做 O(1) 查询，加载完就建好 */
-    private var monsterIndex: Map<String, Monster> = emptyMap()
-
     /** 精确名称/外观（小写）→ 物品，供菜单标题快速查询 */
     private var itemExactIndex: Map<String, List<Item>> = emptyMap()
 
@@ -69,21 +66,6 @@ object GameData {
                 AppLog.e("GameData", "load assets failed", e)
             }
         }
-    }
-
-    /**
-     * 按名字查怪物，可能返回多条（不区分大小写），结果按名字排序。
-     */
-    fun findMonsters(name: String): List<Monster> {
-        val key = name.trim()
-        if (key.isEmpty())
-            return emptyList()
-        val exact = monsters.filter { it.name.equals(key, ignoreCase = true) }
-        if (exact.isNotEmpty())
-            return exact
-        return monsters
-            .filter { monsterBaseName(it.name).equals(key, ignoreCase = true) }
-            .sortedBy { it.name }
     }
 
     /** 原始属性标志转成展示文字；没有映射时原样返回 */
@@ -119,9 +101,6 @@ object GameData {
     fun itemType(item: Item): String =
         (item.armor?.categoryName?.takeIf { it.isNotBlank() } ?: item.itemClass)
             .replaceFirstChar { it.uppercaseChar() }
-
-    /** 怪物显示名 → 基础名，去掉 (human)/(animal) 后缀。 */
-    fun monsterBaseName(name: String): String = parsingRules.monsterBaseName(name)
 
     /**
      * 解析菜单标题对应的具体物品和所属类别。
@@ -201,7 +180,6 @@ object GameData {
             gson.fromJson(readAsset(context, MONSTERS_FILE), monstersType) ?: emptyList()
         monsters.clear()
         monsters.addAll(loadedMonsters)
-        monsterIndex = buildMonsterIndex(loadedMonsters)
 
         parsingRules = gson.fromJson(readAsset(context, RULES_FILE), ParsingRules::class.java)
             ?: ParsingRules()
@@ -234,18 +212,6 @@ object GameData {
         delayLabels = gson.fromJson(
             readAsset(context, ITEM_DELAYS_FILE), labelsType
         ) ?: emptyMap()
-    }
-
-    /** 建索引：完整名优先，基础名只在没有同名时补充 */
-    private fun buildMonsterIndex(list: List<Monster>): Map<String, Monster> {
-        val index = HashMap<String, Monster>(list.size * 2)
-        list.forEach { index[it.name.lowercase()] = it }
-        list.forEach { monster ->
-            val base = monsterBaseName(monster.name).lowercase()
-            if (base != monster.name.lowercase())
-                index.putIfAbsent(base, monster)
-        }
-        return index
     }
 
     private fun readAsset(context: Context, name: String): String =
