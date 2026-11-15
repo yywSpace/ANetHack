@@ -15,7 +15,9 @@
     <string name="menu_long_press_amount">Select amount</string>
     <string name="menu_long_press_info">View item info</string>
     <string name="menu_long_press_category">View all %1$s items</string>
-    <string name="menu_long_press_price">Price identification: %1$s</string>
+    <string name="menu_long_press_price_buy">View buy price %1$s</string>
+    <string name="menu_long_press_price_sell">View sell price %1$s</string>
+    <string name="menu_long_press_price">View price %1$s</string>
     <string name="menu_item_info_not_found">No item information found.</string>
     <string name="dialog_confirm">Confirm</string>
     <string name="dialog_cancel">Cancel</string>

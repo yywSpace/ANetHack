@@ -3,6 +3,7 @@ package com.yywspace.anethack.window
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
@@ -298,12 +299,12 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         position: Int,
         adapter: NHWMenuAdapter
     ) {
-        val labels = mutableListOf<String>()
-        val actions = mutableListOf<() -> Unit>()
+        val actions = mutableListOf<MenuAction>()
 
         if (menuItem.count >= 0) {
-            labels += context.getString(R.string.menu_long_press_amount)
-            actions += { showAmountPickerDialog(context, menuItem, position, adapter) }
+            actions += MenuAction(context.getString(R.string.menu_long_press_amount)) {
+                showAmountPickerDialog(context, menuItem, position, adapter)
+            }
         }
 
         val lookup = if (nh.prefs.itemInfo)
@@ -312,26 +313,28 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             null
         if (lookup != null) {
             if (lookup.specific.isNotEmpty()) {
-                labels += context.getString(R.string.menu_long_press_info)
-                actions += { showItemGroup(lookup.specific) }
+                actions += MenuAction(context.getString(R.string.menu_long_press_info)) {
+                    showItemGroup(lookup.specific)
+                }
             }
             if (lookup.category.isNotEmpty()) {
-                labels += context.getString(
-                    R.string.menu_long_press_category,
-                    lookup.type
-                )
-                actions += { showItemGroup(lookup.category) }
+                actions += MenuAction(
+                    context.getString(R.string.menu_long_press_category, lookup.type.lowercase())
+                ) {
+                    showItemGroup(lookup.category)
+                }
             }
         }
 
         if (nh.prefs.priceId) {
             MenuLink.priceQuotes(context, menuItem.priceQuote).forEach { quote ->
-                labels += context.getString(R.string.menu_long_press_price, quote)
-                actions += { nh.priceIDialog?.showFromQuote(menuItem, quote) }
+                actions += MenuAction(priceActionLabel(context, quote)) {
+                    nh.priceIDialog?.showFromQuote(menuItem, quote)
+                }
             }
         }
 
-        if (labels.isEmpty()) {
+        if (actions.isEmpty()) {
             Toast.makeText(
                 context,
                 R.string.menu_item_info_not_found,
@@ -339,17 +342,38 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             ).show()
             return
         }
-        if (labels.size == 1) {
-            actions.first().invoke()
+        if (actions.size == 1) {
+            actions.first().action()
             return
         }
 
         AlertDialog.Builder(context)
             .setTitle(menuItem.title.toString())
-            .setItems(labels.toTypedArray()) { _, which -> actions[which].invoke() }
+            .setItems(actions.map { it.title }.toTypedArray()) { _, which ->
+                actions[which].action()
+            }
             .setNegativeButton(R.string.dialog_cancel, null)
             .show(nh.prefs.immersiveMode)
     }
+
+    private fun priceActionLabel(context: Context, quote: String): String {
+        val parts = quote.split(" ", limit = 2)
+        val amount = parts.getOrNull(1).orEmpty()
+        val buy = context.getString(R.string.price_quote_buy)
+        val sell = context.getString(R.string.price_quote_sell)
+        return when {
+            parts.firstOrNull()?.equals(buy, ignoreCase = true) == true ->
+                context.getString(R.string.menu_long_press_price_buy, amount)
+            parts.firstOrNull()?.equals(sell, ignoreCase = true) == true ->
+                context.getString(R.string.menu_long_press_price_sell, amount)
+            else -> context.getString(R.string.menu_long_press_price, quote)
+        }
+    }
+
+    private data class MenuAction(
+        val title: String,
+        val action: () -> Unit
+    )
 
     /** 单个物品直接打开详情，多个物品才打开列表。 */
     private fun showItemGroup(items: List<com.yywspace.anethack.gamedata.Item>) {
