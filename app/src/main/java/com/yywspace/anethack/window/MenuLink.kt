@@ -51,11 +51,14 @@ object MenuLink {
     fun highlightItems(context: Context, text: SpannableStringBuilder) {
         GameData.ensureLoaded(context)
         val title = text.toString()
-        val match = GameData.items
+        val type = GameData.itemTypeOf(title) ?: return
+        val match = GameData.itemsOfType(type)
             .flatMap { item ->
                 listOfNotNull(item.name, item.appearance).map { alias -> alias to item }
             }
-            .filter { (alias, _) -> alias.isNotBlank() && title.contains(alias, ignoreCase = true) }
+            .filter { (alias, _) ->
+                alias.isNotBlank() && title.contains(alias, ignoreCase = true)
+            }
             .maxByOrNull { (alias, _) -> alias.length }
             ?: return
 

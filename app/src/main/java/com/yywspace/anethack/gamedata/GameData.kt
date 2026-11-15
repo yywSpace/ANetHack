@@ -9,7 +9,7 @@ import com.google.gson.reflect.TypeToken
  * 只负责读取游戏资料，不做业务判断。
  *
  * 数据来自 assets/gamedata：
- * - price_rules.json：价格鉴定规则；价格搜查直接使用 items 目录里的物品；
+ * - parsing_rules.json：交易、物品类别、怪物名称的解析规则；
  * - monsters.json / monster_attributes.json：怪物资料；
  * - items 目录下的 JSON 文件：分类物品资料；
  * - item_flags.json / item_effects.json / item_delays.json：物品展示映射。
@@ -19,7 +19,7 @@ import com.google.gson.reflect.TypeToken
 object GameData {
 
     private const val ASSET_DIR = "gamedata"
-    private const val RULES_FILE = "price_rules.json"
+    private const val RULES_FILE = "parsing_rules.json"
     private const val MONSTERS_FILE = "monsters.json"
     private const val MONSTER_ATTRIBUTES_FILE = "monster_attributes.json"
     private const val ITEM_FLAGS_FILE = "item_flags.json"
@@ -35,8 +35,8 @@ object GameData {
     val items: List<Item>
         field = mutableListOf<Item>()
 
-    /** price_rules.json 映射出来的规则；加载前是空规则 */
-    var priceRules: PriceRules = PriceRules()
+    /** parsing_rules.json 映射出来的规则；加载前是空规则 */
+    var parsingRules: ParsingRules = ParsingRules()
         private set
 
     /** 名字（小写）→ 怪物，供消息高亮做 O(1) 查询，加载完就建好 */
@@ -79,7 +79,7 @@ object GameData {
         if (exact.isNotEmpty())
             return exact
         return monsters
-            .filter { baseName(it.name).equals(key, ignoreCase = true) }
+            .filter { monsterBaseName(it.name).equals(key, ignoreCase = true) }
             .sortedBy { it.name }
     }
 
@@ -93,9 +93,20 @@ object GameData {
     fun delayLabel(itemClass: String): String =
         delayLabels[itemClass] ?: itemClass
 
-    /** 去掉多形态怪物的括号后缀："wererat (animal)" → "wererat" */
-    private fun baseName(name: String): String =
-        name.replace(Regex("\\s*\\((?:human|animal)\\)\\s*$"), "").trim()
+    /** 从物品显示名称/外观判断类别。 */
+    fun itemTypeOf(text: String): String? = parsingRules.itemTypeOf(text)
+
+    /** 怪物显示名 → 基础名，去掉 (human)/(animal) 后缀。 */
+    fun monsterBaseName(name: String): String = parsingRules.monsterBaseName(name)
+
+    /** 某类别下的物品；护甲类别使用 categoryName。 */
+    fun itemsOfType(type: String): List<Item> {
+        val normalized = type.lowercase()
+        return items.filter { item ->
+            item.armor?.categoryName?.equals(type, ignoreCase = true) == true ||
+                (item.armor == null && item.itemClass == normalized)
+        }
+    }
 
     private fun loadFromAssets(context: Context) {
         val gson = Gson()
@@ -107,8 +118,8 @@ object GameData {
         monsters.addAll(loadedMonsters)
         monsterIndex = buildMonsterIndex(loadedMonsters)
 
-        priceRules = gson.fromJson(readAsset(context, RULES_FILE), PriceRules::class.java)
-            ?: PriceRules()
+        parsingRules = gson.fromJson(readAsset(context, RULES_FILE), ParsingRules::class.java)
+            ?: ParsingRules()
 
         val itemType = object : TypeToken<List<Item>>() {}.type
         val loadedGameItems = mutableListOf<Item>()
@@ -144,7 +155,7 @@ object GameData {
         val index = HashMap<String, Monster>(list.size * 2)
         list.forEach { index[it.name.lowercase()] = it }
         list.forEach { monster ->
-            val base = baseName(monster.name).lowercase()
+            val base = monsterBaseName(monster.name).lowercase()
             if (base != monster.name.lowercase())
                 index.putIfAbsent(base, monster)
         }

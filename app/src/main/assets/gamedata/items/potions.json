@@ -1,6 +1,6 @@
 [
   {
-    "name": "potion of gain ability",
+    "name": "gain ability",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -15,7 +15,7 @@
     ]
   },
   {
-    "name": "potion of restore ability",
+    "name": "restore ability",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "name": "potion of confusion",
+    "name": "confusion",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -45,7 +45,7 @@
     ]
   },
   {
-    "name": "potion of blindness",
+    "name": "blindness",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -60,7 +60,7 @@
     ]
   },
   {
-    "name": "potion of paralysis",
+    "name": "paralysis",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "name": "potion of speed",
+    "name": "speed",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -90,7 +90,7 @@
     ]
   },
   {
-    "name": "potion of levitation",
+    "name": "levitation",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -105,7 +105,7 @@
     ]
   },
   {
-    "name": "potion of hallucination",
+    "name": "hallucination",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -120,7 +120,7 @@
     ]
   },
   {
-    "name": "potion of invisibility",
+    "name": "invisibility",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -135,7 +135,7 @@
     ]
   },
   {
-    "name": "potion of see invisible",
+    "name": "see invisible",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "name": "potion of healing",
+    "name": "healing",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -165,7 +165,7 @@
     ]
   },
   {
-    "name": "potion of extra healing",
+    "name": "extra healing",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "name": "potion of gain level",
+    "name": "gain level",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -195,7 +195,7 @@
     ]
   },
   {
-    "name": "potion of enlightenment",
+    "name": "enlightenment",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -210,7 +210,7 @@
     ]
   },
   {
-    "name": "potion of monster detection",
+    "name": "monster detection",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "name": "potion of object detection",
+    "name": "object detection",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "name": "potion of gain energy",
+    "name": "gain energy",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -255,7 +255,7 @@
     ]
   },
   {
-    "name": "potion of sleeping",
+    "name": "sleeping",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -270,7 +270,7 @@
     ]
   },
   {
-    "name": "potion of full healing",
+    "name": "full healing",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -285,7 +285,7 @@
     ]
   },
   {
-    "name": "potion of polymorph",
+    "name": "polymorph",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "name": "potion of booze",
+    "name": "booze",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -314,7 +314,7 @@
     ]
   },
   {
-    "name": "potion of sickness",
+    "name": "sickness",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -328,7 +328,7 @@
     ]
   },
   {
-    "name": "potion of fruit juice",
+    "name": "fruit juice",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -342,7 +342,7 @@
     ]
   },
   {
-    "name": "potion of acid",
+    "name": "acid",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -356,7 +356,7 @@
     ]
   },
   {
-    "name": "potion of oil",
+    "name": "oil",
     "appearance": null,
     "class": "potion",
     "symbol": "!",
@@ -370,7 +370,7 @@
     ]
   },
   {
-    "name": "potion of water",
+    "name": "water",
     "appearance": "clear",
     "class": "potion",
     "symbol": "!",

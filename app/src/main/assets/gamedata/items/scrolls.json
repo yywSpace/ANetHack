@@ -1,6 +1,6 @@
 [
   {
-    "name": "scroll of enchant armor",
+    "name": "enchant armor",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -19,7 +19,7 @@
     }
   },
   {
-    "name": "scroll of destroy armor",
+    "name": "destroy armor",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -38,7 +38,7 @@
     }
   },
   {
-    "name": "scroll of confuse monster",
+    "name": "confuse monster",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -57,7 +57,7 @@
     }
   },
   {
-    "name": "scroll of scare monster",
+    "name": "scare monster",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -76,7 +76,7 @@
     }
   },
   {
-    "name": "scroll of remove curse",
+    "name": "remove curse",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -95,7 +95,7 @@
     }
   },
   {
-    "name": "scroll of enchant weapon",
+    "name": "enchant weapon",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -114,7 +114,7 @@
     }
   },
   {
-    "name": "scroll of create monster",
+    "name": "create monster",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -133,7 +133,7 @@
     }
   },
   {
-    "name": "scroll of taming",
+    "name": "taming",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -152,7 +152,7 @@
     }
   },
   {
-    "name": "scroll of genocide",
+    "name": "genocide",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -171,7 +171,7 @@
     }
   },
   {
-    "name": "scroll of light",
+    "name": "light",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -190,7 +190,7 @@
     }
   },
   {
-    "name": "scroll of teleportation",
+    "name": "teleportation",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -209,7 +209,7 @@
     }
   },
   {
-    "name": "scroll of gold detection",
+    "name": "gold detection",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -228,7 +228,7 @@
     }
   },
   {
-    "name": "scroll of food detection",
+    "name": "food detection",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -247,7 +247,7 @@
     }
   },
   {
-    "name": "scroll of identify",
+    "name": "identify",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -266,7 +266,7 @@
     }
   },
   {
-    "name": "scroll of magic mapping",
+    "name": "magic mapping",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -285,7 +285,7 @@
     }
   },
   {
-    "name": "scroll of amnesia",
+    "name": "amnesia",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -304,7 +304,7 @@
     }
   },
   {
-    "name": "scroll of fire",
+    "name": "fire",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -323,7 +323,7 @@
     }
   },
   {
-    "name": "scroll of earth",
+    "name": "earth",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -342,7 +342,7 @@
     }
   },
   {
-    "name": "scroll of punishment",
+    "name": "punishment",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -361,7 +361,7 @@
     }
   },
   {
-    "name": "scroll of charging",
+    "name": "charging",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -380,7 +380,7 @@
     }
   },
   {
-    "name": "scroll of stinking cloud",
+    "name": "stinking cloud",
     "appearance": null,
     "class": "scroll",
     "symbol": "?",
@@ -399,7 +399,7 @@
     }
   },
   {
-    "name": "scroll of mail",
+    "name": "mail",
     "appearance": "stamped",
     "class": "scroll",
     "symbol": "?",
@@ -417,7 +417,7 @@
     }
   },
   {
-    "name": "scroll of blank paper",
+    "name": "blank paper",
     "appearance": "unlabeled",
     "class": "scroll",
     "symbol": "?",

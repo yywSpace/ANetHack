@@ -1,6 +1,6 @@
 [
   {
-    "name": "wand of light",
+    "name": "light",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -17,7 +17,7 @@
     "direction": "Non-directional"
   },
   {
-    "name": "wand of secret door detection",
+    "name": "secret door detection",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -34,7 +34,7 @@
     "direction": "Non-directional"
   },
   {
-    "name": "wand of enlightenment",
+    "name": "enlightenment",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -51,7 +51,7 @@
     "direction": "Non-directional"
   },
   {
-    "name": "wand of create monster",
+    "name": "create monster",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -68,7 +68,7 @@
     "direction": "Non-directional"
   },
   {
-    "name": "wand of wishing",
+    "name": "wishing",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -85,7 +85,7 @@
     "direction": "Non-directional"
   },
   {
-    "name": "wand of stasis",
+    "name": "stasis",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -102,7 +102,7 @@
     "direction": "Non-directional"
   },
   {
-    "name": "wand of nothing",
+    "name": "nothing",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -118,7 +118,7 @@
     "direction": "Immediate"
   },
   {
-    "name": "wand of striking",
+    "name": "striking",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -135,7 +135,7 @@
     "direction": "Immediate"
   },
   {
-    "name": "wand of make invisible",
+    "name": "make invisible",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -152,7 +152,7 @@
     "direction": "Immediate"
   },
   {
-    "name": "wand of slow monster",
+    "name": "slow monster",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -169,7 +169,7 @@
     "direction": "Immediate"
   },
   {
-    "name": "wand of speed monster",
+    "name": "speed monster",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -186,7 +186,7 @@
     "direction": "Immediate"
   },
   {
-    "name": "wand of undead turning",
+    "name": "undead turning",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -203,7 +203,7 @@
     "direction": "Immediate"
   },
   {
-    "name": "wand of polymorph",
+    "name": "polymorph",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -220,7 +220,7 @@
     "direction": "Immediate"
   },
   {
-    "name": "wand of cancellation",
+    "name": "cancellation",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -237,7 +237,7 @@
     "direction": "Immediate"
   },
   {
-    "name": "wand of teleportation",
+    "name": "teleportation",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -254,7 +254,7 @@
     "direction": "Immediate"
   },
   {
-    "name": "wand of opening",
+    "name": "opening",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -271,7 +271,7 @@
     "direction": "Immediate"
   },
   {
-    "name": "wand of locking",
+    "name": "locking",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -288,7 +288,7 @@
     "direction": "Immediate"
   },
   {
-    "name": "wand of probing",
+    "name": "probing",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -305,7 +305,7 @@
     "direction": "Immediate"
   },
   {
-    "name": "wand of digging",
+    "name": "digging",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -322,7 +322,7 @@
     "direction": "Ray"
   },
   {
-    "name": "wand of magic missile",
+    "name": "magic missile",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -339,7 +339,7 @@
     "direction": "Ray"
   },
   {
-    "name": "wand of fire",
+    "name": "fire",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -356,7 +356,7 @@
     "direction": "Ray"
   },
   {
-    "name": "wand of cold",
+    "name": "cold",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -373,7 +373,7 @@
     "direction": "Ray"
   },
   {
-    "name": "wand of sleep",
+    "name": "sleep",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -390,7 +390,7 @@
     "direction": "Ray"
   },
   {
-    "name": "wand of death",
+    "name": "death",
     "appearance": null,
     "class": "wand",
     "symbol": "/",
@@ -407,7 +407,7 @@
     "direction": "Ray"
   },
   {
-    "name": "wand of lightning",
+    "name": "lightning",
     "appearance": null,
     "class": "wand",
     "symbol": "/",

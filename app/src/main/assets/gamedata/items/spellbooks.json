@@ -1,6 +1,6 @@
 [
   {
-    "name": "spellbook of dig",
+    "name": "dig",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -25,7 +25,7 @@
     }
   },
   {
-    "name": "spellbook of magic missile",
+    "name": "magic missile",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -50,7 +50,7 @@
     }
   },
   {
-    "name": "spellbook of fireball",
+    "name": "fireball",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -75,7 +75,7 @@
     }
   },
   {
-    "name": "spellbook of cone of cold",
+    "name": "cone of cold",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -100,7 +100,7 @@
     }
   },
   {
-    "name": "spellbook of sleep",
+    "name": "sleep",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -125,7 +125,7 @@
     }
   },
   {
-    "name": "spellbook of finger of death",
+    "name": "finger of death",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -150,7 +150,7 @@
     }
   },
   {
-    "name": "spellbook of light",
+    "name": "light",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -175,7 +175,7 @@
     }
   },
   {
-    "name": "spellbook of detect monsters",
+    "name": "detect monsters",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -200,7 +200,7 @@
     }
   },
   {
-    "name": "spellbook of healing",
+    "name": "healing",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -225,7 +225,7 @@
     }
   },
   {
-    "name": "spellbook of knock",
+    "name": "knock",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -250,7 +250,7 @@
     }
   },
   {
-    "name": "spellbook of force bolt",
+    "name": "force bolt",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -275,7 +275,7 @@
     }
   },
   {
-    "name": "spellbook of confuse monster",
+    "name": "confuse monster",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -300,7 +300,7 @@
     }
   },
   {
-    "name": "spellbook of cure blindness",
+    "name": "cure blindness",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -325,7 +325,7 @@
     }
   },
   {
-    "name": "spellbook of drain life",
+    "name": "drain life",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -350,7 +350,7 @@
     }
   },
   {
-    "name": "spellbook of slow monster",
+    "name": "slow monster",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -375,7 +375,7 @@
     }
   },
   {
-    "name": "spellbook of wizard lock",
+    "name": "wizard lock",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -400,7 +400,7 @@
     }
   },
   {
-    "name": "spellbook of create monster",
+    "name": "create monster",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -425,7 +425,7 @@
     }
   },
   {
-    "name": "spellbook of detect food",
+    "name": "detect food",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -450,7 +450,7 @@
     }
   },
   {
-    "name": "spellbook of cause fear",
+    "name": "cause fear",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -475,7 +475,7 @@
     }
   },
   {
-    "name": "spellbook of clairvoyance",
+    "name": "clairvoyance",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -500,7 +500,7 @@
     }
   },
   {
-    "name": "spellbook of cure sickness",
+    "name": "cure sickness",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -525,7 +525,7 @@
     }
   },
   {
-    "name": "spellbook of charm monster",
+    "name": "charm monster",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -550,7 +550,7 @@
     }
   },
   {
-    "name": "spellbook of haste self",
+    "name": "haste self",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -575,7 +575,7 @@
     }
   },
   {
-    "name": "spellbook of detect unseen",
+    "name": "detect unseen",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -600,7 +600,7 @@
     }
   },
   {
-    "name": "spellbook of levitation",
+    "name": "levitation",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -625,7 +625,7 @@
     }
   },
   {
-    "name": "spellbook of extra healing",
+    "name": "extra healing",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -650,7 +650,7 @@
     }
   },
   {
-    "name": "spellbook of restore ability",
+    "name": "restore ability",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -675,7 +675,7 @@
     }
   },
   {
-    "name": "spellbook of invisibility",
+    "name": "invisibility",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -700,7 +700,7 @@
     }
   },
   {
-    "name": "spellbook of detect treasure",
+    "name": "detect treasure",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -725,7 +725,7 @@
     }
   },
   {
-    "name": "spellbook of remove curse",
+    "name": "remove curse",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -750,7 +750,7 @@
     }
   },
   {
-    "name": "spellbook of magic mapping",
+    "name": "magic mapping",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -775,7 +775,7 @@
     }
   },
   {
-    "name": "spellbook of identify",
+    "name": "identify",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -800,7 +800,7 @@
     }
   },
   {
-    "name": "spellbook of turn undead",
+    "name": "turn undead",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -825,7 +825,7 @@
     }
   },
   {
-    "name": "spellbook of polymorph",
+    "name": "polymorph",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -850,7 +850,7 @@
     }
   },
   {
-    "name": "spellbook of teleport away",
+    "name": "teleport away",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -875,7 +875,7 @@
     }
   },
   {
-    "name": "spellbook of create familiar",
+    "name": "create familiar",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -900,7 +900,7 @@
     }
   },
   {
-    "name": "spellbook of cancellation",
+    "name": "cancellation",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -925,7 +925,7 @@
     }
   },
   {
-    "name": "spellbook of protection",
+    "name": "protection",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -950,7 +950,7 @@
     }
   },
   {
-    "name": "spellbook of jumping",
+    "name": "jumping",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -975,7 +975,7 @@
     }
   },
   {
-    "name": "spellbook of stone to flesh",
+    "name": "stone to flesh",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -1000,7 +1000,7 @@
     }
   },
   {
-    "name": "spellbook of chain lightning",
+    "name": "chain lightning",
     "appearance": null,
     "class": "spellbook",
     "symbol": "+",
@@ -1025,7 +1025,7 @@
     }
   },
   {
-    "name": "spellbook of blank paper",
+    "name": "blank paper",
     "appearance": "plain",
     "class": "spellbook",
     "symbol": "+",

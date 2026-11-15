@@ -1,7 +1,6 @@
 package com.yywspace.anethack.gamedata
 
 import android.content.Context
-import java.util.regex.Pattern
 
 /**
  * 价格鉴定：从 [GameData] 取一次物品数据，之后买价/卖价推算、类型解析都在这类里完成。
@@ -66,24 +65,9 @@ class NHPriceID(context: Context) {
         else
             itemsOf(type).filter { it.price.toString() == basePrice }
 
-    /** 从物品描述（如 "a smoky potion"）解析所属类型，解析不出返回空串 */
-    fun parseObjType(objDesc: String): String {
-        val lower = objDesc.lowercase()
-        // 新物品数据里名称/固定外观都是完整文本，优先按名称匹配，
-        // 这样武器、工具、食物、宝石等旧价格表没有的类别也能识别。
-        items.filter { item ->
-            lower.contains(item.name.lowercase()) ||
-                (item.appearance?.takeIf { it.isNotBlank() }?.let {
-                    lower.contains(it.lowercase())
-                } == true)
-        }.maxByOrNull { it.name.length }?.let { return typeOf(it) }
-
-        GameData.priceRules.objectTypesRegex.forEach { (type, regex) ->
-            if (Pattern.compile(regex).matcher(objDesc).find())
-                return type
-        }
-        return ""
-    }
+    /** 从物品描述（如 "a smoky potion"）解析所属类型，解析不出返回空串。 */
+    fun parseObjType(objDesc: String): String =
+        GameData.itemTypeOf(objDesc) ?: ""
 
     /** 物品类型；护甲使用数据里的具体部件类别，其余直接使用 itemClass。 */
     private fun typeOf(item: Item): String =
@@ -91,28 +75,9 @@ class NHPriceID(context: Context) {
             ?: item.itemClass)
             .replaceFirstChar { it.uppercaseChar() }
 
-    /**
-     * 解析交易信息，返回 tradePrice / tradeMode / objType。
-     * 支持的形式：
-     *   you see here a smoky potion (for sale, 67 zorkmids).
-     *   a smoky potion (unpaid, 67 zorkmids)
-     *   Tipor offers 2 gold pieces for you lembas water. Sell it?
-     */
-    fun parseTradeInfo(info: String): Map<String, String> {
-        val result = mutableMapOf<String, String>()
-        GameData.priceRules.tradeTypesRegex.forEach { (tradeType, regex) ->
-            val matcher = Pattern.compile(regex).matcher(info)
-            while (matcher.find()) {
-                val objDesc = matcher.group("objDesc") ?: ""
-                result["tradePrice"] = matcher.group("objPrice") ?: ""
-                result["tradeMode"] = tradeType
-                val objType = parseObjType(objDesc)
-                if (objType.isNotEmpty())
-                    result["objType"] = objType
-            }
-        }
-        return result
-    }
+    /** 交易信息解析委托给规则类。 */
+    fun tradeInfoOf(info: String): TradeInfo? =
+        GameData.parsingRules.tradeInfoOf(info)
 
     private fun calcBuyPrice(price: Int, ch: Int, surcharge: Boolean, sucker: Boolean): Int {
         var m = 1

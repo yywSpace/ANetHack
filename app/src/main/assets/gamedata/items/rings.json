@@ -1,6 +1,6 @@
 [
   {
-    "name": "ring of adornment",
+    "name": "adornment",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -16,7 +16,7 @@
     ]
   },
   {
-    "name": "ring of gain strength",
+    "name": "gain strength",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -32,7 +32,7 @@
     ]
   },
   {
-    "name": "ring of gain constitution",
+    "name": "gain constitution",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -48,7 +48,7 @@
     ]
   },
   {
-    "name": "ring of increase accuracy",
+    "name": "increase accuracy",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -64,7 +64,7 @@
     ]
   },
   {
-    "name": "ring of increase damage",
+    "name": "increase damage",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "name": "ring of protection",
+    "name": "protection",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -96,7 +96,7 @@
     ]
   },
   {
-    "name": "ring of regeneration",
+    "name": "regeneration",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -110,7 +110,7 @@
     ]
   },
   {
-    "name": "ring of searching",
+    "name": "searching",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -124,7 +124,7 @@
     ]
   },
   {
-    "name": "ring of stealth",
+    "name": "stealth",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "name": "ring of sustain ability",
+    "name": "sustain ability",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -152,7 +152,7 @@
     ]
   },
   {
-    "name": "ring of levitation",
+    "name": "levitation",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -166,7 +166,7 @@
     ]
   },
   {
-    "name": "ring of hunger",
+    "name": "hunger",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -181,7 +181,7 @@
     ]
   },
   {
-    "name": "ring of aggravate monster",
+    "name": "aggravate monster",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -196,7 +196,7 @@
     ]
   },
   {
-    "name": "ring of conflict",
+    "name": "conflict",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -211,7 +211,7 @@
     ]
   },
   {
-    "name": "ring of warning",
+    "name": "warning",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -226,7 +226,7 @@
     ]
   },
   {
-    "name": "ring of poison resistance",
+    "name": "poison resistance",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "name": "ring of fire resistance",
+    "name": "fire resistance",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -254,7 +254,7 @@
     ]
   },
   {
-    "name": "ring of cold resistance",
+    "name": "cold resistance",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -268,7 +268,7 @@
     ]
   },
   {
-    "name": "ring of shock resistance",
+    "name": "shock resistance",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -282,7 +282,7 @@
     ]
   },
   {
-    "name": "ring of free action",
+    "name": "free action",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -296,7 +296,7 @@
     ]
   },
   {
-    "name": "ring of slow digestion",
+    "name": "slow digestion",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -311,7 +311,7 @@
     ]
   },
   {
-    "name": "ring of teleportation",
+    "name": "teleportation",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "name": "ring of teleport control",
+    "name": "teleport control",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -339,7 +339,7 @@
     ]
   },
   {
-    "name": "ring of polymorph",
+    "name": "polymorph",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -353,7 +353,7 @@
     ]
   },
   {
-    "name": "ring of polymorph control",
+    "name": "polymorph control",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -368,7 +368,7 @@
     ]
   },
   {
-    "name": "ring of invisibility",
+    "name": "invisibility",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -382,7 +382,7 @@
     ]
   },
   {
-    "name": "ring of see invisible",
+    "name": "see invisible",
     "appearance": null,
     "class": "ring",
     "symbol": "=",
@@ -396,7 +396,7 @@
     ]
   },
   {
-    "name": "ring of protection from shape changers",
+    "name": "protection from shape changers",
     "appearance": null,
     "class": "ring",
     "symbol": "=",

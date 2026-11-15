@@ -50,12 +50,10 @@ class NHPriceIDialog (val context: Context, val nh: NetHack){
     }
 
     private fun parseTradeInfo(info:String):Boolean {
-        val result = priceID.parseTradeInfo(info)
-        if (result.isEmpty())
-            return false
-        tradePrice = result["tradePrice"]?:tradePrice
-        currentType = result["objType"]?:currentType
-        currentIdMode = idModeOf(result["tradeMode"])
+        val result = priceID.tradeInfoOf(info) ?: return false
+        tradePrice = result.price ?: tradePrice
+        currentType = result.itemType ?: currentType
+        currentIdMode = idModeOf(result.mode)
         return true
     }
 
