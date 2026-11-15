@@ -6,12 +6,7 @@ import android.view.MotionEvent
 import android.widget.TextView
 import com.yywspace.anethack.SharedPreferencesUtils
 
-/**
- * 消息里出现的物品名，做成高亮可点击的文本段。
- *
- * 物品数据已经保存完整名称，例如 spellbook of healing。
- */
-/** 一条消息里的物品名匹配结果；同一外观可能对应多个物品。 */
+/** 一条 look 消息里的物品匹配结果；同一结果可能对应多个物品。 */
 data class ItemMatch(
     val label: String,
     val items: List<Item>
@@ -19,12 +14,10 @@ data class ItemMatch(
 
 object ItemLink {
 
-    private val link = MessageLink(
+    private val link = MessageLink<ItemMatch>(
         MessageLinkKind.ITEM,
-        { matches() },
-        { listOf(it.label) },
-        { it.items.first().colorValue }
-    )
+        { match -> match.items.first().colorValue }
+    ) { line -> resolveItemLine(line) }
 
     fun highlight(
         context: Context,
@@ -45,17 +38,11 @@ object ItemLink {
     fun spanAtLine(widget: TextView, event: MotionEvent): MessageNameSpan<ItemMatch>? =
         link.spanAtLine(widget, event)
 
-    private fun matches(): List<ItemMatch> {
-        val groups = LinkedHashMap<String, MutableList<Item>>()
-        fun add(label: String, item: Item) {
-            groups.getOrPut(label) { mutableListOf() }.add(item)
-        }
-        GameData.items.forEach { item ->
-            add(item.name, item)
-            item.appearance
-                ?.takeIf { it != item.name }
-                ?.let { add(it, item) }
-        }
-        return groups.map { (label, items) -> ItemMatch(label, items) }
+    private fun resolveItemLine(line: String): ItemMatch? {
+        val lookup = GameData.lookupItemsForTitle(line) ?: return null
+        val items = lookup.specific.takeIf { it.isNotEmpty() } ?: lookup.category
+        if (items.isEmpty())
+            return null
+        return ItemMatch(line, items)
     }
 }

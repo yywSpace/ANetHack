@@ -12,12 +12,15 @@ import android.widget.TextView
  */
 object MonsterLink {
 
+    private val names = NameLineResolver(
+        { GameData.monsters },
+        { listOf(it.name) }
+    )
+
     private val link = MessageLink(
         MessageLinkKind.MONSTER,
-        { GameData.monsters },
-        { listOf(it.name) },
         { it.colorValue }
-    )
+    ) { line -> names.resolve(line) }
 
     fun highlight(
         context: Context,
@@ -35,4 +38,44 @@ object MonsterLink {
 
     fun spanAtLine(widget: TextView, event: MotionEvent): MessageNameSpan<Monster>? =
         link.spanAtLine(widget, event)
+
+/** 名称匹配策略：把一行里出现的已知名称映射为对象。 */
+class NameLineResolver<T>(
+    private val values: () -> List<T>,
+    private val labelsOf: (T) -> List<String>
+) {
+
+    @Volatile
+    private var nameRegex: Regex? = null
+
+    @Volatile
+    private var regexSize = -1
+
+    private var aliasIndex: Map<String, T> = emptyMap()
+
+    fun resolve(line: String): T? {
+        val regex = regex() ?: return null
+        val match = regex.find(line) ?: return null
+        return aliasIndex[match.value.lowercase()]
+    }
+
+    private fun regex(): Regex? {
+        val pairs = values().flatMap { value ->
+            labelsOf(value).map { it.lowercase() to value }
+        }
+        if (pairs.isEmpty())
+            return null
+        val cached = nameRegex
+        if (cached != null && regexSize == pairs.size)
+            return cached
+        val index = pairs.toMap()
+        val body = index.keys.sortedByDescending { it.length }
+            .joinToString("|") { Regex.escape(it) }
+        aliasIndex = index
+        return Regex("(?<![\\w-])($body)", RegexOption.IGNORE_CASE).also {
+            nameRegex = it
+            regexSize = pairs.size
+        }
+    }
+}
 }

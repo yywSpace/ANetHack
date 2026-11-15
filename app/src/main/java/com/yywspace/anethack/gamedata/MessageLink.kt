@@ -1,9 +1,7 @@
 package com.yywspace.anethack.gamedata
 
-import android.graphics.Color
 import android.text.Spannable
 import android.text.Spanned
-import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.MotionEvent
 import android.view.View
@@ -17,23 +15,14 @@ enum class MessageLinkKind {
 /**
  * 消息里的可点击名称匹配器。
  *
- * 只负责把一行里的名称解析成对象并打上 span；是否只处理 look 消息由调用方决定。
- * labelsOf 可以提供单数、复数等别名。
+ * 只负责逐行解析和 span/触摸处理；每一行由 [resolveLine] 决定对应对象。
+ * 具体怎么匹配（名称、类别、外观）由调用方决定。
  */
 class MessageLink<T>(
     private val kind: MessageLinkKind,
-    private val values: () -> List<T>,
-    private val labelsOf: (T) -> List<String>,
-    private val colorOf: (T) -> Int
+    private val colorOf: (T) -> Int,
+    private val resolveLine: (String) -> T?
 ) {
-
-    @Volatile
-    private var nameRegex: Regex? = null
-
-    @Volatile
-    private var regexSize = -1
-
-    private var aliasIndex: Map<String, T> = emptyMap()
 
     fun highlight(
         text: Spannable,
@@ -43,15 +32,13 @@ class MessageLink<T>(
     ) {
         if (to <= from)
             return
-        val regex = regex() ?: return
         var lineStart = from
         while (lineStart <= to) {
             val lineEnd = indexOfNewline(text, lineStart, to)
             if (lineEnd > lineStart) {
                 val line = text.subSequence(lineStart, lineEnd).toString()
-                val match = regex.find(line)
-                val value = match?.let { aliasIndex[it.value.lowercase()] }
-                if (match != null && value != null) {
+                val value = resolveLine(line)
+                if (value != null) {
                     text.setSpan(
                         MessageNameSpan(value, kind, colorOf(value), onClick),
                         lineStart,
@@ -102,25 +89,6 @@ class MessageLink<T>(
         }
         return limit
     }
-
-    private fun regex(): Regex? {
-        val pairs = values().flatMap { value ->
-            labelsOf(value).map { it.lowercase() to value }
-        }
-        if (pairs.isEmpty())
-            return null
-        val cached = nameRegex
-        if (cached != null && regexSize == pairs.size)
-            return cached
-        val index = pairs.toMap()
-        val body = index.keys.sortedByDescending { it.length }
-            .joinToString("|") { Regex.escape(it) }
-        aliasIndex = index
-        return Regex("(?<![\\w-])($body)", RegexOption.IGNORE_CASE).also {
-            nameRegex = it
-            regexSize = pairs.size
-        }
-    }
 }
 
 /** 可点击名称：颜色、下划线和点击对象都由调用方决定。 */
@@ -135,9 +103,8 @@ class MessageNameSpan<T>(
         onClickValue(value)
     }
 
-    override fun updateDrawState(ds: TextPaint) {
+    override fun updateDrawState(ds: android.text.TextPaint) {
         ds.color = color
         ds.isUnderlineText = true
-        ds.bgColor = Color.TRANSPARENT
     }
 }

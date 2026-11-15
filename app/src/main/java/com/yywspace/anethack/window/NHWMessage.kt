@@ -51,7 +51,10 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         }
         // 消息里的物品名：点击后打开对应物品详情
         messageView.onItemClick = { item ->
-            nh.itemDialog?.showItems(item.items)
+            if (item.items.size == 1)
+                nh.itemDialog?.showItem(item.items.first().name, item.items.first().itemClass)
+            else
+                nh.itemDialog?.showItems(item.items)
         }
     }
 
@@ -164,7 +167,10 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                         nh.monsterDialog?.showMonster(monster)
                     }
                     ItemLink.highlight(itemContext, messageText, lineStart, messageText.length) { item ->
-                        nh.itemDialog?.showItems(item.items)
+                        if (item.items.size == 1)
+                            nh.itemDialog?.showItem(item.items.first().name, item.items.first().itemClass)
+                        else
+                            nh.itemDialog?.showItems(item.items)
                     }
                 }
             }
