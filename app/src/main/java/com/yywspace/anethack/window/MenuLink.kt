@@ -52,20 +52,32 @@ object MenuLink {
         GameData.ensureLoaded(context)
         val title = text.toString()
         val type = GameData.itemTypeOf(title) ?: return
-        val match = GameData.itemsOfType(type)
+        val candidates = GameData.itemsOfType(type)
+        if (candidates.isEmpty())
+            return
+
+        val matches = candidates
             .flatMap { item ->
                 listOfNotNull(item.name, item.appearance).map { alias -> alias to item }
             }
             .filter { (alias, _) ->
                 alias.isNotBlank() && title.contains(alias, ignoreCase = true)
             }
-            .maxByOrNull { (alias, _) -> alias.length }
-            ?: return
+
+        // 取最长匹配；同一名称对应多个物品时全部返回。
+        val maxLength = matches.maxOfOrNull { (alias, _) -> alias.length }
+        val items = if (maxLength == null) {
+            candidates
+        } else {
+            matches.filter { (alias, _) -> alias.length == maxLength }
+                .map { (_, item) -> item }
+                .distinct()
+        }
 
         val iconStart = text.length + 1 // " " 后面是信息图标
         text.append(" \u24D8")
         text.setSpan(
-            MenuItemSpan(match.second),
+            MenuItemSpan(items),
             iconStart,
             text.length,
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -77,7 +89,7 @@ object MenuLink {
     fun attach(
         view: TextView,
         onQuoteClick: (String) -> Unit,
-        onItemClick: (Item) -> Unit
+        onItemClick: (List<Item>) -> Unit
     ) {
         var downSpan: CharacterStyle? = null
         view.setOnTouchListener { v, event ->
@@ -95,7 +107,7 @@ object MenuLink {
                             true
                         }
                         is MenuItemSpan -> {
-                            onItemClick(span.item)
+                            onItemClick(span.items)
                             true
                         }
                         else -> false
@@ -128,7 +140,7 @@ object MenuLink {
  * 和 [MenuQuoteSpan] 一样，onClick 本身不执行动作；点击由 [MenuLink.attach] 统一处理，
  * 这样菜单项外层的整行点击/长按不会被物品名链接破坏。
  */
-class MenuItemSpan(val item: Item) : CharacterStyle() {
+class MenuItemSpan(val items: List<Item>) : CharacterStyle() {
     override fun updateDrawState(ds: TextPaint) {
         // 信息图标只作为点击入口，保留原色且不加下划线
         ds.isUnderlineText = false

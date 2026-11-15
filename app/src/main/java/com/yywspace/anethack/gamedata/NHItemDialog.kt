@@ -50,10 +50,12 @@ class NHItemDialog(
         content = scaffold.content
         scroll = scaffold.scroll
         content.removeAllViews()
-        items.sortedWith(compareBy<Item> { it.itemClass }.thenBy { it.name })
-            .forEach { content.addView(card(it)) }
+        pending = items.sortedWith(compareBy<Item> { it.itemClass }.thenBy { it.name })
+        rendered = 0
+        appendNext()
         dialog = ui.createDialog(R.string.item_lookup_title, scaffold.root)
         dialog?.show(nh.prefs.immersiveMode)
+        ui.scrollToTop(scroll)
     }
 
     /** 指定物品详情：没有搜索栏。 */
@@ -107,7 +109,6 @@ class NHItemDialog(
         }.sortedWith(compareBy<Item> { it.itemClass }.thenBy { it.name })
         content.removeAllViews()
         rendered = 0
-        moreButton = null
         if (pending.isEmpty()) {
             content.addView(TextView(context).apply {
                 text = context.getString(R.string.item_lookup_empty)

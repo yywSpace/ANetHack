@@ -27,7 +27,7 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
     /** 点击菜单项的大括号价格文本（如 "sell 67"）回调，传入菜单项和点击的价格段 */
     var onPriceQuoteClick:((menuItem: NHMenuItem, quote: String)->Unit)? = null
     /** 点击菜单标题里的物品名，打开物品弹窗 */
-    var onItemNameClick:((item: Item)->Unit)? = null
+    var onItemNameClick:((items: List<Item>)->Unit)? = null
 
     inner class OptionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val itemAcc: TextView = view.findViewById(R.id.item_accelerator)
@@ -68,7 +68,7 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
             MenuLink.attach(
                 itemTitle,
                 onQuoteClick = { quote -> onPriceQuoteClick?.invoke(menuItem, quote) },
-                onItemClick = { item -> onItemNameClick?.invoke(item) }
+                onItemClick = { items -> onItemNameClick?.invoke(items) }
             )
 
             if (menuItem.hasSubtitle()) {

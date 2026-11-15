@@ -175,8 +175,13 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                 onPriceQuoteClick = { menuItem, quote ->
                     nh.priceIDialog?.showFromQuote(menuItem, quote)
                 }
-                onItemNameClick = { item ->
-                    nh.itemDialog?.showItem(item.name, item.itemClass)
+                onItemNameClick = { items ->
+                    when {
+                        items.size == 1 ->
+                            nh.itemDialog?.showItem(items.first().name, items.first().itemClass)
+                        items.size > 1 ->
+                            nh.itemDialog?.showItems(items)
+                    }
                 }
             }
         }
