@@ -34,27 +34,23 @@ set(TOPLUALIB ${CMAKE_BINARY_DIR}/${LUA_REL_PATH}/liblua.a)
 add_subdirectory(Lua)
 
 file(GLOB NETHACK_CORE CONFIGURE_DEPENDS "NetHack/src/*.c")
+file(GLOB ANDROID_SRC CONFIGURE_DEPENDS "android/*.c")
 
 set(NETHACK_SRC
         ${NETHACK_CORE}
+        ${ANDROID_SRC}
         "NetHack/sys/share/posixregex.c"
         "NetHack/sys/share/ioctl.c"
         "NetHack/sys/share/unixtty.c"
         "NetHack/sys/unix/unixres.c"
-        "tile.c"
-        "androidmain.c"
-        "androidunix.c"
-        "androidwin.c"
-        "androidplayer.c"
-        "androidstatus.c"
-        "androidsound.c"
-        "androidentry.c"
+        "generated/tile.c"
 )
 
 add_library(${CMAKE_PROJECT_NAME} SHARED ${NETHACK_SRC})
 target_include_directories(
         ${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/NetHack/include
         ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/android
         ${LUA_INCLUDE} Lua)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} ${TOPLUALIB} android log z)
