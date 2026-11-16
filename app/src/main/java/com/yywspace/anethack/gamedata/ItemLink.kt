@@ -14,7 +14,7 @@ data class ItemMatch(
 
 object ItemLink {
 
-    private val link = MessageLink<ItemMatch>(
+    private val link = MessageLink(
         MessageLinkKind.ITEM,
         { match -> match.items.first().colorValue }
     ) { line -> resolveItemLine(line) }
