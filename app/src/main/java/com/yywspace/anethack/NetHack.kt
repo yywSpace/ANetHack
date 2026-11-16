@@ -163,8 +163,8 @@ class NetHack(
         }
     }
 
-    private fun renderStatus(fldIdx:Int, fmtVal:String, realVal:String, attr:Int, color:Int, percent:Int) {
-        getWStatus().renderField(fldIdx, fmtVal, realVal, attr, color, percent)
+    private fun updateStatus(data: IntArray, texts: Array<String>) {
+        getWStatus().updateStatus(data, texts)
     }
 
     private fun printTile(wid: Int, x: Int, y: Int, tile: Int, ch: Int, col: Int, special: Int) {

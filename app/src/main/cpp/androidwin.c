@@ -7,6 +7,7 @@
 #include "func_tab.h"   /* for extended commands */
 #include "dlb.h"
 #include "androidentry.h"
+#include "androidstatus.h"
 
 #include <android/log.h>
 #define TAG "NativeNetHackWin"
@@ -71,10 +72,7 @@ static char next_menu_selector = 'a';
 
 static char* and_getmsghistory(boolean);
 static void and_putmsghistory(const char *, boolean);
-static void and_status_update(int, genericptr_t, int, int, int, unsigned long *);
 
-static int cond_color(long, const unsigned long *);
-static int cond_attr(long, const unsigned long *);
 
 struct window_procs and_procs = {
         "and",
@@ -98,7 +96,7 @@ struct window_procs and_procs = {
         and_putmixed,
         and_display_file,
         and_start_menu,
-       and_add_menu,
+        and_add_menu,
         and_end_menu,
         and_select_menu,
         genl_message_menu,
@@ -138,19 +136,6 @@ struct window_procs and_procs = {
         and_update_inventory,
         and_ctrl_nhwindow
 };
-
-// status
-extern const char *status_fieldfmt[MAXBLSTATS];
-extern const char *status_fieldnm[MAXBLSTATS];
-extern boolean status_activefields[MAXBLSTATS];
-extern char *status_vals[MAXBLSTATS];
-
-static int status_colors[MAXBLSTATS];
-static int status_percent[MAXBLSTATS];
-static char *status_real_values[MAXBLSTATS];
-static int status_attrmasks[MAXBLSTATS];
-static unsigned long* and_colormasks;
-static long and_condition_bits = 0L;
 
 char **get_aborted_games(void);
 
@@ -489,160 +474,6 @@ void and_putstr(winid wid, int attr, const char *str)
     jstring jstr = char2Jstring(jEnv, str);
     JNICallV(jPutString, wid, attr, jstr, NO_COLOR)
     if (jstr) (*jEnv)->DeleteLocalRef(jEnv, jstr);
-}
-
-void and_status_field_render(int idx, const char *fmt_val, const char *real_val, int attr, int color, int percent) {
-    jstring fmtVal = char2Jstring(jEnv, fmt_val);
-    jstring realVal = char2Jstring(jEnv, real_val);
-    JNICallV(jRenderStatus, idx, fmtVal, realVal, attr, color, percent)
-    if (fmtVal) (*jEnv)->DeleteLocalRef(jEnv, fmtVal);
-    if (realVal) (*jEnv)->DeleteLocalRef(jEnv, realVal);
-}
-
-
-/* HL_ATTCLR_* 属性索引 -> Android ATR_* 属性位 */
-static int hl_attr_index_to_atr(int idx)
-{
-    switch(idx)
-    {
-        case HL_ATTCLR_DIM: 	return (1<<ATR_DIM);
-        case HL_ATTCLR_BLINK:	return (1<<ATR_BLINK);
-        case HL_ATTCLR_ULINE:   return (1<<ATR_ULINE);
-        case HL_ATTCLR_INVERSE:	return (1<<ATR_INVERSE);
-        case HL_ATTCLR_BOLD:	return (1<<ATR_BOLD);
-        default:
-            return 0;
-    }
-}
-
-/* NetHack HL_* 高亮掩码 -> Android ATR_* 属性位 */
-static int hl_attr_mask_to_atr(int mask)
-{
-    int attr = 0;
-    if(mask & HL_DIM) attr |= (1<<ATR_DIM);
-    if(mask & HL_BLINK) attr |= (1<<ATR_BLINK);
-    if(mask & HL_ULINE) attr |= (1<<ATR_ULINE);
-    if(mask & HL_INVERSE) attr |= (1<<ATR_INVERSE);
-    if(mask & HL_BOLD) attr |= (1<<ATR_BOLD);
-    return attr;
-}
-
-
-static const enum statusfields status_elements[] = {
-        BL_TITLE, BL_STR, BL_DX, BL_CO, BL_IN, BL_WI, BL_CH,BL_SCORE,
-        BL_ALIGN, BL_GOLD, BL_HP, BL_HPMAX, BL_ENE, BL_ENEMAX,BL_AC, BL_XP, BL_EXP, BL_HD, BL_HUNGER,BL_CAP,
-        BL_LEVELDESC, BL_TIME, BL_CONDITION, BL_FLUSH
-    };
-
-
-static void render_status(void) {
-    long mask, bits;
-
-    int i, c, ci, idx, attrmask, coloridx, percent;
-    for (i = 0; (idx = status_elements[i]) != BL_FLUSH; ++i) {
-        if (!status_activefields[idx])
-            continue;
-        percent = status_percent[idx];
-        if (idx == BL_CONDITION) {
-            // for condition
-            bits = and_condition_bits;
-            if(bits == 0L) {
-                and_status_field_render(
-                        idx, "", "", attrmask, coloridx, percent);
-                continue;
-            }
-            for (c = 0; c < SIZE(conditions) && bits != 0L; ++c) {
-                ci = cond_idx[c];
-                mask = conditions[ci].mask;
-                if (bits & mask) {
-                    const char *condtext = conditions[ci].text[0];
-                    if (iflags.hilite_delta) {
-                        attrmask = cond_attr(mask, and_colormasks);
-                        coloridx = cond_color(mask, and_colormasks);
-                    }
-                    and_status_field_render(
-                            idx, condtext, condtext, attrmask, coloridx, percent);
-                    bits &= ~mask;
-                }
-            }
-        } else {
-            // for other
-            attrmask = status_attrmasks[idx];
-            coloridx = status_colors[idx];
-
-            char *fmt_val = status_vals[idx];
-            char *real_val = status_real_values[idx];
-            and_status_field_render(
-                    idx, fmt_val, real_val,
-                    hl_attr_mask_to_atr(attrmask), coloridx, percent);
-        }
-    }
-    display_nhwindow(WIN_STATUS, FALSE);
-}
-
-/*
- * and_status_update() - receive one status field update.
- *
- * fldindex selects the field, BL_FLUSH/BL_RESET trigger a redraw, and
- * BL_CONDITION carries condition bits and highlight masks. Other fields are
- * formatted into status_vals for the Kotlin status view.
- *
- * window.txt: status_update(...)
- */
-
-void and_status_update(int fldidx, genericptr_t ptr, int chg UNUSED, int percent, int color, unsigned long *colormasks)
-{
-    long *condptr = (long *) ptr;
-    char goldbuf[40], *text = (char *) ptr;
-
-    if ((fldidx < BL_RESET) || (fldidx >= MAXBLSTATS))
-        return;
-
-    if ((fldidx >= 0 && fldidx < MAXBLSTATS) && !status_activefields[fldidx])
-        return;
-    switch(fldidx) {
-        case BL_RESET:
-        case BL_FLUSH:
-            render_status();
-            return;
-        case BL_CONDITION:
-            and_condition_bits = *condptr;
-            and_colormasks = colormasks;
-            break;
-        case BL_GOLD:
-             text = decode_mixed(goldbuf, text);
-        default:
-            status_attrmasks[fldidx] = (color >> 8) & 0x00FF;
-            status_colors[fldidx] = (color & 0x00FF);
-            status_percent[fldidx] = percent;
-            status_real_values[fldidx] = text;
-            Sprintf(status_vals[fldidx], status_fieldfmt[fldidx] ? status_fieldfmt[fldidx] : "%s", text ? text : "");
-    }
-}
-
-static int cond_color(long bm, const unsigned long *bmarray)
-{
-    int i;
-    if (bm && bmarray)
-        for (i = 0; i < CLR_MAX; ++i) {
-            if ((bm & bmarray[i]) != 0)
-                return i;
-        }
-    return NO_COLOR;
-}
-
-static int cond_attr(long bm, const unsigned long *bmarray)
-{
-    int attr = 0;
-    int i;
-
-    if (bm && bmarray) {
-        for (i = HL_ATTCLR_DIM; i < BL_ATTCLR_MAX; ++i) {
-            if ((bm & bmarray[i]) != 0)
-                attr |= hl_attr_index_to_atr(i);
-        }
-    }
-    return attr;
 }
 
 /*

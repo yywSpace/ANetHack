@@ -33,7 +33,7 @@ jmethodID jClipAround;
 jmethodID jDelayOutput;
 // jmethodID jSetNumPadOption;
 jmethodID jAskName;
-jmethodID jRenderStatus;
+jmethodID jUpdateStatus;
 jmethodID jShowExtCmdMenu;
 jmethodID jGetMessageHistory;
 jmethodID jPutMessageHistory;
@@ -81,8 +81,8 @@ void initNetHackWin() {
     jPrintTile = (*jEnv)->GetMethodID(jEnv, jApp, "printTile", "(IIIIIII)V");
     jRequireKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requireKeyCommand", "()I");
     jRequirePosKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requirePosKeyCommand", "([I)C");
-    jRenderStatus = (*jEnv)->GetMethodID(jEnv, jApp, "renderStatus",
-                                         "(ILjava/lang/String;Ljava/lang/String;III)V");
+    jUpdateStatus = (*jEnv)->GetMethodID(jEnv, jApp, "updateStatus",
+                                         "([I[Ljava/lang/String;)V");
     jDelayOutput = (*jEnv)->GetMethodID(jEnv, jApp, "delayOutput", "()V");
     jClipAround = (*jEnv)->GetMethodID(jEnv, jApp, "clipAround", "(IIII)V");
     jYNFunction = (*jEnv)->GetMethodID(jEnv, jApp, "ynFunction",

@@ -30,7 +30,7 @@ extern jmethodID jClipAround;
 extern jmethodID jDelayOutput;
 // extern jmethodID jSetNumPadOption;
 extern jmethodID jAskName;
-extern jmethodID jRenderStatus;
+extern jmethodID jUpdateStatus;
 extern jmethodID jShowExtCmdMenu;
 extern jmethodID jGetMessageHistory;
 extern jmethodID jPutMessageHistory;

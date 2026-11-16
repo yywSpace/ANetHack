@@ -10,9 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 
 class NHStatus(val context: Context) {
     private val fields = HashMap<StatusField, NHAttr>()
-    private val newestFields = HashMap<StatusField, NHAttr>()
     private val conditionField = CopyOnWriteArrayList<NHAttr>()
-    private val newestConditionField = mutableListOf<NHAttr>()
     var runMode:RunMode = RunMode.WALK
 
     val title:NHAttr
@@ -52,24 +50,29 @@ class NHStatus(val context: Context) {
         }
         return conditions.toSpannable()
     }
-    fun addStatusAttr(idx:Int, color:Int, attr:Int, percent:Int, fmtVal:String, realVal:String) {
-        val field = StatusField.fromIdx(idx)
-        val statusValue = if (field == StatusField.BL_TITLE) fmtVal else fmtVal.trim()
-        val nhAttr = NHAttr(field, color, attr, percent, statusValue, realVal)
-        if(field == StatusField.BL_CONDITION) {
-            newestConditionField.add(nhAttr)
-            return
-        }
-        newestFields[field] = nhAttr
-    }
+    fun replaceStatus(data: IntArray, texts: Array<String>) {
+        val nextFields = HashMap<StatusField, NHAttr>()
+        val nextConditions = ArrayList<NHAttr>()
 
-    fun updateStatus() {
+        for (i in 0 until texts.size / 2) {
+            val base = i * 4
+            val field = StatusField.fromIdx(data[base])
+            val statusValue = if (field == StatusField.BL_TITLE)
+                texts[i * 2] else texts[i * 2].trim()
+            val attr = NHAttr(
+                field, data[base + 2], data[base + 1], data[base + 3],
+                statusValue, texts[i * 2 + 1]
+            )
+            if (field == StatusField.BL_CONDITION)
+                nextConditions.add(attr)
+            else
+                nextFields[field] = attr
+        }
+
         fields.clear()
+        fields.putAll(nextFields)
         conditionField.clear()
-        fields.putAll(newestFields)
-        conditionField.addAll(newestConditionField)
-        newestFields.clear()
-        newestConditionField.clear()
+        conditionField.addAll(nextConditions)
     }
 
     fun getField(field: StatusField): NHAttr {

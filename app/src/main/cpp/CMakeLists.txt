@@ -45,6 +45,7 @@ set(NETHACK_SRC
         "androidmain.c"
         "androidunix.c"
         "androidwin.c"
+        "androidstatus.c"
         "androidsound.c"
         "androidentry.c"
 )
