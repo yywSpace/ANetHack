@@ -3,6 +3,7 @@
 #include "hack.h"
 #include "androidplayer.h"
 #include "androidwin.h"
+#include "androidentry.h"
 
 static int choose_player_field(int field)
 {
@@ -166,4 +167,66 @@ void and_player_selection()
     }
 }
 
+/* A saved game name carries its playmode in the final byte (see
+   store_plname_in_file()), which char2Jstring() stops short of; pass it along
+   so that the chooser doesn't need to remember the mode. */
+static jstring
+savedName2Jstring(const char *name)
+{
+    char buf[BUFSZ];
+    char playmode = name[PL_NSIZ_PLUS - 1];
 
+    Snprintf(buf, sizeof buf, "%s\t%c", name,
+             (playmode == 'D' || playmode == 'X') ? playmode : '-');
+    return char2Jstring(jEnv, buf);
+}
+
+/*
+ * and_askname() - choose a player name and play mode.
+ *
+ * Presents saved and aborted games plus a new-game option. The returned
+ * playmode selects normal, wizard or discover mode and fills plname.
+ *
+ * window.txt: askname()
+ */
+
+void and_askname()
+{
+    int saved_size = 0, aborted_size = 0, i;
+    char ** saved = get_saved_games();
+    char ** aborted = get_aborted_games();
+    for (i = 0; saved && saved[i]; i++)
+        saved_size++;
+    for (i = 0; aborted && aborted[i]; i++)
+        aborted_size++;
+    jclass stringClass = (*jEnv)->FindClass(jEnv, "java/lang/String");
+    jobjectArray jSavedList = (*jEnv)->NewObjectArray(jEnv, saved_size + aborted_size, stringClass, 0);
+    for (i = 0; i < saved_size; i++)
+        (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, i, savedName2Jstring(saved[i]));
+    for (i = 0; i < aborted_size; i++)
+        (*jEnv)->SetObjectArrayElement(jEnv, jSavedList, saved_size + i, savedName2Jstring(aborted[i]));
+    (*jEnv)->DeleteLocalRef(jEnv, stringClass);
+    free_saved_games(saved);
+    free_saved_games(aborted);
+    jobjectArray jPlayerInfo = (jobjectArray)JNICallO(jAskName, PL_NSIZ, jSavedList)
+    int infoLen = jPlayerInfo ? (*jEnv)->GetArrayLength(jEnv, jPlayerInfo) : 0;
+    if (infoLen < 2) {
+        /* 玩家在选人界面取消：和 and_player_selection 一样，在游戏线程退出 */
+        and_bail("bye");
+    }
+    jstring jPlayer = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 0);
+    jstring jPlaymode = (*jEnv)->GetObjectArrayElement(jEnv, jPlayerInfo, 1);
+    char *player = jstring2Char(jEnv, jPlayer);
+    char *playmode = jstring2Char(jEnv, jPlaymode);
+    if(strncmp(playmode, "wizard", strlen(playmode)) == 0)
+        wizard = TRUE;
+    else if(strncmp(playmode, "discover", strlen(playmode)) == 0)
+        discover = TRUE;
+    gp.plnamelen = (int) strlen(strncpy(svp.plname, player, sizeof svp.plname - 1));
+    free(player);
+    free(playmode);
+    (*jEnv)->DeleteLocalRef(jEnv, jPlayer);
+    (*jEnv)->DeleteLocalRef(jEnv, jPlaymode);
+    (*jEnv)->DeleteLocalRef(jEnv, jSavedList);
+    (*jEnv)->DeleteLocalRef(jEnv, jPlayerInfo);
+}

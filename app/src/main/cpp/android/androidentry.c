@@ -81,12 +81,10 @@ void initNetHackWin() {
     jPrintTile = (*jEnv)->GetMethodID(jEnv, jApp, "printTile", "(IIIIIII)V");
     jRequireKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requireKeyCommand", "()I");
     jRequirePosKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requirePosKeyCommand", "([I)C");
-    jUpdateStatus = (*jEnv)->GetMethodID(jEnv, jApp, "updateStatus",
-                                         "([I[Ljava/lang/String;)V");
+    jUpdateStatus = (*jEnv)->GetMethodID(jEnv, jApp, "updateStatus", "([I[Ljava/lang/String;)V");
     jDelayOutput = (*jEnv)->GetMethodID(jEnv, jApp, "delayOutput", "()V");
     jClipAround = (*jEnv)->GetMethodID(jEnv, jApp, "clipAround", "(IIII)V");
-    jYNFunction = (*jEnv)->GetMethodID(jEnv, jApp, "ynFunction",
-                                       "(Ljava/lang/String;Ljava/lang/String;[JC)C");
+    jYNFunction = (*jEnv)->GetMethodID(jEnv, jApp, "ynFunction", "(Ljava/lang/String;Ljava/lang/String;[JC)C");
     jGetLine = (*jEnv)->GetMethodID(jEnv, jApp, "getLine", "(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;");
     jAskName = (*jEnv)->GetMethodID(jEnv, jApp, "askName","(I[Ljava/lang/String;)[Ljava/lang/String;");
     jShowExtCmdMenu = (*jEnv)->GetMethodID(jEnv, jApp, "showExtCmdMenu", "([Ljava/lang/String;)I");
@@ -98,8 +96,7 @@ void initNetHackSound() {
     jInitNHSound = (*jEnv)->GetMethodID(jEnv, jApp, "initNHSound", "()V");
     jExitNHSound = (*jEnv)->GetMethodID(jEnv, jApp, "exitNHSound", "(Ljava/lang/String;)V");
     jSoundAchievement = (*jEnv)->GetMethodID(jEnv, jApp, "soundAchievement", "(III)V");
-    jSoundEffect = (*jEnv)->GetMethodID(jEnv, jApp, "soundEffect",
-                                        "(Ljava/lang/String;Ljava/lang/String;II)V");
+    jSoundEffect = (*jEnv)->GetMethodID(jEnv, jApp, "soundEffect", "(Ljava/lang/String;Ljava/lang/String;II)V");
     jHeroPlayNotes = (*jEnv)->GetMethodID(jEnv, jApp, "heroPlayNotes", "(ILjava/lang/String;I)V");
     jPlayUserSound = (*jEnv)->GetMethodID(jEnv, jApp, "playUserSound", "(Ljava/lang/String;II)V");
     jSoundAmbience = (*jEnv)->GetMethodID(jEnv, jApp, "soundAmbience", "(III)V");
