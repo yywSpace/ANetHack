@@ -83,7 +83,7 @@ class NHTileSet(val nh: NetHack) {
         when (nh.prefs.tileSet) {
             // default
             "default" -> {
-                tileSprite = "tiles/default_tiles_16.bmp"
+                tileSprite = "tiles/default_tiles_16.png"
                 tileHeight = 16
                 tileWidth = 16
             }
@@ -111,7 +111,7 @@ class NHTileSet(val nh: NetHack) {
                 }
                 // 自定义 tileset 不可用，提示后使用默认贴图
                 notifyCustomTileSetError(R.string.custom_tileset_invalid_image)
-                tileSprite = "tiles/default_tiles_16.bmp"
+                tileSprite = "tiles/default_tiles_16.png"
                 tileHeight = 16
                 tileWidth = 16
             }
