@@ -182,14 +182,14 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                 // 这一行整行是怪物名时，点这一行的任何位置（含右侧空白）都弹详情
                 itemMessage.setOnTouchListener { view, event ->
                     if (event.actionMasked == MotionEvent.ACTION_UP) {
-                        val monsterSpan = MonsterLink.spanAtLine(itemMessage, event)
-                        if (monsterSpan != null) {
-                            monsterSpan.onClick(view)
-                            return@setOnTouchListener true
-                        }
                         val itemSpan = ItemLink.spanAtLine(itemMessage, event)
                         if (itemSpan != null) {
                             itemSpan.onClick(view)
+                            return@setOnTouchListener true
+                        }
+                        val monsterSpan = MonsterLink.spanAtLine(itemMessage, event)
+                        if (monsterSpan != null) {
+                            monsterSpan.onClick(view)
                             return@setOnTouchListener true
                         }
                     }

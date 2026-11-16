@@ -87,14 +87,14 @@ class NHMessageView @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.actionMasked == MotionEvent.ACTION_UP) {
-            val monsterSpan = MonsterLink.spanAtTouch(this, event)
-            if (monsterSpan != null) {
-                monsterSpan.onClick(this)
-                return true
-            }
             val itemSpan = ItemLink.spanAtTouch(this, event)
             if (itemSpan != null) {
                 itemSpan.onClick(this)
+                return true
+            }
+            val monsterSpan = MonsterLink.spanAtTouch(this, event)
+            if (monsterSpan != null) {
+                monsterSpan.onClick(this)
                 return true
             }
         }

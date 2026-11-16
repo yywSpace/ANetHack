@@ -18,16 +18,15 @@ data class MonsterMatch(
  */
 object MonsterLink {
 
-    private val names = NameLineResolver(
-        { GameData.monsters },
-        { listOf(it.name) }
-    )
+    private val namesByLower: Map<String, List<Monster>> by lazy {
+        GameData.monsters.groupBy { it.name.lowercase() }
+    }
 
     private val link = MessageLink(
         MessageLinkKind.MONSTER,
         { it.monsters.first().colorValue }
     ) { line ->
-        val matched = names.resolve(line)
+        val matched = resolveMonsters(line)
         if (matched.isEmpty()) null else MonsterMatch(line, matched)
     }
 
@@ -47,46 +46,12 @@ object MonsterLink {
 
     fun spanAtLine(widget: TextView, event: MotionEvent): MessageNameSpan<MonsterMatch>? =
         link.spanAtLine(widget, event)
-}
-
-/** 名称匹配策略：把一行里出现的已知名称映射为同类对象列表。 */
-class NameLineResolver<T>(
-    private val values: () -> List<T>,
-    private val labelsOf: (T) -> List<String>
-) {
-
-    @Volatile
-    private var nameRegex: Regex? = null
-
-    @Volatile
-    private var regexSize = -1
-
-    private var aliasIndex: Map<String, List<T>> = emptyMap()
-
-    fun resolve(line: String): List<T> {
-        val regex = regex() ?: return emptyList()
-        val match = regex.find(line) ?: return emptyList()
-        return aliasIndex[match.value.lowercase()].orEmpty()
-    }
-
-    private fun regex(): Regex? {
-        val groups = LinkedHashMap<String, MutableList<T>>()
-        values().forEach { value ->
-            labelsOf(value).forEach { label ->
-                groups.getOrPut(label.lowercase()) { mutableListOf() }.add(value)
-            }
-        }
-        if (groups.isEmpty())
-            return null
-        val cached = nameRegex
-        if (cached != null && regexSize == groups.size)
-            return cached
-        val body = groups.keys.sortedByDescending { it.length }
-            .joinToString("|") { Regex.escape(it) }
-        aliasIndex = groups
-        return Regex("(?<![\\w-])($body)", RegexOption.IGNORE_CASE).also {
-            nameRegex = it
-            regexSize = groups.size
-        }
+    private fun resolveMonsters(line: String): List<Monster> {
+        val lower = line.lowercase()
+        val match = namesByLower.keys
+            .filter { lower.contains(it) }
+            .maxByOrNull { it.length }
+            ?: return emptyList()
+        return namesByLower[match].orEmpty()
     }
 }

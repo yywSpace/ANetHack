@@ -39,9 +39,6 @@ object GameData {
     var parsingRules: ParsingRules = ParsingRules()
         private set
 
-    /** 精确名称/外观（小写）→ 物品，供菜单标题快速查询 */
-    private var itemExactIndex: Map<String, List<Item>> = emptyMap()
-
     /** monster_attributes.json：原始属性标志 → 展示文字 */
     private var attributeLabels: Map<String, String> = emptyMap()
     /** item_flags.json / item_effects.json / item_delays.json：展示映射 */
@@ -82,20 +79,25 @@ object GameData {
      * 从文本判断物品类别。
      *
      * 顺序：
-     * 1. 精确名称/固定外观
-     * 2. 例外正则（未鉴定外观、通用类别词）
-     * 3. 模糊名称/外观
+     * 1. 例外正则（未鉴定外观、通用类别词）
+     * 2. 模糊名称/外观
+     * 3. 多个类型时取命中名称最长的
      */
     fun itemTypeOf(text: String): String? {
-        val exact = exactItemsForTitle(text)
-        if (exact.size == 1)
-            return itemType(exact.first())
-
         parsingRules.itemTypeOf(text)?.let { return it }
 
-        val fuzzyTypes = fuzzyItemsForTitle(text).map { itemType(it) }.distinct()
+        val fuzzy = fuzzyItemsForTitle(text)
+        val maxLength = fuzzy.maxOfOrNull { longestAliasLength(it, text) } ?: return null
+        val fuzzyTypes = fuzzy.filter { longestAliasLength(it, text) == maxLength }
+            .map { itemType(it) }
+            .distinct()
         return fuzzyTypes.singleOrNull()
     }
+
+    private fun longestAliasLength(item: Item, text: String): Int =
+        listOfNotNull(item.name, item.appearance)
+            .filter { it.isNotBlank() && text.contains(it, ignoreCase = true) }
+            .maxOfOrNull { it.length } ?: 0
 
     /** 物品的类别展示名；护甲用 categoryName，其余用 itemClass。 */
     fun itemType(item: Item): String =
@@ -123,20 +125,12 @@ object GameData {
         }.filter { (alias, _) ->
             alias.isNotBlank() && title.contains(alias, ignoreCase = true)
         }
-        val maxLength = matches.maxOfOrNull { (alias, _) -> alias.length }
-        val specific = if (maxLength == null) {
-            emptyList()
-        } else {
-            matches.filter { (alias, _) -> alias.length == maxLength }
-                .map { (_, item) -> item }
-                .distinct()
-        }
+        val maxLength = matches.maxOfOrNull { (alias, _) -> alias.length } ?: 0
+        val specific = matches.filter { (alias, _) -> alias.length == maxLength }
+            .map { (_, item) -> item }
+            .distinct()
         return ItemLookup(type, specific, candidates)
     }
-
-    /** 标题是否与某个物品的完整名称/固定外观完全相同。 */
-    fun exactItemsForTitle(title: String): List<Item> =
-        itemExactIndex[title.lowercase()] ?: emptyList()
 
     /** 标题中模糊包含的物品名称/固定外观。 */
     fun fuzzyItemsForTitle(title: String): List<Item> =
@@ -154,22 +148,6 @@ object GameData {
             item.armor?.categoryName?.equals(type, ignoreCase = true) == true ||
                 (item.armor == null && item.itemClass == normalized)
         }
-    }
-
-    private fun buildItemExactIndex(list: List<Item>): Map<String, List<Item>> {
-        val index = HashMap<String, MutableList<Item>>(list.size * 2)
-        fun add(key: String?, item: Item) {
-            if (key.isNullOrBlank())
-                return
-            index.getOrPut(key.lowercase()) { mutableListOf() }.add(item)
-        }
-        list.forEach { item ->
-            add(item.name, item)
-            item.appearance
-                ?.takeIf { it != item.name }
-                ?.let { add(it, item) }
-        }
-        return index
     }
 
     private fun loadFromAssets(context: Context) {
@@ -197,7 +175,6 @@ object GameData {
             }
         items.clear()
         items.addAll(loadedGameItems)
-        itemExactIndex = buildItemExactIndex(loadedGameItems)
 
         val labelsType = object : TypeToken<Map<String, String>>() {}.type
         attributeLabels = gson.fromJson(
