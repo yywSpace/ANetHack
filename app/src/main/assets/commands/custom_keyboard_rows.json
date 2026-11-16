@@ -9,7 +9,7 @@
       "command": "#quit"
     },
     {
-      "label": "Monster Info",
+      "label": "Monsters",
       "command": "Monster"
     },
     {

@@ -28,7 +28,7 @@
     "command": "20s"
   },
   {
-    "label": "FRest",
-    "command": "m."
+    "label": "Quit",
+    "command": "#quit"
   }
 ]
