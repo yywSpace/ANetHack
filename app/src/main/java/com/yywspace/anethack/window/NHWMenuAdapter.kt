@@ -46,7 +46,9 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
                 itemCheckBox.visibility = View.GONE
             }
             itemView.setOnLongClickListener {
-                onItemLongClick?.invoke(it, position, menuItem)
+                // 只有可计数/物品菜单项才需要长按操作；普通选项不弹操作列表。
+                if (menuItem.count >= 0)
+                    onItemLongClick?.invoke(it, position, menuItem)
                 true
             }
             itemView.setOnClickListener {
