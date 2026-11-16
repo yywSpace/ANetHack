@@ -815,7 +815,8 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
                         lastFollowCursor = Point(renderCurse)
                     }
                     // 首次或重建地图后以玩家位置为中心
-                    if (frame != null && !playerCentered && renderCurse.x > 0 && renderCurse.y > 0) {
+                    if ((frame != null || tileSetChanged) && !playerCentered &&
+                        renderCurse.x > 0 && renderCurse.y > 0) {
                         centerView(renderCurse.x, renderCurse.y)
                         playerCentered = true
                     }
