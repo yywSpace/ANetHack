@@ -6,21 +6,16 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
-import com.yywspace.anethack.window.NHDialog
-import com.yywspace.anethack.extensions.show
 
 /**
  * 怪物信息弹窗：默认展示全部怪物；输入名字后按名字过滤。
  * 结果按 "基本信息网格 + 攻击 / 抗性 / 特性卡片" 分块展示。
- *
- * 显示方式和价格鉴定弹窗一致：[AlertDialog.show] 带沉浸式参数，
- * 这样弹出时不会把系统导航栏带出来。
  */
 class NHMonsterDialog(
     private val context: Context,
@@ -107,7 +102,7 @@ class NHMonsterDialog(
     }
 
     private fun showDialog(view: View) {
-        dialog = ui.createDialog(R.string.monster_lookup_title, view)
+        dialog = ui.createDialog(R.string.monster_lookup_title, view, nh.prefs.immersiveMode)
         // 和价格鉴定弹窗一样：沉浸式时不带出系统导航栏
         dialog?.show()
     }

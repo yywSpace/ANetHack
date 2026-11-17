@@ -96,7 +96,8 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                     context = context,
                     content = dialogTextView,
                     title = context.getString(R.string.message_history),
-                    positiveText = context.getString(R.string.dialog_confirm)
+                    positiveText = context.getString(R.string.dialog_confirm),
+                    immersive = nh.prefs.immersiveMode
                 )
                 dialog.setOnDismissListener {
                     nh.command.sendCommand(NHKeyCommand(27.toChar()))

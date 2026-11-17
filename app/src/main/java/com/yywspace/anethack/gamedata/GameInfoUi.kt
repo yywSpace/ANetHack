@@ -143,12 +143,13 @@ class GameInfoUi(private val context: Context) {
         parent.addView(panel(card))
     }
 
-    fun createDialog(titleRes: Int, view: View): Dialog =
+    fun createDialog(titleRes: Int, view: View, immersive: Boolean = false): Dialog =
         NHDialog(
             context = context,
             title = context.getString(titleRes),
             content = view,
-            positiveText = context.getString(R.string.dialog_confirm)
+            positiveText = context.getString(R.string.dialog_confirm),
+            immersive = immersive
         )
 
     /** 单条详情布局：没有搜索栏，只有标题内容和 ScrollView。 */

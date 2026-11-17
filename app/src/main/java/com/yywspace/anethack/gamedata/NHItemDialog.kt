@@ -7,14 +7,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
-import com.yywspace.anethack.window.NHDialog
-import com.yywspace.anethack.extensions.show
 
 /**
  * 物品资料弹窗：搜索并按类别展示 [Item]。
@@ -47,7 +45,7 @@ class NHItemDialog(
         sourceItems = null
         GameData.ensureLoaded(context)
         val view = buildView()
-        dialog = ui.createDialog(R.string.item_lookup_title, view)
+        dialog = ui.createDialog(R.string.item_lookup_title, view, nh.prefs.immersiveMode)
         dialog?.show()
         renderMatches()
     }
@@ -72,7 +70,7 @@ class NHItemDialog(
         ) {
             recycler.post { recycler.scrollToPosition(0) }
         }
-        dialog = ui.createDialog(R.string.item_lookup_title, scaffold.root)
+        dialog = ui.createDialog(R.string.item_lookup_title, scaffold.root, nh.prefs.immersiveMode)
         dialog?.show()
     }
 
@@ -85,7 +83,7 @@ class NHItemDialog(
         content = scaffold.content
         scroll = scaffold.scroll
         renderSingle(name, itemClass)
-        dialog = ui.createDialog(R.string.item_lookup_title, scaffold.root)
+        dialog = ui.createDialog(R.string.item_lookup_title, scaffold.root, nh.prefs.immersiveMode)
         dialog?.show()
     }
 

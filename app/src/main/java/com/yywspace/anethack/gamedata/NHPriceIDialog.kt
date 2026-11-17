@@ -1,6 +1,5 @@
 ﻿package com.yywspace.anethack.gamedata
 
-import android.app.Dialog
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +10,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
-import com.yywspace.anethack.window.NHDialog
 import com.yywspace.anethack.databinding.DialogPriceIdentifyBinding
 import com.yywspace.anethack.entity.NHMenuItem
-import com.yywspace.anethack.extensions.show
+import com.yywspace.anethack.window.NHDialog
 
 class NHPriceIDialog(val context: Context, val nh: NetHack) {
 
@@ -169,7 +167,8 @@ class NHPriceIDialog(val context: Context, val nh: NetHack) {
             title = context.getString(R.string.pride_id_title),
             content = binding.root,
             positiveText = context.getString(R.string.dialog_confirm),
-            onPositive = { objListAdapter.submitList(emptyList()) }
+            onPositive = { objListAdapter.submitList(emptyList()) },
+            immersive = nh.prefs.immersiveMode
         )
         dialog.setOnDismissListener { isShowing = false }
         queryObjList()
