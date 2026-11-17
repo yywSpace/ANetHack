@@ -3,7 +3,6 @@ package com.yywspace.anethack.window
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
@@ -11,21 +10,52 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.R
-import androidx.core.graphics.drawable.toDrawable
 
 /** 系统弹窗：负责创建标题/内容/按钮，并交给容器排版。 */
 class NHDialog(
     context: Context,
-    private val title: CharSequence?,
     private val content: View,
-    private val positiveText: CharSequence?,
-    private val onPositive: (() -> Unit)? = null
+    private val title: CharSequence? = null,
+    private val positiveText: CharSequence? = null,
+    private val onPositive: (() -> Unit)? = null,
+    private val negativeText: CharSequence? = null,
+    private val onNegative: (() -> Unit)? = null,
+    private val neutralText: CharSequence? = null,
+    private val onNeutral: (() -> Unit)? = null,
+    private val immersive: Boolean = false
 ) : Dialog(context) {
 
     init {
         setCanceledOnTouchOutside(true)
+        if (immersive) {
+            setOnShowListener { hideSystemBars() }
+        }
+    }
+
+    override fun show() {
+        if (immersive) {
+            window?.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+            )
+        }
+        super.show()
+    }
+
+    private fun hideSystemBars() {
+        window?.apply {
+            val controller = WindowCompat.getInsetsController(this, decorView)
+            controller.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            controller.hide(WindowInsetsCompat.Type.systemBars())
+            clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
+        }
     }
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
@@ -52,27 +82,29 @@ class NHDialog(
             })
         }
 
-        container.addView(
-            contentView,
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+        container.addView(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        positiveText?.let {
+        if (positiveText != null || negativeText != null || neutralText != null) {
             val row = LinearLayout(context).apply {
                 orientation = LinearLayout.HORIZONTAL
                 gravity = android.view.Gravity.END
                 setPadding(0, dp(4), dp(12), dp(4))
             }
-            row.addView(MaterialButton(
-                context,null, androidx.appcompat.R.attr.buttonBarButtonStyle
-            ).apply {
-                text = it
-                setOnClickListener {
-                    onPositive?.invoke()
-                    dismiss()
-                }
-            })
+            fun addButton(text: CharSequence?, action: (() -> Unit)?) {
+                if (text == null) return
+                row.addView(MaterialButton(
+                    context, null, androidx.appcompat.R.attr.buttonBarButtonStyle
+                ).apply {
+                    this.text = text
+                    setOnClickListener {
+                        action?.invoke()
+                        dismiss()
+                    }
+                })
+            }
+            addButton(neutralText, onNeutral)
+            addButton(negativeText, onNegative)
+            addButton(positiveText, onPositive)
             container.addView(row)
         }
 
@@ -145,6 +177,6 @@ class NHDialog(
     }
 
     companion object {
-        private const val MAX_HEIGHT_RATIO = 0.7f
+        private const val MAX_HEIGHT_RATIO = 0.8f
     }
 }

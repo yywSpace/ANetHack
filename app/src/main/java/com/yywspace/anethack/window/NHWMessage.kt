@@ -7,7 +7,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,6 @@ import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHString
-import com.yywspace.anethack.extensions.show
 import com.yywspace.anethack.map.NHMessageView
 import com.yywspace.anethack.gamedata.ItemLink
 import com.yywspace.anethack.gamedata.ItemMatch
@@ -94,15 +92,16 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                             }
                         }
                     }
-                AlertDialog.Builder(context).apply {
-                    setTitle(R.string.message_history)
-                    setView(dialogTextView)
-                    setPositiveButton(R.string.dialog_confirm, null)
-                    setOnDismissListener {
-                        nh.command.sendCommand(NHKeyCommand(27.toChar()))
-                    }
-                    show(nh.prefs.immersiveMode)
+                val dialog = NHDialog(
+                    context = context,
+                    content = dialogTextView,
+                    title = context.getString(R.string.message_history),
+                    positiveText = context.getString(R.string.dialog_confirm)
+                )
+                dialog.setOnDismissListener {
+                    nh.command.sendCommand(NHKeyCommand(27.toChar()))
                 }
+                dialog.show()
             }
         }
     }

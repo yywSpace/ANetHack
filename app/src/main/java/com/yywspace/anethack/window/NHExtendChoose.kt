@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +12,6 @@ import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHExtendCommand
 import com.yywspace.anethack.entity.NHExtCmd
-import com.yywspace.anethack.extensions.show
 
 
 class NHExtendChoose(val nh: NetHack) {
@@ -21,14 +19,8 @@ class NHExtendChoose(val nh: NetHack) {
     private var commandList: MutableList<NHExtCmd> = mutableListOf()
     private fun showExtCmdDialog(commandList: MutableList<NHExtCmd>) {
         nh.runOnUi { _, context ->
-            val dialog = AlertDialog.Builder(context).run {
-                setTitle(R.string.ext_cmd_select)
-                setNeutralButton(R.string.dialog_cancel) { _,_ ->
-                    finishExtCmdChoose(-1)
-                }
-                create()
-            }
-            val adapter =NHExtCmdAdapter(commandList).apply {
+            lateinit var dialog: NHDialog
+            val adapter = NHExtCmdAdapter(commandList).apply {
                 onItemClick = { _, _, item ->
                     finishExtCmdChoose(item.idx)
                     dialog.dismiss()
@@ -56,11 +48,15 @@ class NHExtendChoose(val nh: NetHack) {
                         })
                     }
                 }
-            dialog.apply {
-                setCancelable(false)
-                setView(view)
-                show(nh.prefs.immersiveMode)
-            }
+            dialog = NHDialog(
+                context = context,
+                content = view,
+                title = context.getString(R.string.ext_cmd_select),
+                neutralText = context.getString(R.string.dialog_cancel),
+                onNeutral = { finishExtCmdChoose(-1) }
+            )
+            dialog.setCancelable(false)
+            dialog.show()
         }
     }
 
