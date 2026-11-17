@@ -3,18 +3,19 @@ package com.yywspace.anethack.window
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toDrawable
 import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.R
+import androidx.core.graphics.drawable.toDrawable
 
+/** 系统弹窗：负责创建标题/内容/按钮，并交给容器排版。 */
 class NHDialog(
     context: Context,
     private val title: CharSequence?,
@@ -29,60 +30,32 @@ class NHDialog(
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
+        val horizontalMargin = context.resources.getDimensionPixelSize(R.dimen.dialog_horizontal_margin)
         val density = context.resources.displayMetrics.density
         fun dp(value: Int) = (value * density).toInt()
-        val verticalMargin = context.resources.getDimensionPixelSize(R.dimen.dialog_vertical_margin)
-        val horizontalMargin = context.resources.getDimensionPixelSize(R.dimen.dialog_horizontal_margin)
+        val contentView = content
+        val contentPadding = context.resources.getDimensionPixelSize(R.dimen.dialog_content_padding)
+        contentView.setPadding(contentPadding, 0, contentPadding, 0)
 
-        val root = LinearLayout(context).apply {
-            orientation = LinearLayout.VERTICAL
-            val cornerTyped = context.obtainStyledAttributes(
-                intArrayOf(android.R.attr.dialogCornerRadius)
-            )
-            val radiusPx = cornerTyped.getDimension(0, dp(4).toFloat())
-            cornerTyped.recycle()
-            background = GradientDrawable().apply {
-                cornerRadius = radiusPx
-                setColor(ContextCompat.getColor(context, R.color.app_background))
-            }
-        }
+        val container = MaxHeightLinearLayout(context, contentView)
 
         title?.let {
-            root.addView(TextView(context).apply {
+            container.addView(TextView(context).apply {
                 text = it
                 setTextColor(ContextCompat.getColor(context, R.color.app_text))
                 setTextAppearance(
                     com.google.android.material.R.style.TextAppearance_MaterialComponents_Headline6
                 )
-                val titleHorizontal = context.resources.getDimensionPixelSize(
-                    R.dimen.dialog_title_padding_horizontal
-                )
-                val titleVertical = context.resources.getDimensionPixelSize(
-                    R.dimen.dialog_title_padding_vertical
-                )
-                setPadding(titleHorizontal, titleVertical, titleHorizontal, titleVertical)
+                val h = context.resources.getDimensionPixelSize(R.dimen.dialog_title_padding_horizontal)
+                val v = context.resources.getDimensionPixelSize(R.dimen.dialog_title_padding_vertical)
+                setPadding(h, v, h, v)
             })
         }
 
-        val maxHeight = minOf(
-            (context.resources.displayMetrics.heightPixels * MAX_HEIGHT_RATIO).toInt(),
-            context.resources.displayMetrics.heightPixels - verticalMargin * 2
-        )
-        val contentPadding = context.resources.getDimensionPixelSize(R.dimen.dialog_content_padding)
-        val wrapper = MaxHeightFrameLayout(context, maxHeight).apply {
-            setPadding(contentPadding, 0, contentPadding, 0)
-            addView(
-                content,
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        }
-        root.addView(
-            wrapper,
-            LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
+        container.addView(
+            contentView,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
         )
 
         positiveText?.let {
@@ -91,20 +64,19 @@ class NHDialog(
                 gravity = android.view.Gravity.END
                 setPadding(0, dp(4), dp(12), dp(4))
             }
-            row.addView(
-                MaterialButton(
-                    context, null, androidx.appcompat.R.attr.buttonBarButtonStyle
-                ).apply {
-                    text = it
-                    setOnClickListener {
-                        onPositive?.invoke()
-                        dismiss()
-                    }
-                })
-            root.addView(row)
+            row.addView(MaterialButton(
+                context,null, androidx.appcompat.R.attr.buttonBarButtonStyle
+            ).apply {
+                text = it
+                setOnClickListener {
+                    onPositive?.invoke()
+                    dismiss()
+                }
+            })
+            container.addView(row)
         }
 
-        setContentView(root)
+        setContentView(container)
         window?.apply {
             setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
             setLayout(
@@ -114,14 +86,61 @@ class NHDialog(
         }
     }
 
-    /** 短内容自适应，长内容最多 maxHeightPx。 */
-    private class MaxHeightFrameLayout(
+    /** 只负责容器和测量，不创建标题/按钮。 */
+    private class MaxHeightLinearLayout(
         context: Context,
-        private val maxHeightPx: Int
-    ) : android.widget.FrameLayout(context) {
+        private val contentView: View
+    ) : LinearLayout(context) {
+
+        init {
+            orientation = VERTICAL
+            val density = resources.displayMetrics.density
+            val typed = context.obtainStyledAttributes(
+                intArrayOf(android.R.attr.dialogCornerRadius)
+            )
+            val radius = typed.getDimension(0, 4f * density)
+            typed.recycle()
+            background = GradientDrawable().apply {
+                cornerRadius = radius
+                setColor(ContextCompat.getColor(context, R.color.app_background))
+            }
+        }
+
+        private val maxHeight: Int
+            get() {
+                val available = resources.displayMetrics.heightPixels
+                val margin = resources.getDimensionPixelSize(R.dimen.dialog_vertical_margin)
+                return minOf(
+                    (available * MAX_HEIGHT_RATIO).toInt(),
+                    available - margin * 2
+                )
+            }
+
         override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-            val bounded = MeasureSpec.makeMeasureSpec(maxHeightPx, MeasureSpec.AT_MOST)
-            super.onMeasure(widthMeasureSpec, bounded)
+            val width = MeasureSpec.getSize(widthMeasureSpec)
+            val childWidth = (width - paddingLeft - paddingRight).coerceAtLeast(0)
+            var used = paddingTop + paddingBottom
+
+            for (i in 0 until childCount) {
+                val child = getChildAt(i)
+                if (child === contentView) continue
+                child.measure(
+                    MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(
+                        (maxHeight - used).coerceAtLeast(0),
+                        MeasureSpec.AT_MOST
+                    )
+                )
+                used += child.measuredHeight
+            }
+
+            val remaining = (maxHeight - used).coerceAtLeast(0)
+            contentView.measure(
+                MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY),
+                MeasureSpec.makeMeasureSpec(remaining, MeasureSpec.AT_MOST)
+            )
+            used += contentView.measuredHeight
+            setMeasuredDimension(width, used.coerceAtMost(maxHeight))
         }
     }
 
