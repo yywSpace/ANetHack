@@ -7,7 +7,6 @@
     <string name="player_input">Input you player name</string>
     <string name="player_add">Click to start new game</string>
     <string name="player_name_too_long">Player %s name too long.</string>
-    <string name="player_name_exists">Player %s already exists.</string>
     <string name="ext_cmd_select">Please select extended command.</string>
     <string name="message_history">Message history.</string>
     <string name="item_amount_select">Select the amount of %s</string>
@@ -135,8 +134,6 @@
     <string name="item_lookup_title">Items</string>
     <string name="item_lookup_hint">Search items</string>
     <string name="item_lookup_search">Search</string>
-    <string name="item_lookup_empty">No items found</string>
-    <string name="item_lookup_more">More</string>
     <string name="item_value_na">—</string>
 
     <!-- Preference Config -->
@@ -236,7 +233,6 @@
     <string name="monster_lookup_title">Monster info</string>
     <string name="monster_lookup_hint">Monster name</string>
     <string name="monster_lookup_search">Search</string>
-    <string name="monster_lookup_more_button">More</string>
     <string name="monster_field_difficulty">Difficulty</string>
     <string name="monster_field_attacks">Attacks</string>
     <string name="monster_field_level">Level</string>

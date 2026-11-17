@@ -184,14 +184,6 @@ class NHPlayerChoose(val nh: NetHack) {
                 ).show()
                 return@setOnClickListener
             }
-            if (players.any { it.player == player }) {
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.player_name_exists, player),
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
-            }
             onConfirm(NHPlayer(player, playMod))
         }
         view.findViewById<MaterialButton>(R.id.player_input_cancel).setOnClickListener {
