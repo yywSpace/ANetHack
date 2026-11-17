@@ -1,4 +1,4 @@
-﻿plugins {
+plugins {
     id("com.android.application")
 }
 
@@ -10,9 +10,9 @@ android {
         applicationId = "com.yywspace.anethack"
         minSdk = 29
         targetSdk = 34
-        versionCode = 8
+        versionCode = 9
         // 版本格式：<native版本>-app<应用版本>
-        versionName = "5.0.0-app3.1"
+        versionName = "5.0.0-app3.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
