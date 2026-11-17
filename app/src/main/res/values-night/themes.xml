@@ -21,8 +21,9 @@
         <!-- Material 的默认窗口/splash 底色也改成应用背景色 -->
         <item name="android:colorBackground">@color/app_background</item>
         <item name="android:windowSplashScreenBackground" tools:targetApi="31">@color/app_background</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Status bar color: 与游戏内一致，避免启动白屏时闪默认蓝色 -->
+        <item name="android:statusBarColor">@color/app_background</item>
+        <item name="android:windowLightStatusBar">false</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

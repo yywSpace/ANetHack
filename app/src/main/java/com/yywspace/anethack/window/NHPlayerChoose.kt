@@ -94,6 +94,9 @@ class NHPlayerChoose(val nh: NetHack) {
 
     /** 明暗主题切换：由本类按当前状态重建 */
     fun onThemeChanged() {
+        if (!nh.dialogs.isShowing(TAG_PLAYER_LIST) &&
+            !nh.dialogs.isShowing(TAG_NAME_INPUT))
+            return
         nh.dialogs.dismiss(TAG_PLAYER_LIST)
         nh.dialogs.dismiss(TAG_NAME_INPUT)
         if (players.isEmpty())

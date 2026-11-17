@@ -111,7 +111,7 @@ void and_status_update(int fldidx, genericptr_t ptr, int chg UNUSED, int percent
     if ((fldidx < BL_RESET) || (fldidx >= MAXBLSTATS))
         return;
 
-    if (!status_activefields[fldidx])
+    if (fldidx >= 0 && !status_activefields[fldidx])
         return;
 
     switch (fldidx) {
