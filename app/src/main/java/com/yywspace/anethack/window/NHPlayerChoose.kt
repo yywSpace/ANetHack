@@ -8,7 +8,6 @@ import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
@@ -16,7 +15,6 @@ import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHPlayerChooseCommand
 import com.yywspace.anethack.entity.NHPlayer
-import com.yywspace.anethack.extensions.show
 import com.yywspace.anethack.log.AppLog
 
 
@@ -43,7 +41,7 @@ class NHPlayerChoose(val nh: NetHack) {
             }
         }
         if (players.isEmpty())
-            showNameInput()
+            showNewPlayer()
         else
             showPlayerList(players)
     }
@@ -75,7 +73,7 @@ class NHPlayerChoose(val nh: NetHack) {
                 layoutManager = LinearLayoutManager(context)
                 adapter = NHPlayerChooseAdapter(players).apply {
                     onPlayerAddClick = {
-                        showNewPlayerDialog()
+                        showNewPlayer()
                     }
                 }
             }
@@ -100,50 +98,30 @@ class NHPlayerChoose(val nh: NetHack) {
         nh.dialogs.dismiss(TAG_PLAYER_LIST)
         nh.dialogs.dismiss(TAG_NAME_INPUT)
         if (players.isEmpty())
-            showNameInput()
+            showNewPlayer()
         else
             showPlayerList(players)
     }
 
-    /** 列表里的“新建游戏”入口：保持系统 Dialog 实现 */
-    private fun showNewPlayerDialog() {
+    private fun showNewPlayer() {
         nh.runOnUi { _, context ->
-            var dialog: AlertDialog? = null
             val view = createNameInputView(
                 context,
                 onConfirm = { player ->
-                    dialog?.dismiss()
+                    nh.dialogs.dismiss(TAG_NAME_INPUT)
                     nh.dialogs.dismiss(TAG_PLAYER_LIST)
                     finishPlayerChoose(player)
                 },
-                onCancel = { dialog?.dismiss() }
-            )
-            dialog = AlertDialog.Builder(context)
-                .setView(view)
-                .setCancelable(false)
-                .create()
-            dialog.show(nh.prefs.immersiveMode)
-        }
-    }
-
-    /** 列表为空时的内嵌名字输入界面 */
-    private fun showNameInput() {
-        nh.runOnUi { _, context ->
-            val view = createNameInputView(
-                context,
-                onConfirm = { player ->
-                    nh.dialogs.dismiss(TAG_NAME_INPUT)
-                    finishPlayerChoose(player)
-                },
                 onCancel = {
+                    if (players.isEmpty())
+                        nh.command.sendCommand(NHPlayerChooseCommand(NHPlayer("", "")))
+                    else
+                        showPlayerList(players)
                     nh.dialogs.dismiss(TAG_NAME_INPUT)
-                    nh.command.sendCommand(NHPlayerChooseCommand(NHPlayer("", "")))
                 }
             )
             nh.dialogs.show(
-                TAG_NAME_INPUT,
-                view,
-                NHEmbeddedDialog.Options(outsideTouchable = true, dim = false)
+                TAG_NAME_INPUT, view, NHEmbeddedDialog.Options(outsideTouchable = true, dim = false)
             )
         }
     }
