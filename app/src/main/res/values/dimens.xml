@@ -15,4 +15,10 @@
     <!-- 状态栏/消息栏字号：用 sp，跟随系统字体大小设置（14sp ≈ 原 42px@3x） -->
     <dimen name="status_text_size">14sp</dimen>
     <dimen name="message_text_size">14sp</dimen>
+    <dimen name="dialog_horizontal_margin">16dp</dimen>
+    <dimen name="dialog_vertical_margin">32dp</dimen>
+    <dimen name="dialog_content_padding">24dp</dimen>
+    <dimen name="dialog_title_padding_horizontal">24dp</dimen>
+    <dimen name="dialog_title_padding_vertical">18dp</dimen>
+
 </resources>

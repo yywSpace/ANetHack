@@ -1,16 +1,17 @@
 ﻿package com.yywspace.anethack.gamedata
 
+import android.app.Dialog
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
+import com.yywspace.anethack.window.NHDialog
 import com.yywspace.anethack.databinding.DialogPriceIdentifyBinding
 import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.extensions.show
@@ -163,17 +164,15 @@ class NHPriceIDialog(val context: Context, val nh: NetHack) {
 
         binding.roleCharismaInput.setText(nh.status.charisma.realVal)
 
-        val dialog = AlertDialog.Builder(context).apply {
-            setView(binding.root)
-            setTitle(R.string.pride_id_title)
-            setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                objListAdapter.submitList(emptyList())
-            }
-            setOnDismissListener {
-                isShowing = false
-            }
-        }.create()
+        val dialog = NHDialog(
+            context = context,
+            title = context.getString(R.string.pride_id_title),
+            content = binding.root,
+            positiveText = context.getString(R.string.dialog_confirm),
+            onPositive = { objListAdapter.submitList(emptyList()) }
+        )
+        dialog.setOnDismissListener { isShowing = false }
         queryObjList()
-        dialog.show(nh.prefs.immersiveMode)
+        dialog.show()
     }
 }

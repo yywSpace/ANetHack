@@ -64,7 +64,7 @@ class NHPlayerChoose(val nh: NetHack) {
             nh.dialogs.show(
                 TAG_PLAYER_LIST,
                 createPlayerListView(context, players),
-                EmbeddedDialogController.Options(outsideTouchable = true, dim = false)
+                NHEmbeddedDialog.Options(outsideTouchable = true, dim = false)
             )
         }
     }
@@ -143,7 +143,7 @@ class NHPlayerChoose(val nh: NetHack) {
             nh.dialogs.show(
                 TAG_NAME_INPUT,
                 view,
-                EmbeddedDialogController.Options(outsideTouchable = true, dim = false)
+                NHEmbeddedDialog.Options(outsideTouchable = true, dim = false)
             )
         }
     }

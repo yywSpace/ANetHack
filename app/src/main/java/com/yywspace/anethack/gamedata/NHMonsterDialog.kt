@@ -1,5 +1,6 @@
 package com.yywspace.anethack.gamedata
 
+import android.app.Dialog
 import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
@@ -7,11 +8,11 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
+import com.yywspace.anethack.window.NHDialog
 import com.yywspace.anethack.extensions.show
 
 /**
@@ -42,7 +43,7 @@ class NHMonsterDialog(
     /** 单条详情的滚动区 */
     private lateinit var scroll: ScrollView
     private lateinit var input: TextInputEditText
-    private var dialog: AlertDialog? = null
+    private var dialog: Dialog? = null
     private val ui = GameInfoUi(context)
 
     /** 图鉴入口：搜索栏 + 全部怪物。 */
@@ -108,7 +109,7 @@ class NHMonsterDialog(
     private fun showDialog(view: View) {
         dialog = ui.createDialog(R.string.monster_lookup_title, view)
         // 和价格鉴定弹窗一样：沉浸式时不带出系统导航栏
-        dialog?.show(nh.prefs.immersiveMode)
+        dialog?.show()
     }
 
     /** 按输入框内容查找怪物，并把结果交给列表。 */

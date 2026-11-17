@@ -14,7 +14,7 @@ import com.yywspace.anethack.R
  * 所有内嵌窗口只通过这里显示/关闭，业务代码不再直接操作容器。
  * 支持简单的对话框栈：后显示的覆盖前一个，关闭后恢复前一个。
  */
-class EmbeddedDialogController(
+class NHEmbeddedDialog(
     private val container: FrameLayout
 ) {
     data class Options(

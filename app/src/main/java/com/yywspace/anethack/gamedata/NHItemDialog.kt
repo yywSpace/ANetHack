@@ -1,5 +1,6 @@
 package com.yywspace.anethack.gamedata
 
+import android.app.Dialog
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +9,11 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
+import com.yywspace.anethack.window.NHDialog
 import com.yywspace.anethack.extensions.show
 
 /**
@@ -24,7 +25,7 @@ class NHItemDialog(
     private val context: Context,
     private val nh: NetHack
 ) {
-    private var dialog: AlertDialog? = null
+    private var dialog: Dialog? = null
     private val ui = GameInfoUi(context)
     private lateinit var content: LinearLayout
     private lateinit var input: TextInputEditText
@@ -47,7 +48,7 @@ class NHItemDialog(
         GameData.ensureLoaded(context)
         val view = buildView()
         dialog = ui.createDialog(R.string.item_lookup_title, view)
-        dialog?.show(nh.prefs.immersiveMode)
+        dialog?.show()
         renderMatches()
     }
 
@@ -72,7 +73,7 @@ class NHItemDialog(
             recycler.post { recycler.scrollToPosition(0) }
         }
         dialog = ui.createDialog(R.string.item_lookup_title, scaffold.root)
-        dialog?.show(nh.prefs.immersiveMode)
+        dialog?.show()
     }
 
     /** 指定物品详情：没有搜索栏。 */
@@ -85,7 +86,7 @@ class NHItemDialog(
         scroll = scaffold.scroll
         renderSingle(name, itemClass)
         dialog = ui.createDialog(R.string.item_lookup_title, scaffold.root)
-        dialog?.show(nh.prefs.immersiveMode)
+        dialog?.show()
     }
 
     private fun renderSingle(name: String, itemClass: String?) {

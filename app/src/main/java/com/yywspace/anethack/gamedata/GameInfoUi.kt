@@ -1,5 +1,6 @@
 package com.yywspace.anethack.gamedata
 
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
@@ -15,13 +16,13 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.chip.ChipGroup
 import com.yywspace.anethack.R
+import com.yywspace.anethack.window.NHDialog
 
 /**
  * 怪物/物品资料卡共用的基础 View 构建器。
@@ -142,12 +143,13 @@ class GameInfoUi(private val context: Context) {
         parent.addView(panel(card))
     }
 
-    fun createDialog(titleRes: Int, view: View): AlertDialog =
-        AlertDialog.Builder(context)
-            .setTitle(titleRes)
-            .setView(view)
-            .setPositiveButton(R.string.dialog_confirm) { _, _ -> }
-            .create()
+    fun createDialog(titleRes: Int, view: View): Dialog =
+        NHDialog(
+            context = context,
+            title = context.getString(titleRes),
+            content = view,
+            positiveText = context.getString(R.string.dialog_confirm)
+        )
 
     /** 单条详情布局：没有搜索栏，只有标题内容和 ScrollView。 */
     fun singleScaffold(): SingleScaffold {
@@ -156,7 +158,10 @@ class GameInfoUi(private val context: Context) {
         }
         val root = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(dp(16), dp(8), dp(16), 0)
+            layoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
         }
         val scroll = ScrollView(context).apply {
             addView(content)
@@ -182,14 +187,17 @@ class GameInfoUi(private val context: Context) {
     ): RecyclerScaffold {
         val root = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(dp(16), dp(8), dp(16), 0)
+            layoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
         }
         val search = searchBar(hintRes, actionRes, null, onSearch)
         val recycler = RecyclerView(context).apply {
             layoutManager = LinearLayoutManager(context)
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                (context.resources.displayMetrics.heightPixels * 0.60f).toInt()
+                ViewGroup.LayoutParams.WRAP_CONTENT
             )
         }
         root.addView(search.view)
@@ -232,7 +240,6 @@ class GameInfoUi(private val context: Context) {
             inputType = InputType.TYPE_CLASS_TEXT
             setSingleLine()
             setBackgroundColor(Color.TRANSPARENT)
-            setPadding(0, 0, 0, 0)
             imeOptions = EditorInfo.IME_ACTION_SEARCH
             setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {

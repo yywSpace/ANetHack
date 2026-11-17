@@ -1,5 +1,6 @@
 package com.yywspace.anethack.extensions
 
+import android.app.Dialog
 import android.view.WindowManager.LayoutParams
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.WindowCompat
