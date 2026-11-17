@@ -2,12 +2,10 @@ package com.yywspace.anethack.window
 
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.entity.NHString
-import com.yywspace.anethack.extensions.show
 
 class NHWText(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {
     private val textList = mutableListOf<NHString>()
@@ -33,22 +31,22 @@ class NHWText(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
 
     companion object {
 
+        private const val TAG_TEXT = "nhw_text"
+
         /** 供 NHWText 和 NHWMenu 共用的只读文本弹窗。 */
         fun showDialog(nh: NetHack, content: String, blocking: Boolean = true) {
             nh.handler.post {
                 val view = View.inflate(nh.context, R.layout.dialog_text, null)
                 view.findViewById<TextView>(R.id.text_view).text = content
-                val dialog = AlertDialog.Builder(nh.context)
-                    .setView(view)
-                    .setPositiveButton(R.string.dialog_confirm, null)
-                    .create()
-                if (blocking) {
-                    dialog.setOnDismissListener {
-                        nh.command.sendCommand(NHKeyCommand(27.toChar()))
-                    }
+                view.findViewById<View>(R.id.text_confirm).setOnClickListener {
+                    nh.dialogs.dismiss(TAG_TEXT)
                 }
-                dialog.setCancelable(false)
-                dialog.show(nh.prefs.immersiveMode)
+                nh.dialogs.show(
+                    TAG_TEXT, view,
+                    onDismiss = if (blocking) {
+                        { nh.command.sendCommand(NHKeyCommand(27.toChar())) }
+                    } else null
+                )
             }
         }
         /**
