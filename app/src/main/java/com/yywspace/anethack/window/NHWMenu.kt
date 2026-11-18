@@ -427,6 +427,9 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
                 onClick = {
                     amountPicker.requestFocus()
                     parentItem.selectedCount = amountPicker.value.toLong()
+                    if (selectMode == SelectMode.PickMany) {
+                        parentItem.isSelected = true
+                    }
                     parentAdapter.notifyItemChanged(parentPosition)
                 }
             ),
