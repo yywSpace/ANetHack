@@ -3,6 +3,7 @@ package com.yywspace.anethack.map
 import android.annotation.SuppressLint
 import android.content.Context
 import android.text.SpannableStringBuilder
+import android.text.method.ScrollingMovementMethod
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
@@ -27,7 +28,7 @@ class NHMessageView @JvmOverloads constructor(
 
     private lateinit var nhMessage: NHWMessage
     private var messageInit = false
-    private var messageSize = 3
+    private var messageSize = 15
     private val refresher = RefreshCoalescer { render() }
 
     /** 点击消息区的回调（由 NHWMessage 设置，避免在游戏线程里直接操作 View） */
@@ -44,6 +45,7 @@ class NHMessageView @JvmOverloads constructor(
         setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.message_text_size))
         includeFontPadding = false
         setLineSpacing(0f, 1f)
+        movementMethod = ScrollingMovementMethod()
         setOnClickListener { onMessageClick?.invoke() }
     }
 
@@ -81,6 +83,15 @@ class NHMessageView @JvmOverloads constructor(
         if (content == text)
             return
         text = builder
+        post { scrollTo(0, (layout?.height ?: 0) - height) }
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        val metrics = paint.fontMetricsInt
+        val lineHeight = metrics.descent - metrics.ascent
+        val fixedHeight = lineHeight * 3 + compoundPaddingTop + compoundPaddingBottom
+        setMeasuredDimension(measuredWidth, fixedHeight)
     }
 
     /* 只有真正点在怪物名文字上才拦截，否则交给原来的整块点击。*/
