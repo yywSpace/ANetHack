@@ -61,6 +61,8 @@ class NHMessageView @JvmOverloads constructor(
         itemAnimator = null
         overScrollMode = OVER_SCROLL_NEVER
         isVerticalScrollBarEnabled = true
+        isVerticalFadingEdgeEnabled = true
+        setFadingEdgeLength(resources.getDimensionPixelSize(R.dimen.message_text_size))
         isScrollbarFadingEnabled = true
         scrollBarStyle = SCROLLBARS_INSIDE_OVERLAY
         scrollBarDefaultDelayBeforeFade = 300
@@ -109,9 +111,11 @@ class NHMessageView @JvmOverloads constructor(
             isExpanded = false
             isScrollbarFadingEnabled = true
             invalidate()
-            scrollToPosition((adapter?.itemCount ?: 1) - 1)
+            scrollToBottom()
         }
     }
+
+    override fun getBottomFadingEdgeStrength(): Float = 0f
 
     /**
      * 收回动画期间，RecyclerView 的高度不断变小。
@@ -171,7 +175,20 @@ class NHMessageView @JvmOverloads constructor(
             }
             lastAdapterCount = count
         }
-        scrollToPosition((adapter?.itemCount ?: 1) - 1)
+        scrollToBottom()
+    }
+
+    /** 滚到内容最底部，保证最新消息完整可见。 */
+    private fun scrollToBottom() {
+        val last = (adapter?.itemCount ?: 0) - 1
+        if (last < 0) return
+        scrollToPosition(last)
+        post {
+            val manager = layoutManager as? LinearLayoutManager ?: return@post
+            val child = manager.findViewByPosition(last) ?: return@post
+            val offset = child.bottom - height + paddingBottom
+            if (offset > 0) scrollBy(0, offset)
+        }
     }
 
     private fun collapsedHeight(): Int {

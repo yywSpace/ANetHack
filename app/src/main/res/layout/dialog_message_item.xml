@@ -5,5 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textColorHighlight="@color/text_selection_highlight"
-    android:textIsSelectable="true"/>
+    android:textIsSelectable="true"
+    android:includeFontPadding="false"
+    android:lineSpacingExtra="0dp"
+    android:lineSpacingMultiplier="1" />
 
