@@ -34,16 +34,12 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
 
     val messageList = CopyOnWriteArrayList<NHMessage>()
     private var messageView: NHMessageView = nh.binding.messageView
-    private var lastClickTime = 0L
 
     init {
         messageView.initMessage(this)
         // 只设置回调，不在这里直接操作 View（本类在游戏线程里创建）
-        messageView.onMessageClick = {
-            if (System.currentTimeMillis() - lastClickTime >= 1000) {
-                displayWindow(true)
-                lastClickTime = System.currentTimeMillis()
-            }
+        messageView.onMessageLongClick = {
+            displayWindow(true)
         }
         // 消息里的怪物名：点击后打开怪物详情（弹窗统一从 nh.monsterDialog 取）
         messageView.onMonsterClick = { match -> showMonsterMatch(match) }
@@ -51,18 +47,29 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         messageView.onItemClick = { item -> showItemMatch(item) }
     }
 
+    /** 展开态用的全量消息适配器，每条消息一个 item。 */
+    fun createHistoryAdapter(): RecyclerView.Adapter<*> =
+        NHWMessageAdapter(
+            messageList,
+            1,
+            nh,
+            onMonsterClick = { match -> showMonsterMatch(match) },
+            onItemClick = { item -> showItemMatch(item) },
+            onMessageClick = { messageView.toggleExpanded() },
+            onMessageLongClick = { displayWindow(true) },
+            selectableText = false
+        )
+
+
     fun getRecentMessageList(size: Int):List<NHMessage> {
-        // CopyOnWriteArrayList 的 size 和 subList 不是原子操作；
-        // 游戏线程可能同时追加/裁剪消息，先取稳定快照再计算。
         val snapshot = messageList.toList()
         if (snapshot.isEmpty())
             return emptyList()
         val lastMsg = snapshot.lastOrNull { !it.history }
-        // 最多取最新 size 条：同一回合的多条消息共享时间戳，若按同批全部取出会
-        // 超过消息栏行数，最新消息被底部裁剪看不见
         val msgSize = snapshot.size.coerceAtMost(size)
+        val newColor = NHColor.fromInt(nh.prefs.messageNewColor)
         return snapshot.asReversed().take(msgSize).map { nhMessage ->
-            nhMessage.attach(lastMsg?.source, newColor = NHColor.fromInt(nh.prefs.messageNewColor))
+            nhMessage.attach(lastMsg?.source, newColor = newColor)
         }
     }
 
@@ -126,7 +133,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             )
         )
         // 新消息到达 → 唤醒消息绘制线程（事件驱动，取代定时循环）
-        messageView.requestRedraw()
+        messageView.onNewMessage()
     }
 
     class NHWMessageAdapter(
@@ -134,9 +141,11 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         private val itemSize: Int,
         private val nh: NetHack,
         private val onMonsterClick: (MonsterMatch) -> Unit,
-        private val onItemClick: (ItemMatch) -> Unit
+        private val onItemClick: (ItemMatch) -> Unit,
+        private val onMessageClick: (() -> Unit)? = null,
+        private val onMessageLongClick: (() -> Unit)? = null,
+        private val selectableText: Boolean = true
     ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        private var lastCmdMsg: NHMessage? = messageList.lastOrNull { !it.history }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.dialog_message_item, parent, false)
@@ -149,9 +158,12 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
 
         @SuppressLint("ClickableViewAccessibility")
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            // 游戏线程可能同时追加；绑定阶段使用稳定快照，避免 COWSubList 并发修改
+            val snapshot = messageList.toList()
             val start = position * itemSize
-            val end = min(start + itemSize, messageList.size)
-            val subList = messageList.subList(start, end)
+            val end = min(start + itemSize, snapshot.size)
+            if (start >= end) return
+            val subList = snapshot.subList(start, end)
             // 旧消息（非最新一批）用"默认文字色"：亮色下深灰、深色下柔和白，避免和背景同色
             val itemContext = holder.itemView.context
             val oldMsgColor =
@@ -162,7 +174,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                     messageText.append("\n")
                 val lineStart = messageText.length
                 messageText.append(
-                    message.attach(lastCmdMsg?.source, oldMsgColor, NHColor.fromInt(nh.prefs.messageNewColor)).toSpannableString()
+                    message.attach(snapshot.lastOrNull { !it.history }?.source, oldMsgColor, NHColor.fromInt(nh.prefs.messageNewColor)).toSpannableString()
                 )
                 // 只解析 look 指令产生的消息（格式可预期），其它消息保持原样
                 if (message.fromInspect) {
@@ -175,19 +187,28 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                 }
             }
             (holder as MessageViewHolder).apply {
+                itemMessage.setTextIsSelectable(selectableText)
                 itemMessage.text = messageText
+                if (!selectableText) {
+                    itemMessage.isClickable = true
+                    itemMessage.setOnClickListener { onMessageClick?.invoke() }
+                    itemMessage.setOnLongClickListener {
+                        onMessageLongClick?.invoke()
+                        true
+                    }
+                }
                 // 长按选择文字时的底色：不要设成透明，否则深色主题下看不见选区
                 itemMessage.highlightColor =
                     ContextCompat.getColor(itemContext, R.color.text_selection_highlight)
                 // 这一行整行是怪物名时，点这一行的任何位置（含右侧空白）都弹详情
                 itemMessage.setOnTouchListener { view, event ->
                     if (event.actionMasked == MotionEvent.ACTION_UP) {
-                        val itemSpan = ItemLink.spanAtLine(itemMessage, event)
+                        val itemSpan = ItemLink.spanAtTouch(itemMessage, event)
                         if (itemSpan != null) {
                             itemSpan.onClick(view)
                             return@setOnTouchListener true
                         }
-                        val monsterSpan = MonsterLink.spanAtLine(itemMessage, event)
+                        val monsterSpan = MonsterLink.spanAtTouch(itemMessage, event)
                         if (monsterSpan != null) {
                             monsterSpan.onClick(view)
                             return@setOnTouchListener true

@@ -545,6 +545,16 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         }
     }
 
+    /** 只更新顶部安全区，底部保持不变。 */
+    fun setTopSafeInset(top: Int) {
+        setSafeInsets(safeInsets.left, top, safeInsets.right, safeInsets.bottom)
+    }
+
+    /** 只更新底部安全区，顶部保持不变。 */
+    fun setBottomSafeInset(bottom: Int) {
+        setSafeInsets(safeInsets.left, safeInsets.top, safeInsets.right, bottom)
+    }
+
     fun centerPlayerInScreen() {
         if (mapInit)
             workQueue.offer(MapWork.Operation(NHMapCenter(map.curse.x, map.curse.y)))

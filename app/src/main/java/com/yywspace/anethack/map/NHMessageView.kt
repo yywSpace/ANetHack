@@ -1,114 +1,207 @@
 package com.yywspace.anethack.map
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.text.SpannableStringBuilder
-import android.text.method.ScrollingMovementMethod
 import android.util.AttributeSet
-import android.util.TypedValue
+import android.view.GestureDetector
 import android.view.MotionEvent
-import androidx.appcompat.widget.AppCompatTextView
+import android.view.animation.DecelerateInterpolator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.R
 import com.yywspace.anethack.gamedata.ItemMatch
-import com.yywspace.anethack.gamedata.ItemLink
 import com.yywspace.anethack.gamedata.MonsterMatch
-import com.yywspace.anethack.gamedata.MonsterLink
 import com.yywspace.anethack.window.NHWMessage
 
 /**
- * 消息区：最近几条消息拼成一个带颜色的 Spannable 显示。
- * 刷新按帧合并，麻痹连续跑回合时也只会每帧更新一次。
- *
- * 整行就是一个怪物名的那一行会高亮成可点击，点**文字**弹怪物详情；
- * 点其它任何位置（包括这一行的空白处）仍然是原来的行为（打开完整消息列表）。
+ * 消息区：一个 RecyclerView 同时负责收起和展开。
+ * 收起时高度是三行，展开时展开到最多 25% 屏幕。
  */
 class NHMessageView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : AppCompatTextView(context, attrs, defStyleAttr) {
+) : RecyclerView(context, attrs, defStyleAttr) {
 
     private lateinit var nhMessage: NHWMessage
     private var messageInit = false
-    private var messageSize = 15
-    private val refresher = RefreshCoalescer { render() }
+    var isExpanded = false
+        private set
 
-    /** 点击消息区的回调（由 NHWMessage 设置，避免在游戏线程里直接操作 View） */
-    var onMessageClick: (() -> Unit)? = null
+    private var expansionAnimator: android.animation.ValueAnimator? = null
+    private var lastHeight = 0
+    private var lastAdapterCount = 0
+    private var lastLatestBatchStart = -1
+    private var lastLayoutHeight = 0
+    private val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+        override fun onSingleTapUp(e: MotionEvent): Boolean {
+            toggleExpanded()
+            return true
+        }
 
-    /** 点击消息里怪物名的回调（由 NHWMessage 设置，参数是怪物名） */
+        override fun onLongPress(e: MotionEvent) {
+            onMessageLongClick?.invoke()
+        }
+    })
+
+
+    private val itemTouchListener = object : SimpleOnItemTouchListener() {
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+            // item 区域交给 item 处理 span 点击和普通点击
+            if (rv.findChildViewUnder(e.x, e.y) != null) return false
+            gestureDetector.onTouchEvent(e)
+            return false
+        }
+    }
+
+    var onMessageLongClick: (() -> Unit)? = null
     var onMonsterClick: ((MonsterMatch) -> Unit)? = null
-
-    /** 点击消息里物品名的回调 */
     var onItemClick: ((ItemMatch) -> Unit)? = null
 
     init {
-        // 字号来自 dimens（px，与原来 TextPaint 的 42px 一致）
-        setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.message_text_size))
-        includeFontPadding = false
-        setLineSpacing(0f, 1f)
-        movementMethod = ScrollingMovementMethod()
-        setOnClickListener { onMessageClick?.invoke() }
+        layoutManager = LinearLayoutManager(context)
+        itemAnimator = null
+        overScrollMode = OVER_SCROLL_NEVER
+        isVerticalScrollBarEnabled = true
+        isScrollbarFadingEnabled = true
+        scrollBarStyle = SCROLLBARS_INSIDE_OVERLAY
+        scrollBarDefaultDelayBeforeFade = 300
+        scrollBarFadeDuration = 200
+        addOnItemTouchListener(itemTouchListener)
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        post {
+            if (!isExpanded) setHeight(collapsedHeight())
+        }
     }
 
     fun initMessage(message: NHWMessage) {
         this.nhMessage = message
         messageInit = true
-        requestRedraw()
+        post { refresh() }
     }
 
-    /** 新消息到达：切到主线程并合并，同一轮消息循环内最多刷新一次 */
-    fun requestRedraw() = refresher.request()
-
-    private fun render() {
-        if (!messageInit)
-            return
-        val messages = nhMessage.getRecentMessageList(messageSize).reversed()
-        val builder = SpannableStringBuilder()
-        messages.forEachIndexed { index, message ->
-            if (index > 0)
-                builder.append('\n')
-            val start = builder.length
-            builder.append(message.toSpannableString())
-            // 只解析 look 指令产生的消息（格式可预期），其它消息保持原样
-            if (message.fromInspect) {
-                MonsterLink.highlight(context, builder, start, builder.length) { monster ->
-                    onMonsterClick?.invoke(monster)
-                }
-                ItemLink.highlight(context, builder, start, builder.length) { item ->
-                    onItemClick?.invoke(item)
-                }
-            }
+    fun onNewMessage() {
+        if (!messageInit) return
+        val collapse = isExpanded
+        post {
+            refresh()
+            if (collapse && isExpanded) collapse()
         }
-        val content = builder.toString()
-        // 内容没变就不重新布局
-        if (content == text)
-            return
-        text = builder
-        post { scrollTo(0, (layout?.height ?: 0) - height) }
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val metrics = paint.fontMetricsInt
-        val lineHeight = metrics.descent - metrics.ascent
-        val fixedHeight = lineHeight * 3 + compoundPaddingTop + compoundPaddingBottom
-        setMeasuredDimension(measuredWidth, fixedHeight)
+    fun toggleExpanded() {
+        if (isExpanded) collapse() else expand()
     }
 
-    /* 只有真正点在怪物名文字上才拦截，否则交给原来的整块点击。*/
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (event.actionMasked == MotionEvent.ACTION_UP) {
-            val itemSpan = ItemLink.spanAtTouch(this, event)
-            if (itemSpan != null) {
-                itemSpan.onClick(this)
-                return true
-            }
-            val monsterSpan = MonsterLink.spanAtTouch(this, event)
-            if (monsterSpan != null) {
-                monsterSpan.onClick(this)
-                return true
-            }
+    fun expand() {
+        if (isExpanded) return
+        isExpanded = true
+        isScrollbarFadingEnabled = false
+        invalidate()
+        refresh()
+        animateHeight(expandedHeight())
+    }
+
+    fun collapse() {
+        if (!isExpanded) return
+        animateHeight(collapsedHeight()) {
+            isExpanded = false
+            isScrollbarFadingEnabled = true
+            invalidate()
+            scrollToPosition((adapter?.itemCount ?: 1) - 1)
         }
-        return super.onTouchEvent(event)
     }
+
+    /**
+     * 收回动画期间，RecyclerView 的高度不断变小。
+     * 高度变小后内容本身不会自动上移，所以这里按“上一帧高度 - 当前高度”
+     * 主动滚动相同的距离，让文字跟着抽屉一起向上收回。
+     */
+    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        super.onLayout(changed, l, t, r, b)
+        if (lastLayoutHeight > height) {
+            scrollBy(0, lastLayoutHeight - height)
+        }
+        lastLayoutHeight = height
+    }
+
+    /** 最新一批消息在列表中的起始下标。 */
+    private fun latestBatchStart(): Int {
+        val list = nhMessage.messageList
+        val last = list.lastOrNull { !it.history } ?: return -1
+        var i = list.lastIndex
+        while (i >= 0 && list[i].source === last.source) i--
+        return i + 1
+    }
+
+    private fun refresh() {
+        if (!messageInit) return
+        if (adapter == null) {
+            adapter = nhMessage.createHistoryAdapter()
+            lastAdapterCount = adapter?.itemCount ?: 0
+            lastLatestBatchStart = latestBatchStart()
+        } else {
+            val count = nhMessage.messageList.size
+            when {
+                count > lastAdapterCount -> {
+                    adapter?.notifyItemRangeInserted(lastAdapterCount, count - lastAdapterCount)
+                    val start = latestBatchStart()
+                    if (lastLatestBatchStart in 0..<start) {
+                        // 只刷新上一批绿色消息，让它们恢复普通颜色
+                        adapter?.notifyItemRangeChanged(
+                            lastLatestBatchStart,
+                            start - lastLatestBatchStart
+                        )
+                    }
+                    lastLatestBatchStart = start
+                }
+                count < lastAdapterCount -> {
+                    adapter?.notifyItemRangeRemoved(count, lastAdapterCount - count)
+                    lastLatestBatchStart = latestBatchStart()
+                }
+                else ->
+                    adapter?.notifyItemRangeChanged(0, count)
+            }
+            lastAdapterCount = count
+        }
+        scrollToPosition((adapter?.itemCount ?: 1) - 1)
+    }
+
+    private fun collapsedHeight(): Int {
+        val lineHeight = resources.getDimensionPixelSize(R.dimen.message_text_size)
+        return lineHeight * 3 + paddingTop + paddingBottom +
+            resources.getDimensionPixelSize(R.dimen.message_text_size)
+    }
+
+    private fun expandedHeight(): Int =
+        (resources.displayMetrics.heightPixels * 0.25f).toInt()
+
+    private fun setHeight(value: Int) {
+        val target = value.coerceAtLeast(collapsedHeight())
+        if (layoutParams.height != target) {
+            layoutParams.height = target
+            requestLayout()
+        }
+        lastHeight = target
+    }
+
+    private fun animateHeight(target: Int, onEnd: (() -> Unit)? = null) {
+        expansionAnimator?.cancel()
+        val start = lastHeight.takeIf { it > 0 } ?: collapsedHeight()
+        expansionAnimator = android.animation.ValueAnimator.ofInt(start, target).apply {
+            duration = 220
+            interpolator = DecelerateInterpolator()
+            addUpdateListener {
+                val h = it.animatedValue as Int
+                setHeight(h)
+            }
+            addListener(object : android.animation.AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: android.animation.Animator) {
+                    onEnd?.invoke()
+                }
+            })
+            start()
+        }
+    }
+
 }

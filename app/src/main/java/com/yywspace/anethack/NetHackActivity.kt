@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.yywspace.anethack.command.NHCommandParser
@@ -68,23 +67,18 @@ class NetHackActivity : AppCompatActivity() {
     private fun initMapSafeArea() {
         binding.statusMessageBar.addOnLayoutChangeListener {
             _, _, top, _, bottom, _, oldTop, _, oldBottom ->
-            if (bottom - top != oldBottom - oldTop)
-                updateMapSafeArea()
+            if (!binding.messageView.isExpanded &&
+                bottom - top != oldBottom - oldTop
+            ) {
+                binding.mapView.setTopSafeInset(binding.statusMessageBar.height)
+            }
         }
         binding.bottomControls.addOnLayoutChangeListener {
             _, _, top, _, bottom, _, oldTop, _, oldBottom ->
-            if (bottom - top != oldBottom - oldTop)
-                updateMapSafeArea()
+            if (bottom - top != oldBottom - oldTop) {
+                binding.mapView.setBottomSafeInset(binding.bottomControls.height)
+            }
         }
-    }
-
-    private fun updateMapSafeArea() {
-        binding.mapView.setSafeInsets(
-            0,
-            binding.statusMessageBar.height,
-            0,
-            binding.bottomControls.height
-        )
     }
 
     override fun onDestroy() {
