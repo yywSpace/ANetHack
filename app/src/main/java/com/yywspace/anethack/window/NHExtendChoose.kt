@@ -52,8 +52,10 @@ class NHExtendChoose(val nh: NetHack) {
                 context = context,
                 content = view,
                 title = context.getString(R.string.ext_cmd_select),
-                neutralText = context.getString(R.string.dialog_cancel),
-                onNeutral = { finishExtCmdChoose(-1) },
+                rightButton = NHDialogButton(
+                    text = context.getString(R.string.dialog_confirm),
+                    onClick = { finishExtCmdChoose(-1) }
+                ),
                 immersive = nh.prefs.immersiveMode
             )
             dialog.setCancelable(false)

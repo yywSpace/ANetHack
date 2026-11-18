@@ -7,18 +7,17 @@ import android.widget.LinearLayout
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.NetHack
+import androidx.core.content.ContextCompat
 import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.command.NHMenuCommand
 import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.gamedata.GameData
-import com.yywspace.anethack.extensions.show
 
 
 class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {
@@ -347,13 +346,39 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             return
         }
 
-        AlertDialog.Builder(context)
-            .setTitle(menuItem.title.toString())
-            .setItems(actions.map { it.title }.toTypedArray()) { _, which ->
-                actions[which].action()
-            }
-            .setNegativeButton(R.string.dialog_cancel, null)
-            .show(nh.prefs.immersiveMode)
+        lateinit var dialog: NHDialog
+        val list = LinearLayout(context).apply {
+            orientation = LinearLayout.VERTICAL
+        }
+        actions.forEach { action ->
+            val out = android.util.TypedValue()
+            context.theme.resolveAttribute(android.R.attr.selectableItemBackground, out, true)
+            list.addView(TextView(context).apply {
+                text = action.title
+                setTextColor(ContextCompat.getColor(context, R.color.app_text))
+                gravity = android.view.Gravity.CENTER_VERTICAL
+                minHeight = (40 * resources.displayMetrics.density).toInt()
+                includeFontPadding = false
+                setPadding(48, 12, 48, 12)
+                setBackgroundResource(out.resourceId)
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                setOnClickListener {
+                    action.action()
+                    dialog.dismiss()
+                }
+            })
+        }
+        dialog = NHDialog(
+            context = context,
+            content = list,
+            title = menuItem.title.toString(),
+            rightButton = NHDialogButton(context.getString(R.string.dialog_confirm)),
+            immersive = nh.prefs.immersiveMode
+        )
+        dialog.show()
     }
 
     private fun priceActionLabel(context: Context, quote: String): String {
@@ -398,21 +423,23 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
             substring(indexOf(' '), length)
         }
         val title = context.resources.getString(R.string.item_amount_select, itemName)
-        val dialog = AlertDialog.Builder(context).run {
-            setTitle(title)
-            setView(dialogView)
-            setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                amountPicker.requestFocus()
-                parentItem.selectedCount = amountPicker.value.toLong()
-                parentAdapter.notifyItemChanged(parentPosition)
-            }
-            setNegativeButton(R.string.dialog_cancel) { _, _ ->
-
-            }
-            create()
-        }
+        val dialog = NHDialog(
+            context = context,
+            content = dialogView,
+            title = title,
+            leftButton = NHDialogButton(context.getString(R.string.dialog_cancel)),
+            rightButton = NHDialogButton(
+                text = context.getString(R.string.dialog_confirm),
+                onClick = {
+                    amountPicker.requestFocus()
+                    parentItem.selectedCount = amountPicker.value.toLong()
+                    parentAdapter.notifyItemChanged(parentPosition)
+                }
+            ),
+            immersive = nh.prefs.immersiveMode
+        )
         dialog.setCancelable(false)
-        dialog.show(nh.prefs.immersiveMode)
+        dialog.show()
     }
 
     enum class SelectMode {

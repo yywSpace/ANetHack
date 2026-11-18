@@ -13,6 +13,7 @@ import com.yywspace.anethack.R
 import com.yywspace.anethack.databinding.DialogPriceIdentifyBinding
 import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.window.NHDialog
+import com.yywspace.anethack.window.NHDialogButton
 
 class NHPriceIDialog(val context: Context, val nh: NetHack) {
 
@@ -54,6 +55,7 @@ class NHPriceIDialog(val context: Context, val nh: NetHack) {
         }
     }
 
+    @Suppress("UsePropertyAccessSyntax")
     private fun initView() {
         val view = View.inflate(context, R.layout.dialog_price_identify, null)
         binding = DialogPriceIdentifyBinding.bind(view)
@@ -166,8 +168,10 @@ class NHPriceIDialog(val context: Context, val nh: NetHack) {
             context = context,
             title = context.getString(R.string.pride_id_title),
             content = binding.root,
-            positiveText = context.getString(R.string.dialog_confirm),
-            onPositive = { objListAdapter.submitList(emptyList()) },
+            rightButton = NHDialogButton(
+                text = context.getString(R.string.dialog_confirm),
+                onClick = { objListAdapter.submitList(emptyList()) }
+            ),
             immersive = nh.prefs.immersiveMode
         )
         dialog.setOnDismissListener { isShowing = false }

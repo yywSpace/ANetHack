@@ -17,17 +17,18 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.R
 
+data class NHDialogButton(
+    val text: CharSequence,
+    val onClick: (() -> Unit)? = null
+)
+
 /** 系统弹窗：负责创建标题/内容/按钮，并交给容器排版。 */
 class NHDialog(
     context: Context,
     private val content: View,
     private val title: CharSequence? = null,
-    private val positiveText: CharSequence? = null,
-    private val onPositive: (() -> Unit)? = null,
-    private val negativeText: CharSequence? = null,
-    private val onNegative: (() -> Unit)? = null,
-    private val neutralText: CharSequence? = null,
-    private val onNeutral: (() -> Unit)? = null,
+    private val leftButton: NHDialogButton? = null,
+    private val rightButton: NHDialogButton? = null,
     private val immersive: Boolean = false
 ) : Dialog(context) {
 
@@ -84,27 +85,31 @@ class NHDialog(
 
         container.addView(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        if (positiveText != null || negativeText != null || neutralText != null) {
+        if (leftButton != null || rightButton != null) {
             val row = LinearLayout(context).apply {
                 orientation = LinearLayout.HORIZONTAL
-                gravity = android.view.Gravity.END
-                setPadding(0, dp(4), dp(12), dp(4))
+                setPadding(dp(8), dp(8), dp(8), dp(8))
             }
-            fun addButton(text: CharSequence?, action: (() -> Unit)?) {
-                if (text == null) return
-                row.addView(MaterialButton(
-                    context, null, androidx.appcompat.R.attr.buttonBarButtonStyle
-                ).apply {
-                    this.text = text
-                    setOnClickListener {
-                        action?.invoke()
-                        dismiss()
-                    }
-                })
+            fun addButton(button: NHDialogButton?, gravity: Int) {
+                val slot = LinearLayout(context).apply {
+                    this.gravity = gravity
+                    layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+                }
+                button?.let { btn ->
+                    slot.addView(MaterialButton(
+                        context, null, androidx.appcompat.R.attr.buttonBarButtonStyle
+                    ).apply {
+                        text = btn.text
+                        setOnClickListener {
+                            btn.onClick?.invoke()
+                            dismiss()
+                        }
+                    })
+                }
+                row.addView(slot)
             }
-            addButton(neutralText, onNeutral)
-            addButton(negativeText, onNegative)
-            addButton(positiveText, onPositive)
+            addButton(leftButton, android.view.Gravity.START)
+            addButton(rightButton, android.view.Gravity.END)
             container.addView(row)
         }
 
@@ -177,6 +182,6 @@ class NHDialog(
     }
 
     companion object {
-        private const val MAX_HEIGHT_RATIO = 0.8f
+        private const val MAX_HEIGHT_RATIO = 0.85f
     }
 }

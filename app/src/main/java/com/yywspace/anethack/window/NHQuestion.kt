@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.NetHack
@@ -15,7 +14,6 @@ import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHAnswerCommand
 import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.command.NHLineCommand
-import com.yywspace.anethack.extensions.show
 
 
 class NHQuestion(val nh: NetHack) {
@@ -213,22 +211,24 @@ class NHQuestion(val nh: NetHack) {
             setText(answer.second.toString())
         }
         val title = context.resources.getString(R.string.number_select)
-        val dialog = AlertDialog.Builder(context).run {
-            setTitle(title)
-            setView(dialogView)
-            setPositiveButton(R.string.dialog_confirm){ _, _ ->
-                input.text.toString().toIntOrNull()?.let { count ->
-                    choices[parentPosition] = answer.copy(second = count)
-                    parentGrid.updateCount(parentPosition, count)
+        val dialog = NHDialog(
+            context = context,
+            content = dialogView,
+            title = title,
+            leftButton = NHDialogButton(context.getString(R.string.dialog_cancel)),
+            rightButton = NHDialogButton(
+                text = context.getString(R.string.dialog_confirm),
+                onClick = {
+                    input.text.toString().toIntOrNull()?.let { count ->
+                        choices[parentPosition] = answer.copy(second = count)
+                        parentGrid.updateCount(parentPosition, count)
+                    }
                 }
-            }
-            setNegativeButton(R.string.dialog_cancel){ _, _ ->
-
-            }
-            create()
-        }
+            ),
+            immersive = nh.prefs.immersiveMode
+        )
         dialog.setCancelable(false)
-        dialog.show(nh.prefs.immersiveMode)
+        dialog.show()
 
     }
 

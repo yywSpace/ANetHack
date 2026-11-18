@@ -23,6 +23,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.chip.ChipGroup
 import com.yywspace.anethack.R
 import com.yywspace.anethack.window.NHDialog
+import com.yywspace.anethack.window.NHDialogButton
 
 /**
  * 怪物/物品资料卡共用的基础 View 构建器。
@@ -148,7 +149,7 @@ class GameInfoUi(private val context: Context) {
             context = context,
             title = context.getString(titleRes),
             content = view,
-            positiveText = context.getString(R.string.dialog_confirm),
+            rightButton = NHDialogButton(context.getString(R.string.dialog_confirm)),
             immersive = immersive
         )
 
