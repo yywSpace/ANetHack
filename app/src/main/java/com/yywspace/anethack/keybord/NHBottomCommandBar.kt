@@ -15,7 +15,6 @@ class NHBottomCommandBar @JvmOverloads constructor(
 ) : LinearLayout(context, attrs) {
     var onCommand: ((String) -> Unit)? = null
     /** 弹窗是否需要按沉浸式显示 */
-    var immersiveProvider: (() -> Boolean)? = null
 
     private var commandScroller: View? = null
     private val divider: View
@@ -86,7 +85,6 @@ class NHBottomCommandBar @JvmOverloads constructor(
     private fun showEditDialog(entry: CommandEntry?) {
         CommandUi.editDialog(
             context = context,
-            immersive = immersiveProvider?.invoke() ?: false,
             entry = entry,
             onSave = { saveEntry(entry, it) },
             onDelete = if (entry == null) null else ({ deleteEntry(entry) })

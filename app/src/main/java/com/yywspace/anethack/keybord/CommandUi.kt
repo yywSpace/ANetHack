@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.yywspace.anethack.R
-import com.yywspace.anethack.extensions.show
 
 /**
  * 命令按钮的公共 UI：按钮、横向滚动行、编辑弹窗。
@@ -65,12 +64,10 @@ object CommandUi {
      * 新增或编辑一条命令。
      *
      * @param entry 为 null 时表示新增（输入框留空）
-     * @param immersive 弹窗是否按沉浸式显示
      * @param onDelete 非空时多显示一个"删除"按钮
      */
     fun editDialog(
         context: Context,
-        immersive: Boolean,
         entry: CommandEntry?,
         onSave: (CommandEntry) -> Unit,
         onDelete: (() -> Unit)? = null
@@ -89,7 +86,7 @@ object CommandUi {
             .setNegativeButton(R.string.dialog_cancel, null)
         if (onDelete != null)
             builder.setNeutralButton(R.string.command_delete, null)
-        val dialog = builder.show(immersive)
+        val dialog = builder.show()
         // 删除是不可撤销的，先问一句
         if (onDelete != null)
             dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
@@ -105,7 +102,7 @@ object CommandUi {
                         dialog.dismiss()
                     }
                     .setNegativeButton(R.string.dialog_cancel, null)
-                    .show(immersive)
+                    .show()
             }
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
             val label = labelInput.text.toString().trim()

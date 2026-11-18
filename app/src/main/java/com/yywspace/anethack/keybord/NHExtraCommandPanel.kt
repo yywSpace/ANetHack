@@ -19,7 +19,6 @@ class NHExtraCommandPanel @JvmOverloads constructor(
     /** 点击按钮：把命令交给调用方发送 */
     var onCommand: ((String) -> Unit)? = null
     /** 弹窗是否需要按沉浸式显示 */
-    var immersiveProvider: (() -> Boolean)? = null
 
     /** 从配置文件读出来的全部行（含未启用的），编辑时按它整体写回 */
     private var allRows: List<CommandRow> = emptyList()
@@ -102,7 +101,6 @@ class NHExtraCommandPanel @JvmOverloads constructor(
     private fun showAddEditor(row: CommandRow) {
         CommandUi.editDialog(
             context = context,
-            immersive = immersiveProvider?.invoke() ?: false,
             entry = null,
             onSave = { entry ->
                 saveRows(
@@ -118,7 +116,6 @@ class NHExtraCommandPanel @JvmOverloads constructor(
     private fun showEditor(entry: CommandEntry) {
         CommandUi.editDialog(
             context = context,
-            immersive = immersiveProvider?.invoke() ?: false,
             entry = entry,
             onSave = { replace(entry, it) },
             onDelete = { delete(entry) }

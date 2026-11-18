@@ -139,7 +139,6 @@ class NHCustomKeyboardView(context: Context) : KeyboardGridBase(context) {
         val index = entry?.let { list.indexOf(it) } ?: -1
         CommandUi.editDialog(
             context = context,
-            immersive = immersiveProvider?.invoke() ?: false,
             entry = entry,
             onSave = { newEntry ->
                 if (index >= 0) list[index] = newEntry else list.add(newEntry)

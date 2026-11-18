@@ -37,13 +37,6 @@ class NHKeyboardView @JvmOverloads constructor(
             customView.onSpecialKeyLongPress = value
         }
 
-    /** 弹窗是否需要按沉浸式显示（和命令面板一致） */
-    var immersiveProvider: (() -> Boolean)? = null
-        set(value) {
-            field = value
-            standardView.immersiveProvider = value
-            customView.immersiveProvider = value
-        }
 
     init {
         addView(standardView, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))

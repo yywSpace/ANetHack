@@ -204,15 +204,12 @@ class NetHackActivity : AppCompatActivity() {
     private fun initControlPanel() {
         binding.bottomCommandBar.apply {
             onCommand = { processKeyPress(it) }
-            immersiveProvider = { nethack.prefs.immersiveMode }
             refreshTheme()
         }
         binding.extraCommandPanel.apply {
             onCommand = { processKeyPress(it) }
-            immersiveProvider = { nethack.prefs.immersiveMode }
             refreshTheme()
         }
-        binding.keyboardView.immersiveProvider = { nethack.prefs.immersiveMode }
     }
 
     /** 底部命令栏上的面板状态："更多命令"面板是否由键盘切换而来 */

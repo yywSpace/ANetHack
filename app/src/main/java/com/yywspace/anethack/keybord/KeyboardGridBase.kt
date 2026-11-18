@@ -43,7 +43,6 @@ abstract class KeyboardGridBase(
 
     var onKeyPress:((key:KeyboardLayout.Key)->Unit)? = null
     var onSpecialKeyLongPress:((key:KeyboardLayout.Key)->Unit)? = null
-    var immersiveProvider:(() -> Boolean)? = null
 
     init {
         KeyboardVibrate.bind(context)

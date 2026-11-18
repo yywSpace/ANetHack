@@ -253,7 +253,6 @@ class CommandEditorActivity : AppCompatActivity() {
         // 和命令栏/面板共用同一个编辑弹窗与删除逻辑
         CommandUi.editDialog(
             context = this,
-            immersive = false,
             entry = if (editing) row[pos] else null,
             onSave = {
                 if (editing) row[pos] = it else row.add(it)
@@ -357,7 +356,6 @@ class CommandEditorActivity : AppCompatActivity() {
         val editing = index != null
         CommandUi.editDialog(
             context = this,
-            immersive = false,
             entry = if (editing) entries[pos] else null,
             onSave = {
                 if (editing) entries[pos] = it else entries.add(it)
