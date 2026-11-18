@@ -57,7 +57,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             onItemClick = { item -> showItemMatch(item) },
             onMessageClick = { messageView.toggleExpanded() },
             onMessageLongClick = { displayWindow(true) },
-            selectableText = false
+            inMessageBar = true
         )
 
 
@@ -144,7 +144,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
         private val onItemClick: (ItemMatch) -> Unit,
         private val onMessageClick: (() -> Unit)? = null,
         private val onMessageLongClick: (() -> Unit)? = null,
-        private val selectableText: Boolean = true
+        private val inMessageBar: Boolean = false
     ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val view = LayoutInflater.from(parent.context)
@@ -166,8 +166,9 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
             val subList = snapshot.subList(start, end)
             // 旧消息（非最新一批）用"默认文字色"：亮色下深灰、深色下柔和白，避免和背景同色
             val itemContext = holder.itemView.context
+            // 游戏消息栏背景始终是黑色，旧消息统一用白色；历史弹窗跟随主题
             val oldMsgColor =
-                if (NHColor.darkPalette) NHColor.CLR_WHITE else NHColor.CLR_BLACK
+                if (inMessageBar || NHColor.darkPalette) NHColor.CLR_WHITE else NHColor.CLR_BLACK
             val messageText = SpannableStringBuilder()
             for ((idx, message) in subList.withIndex()) {
                 if (idx != 0)
@@ -187,9 +188,10 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
                 }
             }
             (holder as MessageViewHolder).apply {
-                itemMessage.setTextIsSelectable(selectableText)
+                val selectable = !inMessageBar
+                itemMessage.setTextIsSelectable(selectable)
                 itemMessage.text = messageText
-                if (!selectableText) {
+                if (inMessageBar) {
                     itemMessage.isClickable = true
                     itemMessage.setOnClickListener { onMessageClick?.invoke() }
                     itemMessage.setOnLongClickListener {
