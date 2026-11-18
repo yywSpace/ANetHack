@@ -40,6 +40,8 @@ class NHBottomCommandBar @JvmOverloads constructor(
     /** 重新从本地配置文件读命令并渲染（默认值由 CommandStore 负责从 assets 复制） */
     fun reloadCommands() {
         entries = CommandStore.readBar(context).toMutableList()
+        // 重建滚动容器前记住横向位置，编辑完命令后不要跳回最左边
+        val previousScrollX = commandScroller?.scrollX ?: 0
         commandScroller?.let { removeView(it) }
         val scroller = CommandUi.scrolledRow(
             context = context,
@@ -54,6 +56,7 @@ class NHBottomCommandBar @JvmOverloads constructor(
         )
         addView(scroller, 0, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
         commandScroller = scroller
+        scroller.post { scroller.scrollTo(previousScrollX, 0) }
     }
 
     /** 切换面板按钮当前显示的图标：键盘图标或"更多命令"图标 */
