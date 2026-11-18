@@ -2,6 +2,7 @@ package com.yywspace.anethack.window
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.NumberPicker
@@ -353,23 +354,16 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         actions.forEach { action ->
             val out = android.util.TypedValue()
             context.theme.resolveAttribute(android.R.attr.selectableItemBackground, out, true)
-            list.addView(TextView(context).apply {
-                text = action.title
-                setTextColor(ContextCompat.getColor(context, R.color.app_text))
-                gravity = android.view.Gravity.CENTER_VERTICAL
-                minHeight = (40 * resources.displayMetrics.density).toInt()
-                includeFontPadding = false
-                setPadding(48, 12, 48, 12)
-                setBackgroundResource(out.resourceId)
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                setOnClickListener {
-                    action.action()
-                    dialog.dismiss()
-                }
-            })
+            val item = LayoutInflater.from(context)
+                .inflate(android.R.layout.simple_list_item_1, list, false) as TextView
+            item.text = action.title
+            item.setTextColor(ContextCompat.getColor(context, R.color.app_text))
+            item.setBackgroundResource(out.resourceId)
+            item.setOnClickListener {
+                action.action()
+                dialog.dismiss()
+            }
+            list.addView(item)
         }
         dialog = NHDialog(
             context = context,

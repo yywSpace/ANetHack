@@ -1,10 +1,13 @@
 package com.yywspace.anethack.window
 
+import android.content.Context
 import android.graphics.Color
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.FrameLayout
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import com.yywspace.anethack.R
 
@@ -54,6 +57,7 @@ class NHEmbeddedDialog(
 
     fun dismiss(tag: String) {
         val entry = stack.firstOrNull { it.tag == tag } ?: return
+        hideKeyboardIfNeeded(entry.view)
         stack.remove(entry)
         container.removeView(entry.view)
         entry.onDismiss?.invoke()
@@ -67,6 +71,14 @@ class NHEmbeddedDialog(
             top.view.visibility = View.VISIBLE
             applyOptions(top.options)
         }
+    }
+
+    /** 内嵌弹窗没有 Window，关闭时不会自动收键盘；有输入焦点时手动隐藏。 */
+    private fun hideKeyboardIfNeeded(view: View) {
+        if (view.findFocus() !is EditText) return
+        val manager = view.context.getSystemService(Context.INPUT_METHOD_SERVICE)
+                as? InputMethodManager ?: return
+        manager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     fun clear() {
