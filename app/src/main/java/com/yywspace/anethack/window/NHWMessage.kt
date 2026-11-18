@@ -48,9 +48,9 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
     }
 
     /** 展开态用的全量消息适配器，每条消息一个 item。 */
-    fun createHistoryAdapter(): RecyclerView.Adapter<*> =
+    fun createHistoryAdapter(): NHWMessageAdapter =
         NHWMessageAdapter(
-            messageList,
+            messageList.toList(),
             1,
             nh,
             onMonsterClick = { match -> showMonsterMatch(match) },
@@ -137,7 +137,7 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
     }
 
     class NHWMessageAdapter(
-        private val messageList: List<NHMessage>,
+        private var messageList: List<NHMessage>,
         private val itemSize: Int,
         private val nh: NetHack,
         private val onMonsterClick: (MonsterMatch) -> Unit,
@@ -154,6 +154,11 @@ class NHWMessage(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindo
 
         override fun getItemCount(): Int {
             return ceil(messageList.size / itemSize.toDouble()).toInt()
+        }
+
+        /** 用稳定快照替换当前数据，避免绑定期间游戏线程继续修改列表。 */
+        fun updateMessages(newList: List<NHMessage>) {
+            messageList = newList
         }
 
         @SuppressLint("ClickableViewAccessibility")

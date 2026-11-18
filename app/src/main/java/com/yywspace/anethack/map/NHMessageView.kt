@@ -8,6 +8,7 @@ import android.view.animation.DecelerateInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.R
+import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.gamedata.ItemMatch
 import com.yywspace.anethack.gamedata.MonsterMatch
 import com.yywspace.anethack.window.NHWMessage
@@ -126,8 +127,7 @@ class NHMessageView @JvmOverloads constructor(
     }
 
     /** 最新一批消息在列表中的起始下标。 */
-    private fun latestBatchStart(): Int {
-        val list = nhMessage.messageList
+    private fun latestBatchStart(list: List<NHMessage> = nhMessage.messageList): Int {
         val last = list.lastOrNull { !it.history } ?: return -1
         var i = list.lastIndex
         while (i >= 0 && list[i].source === last.source) i--
@@ -136,31 +136,38 @@ class NHMessageView @JvmOverloads constructor(
 
     private fun refresh() {
         if (!messageInit) return
-        if (adapter == null) {
+        val messages = nhMessage.messageList.toList()
+        val oldCount = lastAdapterCount
+        val messageAdapter = adapter as? NHWMessage.NHWMessageAdapter
+        if (messageAdapter == null) {
             adapter = nhMessage.createHistoryAdapter()
             lastAdapterCount = adapter?.itemCount ?: 0
-            lastLatestBatchStart = latestBatchStart()
+            lastLatestBatchStart = latestBatchStart(messages)
         } else {
-            val count = nhMessage.messageList.size
+            messageAdapter.updateMessages(messages)
+            val count = messages.size
             when {
-                count > lastAdapterCount -> {
-                    adapter?.notifyItemRangeInserted(lastAdapterCount, count - lastAdapterCount)
-                    val start = latestBatchStart()
+                count > oldCount -> {
+                    messageAdapter.notifyItemRangeInserted(oldCount, count - oldCount)
+                    val start = latestBatchStart(messages)
                     if (lastLatestBatchStart in 0..<start) {
                         // 只刷新上一批绿色消息，让它们恢复普通颜色
-                        adapter?.notifyItemRangeChanged(
+                        messageAdapter.notifyItemRangeChanged(
                             lastLatestBatchStart,
                             start - lastLatestBatchStart
                         )
                     }
                     lastLatestBatchStart = start
                 }
-                count < lastAdapterCount -> {
-                    adapter?.notifyItemRangeRemoved(count, lastAdapterCount - count)
-                    lastLatestBatchStart = latestBatchStart()
+                count < oldCount -> {
+                    messageAdapter.notifyItemRangeRemoved(count, oldCount - count)
+                    lastLatestBatchStart = latestBatchStart(messages)
                 }
-                else ->
-                    adapter?.notifyItemRangeChanged(0, count)
+                else -> {
+                    // 达到 500 条上限后是“删头 + 追尾”，数量不变但位置整体移动
+                    messageAdapter.notifyItemRangeChanged(0, count)
+                    lastLatestBatchStart = latestBatchStart(messages)
+                }
             }
             lastAdapterCount = count
         }
