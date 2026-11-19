@@ -35,7 +35,6 @@ import com.yywspace.anethack.window.NHWMap
 import java.util.concurrent.CountDownLatch
 import kotlin.math.abs
 import kotlin.math.atan2
-import kotlin.math.hypot
 
 
 class NHMapView : TextureView, TextureView.SurfaceTextureListener {
@@ -56,7 +55,6 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     private lateinit var renderer: NHMapRenderer
     private lateinit var overlayRenderer: NHMapOverlayRenderer
     private val renderLoop by lazy { NHMapRenderLoop() }
-    @Volatile private var animationFrameScheduled = false
 
     private lateinit var nh: NetHack
     private lateinit var world: NHMapWorld
@@ -67,7 +65,12 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     private var lastTouchTile:Point? = null
 
     /** 地图上的动画（箭头等），自己管理播放和结束 */
-    private val animations = NHMapAnimationPlayer()
+    private val animations by lazy {
+        NHMapAnimationPlayer(
+            scheduleFrame = renderLoop::postDelayed,
+            requestRedraw = ::requestRedraw
+        )
+    }
     var lastTravelTile:Pair<String,Point>? = null
     private var lastCurse:Point = Point()
     /** 上次跟随的玩家位置，用于判断玩家是否移动 */
@@ -487,13 +490,12 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
 
     private fun showArrow(dx: Float, dy: Float) {
         if (!nh.prefs.playAnimations) return
-        val length = hypot(dx.toDouble(), dy.toDouble()).toFloat()
-        if (length <= 0f) return
-        animations.clear()   // 每次点击只保留最新箭头
-        animations.add(NHMoveArrow(
+        if (dx == 0f && dy == 0f) return
+        // 每次点击只保留最新箭头
+        animations.playExclusive(NHMoveArrow(
             { world.curse },
             { nh.status.hitPoints.color },
-            dx / length, dy / length
+            dx, dy
         ))
     }
 
@@ -601,7 +603,6 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
         } finally {
             unlockCanvasAndPost(canvas)
         }
-        scheduleAnimationFrame()
     }
 
     private fun redraw() {
@@ -621,7 +622,6 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
         } finally {
             unlockCanvasAndPost(canvas)
         }
-        scheduleAnimationFrame()
     }
 
     private fun clearMap() {
@@ -641,16 +641,5 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
         )
     }
 
-    /** 只重画当前离屏地图和覆盖层 */
-    private fun scheduleAnimationFrame() {
-        if (!animations.isActive || animationFrameScheduled) return
-        animationFrameScheduled = true
-        renderLoop.postDelayed(16) {
-            animationFrameScheduled = false
-            if (animations.isActive) {
-                redraw()
-            }
-        }
-    }
 
 }

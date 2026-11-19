@@ -4,6 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Point
+import kotlin.math.hypot
 import kotlin.math.sin
 import androidx.core.graphics.withTranslation
 
@@ -36,19 +37,47 @@ class NHMapAnimationFrame(
     fun cellsToHeight(cells: Float): Float = cells * cellHeight
 }
 
-/** 管理当前正在播放的动画 */
-class NHMapAnimationPlayer {
+/** 管理当前正在播放的动画，并自己推进帧。 */
+class NHMapAnimationPlayer(
+    private val scheduleFrame: (delayMs: Long, task: () -> Unit) -> Unit,
+    private val requestRedraw: () -> Unit
+) {
     private val animations = mutableListOf<NHMapAnimation>()
+    private var scheduled = false
 
     val isActive: Boolean
         get() = synchronized(animations) { animations.isNotEmpty() }
 
+    /** 允许多个动画同时播放。 */
     fun add(animation: NHMapAnimation) {
         synchronized(animations) { animations.add(animation) }
+        ensureScheduled()
     }
 
-    fun clear() {
-        synchronized(animations) { animations.clear() }
+    /** 同一类型只保留一个，其它类型动画不受影响。 */
+    fun playExclusive(animation: NHMapAnimation) {
+        synchronized(animations) {
+            animations.removeAll { it.javaClass == animation.javaClass }
+            animations.add(animation)
+        }
+        ensureScheduled()
+    }
+
+    private fun ensureScheduled() {
+        if (scheduled || !isActive) return
+        scheduled = true
+        scheduleFrame(16) {
+            scheduled = false
+            if (isActive) {
+                requestRedraw()
+                ensureScheduled()
+            }
+        }
+    }
+
+    /** 只清除指定类型的动画，保留其它动画。 */
+    fun clear(type: Class<out NHMapAnimation>) {
+        synchronized(animations) { animations.removeAll { type.isInstance(it) } }
     }
 
     fun draw(canvas: Canvas, frame: NHMapAnimationFrame, paint: Paint, now: Long) {
@@ -81,9 +110,18 @@ abstract class NHProgressAnimation(
 class NHMoveArrow(
     private val player: () -> Point,
     private val color: () -> Int,
-    private val dx: Float,
-    private val dy: Float
+    dx: Float,
+    dy: Float
 ) : NHProgressAnimation() {
+
+    private val dx: Float
+    private val dy: Float
+
+    init {
+        val length = hypot(dx.toDouble(), dy.toDouble()).toFloat()
+        this.dx = if (length > 0f) dx / length else 0f
+        this.dy = if (length > 0f) dy / length else 0f
+    }
 
     private val path = Path()
 

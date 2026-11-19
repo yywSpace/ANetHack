@@ -91,10 +91,6 @@ class NHMapOverlayRenderer(
     }
 
     private fun drawAnimations(canvas: Canvas, coordinates: NHMapCoordinates) {
-        if (!nh.prefs.playAnimations) {
-            animations.clear()
-            return
-        }
         if (!animations.isActive) return
         val frame = NHMapAnimationFrame(
             coordinates.tileWidth,
