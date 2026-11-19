@@ -60,6 +60,8 @@ class NHMapTouchListener : OnTouchListener {
                     }
                     if (isMoving && !isLongPress && !isClick) {
                         onNHMapTouchListener?.onMove(lastLocation, PointF(event.x, event.y))
+                        // 下一次 MOVE 只发送增量，手势累计在输入层完成
+                        lastLocation.set(event.x, event.y)
                     }
                 } else {
                     isLongPress = false

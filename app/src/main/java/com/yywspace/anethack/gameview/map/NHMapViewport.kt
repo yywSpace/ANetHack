@@ -1,6 +1,7 @@
 package com.yywspace.anethack.gameview.map
 
 import android.graphics.Point
+import android.graphics.PointF
 import android.graphics.Rect
 import android.graphics.RectF
 import kotlin.math.floor
@@ -16,9 +17,6 @@ class NHMapViewport {
     @Volatile
     var border: RectF = RectF()
 
-    /** 手势开始时记录的地图位置，拖动使用“起点 + 累计位移”。 */
-    var lastGestureBorder: RectF = RectF()
-
     var scaleFactor: Float = 1f
 
     var tileWidth: Float = 0f
@@ -31,6 +29,37 @@ class NHMapViewport {
 
     /** 顶部状态栏、消息栏、底部键盘等覆盖的像素。 */
     val safeInsets: Rect = Rect()
+
+    fun updateFromCamera(
+        camera: NHMapCamera,
+        viewWidth: Int,
+        viewHeight: Int,
+        mapWidth: Int,
+        mapHeight: Int
+    ) {
+        scaleFactor = camera.zoom
+        tileWidth = baseTileWidth * camera.zoom
+        tileHeight = baseTileHeight * camera.zoom
+        borderWidth = kotlin.math.ceil(baseBorderWidth * camera.zoom)
+        val left = viewWidth / 2f - camera.centerX * tileWidth
+        val top = viewHeight / 2f - camera.centerY * tileHeight
+        border = RectF(
+            left,
+            top,
+            left + mapWidth * tileWidth,
+            top + mapHeight * tileHeight
+        )
+    }
+
+    fun screenToWorld(x: Float, y: Float): PointF = PointF(
+        (x - border.left) / tileWidth,
+        (y - border.top) / tileHeight
+    )
+
+    fun worldToScreen(x: Float, y: Float): PointF = PointF(
+        border.left + x * tileWidth,
+        border.top + y * tileHeight
+    )
 
     fun tileBorder(x: Int, y: Int): RectF = RectF(
         floor(tileWidth * x + border.left),
@@ -45,18 +74,4 @@ class NHMapViewport {
         return Point(tx.toInt(), ty.toInt())
     }
 
-    /** 普通拖动：从按下时的位置应用累计位移。 */
-    fun transformGesture(dx: Float, dy: Float) {
-        border = RectF(
-            floor(lastGestureBorder.left + dx),
-            floor(lastGestureBorder.top + dy),
-            floor(lastGestureBorder.right + dx),
-            floor(lastGestureBorder.bottom + dy)
-        )
-    }
-
-    /** 直接按当前视口增量平移。 */
-    fun transformBy(dx: Float, dy: Float) {
-        border = RectF(border).apply { offset(dx, dy) }
-    }
 }

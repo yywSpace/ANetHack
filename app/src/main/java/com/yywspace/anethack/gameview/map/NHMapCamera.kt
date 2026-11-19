@@ -15,4 +15,11 @@ class NHMapCamera {
         centerX = x
         centerY = y
     }
+
+    /** 屏幕上的增量位移换算成世界中心的移动。 */
+    fun panByScreen(dx: Float, dy: Float, tileWidth: Float, tileHeight: Float) {
+        if (tileWidth <= 0f || tileHeight <= 0f) return
+        centerX -= dx / tileWidth
+        centerY -= dy / tileHeight
+    }
 }

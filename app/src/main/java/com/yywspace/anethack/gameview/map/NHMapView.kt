@@ -54,6 +54,7 @@ import androidx.core.graphics.createBitmap
 class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     private var textSize = 64f
     private val viewport = NHMapViewport()
+    private val camera = NHMapCamera()
     /** 点击指示符后，下一次点地图直接 travel（不受 walkRange 影响） */
     private var travelArmed = false
     /**
@@ -74,9 +75,6 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     private var mapBorder: RectF
         get() = viewport.border
         set(value) { viewport.border = value }
-    private var lastMapBorder: RectF
-        get() = viewport.lastGestureBorder
-        set(value) { viewport.lastGestureBorder = value }
     private var scaleFactor: Float
         get() = viewport.scaleFactor
         set(value) { viewport.scaleFactor = value }
@@ -158,7 +156,6 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     private var mapTouchListener: NHMapTouchListener = NHMapTouchListener().apply {
         onNHMapTouchListener = object : NHMapTouchListener.OnNHMapTouchListener {
             override fun onDown(e: PointF) {
-                lastMapBorder = RectF(mapBorder)
             }
 
             override fun onClick(e: PointF) {
@@ -258,23 +255,20 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
 
     private fun initMapParam() {
         nh.tileSet.updateTileSet()
-        scaleFactor = 1f
-        tileWidth = getBaseTileWidth()
-        tileHeight = getBaseTileHeight()
-        viewport.baseTileWidth = tileWidth
-        viewport.baseTileHeight = tileHeight
+        viewport.baseTileWidth = getBaseTileWidth()
+        viewport.baseTileHeight = getBaseTileHeight()
         // 重建离屏缓冲（基础尺寸；缩放/平移只改 blit 目标，不重建缓冲）
         mapBitmap =
             createBitmap((map.width * viewport.baseTileWidth).toInt(), (map.height * viewport.baseTileHeight).toInt()).also { mapCanvas = Canvas(it) }
         mapBitmap?.eraseColor(Color.BLACK)
-        mapBorder = RectF(
-            mapBorder.left, mapBorder.top,
-            mapBorder.left + map.width * tileWidth,
-            mapBorder.top + map.height * tileHeight
+        camera.zoom = measuredWidth.toFloat() /
+                (map.height * viewport.baseTileHeight).coerceAtLeast(1f)
+        paint.textSize = textSize * camera.zoom
+        asciiPaint.textSize = textSize * camera.zoom
+        camera.centerOn(map.curse.x.toFloat(), map.curse.y.toFloat())
+        viewport.updateFromCamera(
+            camera, measuredWidth, measuredHeight, map.width, map.height
         )
-        val scale = measuredWidth.toFloat() / mapBorder.height()
-        val tb = getTileBorder(map.curse.x, map.curse.y)
-        scaleMap(scale, tb.centerX(), tb.centerY())
         // 重建 bitmap 后必须全量绘制，并在首帧重新居中
         mapContentDirty = true
         playerCentered = false
@@ -388,30 +382,21 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     }
 
     private fun transformMapWithGesture(dx: Float, dy: Float) {
-        viewport.transformGesture(dx, dy)
+        camera.panByScreen(dx, dy, viewport.tileWidth, viewport.tileHeight)
+        viewport.updateFromCamera(camera, measuredWidth, measuredHeight, map.width, map.height)
     }
 
-    private fun transformMap(dx: Float, dy: Float) {
-        viewport.transformBy(dx, dy)
-    }
-
-    private fun scaleMap(scaleFactor:Float, centerX:Float, centerY:Float) {
-        // if(this.scaleFactor * scaleFactor < 0.3 || this.scaleFactor * scaleFactor > 10)
-        //      return
-        this.scaleFactor *= scaleFactor
-        paint.textSize = textSize * this.scaleFactor
-        asciiPaint.textSize = textSize * this.scaleFactor
-        tileWidth = getBaseTileWidth() * this.scaleFactor
-        tileHeight = getBaseTileHeight() * this.scaleFactor
-        borderWidth = ceil(baseBorderWidth * this.scaleFactor)
-        val newLeft = mapBorder.left + (mapBorder.left - centerX) * (scaleFactor - 1)
-        val newTop = mapBorder.top + (mapBorder.top - centerY) * (scaleFactor - 1)
-        mapBorder = RectF(
-            newLeft,
-            newTop,
-            newLeft + map.width * tileWidth,
-            newTop + map.height * tileHeight
-        )
+    private fun scaleMap(scaleFactor: Float, centerX: Float, centerY: Float) {
+        val anchor = viewport.screenToWorld(centerX, centerY)
+        // 触摸缩放稍微收一点，避免手指轻微张合就变化过大
+        camera.zoom *= 1f + (scaleFactor - 1f) * 0.8f
+        viewport.updateFromCamera(camera, measuredWidth, measuredHeight, map.width, map.height)
+        val screen = viewport.worldToScreen(anchor.x, anchor.y)
+        camera.panByScreen(screen.x - centerX, screen.y - centerY,
+            viewport.tileWidth, viewport.tileHeight)
+        viewport.updateFromCamera(camera, measuredWidth, measuredHeight, map.width, map.height)
+        paint.textSize = textSize * camera.zoom
+        asciiPaint.textSize = textSize * camera.zoom
     }
 
     private fun playerMove(direction: Direction, straight:Boolean) {
@@ -590,12 +575,13 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         updateRunMode()
     }
 
-    fun centerView(x:Int, y:Int) {
-        val tb = getTileBorder(x,y)
+    fun centerView(x: Int, y: Int) {
         // 只按地图 View 自身尺寸居中；根布局还包含键盘/面板，不能拿来算中心
         val viewHeight = measuredHeight.takeIf { it > 0 }
             ?: nh.binding.root.height
-        transformMap(-(tb.centerX() - measuredWidth / 2F), -(tb.centerY() - viewHeight / 2F))
+        camera.centerOn(x.toFloat(), y.toFloat())
+        viewport.updateFromCamera(camera, measuredWidth, viewHeight, map.width, map.height)
+        requestRedraw()
     }
 
     private fun transformMapWithMove(
@@ -625,9 +611,10 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
             dy = top + offsetY - py
         if (py > bottom - offsetY)
             dy = bottom - offsetY - py
-        // 视口没动（光标在安全区内）时不触发 transformMap，保持增量绘制
+        // 视口没动（光标在安全区内）时不触发相机移动，保持增量绘制
         if (dx != 0f || dy != 0f) {
-            transformMap(dx, dy)
+            camera.panByScreen(dx, dy, viewport.tileWidth, viewport.tileHeight)
+            viewport.updateFromCamera(camera, measuredWidth, measuredHeight, map.width, map.height)
         }
     }
 
@@ -778,6 +765,9 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
 
     override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
         mapContentDirty = true
+        if (mapInit) {
+            viewport.updateFromCamera(camera, width, height, map.width, map.height)
+        }
         requestRedraw()
         if (mapInit && playerWasOnScreen)
             transformMapWithMove(nh.prefs.walkRange)
