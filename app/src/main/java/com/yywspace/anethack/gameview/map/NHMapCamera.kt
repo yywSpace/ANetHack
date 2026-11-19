@@ -60,6 +60,28 @@ class NHMapCamera(
     }
 
     /**
+     * 判断一个格子的屏幕矩形是否还在死区内。
+     *
+     * 用格子的外侧边缘判断，而不是格子中心，避免玩家半个身子
+     * 已经越界时仍被当成在死区内。
+     */
+    fun tileInDeadZone(
+        tileBounds: RectF,
+        safeBounds: RectF,
+        deadZonePercent: Int
+    ): Boolean {
+        if (safeBounds.width() <= 0f || safeBounds.height() <= 0f)
+            return true
+        val zone = deadZone(safeBounds, deadZonePercent)
+        val cx = tileBounds.centerX()
+        val cy = tileBounds.centerY()
+        val px = if (cx > zone.centerX()) tileBounds.left else tileBounds.right
+        val py = if (cy > zone.centerY()) tileBounds.top else tileBounds.bottom
+        return px > zone.left && py > zone.top &&
+                px < zone.right && py < zone.bottom
+    }
+
+    /**
      * 让目标屏幕位置回到安全区死区内。
      *
      * 死区由 [deadZonePercent] 决定：

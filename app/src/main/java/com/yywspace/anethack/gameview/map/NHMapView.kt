@@ -237,20 +237,12 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     }
 
     /** 角色是否还在 deadZonePercent 死区内（跟随模式下就不该把点击当成 travel） */
-    private fun playerInDeadZone(deadZonePercent: Int): Boolean {
-        val safe = safeBounds()
-        if (safe.width() <= 0f || safe.height() <= 0f)
-            return true
-        val zone = camera.deadZone(safe, deadZonePercent)
-
-        val playerBorder = getTileBorder(world.curse.x, world.curse.y)
-        val cx = playerBorder.centerX()
-        val cy = playerBorder.centerY()
-        val px = if (cx > zone.centerX()) playerBorder.left else playerBorder.right
-        val py = if (cy > zone.centerY()) playerBorder.top else playerBorder.bottom
-        return px > zone.left && py > zone.top &&
-                px < zone.right && py < zone.bottom
-    }
+    private fun playerInDeadZone(deadZonePercent: Int): Boolean =
+        camera.tileInDeadZone(
+            getTileBorder(world.curse.x, world.curse.y),
+            safeBounds(),
+            deadZonePercent
+        )
 
     /**
      * 刷新运行模式（WALK/TRAVEL）。点指示符、拖动视图后立即调用，不等线程绘制下一帧。
