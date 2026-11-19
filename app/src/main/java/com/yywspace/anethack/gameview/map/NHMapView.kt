@@ -9,23 +9,14 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.SurfaceTexture
 import android.util.AttributeSet
-import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.TextureView
-import android.view.View
-import android.widget.LinearLayout
-import android.widget.PopupWindow
 import androidx.core.graphics.minus
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NetHack
-import com.yywspace.anethack.R
 import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.command.NHPosCommand.PosMod
 import com.yywspace.anethack.entity.NHStatus
-import com.yywspace.anethack.gameview.NHPosKeyAdapter
 import com.yywspace.anethack.gameview.map.indicator.NHMapIndicatorController
 import com.yywspace.anethack.gameview.map.operation.NHMapCenter
 import com.yywspace.anethack.gameview.map.operation.NHMapOperation
@@ -111,6 +102,24 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
             longPressHandler = ::handleMapLongPress,
             moveHandler = ::handleMapMove,
             scaleHandler = ::handleMapScale
+        )
+    }
+
+    private val popupWindow by lazy {
+        NHMapTileActionPopup(
+            context = context,
+            onLook = { point ->
+                nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.LOOK))
+            },
+            onRun = { x, y ->
+                val tileBorder = getTileBorder(world.curse.x, world.curse.y)
+                val direction = getMoveDirection(
+                    PointF(tileBorder.centerX(), tileBorder.centerY()),
+                    PointF(x, y)
+                )
+                playerMove(direction, true)
+            },
+            onTravel = ::travelTo
         )
     }
 
@@ -265,47 +274,12 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
         }
     }
 
-    @SuppressLint("InflateParams")
-    fun showPopupWindow(x:Float, y:Float) {
-        val posKeyList = listOf("Look", "Run", "Travel")
-        val popupWindow = PopupWindow(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        val recyclerView = LayoutInflater.from(context).inflate(R.layout.popup_window_pos_key, null).apply {
-            findViewById<RecyclerView>(R.id.pos_key_list).apply {
-                adapter = NHPosKeyAdapter(posKeyList).apply {
-                    onItemClickListener = object : NHPosKeyAdapter.OnItemClickListener {
-                        override fun onItemClick(view: View, position: Int) {
-                            val point = getTileLocation(x, y)
-                            when(posKeyList[position]) {
-                                "Look" -> {
-                                    // get tile info
-                                    nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.LOOK))
-                                }
-                                "Run" -> {
-                                    val tileBorder = getTileBorder(world.curse.x, world.curse.y)
-                                    val direction = getMoveDirection(
-                                        PointF(tileBorder.centerX(), tileBorder.centerY()),
-                                        PointF(x, y)
-                                    )
-                                    playerMove(direction, true)
-                                }
-                                "Travel" -> {
-                                    travelTo(point)
-                                }
-                            }
-                            popupWindow.dismiss()
-                        }
-                    }
-                }
-                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            }
-            measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
-        }
-        popupWindow.apply {
-            contentView = recyclerView
-            isOutsideTouchable = true
-            showAtLocation(this@NHMapView, Gravity.NO_GRAVITY,
-                (x-contentView.measuredWidth /2 ).toInt(), (y-contentView.measuredHeight-coordinates.tileHeight/2).toInt())
-        }
+    fun showPopupWindow(x: Float, y: Float) {
+        popupWindow.show(
+            this, x, y,
+            getTileLocation(x, y),
+            coordinates.tileHeight
+        )
     }
 
     private fun transformMapWithGesture(dx: Float, dy: Float) {

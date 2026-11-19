@@ -173,6 +173,9 @@
     <string name="pref_map_last_travel_indicator">Show last travel indicator</string>
     <string name="pref_map_indicator_desc">Show map symbol indicator.</string>
     <string name="pref_map_indicator_symbols">Indicator symbols</string>
+    <string name="map_popup_look">Look</string>
+    <string name="map_popup_run">Run</string>
+    <string name="map_popup_travel">Travel</string>
     <string name="pref_map_dead_zone">Follow buffer</string>
     <string name="pref_map_dead_zone_desc">When the player moves outside this buffer (%), the camera follows.</string>
     <string name="pref_map_travel_after_panned">Travel after map panned</string>
