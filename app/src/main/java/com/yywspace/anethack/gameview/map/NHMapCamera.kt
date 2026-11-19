@@ -36,12 +36,12 @@ class NHMapCamera {
     }
 
     /**
-     * 计算当前 walkRange 对应的跟随死区（屏幕坐标）。
+     * 计算当前 deadZonePercent 对应的跟随死区（屏幕坐标）。
      *
-     * walkRange = 100 时死区等于整个安全区；0 时退化为安全区中心点。
+     * deadZonePercent = 100 时死区等于整个安全区；0 时退化为安全区中心点。
      */
-    fun deadZone(safeBounds: RectF, walkRange: Int): RectF {
-        val range = walkRange.coerceIn(0, 100)
+    fun deadZone(safeBounds: RectF, deadZonePercent: Int): RectF {
+        val range = deadZonePercent.coerceIn(0, 100)
         val offsetX = (1 - range / 100f) * safeBounds.width() / 2f
         val offsetY = (1 - range / 100f) * safeBounds.height() / 2f
         return RectF(
@@ -55,7 +55,7 @@ class NHMapCamera {
     /**
      * 让目标屏幕位置回到安全区死区内。
      *
-     * 死区由 [walkRange] 决定：
+     * 死区由 [deadZonePercent] 决定：
      * - 100：死区 = 整个 [safeBounds]
      * - 0：死区退化成安全区中心点
      *
@@ -64,7 +64,7 @@ class NHMapCamera {
      * @param targetScreenX 目标（玩家或光标）格子的屏幕中心 X
      * @param targetScreenY 目标（玩家或光标）格子的屏幕中心 Y
      * @param safeBounds    未被键盘/状态栏/消息栏遮挡的屏幕区域
-     * @param walkRange     跟随死区比例，范围 0..100
+     * @param deadZonePercent     跟随死区比例，范围 0..100
      * @param tileWidth     当前屏幕 tile 宽度
      * @param tileHeight    当前屏幕 tile 高度
      * @return 是否移动了镜头
@@ -73,14 +73,14 @@ class NHMapCamera {
         targetScreenX: Float,
         targetScreenY: Float,
         safeBounds: RectF,
-        walkRange: Int,
+        deadZonePercent: Int,
         tileWidth: Float,
         tileHeight: Float
     ): Boolean {
         if (safeBounds.width() <= 0f || safeBounds.height() <= 0f)
             return false
 
-        val zone = deadZone(safeBounds, walkRange)
+        val zone = deadZone(safeBounds, deadZonePercent)
         var dx = 0f
         var dy = 0f
         if (targetScreenX < zone.left)

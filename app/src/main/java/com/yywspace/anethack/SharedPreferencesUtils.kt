@@ -26,7 +26,7 @@ class SharedPreferencesUtils(val context: Context) {
     var showLastTravelIndicator by SharedPreferenceDelegates.boolean(true)
     var indicatorSymbols by SharedPreferenceDelegates.string("<>")
     var travelAfterPanned by SharedPreferenceDelegates.boolean(true)
-    var walkRange by SharedPreferenceDelegates.int(70)
+    var deadZonePercent by SharedPreferenceDelegates.int(70)
     var priceId by SharedPreferenceDelegates.boolean(false)
     var monsterInfo by SharedPreferenceDelegates.boolean(false)
     var itemInfo by SharedPreferenceDelegates.boolean(false)

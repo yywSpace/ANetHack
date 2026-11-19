@@ -40,7 +40,7 @@ import kotlin.math.atan2
 class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     private val coordinates = NHMapCoordinates()
     private val camera = NHMapCamera()
-    /** 点击指示符后，下一次点地图直接 travel（不受 walkRange 影响） */
+    /** 点击指示符后，下一次点地图直接 travel（不受 deadZonePercent 影响） */
     private var travelArmed = false
     /**
      * 地图是否被平移过（拖动视口、点指示符跳转）。
@@ -235,12 +235,12 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
         })
     }
 
-    /** 角色是否还在 walkRange 死区内（跟随模式下就不该把点击当成 travel） */
-    private fun playerInWalkRange(walkRange: Int): Boolean {
+    /** 角色是否还在 deadZonePercent 死区内（跟随模式下就不该把点击当成 travel） */
+    private fun playerInDeadZone(deadZonePercent: Int): Boolean {
         val safe = safeBounds()
         if (safe.width() <= 0f || safe.height() <= 0f)
             return true
-        val zone = camera.deadZone(safe, walkRange)
+        val zone = camera.deadZone(safe, deadZonePercent)
 
         val playerBorder = getTileBorder(world.curse.x, world.curse.y)
         val cx = playerBorder.centerX()
@@ -254,14 +254,14 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     /**
      * 刷新运行模式（WALK/TRAVEL）。点指示符、拖动视图后立即调用，不等线程绘制下一帧。
      *
-     * 只有"地图被平移过"（[mapTranslated]）且"角色已经不在 walkRange 里"
-     * （[playerInWalkRange]）时，点地图才解释成 travel；否则是 walk。
-     * walkRange = 0 时矩形退化成一个点，角色"不在范围内"，
+     * 只有"地图被平移过"（[mapTranslated]）且"角色已经不在 deadZonePercent 里"
+     * （[playerInDeadZone]）时，点地图才解释成 travel；否则是 walk。
+     * deadZonePercent = 0 时矩形退化成一个点，角色"不在范围内"，
      * 但只要没拖动过地图，[mapTranslated] 仍是 false，所以点击还是 walk。
      */
     private fun updateRunMode() {
         val newRunMode = if (travelArmed
-            || (nh.prefs.travelAfterPanned && mapTranslated && !playerInWalkRange(nh.prefs.walkRange)))
+            || (nh.prefs.travelAfterPanned && mapTranslated && !playerInDeadZone(nh.prefs.deadZonePercent)))
             NHStatus.RunMode.TRAVEL
         else
             NHStatus.RunMode.WALK
@@ -399,7 +399,7 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
         // 布局回调会重复传相同边距；只有真正变化时才重新跟随居中
         if (mapInit && changed) {
             // 键盘/面板高度变化时始终按当前光标重新适配安全区，
-            transformMapWithMove(nh.prefs.walkRange)
+            transformMapWithMove(nh.prefs.deadZonePercent)
             requestRedraw()
         }
     }
@@ -450,20 +450,20 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     }
 
     /**
-     * 按 walkRange 死区跟随玩家/光标。
+     * 按 deadZonePercent 死区跟随玩家/光标。
      *
      * 只负责取得目标格子的屏幕位置和安全区，实际死区计算与镜头平移由
      * [NHMapCamera.follow] 完成；移动后重新计算投影。
      */
     private fun transformMapWithMove(
-        walkRange: Int,
+        deadZonePercent: Int,
         curse: Point = world.curse
     ) {
         if (curse.x < 0 || curse.y < 0) return
         val tb = getTileBorder(curse.x, curse.y)
         val moved = camera.follow(
             tb.centerX(), tb.centerY(),
-            safeBounds(), walkRange,
+            safeBounds(), deadZonePercent,
             coordinates.tileWidth, coordinates.tileHeight
         )
         if (moved) {
@@ -533,7 +533,7 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
         }
         requestRedraw()
         if (mapInit && playerWasOnScreen)
-            transformMapWithMove(nh.prefs.walkRange)
+            transformMapWithMove(nh.prefs.deadZonePercent)
     }
 
     override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
@@ -571,7 +571,7 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
             val followChanged = lastFollowPlayer != followPlayer ||
                     (renderCurse != followPlayer && lastFollowCursor != renderCurse)
             if (followChanged) {
-                transformMapWithMove(nh.prefs.walkRange, renderCurse)
+                transformMapWithMove(nh.prefs.deadZonePercent, renderCurse)
                 lastFollowPlayer = Point(followPlayer)
                 lastFollowCursor = Point(renderCurse)
             }
