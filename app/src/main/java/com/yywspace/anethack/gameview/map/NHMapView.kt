@@ -1,4 +1,4 @@
-﻿package com.yywspace.anethack.gameview.map
+package com.yywspace.anethack.gameview.map
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -53,7 +53,7 @@ import androidx.core.graphics.createBitmap
 
 class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     private var textSize = 64f
-    private var scaleFactor = 1f
+    private val viewport = NHMapViewport()
     /** 点击指示符后，下一次点地图直接 travel（不受 walkRange 影响） */
     private var travelArmed = false
     /**
@@ -71,11 +71,18 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
 
     private lateinit var nh: NetHack
     private lateinit var map: NHWMap
-    @Volatile
-    private var mapBorder:RectF = RectF()
-    private var lastMapBorder:RectF = RectF()
+    private var mapBorder: RectF
+        get() = viewport.border
+        set(value) { viewport.border = value }
+    private var lastMapBorder: RectF
+        get() = viewport.lastGestureBorder
+        set(value) { viewport.lastGestureBorder = value }
+    private var scaleFactor: Float
+        get() = viewport.scaleFactor
+        set(value) { viewport.scaleFactor = value }
     /** 地图四周被覆盖的像素（状态、消息、键盘等），由 Activity 计算后传入 */
-    private val safeInsets = Rect()
+    private val safeInsets: Rect
+        get() = viewport.safeInsets
 
     private var lastTouchTile:Point? = null
 
@@ -87,15 +94,21 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     private var lastFollowPlayer:Point = Point(-1, -1)
     /** 上次跟随的光标位置：选怪/查看时光标移动也要让视口跟上 */
     private var lastFollowCursor:Point = Point(-1, -1)
-    private var baseBorderWidth:Float = .5F
-    private var borderWidth:Float = 0F
+    private var baseBorderWidth: Float
+        get() = viewport.baseBorderWidth
+        set(value) { viewport.baseBorderWidth = value }
+    private var borderWidth: Float
+        get() = viewport.borderWidth
+        set(value) { viewport.borderWidth = value }
     /** 光标半透明填充的 alpha（0-255），贴图模式下光标为半透明方块 */
     private val curseFillAlpha = 0x26
-    private var tileWidth:Float = 0F
-    private var tileHeight:Float = 0F
+    private var tileWidth: Float
+        get() = viewport.tileWidth
+        set(value) { viewport.tileWidth = value }
+    private var tileHeight: Float
+        get() = viewport.tileHeight
+        set(value) { viewport.tileHeight = value }
     /** 离屏地图缓冲：基础尺寸（不随缩放变），脏格子只更新这里，屏幕整图 blit 杜绝残影 */
-    private var baseTileWidth = 0f
-    private var baseTileHeight = 0f
     private var mapBitmap: Bitmap? = null
     private var mapCanvas: Canvas? = null
     /** 需要全量重绘离屏缓冲（surface 重建/首帧） */
@@ -248,11 +261,11 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         scaleFactor = 1f
         tileWidth = getBaseTileWidth()
         tileHeight = getBaseTileHeight()
-        baseTileWidth = tileWidth
-        baseTileHeight = tileHeight
+        viewport.baseTileWidth = tileWidth
+        viewport.baseTileHeight = tileHeight
         // 重建离屏缓冲（基础尺寸；缩放/平移只改 blit 目标，不重建缓冲）
         mapBitmap =
-            createBitmap((map.width * baseTileWidth).toInt(), (map.height * baseTileHeight).toInt()).also { mapCanvas = Canvas(it) }
+            createBitmap((map.width * viewport.baseTileWidth).toInt(), (map.height * viewport.baseTileHeight).toInt()).also { mapCanvas = Canvas(it) }
         mapBitmap?.eraseColor(Color.BLACK)
         mapBorder = RectF(
             mapBorder.left, mapBorder.top,
@@ -374,17 +387,12 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         }
     }
 
-    private fun transformMapWithGesture(dx:Float, dy:Float) {
-        mapBorder = RectF(
-            floor(lastMapBorder.left + dx),
-            floor(lastMapBorder.top + dy),
-            floor(lastMapBorder.right + dx),
-            floor(lastMapBorder.bottom + dy)
-        )
+    private fun transformMapWithGesture(dx: Float, dy: Float) {
+        viewport.transformGesture(dx, dy)
     }
 
-    private fun transformMap(dx:Float, dy:Float) {
-        mapBorder = RectF(mapBorder).apply { offset(dx, dy) }
+    private fun transformMap(dx: Float, dy: Float) {
+        viewport.transformBy(dx, dy)
     }
 
     private fun scaleMap(scaleFactor:Float, centerX:Float, centerY:Float) {
@@ -463,8 +471,8 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         val canvas = mapCanvas ?: return
         val tile = map.getTile(x, y)
         val tb = RectF(
-            x * baseTileWidth, y * baseTileHeight,
-            (x + 1) * baseTileWidth, (y + 1) * baseTileHeight
+            x * viewport.baseTileWidth, y * viewport.baseTileHeight,
+            (x + 1) * viewport.baseTileWidth, (y + 1) * viewport.baseTileHeight
         )
         if (tile.overlay and NHTileSet.MG_UNEXPL != 0) {
             // 未探索：直接画黑格，不再依赖 tile 索引是否为 TILE_UNEXPLORED
@@ -724,21 +732,11 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
             nh.tileSet.tileHeight.toFloat()
     }
 
-    fun getTileBorder(x:Int, y:Int):RectF {
-        return RectF(
-            floor(tileWidth * x  + mapBorder.left),
-            floor(tileHeight * y  + mapBorder.top),
-            floor(tileWidth * (x + 1)  + mapBorder.left),
-            floor(tileHeight * (y +1 )  + mapBorder.top),
-        )
-    }
+    fun getTileBorder(x: Int, y: Int): RectF = viewport.tileBorder(x, y)
 
     // 获取界面TileLocation
-    private fun getTileLocation(vx:Float, vy:Float):Point {
-        val tx = floor((vx - mapBorder.left) / tileWidth)
-        val ty = floor((vy - mapBorder.top) / tileHeight)
-        return Point(tx.toInt(), ty.toInt())
-    }
+    private fun getTileLocation(vx: Float, vy: Float): Point =
+        viewport.tileLocation(vx, vy)
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
