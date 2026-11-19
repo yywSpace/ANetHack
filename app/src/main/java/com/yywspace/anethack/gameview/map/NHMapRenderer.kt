@@ -59,25 +59,33 @@ class NHMapRenderer(
         contentDirty = true
     }
 
-    fun drawMap(
+    fun drawFrame(
         canvas: Canvas,
         world: NHMapWorld,
         coordinates: NHMapCoordinates,
-        frame: MapFrame?,
-        tileSetChanged: Boolean
+        frame: MapFrame
     ) {
-        if (frame != null)
-            world.applyFrame(frame)
+        world.applyFrame(frame)
 
-        if (tileSetChanged || contentDirty) {
+        if (contentDirty) {
             drawAllToOffscreen(world, coordinates)
             contentDirty = false
-        } else frame?.tiles?.forEach { tile ->
+        } else frame.tiles.forEach { tile ->
             if (tile.x in 0 until world.width && tile.y in 0 until world.height) {
                 drawOneToOffscreen(tile.x, tile.y, world, coordinates)
             }
         }
 
+        canvas.drawColor(Color.BLACK)
+        blit(canvas, coordinates)
+    }
+
+    /** 不应用新帧，只重画当前离屏地图。 */
+    fun redraw(canvas: Canvas, world: NHMapWorld, coordinates: NHMapCoordinates) {
+        if (contentDirty) {
+            drawAllToOffscreen(world, coordinates)
+            contentDirty = false
+        }
         canvas.drawColor(Color.BLACK)
         blit(canvas, coordinates)
     }
