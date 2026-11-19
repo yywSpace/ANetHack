@@ -4,7 +4,6 @@ import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.gameview.map.NHMapView
 import com.yywspace.anethack.gameview.map.NHMapWorld
-import com.yywspace.anethack.gameview.map.MapFrame
 
 class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type) {
     private var mapView: NHMapView = nh.binding.mapView
@@ -26,12 +25,10 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
     }
 
     override fun displayWindow(blocking: Boolean) {
-        val frame = buildFrame()
+        val frame = world.buildFrame()
         if (frame != null)
             mapView.enqueueFrame(frame)
     }
-
-    private fun buildFrame(): MapFrame? = world.buildFrame()
 
     override fun clearWindow(isRogueLevel: Int) {
         world.clear()

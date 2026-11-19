@@ -59,7 +59,6 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     private lateinit var renderer: NHMapRenderer
     private lateinit var overlayRenderer: NHMapOverlayRenderer
 
-
     private lateinit var nh: NetHack
     private lateinit var world: NHMapWorld
     /** 地图四周被覆盖的像素（状态、消息、键盘等），由 Activity 计算后传入 */
@@ -118,72 +117,63 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         }
     }
 
-    private var mapTouchListener: NHMapTouchListener = NHMapTouchListener().apply {
-        onNHMapTouchListener = object : NHMapTouchListener.OnNHMapTouchListener {
-            override fun onDown(e: PointF) {
-            }
+    private val inputController by lazy {
+        NHMapInputController(
+            tapHandler = ::handleMapTap,
+            longPressHandler = ::handleMapLongPress,
+            moveHandler = ::handleMapMove,
+            scaleHandler = ::handleMapScale
+        )
+    }
 
-            override fun onClick(e: PointF) {
-                // 居中操作还没被渲染线程处理时，坐标还是旧的，先忽略这次点击
-                if (workQueue.any { it is MapWork.Operation && it.op is NHMapCenter }) return
-                if(indicatorController.onIndicatorClick(e))
-                    return
-                lastTouchTile = getTileLocation(e.x, e.y).also { point ->
-                    val origin = getTileBorder(world.curse.x, world.curse.y)
-                    val direction = getMoveDirection(
-                        PointF(origin.centerX(), origin.centerY()),
-                        PointF(e.x, e.y)
-                    )
-                    showArrow(direction.dx, direction.dy)
-                    if (nh.status.runMode == NHStatus.RunMode.TRAVEL) {
-                        travelTo(point)
-                    }else {
-                        val curseBorder = getTileBorder(world.curse.x, world.curse.y)
-                        val direction = getMoveDirection(
-                            PointF(curseBorder.centerX(), curseBorder.centerY()),
-                            PointF(e.x, e.y)
-                        )
-                        playerMove(direction, false)
-                    }
-                }
-                // 点击框（lastTouchTile）变化：触发一次绘制刷新覆盖层
-                requestRedraw()
-            }
-
-            override fun onLongPressUp(e: PointF) {
-
-            }
-
-            override fun onLongPressMove(e1: PointF, e2: PointF) {
-
-            }
-            override fun onLongPress(e: PointF) {
-                if (indicatorController.onIndicatorLongPress(e))
-                    return
-                lastTouchTile = getTileLocation(e.x, e.y).also { point ->
-                    // long click yourself: this is a left click on the hero (CLICK_1),
-                    // NetHack answers with its "What do you want to do?" self menu
-                    if (abs(world.curse.x - point.x) < 1 && abs(world.curse.y - point.y) < 1) {
-                        nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
-                    } else {
-                        // long click other
-                        val border = getTileBorder(point.x, point.y)
-                        showPopupWindow(border.centerX(), border.centerY())
-                    }
-                }
-                requestRedraw()
-            }
-            override fun onMove(e1: PointF, e2: PointF) {
-                workQueue.offer(MapWork.Operation(NHMapTransform(e2.x - e1.x, e2.y - e1.y)))
-                // 用户平移了地图
-                mapTranslated = true
-                updateRunMode()
-            }
-
-            override fun onScale(scaleFactor: Float, cx: Float, cy: Float) {
-                workQueue.offer(MapWork.Operation(NHMapScale(scaleFactor, cx, cy)))
+    private fun handleMapTap(e: PointF) {
+        // 居中操作还没被渲染线程处理时，坐标还是旧的，先忽略这次点击
+        if (workQueue.any { it is MapWork.Operation && it.op is NHMapCenter }) return
+        if (indicatorController.onIndicatorClick(e))
+            return
+        lastTouchTile = getTileLocation(e.x, e.y).also { point ->
+            val origin = getTileBorder(world.curse.x, world.curse.y)
+            val direction = getMoveDirection(
+                PointF(origin.centerX(), origin.centerY()),
+                PointF(e.x, e.y)
+            )
+            showArrow(direction.dx, direction.dy)
+            if (nh.status.runMode == NHStatus.RunMode.TRAVEL) {
+                travelTo(point)
+            } else {
+                val curseBorder = getTileBorder(world.curse.x, world.curse.y)
+                val moveDirection = getMoveDirection(
+                    PointF(curseBorder.centerX(), curseBorder.centerY()),
+                    PointF(e.x, e.y)
+                )
+                playerMove(moveDirection, false)
             }
         }
+        requestRedraw()
+    }
+
+    private fun handleMapLongPress(e: PointF) {
+        if (indicatorController.onIndicatorLongPress(e))
+            return
+        lastTouchTile = getTileLocation(e.x, e.y).also { point ->
+            if (abs(world.curse.x - point.x) < 1 && abs(world.curse.y - point.y) < 1) {
+                nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
+            } else {
+                val border = getTileBorder(point.x, point.y)
+                showPopupWindow(border.centerX(), border.centerY())
+            }
+        }
+        requestRedraw()
+    }
+
+    private fun handleMapMove(e1: PointF, e2: PointF) {
+        workQueue.offer(MapWork.Operation(NHMapTransform(e2.x - e1.x, e2.y - e1.y)))
+        mapTranslated = true
+        updateRunMode()
+    }
+
+    private fun handleMapScale(scaleFactor: Float, cx: Float, cy: Float) {
+        workQueue.offer(MapWork.Operation(NHMapScale(scaleFactor, cx, cy)))
     }
 
     constructor(context: Context) : this(context, null, 0)
@@ -524,7 +514,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return !mapInit || mapTouchListener.onTouch(this, event)
+        return !mapInit || inputController.onTouch(this, event)
     }
 
     enum class Direction(val dx: Float, val dy: Float) {
