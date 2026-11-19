@@ -1,4 +1,4 @@
-package com.yywspace.anethack.map
+package com.yywspace.anethack.gameview
 
 import android.os.Handler
 import android.os.Looper

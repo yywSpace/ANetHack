@@ -3,7 +3,7 @@ package com.yywspace.anethack.window
 import android.graphics.Point
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
-import com.yywspace.anethack.map.NHMapView
+import com.yywspace.anethack.gameview.map.NHMapView
 
 data class MapFrame(
     val tiles: List<NHWMap.Tile>,

@@ -1,4 +1,4 @@
-package com.yywspace.anethack.map
+package com.yywspace.anethack.gameview
 
 import android.view.LayoutInflater
 import android.view.View

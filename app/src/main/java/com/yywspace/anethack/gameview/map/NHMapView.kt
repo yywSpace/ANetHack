@@ -1,4 +1,4 @@
-package com.yywspace.anethack.map
+﻿package com.yywspace.anethack.gameview.map
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -28,15 +28,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yywspace.anethack.NHTileSet
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.R
+import com.yywspace.anethack.gameview.NHPosKeyAdapter
 import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.command.NHPosCommand.PosMod
 import com.yywspace.anethack.entity.NHStatus
-import com.yywspace.anethack.map.indicator.NHMapIndicatorController
-import com.yywspace.anethack.map.operation.NHMapCenter
-import com.yywspace.anethack.map.operation.NHMapOperation
-import com.yywspace.anethack.map.operation.NHMapScale
-import com.yywspace.anethack.map.operation.NHMapTransform
+import com.yywspace.anethack.gameview.map.indicator.NHMapIndicatorController
+import com.yywspace.anethack.gameview.map.operation.NHMapCenter
+import com.yywspace.anethack.gameview.map.operation.NHMapOperation
+import com.yywspace.anethack.gameview.map.operation.NHMapScale
+import com.yywspace.anethack.gameview.map.operation.NHMapTransform
 import com.yywspace.anethack.window.MapFrame
 import com.yywspace.anethack.window.NHWMap
 import java.util.concurrent.CountDownLatch

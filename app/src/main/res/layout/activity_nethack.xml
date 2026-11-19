@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/black">
 
-        <com.yywspace.anethack.map.NHMapView
+        <com.yywspace.anethack.gameview.map.NHMapView
             android:id="@+id/map_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -27,12 +27,12 @@
             android:focusable="true"
             android:clickable="true">
 
-            <com.yywspace.anethack.map.NHStatusView
+            <com.yywspace.anethack.gameview.NHStatusView
                 android:id="@+id/status_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <com.yywspace.anethack.map.NHMessageView
+            <com.yywspace.anethack.gameview.NHMessageView
                 android:id="@+id/message_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

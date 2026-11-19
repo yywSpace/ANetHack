@@ -1,9 +1,9 @@
-package com.yywspace.anethack.map.indicator
+package com.yywspace.anethack.gameview.map.indicator
 
 import android.graphics.Canvas
 import android.graphics.PointF
 import com.yywspace.anethack.NetHack
-import com.yywspace.anethack.map.NHMapView
+import com.yywspace.anethack.gameview.map.NHMapView
 import com.yywspace.anethack.window.NHWMap
 import kotlin.math.sqrt
 

@@ -1,4 +1,4 @@
-package com.yywspace.anethack.map
+package com.yywspace.anethack.gameview.map
 
 import android.graphics.Canvas
 import android.graphics.Paint

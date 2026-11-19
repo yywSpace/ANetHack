@@ -1,6 +1,6 @@
 package com.yywspace.anethack.window
 
-import com.yywspace.anethack.map.NHStatusView
+import com.yywspace.anethack.gameview.NHStatusView
 import com.yywspace.anethack.entity.NHStatus
 import com.yywspace.anethack.NetHack
 
