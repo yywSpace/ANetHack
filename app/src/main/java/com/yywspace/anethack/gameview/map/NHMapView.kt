@@ -38,7 +38,7 @@ import com.yywspace.anethack.gameview.map.operation.NHMapCenter
 import com.yywspace.anethack.gameview.map.operation.NHMapOperation
 import com.yywspace.anethack.gameview.map.operation.NHMapScale
 import com.yywspace.anethack.gameview.map.operation.NHMapTransform
-import com.yywspace.anethack.window.MapFrame
+import com.yywspace.anethack.gameview.map.MapFrame
 import com.yywspace.anethack.window.NHWMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.LinkedBlockingDeque
@@ -71,7 +71,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     private val asciiPaint = TextPaint()
 
     private lateinit var nh: NetHack
-    private lateinit var map: NHWMap
+    private lateinit var world: NHMapWorld
     private var mapBorder: RectF
         get() = viewport.border
         set(value) { viewport.border = value }
@@ -164,7 +164,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
                 if(indicatorController.onIndicatorClick(e))
                     return
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
-                    val origin = getTileBorder(map.curse.x, map.curse.y)
+                    val origin = getTileBorder(world.curse.x, world.curse.y)
                     val direction = getMoveDirection(
                         PointF(origin.centerX(), origin.centerY()),
                         PointF(e.x, e.y)
@@ -173,7 +173,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
                     if (nh.status.runMode == NHStatus.RunMode.TRAVEL) {
                         travelTo(point)
                     }else {
-                        val curseBorder = getTileBorder(map.curse.x, map.curse.y)
+                        val curseBorder = getTileBorder(world.curse.x, world.curse.y)
                         val direction = getMoveDirection(
                             PointF(curseBorder.centerX(), curseBorder.centerY()),
                             PointF(e.x, e.y)
@@ -198,7 +198,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
                 lastTouchTile = getTileLocation(e.x, e.y).also { point ->
                     // long click yourself: this is a left click on the hero (CLICK_1),
                     // NetHack answers with its "What do you want to do?" self menu
-                    if (abs(map.curse.x - point.x) < 1 && abs(map.curse.y - point.y) < 1) {
+                    if (abs(world.curse.x - point.x) < 1 && abs(world.curse.y - point.y) < 1) {
                         nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
                     } else {
                         // long click other
@@ -245,7 +245,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
 
     fun initMap(nh: NetHack, map: NHWMap) {
         this.nh = nh
-        this.map = map
+        this.world = map.world
         // View 已经布局完成时立即初始化；否则等 onSizeChanged 第一次拿到尺寸
         if (isLaidOut && measuredWidth > 0 && measuredHeight > 0)
             initMapParam()
@@ -259,15 +259,15 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         viewport.baseTileHeight = getBaseTileHeight()
         // 重建离屏缓冲（基础尺寸；缩放/平移只改 blit 目标，不重建缓冲）
         mapBitmap =
-            createBitmap((map.width * viewport.baseTileWidth).toInt(), (map.height * viewport.baseTileHeight).toInt()).also { mapCanvas = Canvas(it) }
+            createBitmap((world.width * viewport.baseTileWidth).toInt(), (world.height * viewport.baseTileHeight).toInt()).also { mapCanvas = Canvas(it) }
         mapBitmap?.eraseColor(Color.BLACK)
         camera.zoom = measuredWidth.toFloat() /
-                (map.height * viewport.baseTileHeight).coerceAtLeast(1f)
+                (world.height * viewport.baseTileHeight).coerceAtLeast(1f)
         paint.textSize = textSize * camera.zoom
         asciiPaint.textSize = textSize * camera.zoom
-        camera.centerOn(map.curse.x.toFloat(), map.curse.y.toFloat())
+        camera.centerOn(world.curse.x.toFloat(), world.curse.y.toFloat())
         viewport.updateFromCamera(
-            camera, measuredWidth, measuredHeight, map.width, map.height
+            camera, measuredWidth, measuredHeight, world.width, world.height
         )
         // 重建 bitmap 后必须全量绘制，并在首帧重新居中
         mapContentDirty = true
@@ -275,9 +275,9 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     }
 
     private fun initIndicators() {
-        indicatorController = NHMapIndicatorController(this, nh, map)
+        indicatorController = NHMapIndicatorController(this, nh, world)
         indicatorController.setOnIndicatorClickListener(object :NHMapIndicatorController.OnIndicatorClickListener{
-            override fun onIndicatorClick(e: PointF, tile: NHWMap.Tile) {
+            override fun onIndicatorClick(e: PointF, tile: NHMapWorld.Tile) {
                 // 点指示符，下一次点地图要强制TRAVEL
                 travelArmed = true
                 // 视口被移动到别处，这也是"地图平移过"
@@ -289,7 +289,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
                 updateRunMode()
             }
 
-            override fun onIndicatorLongPress(e: PointF, tile: NHWMap.Tile) {
+            override fun onIndicatorLongPress(e: PointF, tile: NHMapWorld.Tile) {
 
             }
 
@@ -308,7 +308,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         val height = bottom - top
         val offsetX = (1 - walkRange / 100f) * width / 2f
         val offsetY = (1 - walkRange / 100f) * height / 2f
-        val playerBorder = getTileBorder(map.curse.x, map.curse.y)
+        val playerBorder = getTileBorder(world.curse.x, world.curse.y)
         val cx = playerBorder.centerX()
         val cy = playerBorder.centerY()
         val px = if (cx > left + width/2) playerBorder.left else playerBorder.right
@@ -354,7 +354,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
                                     nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.LOOK))
                                 }
                                 "Run" -> {
-                                    val tileBorder = getTileBorder(map.curse.x, map.curse.y)
+                                    val tileBorder = getTileBorder(world.curse.x, world.curse.y)
                                     val direction = getMoveDirection(
                                         PointF(tileBorder.centerX(), tileBorder.centerY()),
                                         PointF(x, y)
@@ -383,18 +383,18 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
 
     private fun transformMapWithGesture(dx: Float, dy: Float) {
         camera.panByScreen(dx, dy, viewport.tileWidth, viewport.tileHeight)
-        viewport.updateFromCamera(camera, measuredWidth, measuredHeight, map.width, map.height)
+        viewport.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
     }
 
     private fun scaleMap(scaleFactor: Float, centerX: Float, centerY: Float) {
         val anchor = viewport.screenToWorld(centerX, centerY)
         // 触摸缩放稍微收一点，避免手指轻微张合就变化过大
         camera.zoom *= 1f + (scaleFactor - 1f) * 0.8f
-        viewport.updateFromCamera(camera, measuredWidth, measuredHeight, map.width, map.height)
+        viewport.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
         val screen = viewport.worldToScreen(anchor.x, anchor.y)
         camera.panByScreen(screen.x - centerX, screen.y - centerY,
             viewport.tileWidth, viewport.tileHeight)
-        viewport.updateFromCamera(camera, measuredWidth, measuredHeight, map.width, map.height)
+        viewport.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
         paint.textSize = textSize * camera.zoom
         asciiPaint.textSize = textSize * camera.zoom
     }
@@ -427,7 +427,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     private fun getMoveDirection(base:PointF, target:PointF): Direction {
         val offset = target.minus(base)
         val angle = Math.toDegrees(atan2(offset.x, offset.y).toDouble()) + 180
-        val playerBorder = getTileBorder(map.curse.x, map.curse.y)
+        val playerBorder = getTileBorder(world.curse.x, world.curse.y)
         if (playerBorder.contains(target.x, target.y)) {
             return Direction.CENTER
         }
@@ -454,7 +454,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     /** 绘制单个格子到离屏缓冲（基础坐标，不随缩放变） */
     private fun drawOneToOffscreen(x: Int, y: Int) {
         val canvas = mapCanvas ?: return
-        val tile = map.getTile(x, y)
+        val tile = world.getTile(x, y)
         val tb = RectF(
             x * viewport.baseTileWidth, y * viewport.baseTileHeight,
             (x + 1) * viewport.baseTileWidth, (y + 1) * viewport.baseTileHeight
@@ -505,8 +505,8 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
 
     /** 全量重绘离屏缓冲 */
     private fun drawAllToOffscreen() {
-        for (x in 0 until map.width) {
-            for (y in 0 until map.height) {
+        for (x in 0 until world.width) {
+            for (y in 0 until world.height) {
                 drawOneToOffscreen(x, y)
             }
         }
@@ -551,14 +551,14 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
 
     fun centerPlayerInScreen() {
         if (mapInit)
-            workQueue.offer(MapWork.Operation(NHMapCenter(map.curse.x, map.curse.y)))
+            workQueue.offer(MapWork.Operation(NHMapCenter(world.curse.x, world.curse.y)))
     }
 
     /** 人物是否已经显示在屏幕里（用于 travel 前决定要不要居中） */
     private fun playerOnScreen(width:Int = measuredWidth, height:Int = measuredHeight): Boolean {
-        if (!mapInit || map.curse.x < 0 || map.curse.y < 0)
+        if (!mapInit || world.curse.x < 0 || world.curse.y < 0)
             return true
-        val tb = getTileBorder(map.curse.x, map.curse.y)
+        val tb = getTileBorder(world.curse.x, world.curse.y)
         return tb.right > 0 && tb.left < width && tb.bottom > 0 && tb.top < height
     }
 
@@ -567,7 +567,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         if (!playerOnScreen())
             centerPlayerInScreen()
         nh.command.sendCommand(NHPosCommand(point.x, point.y, PosMod.TRAVEL))
-        if (point.x in 1 until map.width && point.y in 1 until map.height)
+        if (point.x in 1 until world.width && point.y in 1 until world.height)
             lastTravelTile = Pair(nh.status.dungeonLevel.realVal, point)
         travelArmed = false
         // travel 已经发出，地图平移带来的"点即 travel"意图用完就清掉，回到 walk
@@ -580,13 +580,13 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         val viewHeight = measuredHeight.takeIf { it > 0 }
             ?: nh.binding.root.height
         camera.centerOn(x.toFloat(), y.toFloat())
-        viewport.updateFromCamera(camera, measuredWidth, viewHeight, map.width, map.height)
+        viewport.updateFromCamera(camera, measuredWidth, viewHeight, world.width, world.height)
         requestRedraw()
     }
 
     private fun transformMapWithMove(
         walkRange: Int,
-        curse: Point = map.curse
+        curse: Point = world.curse
     ) {
         val tb = getTileBorder(curse.x, curse.y)
         var dx = 0f
@@ -614,12 +614,12 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         // 视口没动（光标在安全区内）时不触发相机移动，保持增量绘制
         if (dx != 0f || dy != 0f) {
             camera.panByScreen(dx, dy, viewport.tileWidth, viewport.tileHeight)
-            viewport.updateFromCamera(camera, measuredWidth, measuredHeight, map.width, map.height)
+            viewport.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
         }
     }
 
     private fun drawAsciiCurse(canvas: Canvas?, drawCurse: Point) {
-        map.apply {
+        world.apply {
             if(drawCurse.x < 0 || drawCurse.y < 0)
                 return
             val tile = getTile(drawCurse.x, drawCurse.y)
@@ -639,7 +639,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     }
 
     private fun drawTileCurse(canvas: Canvas?, drawCurse: Point) {
-        map.apply {
+        world.apply {
             if(drawCurse.x < 0 || drawCurse.y < 0)
                 return
             val tb = getTileBorder(drawCurse.x, drawCurse.y)
@@ -679,7 +679,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         if (length <= 0f) return
         animations.clear()   // 每次点击只保留最新箭头
         animations.add(NHMoveArrow(
-            { map.curse },
+            { world.curse },
             { nh.status.hitPoints.color },
             dx / length, dy / length
         ))
@@ -690,7 +690,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     }
 
     private fun drawBorder(canvas: Canvas?) {
-        map.apply {
+        world.apply {
             paint.color = Color.GRAY
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = borderWidth
@@ -766,7 +766,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
         mapContentDirty = true
         if (mapInit) {
-            viewport.updateFromCamera(camera, width, height, map.width, map.height)
+            viewport.updateFromCamera(camera, width, height, world.width, world.height)
         }
         requestRedraw()
         if (mapInit && playerWasOnScreen)
@@ -787,7 +787,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
             is NHMapScale -> scaleMap(op.scale, op.cx, op.cy)
             is NHMapCenter -> {
                 centerView(op.x, op.y)
-                lastFollowCursor = Point(map.curse)
+                lastFollowCursor = Point(world.curse)
             }
         }
     }
@@ -837,13 +837,13 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     /** 绘制地图层：有 MapFrame 时应用它，再更新并贴上离屏地图。 */
     private fun drawMapLayer(canvas: Canvas?, frame: MapFrame?, tileSetChanged: Boolean) {
         if (frame != null)
-            map.applyFrame(frame)
+            world.applyFrame(frame)
 
         if (tileSetChanged || mapContentDirty) {
             drawAllToOffscreen()
             mapContentDirty = false
         } else frame?.apply {
-            tiles.map { Pair(it.x, it.y) }.filter { it.first in 0 until map.width && it.second in 0 until map.height }
+            tiles.map { Pair(it.x, it.y) }.filter { it.first in 0 until world.width && it.second in 0 until world.height }
                 .distinct().forEach { (x, y) -> drawOneToOffscreen(x, y) }
         }
 
@@ -904,7 +904,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
                 when (work) {
                     is MapWork.Operation -> processOperation(work.op)
                     is MapWork.Clear -> {
-                        map.clearTiles()
+                        world.clearTiles()
                         // 清屏后重新以光标为中心，并全量重绘离屏
                         playerCentered = false
                         mapContentDirty = true

@@ -1,13 +1,14 @@
 package com.yywspace.anethack.gameview.map.indicator
 
+import com.yywspace.anethack.gameview.map.NHMapWorld
+
 import android.graphics.Canvas
 import android.graphics.PointF
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.gameview.map.NHMapView
-import com.yywspace.anethack.window.NHWMap
 import kotlin.math.sqrt
 
-class NHMapIndicatorController(private val mapView: NHMapView, val nh:NetHack, val map: NHWMap) {
+class NHMapIndicatorController(private val mapView: NHMapView, val nh:NetHack, val world: NHMapWorld) {
     private var indicatorList = mutableListOf<NHMapIndicator>()
     private var onIndicatorClickListener: OnIndicatorClickListener? = null
     fun drawIndicators(canvas:Canvas?) {
@@ -69,7 +70,7 @@ class NHMapIndicatorController(private val mapView: NHMapView, val nh:NetHack, v
     private fun buildIndicators() {
         val tmpIndicators = mutableListOf<NHMapIndicator>()
         nh.prefs.indicatorSymbols?.toCharArray()?.toSet()?.forEach { symbol ->
-            map.getTileList(symbol).forEach {
+            world.getTileList(symbol).forEach {
                 tmpIndicators.add(NHMapIndicator(mapView, nh, it))
             }
         }
@@ -77,13 +78,13 @@ class NHMapIndicatorController(private val mapView: NHMapView, val nh:NetHack, v
             mapView.lastTravelTile?.apply {
                 // 只显示对应楼层LastTravelIndicator
                 if (nh.status.dungeonLevel.realVal == first) {
-                    val tile = map.getTile(second.x, second.y)
+                    val tile = world.getTile(second.x, second.y)
                     tmpIndicators.add(NHMapIndicator(mapView, nh, tile))
                 }
             }
         }
-        if (map.player.x > 0 && map.player.y > 0) {
-            val tile = map.getTile(map.player.x, map.player.y)
+        if (world.player.x > 0 && world.player.y > 0) {
+            val tile = world.getTile(world.player.x, world.player.y)
             // 地图帧还没应用时 Tile 可能还是空的 (-1,-1,-1)
             if (tile.glyph >= 0)
                 tmpIndicators.add(NHMapIndicator(mapView, nh, tile))
@@ -120,8 +121,8 @@ class NHMapIndicatorController(private val mapView: NHMapView, val nh:NetHack, v
     }
 
     interface OnIndicatorClickListener {
-        fun onIndicatorClick(e: PointF, tile: NHWMap.Tile)
-        fun onIndicatorLongPress(e: PointF, tile: NHWMap.Tile)
+        fun onIndicatorClick(e: PointF, tile: NHMapWorld.Tile)
+        fun onIndicatorLongPress(e: PointF, tile: NHMapWorld.Tile)
 
     }
 }

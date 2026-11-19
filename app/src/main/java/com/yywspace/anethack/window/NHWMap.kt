@@ -1,79 +1,28 @@
 package com.yywspace.anethack.window
 
-import android.graphics.Point
 import com.yywspace.anethack.NetHack
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.gameview.map.NHMapView
-
-data class MapFrame(
-    val tiles: List<NHWMap.Tile>,
-    val curse: Point,
-    val player: Point
-)
+import com.yywspace.anethack.gameview.map.NHMapWorld
+import com.yywspace.anethack.gameview.map.MapFrame
 
 class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type) {
     private var mapView: NHMapView = nh.binding.mapView
 
-    val width = 80
-    val height = 21
-    // 光标位置
-    val curse = Point(-1,-1)
-    // 玩家位置
-    val player = Point(-1,-1)
-
-    /** 已提交的格子数据：绘制线程读，applyFrame 写 */
-    private val tiles = Array(height){Array(width) { Tile() } }
-
-    /** printTile 收集中的格子，displayWindow 时封成 MapFrame */
-    private val pendingTiles = mutableListOf<Tile>()
-    private val stateLock = Any()
-
-    /** 下一次 displayWindow 要提交的光标位置 */
-    private val pendingCurse = Point(-1, -1)
+    val world = NHMapWorld()
 
     init {
         mapView.initMap(nh,this)
     }
 
 
-    fun getTileList(c:Char):List<Tile> {
-        val locList = mutableListOf<Tile>()
-        tiles.forEachIndexed { _, tiles -> // y
-            tiles.forEachIndexed { _, tile -> // x
-                if (tile.ch == c)
-                    locList.add(tile)
-            }
-        }
-        return locList
-    }
-
-    fun getTile(x:Int, y:Int):Tile {
-        return tiles[y][x]
-    }
-
-    fun applyFrame(frame: MapFrame) {
-        frame.tiles.forEach { t ->
-            val dst = tiles[t.y][t.x]
-            dst.x = t.x
-            dst.y = t.y
-            dst.glyph = t.glyph
-            dst.ch = t.ch
-            dst.color = t.color
-            dst.overlay = t.overlay
-        }
-    }
-
     @Suppress("UNUSED_PARAMETER") // cx/cy 是 native cliparound 坐标；Android 只取玩家 ux/uy
-    fun clipAround(cx: Int, cy: Int,ux: Int, uy: Int) {
-        player.x = ux
-        player.y = uy
+    fun clipAround(cx: Int, cy: Int, ux: Int, uy: Int) {
+        world.setPlayer(ux, uy)
     }
 
     override fun curs(x: Int, y: Int) {
-        synchronized(stateLock) {
-            pendingCurse.x = x
-            pendingCurse.y = y
-        }
+        world.setPendingCursor(x, y)
     }
 
     override fun displayWindow(blocking: Boolean) {
@@ -82,41 +31,11 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
             mapView.enqueueFrame(frame)
     }
 
-    private fun buildFrame(): MapFrame? = synchronized(stateLock) {
-        val cursorChanged = pendingCurse != curse
-        if (cursorChanged) {
-            curse.x = pendingCurse.x
-            curse.y = pendingCurse.y
-        }
-        if (pendingTiles.isEmpty() && !cursorChanged)
-            return null
-        val frame = MapFrame(
-            tiles = pendingTiles.toList(),
-            curse = Point(curse.x, curse.y),
-            player = Point(player.x, player.y)
-        )
-        pendingTiles.clear()
-        frame
-    }
+    private fun buildFrame(): MapFrame? = world.buildFrame()
 
     override fun clearWindow(isRogueLevel: Int) {
-        synchronized(stateLock) {
-            pendingTiles.clear()
-        }
+        world.clear()
         mapView.enqueueClear()
-    }
-
-    /** 由绘制线程调用：清空已提交的格子数据。 */
-    fun clearTiles() {
-        synchronized(stateLock) {
-            tiles.forEach { row ->
-                row.forEach { tile ->
-                    tile.glyph = -1
-                    tile.overlay = 0
-                    tile.ch = '0'
-                }
-            }
-        }
     }
 
     override fun destroyWindow() {
@@ -128,7 +47,7 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
     }
 
     fun printTile(x: Int, y: Int, tile: Int, ch: Int, col: Int, special: Int) {
-        val mapTile = Tile()
+        val mapTile = NHMapWorld.Tile()
         mapTile.x = x
         mapTile.y = y
         mapTile.glyph = tile
@@ -137,18 +56,7 @@ class NHWMap (wid: Int, type:NHWindowType, val nh: NetHack) : NHWindow(wid, type
         mapTile.overlay = special
         // 只入队数据：printTile 是一批更新的中间过程（4-5 个格子逐格到达），
         // 全部更新完后才调用 displayWindow，由 displayWindow 统一触发界面更新
-        synchronized(stateLock) {
-            pendingTiles.add(mapTile)
-        }
-    }
-
-    class Tile {
-        var x = -1
-        var y = -1
-        var glyph = -1
-        var overlay: Int = 0
-        var ch:Char = '0'
-        var color: NHColor = NHColor.NO_COLOR
+        world.addPendingTile(mapTile)
     }
 
     companion object {
