@@ -235,25 +235,20 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
         })
     }
 
-    /** 角色是否还在 walkRange 矩形里（跟随模式下就不该把点击当成 travel） */
-    private fun playerInWalkRange(walkRange: Int):Boolean {
-        val left = safeInsets.left.toFloat()
-        val top = safeInsets.top.toFloat()
-        val right = measuredWidth.toFloat() - safeInsets.right
-        val bottom = measuredHeight.toFloat() - safeInsets.bottom
-        if (right <= left || bottom <= top)
+    /** 角色是否还在 walkRange 死区内（跟随模式下就不该把点击当成 travel） */
+    private fun playerInWalkRange(walkRange: Int): Boolean {
+        val safe = safeBounds()
+        if (safe.width() <= 0f || safe.height() <= 0f)
             return true
-        val width = right - left
-        val height = bottom - top
-        val offsetX = (1 - walkRange / 100f) * width / 2f
-        val offsetY = (1 - walkRange / 100f) * height / 2f
+        val zone = camera.deadZone(safe, walkRange)
+
         val playerBorder = getTileBorder(world.curse.x, world.curse.y)
         val cx = playerBorder.centerX()
         val cy = playerBorder.centerY()
-        val px = if (cx > left + width/2) playerBorder.left else playerBorder.right
-        val py = if (cy > top + height/2) playerBorder.top else playerBorder.bottom
-        return px > left + offsetX && py > top + offsetY &&
-                px < right - offsetX && py < bottom - offsetY
+        val px = if (cx > zone.centerX()) playerBorder.left else playerBorder.right
+        val py = if (cy > zone.centerY()) playerBorder.top else playerBorder.bottom
+        return px > zone.left && py > zone.top &&
+                px < zone.right && py < zone.bottom
     }
 
     /**
@@ -454,39 +449,30 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
         requestRedraw()
     }
 
+    /**
+     * 按 walkRange 死区跟随玩家/光标。
+     *
+     * 只负责取得目标格子的屏幕位置和安全区，实际死区计算与镜头平移由
+     * [NHMapCamera.follow] 完成；移动后重新计算投影。
+     */
     private fun transformMapWithMove(
         walkRange: Int,
         curse: Point = world.curse
     ) {
+        if (curse.x < 0 || curse.y < 0) return
         val tb = getTileBorder(curse.x, curse.y)
-        var dx = 0f
-        var dy = 0f
-        val px = tb.centerX()
-        val py = tb.centerY()
-        val left = safeInsets.left.toFloat()
-        val top = safeInsets.top.toFloat()
-        val right = measuredWidth.toFloat() - safeInsets.right
-        val bottom = measuredHeight.toFloat() - safeInsets.bottom
-        if (right <= left || bottom <= top)
-            return
-        val width = right - left
-        val height = bottom - top
-        val offsetX = (1 - walkRange / 100f) * width / 2f
-        val offsetY = (1 - walkRange / 100f) * height / 2f
-        if (px < left + offsetX)
-            dx = left + offsetX - px
-        if (px > right - offsetX)
-            dx = right - offsetX - px
-        if (py < top + offsetY)
-            dy = top + offsetY - py
-        if (py > bottom - offsetY)
-            dy = bottom - offsetY - py
-        // 视口没动（光标在安全区内）时不触发相机移动，保持增量绘制
-        if (dx != 0f || dy != 0f) {
-            camera.panByScreen(dx, dy, coordinates.tileWidth, coordinates.tileHeight)
-            coordinates.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
+        val moved = camera.follow(
+            tb.centerX(), tb.centerY(),
+            safeBounds(), walkRange,
+            coordinates.tileWidth, coordinates.tileHeight
+        )
+        if (moved) {
+            coordinates.updateFromCamera(
+                camera, measuredWidth, measuredHeight, world.width, world.height
+            )
         }
     }
+
 
     private fun showArrow(dx: Float, dy: Float) {
         if (!nh.prefs.playAnimations) return
