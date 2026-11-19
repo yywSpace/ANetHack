@@ -48,9 +48,8 @@ class NHMapRenderer(
      *
      * 会测量基础 tile 尺寸并写回 viewport，再分配离屏 bitmap。
      */
-    fun initialize(world: NHMapWorld, viewport: NHMapViewport) {
-        viewport.baseTileWidth = measureBaseTileWidth()
-        viewport.baseTileHeight = measureBaseTileHeight()
+    fun initialize(world: NHMapWorld, viewport: NHMapProjection) {
+        viewport.setBaseTileSize(measureBaseTileWidth(), measureBaseTileHeight())
         // 重建离屏缓冲
         mapBitmap = createBitmap(
             (world.width * viewport.baseTileWidth).toInt(),
@@ -63,7 +62,7 @@ class NHMapRenderer(
     fun drawMap(
         canvas: Canvas,
         world: NHMapWorld,
-        viewport: NHMapViewport,
+        viewport: NHMapProjection,
         frame: MapFrame?,
         tileSetChanged: Boolean
     ) {
@@ -83,13 +82,13 @@ class NHMapRenderer(
         blit(canvas, viewport)
     }
 
-    fun blit(canvas: Canvas, viewport: NHMapViewport) {
+    fun blit(canvas: Canvas, viewport: NHMapProjection) {
         mapBitmap?.let { bmp ->
-            canvas.drawBitmap(bmp, Rect(0, 0, bmp.width, bmp.height), viewport.border, paint)
+            canvas.drawBitmap(bmp, Rect(0, 0, bmp.width, bmp.height), viewport.worldDrawRect, paint)
         }
     }
 
-    private fun drawOneToOffscreen(x: Int, y: Int, world: NHMapWorld, viewport: NHMapViewport) {
+    private fun drawOneToOffscreen(x: Int, y: Int, world: NHMapWorld, viewport: NHMapProjection) {
         val canvas = mapCanvas ?: return
         val tile = world.getTile(x, y)
         val tb = RectF(
@@ -140,7 +139,7 @@ class NHMapRenderer(
         }
     }
 
-    private fun drawAllToOffscreen(world: NHMapWorld, viewport: NHMapViewport) {
+    private fun drawAllToOffscreen(world: NHMapWorld, viewport: NHMapProjection) {
         for (x in 0 until world.width) {
             for (y in 0 until world.height) {
                 drawOneToOffscreen(x, y, world, viewport)

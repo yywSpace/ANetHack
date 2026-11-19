@@ -42,7 +42,7 @@ import kotlin.math.hypot
 
 
 class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
-    private val viewport = NHMapViewport()
+    private val viewport = NHMapProjection()
     private val camera = NHMapCamera()
     /** 点击指示符后，下一次点地图直接 travel（不受 walkRange 影响） */
     private var travelArmed = false
@@ -76,9 +76,6 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     private var lastFollowPlayer:Point = Point(-1, -1)
     /** 上次跟随的光标位置：选怪/查看时光标移动也要让视口跟上 */
     private var lastFollowCursor:Point = Point(-1, -1)
-    private var tileHeight: Float
-        get() = viewport.tileHeight
-        set(value) { viewport.tileHeight = value }
     /** 首次居中是否已做（绘制线程首帧执行，保证 view 已测量） */
     private var playerCentered = false
     /** 尺寸变化前玩家是否在屏幕内（键盘弹出/收起时据此决定要不要跟随） */
@@ -335,7 +332,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
             contentView = recyclerView
             isOutsideTouchable = true
             showAtLocation(this@NHMapView, Gravity.NO_GRAVITY,
-                (x-contentView.measuredWidth /2 ).toInt(), (y-contentView.measuredHeight-tileHeight/2).toInt())
+                (x-contentView.measuredWidth /2 ).toInt(), (y-contentView.measuredHeight-viewport.tileHeight/2).toInt())
         }
     }
 
