@@ -17,8 +17,6 @@ class NHMapViewport {
     @Volatile
     var border: RectF = RectF()
 
-    var scaleFactor: Float = 1f
-
     var tileWidth: Float = 0f
     var tileHeight: Float = 0f
     var baseTileWidth: Float = 0f
@@ -37,7 +35,6 @@ class NHMapViewport {
         mapWidth: Int,
         mapHeight: Int
     ) {
-        scaleFactor = camera.zoom
         tileWidth = baseTileWidth * camera.zoom
         tileHeight = baseTileHeight * camera.zoom
         borderWidth = kotlin.math.ceil(baseBorderWidth * camera.zoom)
