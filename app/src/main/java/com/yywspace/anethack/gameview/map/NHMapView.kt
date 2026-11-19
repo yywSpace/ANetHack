@@ -38,8 +38,9 @@ import kotlin.math.atan2
 
 
 class NHMapView : TextureView, TextureView.SurfaceTextureListener {
-    private val coordinates = NHMapCoordinates()
-    private val camera = NHMapCamera()
+    private val metrics = NHMapMetrics()
+    private val coordinates = NHMapCoordinates(metrics)
+    private val camera = NHMapCamera(metrics)
     /** 点击指示符后，下一次点地图直接 travel（不受 deadZonePercent 影响） */
     private var travelArmed = false
     /**
@@ -59,8 +60,7 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     private lateinit var nh: NetHack
     private lateinit var world: NHMapWorld
     /** 地图四周被覆盖的像素（状态、消息、键盘等），由 Activity 计算后传入 */
-    private val safeInsets: Rect
-        get() = coordinates.safeInsets
+    private val safeInsets: Rect = Rect()
 
     private var lastTouchTile:Point? = null
 
@@ -202,12 +202,13 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     private fun initMapParam() {
         nh.tileSet.updateTileSet()
         renderer.initialize(world, coordinates)
-        camera.zoom = measuredWidth.toFloat() /
-                (world.height * coordinates.baseTileHeight).coerceAtLeast(1f)
-        camera.centerOn(world.curse.x.toFloat(), world.curse.y.toFloat())
-        coordinates.updateFromCamera(
-            camera, measuredWidth, measuredHeight, world.width, world.height
+        camera.setZoom(
+            measuredWidth.toFloat() /
+                    (world.height * coordinates.baseTileHeight).coerceAtLeast(1f)
         )
+        camera.centerOn(world.curse.x.toFloat(), world.curse.y.toFloat())
+        metrics.setViewport(measuredWidth, measuredHeight, world.width, world.height)
+        coordinates.updateFromCamera(camera)
         // 重建 bitmap 后必须全量绘制，并在首帧重新居中
         renderer.markDirty()
         playerCentered = false
@@ -316,19 +317,17 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     }
 
     private fun transformMapWithGesture(dx: Float, dy: Float) {
-        camera.panByScreen(dx, dy, coordinates.tileWidth, coordinates.tileHeight)
-        coordinates.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
+        camera.panByScreen(dx, dy)
+        coordinates.updateFromCamera(camera)
     }
 
     private fun scaleMap(scaleFactor: Float, centerX: Float, centerY: Float) {
         val anchor = coordinates.screenToWorld(centerX, centerY)
-        // 触摸缩放稍微收一点，避免手指轻微张合就变化过大
-        camera.zoom *= 1f + (scaleFactor - 1f) * 0.8f
-        coordinates.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
+        camera.zoomBy(scaleFactor)
+        coordinates.updateFromCamera(camera)
         val screen = coordinates.worldToScreen(anchor.x, anchor.y)
-        camera.panByScreen(screen.x - centerX, screen.y - centerY,
-            coordinates.tileWidth, coordinates.tileHeight)
-        coordinates.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
+        camera.panByScreen(screen.x - centerX, screen.y - centerY)
+        coordinates.updateFromCamera(camera)
     }
 
     private fun playerMove(direction: Direction, straight:Boolean) {
@@ -441,11 +440,8 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     }
 
     fun centerView(x: Int, y: Int) {
-        // 只按地图 View 自身尺寸居中；根布局还包含键盘/面板，不能拿来算中心
-        val viewHeight = measuredHeight.takeIf { it > 0 }
-            ?: nh.binding.root.height
         camera.centerOn(x.toFloat(), y.toFloat())
-        coordinates.updateFromCamera(camera, measuredWidth, viewHeight, world.width, world.height)
+        coordinates.updateFromCamera(camera)
         requestRedraw()
     }
 
@@ -463,13 +459,10 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
         val tb = getTileBorder(curse.x, curse.y)
         val moved = camera.follow(
             tb.centerX(), tb.centerY(),
-            safeBounds(), deadZonePercent,
-            coordinates.tileWidth, coordinates.tileHeight
+            safeBounds(), deadZonePercent
         )
         if (moved) {
-            coordinates.updateFromCamera(
-                camera, measuredWidth, measuredHeight, world.width, world.height
-            )
+            coordinates.updateFromCamera(camera)
         }
     }
 
@@ -529,7 +522,8 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
         if (::renderer.isInitialized) renderer.markDirty()
         if (mapInit) {
-            coordinates.updateFromCamera(camera, width, height, world.width, world.height)
+            metrics.setViewport(width, height, world.width, world.height)
+            coordinates.updateFromCamera(camera)
         }
         requestRedraw()
         if (mapInit && playerWasOnScreen)

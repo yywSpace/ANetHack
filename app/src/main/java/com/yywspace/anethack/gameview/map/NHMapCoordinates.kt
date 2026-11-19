@@ -2,7 +2,6 @@ package com.yywspace.anethack.gameview.map
 
 import android.graphics.Point
 import android.graphics.PointF
-import android.graphics.Rect
 import android.graphics.RectF
 import kotlin.math.floor
 
@@ -12,16 +11,18 @@ import kotlin.math.floor
  * 保存当前投影矩形、tile 尺寸和安全区，并负责屏幕坐标与 tile 坐标的换算。
  * 不涉及 Canvas、触摸事件或游戏窗口；镜头跟随由 MapCamera 负责。
  */
-class NHMapCoordinates {
+class NHMapCoordinates(
+    private val metrics: NHMapMetrics
+) {
 
     @Volatile
     var worldDrawRect: RectF = RectF()
         private set
 
-    var tileWidth: Float = 0f
-        private set
-    var tileHeight: Float = 0f
-        private set
+    val tileWidth: Float
+        get() = metrics.tileWidth
+    val tileHeight: Float
+        get() = metrics.tileHeight
     var baseTileWidth: Float = 0f
         private set
     var baseTileHeight: Float = 0f
@@ -31,31 +32,22 @@ class NHMapCoordinates {
         private set
     private var baseBorderWidth: Float = 0.5f
 
-    /** 顶部状态栏、消息栏、底部键盘等覆盖的像素。 */
-    val safeInsets: Rect = Rect()
-
     fun setBaseTileSize(width: Float, height: Float) {
         baseTileWidth = width
         baseTileHeight = height
     }
 
-    fun updateFromCamera(
-        camera: NHMapCamera,
-        viewWidth: Int,
-        viewHeight: Int,
-        mapWidth: Int,
-        mapHeight: Int
-    ) {
-        tileWidth = baseTileWidth * camera.zoom
-        tileHeight = baseTileHeight * camera.zoom
+    fun updateFromCamera(camera: NHMapCamera) {
+        metrics.tileWidth = baseTileWidth * camera.zoom
+        metrics.tileHeight = baseTileHeight * camera.zoom
         borderWidth = kotlin.math.ceil(baseBorderWidth * camera.zoom)
-        val left = viewWidth / 2f - camera.centerX * tileWidth
-        val top = viewHeight / 2f - camera.centerY * tileHeight
+        val left = metrics.viewWidth / 2f - camera.centerX * tileWidth
+        val top = metrics.viewHeight / 2f - camera.centerY * tileHeight
         worldDrawRect = RectF(
             left,
             top,
-            left + mapWidth * tileWidth,
-            top + mapHeight * tileHeight
+            left + metrics.mapWidth * tileWidth,
+            top + metrics.mapHeight * tileHeight
         )
     }
 
