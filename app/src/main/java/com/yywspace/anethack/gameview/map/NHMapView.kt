@@ -42,7 +42,7 @@ import kotlin.math.hypot
 
 
 class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
-    private val viewport = NHMapProjection()
+    private val coordinates = NHMapCoordinates()
     private val camera = NHMapCamera()
     /** 点击指示符后，下一次点地图直接 travel（不受 walkRange 影响） */
     private var travelArmed = false
@@ -64,7 +64,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     private lateinit var world: NHMapWorld
     /** 地图四周被覆盖的像素（状态、消息、键盘等），由 Activity 计算后传入 */
     private val safeInsets: Rect
-        get() = viewport.safeInsets
+        get() = coordinates.safeInsets
 
     private var lastTouchTile:Point? = null
 
@@ -217,11 +217,11 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
 
     private fun initMapParam() {
         nh.tileSet.updateTileSet()
-        renderer.initialize(world, viewport)
+        renderer.initialize(world, coordinates)
         camera.zoom = measuredWidth.toFloat() /
-                (world.height * viewport.baseTileHeight).coerceAtLeast(1f)
+                (world.height * coordinates.baseTileHeight).coerceAtLeast(1f)
         camera.centerOn(world.curse.x.toFloat(), world.curse.y.toFloat())
-        viewport.updateFromCamera(
+        coordinates.updateFromCamera(
             camera, measuredWidth, measuredHeight, world.width, world.height
         )
         // 重建 bitmap 后必须全量绘制，并在首帧重新居中
@@ -332,24 +332,24 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
             contentView = recyclerView
             isOutsideTouchable = true
             showAtLocation(this@NHMapView, Gravity.NO_GRAVITY,
-                (x-contentView.measuredWidth /2 ).toInt(), (y-contentView.measuredHeight-viewport.tileHeight/2).toInt())
+                (x-contentView.measuredWidth /2 ).toInt(), (y-contentView.measuredHeight-coordinates.tileHeight/2).toInt())
         }
     }
 
     private fun transformMapWithGesture(dx: Float, dy: Float) {
-        camera.panByScreen(dx, dy, viewport.tileWidth, viewport.tileHeight)
-        viewport.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
+        camera.panByScreen(dx, dy, coordinates.tileWidth, coordinates.tileHeight)
+        coordinates.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
     }
 
     private fun scaleMap(scaleFactor: Float, centerX: Float, centerY: Float) {
-        val anchor = viewport.screenToWorld(centerX, centerY)
+        val anchor = coordinates.screenToWorld(centerX, centerY)
         // 触摸缩放稍微收一点，避免手指轻微张合就变化过大
         camera.zoom *= 1f + (scaleFactor - 1f) * 0.8f
-        viewport.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
-        val screen = viewport.worldToScreen(anchor.x, anchor.y)
+        coordinates.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
+        val screen = coordinates.worldToScreen(anchor.x, anchor.y)
         camera.panByScreen(screen.x - centerX, screen.y - centerY,
-            viewport.tileWidth, viewport.tileHeight)
-        viewport.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
+            coordinates.tileWidth, coordinates.tileHeight)
+        coordinates.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
     }
 
     private fun playerMove(direction: Direction, straight:Boolean) {
@@ -466,7 +466,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         val viewHeight = measuredHeight.takeIf { it > 0 }
             ?: nh.binding.root.height
         camera.centerOn(x.toFloat(), y.toFloat())
-        viewport.updateFromCamera(camera, measuredWidth, viewHeight, world.width, world.height)
+        coordinates.updateFromCamera(camera, measuredWidth, viewHeight, world.width, world.height)
         requestRedraw()
     }
 
@@ -499,8 +499,8 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
             dy = bottom - offsetY - py
         // 视口没动（光标在安全区内）时不触发相机移动，保持增量绘制
         if (dx != 0f || dy != 0f) {
-            camera.panByScreen(dx, dy, viewport.tileWidth, viewport.tileHeight)
-            viewport.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
+            camera.panByScreen(dx, dy, coordinates.tileWidth, coordinates.tileHeight)
+            coordinates.updateFromCamera(camera, measuredWidth, measuredHeight, world.width, world.height)
         }
     }
 
@@ -516,11 +516,11 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
         ))
     }
 
-    fun getTileBorder(x: Int, y: Int): RectF = viewport.tileBorder(x, y)
+    fun getTileBorder(x: Int, y: Int): RectF = coordinates.tileBorder(x, y)
 
     // 获取界面TileLocation
     private fun getTileLocation(vx: Float, vy: Float): Point =
-        viewport.tileLocation(vx, vy)
+        coordinates.tileLocation(vx, vy)
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -561,7 +561,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
         if (::renderer.isInitialized) renderer.markDirty()
         if (mapInit) {
-            viewport.updateFromCamera(camera, width, height, world.width, world.height)
+            coordinates.updateFromCamera(camera, width, height, world.width, world.height)
         }
         requestRedraw()
         if (mapInit && playerWasOnScreen)
@@ -632,14 +632,14 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
     /** 绘制地图层：渲染器负责应用帧、更新离屏地图并贴到屏幕。 */
     private fun drawMapLayer(canvas: Canvas?, frame: MapFrame?, tileSetChanged: Boolean) {
         canvas ?: return
-        renderer.drawMap(canvas, world, viewport, frame, tileSetChanged)
+        renderer.drawMap(canvas, world, coordinates, frame, tileSetChanged)
     }
 
     /** 只绘制屏幕覆盖层：光标、点击框、动画、边框、指示符。 */
     private fun drawOverlays(canvas: Canvas?, drawCurse: Point) {
         canvas ?: return
         overlayRenderer.draw(
-            canvas, world, viewport, drawCurse, lastTouchTile,
+            canvas, world, coordinates, drawCurse, lastTouchTile,
             indicatorController, camera.zoom
         )
     }
@@ -652,7 +652,7 @@ class NHMapView: TextureView, TextureView.SurfaceTextureListener, Runnable {
             val canvas = lockCanvas() ?: return
             try {
                 canvas.drawColor(Color.BLACK)
-                renderer.blit(canvas, viewport)
+                renderer.blit(canvas, coordinates)
                 drawOverlays(canvas, lastCurse)
             } finally {
                 unlockCanvasAndPost(canvas)

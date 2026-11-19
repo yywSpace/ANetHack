@@ -23,33 +23,33 @@ class NHMapOverlayRenderer(
     fun draw(
         canvas: Canvas,
         world: NHMapWorld,
-        viewport: NHMapProjection,
+        coordinates: NHMapCoordinates,
         drawCurse: Point,
         lastTouchTile: Point?,
         indicatorController: NHMapIndicatorController,
         scaleFactor: Float
     ) {
         if (nh.tileSet.isTTY()) {
-            drawAsciiCurse(canvas, world, viewport, drawCurse, scaleFactor)
+            drawAsciiCurse(canvas, world, coordinates, drawCurse, scaleFactor)
         } else {
-            drawTileCurse(canvas, world, viewport, drawCurse)
+            drawTileCurse(canvas, world, coordinates, drawCurse)
         }
-        drawLastTouchTile(canvas, viewport, lastTouchTile)
-        drawAnimations(canvas, viewport)
-        drawBorder(canvas, viewport)
+        drawLastTouchTile(canvas, coordinates, lastTouchTile)
+        drawAnimations(canvas, coordinates)
+        drawBorder(canvas, coordinates)
         indicatorController.drawIndicators(canvas)
     }
 
     private fun drawAsciiCurse(
         canvas: Canvas,
         world: NHMapWorld,
-        viewport: NHMapProjection,
+        coordinates: NHMapCoordinates,
         drawCurse: Point,
         scaleFactor: Float
     ) {
         if (drawCurse.x < 0 || drawCurse.y < 0) return
         val tile = world.getTile(drawCurse.x, drawCurse.y)
-        val tb = viewport.tileBorder(drawCurse.x, drawCurse.y)
+        val tb = coordinates.tileBorder(drawCurse.x, drawCurse.y)
         renderer.paint.color = nh.status.hitPoints.color
         renderer.paint.style = Paint.Style.FILL
         canvas.drawRect(tb, renderer.paint)
@@ -66,11 +66,11 @@ class NHMapOverlayRenderer(
     private fun drawTileCurse(
         canvas: Canvas,
         world: NHMapWorld,
-        viewport: NHMapProjection,
+        coordinates: NHMapCoordinates,
         drawCurse: Point
     ) {
         if (drawCurse.x < 0 || drawCurse.y < 0) return
-        val tb = viewport.tileBorder(drawCurse.x, drawCurse.y)
+        val tb = coordinates.tileBorder(drawCurse.x, drawCurse.y)
         renderer.paint.style = Paint.Style.FILL
         renderer.paint.color =
             (nh.status.hitPoints.color and 0x00FFFFFF) or (curseFillAlpha shl 24)
@@ -79,37 +79,37 @@ class NHMapOverlayRenderer(
 
     private fun drawLastTouchTile(
         canvas: Canvas,
-        viewport: NHMapProjection,
+        coordinates: NHMapCoordinates,
         lastTouchTile: Point?
     ) {
         lastTouchTile ?: return
-        val tb = viewport.tileBorder(lastTouchTile.x, lastTouchTile.y)
+        val tb = coordinates.tileBorder(lastTouchTile.x, lastTouchTile.y)
         renderer.paint.color = Color.GRAY
         renderer.paint.style = Paint.Style.STROKE
-        renderer.paint.strokeWidth = viewport.borderWidth
+        renderer.paint.strokeWidth = coordinates.borderWidth
         canvas.drawRect(tb, renderer.paint)
     }
 
-    private fun drawAnimations(canvas: Canvas, viewport: NHMapProjection) {
+    private fun drawAnimations(canvas: Canvas, coordinates: NHMapCoordinates) {
         if (!nh.prefs.playAnimations) {
             animations.clear()
             return
         }
         if (!animations.isActive) return
         val frame = NHMapAnimationFrame(
-            viewport.tileWidth,
-            viewport.tileHeight,
-            viewport.worldDrawRect.left,
-            viewport.worldDrawRect.top
+            coordinates.tileWidth,
+            coordinates.tileHeight,
+            coordinates.worldDrawRect.left,
+            coordinates.worldDrawRect.top
         )
         animations.draw(canvas, frame, renderer.paint, System.currentTimeMillis())
     }
 
-    private fun drawBorder(canvas: Canvas, viewport: NHMapProjection) {
+    private fun drawBorder(canvas: Canvas, coordinates: NHMapCoordinates) {
         renderer.paint.color = Color.GRAY
         renderer.paint.style = Paint.Style.STROKE
-        renderer.paint.strokeWidth = viewport.borderWidth
-        val border = RectF(viewport.worldDrawRect).apply { left += viewport.tileWidth }
+        renderer.paint.strokeWidth = coordinates.borderWidth
+        val border = RectF(coordinates.worldDrawRect).apply { left += coordinates.tileWidth }
         canvas.drawRect(border, renderer.paint)
     }
 }

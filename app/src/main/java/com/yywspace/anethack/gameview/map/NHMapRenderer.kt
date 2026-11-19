@@ -46,14 +46,14 @@ class NHMapRenderer(
     /**
      * 初始化渲染资源。
      *
-     * 会测量基础 tile 尺寸并写回 viewport，再分配离屏 bitmap。
+     * 会测量基础 tile 尺寸并写回 coordinates，再分配离屏 bitmap。
      */
-    fun initialize(world: NHMapWorld, viewport: NHMapProjection) {
-        viewport.setBaseTileSize(measureBaseTileWidth(), measureBaseTileHeight())
+    fun initialize(world: NHMapWorld, coordinates: NHMapCoordinates) {
+        coordinates.setBaseTileSize(measureBaseTileWidth(), measureBaseTileHeight())
         // 重建离屏缓冲
         mapBitmap = createBitmap(
-            (world.width * viewport.baseTileWidth).toInt(),
-            (world.height * viewport.baseTileHeight).toInt()
+            (world.width * coordinates.baseTileWidth).toInt(),
+            (world.height * coordinates.baseTileHeight).toInt()
         ).also { mapCanvas = Canvas(it) }
         mapBitmap?.eraseColor(Color.BLACK)
         contentDirty = true
@@ -62,7 +62,7 @@ class NHMapRenderer(
     fun drawMap(
         canvas: Canvas,
         world: NHMapWorld,
-        viewport: NHMapProjection,
+        coordinates: NHMapCoordinates,
         frame: MapFrame?,
         tileSetChanged: Boolean
     ) {
@@ -70,30 +70,30 @@ class NHMapRenderer(
             world.applyFrame(frame)
 
         if (tileSetChanged || contentDirty) {
-            drawAllToOffscreen(world, viewport)
+            drawAllToOffscreen(world, coordinates)
             contentDirty = false
         } else frame?.tiles?.forEach { tile ->
             if (tile.x in 0 until world.width && tile.y in 0 until world.height) {
-                drawOneToOffscreen(tile.x, tile.y, world, viewport)
+                drawOneToOffscreen(tile.x, tile.y, world, coordinates)
             }
         }
 
         canvas.drawColor(Color.BLACK)
-        blit(canvas, viewport)
+        blit(canvas, coordinates)
     }
 
-    fun blit(canvas: Canvas, viewport: NHMapProjection) {
+    fun blit(canvas: Canvas, coordinates: NHMapCoordinates) {
         mapBitmap?.let { bmp ->
-            canvas.drawBitmap(bmp, Rect(0, 0, bmp.width, bmp.height), viewport.worldDrawRect, paint)
+            canvas.drawBitmap(bmp, Rect(0, 0, bmp.width, bmp.height), coordinates.worldDrawRect, paint)
         }
     }
 
-    private fun drawOneToOffscreen(x: Int, y: Int, world: NHMapWorld, viewport: NHMapProjection) {
+    private fun drawOneToOffscreen(x: Int, y: Int, world: NHMapWorld, coordinates: NHMapCoordinates) {
         val canvas = mapCanvas ?: return
         val tile = world.getTile(x, y)
         val tb = RectF(
-            x * viewport.baseTileWidth, y * viewport.baseTileHeight,
-            (x + 1) * viewport.baseTileWidth, (y + 1) * viewport.baseTileHeight
+            x * coordinates.baseTileWidth, y * coordinates.baseTileHeight,
+            (x + 1) * coordinates.baseTileWidth, (y + 1) * coordinates.baseTileHeight
         )
         if (tile.overlay and NHTileSet.MG_UNEXPL != 0) {
             paint.color = Color.BLACK
@@ -139,10 +139,10 @@ class NHMapRenderer(
         }
     }
 
-    private fun drawAllToOffscreen(world: NHMapWorld, viewport: NHMapProjection) {
+    private fun drawAllToOffscreen(world: NHMapWorld, coordinates: NHMapCoordinates) {
         for (x in 0 until world.width) {
             for (y in 0 until world.height) {
-                drawOneToOffscreen(x, y, world, viewport)
+                drawOneToOffscreen(x, y, world, coordinates)
             }
         }
     }

@@ -7,12 +7,12 @@ import android.graphics.RectF
 import kotlin.math.floor
 
 /**
- * 地图视口：当前可见世界区域与坐标换算。
+ * 地图坐标层：世界坐标与屏幕坐标的换算。
  *
- * 只保存视口矩形、缩放、tile 尺寸和安全区，并负责屏幕坐标与 tile 坐标的换算。
+ * 保存当前投影矩形、tile 尺寸和安全区，并负责屏幕坐标与 tile 坐标的换算。
  * 不涉及 Canvas、触摸事件或游戏窗口；镜头跟随由 MapCamera 负责。
  */
-class NHMapProjection {
+class NHMapCoordinates {
 
     @Volatile
     var worldDrawRect: RectF = RectF()
