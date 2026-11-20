@@ -51,10 +51,13 @@ object MonsterLink {
         link.spanAtLine(widget, event)
     private fun resolveMonsters(line: String): List<Monster> {
         val lower = line.lowercase()
-        val match = namesByLower.keys
-            .filter { lower.contains(it) }
-            .maxByOrNull { it.length }
-            ?: return emptyList()
-        return namesByLower[match].orEmpty()
+        val matches = namesByLower.keys.filter {
+            it.isNotBlank() && lower.contains(it.lowercase())
+        }
+        val maxLength = matches.maxOfOrNull { it.length } ?: return emptyList()
+        return matches
+            .filter { it.length == maxLength }
+            .flatMap { namesByLower[it].orEmpty() }
+            .distinct()
     }
 }

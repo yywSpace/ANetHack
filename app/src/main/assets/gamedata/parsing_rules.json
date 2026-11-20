@@ -4,22 +4,11 @@
     "sell": "offers (?<objPrice>[0-9]+) gold pieces for your (?<objDesc>.*)\\."
   },
   "objectTypesRegex": {
-    "Potion": "\\bpotion",
-    "Scroll": "\\bscroll",
-    "Spellbook": "\\b(?:spellbook|book|novel)",
-    "Ring": "\\bring",
+    "Potion": "\\bpotions?",
+    "Scroll": "\\bscrolls?",
+    "Spellbook": "\\bspellbook",
+    "Ring": "(?<!meat )\\bring(?!\\s+mail)",
     "Wand": "\\bwand",
-    "Amulet": "\\bamulet",
-    "Boots": "\\b(?:boots|shoes)",
-    "Cloak": "\\b(?:cloak|cape|robe|smock|mantelet|pall|cope|cloth|wrapping)",
-    "Helm": "\\b(?:helm|helmet|hat|cap|fedora|cornuthaum|pot)",
-    "Gloves": "\\b(?:gloves|gauntlets)",
-    "Shield": "\\b(?:shield|roundshield)",
-    "Suit": "\\b(?:suit|armor|mail)",
-    "Shirt": "\\bshirt",
-    "Weapon": "\\bweapon",
-    "Tool": "\\btool",
-    "Food": "\\bfood",
-    "Gem": "\\b(?:gem|stone)"
+    "Amulet": "\\bamulet"
   }
 }
