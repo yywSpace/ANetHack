@@ -413,9 +413,12 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     }
 
     fun centerView(x: Int, y: Int) {
-        cameraAnimator.cancel()
-        camera.centerOn(x.toFloat(), y.toFloat())
-        coordinates.updateFromCamera(camera)
+        if (nh.prefs.smoothCamera) {
+            cameraAnimator.centerOn(x.toFloat(), y.toFloat())
+        } else {
+            camera.centerOn(x.toFloat(), y.toFloat())
+            coordinates.updateFromCamera(camera)
+        }
         requestRedraw()
     }
 

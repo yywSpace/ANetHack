@@ -54,6 +54,15 @@ class NHMapCameraAnimator(
         return true
     }
 
+    /** 平滑移动到指定世界坐标。 */
+    fun centerOn(x: Float, y: Float) {
+        targetCenterX = x
+        targetCenterY = y
+        animating = true
+        lastFrameNanos = 0L
+        schedule()
+    }
+
     /** 停止跟随；用于拖动、缩放、居中立即接管。 */
     fun cancel() {
         animating = false
