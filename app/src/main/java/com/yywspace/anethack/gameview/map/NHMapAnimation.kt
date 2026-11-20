@@ -1,0 +1,135 @@
+package com.yywspace.anethack.gameview.map
+
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.Point
+import androidx.core.graphics.withTranslation
+import kotlin.math.atan2
+import kotlin.math.hypot
+import kotlin.math.sin
+
+/**
+ * 地图上播放的一次性动画（箭头、滑步等）。
+ *
+ * [draw] 返回 false 表示动画已结束，由 [NHMapAnimationPlayer] 移除。
+ */
+interface NHMapAnimation {
+    fun draw(canvas: Canvas, coordinates: NHMapCoordinates, paint: Paint, now: Long): Boolean
+}
+
+/** 管理当前正在播放的动画，并自己推进帧。 */
+class NHMapAnimationPlayer(
+    private val scheduleFrame: (delayMs: Long, task: () -> Unit) -> Unit,
+    private val requestRedraw: () -> Unit
+) {
+    private val animations = mutableListOf<NHMapAnimation>()
+    private var scheduled = false
+
+    val isActive: Boolean
+        get() = synchronized(animations) { animations.isNotEmpty() }
+
+    /** 允许多个动画同时播放。 */
+    fun add(animation: NHMapAnimation) {
+        synchronized(animations) { animations.add(animation) }
+        ensureScheduled()
+    }
+
+    /** 同一类型只保留一个，其它类型动画不受影响。 */
+    fun playExclusive(animation: NHMapAnimation) {
+        synchronized(animations) {
+            animations.removeAll { it.javaClass == animation.javaClass }
+            animations.add(animation)
+        }
+        ensureScheduled()
+    }
+
+    private fun ensureScheduled() {
+        if (scheduled || !isActive) return
+        scheduled = true
+        scheduleFrame(16) {
+            scheduled = false
+            if (isActive) {
+                requestRedraw()
+                ensureScheduled()
+            }
+        }
+    }
+
+    /** 只清除指定类型的动画，保留其它动画。 */
+    fun clear(type: Class<out NHMapAnimation>) {
+        synchronized(animations) { animations.removeAll { type.isInstance(it) } }
+    }
+
+    fun draw(canvas: Canvas, coordinates: NHMapCoordinates, paint: Paint, now: Long) {
+        synchronized(animations) {
+            animations.removeAll { !it.draw(canvas, coordinates, paint, now) }
+        }
+    }
+}
+
+/**
+ * 带时长的动画基类：子类只实现 [drawProgress]，进度和结束判断由这里处理。
+ */
+abstract class NHProgressAnimation(
+    protected val start: Long = System.currentTimeMillis(),
+    private val duration: Long = 350L
+) : NHMapAnimation {
+
+    final override fun draw(canvas: Canvas, coordinates: NHMapCoordinates, paint: Paint, now: Long): Boolean {
+        val progress = (now - start) / duration.toFloat()
+        if (progress >= 1f) return false
+        drawProgress(canvas, coordinates, paint, progress)
+        return true
+    }
+
+    /** [progress] 从 0 到 1，等于 1 时动画结束 */
+    abstract fun drawProgress(canvas: Canvas, coordinates: NHMapCoordinates, paint: Paint, progress: Float)
+}
+
+/** 朝移动方向跳一下的小箭头，位置每帧跟着角色 */
+class NHMoveArrow(
+    private val player: () -> Point,
+    private val color: () -> Int,
+    dx: Float,
+    dy: Float
+) : NHProgressAnimation() {
+
+    private val dx: Float
+    private val dy: Float
+
+    init {
+        val length = hypot(dx.toDouble(), dy.toDouble()).toFloat()
+        this.dx = if (length > 0f) dx / length else 0f
+        this.dy = if (length > 0f) dy / length else 0f
+    }
+
+    private val path = Path()
+
+    override fun drawProgress(canvas: Canvas, coordinates: NHMapCoordinates, paint: Paint, progress: Float) {
+        val eased = sin(Math.PI * progress).toFloat()
+        val distance = 0.55f + 0.25f * eased
+        val tile = player()
+        val center = coordinates.tileCenter(
+            tile.x, tile.y,
+            dx * distance, dy * distance
+        )
+        val cx = center.x
+        val cy = center.y
+        val half = coordinates.tileWidth * 0.16f
+
+        path.reset()
+        path.moveTo(half * 1.5f, 0f)
+        path.lineTo(0f, -half)
+        path.lineTo(0f, half)
+        path.close()
+
+        canvas.withTranslation(cx, cy) {
+            rotate(Math.toDegrees(atan2(dy.toDouble(), dx.toDouble())).toFloat())
+            paint.style = Paint.Style.FILL
+            val alpha = (255 * (1f - progress)).toInt()
+            paint.color = (color() and 0x00FFFFFF) or (alpha shl 24)
+            drawPath(path, paint)
+        }
+    }
+}

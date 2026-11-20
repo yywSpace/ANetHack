@@ -1,4 +1,6 @@
-package com.yywspace.anethack.map.indicator
+package com.yywspace.anethack.gameview.map.indicator
+
+import com.yywspace.anethack.gameview.map.NHMapWorld
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -7,14 +9,13 @@ import android.graphics.PointF
 import android.graphics.Rect
 import android.graphics.RectF
 import com.yywspace.anethack.NetHack
-import com.yywspace.anethack.map.NHMapView
-import com.yywspace.anethack.window.NHWMap
+import com.yywspace.anethack.gameview.map.NHMapView
 import kotlin.math.abs
 
 
 class NHMapIndicator(private val mapView: NHMapView,
                      private val nh:NetHack,
-                     private val tile:NHWMap.Tile){
+                     private val tile:NHMapWorld.Tile){
     var canIndicatorDraw = false
         private set
     private val paint = Paint()
@@ -133,7 +134,7 @@ class NHMapIndicator(private val mapView: NHMapView,
         return x > cx-radius && x < cx+radius && y > cy-radius && y < cy+radius
     }
 
-    fun getTile(): NHWMap.Tile {
+    fun getTile(): NHMapWorld.Tile {
         return tile
     }
 }

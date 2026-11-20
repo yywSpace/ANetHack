@@ -1,4 +1,4 @@
-package com.yywspace.anethack.map.indicator
+package com.yywspace.anethack.gameview.map.indicator
 
 import android.graphics.PointF
 import android.graphics.RectF

@@ -16,7 +16,7 @@ import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMessage
 import com.yywspace.anethack.entity.NHString
-import com.yywspace.anethack.map.NHMessageView
+import com.yywspace.anethack.gameview.NHMessageView
 import com.yywspace.anethack.gamedata.ItemLink
 import com.yywspace.anethack.gamedata.ItemMatch
 import com.yywspace.anethack.gamedata.MonsterLink

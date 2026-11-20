@@ -98,14 +98,14 @@
             app:iconSpaceReserved="false"/>
 
         <SeekBarPreference
-            app:key="walkRange"
-            app:title="@string/pref_map_walk_range"
+            app:key="deadZonePercent"
+            app:title="@string/pref_map_dead_zone"
             android:max="100"
             app:min="0"
             app:defaultValue="70"
             app:showSeekBarValue="true"
             app:iconSpaceReserved="false"
-            app:summary="@string/pref_map_walk_range_desc"/>
+            app:summary="@string/pref_map_dead_zone_desc"/>
 
         <CheckBoxPreference
             app:key="travelAfterPanned"
@@ -114,13 +114,19 @@
             app:defaultValue="true"
             app:summary="@string/pref_map_travel_after_panned_desc"/>
         />
+
+        <CheckBoxPreference
+            app:key="smoothCamera"
+            app:title="@string/pref_map_smooth_camera"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"
+            app:summary="@string/pref_map_smooth_camera_desc"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
         app:title="@string/pref_keyboard_header"
         app:iconSpaceReserved="false">
-
-
 
         <Preference
             app:key="commandPanel"

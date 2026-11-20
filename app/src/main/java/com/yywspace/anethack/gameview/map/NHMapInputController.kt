@@ -1,4 +1,4 @@
-package com.yywspace.anethack.map
+package com.yywspace.anethack.gameview.map
 
 import android.annotation.SuppressLint
 import android.graphics.PointF
@@ -12,54 +12,63 @@ import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-class NHMapTouchListener : OnTouchListener {
+/**
+ * 地图输入层：识别触摸手势，并把语义回调给地图控制器。
+ *
+ * 不直接修改 Camera、World 或 Coordinates。
+ */
+class NHMapInputController(
+    private val tapHandler: (PointF) -> Unit,
+    private val longPressHandler: (PointF) -> Unit,
+    private val moveHandler: (PointF, PointF) -> Unit,
+    private val scaleHandler: (Float, Float, Float) -> Unit
+) : OnTouchListener {
+
     private var currentClickTime: Long = 0
-    private val touchSlop = 50
     private var isClick = false
     private var isLongPress = false
     private var isLongPressMove = false
     private var isMoving = false
-    private var lastLocation = PointF()
-    private var firstLocation = PointF()
+    private val lastLocation = PointF()
+    private val firstLocation = PointF()
     private var lastScaleSpan = -1f
-    var onNHMapTouchListener: OnNHMapTouchListener? = null
 
-    private val baseHandler: Handler =  Handler(Looper.getMainLooper())
-    private val longPressRunnable: Runnable = Runnable {
+    private val baseHandler = Handler(Looper.getMainLooper())
+    private val longPressRunnable = Runnable {
         if (isLongPress) {
             isMoving = false
             isClick = false
             isLongPressMove = true
-            onNHMapTouchListener?.onLongPress(firstLocation)
+            longPressHandler(firstLocation)
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View, event: MotionEvent): Boolean {
-        when(event.actionMasked) {
-            MotionEvent.ACTION_DOWN-> {
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
                 isClick = true
                 isMoving = true
                 isLongPress = true
                 isLongPressMove = false
                 firstLocation.set(event.x, event.y)
                 lastLocation.set(event.x, event.y)
-                onNHMapTouchListener?.onDown(firstLocation)
-                currentClickTime =  Calendar.getInstance().timeInMillis
+                currentClickTime = Calendar.getInstance().timeInMillis
                 baseHandler.postDelayed(longPressRunnable, LONG_TRIGGER_TIME)
             }
-            MotionEvent.ACTION_MOVE-> {
-                // 单指操作
+
+            MotionEvent.ACTION_MOVE -> {
                 if (event.pointerCount == 1) {
-                    if (isMoving && abs(firstLocation.x - event.x) > touchSlop || abs(firstLocation.y - event.y) > touchSlop) {
+                    if (isMoving &&
+                        (abs(firstLocation.x - event.x) > TOUCH_SLOP ||
+                                abs(firstLocation.y - event.y) > TOUCH_SLOP)
+                    ) {
                         isLongPress = false
                         isClick = false
                     }
-                    if (isLongPressMove) {
-                        onNHMapTouchListener?.onLongPressMove(lastLocation, PointF(event.x, event.y))
-                    }
                     if (isMoving && !isLongPress && !isClick) {
-                        onNHMapTouchListener?.onMove(lastLocation, PointF(event.x, event.y))
+                        moveHandler(lastLocation, PointF(event.x, event.y))
+                        lastLocation.set(event.x, event.y)
                     }
                 } else {
                     isLongPress = false
@@ -73,40 +82,27 @@ class NHMapTouchListener : OnTouchListener {
                     val scaleSpan = sqrt((px2 - px1).pow(2) + (py2 - py1).pow(2))
                     if (lastScaleSpan <= 0)
                         lastScaleSpan = scaleSpan
-                    val scale = scaleSpan / lastScaleSpan
-                    onNHMapTouchListener?.onScale(scale, (px2 + px1) / 2f, (py2 + py1) / 2f)
+                    scaleHandler(scaleSpan / lastScaleSpan, (px2 + px1) / 2f, (py2 + py1) / 2f)
                     lastScaleSpan = scaleSpan
                 }
             }
-            MotionEvent.ACTION_UP-> {
-                if(Calendar.getInstance().timeInMillis - currentClickTime <= LONG_TRIGGER_TIME){
+
+            MotionEvent.ACTION_UP -> {
+                if (Calendar.getInstance().timeInMillis - currentClickTime <= LONG_TRIGGER_TIME) {
                     baseHandler.removeCallbacks(longPressRunnable)
                     isLongPress = false
                 }
-                if(isLongPress||isLongPressMove) {
-                    onNHMapTouchListener?.onLongPressUp(PointF(event.x, event.y))
-                }
                 if (isClick) {
-                    // click in here
-                    onNHMapTouchListener?.onClick(PointF(event.x, event.y))
+                    tapHandler(PointF(event.x, event.y))
                 }
                 lastScaleSpan = -1f
             }
         }
         return true
     }
-    interface OnNHMapTouchListener {
-        fun onDown(e:PointF)
-        fun onClick(e:PointF)
-        fun onLongPress(e:PointF)
-        fun onLongPressUp(e:PointF)
-        fun onLongPressMove(e1:PointF, e2:PointF)
-        fun onMove(e1:PointF, e2:PointF)
-        fun onScale(scaleFactor:Float, cx:Float, cy:Float)
-
-    }
 
     companion object {
         private const val LONG_TRIGGER_TIME: Long = 400
+        private const val TOUCH_SLOP = 50
     }
 }
