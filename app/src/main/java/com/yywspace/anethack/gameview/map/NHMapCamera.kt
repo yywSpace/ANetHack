@@ -1,5 +1,6 @@
 package com.yywspace.anethack.gameview.map
 
+import android.graphics.PointF
 import android.graphics.RectF
 
 /**
@@ -82,27 +83,18 @@ class NHMapCamera(
     }
 
     /**
-     * 让目标屏幕位置回到安全区死区内。
+     * 计算目标越出死区后需要的屏幕位移。
      *
-     * 死区由 [deadZonePercent] 决定：
-     * - 100：死区 = 整个 [safeBounds]
-     * - 0：死区退化成安全区中心点
-     *
-     * 目标在死区内时不移动，越界时移动到最近的安全边界
-     * *
-     * @param targetScreenX 目标（玩家或光标）格子的屏幕中心 X
-     * @param targetScreenY 目标（玩家或光标）格子的屏幕中心 Y
-     * @param safeBounds    未被键盘/状态栏/消息栏遮挡的屏幕区域
-     * @param deadZonePercent     跟随死区比例，范围 0..100
-     * @return 是否移动了镜头
+     * @return 需要移动的屏幕位移；目标在死区内时返回 null
      */
-    fun follow(
-        targetScreenX: Float, targetScreenY: Float,
+    fun followOffset(
+        targetScreenX: Float,
+        targetScreenY: Float,
         safeBounds: RectF,
         deadZonePercent: Int
-    ): Boolean {
+    ): PointF? {
         if (safeBounds.width() <= 0f || safeBounds.height() <= 0f)
-            return false
+            return null
 
         val zone = deadZone(safeBounds, deadZonePercent)
         var dx = 0f
@@ -116,8 +108,36 @@ class NHMapCamera(
         if (targetScreenY > zone.bottom)
             dy = zone.bottom - targetScreenY
 
-        if (dx == 0f && dy == 0f) return false
-        panByScreen(dx, dy)
+        return if (dx == 0f && dy == 0f) null else PointF(dx, dy)
+    }
+
+    /** 目标是否越出了死区，需要开始跟随。 */
+    fun needsFollow(
+        targetScreenX: Float,
+        targetScreenY: Float,
+        safeBounds: RectF,
+        deadZonePercent: Int
+    ): Boolean = followOffset(
+        targetScreenX, targetScreenY,
+        safeBounds, deadZonePercent
+    ) != null
+
+    /**
+     * 立即跟随目标屏幕位置。
+     *
+     * @return 是否移动了镜头
+     */
+    fun follow(
+        targetScreenX: Float,
+        targetScreenY: Float,
+        safeBounds: RectF,
+        deadZonePercent: Int
+    ): Boolean {
+        val offset = followOffset(
+            targetScreenX, targetScreenY,
+            safeBounds, deadZonePercent
+        ) ?: return false
+        panByScreen(offset.x, offset.y)
         return true
     }
 }

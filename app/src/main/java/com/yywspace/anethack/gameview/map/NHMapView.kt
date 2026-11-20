@@ -32,6 +32,9 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     private val metrics = NHMapMetrics()
     private val coordinates = NHMapCoordinates(metrics)
     private val camera = NHMapCamera(metrics)
+    private val cameraAnimator by lazy {
+        NHMapCameraAnimator(camera, coordinates, metrics, renderLoop::postDelayed, ::redraw)
+    }
     /** 点击指示符后，下一次点地图直接 travel（不受 deadZonePercent 影响） */
     private var travelArmed = false
     /**
@@ -263,7 +266,9 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
      */
     private fun updateRunMode() {
         val newRunMode = if (travelArmed
-            || (nh.prefs.travelAfterPanned && mapTranslated && !playerInDeadZone(nh.prefs.deadZonePercent)))
+            || (nh.prefs.travelAfterPanned && mapTranslated &&
+                    !cameraAnimator.isAnimating &&
+                    !playerInDeadZone(nh.prefs.deadZonePercent)))
             NHStatus.RunMode.TRAVEL
         else
             NHStatus.RunMode.WALK
@@ -283,11 +288,13 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     }
 
     private fun transformMapWithGesture(dx: Float, dy: Float) {
+        cameraAnimator.cancel()
         camera.panByScreen(dx, dy)
         coordinates.updateFromCamera(camera)
     }
 
     private fun scaleMap(scaleFactor: Float, centerX: Float, centerY: Float) {
+        cameraAnimator.cancel()
         val anchor = coordinates.screenToWorld(centerX, centerY)
         camera.zoomBy(scaleFactor)
         coordinates.updateFromCamera(camera)
@@ -406,6 +413,7 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     }
 
     fun centerView(x: Int, y: Int) {
+        cameraAnimator.cancel()
         camera.centerOn(x.toFloat(), y.toFloat())
         coordinates.updateFromCamera(camera)
         requestRedraw()
@@ -414,8 +422,8 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     /**
      * 按 deadZonePercent 死区跟随玩家/光标。
      *
-     * 只负责取得目标格子的屏幕位置和安全区，实际死区计算与镜头平移由
-     * [NHMapCamera.follow] 完成；移动后重新计算投影。
+     * 只负责取得目标格子的屏幕位置和安全区，实际死区计算、目标位置和平滑跟随由
+     * [NHMapCamera] 完成。
      */
     private fun transformMapWithMove(
         deadZonePercent: Int,
@@ -423,12 +431,19 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
     ) {
         if (curse.x < 0 || curse.y < 0) return
         val tb = getTileBorder(curse.x, curse.y)
-        val moved = camera.follow(
-            tb.centerX(), tb.centerY(),
-            safeBounds(), deadZonePercent
-        )
-        if (moved) {
-            coordinates.updateFromCamera(camera)
+        if (nh.prefs.smoothCamera) {
+            cameraAnimator.follow(
+                tb.centerX(), tb.centerY(),
+                safeBounds(), deadZonePercent
+            )
+        } else {
+            if (camera.follow(
+                    tb.centerX(), tb.centerY(),
+                    safeBounds(), deadZonePercent
+                )
+            ) {
+                coordinates.updateFromCamera(camera)
+            }
         }
     }
 
@@ -531,7 +546,10 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
             val followChanged = lastFollowPlayer != followPlayer ||
                     (renderCurse != followPlayer && lastFollowCursor != renderCurse)
             if (followChanged) {
-                transformMapWithMove(nh.prefs.deadZonePercent, renderCurse)
+                // 玩家移动时优先跟随玩家；只有玩家没动、光标变化（look）时才跟随光标。
+                val followTarget =
+                    if (lastFollowPlayer != followPlayer) followPlayer else renderCurse
+                transformMapWithMove(nh.prefs.deadZonePercent, followTarget)
                 lastFollowPlayer = Point(followPlayer)
                 lastFollowCursor = Point(renderCurse)
             }

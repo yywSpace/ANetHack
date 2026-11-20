@@ -27,6 +27,7 @@ class SharedPreferencesUtils(val context: Context) {
     var indicatorSymbols by SharedPreferenceDelegates.string("<>")
     var travelAfterPanned by SharedPreferenceDelegates.boolean(true)
     var deadZonePercent by SharedPreferenceDelegates.int(70)
+    var smoothCamera by SharedPreferenceDelegates.boolean(true)
     var priceId by SharedPreferenceDelegates.boolean(false)
     var monsterInfo by SharedPreferenceDelegates.boolean(false)
     var itemInfo by SharedPreferenceDelegates.boolean(false)

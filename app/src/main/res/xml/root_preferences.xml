@@ -114,13 +114,19 @@
             app:defaultValue="true"
             app:summary="@string/pref_map_travel_after_panned_desc"/>
         />
+
+        <CheckBoxPreference
+            app:key="smoothCamera"
+            app:title="@string/pref_map_smooth_camera"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true"
+            app:summary="@string/pref_map_smooth_camera_desc"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
         app:title="@string/pref_keyboard_header"
         app:iconSpaceReserved="false">
-
-
 
         <Preference
             app:key="commandPanel"
