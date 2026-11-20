@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.Spannable
 import android.view.MotionEvent
 import android.widget.TextView
+import com.yywspace.anethack.SharedPreferencesUtils
 
 /** 一条 look 消息里的怪物匹配结果；同名多形态怪物会有多个。 */
 data class MonsterMatch(
@@ -37,6 +38,8 @@ object MonsterLink {
         to: Int,
         onClick: (MonsterMatch) -> Unit
     ) {
+        if (!SharedPreferencesUtils(context).monsterInfo)
+            return
         GameData.ensureLoaded(context)
         link.highlight(text, from, to, onClick)
     }
