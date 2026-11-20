@@ -92,13 +92,7 @@ class NHMapOverlayRenderer(
 
     private fun drawAnimations(canvas: Canvas, coordinates: NHMapCoordinates) {
         if (!animations.isActive) return
-        val frame = NHMapAnimationFrame(
-            coordinates.tileWidth,
-            coordinates.tileHeight,
-            coordinates.worldDrawRect.left,
-            coordinates.worldDrawRect.top
-        )
-        animations.draw(canvas, frame, renderer.paint, System.currentTimeMillis())
+        animations.draw(canvas, coordinates, renderer.paint, System.currentTimeMillis())
     }
 
     private fun drawBorder(canvas: Canvas, coordinates: NHMapCoordinates) {

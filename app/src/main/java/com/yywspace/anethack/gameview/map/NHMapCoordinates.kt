@@ -51,6 +51,22 @@ class NHMapCoordinates(
         )
     }
 
+    /**
+     * 格子中心的屏幕坐标。
+     *
+     * @param offsetX 以格为单位的额外 X 偏移
+     * @param offsetY 以格为单位的额外 Y 偏移
+     */
+    fun tileCenter(
+        x: Int,
+        y: Int,
+        offsetX: Float = 0f,
+        offsetY: Float = 0f
+    ): PointF = PointF(
+        worldDrawRect.left + tileWidth * (x + 0.5f + offsetX),
+        worldDrawRect.top + tileHeight * (y + 0.5f + offsetY)
+    )
+
     fun screenToWorld(x: Float, y: Float): PointF = PointF(
         (x - worldDrawRect.left) / tileWidth,
         (y - worldDrawRect.top) / tileHeight

@@ -456,9 +456,10 @@ class NHMapView : TextureView, TextureView.SurfaceTextureListener {
         if (dx == 0f && dy == 0f) return
         // 每次点击只保留最新箭头
         animations.playExclusive(NHMoveArrow(
-            { world.curse },
-            { nh.status.hitPoints.color },
-            dx, dy
+            player = { world.curse },
+            color = { nh.status.hitPoints.color },
+            dx = dx,
+            dy = dy
         ))
     }
 
