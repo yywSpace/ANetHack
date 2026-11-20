@@ -21,6 +21,16 @@ connects to the NetHack C core through JNI.
 - Soft keyboard, command editing and shortcuts
 - Sound effects, themes, map and UI preferences
 
+## Screenshots
+
+| ASCII map | Tile map |
+| --- | --- |
+| <img src="docs/screenshots/main-ascii.webp" width="260" alt="ASCII map"> | <img src="docs/screenshots/main-tiles.webp" width="260" alt="Tile map"> |
+
+| Keyboard | Extra command panel | Edit commands |
+| --- | --- | --- |
+| <img src="docs/screenshots/keyboard.webp" width="260" alt="On-screen keyboard"> | <img src="docs/screenshots/extra-command-panel.webp" width="260" alt="Extra command panel"> | <img src="docs/screenshots/edit-commands.webp" width="260" alt="Edit commands"> |
+
 ## Runtime
 
 - Minimum supported version: Android 10 (API 29)
