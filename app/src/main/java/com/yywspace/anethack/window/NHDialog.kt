@@ -3,7 +3,6 @@ package com.yywspace.anethack.window
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -70,7 +69,9 @@ class NHDialog(
         val contentPadding = context.resources.getDimensionPixelSize(R.dimen.dialog_content_padding)
         contentView.setPadding(contentPadding, 0, contentPadding, 0)
 
-        val container = MaxHeightLinearLayout(context, contentView)
+        val container = DialogContentLayout(context).apply {
+            flexibleChild = contentView
+        }
 
         title?.let {
             container.addView(TextView(context).apply {
@@ -124,67 +125,5 @@ class NHDialog(
                 WindowManager.LayoutParams.WRAP_CONTENT
             )
         }
-    }
-
-    /** 只负责容器和测量，不创建标题/按钮。 */
-    private class MaxHeightLinearLayout(
-        context: Context,
-        private val contentView: View
-    ) : LinearLayout(context) {
-
-        init {
-            orientation = VERTICAL
-            val density = resources.displayMetrics.density
-            val typed = context.obtainStyledAttributes(
-                intArrayOf(android.R.attr.dialogCornerRadius)
-            )
-            val radius = typed.getDimension(0, 4f * density)
-            typed.recycle()
-            background = GradientDrawable().apply {
-                cornerRadius = radius
-                setColor(ContextCompat.getColor(context, R.color.app_background))
-            }
-        }
-
-        private val maxHeight: Int
-            get() {
-                val available = resources.displayMetrics.heightPixels
-                val margin = resources.getDimensionPixelSize(R.dimen.dialog_vertical_margin)
-                return minOf(
-                    (available * MAX_HEIGHT_RATIO).toInt(),
-                    available - margin * 2
-                )
-            }
-
-        override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-            val width = MeasureSpec.getSize(widthMeasureSpec)
-            val childWidth = (width - paddingLeft - paddingRight).coerceAtLeast(0)
-            var used = paddingTop + paddingBottom
-
-            for (i in 0 until childCount) {
-                val child = getChildAt(i)
-                if (child === contentView) continue
-                child.measure(
-                    MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY),
-                    MeasureSpec.makeMeasureSpec(
-                        (maxHeight - used).coerceAtLeast(0),
-                        MeasureSpec.AT_MOST
-                    )
-                )
-                used += child.measuredHeight
-            }
-
-            val remaining = (maxHeight - used).coerceAtLeast(0)
-            contentView.measure(
-                MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY),
-                MeasureSpec.makeMeasureSpec(remaining, MeasureSpec.AT_MOST)
-            )
-            used += contentView.measuredHeight
-            setMeasuredDimension(width, used.coerceAtMost(maxHeight))
-        }
-    }
-
-    companion object {
-        private const val MAX_HEIGHT_RATIO = 0.85f
     }
 }

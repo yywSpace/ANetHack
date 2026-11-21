@@ -26,6 +26,7 @@ import com.yywspace.anethack.window.NHWStatus
 import com.yywspace.anethack.window.NHWText
 import com.yywspace.anethack.window.NHWindow
 import com.yywspace.anethack.window.NHWindowType
+import com.yywspace.anethack.window.NHSpellMenu
 import java.util.concurrent.CopyOnWriteArrayList
 
 
@@ -248,6 +249,9 @@ class NetHack(
 
     private fun selectMenu(wid: Int, how: Int): LongArray {
         val nhMenu = getWMenu(wid)
+        if (Regex(context.getString(R.string.menu_header_spells)).matches(nhMenu.title)) {
+            return NHSpellMenu.select(this, nhMenu, how)
+        }
         val result = nhMenu.selectMenu(how)
         AppLog.d(TAG, "selectMenu(wid:$wid, how:$how) -> ${result.joinToString()}")
         return result

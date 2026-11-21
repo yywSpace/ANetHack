@@ -14,6 +14,7 @@ import com.google.android.material.button.MaterialButton
 import com.yywspace.anethack.NetHack
 import androidx.core.content.ContextCompat
 import com.yywspace.anethack.R
+import com.yywspace.anethack.command.NHCommand
 import com.yywspace.anethack.command.NHKeyCommand
 import com.yywspace.anethack.command.NHMenuCommand
 import com.yywspace.anethack.entity.NHMenuItem
@@ -65,56 +66,15 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         title = prompt ?: ""
     }
 
-    /** M"regex" 的匹配：正则非法时退化成不区分大小写的子串匹配，避免打断游戏 */
-    private fun matchesMenuPattern(pattern: String, text: String):Boolean =
-        try {
-            Regex(pattern).containsMatchIn(text)
-        } catch (_: Exception) {
-            text.contains(pattern, ignoreCase = true)
-        }
-
     fun selectMenu(how: Int): LongArray {
-        when (val selection = nh.command.findMenuCommand()) {
-            is NHKeyCommand -> {
-                val selectList = mutableListOf<Long>()
-                nhMenuItems.filter { item ->
-                    item.accelerator == selection.key && !item.isHeader() && !item.isHint()
-                }.forEach { item ->
-                    selectList.add(item.identifier)
-                    selectList.add(
-                        if (selection.numberPrefix > 0) selection.numberPrefix.toLong()
-                        else item.selectedCount
-                    )
-                }
-                if (selectList.isNotEmpty()) {
-                    textList.clear()
-                    nhMenuItems.clear()
-                    return selectList.toLongArray()
-                }
-            }
-            is NHMenuCommand -> {
-                val hit = nhMenuItems.firstOrNull { item ->
-                    !item.isHeader() && !item.isHint()
-                        && matchesMenuPattern(selection.pattern ?: "", item.title.value)
-                }
-                if (hit != null) {
-                    if (SelectMode.fromInt(how) == SelectMode.PickMany) {
-                        // 多选菜单只把命中的条目勾上
-                        hit.isSelected = true
-                    } else {
-                        // 单选菜单选中这一条就返回
-                        val count = if (selection.numberPrefix > 0) selection.numberPrefix.toLong()
-                        else hit.selectedCount
-                        textList.clear()
-                        nhMenuItems.clear()
-                        return longArrayOf(hit.identifier, count)
-                    }
-                } else {
-                    // 有匹配指令但菜单里没有对应条目
-                    showMenuMatchNotFound(selection.pattern ?: "")
-                }
-            }
-            else -> {}
+        val queued = nh.command.findMenuCommand()
+        val resolved = resolveCommand(
+            nh, nhMenuItems, queued, SelectMode.fromInt(how)
+        )
+        if (resolved != null) {
+            textList.clear()
+            nhMenuItems.clear()
+            return resolved
         }
         selectMode = SelectMode.fromInt(how)
         showMenu()
@@ -128,15 +88,6 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
         return menuCommand.selectedItems.toLongArray()
     }
 
-    private fun showMenuMatchNotFound(pattern: String) {
-        nh.runOnUi { _, context ->
-            Toast.makeText(
-                context,
-                context.getString(R.string.menu_match_not_found, pattern),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
 
     private fun showMenu() {
         nh.runOnUi { _, context ->
@@ -483,5 +434,61 @@ class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(w
 
     companion object {
         private const val TAG_MENU = "menu"
+
+        /** 普通菜单和法术菜单共用的自动化命令解析。 */
+        fun resolveCommand(
+            nh: NetHack,
+            items: List<NHMenuItem>,
+            command: NHCommand?,
+            selectMode: SelectMode
+        ): LongArray? {
+            when (command) {
+                is NHKeyCommand -> {
+                    val selected = items.filter {
+                            !it.isHeader() && !it.isHint() &&
+                                it.accelerator == command.key
+                        }.flatMap {
+                            listOf(
+                                it.identifier,
+                                if (command.numberPrefix > 0) command.numberPrefix.toLong()
+                                else it.selectedCount
+                            )
+                        }
+                    if (selected.isNotEmpty())
+                        return selected.toLongArray()
+                }
+                is NHMenuCommand -> {
+                    val pattern = command.pattern
+                    if (pattern != null) {
+                        val hit = items.firstOrNull { item ->
+                            !item.isHeader() && !item.isHint() &&
+                                matchesPattern(pattern, item.title.value)
+                        }
+                        if (hit == null) {
+                            if (selectMode != SelectMode.PickMany)
+                                nh.runOnUi { _, context ->
+                                    Toast.makeText(context,
+                                        context.getString(R.string.menu_match_not_found, pattern),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                        } else if (selectMode == SelectMode.PickMany) {
+                            hit.isSelected = true
+                        } else {
+                            return longArrayOf(hit.identifier, hit.selectedCount)
+                        }
+                    }
+                }
+                else -> {}
+            }
+            return null
+        }
+
+        private fun matchesPattern(pattern: String, text: String): Boolean =
+            try {
+                Regex(pattern).containsMatchIn(text)
+            } catch (_: Exception) {
+                text.contains(pattern, ignoreCase = true)
+            }
     }
 }

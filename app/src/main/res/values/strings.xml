@@ -230,6 +230,7 @@
 
     <!-- special menu header   -->
     <string name="menu_header_direction">In what direction</string>
+    <string name="menu_header_spells">(?:Currently known spells|Choose which spell to cast)</string>
 
     <!-- menu match command (M"regex") -->
     <string name="menu_match_not_found">No menu entry matches \"%1$s\"</string>
