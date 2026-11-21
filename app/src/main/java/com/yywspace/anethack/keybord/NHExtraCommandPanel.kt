@@ -101,6 +101,7 @@ class NHExtraCommandPanel @JvmOverloads constructor(
     private fun showAddEditor(row: CommandRow) {
         CommandUi.editDialog(
             context = context,
+            immersive = true,
             entry = null,
             onSave = { entry ->
                 saveRows(
@@ -116,6 +117,7 @@ class NHExtraCommandPanel @JvmOverloads constructor(
     private fun showEditor(entry: CommandEntry) {
         CommandUi.editDialog(
             context = context,
+            immersive = true,
             entry = entry,
             onSave = { replace(entry, it) },
             onDelete = { delete(entry) }

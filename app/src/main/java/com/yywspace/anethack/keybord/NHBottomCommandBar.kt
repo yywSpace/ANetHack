@@ -88,6 +88,7 @@ class NHBottomCommandBar @JvmOverloads constructor(
     private fun showEditDialog(entry: CommandEntry?) {
         CommandUi.editDialog(
             context = context,
+            immersive = true,
             entry = entry,
             onSave = { saveEntry(entry, it) },
             onDelete = if (entry == null) null else ({ deleteEntry(entry) })

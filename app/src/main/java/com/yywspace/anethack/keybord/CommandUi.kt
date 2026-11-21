@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import com.yywspace.anethack.R
+import com.yywspace.anethack.window.NHDialog
+import com.yywspace.anethack.window.NHDialogButton
 
 /**
  * 命令按钮的公共 UI：按钮、横向滚动行、编辑弹窗。
@@ -69,50 +71,84 @@ object CommandUi {
     fun editDialog(
         context: Context,
         entry: CommandEntry?,
+        immersive: Boolean = false,
         onSave: (CommandEntry) -> Unit,
         onDelete: (() -> Unit)? = null
     ) {
-        val view = LayoutInflater.from(context).inflate(R.layout.dialog_command_edit, null)
+        val root = FrameLayout(context)
+        val view = LayoutInflater.from(context)
+            .inflate(R.layout.dialog_command_edit, root, false)
         val labelInput = view.findViewById<EditText>(R.id.command_edit_label)
         val valueInput = view.findViewById<EditText>(R.id.command_edit_value)
         if (entry != null) {
             labelInput.setText(entry.label)
             valueInput.setText(entry.command)
         }
-        val builder = AlertDialog.Builder(context)
-            .setTitle(if (entry == null) R.string.command_add_title else R.string.command_edit_title)
-            .setView(view)
-            .setPositiveButton(R.string.dialog_confirm, null)
-            .setNegativeButton(R.string.dialog_cancel, null)
-        if (onDelete != null)
-            builder.setNeutralButton(R.string.command_delete, null)
-        val dialog = builder.show()
-        // 删除是不可撤销的，先问一句
-        if (onDelete != null)
-            dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
-                AlertDialog.Builder(context)
-                    .setTitle(R.string.command_delete_confirm)
-                    .setMessage(
-                        entry?.let {
-                            context.getString(R.string.command_delete_confirm_msg, it.label, it.command)
-                        }.orEmpty()
-                    )
-                    .setPositiveButton(R.string.dialog_confirm) { _, _ ->
-                        onDelete()
+
+        lateinit var dialog: NHDialog
+        val deleteButton = onDelete?.let {
+            NHDialogButton(
+                text = context.getString(R.string.command_delete),
+                dismissOnClick = false,
+                onClick = { confirmDelete(context, entry, immersive, onDelete, dialog) }
+            )
+        }
+        dialog = NHDialog(
+            context = context,
+            content = view,
+            title = context.getString(
+                if (entry == null) R.string.command_add_title else R.string.command_edit_title
+            ),
+            leftButton = NHDialogButton(context.getString(R.string.dialog_cancel)),
+            middleButton = deleteButton,
+            rightButton = NHDialogButton(
+                text = context.getString(R.string.dialog_confirm),
+                dismissOnClick = false,
+                onClick = {
+                    val label = labelInput.text.toString().trim()
+                    val command = valueInput.text.toString().trim()
+                    if (label.isEmpty() || command.isEmpty()) {
+                        Toast.makeText(
+                            context, R.string.command_edit_invalid, Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        onSave(CommandEntry(label, command))
                         dialog.dismiss()
                     }
-                    .setNegativeButton(R.string.dialog_cancel, null)
-                    .show()
-            }
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-            val label = labelInput.text.toString().trim()
-            val command = valueInput.text.toString().trim()
-            if (label.isEmpty() || command.isEmpty()) {
-                Toast.makeText(context, R.string.command_edit_invalid, Toast.LENGTH_SHORT).show()
-            } else {
-                onSave(CommandEntry(label, command))
-                dialog.dismiss()
-            }
-        }
+                }
+            ),
+            immersive = immersive
+        )
+        dialog.show()
+    }
+
+    /** 删除前确认；确认后关闭编辑弹窗。 */
+    private fun confirmDelete(
+        context: Context,
+        entry: CommandEntry?,
+        immersive: Boolean,
+        onDelete: () -> Unit,
+        editor: NHDialog
+    ) {
+        val message = entry?.let {
+            context.getString(R.string.command_delete_confirm_msg, it.label, it.command)
+        }.orEmpty()
+        NHDialog(
+            context = context,
+            content = TextView(context).apply {
+                text = message
+                setPadding(24, 8, 24, 8)
+            },
+            title = context.getString(R.string.command_delete_confirm),
+            leftButton = NHDialogButton(context.getString(R.string.dialog_cancel)),
+            rightButton = NHDialogButton(
+                text = context.getString(R.string.dialog_confirm),
+                onClick = {
+                    onDelete()
+                    editor.dismiss()
+                }
+            ),
+            immersive = immersive
+        ).show()
     }
 }

@@ -19,6 +19,7 @@ import com.yywspace.anethack.R
 
 data class NHDialogButton(
     val text: CharSequence,
+    val dismissOnClick: Boolean = true,
     val onClick: (() -> Unit)? = null
 )
 
@@ -28,6 +29,7 @@ class NHDialog(
     private val content: View,
     private val title: CharSequence? = null,
     private val leftButton: NHDialogButton? = null,
+    private val middleButton: NHDialogButton? = null,
     private val rightButton: NHDialogButton? = null,
     private val immersive: Boolean = false
 ) : Dialog(context) {
@@ -85,7 +87,7 @@ class NHDialog(
 
         container.addView(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        if (leftButton != null || rightButton != null) {
+        if (leftButton != null || middleButton != null || rightButton != null) {
             val row = LinearLayout(context).apply {
                 orientation = LinearLayout.HORIZONTAL
                 setPadding(dp(8), dp(8), dp(8), dp(8))
@@ -102,13 +104,14 @@ class NHDialog(
                         text = btn.text
                         setOnClickListener {
                             btn.onClick?.invoke()
-                            dismiss()
+                            if (btn.dismissOnClick) dismiss()
                         }
                     })
                 }
                 row.addView(slot)
             }
             addButton(leftButton, android.view.Gravity.START)
+            addButton(middleButton, android.view.Gravity.CENTER)
             addButton(rightButton, android.view.Gravity.END)
             container.addView(row)
         }
