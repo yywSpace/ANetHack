@@ -4,7 +4,7 @@ import com.yywspace.anethack.log.AppLog
 import android.app.Activity
 import android.os.Handler
 import android.widget.Toast
-import com.yywspace.anethack.command.NHBlockingCommandController
+import com.yywspace.anethack.command.NHCommandController
 import com.yywspace.anethack.command.NHPosCommand
 import com.yywspace.anethack.databinding.ActivityNethackBinding
 import com.yywspace.anethack.entity.NHColor
@@ -42,7 +42,7 @@ class NetHack(
     private var nextWinId = 0
 
     val tileSet = NHTileSet(this)
-    val command = NHBlockingCommandController()
+    val command = NHCommandController()
     /** 价格鉴定弹窗（NetHackActivity 初始化后设置），菜单点击价格引用时打开 */
     var priceIDialog: NHPriceIDialog? = null
     /** 怪物信息弹窗（NetHackActivity 初始化后设置），消息里点怪物名时打开 */

@@ -3,7 +3,7 @@ package com.yywspace.anethack.command
 import java.util.ArrayDeque
 import java.util.concurrent.LinkedBlockingQueue
 
-class NHBlockingCommandController {
+class NHCommandController {
     val cmdQueue = LinkedBlockingQueue<NHCommand>(1000)
 
     /**
