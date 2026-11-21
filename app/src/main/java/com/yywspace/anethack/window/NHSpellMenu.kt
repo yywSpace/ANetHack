@@ -116,7 +116,7 @@ object NHSpellMenu {
         rippleRes: Int,
         onClick: (NHMenuItem) -> Unit
     ): TableRow {
-        val content = NHSpell.parse(item.title.value)
+        val content = NHSpell.parse(spellText(item))
         return TableRow(context).apply {
             gravity = Gravity.CENTER_VERTICAL
             minimumHeight = dp(context, 40)
@@ -139,6 +139,13 @@ object NHSpellMenu {
             )
             addView(columnCell(context, content?.fail.orEmpty()))
         }
+    }
+
+    /** 子标题保存的是被剥掉的 (gone)，解析前拼回标题。 */
+    private fun spellText(item: NHMenuItem): String = buildString {
+        append(item.title.value)
+        if (item.hasSubtitle())
+            append(" ").append(item.subtitle)
     }
 
     private fun nameColumn(
