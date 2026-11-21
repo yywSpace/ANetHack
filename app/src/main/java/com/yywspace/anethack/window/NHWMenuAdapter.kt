@@ -129,15 +129,20 @@ class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet
         }
     }
 
-    class TextViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class TextViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val itemText : TextView = view.findViewById(R.id.item_text)
 
         fun bind(position: Int, menuItem: NHMenuItem) {
             itemText.text = menuItem.title.toString()
-            // 因为PickNone的都没有标题，导致上方空间很小，第一个元素加一个换行
-            if (position == 0) {
-                @SuppressLint("SetTextI18n")
-                itemText.text = "\n${itemText.text}"
+            // 只有 PICK_NONE 的第一条需要额外顶部间距
+            val extraTop = if (position == 0
+                && nhwMenu.selectMode == NHWMenu.SelectMode.PickNone)
+                (16 * itemView.resources.displayMetrics.density).toInt()
+            else 0
+            val lp = itemView.layoutParams as? RecyclerView.LayoutParams
+            if (lp != null && lp.topMargin != extraTop) {
+                lp.topMargin = extraTop
+                itemView.layoutParams = lp
             }
         }
     }

@@ -14,8 +14,8 @@
         android:breakStrategy="high_quality"
         android:textColor="@color/app_text"
         android:textSize="16sp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:paddingTop="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView

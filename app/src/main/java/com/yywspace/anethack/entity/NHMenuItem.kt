@@ -53,9 +53,7 @@ data class NHMenuItem(
     // 括号内用于提示上一个选项作用的Item，一般被括号括起来
     // (ignored unless some other choices are also picked)
     fun isHint():Boolean {
-        if (isHeader())
-            return false
-        return (accelerator.code == 0) and (identifier == 0L)
+        return !isHeader() && (accelerator.code == 0) and (identifier == 0L)
     }
 
     fun hasSubtitle():Boolean {
