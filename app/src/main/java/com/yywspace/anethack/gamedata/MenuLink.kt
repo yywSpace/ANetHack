@@ -1,4 +1,4 @@
-package com.yywspace.anethack.window
+package com.yywspace.anethack.gamedata
 
 import android.annotation.SuppressLint
 import android.content.Context

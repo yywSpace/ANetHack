@@ -16,6 +16,7 @@ import com.yywspace.anethack.NHTileSet
 import com.yywspace.anethack.R
 import com.yywspace.anethack.entity.NHColor
 import com.yywspace.anethack.entity.NHMenuItem
+import com.yywspace.anethack.gamedata.MenuLink
 
 
 class NHWMenuAdapter(private val nhwMenu: NHWMenu, private val tileSet:NHTileSet) :

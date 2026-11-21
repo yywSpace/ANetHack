@@ -19,6 +19,7 @@ import com.yywspace.anethack.command.NHMenuCommand
 import com.yywspace.anethack.entity.NHMenuItem
 import com.yywspace.anethack.entity.NHString
 import com.yywspace.anethack.gamedata.GameData
+import com.yywspace.anethack.gamedata.MenuLink
 
 
 class NHWMenu(wid: Int, type:NHWindowType, private val nh: NetHack) : NHWindow(wid, type) {
