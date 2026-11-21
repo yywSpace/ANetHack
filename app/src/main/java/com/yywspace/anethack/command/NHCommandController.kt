@@ -2,6 +2,7 @@ package com.yywspace.anethack.command
 
 import java.util.ArrayDeque
 import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.TimeUnit
 
 class NHCommandController {
     val cmdQueue = LinkedBlockingQueue<NHCommand>(1000)
@@ -32,13 +33,19 @@ class NHCommandController {
 
     /**
      * 给游戏线程取一条指令。
+     * [timeoutMs] 为负数时无限等待；超时返回 null。
      *
      * 带数字前缀的指令（如 20S）会先按位产出 '2'、'0' 两条按键，再产出指令本身：
      * 游戏自己会累积数量。菜单这类窗口不走这里，直接读 [NHCommand.numberPrefix]。
      */
-    fun waitForCommand(): NHCommand {
+    fun waitForCommand(timeoutMs: Int = -1): NHCommand? {
         while (pending.isEmpty()) {
-            val cmd = cmdQueue.take()
+            val cmd = if (timeoutMs < 0) {
+                cmdQueue.take()
+            } else {
+                cmdQueue.poll(timeoutMs.toLong(), TimeUnit.MILLISECONDS)
+                    ?: return null
+            }
             if (cmd.numberPrefix > 0)
                 cmd.numberPrefix.toString().forEach { pending.addLast(NHKeyCommand(it)) }
             pending.addLast(cmd)

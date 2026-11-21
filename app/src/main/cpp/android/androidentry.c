@@ -79,8 +79,8 @@ void initNetHackWin() {
     jCurs = (*jEnv)->GetMethodID(jEnv, jApp, "curs", "(III)V");
     jPutString = (*jEnv)->GetMethodID(jEnv, jApp, "putString", "(IILjava/lang/String;I)V");
     jPrintTile = (*jEnv)->GetMethodID(jEnv, jApp, "printTile", "(IIIIIII)V");
-    jRequireKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requireKeyCommand", "()I");
-    jRequirePosKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requirePosKeyCommand", "([I)C");
+    jRequireKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requireKeyCommand", "(I)I");
+    jRequirePosKeyCommand = (*jEnv)->GetMethodID(jEnv, jApp, "requirePosKeyCommand", "([II)I");
     jUpdateStatus = (*jEnv)->GetMethodID(jEnv, jApp, "updateStatus", "([I[Ljava/lang/String;)V");
     jDelayOutput = (*jEnv)->GetMethodID(jEnv, jApp, "delayOutput", "()V");
     jClipAround = (*jEnv)->GetMethodID(jEnv, jApp, "clipAround", "(IIII)V");

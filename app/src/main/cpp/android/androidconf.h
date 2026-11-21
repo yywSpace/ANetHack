@@ -1,4 +1,4 @@
-/*	SCCS Id: @(#)androidconf.h	3.4	2011/03/31	*/
+/* NetHack 5.0 androidconf.h (Android port) */
 /* Copyright (c) Kenneth Lorber, Bethesda, Maryland, 1990, 1991, 1992, 1993. */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -6,23 +6,29 @@
 #ifndef ANDROIDCONF_H
 #define ANDROIDCONF_H
 
-#define NO_FILE_LINKS /* if no hard links */
-#define SELF_RECOVER /* Allow the game itself to recover from an aborted game */
+/* If no hard links */
+#define NO_FILE_LINKS
+/* Allow the game itself to recover an aborted game */
+#define SELF_RECOVER
 
-#ifdef getchar
+/* Route NetHack's blocking character input to the Android window port. */
 #undef getchar
-#endif
 #define getchar nhgetch
+
 #undef tgetch
 #define tgetch nhgetch
+
+/* Android has no Unix uid; report a non-root user. */
 #define getuid() 1
 
-#undef SHELL /* we do not support the '!' command */
+/* We do not support the '!' command */
+#undef SHELL
 
-#define NOCWD_ASSUMPTIONS /* Allow paths to be specified for HACKDIR,      \
-                             LEVELDIR, SAVEDIR, BONESDIR, DATADIR,         \
-                             SCOREDIR, LOCKDIR, CONFIGDIR, and TROUBLEDIR. \
-                             */
+/*
+ * Allow paths to be specified for HACKDIR, LEVELDIR, SAVEDIR,
+ * BONESDIR, DATADIR, SCOREDIR, LOCKDIR, CONFIGDIR and TROUBLEDIR.
+ */
+#define NOCWD_ASSUMPTIONS
 
 #define DUMPLOG
 
@@ -33,7 +39,11 @@
 #define NO_SIGNAL
 
 #define USER_SOUNDS
-// #define CHANGE_COLOR
+
+/* Write a recovery checkpoint after 10 seconds without input. */
+#define IDLECHECKPOINT
+
+/* #define CHANGE_COLOR */
 
 #endif /* ANDROIDCONF_H */
 #endif /* ANDROID */

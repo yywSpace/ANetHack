@@ -82,6 +82,9 @@ int NetHackMain(int argc, char** argv)
 #endif
 
     initoptions();
+#ifdef IDLECHECKPOINT
+    iflags.idlecheckpoint = TRUE;
+#endif
 #ifdef PANICTRACE
     ARGV0 = gh.hname; /* save for possible stack trace */
 #ifndef NO_SIGNAL

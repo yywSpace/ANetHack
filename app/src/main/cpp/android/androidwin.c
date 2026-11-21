@@ -443,8 +443,19 @@ void and_raw_print_bold(const char* str)
 
 int and_nhgetch()
 {
-    int c = JNICallI(jRequireKeyCommand)
-    return c;
+#ifdef IDLECHECKPOINT
+    if (iflags.idlecheckpoint) {
+        int c = JNICallI(jRequireKeyCommand,
+                         IDLECHECKPOINT_WAIT_TIME * 1000)
+        if (c != -1)
+            return c;
+        LOGD("idle checkpoint: no input for %d ms, saving",
+             IDLECHECKPOINT_WAIT_TIME * 1000);
+        save_currentstate();
+        LOGD("idle checkpoint: save done");
+    }
+#endif
+    return JNICallI(jRequireKeyCommand, -1)
 }
 
 /*
@@ -459,7 +470,21 @@ int and_nhgetch()
 int and_nh_poskey(coordxy *x, coordxy *y, int *mod)
 {
     jintArray jEvent = (*jEnv)->NewIntArray(jEnv, 3);
-    char ch = JNICallC(jRequirePosKeyCommand, jEvent)
+    int ch;
+#ifdef IDLECHECKPOINT
+    if (iflags.idlecheckpoint) {
+        ch = JNICallI(jRequirePosKeyCommand, jEvent,
+                      IDLECHECKPOINT_WAIT_TIME * 1000)
+        if (ch == -1) {
+            LOGD("idle checkpoint(poskey): no input for %d ms, saving",
+                 IDLECHECKPOINT_WAIT_TIME * 1000);
+            save_currentstate();
+            LOGD("idle checkpoint(poskey): save done");
+            ch = JNICallI(jRequirePosKeyCommand, jEvent, -1)
+        }
+    } else
+#endif
+        ch = JNICallI(jRequirePosKeyCommand, jEvent, -1)
     if(!ch) {
         int *event = (*jEnv)->GetIntArrayElements(jEnv, jEvent, NULL);
         *x = (coordxy)event[0];
@@ -467,6 +492,7 @@ int and_nh_poskey(coordxy *x, coordxy *y, int *mod)
         *mod = event[2];
         (*jEnv)->ReleaseIntArrayElements(jEnv, jEvent, event, 0);
     }
+    (*jEnv)->DeleteLocalRef(jEnv, jEvent);
     return ch;
 }
 

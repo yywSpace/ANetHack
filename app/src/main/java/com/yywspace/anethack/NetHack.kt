@@ -205,18 +205,19 @@ class NetHack(
         return extCmdChoose.waitForExtCmdChoose(extCmdList)
     }
 
-    fun requireKeyCommand(): Int {
-        val cmd = command.waitForCommand()
+    fun requireKeyCommand(timeoutMs: Int): Int {
+        val cmd = command.waitForCommand(timeoutMs) ?: return -1
         return cmd.key.code
     }
-    fun requirePosKeyCommand(event:IntArray): Char {
-        val cmd = command.waitForCommand()
-         if (cmd is NHPosCommand) {
-             event[0] = cmd.x
-             event[1] = cmd.y
-             event[2] = cmd.mod
+
+    fun requirePosKeyCommand(event: IntArray, timeoutMs: Int): Int {
+        val cmd = command.waitForCommand(timeoutMs) ?: return -1
+        if (cmd is NHPosCommand) {
+            event[0] = cmd.x
+            event[1] = cmd.y
+            event[2] = cmd.mod
         }
-        return cmd.key
+        return cmd.key.code
     }
 
     private fun startMenu(wid: Int, behavior:Long) {
@@ -254,7 +255,7 @@ class NetHack(
 
     fun ynFunction(question: String, choices: String, ynNumber:LongArray, def: Char):Char {
         if (question.startsWith(context.resources.getString(R.string.menu_header_direction))) {
-            return command.waitForCommand().key
+            return command.waitForCommand()!!.key
         }
         return this.question.answerSelectQuestion(question, choices, ynNumber, def)
     }
